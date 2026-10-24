@@ -1,8 +1,13 @@
 # Canonical `.4` GraphFrames holder candidate — 2026-10-23
 
-This is an offline implementation candidate for the synthetic canonical-carrier
-benchmark described by TD-008. It does not create or modify tables, start Spark,
-run a GraphFrames action, or qualify a scale workload.
+The base candidate described here is an offline implementation candidate for
+the synthetic canonical-carrier benchmark described by TD-008. Current R05
+execution status is recorded below: R10 materialized a private five-node,
+four-edge Delta fixture and reached GraphFrame construction, then failed before
+the one-hop action because `VertexRDD` was missing from the selected classpath.
+R11 adds the selected companion JAR but has only offline focused-test and static
+admission evidence; it has not started Spark or attempted a native action. No
+successful canonical R05 GraphFrames action or scale qualification is established.
 
 `PinnedCanonicalSyntheticDeltaFixture` is separate from the existing tiny
 three-node/two-edge compatibility fixture. It binds a descriptor digest to the
@@ -55,8 +60,8 @@ The offline follow-up now supplies a deterministic three-object/two-parallel-
 edge source, a separately authored two-occurrence oracle, same-lock writer and
 cleanup helpers, and the existing review-gated capped one-hop entrypoint. The
 exact source and independent oracle are in the [action fixture](action-fixture/README.md).
-No tables have been materialized and no Spark or GraphFrames runtime has been
-started. The final action descriptor is separately bound to its reviewed
+That offline follow-up did not materialize tables or start Spark or GraphFrames.
+The final action descriptor is separately bound to its reviewed
 manifest anchor. The distinct hash-pinned native supervisor and worker have
 passed independent review as inert preparation, documented in
 [native-supervisor](native-supervisor/review-packet.md). Execution remains
@@ -64,7 +69,7 @@ disabled because exact runtime paths are unset; a fresh exclusive-slot check
 and separate user authorization are also required. The invocation packet keeps
 its pending status and cannot admit a run until it is immutably re-frozen with
 review status and the exact runtime/accounting inputs. No wrapper authorization
-is implied by the action anchor, and no native attempt has run.
+is implied by the action anchor; no native attempt was run under this packet.
 
 A distinct R05 five-node/four-edge local execution packet is prepared under
 [`r05-native-action-r1`](r05-native-action-r1/README.md). Its worker uses the
@@ -72,4 +77,11 @@ UMF-backed R05 materializer and the reviewed R05 manifest anchor, while its
 supervisor validates the 5/4 persisted witnesses and three-row seed bag. The
 packet is fail-closed: R05-specific owned-table cleanup is not implemented or
 qualified, runtime executable/JAR paths are unset, and no wrapper review or
-one-attempt authorization exists. No Spark or GraphFrames process was started.
+one-attempt authorization exists. No Spark or GraphFrames process was started
+for that R1 packet. Later R05 attempts are retained locally in the untracked
+R10/R11 attempt folders pending curated admission: R10 consumed one authorized
+attempt, materialized both private Delta tables, and stopped at GraphFrame
+construction with missing `VertexRDD`; R11 passed 10/10 focused offline tests
+and exact packet/authorization static admission after inventory recovery, but
+has no native attempt. R11's offline admission does not resolve R10's classpath
+failure or establish action success.
