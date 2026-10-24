@@ -64,23 +64,60 @@ phase cap within the existing 1,200-second write wall cap, and is bound by the
 packet digest and explicit owner authorization. It is a candidate only; no
 concurrent write has run.
 
-One bounded discriminator for review, not an authorization to execute: use the
-existing generator at 45,000,000 nodes / 225,000,000 edges, first using one
-fresh isolated pair of Delta table paths for sequential mode, then after
-verified cleanup a second fresh pair for parallel mode. Run both on the same
-dedicated local host with `local[18]`,
-24-GiB JVM heap, Spark 4.2.0, Delta 4.4.1, JDK 21.0.13, 18 shuffle partitions,
-the selected writer-7 `.4-xxhash64` carrier and ZSTD settings; no GraphFrames
-action. Compare total wall time (including two-table validation), per-role write
-durations, CPU, peak RSS and temporary-disk high water. Require both independent
-commits, exact carrier schemas/protocol, 45M/225M row counts, source-qualified
-identity and edge-endpoint oracle agreement, then remove only the two owned
-table pairs and verify absence. A candidate is worth further review only if
-the paired total is at least 10% faster without reducing validation or cleanup
-evidence. This small pair cannot establish canonical-scale throughput or
-target-scale memory/storage safety; the full 1B/5B attempt remains separately
-held. The candidate cannot meet the few-minute aspiration by itself because the
-node write alone projects to about 269 seconds.
+## Held paired-writer discriminator
+
+An executable but **held** local packet implements one sequential-then-parallel
+comparison at exactly 45,000,000 nodes / 225,000,000 edges. Both output pairs
+use the same digest-pinned, deterministic UMF-generated range SELECT/INSERT
+plan, first sequentially and then in parallel, without a persisted source copy.
+Each pair receives exact `.4-xxhash64` schema/layout/protocol checks and one
+combined per-table row/value/endpoint aggregate pass. It does not run GraphFrames
+or add a second count or endpoint scan. Results include total write wall time,
+per-role write durations, and each mode's DDL/write/validation wall time. The
+comparison retains the measured generator-to-Delta path; it remains only a
+bounded scheduling discriminator, not full materialization qualification or a
+target-scale projection. CPU, peak RSS and temporary-disk high water are not
+claimed by this packet. Treat a result as a candidate only if the parallel
+mode's total is at least 10% faster and all validation and cleanup checks pass.
+The sequential run always precedes the parallel run in the same Spark JVM, so
+JIT/codegen and cache warming can favor the second mode; this one-pair design
+intentionally has no reverse-order matrix. Compare with the retained independent
+sequential sample for context, and do not infer qualified full-scale throughput.
+
+The [paired worker](r05_paired_writer_packet.py) is inert on import. The
+[dedicated supervisor](r05_paired_writer_supervisor.py) requires a separate
+closed authorization bound to the packet, source and runtime digests, plus a
+reviewed local runtime and exclusive pre-existing slot lock. The lock only
+coordinates with other callers that acquire that exact file; R02's retained
+runner has no shared lock protocol, so the owner must schedule those local runs
+sequentially and capture a fresh process inventory before each. It enforces one
+attempt, a 780-second worker cap, 900 seconds aggregate, 32 GiB private-root
+cap, 16 GiB active Delta cap and 64 GiB fresh free-space floor. It samples
+these caps once per second during execution. At timeout or surveillance
+failure it terminates and reaps the child process group. Cleanup is attempted
+only after successful worker completion and process-group quiescence; the supervisor independently
+checks all four output paths, their filesystem identities, Delta UUIDs, current
+versions and writer protocols, then removes only those receipt-owned paths and
+its recorded scratch. Any mismatch or incomplete receipt preserves the attempt
+root. No authorization file is included, and the packet has not started Spark
+or run a paired comparison. The worker cap is 780 seconds; cleanup stops by
+second 860 to reserve the final 40 seconds for the supervisor receipt and slot
+release, within the 900-second aggregate cap. Sol must review the exact packet
+before execution; the authorization records the owner's already-directed
+sample-based local performance work, not a new permission prompt. R02 and this
+trial must be scheduled sequentially with a fresh Spark process inventory before
+each run because R02 does not use the paired supervisor's lock. To prepare an
+inert approval, run `r05_paired_writer_supervisor.py --print-review-pins
+--runtime-pins <runtime-pins.json>` and copy its `packetSha256`,
+`sourcePinsSha256` and `runtimePinsSha256` into the closed authorization with
+`status: approved`, `attempts: 1`, `nodeRows: 45000000`, `edgeRows: 225000000`,
+`totalSeconds: 900`, `workerSeconds: 780`, `rootBytes: 34359738368`,
+`activeDeltaBytes: 17179869184`, `minimumFreeBytes: 68719476736`,
+`predictiveOptimizationDisabled: false`, and an `ownerDecision` recording the
+existing user direction. No approval file is checked in. A paired result cannot
+establish canonical-scale throughput or target-scale memory/storage safety; the full 1B/5B attempt remains
+separately held. Even a perfect concurrency win cannot meet the few-minute
+aspiration by itself because the node write alone projects to about 269 seconds.
 
 No target-size durations exist for startup, table DDL, two point reads, either
 scan, GraphFrames action, footer/protocol checks, or cleanup. Do not manufacture

@@ -460,14 +460,15 @@ def _point_lookup(spark, frame, role: str) -> dict:
     return {"row": _json_safe_row(result), "plan": plan}
 
 
-def _row_value_scan(spark, frames) -> dict:
+def _row_value_scan(spark, frames, *, node_rows=NODE_ROWS, edge_rows=EDGE_ROWS,
+                    include_endpoint_formula=False) -> dict:
     from pyspark.sql import functions as F
     checks = []
     for role in ROLES:
         frame = frames[role]
         identity_col = "type_id" if role == "object_current" else "rel_type_id"
         identity_value = 1 if role == "object_current" else 7
-        expected_count = NODE_ROWS if role == "object_current" else EDGE_ROWS
+        expected_count = node_rows if role == "object_current" else edge_rows
         bad = (
             (F.col("source_system") != SOURCE_SYSTEM)
             | (F.col(identity_col) != identity_value)
@@ -494,23 +495,67 @@ def _row_value_scan(spark, frames) -> dict:
                    | F.col("order_key").isNotNull()
                    | (F.col("published_at") != F.to_timestamp(
                        F.lit("2026-10-23T00:00:00.000Z"))))
+            if include_endpoint_formula:
+                expected_source = F.floor(F.col("id") / F.lit(5)).cast("long")
+                expected_target = F.pmod(
+                    expected_source + F.floor(F.pmod(F.col("id"), F.lit(5)) / F.lit(2)),
+                    F.lit(node_rows),
+                ).cast("long")
+                bad = (bad | (F.col("source_id") != expected_source)
+                       | (F.col("target_id") != expected_target)
+                       | (F.col("source_id") < 0) | (F.col("source_id") >= node_rows)
+                       | (F.col("target_id") < 0) | (F.col("target_id") >= node_rows))
         bad = F.coalesce(bad, F.lit(True))
-        checks.append(frame.select(
-            F.lit(role).alias("role"), F.col("id"),
-            F.when(bad, 1).otherwise(0).alias("bad_row"),
-        ).groupBy("role").agg(
+        aggregates = [
             F.count(F.lit(1)).alias("rows"),
             F.min("id").alias("min_id"), F.max("id").alias("max_id"),
             F.sum(F.col("id").cast("decimal(38,0)")).alias("sum_id"),
             F.sum("bad_row").alias("bad_rows"),
-        ).withColumn("expected_rows", F.lit(expected_count)))
+        ]
+        selected_columns = [
+            F.lit(role).alias("role"), F.col("id"),
+            F.when(bad, 1).otherwise(0).alias("bad_row"),
+        ]
+        if include_endpoint_formula:
+            if role == "edge_current":
+                invalid_source = F.coalesce(
+                    (F.col("source_type") != 1) | (F.col("source_id") != expected_source), F.lit(True))
+                invalid_target = F.coalesce(
+                    (F.col("target_type") != 1) | (F.col("target_id") != expected_target), F.lit(True))
+                source_out = F.coalesce((F.col("source_id") < 0)
+                                        | (F.col("source_id") >= node_rows), F.lit(True))
+                target_out = F.coalesce((F.col("target_id") < 0)
+                                        | (F.col("target_id") >= node_rows), F.lit(True))
+                selected_columns.extend([
+                    F.when(invalid_source, 1).otherwise(0).alias("invalid_source"),
+                    F.when(invalid_target, 1).otherwise(0).alias("invalid_target"),
+                    F.when(source_out, 1).otherwise(0).alias("source_out_of_range"),
+                    F.when(target_out, 1).otherwise(0).alias("target_out_of_range"),
+                ])
+            else:
+                selected_columns.extend([
+                    F.lit(0).alias("invalid_source"), F.lit(0).alias("invalid_target"),
+                    F.lit(0).alias("source_out_of_range"), F.lit(0).alias("target_out_of_range"),
+                ])
+            aggregates.extend([
+                F.sum("invalid_source").alias("invalid_source"),
+                F.sum("invalid_target").alias("invalid_target"),
+                F.sum("source_out_of_range").alias("source_out_of_range"),
+                F.sum("target_out_of_range").alias("target_out_of_range"),
+            ])
+        selected = frame.select(*selected_columns)
+        checks.append(selected.groupBy("role").agg(*aggregates)
+                      .withColumn("expected_rows", F.lit(expected_count)))
     combined = checks[0].unionByName(checks[1])
     plan = combined._jdf.queryExecution().executedPlan().toString()
     rows = combined.collect()
     if len(rows) != 2:
         raise TrialRefused("combined exact row/value witness missing role aggregate")
     result = {row["role"]: _row_dict(row) for row in rows}
-    for role, expected in (("object_current", NODE_ROWS), ("edge_current", EDGE_ROWS)):
+    for witness in result.values():
+        if witness.get("sum_id") is not None:
+            witness["sum_id"] = int(witness["sum_id"])
+    for role, expected in (("object_current", node_rows), ("edge_current", edge_rows)):
         witness = result[role]
         expected_sum = expected * (expected - 1) // 2
         if (witness["rows"] != expected
@@ -518,27 +563,34 @@ def _row_value_scan(spark, frames) -> dict:
                 or int(witness["sum_id"]) != expected_sum
                 or witness["bad_rows"] != 0):
             raise TrialRefused(f"persisted {role} row/value/range/sum witness failed")
+    if include_endpoint_formula:
+        endpoint = result["edge_current"]
+        if (endpoint["rows"] != edge_rows
+                or any(endpoint[name] != 0 for name in (
+                    "invalid_source", "invalid_target", "source_out_of_range",
+                    "target_out_of_range"))):
+            raise TrialRefused("persisted edge endpoints differ from independent formula")
     return {"roles": result, "plan": plan,
             "identityMultiplicityWitness": "count+range+exact-decimal-sum",
             "exactUniquenessProved": False,
             "limitation": "Linear aggregates detect many duplicate/missing substitutions but cannot prove every multiset is unique; exact distinct counting is intentionally omitted because its global shuffle is outside the two-minute scan budget."}
 
 
-def _endpoint_scan(spark, edges) -> dict:
+def _endpoint_scan(spark, edges, *, node_rows=NODE_ROWS, edge_rows=EDGE_ROWS) -> dict:
     from pyspark.sql import functions as F
     expected_source = F.floor(F.col("id") / F.lit(5)).cast("long")
     expected_target = F.pmod(
         expected_source + F.floor(F.pmod(F.col("id"), F.lit(5)) / F.lit(2)),
-        F.lit(NODE_ROWS),
+        F.lit(node_rows),
     ).cast("long")
     bad_source = F.coalesce(
         (F.col("source_type") != 1) | (F.col("source_id") != expected_source), F.lit(True))
     bad_target = F.coalesce(
         (F.col("target_type") != 1) | (F.col("target_id") != expected_target), F.lit(True))
     source_out = F.coalesce((F.col("source_id") < 0)
-                            | (F.col("source_id") >= NODE_ROWS), F.lit(True))
+        | (F.col("source_id") >= node_rows), F.lit(True))
     target_out = F.coalesce((F.col("target_id") < 0)
-                            | (F.col("target_id") >= NODE_ROWS), F.lit(True))
+        | (F.col("target_id") >= node_rows), F.lit(True))
     row = edges.agg(
         F.count(F.lit(1)).alias("rows"),
         F.sum(F.when(bad_source, 1).otherwise(0)
@@ -553,7 +605,7 @@ def _endpoint_scan(spark, edges) -> dict:
     plan = row._jdf.queryExecution().executedPlan().toString()
     row = row.first()
     result = _row_dict(row)
-    if (result["rows"] != EDGE_ROWS or result["invalid_source"] != 0
+    if (result["rows"] != edge_rows or result["invalid_source"] != 0
             or result["invalid_target"] != 0 or result["source_out_of_range"] != 0
             or result["target_out_of_range"] != 0):
         raise TrialRefused("independent persisted endpoint formula scan failed")
