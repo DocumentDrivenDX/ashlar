@@ -1,0 +1,37 @@
+{
+  "profile": "ashlar-r02-continuation-attempt-refusal/0.1",
+  "attemptId": "e40f6545b6e54894a35b87e4fcd4a85c",
+  "manifestSha256": "3f4c64bbf01ba90403f7ea7aeb297f4c65fe583862455f74185613042a04029f",
+  "sourceRevision": "8ab8bb4d7a2a27db7f66a3c5f7304e72a99c3223",
+  "workerLogSha256": "8c12c3c36a7fe341fdea17e74c632058901722df1b0b66c2b3475e9757bf445f",
+  "preSqlManifestSha256": "754ca40d01875aa526b796cea17509289f3ae95053b77d590193f89efd403c69",
+  "preSqlReviewSha256": "1f1459a10434dba76e51c2a74a63bf90a9882606f9bd3a010d71b0df2ca3d38a",
+  "consumed": true,
+  "reachedPreSqlGate": true,
+  "effectsCompleted": [
+    "gate-owned singleton read",
+    "Backend03 original grouped query"
+  ],
+  "failure": {
+    "reportedType": "builtins.ValueError",
+    "callPath": [
+      "src/ashlar_host/configured_sdk_pages.py:487 compares lexical native_result.rows to numeric source-oracle rows",
+      "src/ashlar_host/configured_sdk_pages.py:25 raises the generic custody refusal"
+    ],
+    "cause": "The native carrier rows preserve exact STRING cells (for example, [person-1, 2, 1] as [person-1, \"2\", \"1\"]). The independent source oracle uses decoded exact values (person-1, 2, 1). The execution layer had already compared lexical carriers to the original compiler oracle and retained ExactScalar(value, original) entries, but the continuation wrapper compared the carrier representation directly to the numeric source oracle."
+  },
+  "supervisorClose": {
+    "failure": "Operation not permitted while stopping/checking the worker process group after worker exit",
+    "laterProcessInspection": "No live R02 or Spark processes remained",
+    "result": "Supervisor did not write a terminal closed state; no continuing process was observed afterward."
+  },
+  "notReached": [
+    "Backend03 positive grouped query",
+    "Backend02 page 1",
+    "post-page-1 continuation review and page 2",
+    "successful result receipt"
+  ],
+  "publicationChanged": false,
+  "protectedAck": false,
+  "nativeRetryAuthorized": false
+}

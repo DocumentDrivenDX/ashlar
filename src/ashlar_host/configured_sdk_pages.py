@@ -41,6 +41,28 @@ def _require_frozen_grouped_artifact(compiled,record):
         and compiled.get('responseBytes')==compiled.get('recompiledBytes'))
 
 
+def _require_grouped_exact_rows(evidence,expected_rows):
+    """Check lexical carrier custody and the independent exact-value oracle."""
+    from ashlar.weft_decode import ExactScalar
+    _require(type(evidence)is dict and type(expected_rows)is list
+        and type(evidence.get('native_result'))is dict
+        and type(evidence['native_result'].get('rows'))is list
+        and type(evidence.get('decoded'))is list)
+    carriers=evidence['native_result']['rows'];decoded=evidence['decoded']
+    _require(len(carriers)==len(decoded))
+    values=[]
+    for carrier_row,decoded_row in zip(carriers,decoded):
+        _require(type(carrier_row)is list and type(decoded_row)is list
+            and len(carrier_row)==len(decoded_row))
+        value_row=[];original_row=[]
+        for carrier,scalar in zip(carrier_row,decoded_row):
+            _require(type(scalar)is ExactScalar and scalar.original==carrier)
+            value_row.append(scalar.value);original_row.append(scalar.original)
+        _require(original_row==carrier_row)
+        values.append(value_row)
+    _require(values==expected_rows)
+
+
 def _require_r02_ordinal1_vector(live_vector,pinned_vector,pinned_sha256):
     """Refuse before SQL unless live scope pins the retained first publication."""
     import hashlib
@@ -483,8 +505,7 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
             _require_frozen_grouped_artifact(compiled,frozen_records[name])
             value=run(name,lambda sql=sql,compiled=compiled:query_configured_projection_precompiled(
                 scope,aliases,sql,compiled,capture=capture,decoder=decoder))
-            rows=value['evidence']['native_result']['rows']
-            _require(rows==expected_grouped_rows)
+            _require_grouped_exact_rows(value['evidence'],expected_grouped_rows)
         page=run('backend02-page1',session.page)
         rows=[[item.person_key,item.person_name]for item in page.items]
         _require(rows==session.expected_page1_rows and page.next_after is not None

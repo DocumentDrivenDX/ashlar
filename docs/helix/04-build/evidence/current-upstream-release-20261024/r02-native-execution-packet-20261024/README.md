@@ -247,10 +247,14 @@ bytes. It checks the exact current Git revision, four source hashes, seven
 installed Ashlar runtime-source hashes, packet implementation hashes, all
 five R05 JAR hashes, and the selected Python/JDK/UMF/Weft identities. It
 adopts only the fresh mode-0700 user-owned attempt root named in that manifest
-and runs its argv steps serially. It kills the process group on the 300-second
-total deadline or a byte-cap breach, and leaves durable attempt state so a
-failed attempt cannot be silently repeated. Command output is capped at 1 MiB
-each, private attempt data at 512 MiB, and retained receipts at 16 MiB.
+and runs its argv steps serially. On timeout/cap failure it kills the process
+group. After worker exit, it uses a bounded macOS `ps` inventory of PID, PGID,
+UID and process state before signaling: it skips signals only when a successful
+inventory proves the group empty. A denied signal triggers a fresh independent
+inventory; remaining members or unavailable inventory keep close status
+failed. It leaves durable attempt state so a failed attempt cannot be silently
+repeated. Command output is capped at 1 MiB each, private attempt data at 512
+MiB, and retained receipts at 16 MiB.
 
 The prepublication phase allows exactly initialization, batches 1–3, and the
 byte-identical batch-3 replay. It retains the complete final publication
@@ -311,6 +315,23 @@ The next Sol-reviewed continuation attempt, [`attempt-refusal-f846373f4286410d97
 The compiler artifacts for a future attempt must be generated only inside the
 held live scope and reviewed before each dependent SQL stage. Packet preparation
 is effect-free; each consumed worker attempt is recorded separately above.
+
+The following Sol-reviewed continuation attempt,
+[`attempt-refusal-e40f6545b6e54894a35b87e4fcd4a85c.json`](attempt-refusal-e40f6545b6e54894a35b87e4fcd4a85c.json),
+passed the pre-SQL review hold, read the singleton, and ran the original
+Backend03 grouped query. It then refused because the wrapper compared exact
+STRING carrier rows (`"2"`, `"1"`) directly with the independent source
+oracle's numeric values (`2`, `1`). The execution layer had already verified
+the carriers against the original compiler oracle and retained `ExactScalar`
+decoded values with their original carrier strings. The wrapper now compares
+both: decoded exact values against the source oracle, and each retained original
+carrier against the native result. An effect-free regression covers numeric
+value parity and carrier mismatch refusal. No positive grouped query, SDK page,
+continuation, publication mutation, or protected ACK followed. The supervisor
+also reported `Operation not permitted` while stopping/checking the process
+group after worker exit; later process inspection found no live R02 or Spark
+processes, although the supervisor did not persist a terminal closed state.
+This attempt is consumed and is not retried.
 
 ## Focused preflight outcome and open evidence
 
