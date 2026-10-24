@@ -1,0 +1,35 @@
+{
+  "attemptId": "0b4774f5fb2c43bbb026da651aecd155",
+  "attemptRoot": "/private/tmp/ashlar-r02-attempts/ashlar-r02-0b4774f5fb2c43bbb026da651aecd155",
+  "phase": "prepublication",
+  "status": "complete-held-after-publication",
+  "supervisorExit": 0,
+  "manifestSha256": "e72e5b274e90e268c61b4f145a313c18027aa511bb2ab9e6aae3d49528d705e1",
+  "review": {"decision": "execute", "reviewer": "Sol", "receiptSha256": "d050161f6634270bd317234fc87304200c9eaf8ec56ade471266d1ce102344a5"},
+  "sourceRevision": "5298af9dd82c84e4929c0d7a3e286206f5037612",
+  "stateSha256": "445bce3731e9a2a09ca7d062db104adb34b08fc904e0db7f82b54dcfaa5b6a7e",
+  "publicationVector": {
+    "profile": "ashlar-delta/0.3",
+    "sha256": "78e0ca4100faf6340b2beb05a659ba7b0c06504926734bdef089e8e9f34043eb",
+    "publicationId": "local-configured-jsonl-b08fb1265de623cf0afed1e3052f9234cdecf06c2a50b5f3702a9e7c8c5975c3",
+    "manifestUuid": "1f8e3019-6257-4513-9aaa-c0b19d9e7df3",
+    "tables": {
+      "edge_current": {"uuid": "89024b00-1fb8-4620-9788-c321e0da468f", "version": 5},
+      "object_current": {"uuid": "f9693b71-b1f3-407e-8f3c-e22f19ab8675", "version": 3},
+      "tombstone": {"uuid": "24498b38-cac0-49a7-a66e-fc6903ab321c", "version": 3},
+      "whole_source_history": {"uuid": "0cbcd687-12ca-4129-a9ef-bd35f35c71e1", "version": 4}
+    }
+  },
+  "steps": [
+    {"step": "initialize", "receiptSha256": "35e707009a8a1602b538b242a9072902f40c644160adf17809b004c1e5d952e3", "reportSha256": "641b3faa47d42bebd18a81a9d67edcc4b598a4b40e7e38229f4f95f3d9f52236", "operation": "initialize"},
+    {"step": "batch-1", "receiptSha256": "a0628785d2ffe53eda9f372e937d39c62d2047e2b71685cf180a4edf4ea160d4", "reportSha256": "0df7f30853415c1dcf5efc4bf7706b5c3d1002ef9459ded3aefcecf205206991", "checkpoint": 3346, "versions": {"edge_current": 2, "object_current": 2, "tombstone": 1, "whole_source_history": 2}, "counts": {"object_current": 4, "edge_current": 4, "tombstone": 0, "whole_source_history": 8}, "replayed": false},
+    {"step": "batch-2", "receiptSha256": "abce9a3856728aab64577f66b735241b662cdb19e8e1efc48e4279b5a503b757", "reportSha256": "801c5cd11535aea28591ca59df10a7cedf1129115d1af0030c32c9c492600510", "checkpoint": 4347, "versions": {"edge_current": 4, "object_current": 2, "tombstone": 2, "whole_source_history": 3}, "counts": {"object_current": 4, "edge_current": 3, "tombstone": 1, "whole_source_history": 10}, "replayed": false},
+    {"step": "batch-3", "receiptSha256": "b606460c4fc2647e253d268aebd060c0ce0131dd59c7880a146ee6205faad8eb", "reportSha256": "85004ec2c5048450dfdf6361d1751f39cda8950251965a27982b2f934aface95", "checkpoint": 5724, "versions": {"edge_current": 5, "object_current": 3, "tombstone": 3, "whole_source_history": 4}, "counts": {"object_current": 3, "edge_current": 1, "tombstone": 4, "whole_source_history": 13}, "replayed": false},
+    {"step": "batch-3-replay", "receiptSha256": "b3c24cd7867c03b942a9dcc752f31caa586e74d3c529bfc44396782217686cd8", "reportSha256": "a45ca6db637d6c13dd31b0d50f42f2578f164da4711fd1fe0812c61b761f8226", "checkpoint": 5724, "versions": {"edge_current": 5, "object_current": 3, "tombstone": 3, "whole_source_history": 4}, "counts": {"object_current": 3, "edge_current": 1, "tombstone": 4, "whole_source_history": 13}, "replayed": true}
+  ],
+  "limits": {"deadlineSeconds": 300, "privateLogicalBytes": 536870912, "receiptBytes": 16777216, "perCommandOutputBytes": 1048576, "sparkMaster": "local[2]", "driverMemory": "2g"},
+  "observed": {"attemptLogicalBytes": 300017708, "attemptAllocatedBytes": 377561088, "receiptBytes": 32747, "outputBytes": 556962, "installationBytes": 1161372, "localOperationsCommitted": 29, "localPlans": 3, "elapsedSecondsFilesystemTimestampProxy": 149.720168, "peakRssBytes": null},
+  "runtime": {"spark": "4.2.0", "delta": "4.4.1", "jdk": "21", "python": "3.12.14", "weftInR05SparkCohort": "0.4.48", "selectedWeft053Used": false, "umfCore": "0.10.1", "tableProfile": "ashlar-delta/0.3"},
+  "closing": {"supervisorStateComplete": true, "sameCheckpointOnReplay": true, "sameTableVersionsOnReplay": true, "samePublicationIdOnReplay": true, "replayMarkedTrue": true, "latestDeltaLogVersionsMatchVector": true, "protectedAck": false, "cloudOrUc": false},
+  "scopeLimitations": ["No native read or query ran.", "No Weft compiler request executed in this attempt.", "This result qualifies only the ashlar-delta/0.3 configured-local prepublication path.", "The R05 Spark cohort contained Weft 0.4.48; selected Weft 0.4.53 continuation remains held pending a live-alias runner and independent review.", "Elapsed time is inferred from state-file filesystem timestamps, not a monotonic elapsed-time receipt; peak RSS was not recorded.", "Final Delta log inventory and the replay result show no additional table version or changed publication/checkpoint on replay; no before/after log snapshot was captured during the replay interval."]
+}

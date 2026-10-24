@@ -1,9 +1,9 @@
 # R02 current-core local native execution packet
 
-Status: **prepared for independent review; no Spark, Java, publication, native
-read, cloud, or source/ACK action was run for this packet**. This packet fixes
-the evidence inputs, oracle, execution order, and attempt limits. Sol must
-review it and explicitly direct execution before any native action starts.
+Status: **the reviewed one-shot `.3` prepublication phase completed**. The
+result and exact attempt bindings are recorded in the [R02 execution result](../r02-native-prepublication-20261024/README.md).
+This is bounded local publication evidence only: it does not qualify `.4`,
+native reads, Weft queries, cloud execution, or source/ACK custody.
 
 ## Scope and limits
 
@@ -260,12 +260,14 @@ run the singleton and four query steps.
 The generator and supervisor require the exact Ashlar Git HEAD and selected
 source hashes at manifest creation and execution; regenerate after any code or
 source change. The generated manifest and invocation templates live inside
-the private attempt root. No Sol review receipt exists, the actual `.4`
-publication vector has not been created, and its fresh Weft responses
-therefore cannot yet be frozen. These are the remaining execution blockers;
-the supervisor has not been used to invoke Spark or native operations.
-After Sol supplies the reviewed manifest and review receipt, use the exact
-paths printed by the generator for a single phase invocation.
+the private attempt root. The approved one-shot attempt `0b4774f5fb2c43bbb026da651aecd155` completed all
+five steps and closed as `complete-held-after-publication`; its durable result
+is linked above. Its final vector is `.3` only. The selected Weft 0.4.53
+query continuation remains held: it needs a new runner that uses the exact
+live aliases and compiler cohort, freezes compiler artifacts inside that
+alias context, and receives independent review before SQL. This packet makes
+no `.4-xxhash64`, Truss, production source, protected ACK, Unity Catalog, or
+cloud authority claim.
 
 The inert phase/refusal tests and focused invocation/vector checks run with:
 
@@ -294,11 +296,11 @@ historical R02 runtime receipt
 `37dd8c330a5e65ad5395827e1bc839976e0a76f1e77a1726eae552edaa54cf1d`) records
 private Weft and `.3` bindings and is not current native evidence.
 
-Before execution, this packet still requires an approved current process
-inventory and new `.3` publication-bound compiler responses after their vector
-exists. A `.4-xxhash64` native test is outside this packet because the current
-configured-local adapter is pinned to `.3`. This packet makes no Truss,
-production source, protected ACK, Unity Catalog, or cloud authority claim.
+The approved one-shot attempt completed the `.3` prepublication phase; see the
+[durable result record](../r02-native-prepublication-20261024/README.md).
+Fresh `.3` Weft responses and native reads/queries remain unrun. A
+`.4-xxhash64` native test is outside this packet because the current
+configured-local adapter is pinned to `.3`.
 
 ## Governing artifacts
 
