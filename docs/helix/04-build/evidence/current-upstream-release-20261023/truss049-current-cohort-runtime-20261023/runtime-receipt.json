@@ -1,0 +1,296 @@
+{
+  "install": {
+    "direct_url_archive_hashes": "All 27 installed distributions reference the selected local wheel SHA-256 in direct_url.json.",
+    "imported_modules": {
+      "delta": "lib/python3.12/site-packages/delta/__init__.py",
+      "pyspark": "lib/python3.12/site-packages/pyspark/__init__.py",
+      "truss": "lib/python3.12/site-packages/truss/__init__.py",
+      "umf": "lib/python3.12/site-packages/umf/__init__.py",
+      "umf_access": "lib/python3.12/site-packages/umf_access/__init__.py",
+      "weft": "lib/python3.12/site-packages/weft/__init__.py"
+    },
+    "installed_record_verification": "All hashed installed RECORD payloads and declared sizes were verified against installed files.",
+    "mode": "local wheels only; pip --no-index --no-deps --force-reinstall",
+    "pip_check": "passed: No broken requirements found",
+    "verified_record_payload_count": 3987,
+    "versions": {
+      "delta-spark": "4.4.1",
+      "pgserver-pg18": "18.6.1",
+      "psycopg": "3.3.6",
+      "pyspark": "4.2.0",
+      "truss-toolkit": "0.0.49",
+      "umf-core": "0.10.0",
+      "umf_access": "0.1.0.dev7",
+      "weft-sql": "0.4.53"
+    },
+    "wheel_count": 27,
+    "wheelhouse_lock_artifact_count": 27,
+    "wheelhouse_lock_sha256": "d2686e1dbbdd5a136990b146b25375cba5a7c73e21ef30290cdfa12b3c70aa20"
+  },
+  "limits": [
+    "Imports did not create a SparkSession or start PostgreSQL.",
+    "This receipt proves package/runtime installation and integrity only, not Truss lifecycle correctness, source custody, feed/ACK, Spark execution, Delta publication, or Unity Catalog behavior."
+  ],
+  "runtime": {
+    "include_system_site_packages": false,
+    "install_elapsed_seconds": 56.33,
+    "install_exit_code": 0,
+    "installed_site_packages": "venv/lib/python3.12/site-packages",
+    "log_sha256": "64c708ca78a3e532bd4077384707dd8924e708115f6289beab75fefec153a752",
+    "log_size_bytes": 3615,
+    "platform": "macOS arm64",
+    "python": "3.12.14",
+    "site_packages_count_on_sys_path": 1,
+    "size_bytes_including_install_log": 765888231,
+    "size_cap_bytes": 1073741824,
+    "venv_isolated": true
+  },
+  "schema": "ashlar-current-cohort-runtime-receipt/v1",
+  "scope": "Fresh isolated package runtime provenance only; no supervisor preflight, PostgreSQL, Spark session, migration, source/feed/publication/ACK, or native qualification.",
+  "selected_wheels": [
+    {
+      "distribution": "annotated-types",
+      "filename": "annotated_types-0.8.0-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0",
+      "size_bytes": 13427,
+      "version": "0.8.0",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "attrs",
+      "filename": "attrs-26.1.0-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309",
+      "size_bytes": 67548,
+      "version": "26.1.0",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "delta_spark",
+      "filename": "delta_spark-4.4.1-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "224814c76071236dd98c23e8d01da9f43bec21af4129cae92822ca25e5becec7",
+      "size_bytes": 54967,
+      "version": "4.4.1",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "fasteners",
+      "filename": "fasteners-0.20-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "9422c40d1e350e4259f509fb2e608d6bc43c0136f79a00db1b49046029d0b3b7",
+      "size_bytes": 18702,
+      "version": "0.20",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "importlib_metadata",
+      "filename": "importlib_metadata-8.7.1-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "5a1f80bf1daa489495071efbb095d75a634cf28a8bc299581244063b53176151",
+      "size_bytes": 27865,
+      "version": "8.7.1",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "jsonschema",
+      "filename": "jsonschema-4.26.0-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "d489f15263b8d200f8387e64b4c3a75f06629559fb73deb8fdfb525f2dab50ce",
+      "size_bytes": 90630,
+      "version": "4.26.0",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "jsonschema-specifications",
+      "filename": "jsonschema_specifications-2025.9.1-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe",
+      "size_bytes": 18437,
+      "version": "2025.9.1",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "mini-racer",
+      "filename": "mini_racer-0.14.1-py3-none-macosx_11_0_arm64.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "56cc6965a1665a50d8d613bc43aa83b4cec6b1f09acc69dc4c2845dacb201463",
+      "size_bytes": 18511166,
+      "version": "0.14.1",
+      "wheel_tag": "py3-none-macosx_11_0_arm64"
+    },
+    {
+      "distribution": "pgserver-pg18",
+      "filename": "pgserver_pg18-18.6.1-cp312-cp312-macosx_14_0_arm64.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "424165d468f69ab6b73ac40de3258d8e9cb85b4ffb6496767671edc836cdb862",
+      "size_bytes": 10820357,
+      "version": "18.6.1",
+      "wheel_tag": "cp312-cp312-macosx_14_0_arm64"
+    },
+    {
+      "distribution": "platformdirs",
+      "filename": "platformdirs-4.12.4-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "78bfb9db2a8471ed7eebe3c3c932da413911042994e699b384fbb4493fa872d7",
+      "size_bytes": 32596,
+      "version": "4.12.4",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "psutil",
+      "filename": "psutil-7.2.2-cp36-abi3-macosx_11_0_arm64.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "1a7b04c10f32cc88ab39cbf606e117fd74721c831c98a27dc04578deb0c16979",
+      "size_bytes": 129859,
+      "version": "7.2.2",
+      "wheel_tag": "cp36-abi3-macosx_11_0_arm64"
+    },
+    {
+      "distribution": "psycopg",
+      "filename": "psycopg-3.3.6-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "a1db9f7148b06a28606767efaca51fa6f9398c5c0a3810519be69d7000bdb631",
+      "size_bytes": 215490,
+      "version": "3.3.6",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "psycopg-binary",
+      "filename": "psycopg_binary-3.3.6-cp312-cp312-macosx_11_0_arm64.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "612382ac3ed13651c7fa44b5fee9fbf7baaa2ddbc6f500391672682c5f1df9e0",
+      "size_bytes": 4769607,
+      "version": "3.3.6",
+      "wheel_tag": "cp312-cp312-macosx_11_0_arm64"
+    },
+    {
+      "distribution": "py4j",
+      "filename": "py4j-0.10.9.9-py2.py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "c7c26e4158defb37b0bb124933163641a2ff6e3a3913f7811b0ddbe07ed61533",
+      "size_bytes": 203008,
+      "version": "0.10.9.9",
+      "wheel_tag": "py2.py3-none-any"
+    },
+    {
+      "distribution": "pydantic",
+      "filename": "pydantic-2.14.1-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "9195d967ec791692a04438115466764fb8b9a27b31f14a760437694f40d6b454",
+      "size_bytes": 488106,
+      "version": "2.14.1",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "pydantic_core",
+      "filename": "pydantic_core-2.50.1-cp312-cp312-macosx_11_0_arm64.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "e8e1d6ce820aa23317e8209a86bd65a540973c12dc7552b48a4f6c8e9926815e",
+      "size_bytes": 2025779,
+      "version": "2.50.1",
+      "wheel_tag": "cp312-cp312-macosx_11_0_arm64"
+    },
+    {
+      "distribution": "referencing",
+      "filename": "referencing-0.37.0-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231",
+      "size_bytes": 26766,
+      "version": "0.37.0",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "rpds-py",
+      "filename": "rpds_py-2026.9.1-cp312-cp312-macosx_11_0_arm64.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "e21c1429e205828ea886a2293a4a2c8e01f4c25d9893ca330e97a6cf73f52e7b",
+      "size_bytes": 341380,
+      "version": "2026.9.1",
+      "wheel_tag": "cp312-cp312-macosx_11_0_arm64"
+    },
+    {
+      "distribution": "ruamel.yaml",
+      "filename": "ruamel_yaml-0.19.1-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "27592957fedf6e0b62f281e96effd28043345e0e66001f97683aa9a40c667c93",
+      "size_bytes": 118102,
+      "version": "0.19.1",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "truss-toolkit",
+      "filename": "truss_toolkit-0.0.49-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182",
+      "size_bytes": 6232642,
+      "version": "0.0.49",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "typing_extensions",
+      "filename": "typing_extensions-4.16.0-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+      "size_bytes": 45571,
+      "version": "4.16.0",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "typing-inspection",
+      "filename": "typing_inspection-0.4.4-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147",
+      "size_bytes": 14750,
+      "version": "0.4.4",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "umf_access",
+      "filename": "umf_access-0.1.0.dev7-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597",
+      "size_bytes": 336885,
+      "version": "0.1.0.dev7",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "umf-core",
+      "filename": "umf_core-0.10.0-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9",
+      "size_bytes": 71258,
+      "version": "0.10.0",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "zipp",
+      "filename": "zipp-4.1.1-py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "8979f52d874162f485ff2981e3891f3a3317b7a3dd43ff1e1775b9304f307a9c",
+      "size_bytes": 10582,
+      "version": "4.1.1",
+      "wheel_tag": "py3-none-any"
+    },
+    {
+      "distribution": "pyspark",
+      "filename": "pyspark-4.2.0-py2.py3-none-any.whl",
+      "origin": "locked local wheelhouse",
+      "sha256": "5cc610e9ed56a022b63724e0ad62e9f7f9e47a2520802ae9d8c75826d1faf8cc",
+      "size_bytes": 450798674,
+      "version": "4.2.0",
+      "wheel_tag": "py2.py3-none-any"
+    },
+    {
+      "distribution": "weft-sql",
+      "filename": "weft_sql-0.4.53-cp39-abi3-macosx_11_0_arm64.whl",
+      "origin": "official DocumentDrivenDX/weft v0.4.53 release asset",
+      "sha256": "4c8281945b852af02cae8602747fb7b1b652ab3a1369d7650efce62ae6d35c6c",
+      "size_bytes": 10842336,
+      "version": "0.4.53",
+      "wheel_tag": "cp39-abi3-macosx_11_0_arm64"
+    }
+  ],
+  "status": "offline_runtime_installed_and_verified"
+}

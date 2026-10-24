@@ -1,0 +1,7 @@
+# Truss 0.0.49 current-cohort offline runtime receipt
+
+Status: **fresh isolated package runtime installed and integrity-checked**. A new CPython 3.12.14/macOS arm64 virtual environment used 27 selected local wheels: the 26 non-Weft artifacts from the pinned 27-wheel lock plus the exact official Weft 0.4.53 macOS arm64 wheel. Installation used `pip --no-index --no-deps --force-reinstall`; no package was built or fetched during installation. The selected wheel hashes, tags, sizes, versions, lock digest and verification results are recorded in [`runtime-receipt.json`](runtime-receipt.json).
+
+The install completed in 56.33 seconds, exit 0, with a monitored private-root size of 765888231 bytes under the 1 GiB limit. The installed venv has `include-system-site-packages = false` and only its own site-packages directory on `sys.path`. All 27 distributions match their selected versions and `direct_url.json` wheel SHA-256; all hashed installed `RECORD` payloads and declared sizes were verified. `pip check` passed. Focused imports of Truss, UMF access/core, Weft, PySpark and Delta resolve inside this venv.
+
+This is package provenance only. No supervisor preflight, PostgreSQL process, Spark session, migration, source/feed/publication/ACK action, or native qualification was run. R4/R5 lifecycle receipts and approval proposals remain separate; this runtime does not authorize or qualify those effects.
