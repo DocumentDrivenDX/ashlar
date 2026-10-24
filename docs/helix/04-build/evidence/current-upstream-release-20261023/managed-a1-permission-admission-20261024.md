@@ -61,6 +61,18 @@ receipt](managed-a1-schema-authority-probe-20261024.md).
   establish cluster/job create, run, cancel, or termination permissions.
   No user or group permission change was requested or made.
 
+## 2026-10-24 SSO refresh
+
+The approved `databricks auth login --profile aidev-cus` completed successfully
+with the host OS keyring available outside the sandbox. A subsequent read-only
+`current-user me` call succeeded. The accessible compute policy remains
+Personal Compute `001654FA4AA08D1A`; its ACL read still requires Manage
+permission, so the caller's `CAN_USE` remains unknown. The available runtime
+metadata includes 17.3 LTS, and `clusters list` is empty. These metadata reads
+did not create or start cloud resources, establish compute permission, or admit
+a runtime/policy combination. Existing cost limits and the source-holder gate
+remain unchanged.
+
 ## Conditional public-price illustration
 
 Microsoft's [Azure Databricks pricing page](https://azure.microsoft.com/en-us/pricing/details/databricks/)
