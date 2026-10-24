@@ -1,0 +1,107 @@
+{
+  "accountedRetainedBytes": 1582281205,
+  "actionElapsedSeconds": 0.5578697499586269,
+  "aggregateLimitBytes": 2147483648,
+  "attemptMarkerSha256": "7f2f32f00a603af7496c10411e6d74dd232d156f745066301b231cd7befcdb59",
+  "attemptParent": "/private/tmp/ashlar-r05-r14-attempt-parent-f0ml6how",
+  "attemptRoot": "/private/tmp/ashlar-r05-r14-attempt-parent-f0ml6how/ashlar-graphframes-attempt-0jtmw9r1",
+  "attemptRootBytes": 13953,
+  "attemptRootEvidence": {
+    "native-attempt-r14-diagnostics.log": {
+      "bytes": 2049,
+      "sha256": "c9c5214f8133de4541223a53b454f468b182be55aa20715ebf7c65a958c378e5"
+    },
+    "native-attempt-r14-supervisor-receipt.json": {
+      "bytes": 6372,
+      "sha256": "24cdb1e5cc698be65e24eccab940cb48a2fd0a7a98ba45124c2dabf343309f71"
+    },
+    "native-attempt-r14-worker-result.json": {
+      "bytes": 5001,
+      "sha256": "c7d627be28af5a71192b0bb7c14edfda9d564e5084db4473de68921234b5c4ee"
+    }
+  },
+  "attemptRootLimitBytes": 536870912,
+  "attemptRootPreserved": true,
+  "attemptsConsumed": 1,
+  "authorizationPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/execution-authorization-r14-20261024.json",
+  "authorizationSha256": "1b63dd7f3b94e0a0ee51ffdb01554f9d65e2bb14f2aa67a6443f4802dacafc8f",
+  "cap": 3,
+  "cleanup": {
+    "lockIdentity": {
+      "device": 16777231,
+      "inode": 237148836
+    },
+    "ownershipReceipt": ".ashlar-r05-ownership.json",
+    "receiptSha256": "e43a3140da254c41184c9eac2c01e975bd1b33e016cc86ab4757934b3353bb7d",
+    "rootIdentity": {
+      "device": 16777231,
+      "inode": 237146045
+    },
+    "status": "cleanup-complete",
+    "tablesRemoved": [
+      "object_current",
+      "edge_current"
+    ]
+  },
+  "diagnosticsBytes": 2049,
+  "elapsedSupervisorChildSeconds": 28.091674583032727,
+  "expectedRowCounts": [
+    5,
+    4
+  ],
+  "graphX": "not-used",
+  "invocationPacketPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/invocation-packet-execution-20261024.json",
+  "invocationPacketSha256": "d00774610e8fb3afb2410d38aec2de8c830b56546a81f8f5c3944b2a8a26af57",
+  "noCloudOrScaleRun": true,
+  "ownershipReceiptSha256": "e43a3140da254c41184c9eac2c01e975bd1b33e016cc86ab4757934b3353bb7d",
+  "parentObservedCleanup": {
+    "lockIdentity": {
+      "device": 16777231,
+      "inode": 237148836
+    },
+    "receiptSha256": "e43a3140da254c41184c9eac2c01e975bd1b33e016cc86ab4757934b3353bb7d",
+    "rootIdentity": {
+      "device": 16777231,
+      "inode": 237146045
+    },
+    "tablesAbsent": true
+  },
+  "productionAuthority": "absent",
+  "profile": "ashlar-r05-one-attempt-result/0.1",
+  "protectedAck": "absent",
+  "publication": "absent",
+  "resultRows": 3,
+  "retryPerformed": false,
+  "runtime": {
+    "delta": "4.4.1",
+    "graphframes": "0.12.3",
+    "jars": {
+      "delta-spark_4.2_2.13-4.4.1.jar": {
+        "path": "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-spark_4.2_2.13-4.4.1.jar",
+        "sha256": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be"
+      },
+      "delta-storage-4.4.1.jar": {
+        "path": "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-storage-4.4.1.jar",
+        "sha256": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+      },
+      "graphframes-spark4_2.13-0.12.3.jar": {
+        "path": "/private/tmp/ashlar-release-20261021-m3rde5p2/graphframes-spark42-0.12.3/graphframes-spark4_2.13-0.12.3.jar",
+        "sha256": "a78958f7ea3ac89ed1ea9dbbd1546f403d94151e969bb0de96e33697a5f49f50"
+      }
+    },
+    "jdk": "21.0.13",
+    "jdkBuild": "21.0.13.0.2",
+    "spark": "4.2.0"
+  },
+  "scope": "One local[2] GraphFrames one-hop over the exact pinned synthetic Delta fixtures; does not qualify Truss source/feed/ACK, publication, UC, production authority, or scale.",
+  "selectedSeed": [
+    "ashlar-r05-source-a",
+    1,
+    101
+  ],
+  "sourceProgress": "absent",
+  "sourceRevision": "21d4941c84c2a2c3528eb1b01dc34078f71b41b2",
+  "status": "bounded-one-hop-passed",
+  "tablesAbsentAfterCleanup": true,
+  "unityCatalog": "absent"
+}

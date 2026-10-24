@@ -1,0 +1,12 @@
+{
+  "attemptParent": "/private/tmp/ashlar-r05-r14-attempt-parent-f0ml6how",
+  "attempts": 1,
+  "invocationPacketSha256": "d00774610e8fb3afb2410d38aec2de8c830b56546a81f8f5c3944b2a8a26af57",
+  "master": "local[2]",
+  "maximumAggregateBytes": 2147483648,
+  "maximumAttemptRootBytes": 536870912,
+  "maximumDiagnosticsBytes": 134217728,
+  "maximumSeconds": 300,
+  "profile": "ashlar-canonical-graphframes-execution-authorization/0.1",
+  "status": "authorized-for-one-attempt"
+}

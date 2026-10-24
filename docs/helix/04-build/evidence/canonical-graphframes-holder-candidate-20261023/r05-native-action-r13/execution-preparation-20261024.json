@@ -1,0 +1,58 @@
+{
+  "attemptParent": "/private/tmp/ashlar-r05-r13-attempt-parent-yapheo_o",
+  "attemptParentEmpty": true,
+  "attemptParentMarkerCreated": false,
+  "attemptParentMode": "0700",
+  "attemptParentOwnerUid": 501,
+  "authorizationPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/execution-authorization-20261024.json",
+  "authorizationSha256": "81c76ab68ac8f0dc761ab28019d5b155a9d6f1a46e656d5cff4c9fe9e5c96bc9",
+  "bounds": {
+    "attempts": 1,
+    "master": "local[2]",
+    "maximumAggregateBytes": 2147483648,
+    "maximumAttemptRootBytes": 536870912,
+    "maximumDiagnosticsBytes": 134217728,
+    "maximumSeconds": 300
+  },
+  "derivedExecutionPacketPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/invocation-packet-execution-20261024.json",
+  "derivedExecutionPacketSha256": "d00774610e8fb3afb2410d38aec2de8c830b56546a81f8f5c3944b2a8a26af57",
+  "derivedPacketChanges": {
+    "executionAuthorization": "not-issued -> issued-for-one-attempt",
+    "executionStatus": "reviewed-no-execution-authorization -> authorized-for-one-attempt"
+  },
+  "fixtureOrTableEffects": false,
+  "focusedReadOnlyAdmission": {
+    "attemptMarkerCreated": false,
+    "attemptRootCreated": false,
+    "nativeActionExecuted": false,
+    "path": "bounded_r05_supervisor._verify_packet_and_authorization then _admit_static_inputs",
+    "retainedBytes": 1582280952,
+    "runtimeTreeUniqueBytes": 1560856259,
+    "runtimeTreeUniqueFileCount": 22629,
+    "sparkStarted": false,
+    "status": "passed",
+    "validatedRetainedPathCount": 570
+  },
+  "independentSolReview": "R13 review is inherited for the exact source packet; this derived execution-gate packet and exact authorization bytes await Sol inspection before native action.",
+  "nativeActionExecuted": false,
+  "processInventory": {
+    "status": "Sol read-only inventory found no active Spark process; not repeated in this preparation."
+  },
+  "profile": "ashlar-r05-execution-authorization-preparation/0.1",
+  "retainedInputHashMapSha256": "ccd90dbfb6e611a0f1e8dd1a10789174400eee02c28205ee7cf56884b9caa6fa",
+  "retainedPlusAttemptReservation": {
+    "aggregateCapBytes": 2147483648,
+    "fits": true,
+    "markerBytes": 253,
+    "maximumAttemptRootBytes": 536870912
+  },
+  "reviewedSourcePacketPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/invocation-packet.json",
+  "reviewedSourcePacketSha256": "a435d105e3eaf0c263abaffbdc6db3f6974c67cb61e1d8f9da0380cf1dc172cd",
+  "sourceAndFixtureCustody": "Bound to the exact R13 source/resource hashes, reviewed action manifest/oracle and owned fixture cleanup receipt checks; no source, ACK or fixture was touched during preparation.",
+  "sourceCustodyManifestPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/ashlar-source-custody.json",
+  "sourceCustodyManifestSha256": "9d96ec23c84515364f17ca54bdf5ae6c558edb6bec53bcb27a043d5cbf683260",
+  "sourceOrAckEffects": false,
+  "sourceRevision": "21d4941c84c2a2c3528eb1b01dc34078f71b41b2",
+  "sparkStarted": false,
+  "status": "prepared-for-independent-review; native action not started"
+}

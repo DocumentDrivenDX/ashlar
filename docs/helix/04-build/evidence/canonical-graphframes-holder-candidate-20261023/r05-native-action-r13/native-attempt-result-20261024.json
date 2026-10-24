@@ -1,0 +1,44 @@
+{
+  "attemptMarker": {
+    "bytes": 253,
+    "path": "/private/tmp/ashlar-r05-r13-attempt-parent-yapheo_o/.ashlar-canonical-graphframes-attempt-consumed",
+    "sha256": "ecea919040b8777bd954303cbcc5be21e529a363bdc4081a8b42fa695e830d14"
+  },
+  "attemptParent": "/private/tmp/ashlar-r05-r13-attempt-parent-yapheo_o",
+  "attemptRoot": "/private/tmp/ashlar-r05-r13-attempt-parent-yapheo_o/ashlar-graphframes-attempt-rwptty7o",
+  "attemptRootBytes": 4661,
+  "attemptRootFileCount": 2,
+  "attemptRootPreserved": true,
+  "attemptsConsumed": 1,
+  "authorizationPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/execution-authorization-20261024.json",
+  "authorizationSha256": "81c76ab68ac8f0dc761ab28019d5b155a9d6f1a46e656d5cff4c9fe9e5c96bc9",
+  "cleanupStatus": "Spark did not start. The private attempt root and consumed marker were preserved. The attempt-root tmp/fixture and spark-local directories are empty; no Delta tables or cleanup receipt were produced.",
+  "diagnostics": {
+    "bytes": 4329,
+    "path": "/private/tmp/ashlar-r05-r13-attempt-parent-yapheo_o/ashlar-graphframes-attempt-rwptty7o/diagnostics.log",
+    "sha256": "1cf9bf678549559dc5f48948e09f17f504fcc9e811422b7a3cf6d78d883ab11f"
+  },
+  "doNotRetry": "The one-attempt authorization is consumed; any further attempt requires a new review and authorization.",
+  "elapsedWallSeconds": 3.562,
+  "failure": "PySpark attempted to launch the Java gateway, which failed to bind to 127.0.0.1:0 with java.net.SocketException: Operation not permitted. SparkSession.getOrCreate raised JAVA_GATEWAY_EXITED before a Spark session or GraphFrames action was created.",
+  "graphframesActionInvoked": false,
+  "invocationPacketPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/invocation-packet-execution-20261024.json",
+  "invocationPacketSha256": "d00774610e8fb3afb2410d38aec2de8c830b56546a81f8f5c3944b2a8a26af57",
+  "postAttemptSparkProcessInventory": "clear; no matching active Spark/PySpark/spark-submit/R05 process",
+  "productionAuthority": "absent",
+  "profile": "ashlar-r05-one-attempt-result/0.1",
+  "protectedAck": "absent",
+  "publication": "absent",
+  "refusalReceipt": {
+    "bytes": 332,
+    "path": "/private/tmp/ashlar-r05-r13-attempt-parent-yapheo_o/ashlar-graphframes-attempt-rwptty7o/supervisor-refusal.json",
+    "sha256": "2a99e7554f49b2736008fbdaf299fd4cd6377abc094fbd89977c62ee7c3a8718"
+  },
+  "retryPerformed": false,
+  "sourceProgress": "absent",
+  "sourceRevision": "21d4941c84c2a2c3528eb1b01dc34078f71b41b2",
+  "sparkSessionStarted": false,
+  "status": "refused-or-incomplete",
+  "supervisorStatus": "Verifier exited with status 1",
+  "unityCatalog": "absent"
+}

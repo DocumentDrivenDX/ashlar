@@ -1,7 +1,7 @@
 {
   "accountedBytesScope": "All selected Python base runtime, venv site-packages including SPARK_HOME, JDK home, external runtime-JAR roots, deduplicated by device/inode; plus other retained inputs and the fresh attempt root. Full runtime trees receive byte-size and metadata custody; selected pins and package provenance files receive SHA-256 custody.",
   "accountingModule": {
-    "path": "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/runtime_accounting.py",
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/runtime_accounting.py",
     "sha256": "f48549d7e090c7476b21e863ac9cfcdd7df27c980c5db20c42ebc5c7c9c50d6f"
   },
   "action": {
@@ -30,7 +30,7 @@
     "sourcePath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-discriminator-r1/source-rows.json"
   },
   "ashlarSourceCustodyFileCount": 475,
-  "ashlarSourceCustodyManifestPath": "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/ashlar-source-custody.json",
+  "ashlarSourceCustodyManifestPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/ashlar-source-custody.json",
   "ashlarSourceCustodyManifestSha256": "9d96ec23c84515364f17ca54bdf5ae6c558edb6bec53bcb27a043d5cbf683260",
   "authorityClaims": {
     "productionAuthority": "absent",
@@ -40,7 +40,7 @@
     "sourceProgress": "absent",
     "unityCatalog": "absent"
   },
-  "authorizationProposalPath": "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/authorization-proposal.json",
+  "authorizationProposalPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/authorization-proposal.json",
   "candidateBasis": {
     "graphframesGraphxSha256": "385ea9934bdeedff9cd4591df66ada45ce739148f15fe947a032886997626675",
     "immutableRuntimeInventoryReuse": true,
@@ -54,7 +54,7 @@
   "cleanupBlocker": "R9 one-attempt refusal, Delta fixtures, and ownership receipt remain preserved under the R9 evidence directory and private attempt parent. R10 had a separate one-attempt authorization and consumed it; GraphFrame construction failed before the one-hop action with missing VertexRDD. Its owned cleanup was incomplete, so the R10 ownership receipt, stable lock, and Delta fixtures remain preserved under the R10 attempt root. R11 uses a separate fresh attempt parent and does not alter or clean R10 evidence.",
   "cleanupStatus": "reviewed-owned-cleanup-qualified",
   "executionAuthorization": "not-issued",
-  "executionStatus": "review-required-no-execution-authorization",
+  "executionStatus": "reviewed-no-execution-authorization",
   "hardBounds": {
     "attemptRootBytes": 536870912,
     "attempts": 1,
@@ -69,11 +69,6 @@
   "profile": "ashlar-r05-canonical-graphframes-one-attempt/0.2",
   "retainedInputSha256": {
     "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12": "811e2679c20fd2c7413f7c5ca28ce903065eea8dadb8660f1b9379a28959a480",
-    "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/ashlar-source-custody.json": "9d96ec23c84515364f17ca54bdf5ae6c558edb6bec53bcb27a043d5cbf683260",
-    "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/bounded_r05_supervisor.py": "5ef63f5c690972893339e00d296a5bb75d13a29d56dc881b32fae237cb0a2775",
-    "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/r05_graphframes_worker.py": "713dd1c96c8ff664f8812323c3a1484d1a3a9171dda01e3c05070bce829f5215",
-    "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/runtime-tree-inventory.json": "973d63580aec4a5f7f396befef68d19823fcf669811e3c6957346f746e6e3505",
-    "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/runtime_accounting.py": "f48549d7e090c7476b21e863ac9cfcdd7df27c980c5db20c42ebc5c7c9c50d6f",
     "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-discriminator-r1/generator.py": "1e0dfe345b14d7e4219afb71d46e010b61761a22f9fb03a5e9516f4030ddef4d",
     "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-discriminator-r1/independent-oracle.json": "fa25bb46188d594fe1ce8697e9bee4ebdf7a3fc2742200d5c6c971d5bd72f223",
     "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-discriminator-r1/manifest.anchor.json": "431085372f3cb3dec5175492d648510ec73399f56c702b5ec8ba0af297226c6a",
@@ -85,6 +80,11 @@
     "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r12/r05_graphframes_worker.py": "713dd1c96c8ff664f8812323c3a1484d1a3a9171dda01e3c05070bce829f5215",
     "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r12/runtime-tree-inventory.json": "973d63580aec4a5f7f396befef68d19823fcf669811e3c6957346f746e6e3505",
     "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r12/runtime_accounting.py": "f48549d7e090c7476b21e863ac9cfcdd7df27c980c5db20c42ebc5c7c9c50d6f",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/ashlar-source-custody.json": "9d96ec23c84515364f17ca54bdf5ae6c558edb6bec53bcb27a043d5cbf683260",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/bounded_r05_supervisor.py": "5ef63f5c690972893339e00d296a5bb75d13a29d56dc881b32fae237cb0a2775",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/r05_graphframes_worker.py": "713dd1c96c8ff664f8812323c3a1484d1a3a9171dda01e3c05070bce829f5215",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/runtime-tree-inventory.json": "973d63580aec4a5f7f396befef68d19823fcf669811e3c6957346f746e6e3505",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/runtime_accounting.py": "f48549d7e090c7476b21e863ac9cfcdd7df27c980c5db20c42ebc5c7c9c50d6f",
     "/Users/erik/Projects/ashlar/pyproject.toml": "0eba8eefb24618ac1d3bddb083a8a689c89c295d5f85d5cf7eff39ec2544ea73",
     "/Users/erik/Projects/ashlar/src/ashlar_host/__init__.py": "357709258e84cb1eecbc910487582e113ae0731871d2a3c484b4330db4b68283",
     "/Users/erik/Projects/ashlar/src/ashlar_host/_otel_worker.py": "df54d7cd4780f3c38eb043ea64dbb32bb555ec2ada20da769ff88a6a65b091b0",
@@ -635,11 +635,11 @@
   },
   "retainedInputs": [
     "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
-    "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/ashlar-source-custody.json",
-    "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/bounded_r05_supervisor.py",
-    "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/r05_graphframes_worker.py",
-    "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/runtime-tree-inventory.json",
-    "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/runtime_accounting.py",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/ashlar-source-custody.json",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/bounded_r05_supervisor.py",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/r05_graphframes_worker.py",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/runtime-tree-inventory.json",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/runtime_accounting.py",
     "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-discriminator-r1/generator.py",
     "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-discriminator-r1/independent-oracle.json",
     "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-discriminator-r1/manifest.anchor.json",
@@ -1199,6 +1199,7 @@
     "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-storage-4.4.1.jar",
     "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/pyspark/bin/spark-submit"
   ],
+  "reviewStatus": "independently-reviewed",
   "runtime": {
     "delta": "4.4.1",
     "graphframes": "0.12.3",
@@ -1301,7 +1302,7 @@
       "graphframes-spark4_2.13-0.12.3.jar": "/private/tmp/ashlar-release-20261021-m3rde5p2/graphframes-spark42-0.12.3/graphframes-spark4_2.13-0.12.3.jar"
     },
     "runtimeTreeAccounting": "Every regular file and directory entry is retained with byte sizes and stat identity; selected Python/JDK/Spark/JAR pins and Python origin/distribution metadata are SHA-256 bound. Full-content hashing of every distribution-tree file is intentionally not claimed.",
-    "runtimeTreeInventoryPath": "/Users/erik/.codex/worktrees/r05-native-packet-luna/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/runtime-tree-inventory.json",
+    "runtimeTreeInventoryPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/runtime-tree-inventory.json",
     "runtimeTreeInventorySha256": "973d63580aec4a5f7f396befef68d19823fcf669811e3c6957346f746e6e3505",
     "spark": "4.2.0",
     "sparkHome": "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/pyspark",

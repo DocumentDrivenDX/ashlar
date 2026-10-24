@@ -1,0 +1,63 @@
+{
+  "attemptParent": "/private/tmp/ashlar-r05-r14-attempt-parent-f0ml6how",
+  "attemptParentEmpty": true,
+  "attemptParentMarkerCreated": false,
+  "attemptParentMode": "0700",
+  "attemptParentOwnerUid": 501,
+  "attemptRootCreated": false,
+  "bounds": {
+    "attempts": 1,
+    "master": "local[2]",
+    "maximumAggregateBytes": 2147483648,
+    "maximumAttemptRootBytes": 536870912,
+    "maximumDiagnosticsBytes": 134217728,
+    "maximumSeconds": 300
+  },
+  "cloudUsed": false,
+  "executionAuthorizationPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/execution-authorization-r14-20261024.json",
+  "executionAuthorizationSha256": "1b63dd7f3b94e0a0ee51ffdb01554f9d65e2bb14f2aa67a6443f4802dacafc8f",
+  "fixtureGuard": "Fresh attempt parent; worker-owned fixture root is private under attempt-root/tmp/fixture, bound action/source/oracle hashes and reviewed cleanup checks remain in force. No fixture or table touched during preparation.",
+  "fixtureOrTableEffects": false,
+  "focusedReadOnlyGates": {
+    "aggregateCapBytes": 2147483648,
+    "checks": [
+      "exact invocation packet SHA-256 and reviewed status",
+      "exact one-run authorization schema, packet digest, caps and attempt parent",
+      "fresh private empty mode-0700 parent owned by current user",
+      "all retained source/resource/runtime digests and live runtime-tree inventory"
+    ],
+    "fits": true,
+    "markerBytesReserved": 253,
+    "maximumAttemptRootBytes": 536870912,
+    "reservedPlusMaximumAttemptBytes": 2119152117,
+    "retainedBytes": 1582280952,
+    "runtimeTreeUniqueBytes": 1560856259,
+    "runtimeTreeUniqueFileCount": 22629,
+    "status": "passed",
+    "validatedRetainedPathCount": 570
+  },
+  "nativeActionExecuted": false,
+  "preparationSnapshot": "This record captures the gates before the R14 launch; its nativeActionExecuted=false and attemptRootCreated=false fields are preparation-time observations.",
+  "priorAttemptRationale": {
+    "loopbackProbe": "Parent reports a one-shot localhost bind probe succeeded in escalated context, justifying a separately authorized attempt. No probe was run in this preparation turn.",
+    "sandboxRefusal": "R13 supervisor attempted Spark gateway startup but bind to 127.0.0.1:0 was denied before SparkSession creation; the one-attempt authorization was consumed and was not retried."
+  },
+  "priorR13AttemptResultPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/native-attempt-result-20261024.json",
+  "priorR13AttemptResultSha256": "2f547737ab916f5ccc07ed7627b25bb36f448e7fbcf434996733e6c5ae4077d2",
+  "processInventory": "Not repeated in this preparation; parent reports successful one-shot localhost bind probe, while no R05 invocation is active from this task.",
+  "profile": "ashlar-r05-r14-authorization-preparation/0.1",
+  "reviewedExecutionPacketPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/invocation-packet-execution-20261024.json",
+  "reviewedExecutionPacketSha256": "d00774610e8fb3afb2410d38aec2de8c830b56546a81f8f5c3944b2a8a26af57",
+  "sourceGuard": "Same independently reviewed R13 execution packet and complete frozen source/resource custody; sourceRevision remains the 21d4941c freeze. No Truss source/feed/runtime or ACK path is invoked.",
+  "sourceOrAckEffects": false,
+  "sourceRevision": "21d4941c84c2a2c3528eb1b01dc34078f71b41b2",
+  "sparkStarted": false,
+  "status": "prepared-for-sol-review; execution-not-started",
+  "subsequentExecution": {
+    "attemptsConsumed": 1,
+    "resultPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/native-attempt-r14-result-20261024.json",
+    "resultSha256": "fc9a72ff15783ac0eae3300499ca13cedd51e31bb5c7ebe678023b95824d0740",
+    "retryPerformed": false,
+    "status": "bounded-one-hop-passed"
+  }
+}

@@ -1,6 +1,7 @@
 {
   "attempts": 1,
-  "invocationPacketSha256": "cd347826e23992987b9fd1951038b43c85071d317664b388b6bbcdd7d7311a36",
+  "executionAuthorization": "not-issued",
+  "invocationPacketSha256": "a435d105e3eaf0c263abaffbdc6db3f6974c67cb61e1d8f9da0380cf1dc172cd",
   "master": "local[2]",
   "maximumAggregateBytes": 2147483648,
   "maximumAttemptRootBytes": 536870912,
@@ -8,7 +9,7 @@
   "maximumSeconds": 300,
   "profile": "ashlar-canonical-graphframes-execution-authorization/0.1",
   "proposalOnly": true,
-  "reviewStatus": "not-reviewed",
+  "reviewStatus": "independently-reviewed",
   "sourceRevision": "21d4941c84c2a2c3528eb1b01dc34078f71b41b2",
   "status": "proposal-only-fresh-user-approval-required"
 }
