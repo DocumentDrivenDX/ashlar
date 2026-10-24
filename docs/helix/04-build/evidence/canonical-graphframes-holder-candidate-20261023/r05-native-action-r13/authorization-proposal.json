@@ -1,6 +1,6 @@
 {
   "attempts": 1,
-  "invocationPacketSha256": "cd347826e23992987b9fd1951038b43c85071d317664b388b6bbcdd7d7311a36",
+  "invocationPacketSha256": "42e9a3edaff96fc24e7aad13defc1db8aaa6d6227782cf1b20216d5b77d99fcd",
   "master": "local[2]",
   "maximumAggregateBytes": 2147483648,
   "maximumAttemptRootBytes": 536870912,
