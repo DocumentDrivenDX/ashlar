@@ -22,6 +22,15 @@ import sys
 import time
 from typing import Any
 
+# `python -I` removes the script directory and PYTHONPATH. Establish the two
+# pinned local import roots before loading packet modules that import Ashlar.
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parents[4]
+SRC = REPO / "src"
+for import_root in (str(HERE), str(SRC)):
+    if import_root not in sys.path:
+        sys.path.insert(0, import_root)
+
 import r05_full_delta4_supervisor as full
 from r05_paired_writer_packet import (
     ACTIVE_DELTA_BYTES, EDGE_ROWS, MIN_FREE_BYTES, NODE_ROWS, ROOT_BYTES,
@@ -29,11 +38,6 @@ from r05_paired_writer_packet import (
     _closed_approval, packet_sha256,
 )
 
-HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[4]
-SRC = REPO / "src"
-if str(SRC) not in sys.path:
-    sys.path.insert(0, str(SRC))
 PROFILE = "ashlar-r05-paired-writer-supervisor/0.1"
 AUTH_PROFILE = "ashlar-r05-paired-writer-authorization/0.1"
 MODE_DIRS = ("sequential", "parallel-node-edge")

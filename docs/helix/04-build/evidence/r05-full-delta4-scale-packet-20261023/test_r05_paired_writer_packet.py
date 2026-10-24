@@ -1,7 +1,10 @@
 """Effect-free checks for the held R05 paired writer packet."""
 import unittest
 import hashlib
+import os
 from pathlib import Path
+import subprocess
+import sys
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 
@@ -12,6 +15,18 @@ import r05_paired_writer_supervisor as supervisor
 
 
 class PairedWriterPacketChecks(unittest.TestCase):
+    def test_supervisor_bootstraps_under_isolated_python_without_pythonpath(self):
+        script = Path(supervisor.__file__).resolve()
+        env = {key: value for key, value in os.environ.items()
+               if key != "PYTHONPATH"}
+        result = subprocess.run(
+            (sys.executable, "-I", "-B", str(script), "--help"),
+            cwd=script.parent, env=env, stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30, check=False,
+        )
+        self.assertEqual(0, result.returncode, result.stderr.decode("utf-8", "replace"))
+        self.assertIn(b"--print-review-pins", result.stdout)
+
     def approval(self, **changes):
         value = {
             "profile": "ashlar-r05-paired-writer-authorization/0.1",
