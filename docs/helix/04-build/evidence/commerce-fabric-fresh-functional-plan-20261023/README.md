@@ -222,7 +222,16 @@ fallback status, and capacity-admin details remained unavailable. The four new
 candidate OneLake paths have not been checked for absence. Numeric Fabric
 byte/time bounds and endpoint fit remain unverified. R1 source/ACK authority has
 not been re-admitted, and R2 has no accepted live source transaction or fresh
-source/ACK authority. The old Fabric success receipt covers only R1, and the old
+source/ACK authority. The installed `OriginalCommerceSourceOwner.append_original`
+in `src/ashlar_host/commerce_publication_sources.py` admits only the exact
+driver-owned 21-record R1 batch on `private-original-commerce-fixture` /
+`original-commerce-v1` and its first position (or exact readback at position 1);
+it cannot append a successor R2 transaction. R2 therefore requires the original
+source/ACK owner to accept and commit an exact successor transaction and provide
+fresh source/ACK custody and a complete publication vector. The authored
+`commerce-present-field-preparation-20261009/candidate.json` remains development
+preparation and cannot serve as source acceptance or authority for an adapter.
+The old Fabric success receipt covers only R1, and the old
 A/B path reconciliation neither authorizes retries nor proves the new paths
 available. Resolve these prerequisites and obtain independent review of the
 committed runner/packet before any native call.
