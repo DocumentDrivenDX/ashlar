@@ -50,6 +50,68 @@ class SupervisorGateTests(unittest.TestCase):
                          supervisor._phase_reason(
                              state, started + 120_000_000_001, started))
 
+    def test_worker_uses_one_combined_full_table_scan_for_values_and_endpoints(self):
+        import ast
+        worker = Path(__file__).with_name("full_delta4_trial.py")
+        tree = ast.parse(worker.read_text(encoding="utf-8"))
+        run = next(node for node in tree.body if isinstance(node, ast.FunctionDef)
+                   and node.name == "run_full_delta4_trial")
+        calls = [node for node in ast.walk(run) if isinstance(node, ast.Call)]
+        row_scans = [node for node in calls if isinstance(node.func, ast.Name)
+                     and node.func.id == "_row_value_scan"]
+        endpoint_witnesses = [node for node in calls if isinstance(node.func, ast.Name)
+                              and node.func.id == "_endpoint_scan_witness"]
+        endpoint_full_scans = [node for node in calls if isinstance(node.func, ast.Name)
+                               and node.func.id == "_endpoint_scan"]
+        self.assertEqual(1, len(row_scans))
+        self.assertIn("include_endpoint_formula", {kw.arg for kw in row_scans[0].keywords})
+        self.assertTrue(any(kw.arg == "include_endpoint_formula"
+                            and isinstance(kw.value, ast.Constant) and kw.value.value is True
+                            for kw in row_scans[0].keywords))
+        self.assertEqual(1, len(endpoint_witnesses))
+        self.assertFalse(endpoint_full_scans)
+
+    def test_full_worker_uses_spark_420_supported_job_group_clear(self):
+        import ast
+        worker = Path(__file__).with_name("full_delta4_trial.py")
+        tree = ast.parse(worker.read_text(encoding="utf-8"))
+        helper = next(node for node in tree.body if isinstance(node, ast.FunctionDef)
+                      and node.name == "_clear_spark_job_group")
+        properties = {node.value for node in ast.walk(helper)
+                      if isinstance(node, ast.Constant) and isinstance(node.value, str)}
+        properties.discard(ast.get_docstring(helper))
+        calls = [node for node in ast.walk(helper) if isinstance(node, ast.Call)
+                 and isinstance(node.func, ast.Attribute)
+                 and node.func.attr == "setLocalProperty"]
+        self.assertEqual({"spark.job.description", "spark.jobGroup.id",
+                          "spark.job.interruptOnCancel"}, properties)
+        self.assertTrue(any(len(call.args) == 2
+                            and isinstance(call.args[0], ast.Name) and call.args[0].id == "key"
+                            and isinstance(call.args[1], ast.Constant)
+                            and call.args[1].value is None for call in calls))
+        self.assertFalse(any(isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+                             and node.func.attr == "clearJobGroup"
+                             for node in ast.walk(tree)))
+
+    def test_endpoint_witness_must_share_combined_edge_scan(self):
+        row_scan = {"plan": "two-role union scan", "roles": {
+            "edge_current": {"rows": 5_000_000_000, "invalid_source": 0,
+                "invalid_target": 0, "source_out_of_range": 0, "target_out_of_range": 0}}}
+        import full_delta4_trial as trial
+        endpoint = trial._endpoint_scan_witness(row_scan)
+        digest = supervisor._sha(row_scan["plan"].encode("utf-8"))
+        self.assertEqual(digest, endpoint["planSha256"])
+        supervisor._verify_endpoint_scan_witness(row_scan, endpoint, 5_000_000_000)
+        with self.assertRaises(supervisor.SupervisorRefused):
+            supervisor._verify_endpoint_scan_witness(
+                row_scan, {**endpoint, "planSha256": "0" * 64}, 5_000_000_000)
+        with self.assertRaises(supervisor.SupervisorRefused):
+            supervisor._verify_endpoint_scan_witness(
+                row_scan, {**endpoint, "sharedScan": "endpointScan"}, 5_000_000_000)
+        with self.assertRaises(trial.TrialRefused):
+            trial._endpoint_scan_witness({"plan": row_scan["plan"], "roles": {
+                "edge_current": {**row_scan["roles"]["edge_current"], "invalid_target": 1}}})
+
     def test_disappearing_spark_scratch_entry_is_tolerated_only_in_scratch(self):
         root = Path("/private/tmp/r05-capacity-race")
         missing = lambda _path: (_ for _ in ()).throw(FileNotFoundError(2, "gone"))

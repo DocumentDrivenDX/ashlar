@@ -44,7 +44,6 @@ PHASE_SECONDS = {
     "concurrent_writes": 840,
     "point_reads": 60,
     "row_value_scan": 120,
-    "endpoint_scan": 120,
     "graphframes": 120,
     "validation_and_cleanup": 120,
 }
@@ -242,7 +241,7 @@ def _phase(spark, root: Path, name: str, deadline: float, ledger: dict):
         stop_monitor.set()
         monitor.join(timeout=1)
         timer.cancel()
-        sc.clearJobGroup()
+        _clear_spark_job_group(sc)
         elapsed = time.monotonic() - started
         ledger[name] = {"seconds": round(elapsed, 6),
                         "deadlineSeconds": PHASE_SECONDS[name],
@@ -576,41 +575,19 @@ def _row_value_scan(spark, frames, *, node_rows=NODE_ROWS, edge_rows=EDGE_ROWS,
             "limitation": "Linear aggregates detect many duplicate/missing substitutions but cannot prove every multiset is unique; exact distinct counting is intentionally omitted because its global shuffle is outside the two-minute scan budget."}
 
 
-def _endpoint_scan(spark, edges, *, node_rows=NODE_ROWS, edge_rows=EDGE_ROWS) -> dict:
-    from pyspark.sql import functions as F
-    expected_source = F.floor(F.col("id") / F.lit(5)).cast("long")
-    expected_target = F.pmod(
-        expected_source + F.floor(F.pmod(F.col("id"), F.lit(5)) / F.lit(2)),
-        F.lit(node_rows),
-    ).cast("long")
-    bad_source = F.coalesce(
-        (F.col("source_type") != 1) | (F.col("source_id") != expected_source), F.lit(True))
-    bad_target = F.coalesce(
-        (F.col("target_type") != 1) | (F.col("target_id") != expected_target), F.lit(True))
-    source_out = F.coalesce((F.col("source_id") < 0)
-        | (F.col("source_id") >= node_rows), F.lit(True))
-    target_out = F.coalesce((F.col("target_id") < 0)
-        | (F.col("target_id") >= node_rows), F.lit(True))
-    row = edges.agg(
-        F.count(F.lit(1)).alias("rows"),
-        F.sum(F.when(bad_source, 1).otherwise(0)
-              ).alias("invalid_source"),
-        F.sum(F.when(bad_target, 1).otherwise(0)
-              ).alias("invalid_target"),
-        F.sum(F.when(source_out, 1)
-              .otherwise(0)).alias("source_out_of_range"),
-        F.sum(F.when(target_out, 1)
-              .otherwise(0)).alias("target_out_of_range"),
-    )
-    plan = row._jdf.queryExecution().executedPlan().toString()
-    row = row.first()
-    result = _row_dict(row)
-    if (result["rows"] != edge_rows or result["invalid_source"] != 0
-            or result["invalid_target"] != 0 or result["source_out_of_range"] != 0
-            or result["target_out_of_range"] != 0):
-        raise TrialRefused("independent persisted endpoint formula scan failed")
-    result["plan"] = plan
-    return result
+def _endpoint_scan_witness(row_value_scan: dict) -> dict:
+    """Expose endpoint counts from the already collected combined role scan."""
+    if type(row_value_scan) is not dict or type(row_value_scan.get("plan")) is not str:
+        raise TrialRefused("combined row/value scan plan required for endpoint witness")
+    roles = row_value_scan.get("roles")
+    edge = roles.get("edge_current") if type(roles) is dict else None
+    names = ("invalid_source", "invalid_target", "source_out_of_range", "target_out_of_range")
+    if (type(edge) is not dict or edge.get("rows") != EDGE_ROWS
+            or any(type(edge.get(name)) is not int or edge[name] != 0 for name in names)):
+        raise TrialRefused("combined edge endpoint witness required")
+    return {"rows": edge["rows"], **{name: edge[name] for name in names},
+            "sharedScan": "rowValueScan",
+            "planSha256": _sha(row_value_scan["plan"].encode("utf-8"))}
 
 
 def _graph_action(spark, frames) -> dict:
@@ -646,6 +623,13 @@ def _graph_action(spark, frames) -> dict:
     return {"resultRows": len(actual), "result": [list(row) for row in actual],
             "cap": GRAPH_RESULT_CAP, "plan": plan,
             "graphX": "not-used", "wholeFrameCollect": "not-used"}
+
+
+def _clear_spark_job_group(spark_context) -> None:
+    """Reset the three Spark 4.2.0 job-group local properties via public API."""
+    for key in ("spark.job.description", "spark.jobGroup.id",
+                "spark.job.interruptOnCancel"):
+        spark_context.setLocalProperty(key, None)
 
 
 def _ensure_no_overlap(phase_times: dict) -> None:
@@ -767,7 +751,7 @@ def run_full_delta4_trial(*, spark, attempt_root: str | Path,
                         spark.sql(plan_by_role[role].insert_sql)
                     finally:
                         role_durations[role] = round(time.monotonic() - role_started[role], 6)
-                        sc.clearJobGroup()
+                        _clear_spark_job_group(sc)
 
                 _parallel_roles(
                     ROLES, execute_role,
@@ -796,9 +780,9 @@ def run_full_delta4_trial(*, spark, attempt_root: str | Path,
             point_rows = {role: _point_lookup(spark, frames[role], role) for role in ROLES}
         result["pointLookups"] = point_rows
         with _phase(spark, root, "row_value_scan", deadline, ledger):
-            result["rowValueScan"] = _row_value_scan(spark, frames)
-        with _phase(spark, root, "endpoint_scan", deadline, ledger):
-            result["endpointScan"] = _endpoint_scan(spark, frames["edge_current"])
+            result["rowValueScan"] = _row_value_scan(
+                spark, frames, include_endpoint_formula=True)
+        result["endpointScan"] = _endpoint_scan_witness(result["rowValueScan"])
         with _phase(spark, root, "graphframes", deadline, ledger):
             from ashlar_host.pinned_delta_graphframes import _snapshot_file_inventory
             runtime_close = _admit_canonical_graphframes_runtime(spark)

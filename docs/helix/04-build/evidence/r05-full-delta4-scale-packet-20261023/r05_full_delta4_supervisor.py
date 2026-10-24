@@ -39,7 +39,7 @@ MIN_FREE_INODES = 1000
 PHASE_SECONDS = {
     "admission_and_ddl": 60, "node_write": 360, "edge_write": 840,
     "concurrent_writes": 840,
-    "point_reads": 60, "row_value_scan": 120, "endpoint_scan": 120,
+    "point_reads": 60, "row_value_scan": 120,
     "graphframes": 120, "validation_and_cleanup": 120,
 }
 ROLES = ("object_current", "edge_current")
@@ -829,6 +829,22 @@ def _validate_removable_tree(path: Path) -> None:
                 raise SupervisorRefused("owned path contains symlink or special file")
 
 
+def _verify_endpoint_scan_witness(row_scan: Any, endpoint_scan: Any,
+                                  expected_rows: int) -> None:
+    """Require endpoint checks to be the same edge action as the row-value scan."""
+    roles = row_scan.get("roles", {}) if type(row_scan) is dict else {}
+    edge = roles.get("edge_current", {}) if type(roles) is dict else {}
+    plan = row_scan.get("plan") if type(row_scan) is dict else None
+    names = ("invalid_source", "invalid_target", "source_out_of_range", "target_out_of_range")
+    if (type(plan) is not str or type(endpoint_scan) is not dict
+            or endpoint_scan.get("sharedScan") != "rowValueScan"
+            or endpoint_scan.get("planSha256") != _sha(plan.encode("utf-8"))
+            or edge.get("rows") != expected_rows or endpoint_scan.get("rows") != expected_rows
+            or any(type(edge.get(name)) is not int or edge[name] != 0
+                   or endpoint_scan.get(name) != edge[name] for name in names)):
+        raise SupervisorRefused("endpoint formula witness must share the full edge role scan")
+
+
 def _verify_and_cleanup(root: Path, created: dict, worker: dict,
                         ownership: dict) -> dict:
     if worker.get("status") != "bounded-synthetic-checks-passed":
@@ -852,11 +868,8 @@ def _verify_and_cleanup(root: Path, created: dict, worker: dict,
                 or witness.get("min_id") != 0 or witness.get("max_id") != count - 1
                 or int(witness.get("sum_id")) != expected_sum):
             raise SupervisorRefused("persisted row/value/range witness failed")
-    endpoints = worker.get("endpointScan", {})
-    if (endpoints.get("rows") != expected_rows["edge_current"]
-            or any(endpoints.get(name) != 0 for name in (
-                "invalid_source", "invalid_target", "source_out_of_range", "target_out_of_range"))):
-        raise SupervisorRefused("persisted endpoint formula witness failed")
+    _verify_endpoint_scan_witness(
+        row_scan, worker.get("endpointScan"), expected_rows["edge_current"])
     if set(worker.get("pointLookups", {})) != set(ROLES):
         raise SupervisorRefused("exactly two point lookup receipts required")
     graph = worker.get("graphframes", {})
