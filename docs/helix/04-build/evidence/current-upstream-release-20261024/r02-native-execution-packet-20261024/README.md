@@ -16,7 +16,7 @@ evidence only. A `.4` native run requires a reviewed configured-local path
 that actually creates and reads `.4` tables; do not execute this packet as a
 `.4` test or treat a `.3` result as `.4` evidence.
 
-One attempt, one serial `local[2]` Spark session, macOS arm64 / CPython 3.12,
+One attempt, one serial local Spark session (actual configured runtime: `local[1]`, 512m driver), macOS arm64 / CPython 3.12,
 Spark 4.2.0, Delta 4.4.1, JDK 21, and the public UMF core 0.10.1 distribution
 with model semantics fixed at 0.10.0. Reuse the exact R05 Spark/Delta runtime
 JAR bytes listed below and record their byte hashes in the runtime admission
