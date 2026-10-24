@@ -124,6 +124,19 @@ also still needs an integrated renewal owner that remains active during longer
 external publication and verification work; no such owner is selected or
 qualified. The Truss candidate remains private, disabled and uninstalled.
 
+The isolated candidate's later commit `b7959fdc869fa3966e87739a323df753bd98a1f7`
+retains two PostgreSQL 18.6 diagnostic attempts and fixes the private SQL
+install-order issue; it remains disabled and was not pushed. Attempt 1 stopped
+during installation with SQLSTATE `42P01` because `runtime_feed_consumer` was
+declared after `runtime_feed_custody_observe_scope`. After reordering those
+private routines, attempt 2 installed the candidate SQL successfully, then
+stopped during model preparation because `py_mini_racer` was unavailable. It
+never produced a feed page or exercised custody locks, ACK, or reconciliation.
+These diagnostics do not qualify the selected pgserver/PostgreSQL 17.11 runtime;
+that native qualification remains open, and no source or ACK authority is
+established. Attempt records remain with the isolated Truss candidate and are
+not Ashlar release evidence.
+
 ## Minimal implementation sequence
 
 After Truss exposes and independently evidences that source-owned renewal API:
