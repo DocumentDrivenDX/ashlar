@@ -83,6 +83,47 @@ responses. Native commit, rollback and connection-loss cases, routine-owner ACL
 alignment, the installed migration route, and a trusted no-effect close path
 remain unqualified. This candidate does not grant source or ACK authority.
 
+Sol's source review also found an exact-scope defect in that disabled candidate:
+`_scope_equal()` omitted `checkpointBase64`. The current prototype takes a
+global session-shared transition lock and a per-consumer session-exclusive
+lock, while its known ACK, registration, epoch and migration paths take
+conflicting transaction locks. Those fences should exclude changes through
+those cooperating paths while the same backend remains alive, but the renewal
+comparison itself did not prove that the current checkpoint was still the
+page's prior value. Reconciliation and close also need phase-specific checks:
+before ACK the checkpoint must equal the exact prior cursor; while ACK outcome
+is unresolved, only the exact prior or next cursor is admissible; a matched ACK
+and matched close require the exact next cursor; a no-publication close requires
+the exact prior cursor. The candidate now applies these checks and refuses
+unexpected checkpoint bytes. Its added fake test demonstrates pre-ACK drift
+refusal; it does not establish native fence closure or prove that every
+administrative/direct-SQL mutation route takes the locks.
+
+The candidate SQL scope observation contains database/backend, installation,
+epoch, release, consumer, registration and checkpoint identity. The candidate
+stores a caller-supplied `destination_id` and request digest and later binds
+publication ID and receipt bytes, but it does not observe or renew the external
+destination registration or its ACK scope. Truss has no selected destination
+registry or authority for that external state. CONTRACT-001 requires the
+source-holder renewal to admit destination registration and ACK scope from
+separately retained evidence; the Ashlar managed-read/source holder must
+independently renew that evidence and the Truss candidate interface must carry
+and retain its exact admitted identity. A caller-provided destination string
+alone does not satisfy that port wording.
+
+The checkpoint correction and focused tests are preserved in isolated Truss
+candidate commit `9f9f6de99afaf591359156a133fa969ff60779cc` on
+`codex/truss-source-custody-design` in `/private/tmp/truss-holder-v050`; only
+`_feed_source_custody.py` and `test_feed_source_custody_fences.py` were
+committed, with no push or activation. The exact Python 3.12 command was
+`PYTHONPATH=packages/python/src /Users/erik/.local/share/uv/python/cpython-3.12-macos-aarch64-none/bin/python3.12 -B packages/python/tests/test_feed_source_custody_fences.py -v`.
+All 14 tests passed, including fake scope drift refusal, uncertain outer-commit
+reconciliation and close refusal. These checks do not execute Truss SQL or test
+PostgreSQL locks. The 30-second local renewal window
+also still needs an integrated renewal owner that remains active during longer
+external publication and verification work; no such owner is selected or
+qualified. The Truss candidate remains private, disabled and uninstalled.
+
 ## Minimal implementation sequence
 
 After Truss exposes and independently evidences that source-owned renewal API:
