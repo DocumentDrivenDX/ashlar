@@ -75,8 +75,10 @@ def make_offline_count_star_schema_validation(schemas: Mapping[str, bytes]) -> C
     return _make_offline_validation(schemas, CountStarSchemaValidation)
 
 
-def make_offline_current_count_star_schema_validation(schemas: Mapping[str, bytes]) -> CountStarSchemaValidation:
-    """Task-private 0.4.48 source schema port for the exact current target."""
+def make_offline_current_count_star_schema_validation(schemas: Mapping[str, bytes], *, profile='count-star-current') -> CountStarSchemaValidation:
+    """Offline current-target schema port for an explicitly versioned compiler profile."""
+    if profile not in ('count-star-current','count-star-current-053'):
+        raise CountStarPlanError(_REFUSAL)
     validators = {}
 
     def validate(bundle, root_filename, candidate):
@@ -91,7 +93,7 @@ def make_offline_current_count_star_schema_validation(schemas: Mapping[str, byte
             raise CountStarPlanError(_REFUSAL) from None
 
     try:
-        port = CountStarSchemaValidation(schemas, validate, profile='count-star-current')
+        port = CountStarSchemaValidation(schemas, validate, profile=profile)
         from jsonschema import Draft202012Validator
         from referencing import Registry
         from referencing.exceptions import NoSuchResource

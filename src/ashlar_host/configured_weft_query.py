@@ -15,6 +15,7 @@ from .configured_local_read import ConfiguredLocalRead
 from .configured_query_aliases import ConfiguredQueryAliases
 from .configured_weft_binding import configured_count_star_request
 from .configured_weft_compile import ConfiguredWeftCompileConfig,compile_configured_count_star
+from .count_star_admission import CountStarAdmissionConfig
 from .count_star_execution import CountStarExecutionConfig,execute_commerce_count_star
 from .delta_custody import encoded
 from .lifecycle import finish
@@ -130,12 +131,45 @@ def query_configured_projection(scope,aliases,sql,compile_config,*,capture,decod
     return _query(scope,aliases,sql,compile_config,capture=capture,decoder=decoder,observe=observe,original_oracle=None,projection=True)
 
 
-def _query(scope,aliases,sql,compile_config,*,capture,decoder,observe,original_oracle,projection):
+def query_configured_projection_precompiled(scope,aliases,sql,compiled,*,capture,decoder):
+    """Execute an already frozen, separately admitted artifact under live aliases.
+
+    This seam lets a packet compile and hash-bind all requests in one alias
+    context, pause for independent review, then execute those exact artifacts.
+    It does not compile, alter, or repair compiler SQL.
+    """
+    _require(type(compiled)is dict and compiled.get('compilerVersion')=='0.4.53'
+        and type(compiled.get('admission_config'))is CountStarAdmissionConfig
+        and compiled['admission_config'].profile=='count-star-current-053'
+        and all(type(compiled.get(k))is dict for k in ('request','response','recompiled'))
+        and all(type(compiled.get(k))is bytes and 0<len(compiled[k])<=1048576
+            for k in ('requestBytes','responseBytes','recompiledBytes')))
+    compiled['admission_config'].__post_init__()
+    try:
+        _require(compiled['responseBytes']==compiled['recompiledBytes']
+            and json.loads(compiled['responseBytes'])==compiled['response']
+            and json.loads(compiled['recompiledBytes'])==compiled['recompiled'])
+    except Exception:
+        raise ValueError('Configured held Weft execution refused') from None
+    return _query(scope,aliases,sql,None,capture=capture,decoder=decoder,observe=lambda *_:None,
+        original_oracle=None,projection=True,precompiled=compiled)
+
+
+def _query(scope,aliases,sql,compile_config,*,capture,decoder,observe,original_oracle,projection,precompiled=None):
     _require(type(scope)is ConfiguredLocalRead and type(aliases)is ConfiguredQueryAliases
-             and aliases.scope is scope and type(compile_config)is ConfiguredWeftCompileConfig
+             and aliases.scope is scope and (type(compile_config)is ConfiguredWeftCompileConfig if precompiled is None else compile_config is None)
              and callable(observe)and(callable(original_oracle)if not projection else original_oracle is None))
     scope.renew();aliases.renew()
-    compiled=compile_configured_count_star(scope,dict(aliases),sql,compile_config,observe=observe)
+    if precompiled is None:
+        compiled=compile_configured_count_star(scope,dict(aliases),sql,compile_config,observe=observe)
+    else:
+        expected=configured_count_star_request(scope,dict(aliases),sql,layout_sha256=LAYOUT_SHA256)
+        _require(encoded(precompiled['request'])==encoded(expected)
+            and precompiled['requestBytes']==(json.dumps(expected,ensure_ascii=False,separators=(',',':')).encode()+b'\n')
+            and precompiled['responseBytes']==precompiled['recompiledBytes']
+            and json.loads(precompiled['responseBytes'])==precompiled['response']
+            and json.loads(precompiled['recompiledBytes'])==precompiled['recompiled'])
+        compiled=precompiled
     if projection:
         if scope.source.graph:
             from .configured_typed_graph_weft_projection import configured_typed_graph_projection_oracle

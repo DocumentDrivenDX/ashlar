@@ -31,6 +31,14 @@ CURRENT_SCHEMA_SHA256 = MappingProxyType({
     'compile-response-v0.4.1.schema.json': 'e6ba09a90a08e7065c134f6ca0958c70da02cedbd843eeab5d608b59ba335be3',
     'logical-plan-v0.4.1.schema.json': '7e48576b69a688c41894ce033af7bcb9a0792e1346010b4f5b19887ad536112f',
 })
+# Independently pinned from Weft v0.4.53 source commit
+# 726a840e956e25217d6aeea2674fdfcf3f342a24. The byte values currently match
+# the .48 candidate schemas, but the distinct profile prevents version reuse.
+CURRENT_053_SCHEMA_SHA256 = MappingProxyType({
+    'compile-request-v0.4.1.schema.json': 'eadea16ecb850add4dd1a276e417e5659a553d37171ff6ba455668acec7ab13b',
+    'compile-response-v0.4.1.schema.json': 'e6ba09a90a08e7065c134f6ca0958c70da02cedbd843eeab5d608b59ba335be3',
+    'logical-plan-v0.4.1.schema.json': '7e48576b69a688c41894ce033af7bcb9a0792e1346010b4f5b19887ad536112f',
+})
 BACKEND = MappingProxyType(dict(backendId='ashlar.databricks.paths-keys', backendVersion='0.4.1-count-star-having-candidate',
     interfaceVersion='weft-backend/0.3.0', targetProfile='spark4-delta4-paths-keys-candidate'))
 CURRENT_BACKEND = MappingProxyType(dict(backendId='ashlar.databricks.paths-keys-having',
@@ -178,7 +186,9 @@ class CountStarSchemaValidation:
     profile: str = 'count-star'
 
     def __post_init__(self):
-        expected=SCHEMA_SHA256 if self.profile=='count-star' else CURRENT_SCHEMA_SHA256 if self.profile=='count-star-current' else None
+        expected=(SCHEMA_SHA256 if self.profile=='count-star' else CURRENT_SCHEMA_SHA256
+                  if self.profile=='count-star-current' else CURRENT_053_SCHEMA_SHA256
+                  if self.profile=='count-star-current-053' else None)
         _require(expected is not None and callable(self.validate) and set(self.schemas) == set(expected), 'Complete trusted schema port required')
         owned = {}
         for name, digest in expected.items():
@@ -195,7 +205,7 @@ class CountStarAdmissionConfig:
     profile: str = 'count-star'
 
     def __post_init__(self):
-        _require(type(self.profile) is str and self.profile in ('count-star','count-star-current'), 'Explicit supported path profile required')
+        _require(type(self.profile) is str and self.profile in ('count-star','count-star-current','count-star-current-053'), 'Explicit supported path profile required')
         _require(self.schema_validation.profile==self.profile,'Matching pinned current or historical schema profile required')
         _require(type(self.maximum_artifact_bytes) is int and 1 <= self.maximum_artifact_bytes <= 16 * 1024 * 1024,
                  'Explicit finite artifact limit required')
@@ -338,7 +348,7 @@ def _admit_selected_artifact(request: dict, artifact: dict, trusted_recompiled: 
     current_spark42=(not implicit and type(raw_target)is dict and
         all(raw_target.get(k)==CURRENT_BACKEND[k] for k in ('backendId','backendVersion','targetProfile')))
     if not implicit:
-        _require(config.profile==('count-star-current' if current_spark42 else 'count-star'),'Exact selected compiler/schema profile required')
+        _require(config.profile in (('count-star-current','count-star-current-053') if current_spark42 else ('count-star',)),'Exact selected compiler/schema profile required')
     backend = dict(IMPLICIT_PROFILE.backend) if implicit else dict(CURRENT_BACKEND if current_spark42 else BACKEND)
     roots = tuple(name for name, _ in IMPLICIT_PROFILE.schemas) if implicit else tuple(SCHEMA_SHA256)
     compile_version = IMPLICIT_PROFILE.compile_version if implicit else 'weft-compile/0.4.1'
