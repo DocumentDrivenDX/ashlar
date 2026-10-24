@@ -1,11 +1,21 @@
 # Typed pages from a configured graph publication
 
-Use the [typed graph installation](typed-graph-README.md) and its original source
-configuration. Select a separate Python 3.11 environment with `local-delta`, the
-qualified UMF `umf_access` SDK wheel and published `weft-sql==0.4.48` (`typed-sdk`
-extra). Keep the original installation and model pins. Prepare a normal
-configured-local read invocation with a fresh output directory; its runtime
-settings select the Python, JDK, JARs, source and installation explicitly.
+This example records the historical native page qualification for the [typed
+graph installation](typed-graph-README.md): a separate Python 3.11 environment
+with `local-delta`, the qualified UMF `umf_access` SDK wheel and Weft 0.4.48,
+using the original source configuration, installation and model pins. That
+qualification remains limited to its recorded Weft 0.4.48 scope.
+
+The current `typed-sdk` extra pins Weft 0.4.53. Its [focused adoption
+check](../../docs/helix/04-build/evidence/current-upstream-release-20261023/weft053-ashlar-adoption-20261023/README.md)
+compiled one related-key page fixture in isolated Python 3.12.14 on macOS arm64.
+It did not execute SQL or qualify native page execution, Python 3.11 runtime
+compatibility for Weft 0.4.53, or Linux. The example below documents the
+historical page workflow; the current Weft 0.4.53 package has no native page
+qualification.
+
+For a configured-local invocation, runtime settings select the Python, JDK,
+JARs, source and installation explicitly.
 
 The Python page workflow reuses `AshlarTarget` and the original Weft engine-page
 program. Standalone strict view models are supported; generated DTOs can also be
