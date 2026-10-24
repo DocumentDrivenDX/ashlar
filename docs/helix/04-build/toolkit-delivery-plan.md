@@ -204,6 +204,13 @@ releases at the candidate cut. The
 receipt](evidence/current-upstream-release-20261022/truss-0.0.49-adoption-preparation.json);
 its lifecycle qualification remains pending. Retain older extras only with an
 explicit historical label.
+Public Truss 0.0.50 has since been published. Its
+[effect-free adoption analysis](evidence/current-upstream-release-20261024/truss050-adoption-analysis-20261024/README.md)
+finds the existing explicit 0.48-to-current migration route and feed interface
+declarations intact, but the 0.50 wheel and Ashlar's newer Weft/UMF cohort still
+need focused qualification. Prepare a fresh 0.50 lifecycle packet before any
+effectful selected-version run; R12's 0.49 authorization, if later supplied,
+cannot transfer to that new packet.
 
 The frozen [R5 effect-free supervisor preflight](evidence/current-upstream-release-20261023/truss049-r5-readiness-20261023/README.md)
 returned `ready_pending_hash_bound_operator_approval` against Ashlar source

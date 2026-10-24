@@ -1,0 +1,101 @@
+{
+  "profile": "ashlar-truss-0.0.50-adoption-analysis/0.1",
+  "status": "effect_free_analysis_candidate_runtime_check_required",
+  "observed_at_utc": "2026-10-24",
+  "source": {
+    "release_api": "https://api.github.com/repos/DocumentDrivenDX/truss/releases/tags/v0.0.50",
+    "release_url": "https://github.com/DocumentDrivenDX/truss/releases/tag/v0.0.50",
+    "tag": "v0.0.50",
+    "tag_commit": "a687d0a226dad5745cbd909377bf99c7c1cddc66",
+    "published_at": "2026-10-24T06:32:49Z",
+    "tag_signature": "unsigned",
+    "assets": [
+      {
+        "name": "truss_toolkit-0.0.50-py3-none-any.whl",
+        "bytes": 6237543,
+        "sha256": "7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00",
+        "digest_source": "GitHub release API asset metadata; not independently downloaded or hashed"
+      },
+      {
+        "name": "truss_toolkit-0.0.50.tar.gz",
+        "bytes": 6709423,
+        "sha256": "60204fbb2b420e4600ebafa397e2742b46f06d6085936411dfa81f19aa7c5aaa",
+        "digest_source": "GitHub release API asset metadata; not independently downloaded or hashed"
+      },
+      {
+        "name": "release-pins.json",
+        "bytes": 5077,
+        "sha256": "ed35eb49b453f1ad9178e3875d9d7c3b762b24dc0697e98038f8fcabbaad5b88",
+        "digest_source": "GitHub release API asset metadata; asset payload was not retrieved"
+      }
+    ],
+    "release_notes": {
+      "change": "Fresh-install batching; existing public application interfaces retained",
+      "native_install_sources_and_published_migration_recipes": "unchanged",
+      "declared_cohort": {
+        "postgresql": "18.6",
+        "psycopg": "3.3.6",
+        "umf": "0.10",
+        "weft": "0.4.51"
+      }
+    }
+  },
+  "api_comparison": {
+    "tag_a": "v0.0.49",
+    "tag_b": "v0.0.50",
+    "identical_git_blobs": {
+      "capabilities.py": "0cbee654c33bac4d7dcae44c48c20a915fdae4d3",
+      "capability_contracts.py": "3ee6a544726bc56cd9dcc9697d446b1e625bfcd5",
+      "feed.py": "6ae2af6d9eca867c252ba81d97c14a084db2a43d",
+      "migrations.py": "1d6a1b5e6cb1ea1e183465d5e100cd5b21fdca98",
+      "migration_planning.py": "f85a220bccfa0097bf13201ca97c9676158265e8",
+      "_migration_recipe.py": "6c8510756fb67a34ddb2c808066a6278e9a124f8",
+      "_migration_verify.py": "91dd3bc13a405c8f8cc19df2defe2b789db63ca8",
+      "_migration_execute.py": "8a69414987452e8fcf4658ae4b5a0918b7d306cb"
+    },
+    "changed_runtime_blob": {
+      "file": "catalog_runtime.py",
+      "v0.0.49": "c41372b01f0836e3628f6569784185a4c27f21ad",
+      "v0.0.50": "132c9eb452f9090109b0994792fc37ce4642ce5a",
+      "method_name_surface_checked": true,
+      "feed_receipt_methods_present_in_both": [
+        "read_feed_in_transaction",
+        "reread_feed_in_transaction",
+        "acknowledge_feed_with_receipt_in_transaction",
+        "reconcile_feed_ack_in_transaction"
+      ]
+    },
+    "scope": "Git blob metadata and source method names only; .50 wheel installation and runtime behavior untested"
+  },
+  "migration_comparison": {
+    "manifest_path": "packages/python/src/truss/_migrations/manifest.json",
+    "v0.0.49_manifest_git_blob": "f4258370551d635acf600c581f9cf4625f595389",
+    "v0.0.50_manifest_git_blob": "270125a653dba8f714f5a783df3b9c2e0f9c231f",
+    "forward_edge_count_v0.0.49": 5,
+    "forward_edge_count_v0.0.50": 5,
+    "forward_edges_unchanged": true,
+    "target_native_manifest": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "added_exact_current_fixture_manifest": "96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535.manifest.json",
+    "accepted_v0.0.48_source_manifest": "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+    "explicit_route": [
+      "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+      "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f",
+      "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4"
+    ],
+    "route_interpretation": "One latest-only .50 runtime administrative migration may execute the existing two-edge route to the unchanged .49 native target. There is no .49-to-new-.50 native migration edge or schema target."
+  },
+  "ashlar_fit": {
+    "current_truss": "0.0.49",
+    "current_umf_core": "0.10.1",
+    "current_umf_access": "0.1.0.dev7",
+    "current_weft": "0.4.53",
+    "current_spark": "4.2.0",
+    "current_delta": "4.4.1",
+    "current_postgresql": "18.6",
+    "current_psycopg": "3.3.6",
+    "release_cohort_differs_on": ["weft"],
+    "exact_v0_0_50_current_ashlar_cohort_qualified": false,
+    "effectful_lifecycle_allowed_by_this_analysis": false,
+    "existing_r12_modified": false
+  }
+}
