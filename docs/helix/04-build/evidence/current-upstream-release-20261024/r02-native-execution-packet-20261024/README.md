@@ -17,10 +17,9 @@ that actually creates and reads `.4` tables; do not execute this packet as a
 `.4` test or treat a `.3` result as `.4` evidence.
 
 One attempt, five serial configured-local CLI invocations, each opening and closing its own Spark session (actual runtime per invocation: `local[1]`, 512m driver), macOS arm64 / CPython 3.12,
-Spark 4.2.0, Delta 4.4.1, JDK 21, and the public UMF core 0.10.1 distribution
-with model semantics fixed at 0.10.0. Reuse the exact R05 Spark/Delta runtime
+Spark 4.2.0, Delta 4.4.1, and JDK 21. Public UMF core 0.10.1 source validation/producer selection was verified separately, with model semantics fixed at 0.10.0. Reuse the exact R05 Spark/Delta runtime
 JAR bytes listed below and record their byte hashes in the runtime admission
-receipt before initialization. The driver heap limit is 2 GiB; total wall time
+receipt before initialization. The supervisor packet planned a 2 GiB driver ceiling, while the configured runtime actually enforced 512 MiB; total wall time
 is 300 seconds from the first runtime invocation; the private attempt root is
 capped at 512 MiB and retained receipts at 16 MiB total, with each individual
 request/response or command receipt capped at 1 MiB. Stop on the
