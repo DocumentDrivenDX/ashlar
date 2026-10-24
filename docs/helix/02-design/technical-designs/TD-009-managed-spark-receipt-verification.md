@@ -57,6 +57,70 @@ or independence. Confirm that the selected cloud/workspace policy, UC access
 mode and exact runtime support this arrangement before launch. If they do not,
 stop this candidate; do not silently introduce a platform matrix or new endpoint.
 
+### Unadopted all-purpose A1 compute variant
+
+The authenticated Personal Compute policy discovery records a fixed
+all-purpose, Standard-engine, zero-worker policy that permits D4ds_v5 and does
+not pin `spark_version`. This is policy metadata only. It does not establish
+that a Clusters API create request using that policy is admitted, that DBR 19
+is admitted, or that the selected Unity Catalog access mode, task identity and
+grants work together. The policy's 4,320-minute auto-termination default is
+too long to serve as the trial's lifecycle bound.
+
+If the Jobs-only/serverless candidate remains unavailable, evaluate one
+separately dedicated all-purpose cluster for A1 only. Keep it distinct from the
+current `ManagedCurrentTrialConfig` and notebook path: those require
+`runtimeName=databricks-serverless` and `dedicated_serverless=true`; relaxing
+either check would route an all-purpose task into publication and four query
+cases without a qualified verifier, source-holder interval, or cost admission.
+The SQL receipt-reader remains serverless-warehouse-only. No all-purpose
+profile or campaign entrypoint is adopted by this proposal.
+
+Candidate shape for a later effectful A1 trial, after read-only admission: one
+D4ds_v5 driver, zero workers, Standard engine, no autoscaling or Photon, one
+A1 slot, a 10-minute inactivity auto-termination setting, one concurrent run
+and zero retries. The proposed control plane would create the dedicated cluster through
+the Clusters API with the selected policy, then attach a Jobs task using
+`existing_cluster_id`. Microsoft documents notebook and Python tasks on
+classic all-purpose compute and shows a Jobs SDK task attached to an existing
+cluster ([Jobs compute](https://learn.microsoft.com/en-us/azure/databricks/jobs/compute),
+[SDK example](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/sdk-python)).
+The Clusters API response and effective policy must still admit the exact node
+type, runtime and UC mode combination; current metadata alone does not
+establish eligibility. Capture the exact runtime/build, Spark, Delta, Scala,
+Java and Python versions and effective principal/grants before any schema
+work. A stale-state check must show publisher and verifier use
+separate processes/sessions; their shared cluster does not provide principal
+isolation. No fallback to a shared cluster is permitted.
+
+Treat the cluster timeout as a cleanup aid, not a hard lifetime or dollar cap.
+An external supervisor would need a finite caller deadline, independently
+observed run and cluster identifiers, cancel/terminate calls, terminal-state
+readback, and an unconditional cleanup path that preserves the primary error.
+It must retain evidence first, then remove only the trial-owned tables/schema
+after exact UUID/owner checks and verify absence. Loss of the supervisor or an
+uncertain termination/cleanup result stops the trial and requires reconciliation;
+it does not authorize retry or erase ambiguous effects. The supervisor must
+not claim an invoice cap from elapsed time alone.
+
+Current public retail inputs imply about $1.355 per running D4ds_v5 node-hour
+on the recorded Premium all-purpose basis. A 40-minute interval is therefore
+about $0.90 for compute before startup/idle billing, ancillary usage, storage,
+networking, predictive-optimization activity and cleanup. This is not a
+conservative total bound: actual workspace billing increments, effective DBU
+rate/consumption and ancillary meters are unresolved. Before A1, obtain a
+reliable whole-trial bound including already incurred usage and cleanup under
+the $100 hard ceiling; otherwise do not launch. The $10 figure remains a
+preference. Predictive optimization stays enabled.
+
+Open admission facts are whether this policy can back an explicitly owned
+all-purpose cluster attached to a Jobs task, the exact admitted runtime and
+access mode, run-as/entitlement and
+create/cancel/terminate/drop privileges, cluster and Jobs quotas, actual billing
+rates/increments/meters, termination behavior under cancellation, stale-state
+separation, and source/ACK custody. Until each is independently evidenced and
+the all-purpose variant receives review, this remains a design option only.
+
 The verifier must read durable UC state afresh through its own native owner. It
 must not reuse publisher DataFrames, cached temporary views, mutable Python
 objects, a publisher-owned resolver or publisher assertions as proof. Clear or
