@@ -54,7 +54,8 @@ PACKET_HASHED = ("r02_packet_generator.py", "r02_supervisor.py", "r02_invocation
                  "compile-positive-backend03.py", "examples/configured-local/configuration.template.json",
                  "attempt-refusal-23732236f7e94550b2fa24995c603b75.json",
                  "attempt-refusal-03969306f68446f0802e9a6e039bcb32.json",
-                 "attempt-refusal-7d7ecbde56c44dcc9b2f21acc249e8fd.json")
+                 "attempt-refusal-7d7ecbde56c44dcc9b2f21acc249e8fd.json",
+                 "attempt-refusal-ebf8bd8f1dfc446fb827779c81beb20c.json")
 
 
 def sha256(path: Path) -> str:

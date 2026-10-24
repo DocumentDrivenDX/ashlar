@@ -40,23 +40,6 @@ class Tests(unittest.TestCase):
         session=object.__new__(ConfiguredSdk053LiveSession)
         session.review_gate=SimpleNamespace(stage='pre-sql',consumed=False,approved=False,executing_name=None)
         with self.assertRaises(ValueError):session.page()
-    def test_r02_vector_guard_rejects_final_ordinal_three_before_query_gate(self):
-        first={"publicationId":"batch-1","manifestUuid":"manifest-uuid","tables":{
-            "edge_current":{"uuid":"edge-uuid","version":2},
-            "object_current":{"uuid":"object-uuid","version":2},
-            "tombstone":{"uuid":"tombstone-uuid","version":1},
-            "whole_source_history":{"uuid":"history-uuid","version":2}}}
-        final={"publicationId":"batch-3","manifestUuid":"manifest-uuid","tables":{
-            "edge_current":{"uuid":"edge-uuid","version":5},
-            "object_current":{"uuid":"object-uuid","version":3},
-            "tombstone":{"uuid":"tombstone-uuid","version":3},
-            "whole_source_history":{"uuid":"history-uuid","version":4}}}
-        import hashlib,json
-        sha=hashlib.sha256((json.dumps(first,sort_keys=True,separators=(",",":"),ensure_ascii=False)+'\n').encode()).hexdigest()
-        _require_r02_ordinal1_vector(first,first,sha)
-        with self.assertRaises(ValueError):_require_r02_ordinal1_vector(final,first,sha)
-        with self.assertRaises(ValueError):_require_r02_ordinal1_vector(first,final,sha)
-
     def test_r02_vector_guard_refuses_final_publication_in_ordinal1_scope(self):
         import hashlib,json
         from ashlar_host.configured_sdk_pages import _require_r02_ordinal1_vector
