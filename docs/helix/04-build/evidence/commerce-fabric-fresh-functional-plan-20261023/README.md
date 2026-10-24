@@ -60,14 +60,22 @@ does not authorize retrying them.
 ## New candidate identities
 
 The following identifiers were generated offline for this plan only; they are
-not reserved remotely. The launch operator must verify that each exact table
-path and display name is absent using read-only observations. Any collision
-invalidates the packet and requires a newly reviewed candidate before writes.
+not reserved remotely. Candidate GraphModel names are frozen here alongside
+the table paths. A read-only workspace GraphModel listing returned successfully
+(raw HTTP status not retained), with no continuation and five names:
+`Ashlar_R1`, `Ashlar_R2`,
+`Ashlar_Archaeology_Typed_20261016b`, `Ashlar_Ecology_Typed_20261016b`, and
+`Ashlar_Commerce_Publication1_20261016a`. The two candidate names below were
+not in that observed listing. This is only a point-in-time observation; the
+launch operator must repeat read-only checks of each exact table path and
+GraphModel display name immediately before any create. These names are not
+reserved remotely. Any collision requires a newly reviewed candidate before
+writes.
 
-| Purpose | Fresh candidate | Intended table names |
-| --- | --- | --- |
-| R1 | `70cca0ae-e0db-431c-81e9-6651a43f74e7` | `Tables/dbo/ashlar_commerce_r1_70cca0aee0db431c81e96651a43f74e7_nodes`; `Tables/dbo/ashlar_commerce_r1_70cca0aee0db431c81e96651a43f74e7_edges` |
-| R2 | `4d559fd9-ac44-462b-b208-55826d9ad35a` | `Tables/dbo/ashlar_commerce_r2_4d559fd9ac44462bb20855826d9ad35a_nodes`; `Tables/dbo/ashlar_commerce_r2_4d559fd9ac44462bb20855826d9ad35a_edges` |
+| Purpose | Fresh candidate | GraphModel display name | Intended table names |
+| --- | --- | --- | --- |
+| R1 | `70cca0ae-e0db-431c-81e9-6651a43f74e7` | `Ashlar_Commerce_R1_70cca0ae_20261024` | `Tables/dbo/ashlar_commerce_r1_70cca0aee0db431c81e96651a43f74e7_nodes`; `Tables/dbo/ashlar_commerce_r1_70cca0aee0db431c81e96651a43f74e7_edges` |
+| R2 | `4d559fd9-ac44-462b-b208-55826d9ad35a` | `Ashlar_Commerce_R2_4d559fd9_20261024` | `Tables/dbo/ashlar_commerce_r2_4d559fd9ac44462bb20855826d9ad35a_nodes`; `Tables/dbo/ashlar_commerce_r2_4d559fd9ac44462bb20855826d9ad35a_edges` |
 
 Create one new per-run journal under a new private run directory, for example
 `/private/tmp/ashlar-commerce-fabric-r1r2-20261023-70cca0ae-e0db-431c-81e9-6651a43f74e7/journal.sqlite`.
@@ -83,7 +91,9 @@ assumed current by this packet.
 1. **Read-only admission.** Pin the committed/reviewed runner revision and
    artifact hashes; confirm the selected delegated account and workspace from
    current passive configuration; read the existing active capacity and lakehouse
-   identity; check all four new candidate paths and display names are absent.
+   identity; check all four new candidate paths and both exact GraphModel display
+   names are absent. Re-list GraphModels read-only immediately before creation;
+   the earlier five-name observation does not reserve either name.
    Resolve each candidate into its complete GUID-form OneLake URI using the
    freshly read workspace and lakehouse UUIDs. Before upload, freeze each exact
    source-selection inventory as canonical compact JSON over sorted relative

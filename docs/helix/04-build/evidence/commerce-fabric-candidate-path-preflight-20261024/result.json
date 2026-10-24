@@ -1,0 +1,102 @@
+{
+  "scope": "Read-only workspace/capacity/GraphModel-list GET observations and HEAD requests to the four frozen candidate OneLake paths.",
+  "execution": {
+    "runner": "head_candidates.py",
+    "runner_sha256": "a81dac79cdd17652a32f74fc41bb17721a32345f4a17e0bc627dc58f674328cb",
+    "runner_exit_status": 0,
+    "duration_seconds": 7.845,
+    "auth_profile": "Root-reported escalated Azure CLI cached-auth execution",
+    "token_handling": "Azure Storage token held in subprocess parent memory; omitted from output and evidence",
+    "response_headers_retained": "No full headers retained; only x-ms-error-code was inspected for HEAD responses"
+  },
+  "prior_sandbox_attempt": {
+    "observed_utc": "2026-10-24T05:22:42Z",
+    "status": "Blocked before HTTP requests",
+    "operation": "Azure CLI token acquisition for https://api.fabric.microsoft.com",
+    "exit_status": 1,
+    "service_requests_issued": 0
+  },
+  "observations": [
+    {
+      "method": "GET",
+      "url": "https://api.fabric.microsoft.com/v1/workspaces/0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793",
+      "status": "success; raw HTTP status not retained",
+      "workspace_id": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793",
+      "capacity_id": "c69c0329-778f-4446-b529-d43358c73251",
+      "capacity_assignment_progress": "Completed",
+      "capacity_region": "West US 3",
+      "evidence_source": "Root-reported escalated GET"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.fabric.microsoft.com/v1/capacities/c69c0329-778f-4446-b529-d43358c73251",
+      "status": "success; raw HTTP status not retained",
+      "capacity_id": "c69c0329-778f-4446-b529-d43358c73251",
+      "sku": "FTL4",
+      "state": "Active",
+      "region": "West US 3",
+      "evidence_source": "Root-reported escalated GET"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.fabric.microsoft.com/v1/workspaces/0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793/items?type=GraphModel",
+      "status": "success; raw HTTP status not retained",
+      "continuation_token": null,
+      "graph_model_display_names": [
+        "Ashlar_R1",
+        "Ashlar_R2",
+        "Ashlar_Archaeology_Typed_20261016b",
+        "Ashlar_Ecology_Typed_20261016b",
+        "Ashlar_Commerce_Publication1_20261016a"
+      ],
+      "candidate_display_names_absent_from_observation": [
+        "Ashlar_Commerce_R1_70cca0ae_20261024",
+        "Ashlar_Commerce_R2_4d559fd9_20261024"
+      ],
+      "evidence_source": "Root-reported read-only GET; point-in-time inventory, not a reservation"
+    },
+    {
+      "label": "R1-nodes",
+      "method": "HEAD",
+      "url": "https://onelake.dfs.fabric.microsoft.com/0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793/ee66f2e8-9072-4a48-8364-ecd2f2967c3e/Tables/dbo/ashlar_commerce_r1_70cca0aee0db431c81e96651a43f74e7_nodes",
+      "status": 404,
+      "storage_error_code": "PathNotFound"
+    },
+    {
+      "label": "R1-edges",
+      "method": "HEAD",
+      "url": "https://onelake.dfs.fabric.microsoft.com/0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793/ee66f2e8-9072-4a48-8364-ecd2f2967c3e/Tables/dbo/ashlar_commerce_r1_70cca0aee0db431c81e96651a43f74e7_edges",
+      "status": 404,
+      "storage_error_code": "PathNotFound"
+    },
+    {
+      "label": "R2-nodes",
+      "method": "HEAD",
+      "url": "https://onelake.dfs.fabric.microsoft.com/0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793/ee66f2e8-9072-4a48-8364-ecd2f2967c3e/Tables/dbo/ashlar_commerce_r2_4d559fd9ac44462bb20855826d9ad35a_nodes",
+      "status": 404,
+      "storage_error_code": "PathNotFound"
+    },
+    {
+      "label": "R2-edges",
+      "method": "HEAD",
+      "url": "https://onelake.dfs.fabric.microsoft.com/0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793/ee66f2e8-9072-4a48-8364-ecd2f2967c3e/Tables/dbo/ashlar_commerce_r2_4d559fd9ac44462bb20855826d9ad35a_edges",
+      "status": 404,
+      "storage_error_code": "PathNotFound"
+    }
+  ],
+  "limitations": [
+    "The HEAD results are point-in-time and do not guarantee future path absence.",
+    "The observations do not establish an all-in $0 cost boundary.",
+    "R1 source/ACK authority was not re-admitted and no accepted live R2 source transaction was established.",
+    "No launch approval or native qualification is implied."
+  ],
+  "effects": {
+    "create": false,
+    "upload": false,
+    "compute": false,
+    "capacity_change": false,
+    "activation": false,
+    "source_action": false,
+    "ack": false
+  }
+}
