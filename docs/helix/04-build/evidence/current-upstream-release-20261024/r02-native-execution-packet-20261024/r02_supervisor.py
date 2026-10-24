@@ -208,6 +208,8 @@ def run_one(argv: list[str], cwd: Path, deadline: float, output_path: Path,
             time.sleep(0.1)
         process.wait()
         stop_descendants(process)
+        if output_path.stat().st_size > LIMIT_COMMAND_OUTPUT:
+            raise TimeoutError("operation output exceeded the 1 MiB cap")
     if process.returncode != 0:
         raise RuntimeError(f"operation exited {process.returncode}: {argv[0]}")
 

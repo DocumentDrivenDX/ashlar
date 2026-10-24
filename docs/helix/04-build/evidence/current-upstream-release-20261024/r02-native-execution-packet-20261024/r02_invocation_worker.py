@@ -10,6 +10,7 @@ from pathlib import Path
 import stat
 import subprocess
 import sys
+import time
 import uuid
 
 
@@ -157,22 +158,28 @@ def run(args: argparse.Namespace) -> None:
            "PYSPARK_PYTHON": args.python, "PYSPARK_DRIVER_PYTHON": args.python,
            "PYTHONDONTWRITEBYTECODE": "1", "SPARK_LOCAL_IP": "127.0.0.1",
            "TMPDIR": str(attempt / "tmp")}
-    process = subprocess.Popen([args.python, "-I", "-B", "-m", "ashlar", "run-configured-local",
-                                "--configuration", str(final_path)], cwd=attempt,
-                               env=env, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE, start_new_session=False)
-    stdout, stderr = process.communicate()
-    if len(stdout) > MAX_OUTPUT or len(stderr) > MAX_OUTPUT:
+    stdout_path = attempt / "receipts" / f"{case}-cli-stdout.json"
+    stderr_path = attempt / "receipts" / f"{case}-stderr.log"
+    with stdout_path.open("xb") as stdout_stream, stderr_path.open("xb") as stderr_stream:
+        process = subprocess.Popen([args.python, "-I", "-B", "-m", "ashlar", "run-configured-local",
+                                    "--configuration", str(final_path)], cwd=attempt,
+                                   env=env, stdin=subprocess.DEVNULL, stdout=stdout_stream,
+                                   stderr=stderr_stream, start_new_session=False)
+        while process.poll() is None:
+            if stdout_path.stat().st_size + stderr_path.stat().st_size > MAX_OUTPUT:
+                raise ValueError("configured-local CLI exceeded its streaming output cap")
+            time.sleep(0.05)
+        process.wait()
+    if stdout_path.stat().st_size + stderr_path.stat().st_size > MAX_OUTPUT:
         raise ValueError("configured-local CLI output exceeded its receipt cap")
     if process.returncode:
         raise RuntimeError(f"configured-local CLI refused with status {process.returncode}")
-    result = json.loads(stdout)
+    result = json.loads(stdout_path.read_bytes())
     report_path = Path(template["output"]) / "report.json"
     if not report_path.is_file() or report_path.is_symlink() or report_path.read_bytes() != canonical(result).rstrip(b"\n"):
         # The CLI's result report is compact JSON without the canonical trailing newline.
         if not report_path.is_file() or json.loads(report_path.read_bytes()) != result:
             raise ValueError("CLI stdout and its durable result report do not match")
-    write_new(attempt / "receipts" / f"{case}-stderr.log", stderr)
     write_new(attempt / "receipts" / f"{case}-result.json", canonical(result))
     if case == "batch-3-replay":
         vector = extract_vector(attempt, result, template["installation_sha256"])

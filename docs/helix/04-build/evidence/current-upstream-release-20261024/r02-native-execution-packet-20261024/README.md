@@ -7,6 +7,15 @@ review it and explicitly direct execution before any native action starts.
 
 ## Scope and limits
 
+**Profile boundary:** the current `run-configured-local` source and this
+worker's publication-vector extractor are explicitly pinned to
+`ashlar-delta/0.3`. This packet can only exercise that `.3` lane. It does not
+instantiate or qualify the separate `ashlar-delta/0.4-xxhash64` profile, and
+the `.4` instructions and compiler bindings retained below are background
+evidence only. A `.4` native run requires a reviewed configured-local path
+that actually creates and reads `.4` tables; do not execute this packet as a
+`.4` test or treat a `.3` result as `.4` evidence.
+
 One attempt, one serial `local[2]` Spark session, macOS arm64 / CPython 3.12,
 Spark 4.2.0, Delta 4.4.1, JDK 21, and the public UMF core 0.10.1 distribution
 with model semantics fixed at 0.10.0. Reuse the exact R05 Spark/Delta runtime
@@ -84,9 +93,9 @@ Its retained compiler responses are preserved as original comparison inputs:
 | Backend02 continuation | `b5c06a8021779ba6ae6da6ca0a742281249d3c31d201926bfbdb3c16e234f76b` | `d96f63e9786f4b8d4e495708f9799edd8b9c7a66efbcbc88e0fee5eab89e98c4` |
 
 These compiler response bytes bind `ashlar-delta/0.3`; they are not sent to the
-native executor. After the fresh `.4-xxhash64` publication is complete, compile
-the same two source requests with public Weft 0.4.53 against the complete fresh
-publication vector, and create the Backend02 size-2 page and continuation
+native executor. If the `.3` lane is separately authorized, compile the same
+source requests with public Weft 0.4.53 against its complete fresh publication
+vector, and create the Backend02 size-2 page and continuation
 (`after=["person-2"]`). This cannot be frozen before publication because its
 exact table UUID/version vector does not yet exist. Hash and preserve each new
 request, binding, artifact, and response immediately after compilation and
@@ -124,13 +133,13 @@ manifest commit.
    process inventory and recheck the full runtime and JAR identities. A missing
    identity or competing process stops the run.
 2. The public UMF 0.10.1 validation is already frozen in this packet. In a fresh
-   private directory, initialize a fresh
-   `ashlar-delta/0.4-xxhash64` installation with the configured-local runner.
+   private directory, initialize the current configured-local `.3` profile.
+   This operation provides no `.4-xxhash64` evidence.
 3. Using one unchanged source/configuration/binding, publish batches 1, 2 and 3
    sequentially; repeat batch 3 byte-for-byte with a fresh invocation output.
    Retain full publication vectors at each ordinal and prove replay adds no
    table or manifest commit.
-4. At the first publication, issue one native singleton read. Bind the original
+4. Only for an explicitly reviewed `.3` run, bind the original
    Backend03 and Backend02 requests, plus the separately labeled positive
    Backend03 request, to the complete first-publication vector and
    compile with public Weft 0.4.53. Freeze and hash each exact request, binding,
@@ -148,7 +157,7 @@ the operation-specific invocation must be created only in the private
 attempt directory and its exact bytes/digest recorded before each invocation.
 Use one fresh output path per operation. Configuration must select an explicit
 Spark 4.2.0 / Delta 4.4.1 runtime, `local[2]`, 2 GiB driver memory, bounded
-stream/receipt sizes, and `ashlar-delta/0.4-xxhash64`; never use a shared
+stream/receipt sizes, and `ashlar-delta/0.3`; never use a shared
 Databricks cluster.
 
 ## Generated invocation packet
@@ -248,8 +257,9 @@ historical R02 runtime receipt
 private Weft and `.3` bindings and is not current native evidence.
 
 Before execution, this packet still requires an approved current process
-inventory and new `.4` publication-bound compiler responses after their vector
-exists. This packet makes no Truss,
+inventory and new `.3` publication-bound compiler responses after their vector
+exists. A `.4-xxhash64` native test is outside this packet because the current
+configured-local adapter is pinned to `.3`. This packet makes no Truss,
 production source, protected ACK, Unity Catalog, or cloud authority claim.
 
 ## Governing artifacts
