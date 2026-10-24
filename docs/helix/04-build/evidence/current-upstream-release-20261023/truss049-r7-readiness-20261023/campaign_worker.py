@@ -13,9 +13,9 @@ from pathlib import Path
 REPO=Path('/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/source-inputs-7c4006e')
 ROOT=Path('/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7')
 SOURCE_ARCHIVE=ROOT/'source-inputs-7c4006e.tar'
-SOURCE_MANIFEST=ROOT/'source-inputs-manifest.json'
+SELECTED_SOURCE_MANIFEST=ROOT/'source-inputs-manifest.json'
 SOURCE_ARCHIVE_SHA256='49f1eea46cbfcf8ddc33ce841669fd9de4e41ad427863e4598f30bf92b6dfaba'
-SOURCE_MANIFEST_SHA256='00d1902bda5821e478c76d8b1a264b11e59e88d3d978d7b5d34ea7a6691cb9d5'
+SELECTED_SOURCE_MANIFEST_SHA256='00d1902bda5821e478c76d8b1a264b11e59e88d3d978d7b5d34ea7a6691cb9d5'
 SOURCE_COMMIT='7c4006e880b037e2de318d04b45a8aeae9dfea12'
 SOURCE_TREE='65377e9c97bab62b50a1eef7d0314cb390f8f2e4'
 SOURCE_OBJECTS={'src':'6678e0d1cff4f8c43b0a28af618253559d4de1ce',
@@ -65,7 +65,7 @@ OLD48_RUNTIME_RECEIPT=Path('/private/tmp/ashlar-truss048-weft052-umf054-runtime-
 OLD48_RUNTIME_SHA='bbc590badfa88ea7c950a40f867ddd62f409df078aa461575a3b7db6c7288b7b'
 MIGRATION_MANIFEST='96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535'
 NATIVE_MANIFEST='288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4'
-SOURCE_MANIFEST='c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0'
+TRUSS_MIGRATION_SOURCE_MANIFEST_SHA256='c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0'
 MAX_BYTES=1073741824
 STAGES=('backup-started.json','backup-committed.json','migration-observation.json','migration-prepared.json',
         'migration-apply-started.json','migration-apply-result.json','migration-reconcile-started.json',
@@ -200,8 +200,8 @@ def git_blob_sha1(path:Path)->str:
 
 def verify_source_snapshot():
     if sha_path(SOURCE_ARCHIVE)!=SOURCE_ARCHIVE_SHA256:raise RuntimeError('Selected 7c4006e source archive changed')
-    if sha_path(SOURCE_MANIFEST)!=SOURCE_MANIFEST_SHA256:raise RuntimeError('Selected source input manifest changed')
-    manifest=read_json(SOURCE_MANIFEST,1024*1024)
+    if sha_path(SELECTED_SOURCE_MANIFEST)!=SELECTED_SOURCE_MANIFEST_SHA256:raise RuntimeError('Selected source input manifest changed')
+    manifest=read_json(SELECTED_SOURCE_MANIFEST,1024*1024)
     if (manifest.get('profile')!='ashlar-selected-source-inputs/1'
             or manifest.get('commit')!=SOURCE_COMMIT or manifest.get('tree')!=SOURCE_TREE
             or manifest.get('objects')!=SOURCE_OBJECTS
@@ -228,7 +228,7 @@ def verify_source_snapshot():
         if path.stat().st_size!=row['bytes'] or sha_path(path)!=row['sha256'] or git_blob_sha1(path)!=row['git_blob']:
             raise RuntimeError('Selected source Git blob or content digest differs: '+rel)
     return {'commit':SOURCE_COMMIT,'tree':SOURCE_TREE,'runtime_input_objects':SOURCE_OBJECTS,
-        'archive_sha256':SOURCE_ARCHIVE_SHA256,'manifest_sha256':SOURCE_MANIFEST_SHA256,
+        'archive_sha256':SOURCE_ARCHIVE_SHA256,'manifest_sha256':SELECTED_SOURCE_MANIFEST_SHA256,
         'file_count':len(rows),'content_bytes':sum(row['bytes'] for row in rows)}
 
 def bridge_state():
@@ -410,9 +410,9 @@ def run_migration(conninfo):
     registry=HostRecoveryRegistry(REGISTRY)
     migration=RuntimeMigrations(connect,registry,maximum_preservation_bytes=268435456,operation_timeout_ms=30000,statement_timeout_ms=10000)
     status=migration.status();backup_meta=migration.backup_metadata()
-    if status.get('state')!='upgrade_required' or status.get('manifestSha256')!=SOURCE_MANIFEST or status.get('target')!=NATIVE_MANIFEST:
+    if status.get('state')!='upgrade_required' or status.get('manifestSha256')!=TRUSS_MIGRATION_SOURCE_MANIFEST_SHA256 or status.get('target')!=NATIVE_MANIFEST:
         raise RuntimeError('Exact retained .48 source and public .49 latest target required; no prepare/apply')
-    if backup_meta.get('sourceManifestSha256')!=SOURCE_MANIFEST or backup_meta.get('context')!=status.get('context'):
+    if backup_meta.get('sourceManifestSha256')!=TRUSS_MIGRATION_SOURCE_MANIFEST_SHA256 or backup_meta.get('context')!=status.get('context'):
         raise RuntimeError('Migration backup metadata does not bind exact retained source/context')
     write_new(ATTEMPT/'migration-observation.json',{'profile':'ashlar-truss049-migration-observation/0.1','status':status,'backup_metadata':backup_meta,
         'registry_path':str(REGISTRY),'migration_manifest_sha256':MIGRATION_MANIFEST,'native_manifest_sha256':NATIVE_MANIFEST})

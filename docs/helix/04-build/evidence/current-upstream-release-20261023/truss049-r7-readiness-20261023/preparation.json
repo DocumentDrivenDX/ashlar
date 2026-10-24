@@ -94,7 +94,7 @@
     },
     "worker": {
       "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/campaign_worker.py",
-      "sha256": "afd460561e5a064f03330ed3e6069f54e0784f9acf6beaf0bb566494f100bead"
+      "sha256": "c9ed1a676cb02f9407a622475b295cdee99ad7bda696aeeb5367a652ffebdbf9"
     }
   },
   "current_cohort_rebind": [
@@ -296,6 +296,6 @@
   },
   "worker": {
     "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/campaign_worker.py",
-    "sha256": "afd460561e5a064f03330ed3e6069f54e0784f9acf6beaf0bb566494f100bead"
+    "sha256": "c9ed1a676cb02f9407a622475b295cdee99ad7bda696aeeb5367a652ffebdbf9"
   }
 }

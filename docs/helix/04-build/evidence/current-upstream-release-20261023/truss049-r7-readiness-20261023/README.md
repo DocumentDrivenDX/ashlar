@@ -10,4 +10,8 @@ R7 is a proposed rebind of R6, not a reset or replacement of its retained lineag
 
 The R6 source/runtime packet and all prior preflight or approval material are historical. R7 reserves a new empty private `attempt-r7` directory for the future single-use supervisor; it has no worker execution approval, no start marker and no preflight result. It does not authorize PostgreSQL, Spark, migration, backup, seed, source/feed mutation, publication or ACK. Source and consumer custody must be reobserved after a separately authorized lifecycle start and before migration; the effect-free supervisor preflight does not perform those database reads. Any later campaign remains one bounded attempt with inherited 600-second, 1-GiB retained/attempt/log, 16-MiB per-worker log and zero-retry limits.
 
+The reviewed worker digest is `c9ed1a676cb02f9407a622475b295cdee99ad7bda696aeeb5367a652ffebdbf9`. An earlier static draft reused `SOURCE_MANIFEST` for two unrelated values; the current worker separates the selected source-input manifest path/digest from the Truss migration source-manifest digest. The prior worker hash is superseded.
+
+The [offline six-role bridge probe](r7-offline-six-role-bridge-probe.json) passed against the selected worker, runtime and pinned bridge. It exercises proposal generation and Ashlar admission only; it does not create or query Delta tables and does not change the pending native/source lifecycle gates.
+
 [`check_r7_packet.py`](check_r7_packet.py) validates the selected source bytes, runtime provenance, packet bindings and no-execution state after assembly. A passing static check is not a preflight, execution approval or native qualification.

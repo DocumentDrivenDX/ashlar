@@ -166,6 +166,8 @@ def main() -> None:
                  PRIVATE / 'source_048_readonly_helper.py', PRIVATE / 'weft053-compatibility-receipt.md'):
         require(path.is_file() and not path.is_symlink(), f'packet file missing: {path.name}')
     require(sha(HERE / 'preparation.json') == sha(prep_path), 'tracked/private preparation snapshot')
+    require(sha(HERE / 'campaign_worker.py') == sha(worker_path), 'tracked/private worker bytes')
+    require(sha(HERE / 'run_supervisor.py') == sha(supervisor_path), 'tracked/private supervisor bytes')
     prep = load(prep_path)
     bridge = load(bridge_path)
     require(prep['profile'] == 'ashlar-truss-0.0.49-current-cohort-preparation/0.1', 'preparation profile')
