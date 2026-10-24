@@ -15,6 +15,7 @@ import signal
 import stat
 import subprocess
 import sys
+import tempfile
 import time
 import uuid
 
@@ -352,23 +353,111 @@ def review_receipt(path: Path, manifest_path: Path, manifest: dict) -> None:
         raise PermissionError("Sol review does not authorize these exact R02 continuation packet bytes")
 
 
-def stop_group(process: subprocess.Popen) -> None:
+def _process_group_members(pgid: int) -> list[dict]:
+    """Use macOS `ps` as an independent, bounded process-group inventory."""
+    process = None
     try:
-        os.killpg(process.pid, signal.SIGTERM)
+        with tempfile.TemporaryFile() as output:
+            process = subprocess.Popen(["ps", "-axo", "pid=,pgid=,uid=,stat=,comm="],
+                stdout=output, stderr=subprocess.DEVNULL)
+            deadline = time.monotonic() + 3
+            while process.poll() is None:
+                if os.fstat(output.fileno()).st_size > 2 * 1024 * 1024:
+                    process.kill(); process.wait()
+                    raise RuntimeError("R02 process-group inventory exceeded its bound")
+                if time.monotonic() >= deadline:
+                    process.kill(); process.wait()
+                    raise RuntimeError("R02 process-group inventory timed out")
+                time.sleep(.02)
+            size = os.fstat(output.fileno()).st_size
+            if process.returncode != 0 or size > 2 * 1024 * 1024:
+                raise RuntimeError("R02 process-group inventory failed or exceeded its bound")
+            output.seek(0)
+            raw = output.read(2 * 1024 * 1024 + 1)
+    except (OSError, subprocess.SubprocessError):
+        raise RuntimeError("R02 process-group inventory is unavailable") from None
+    finally:
+        if process is not None and process.poll() is None:
+            process.kill()
+            process.wait()
+    if type(raw) is not bytes or len(raw) > 2 * 1024 * 1024:
+        raise RuntimeError("R02 process-group inventory exceeded its bound")
+    members = []
+    for line in raw.decode("utf-8", errors="strict").splitlines():
+        parts = line.strip().split(None, 4)
+        if len(parts) != 5:
+            raise RuntimeError("R02 process-group inventory is malformed")
+        try:
+            pid, observed_pgid, uid = map(int, parts[:3])
+        except ValueError:
+            raise RuntimeError("R02 process-group inventory is malformed") from None
+        if observed_pgid == pgid:
+            if uid != os.getuid():
+                raise RuntimeError("R02 process group contains a non-owned member")
+            members.append({"pid": pid, "pgid": observed_pgid, "uid": uid,
+                "state": parts[3], "command": parts[4]})
+    return members
+
+
+def _group_empty_or_refuse(pgid: int) -> bool:
+    """Return true only when an independent inventory proves no group members."""
+    members = _process_group_members(pgid)
+    if members:
+        return False
+    return True
+
+
+def _signal_group_or_prove_empty(pgid: int, sig: int) -> bool:
+    """Signal a nonempty group; tolerate OS denial only after a fresh empty proof."""
+    try:
+        os.killpg(pgid, sig)
+        return True
     except ProcessLookupError:
+        if _group_empty_or_refuse(pgid):
+            return False
+        raise RuntimeError("R02 process group remains after signal reported it absent") from None
+    except PermissionError:
+        if _group_empty_or_refuse(pgid):
+            return False
+        raise RuntimeError("R02 process-group signal was denied while members remain") from None
+
+
+def stop_group(process: subprocess.Popen) -> None:
+    pgid = process.pid
+    if _group_empty_or_refuse(pgid):
         return
+    _signal_group_or_prove_empty(pgid, signal.SIGTERM)
     deadline = time.monotonic() + 1
     while time.monotonic() < deadline:
-        try: os.killpg(process.pid, 0)
-        except ProcessLookupError: return
-        time.sleep(.05)
-    try: os.killpg(process.pid, signal.SIGKILL)
-    except ProcessLookupError: return
+        if _group_empty_or_refuse(pgid):
+            return
+        try:
+            os.killpg(pgid, 0)
+        except ProcessLookupError:
+            if _group_empty_or_refuse(pgid):
+                return
+            raise RuntimeError("R02 process-group inventory disagrees with signal check") from None
+        except PermissionError:
+            if _group_empty_or_refuse(pgid):
+                return
+            raise RuntimeError("R02 cannot verify remaining process-group members") from None
+        time.sleep(.1)
+    _signal_group_or_prove_empty(pgid, signal.SIGKILL)
     deadline = time.monotonic() + 2
     while time.monotonic() < deadline:
-        try: os.killpg(process.pid, 0)
-        except ProcessLookupError: return
-        time.sleep(.05)
+        if _group_empty_or_refuse(pgid):
+            return
+        try:
+            os.killpg(pgid, 0)
+        except ProcessLookupError:
+            if _group_empty_or_refuse(pgid):
+                return
+            raise RuntimeError("R02 process-group inventory disagrees with signal check") from None
+        except PermissionError:
+            if _group_empty_or_refuse(pgid):
+                return
+            raise RuntimeError("R02 cannot verify remaining process-group members") from None
+        time.sleep(.1)
     raise RuntimeError("R02 continuation process group did not close")
 
 

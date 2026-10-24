@@ -247,10 +247,14 @@ bytes. It checks the exact current Git revision, four source hashes, seven
 installed Ashlar runtime-source hashes, packet implementation hashes, all
 five R05 JAR hashes, and the selected Python/JDK/UMF/Weft identities. It
 adopts only the fresh mode-0700 user-owned attempt root named in that manifest
-and runs its argv steps serially. It kills the process group on the 300-second
-total deadline or a byte-cap breach, and leaves durable attempt state so a
-failed attempt cannot be silently repeated. Command output is capped at 1 MiB
-each, private attempt data at 512 MiB, and retained receipts at 16 MiB.
+and runs its argv steps serially. On timeout/cap failure it kills the process
+group. After worker exit, it uses a bounded macOS `ps` inventory of PID, PGID,
+UID and process state before signaling: it skips signals only when a successful
+inventory proves the group empty. A denied signal triggers a fresh independent
+inventory; remaining members or unavailable inventory keep close status
+failed. It leaves durable attempt state so a failed attempt cannot be silently
+repeated. Command output is capped at 1 MiB each, private attempt data at 512
+MiB, and retained receipts at 16 MiB.
 
 The prepublication phase allows exactly initialization, batches 1–3, and the
 byte-identical batch-3 replay. It retains the complete final publication

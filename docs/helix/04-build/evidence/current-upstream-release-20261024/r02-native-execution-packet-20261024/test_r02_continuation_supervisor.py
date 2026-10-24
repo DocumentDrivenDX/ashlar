@@ -3,9 +3,11 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 SCRIPT = Path(__file__).with_name("r02_continuation_supervisor.py")
 SPEC = importlib.util.spec_from_file_location("r02_continuation_supervisor", SCRIPT)
@@ -20,6 +22,39 @@ WORKER_SPEC.loader.exec_module(worker)
 
 
 class ContinuationPacketTests(unittest.TestCase):
+    def test_stop_group_skips_signals_only_after_empty_independent_inventory(self):
+        process = type("Process", (), {"pid": 4242})()
+        with patch.object(supervisor, "_process_group_members", return_value=[]), \
+                patch.object(supervisor.os, "killpg") as killpg:
+            supervisor.stop_group(process)
+        killpg.assert_not_called()
+
+    def test_stop_group_terminates_live_group_then_requires_empty_inventory(self):
+        process = type("Process", (), {"pid": 4242})()
+        member = {"pid": 4242, "pgid": 4242, "uid": os.getuid(), "state": "S", "command": "python3"}
+        with patch.object(supervisor, "_process_group_members", side_effect=[[member], []]), \
+                patch.object(supervisor.os, "killpg") as killpg:
+            supervisor.stop_group(process)
+        killpg.assert_called_once_with(4242, supervisor.signal.SIGTERM)
+
+    def test_stop_group_retains_permission_denial_when_member_remains(self):
+        process = type("Process", (), {"pid": 4242})()
+        member = {"pid": 4242, "pgid": 4242, "uid": os.getuid(), "state": "S", "command": "python3"}
+        with patch.object(supervisor, "_process_group_members", return_value=[member]), \
+                patch.object(supervisor.os, "killpg", side_effect=PermissionError("denied")) as killpg:
+            with self.assertRaisesRegex(RuntimeError, "signal was denied"):
+                supervisor.stop_group(process)
+        killpg.assert_called_once_with(4242, supervisor.signal.SIGTERM)
+
+    def test_stop_group_retains_uncertainty_when_inventory_is_denied(self):
+        process = type("Process", (), {"pid": 4242})()
+        with patch.object(supervisor, "_process_group_members",
+                          side_effect=RuntimeError("R02 process-group inventory is unavailable")), \
+                patch.object(supervisor.os, "killpg") as killpg:
+            with self.assertRaisesRegex(RuntimeError, "inventory is unavailable"):
+                supervisor.stop_group(process)
+        killpg.assert_not_called()
+
     def test_live_page_models_meet_reviewed_read_requirements(self):
         from pydantic import BaseModel, create_model
         from umf_access.engine_catalog import EngineRead
