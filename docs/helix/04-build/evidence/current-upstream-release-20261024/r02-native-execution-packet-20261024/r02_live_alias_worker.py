@@ -89,10 +89,19 @@ def run(manifest_path: Path, repository: Path) -> None:
     state_path, vector_path = Path(prior["statePath"]), Path(prior["vectorPath"])
     if sha(state_path.read_bytes()) != prior["stateSha256"] or sha(vector_path.read_bytes()) != prior["vectorFileSha256"]:
         raise ValueError("preserved publication state or vector changed")
-    vector = json.loads(vector_path.read_bytes())
-    vector_canonical = json.dumps(vector, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
-    if vector != prior["vector"] or sha(vector_canonical) != prior["vectorSha256"]:
-        raise ValueError("preserved publication vector identity changed")
+    final_vector = json.loads(vector_path.read_bytes())
+    final_vector_canonical = json.dumps(final_vector, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
+    if final_vector != prior["finalVector"] or sha(final_vector_canonical) != prior["finalVectorSha256"]:
+        raise ValueError("preserved final publication vector identity changed")
+    for relative, expected_sha in prior["ordinal1Evidence"].items():
+        evidence_path = prior_root / relative
+        if (evidence_path.is_symlink() or not evidence_path.resolve(strict=True).is_relative_to(prior_root.resolve(strict=True))
+                or sha(evidence_path.read_bytes()) != expected_sha):
+            raise ValueError("retained ordinal-1 publication evidence changed")
+    vector = prior["ordinal1Vector"]
+    vector_canonical = canonical(vector)
+    if sha(vector_canonical) != prior["ordinal1VectorSha256"]:
+        raise ValueError("retained ordinal-1 publication vector identity changed")
 
     template_path = Path(prior["baseInvocationPath"])
     template = read_pinned_json(template_path, prior["baseInvocationSha256"])
@@ -111,6 +120,9 @@ def run(manifest_path: Path, repository: Path) -> None:
     query.__post_init__()
     worker_started = time.monotonic()
     runtime_metadata = dict(manifest["runtime"])
+    runtime_metadata["ordinal1PublicationVector"] = prior["ordinal1Vector"]
+    runtime_metadata["ordinal1PublicationVectorSha256"] = prior["ordinal1VectorSha256"]
+    runtime_metadata["finalPublicationVectorSha256"] = prior["finalVectorSha256"]
     runtime_metadata["reviewDeadlineMonotonic"] = worker_started + 230.0
     runtime_metadata["wholeProcessDeadlineMonotonic"] = worker_started + 270.0
     selection = ConfiguredR02Weft053Selection(attempt, manifest["attemptId"],
@@ -127,14 +139,15 @@ def run(manifest_path: Path, repository: Path) -> None:
         raise ValueError("configured-local query result envelope differs from the held ordinal-1 operation")
     answer = runtime_result["query"]
     returned_vector = {name: list(pair) for name, pair in answer["vector"].items()}
-    expected_vector = {".".join(item["name"]): [item["uuid"], item["version"]]
-        for item in vector["tables"]}
+    expected_vector = {"local.configured." + role: [item["uuid"], item["version"]]
+        for role, item in vector["tables"].items()}
     if returned_vector != expected_vector or answer.get("scopeKind") != "ashlar-delta/0.3":
         raise ValueError("held ordinal-1 read scope differs from the preserved publication vector")
     result = {"profile": "ashlar-r02-weft053-continuation-result/0.1", "status": "complete",
         "attemptId": manifest["attemptId"], "sourceRevision": manifest["sourceRevision"],
         "priorPublicationSourceRevision": prior["sourceRevision"],
-        "publicationVectorSha256": prior["vectorSha256"], "scopeOrdinal": 1,
+        "publicationVectorSha256": prior["ordinal1VectorSha256"],
+        "finalPublicationVectorSha256": prior["finalVectorSha256"], "scopeOrdinal": 1,
         "scopeCount": 1, "aliasScopeCount": 1, "reviewStages": ["pre-sql", "post-page1"],
         "scopeClosed": True, "protectedAck": False, "result": answer}
     raw = canonical(result)

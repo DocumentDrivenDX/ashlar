@@ -189,8 +189,11 @@ After batch-3 replay, the worker checks the result manifest against all six
 initialized target identities, requires exactly the four graph table roles
 and their versions, then writes the stable publication vector (configured
 physical target names, UUIDs, versions, publication ID, and manifest UUID) to
-`publication-vector.json`. It never invents a query-alias namespace. The earlier
-prepublication supervisor refuses continuation. The new
+`publication-vector.json`. It never invents a query-alias namespace. The
+continuation manifest retains this final ordinal-3 vector separately and binds
+its ordinal-1 query scope to the exact batch-1 result plus the four Delta table
+identities at their first-published versions. The live scope vector must equal
+that ordinal-1 vector before the review gate or any query SQL. The new
 [`r02_continuation_supervisor.py`](r02_continuation_supervisor.py) prepares a
 separate effect-free packet for one ordinal-1 continuation using selected Weft
 0.4.53 with the verified Spark 4.2.0/Delta 4.4.1 cohort. Its worker compiles
