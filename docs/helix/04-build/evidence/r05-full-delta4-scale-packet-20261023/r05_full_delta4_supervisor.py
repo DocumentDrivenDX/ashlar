@@ -38,6 +38,7 @@ MIN_FREE_BYTES = 512 * 1024**3
 MIN_FREE_INODES = 1000
 PHASE_SECONDS = {
     "admission_and_ddl": 60, "node_write": 360, "edge_write": 840,
+    "concurrent_writes": 840,
     "point_reads": 60, "row_value_scan": 120, "endpoint_scan": 120,
     "graphframes": 120, "validation_and_cleanup": 120,
 }
@@ -381,8 +382,8 @@ def _phase_reason(state: Any, now_ns: int, child_started_ns: int) -> str | None:
         if now_ns - phase_anchor > PHASE_SECONDS[active] * 1_000_000_000:
             return "phase-cap-exceeded:" + active
     writes = sum(float(phases.get(name, {}).get("seconds", 0.0) or 0.0)
-                 for name in ("node_write", "edge_write"))
-    if active in ("node_write", "edge_write"):
+                 for name in ("node_write", "edge_write", "concurrent_writes"))
+    if active in ("node_write", "edge_write", "concurrent_writes"):
         writes += max(0.0, (now_ns - phases[active]["startedMonotonicNs"]) / 1e9)
     if writes > 1200:
         return "combined-write-cap-exceeded"

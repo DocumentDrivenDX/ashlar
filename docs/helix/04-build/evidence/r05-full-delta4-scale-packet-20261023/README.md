@@ -49,6 +49,39 @@ timing. The 68.050 decimal GB active-Parquet size is row-linear arithmetic from
 the 270M-row sample; it excludes Delta logs, temporary/staging files, event
 logs, output, and any retained versions.
 
+## Optional concurrent node/edge write candidate
+
+The default remains sequential. The worker now has an opt-in
+`writeSchedule: "parallel-node-edge"` authorization value that submits the
+independent node and edge INSERTs together to the same local Spark session.
+Both exact Delta table writes and their carrier schemas/protocols remain
+unchanged. No publication vector is produced by this synthetic trial; later
+consumers must continue to wait until both tables independently validate.
+Failure or phase cancellation cancels the shared Spark job group and joins both
+writer threads before the worker returns. The supervisor still owns the child
+process boundary and cleanup after quiescence. This mode has an 840-second
+phase cap within the existing 1,200-second write wall cap, and is bound by the
+packet digest and explicit owner authorization. It is a candidate only; no
+concurrent write has run.
+
+One bounded discriminator for review, not an authorization to execute: use the
+existing generator at 45,000,000 nodes / 225,000,000 edges, first using one
+fresh isolated pair of Delta table paths for sequential mode, then after
+verified cleanup a second fresh pair for parallel mode. Run both on the same
+dedicated local host with `local[18]`,
+24-GiB JVM heap, Spark 4.2.0, Delta 4.4.1, JDK 21.0.13, 18 shuffle partitions,
+the selected writer-7 `.4-xxhash64` carrier and ZSTD settings; no GraphFrames
+action. Compare total wall time (including two-table validation), per-role write
+durations, CPU, peak RSS and temporary-disk high water. Require both independent
+commits, exact carrier schemas/protocol, 45M/225M row counts, source-qualified
+identity and edge-endpoint oracle agreement, then remove only the two owned
+table pairs and verify absence. A candidate is worth further review only if
+the paired total is at least 10% faster without reducing validation or cleanup
+evidence. This small pair cannot establish canonical-scale throughput or
+target-scale memory/storage safety; the full 1B/5B attempt remains separately
+held. The candidate cannot meet the few-minute aspiration by itself because the
+node write alone projects to about 269 seconds.
+
 No target-size durations exist for startup, table DDL, two point reads, either
 scan, GraphFrames action, footer/protocol checks, or cleanup. Do not manufacture
 estimates for these phases. The proposed hard ceiling is 30 minutes end-to-end:

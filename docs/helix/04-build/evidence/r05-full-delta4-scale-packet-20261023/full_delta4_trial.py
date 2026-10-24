@@ -9,6 +9,7 @@ and post-exit cleanup.
 from __future__ import annotations
 
 from contextlib import contextmanager
+from concurrent.futures import ThreadPoolExecutor, as_completed, wait
 from datetime import datetime
 import fcntl
 import hashlib
@@ -40,6 +41,7 @@ PHASE_SECONDS = {
     "admission_and_ddl": 60,
     "node_write": 360,
     "edge_write": 840,
+    "concurrent_writes": 840,
     "point_reads": 60,
     "row_value_scan": 120,
     "endpoint_scan": 120,
@@ -68,7 +70,7 @@ def selected_packet_sha256() -> str:
     """Bind approval to the reviewed proposal, oracle and executable sources."""
     names = ("README.md", "oracle.json", "full_delta4_generator.py",
              "full_delta4_trial.py", "r05_full_delta4_supervisor.py",
-             "test_r05_full_delta4_supervisor.py")
+             "test_r05_full_delta4_supervisor.py", "test_r05_parallel_writes.py")
     h = hashlib.sha256()
     for name in names:
         raw = (HERE / name).read_bytes()
@@ -98,7 +100,11 @@ def _read_approval(path: str | Path, expected_packet_sha256: str) -> dict:
             or not isinstance(approval.get("ownerDecision"), str)
             or not approval["ownerDecision"].strip()):
         raise TrialRefused("authorization is absent or does not approve this exact bounded profile")
-    return {"sha256": _sha(raw), "ownerDecision": approval["ownerDecision"]}
+    schedule = approval.get("writeSchedule", "sequential")
+    if schedule not in ("sequential", "parallel-node-edge"):
+        raise TrialRefused("approved R05 writeSchedule must be sequential or parallel-node-edge")
+    return {"sha256": _sha(raw), "ownerDecision": approval["ownerDecision"],
+            "writeSchedule": schedule}
 
 
 def _private_attempt_root(path: str | Path) -> Path:
@@ -225,7 +231,7 @@ def _phase(spark, root: Path, name: str, deadline: float, ledger: dict):
         _write_json(root / PHASE_STATE, {"profile": PROFILE,
                                         "activePhase": name,
                                         "phases": ledger})
-        yield
+        yield group
         if monitor_error:
             raise monitor_error[0]
         if time.monotonic() >= phase_deadline:
@@ -245,6 +251,39 @@ def _phase(spark, root: Path, name: str, deadline: float, ledger: dict):
         _write_json(root / PHASE_STATE, {"profile": PROFILE,
                                         "activePhase": None,
                                         "phases": ledger})
+
+
+def _parallel_roles(roles, execute, cancel):
+    """Run two independent role writes together; cancel and join peers on failure."""
+    if type(roles) is not tuple or len(roles) != 2 or len(set(roles)) != 2:
+        raise ValueError("Exactly two distinct Delta roles required for parallel writes")
+    executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="r05-delta-write")
+    futures = {}
+    results = {}
+    try:
+        for role in roles:
+            futures[executor.submit(execute, role)] = role
+        for future in as_completed(futures):
+            results[futures[future]] = future.result()
+        return results
+    except BaseException:
+        try:
+            cancel()
+        except BaseException:
+            pass
+        for future in futures:
+            future.cancel()
+        wait(futures)
+        raise
+    finally:
+        executor.shutdown(wait=True, cancel_futures=True)
+
+
+def _write_schedule(authorization):
+    schedule = authorization.get("writeSchedule", "sequential")
+    if schedule not in ("sequential", "parallel-node-edge"):
+        raise TrialRefused("unsupported R05 write schedule")
+    return schedule
 
 
 def _row_dict(row) -> dict:
@@ -640,16 +679,59 @@ def run_full_delta4_trial(*, spark, attempt_root: str | Path,
                     spark, root, role, table_plans[role])
 
         plan_by_role = {item.role: item for item in plan.roles}
-        for role, phase_name in (("object_current", "node_write"),
-                                 ("edge_current", "edge_write")):
-            with _phase(spark, root, phase_name, deadline, ledger):
-                spark.sql(plan_by_role[role].insert_sql)
-                result["tables"][role]["postWrite"] = _validate_table(
-                    spark, root, role, plan_by_role[role])
-                result["tables"][role]["postWrite"]["attemptRootBytes"] = _tree_bytes(root)
-                result["tables"][role]["postWrite"]["activeParquetBytes"] = _parquet_bytes(root)
-        if ledger["node_write"]["seconds"] + ledger["edge_write"]["seconds"] > 1200:
-            raise TimeoutError("combined write cap of 1,200 seconds reached")
+        write_schedule = _write_schedule(authorization)
+        if write_schedule == "sequential":
+            role_durations = {}
+            for role, phase_name in (("object_current", "node_write"),
+                                     ("edge_current", "edge_write")):
+                with _phase(spark, root, phase_name, deadline, ledger):
+                    role_started = time.monotonic()
+                    spark.sql(plan_by_role[role].insert_sql)
+                    role_durations[role] = round(time.monotonic() - role_started, 6)
+                    result["tables"][role]["postWrite"] = _validate_table(
+                        spark, root, role, plan_by_role[role])
+                    result["tables"][role]["postWrite"]["attemptRootBytes"] = _tree_bytes(root)
+                    result["tables"][role]["postWrite"]["activeParquetBytes"] = _parquet_bytes(root)
+            if ledger["node_write"]["seconds"] + ledger["edge_write"]["seconds"] > 1200:
+                raise TimeoutError("combined write cap of 1,200 seconds reached")
+            result["writeSchedule"] = {"mode": write_schedule,
+                                        "roleSeconds": role_durations,
+                                        "wallSeconds": round(
+                                            ledger["node_write"]["seconds"]
+                                            + ledger["edge_write"]["seconds"], 6)}
+        else:
+            if write_schedule != "parallel-node-edge":
+                raise TrialRefused("parallel Delta write was not explicitly selected")
+            group_id = None
+            role_started = {}
+            role_durations = {}
+            with _phase(spark, root, "concurrent_writes", deadline, ledger) as group_id:
+                def execute_role(role):
+                    sc = spark.sparkContext
+                    sc.setJobGroup(group_id, f"Ashlar R05 concurrent {role} write",
+                                   interruptOnCancel=True)
+                    role_started[role] = time.monotonic()
+                    try:
+                        spark.sql(plan_by_role[role].insert_sql)
+                    finally:
+                        role_durations[role] = round(time.monotonic() - role_started[role], 6)
+                        sc.clearJobGroup()
+
+                _parallel_roles(
+                    ROLES, execute_role,
+                    lambda: spark.sparkContext.cancelJobGroup(group_id))
+                for role in ROLES:
+                    result["tables"][role]["postWrite"] = _validate_table(
+                        spark, root, role, plan_by_role[role])
+                    result["tables"][role]["postWrite"]["attemptRootBytes"] = _tree_bytes(root)
+                    result["tables"][role]["postWrite"]["activeParquetBytes"] = _parquet_bytes(root)
+            result["writeSchedule"] = {
+                "mode": write_schedule,
+                "roleSeconds": role_durations,
+                "wallSeconds": ledger["concurrent_writes"]["seconds"],
+                "atomicAcrossTables": False,
+                "publicationVectorGate": "both-role-postWrite-verifications-required",
+            }
 
         frames = {role: spark.read.format("delta").option(
             "versionAsOf", result["tables"][role]["postWrite"]["version"]
