@@ -18,6 +18,7 @@ import stat
 import subprocess
 import sys
 import time
+import uuid
 
 
 PACKET = Path(__file__).resolve().parent
@@ -26,6 +27,8 @@ LIMIT_SECONDS = 300
 LIMIT_PRIVATE = 512 * 1024 * 1024
 LIMIT_RECEIPTS = 16 * 1024 * 1024
 LIMIT_COMMAND_OUTPUT = 1024 * 1024
+DEFAULT_ATTEMPT_PARENT = Path("/private/tmp/ashlar-r02-attempts")
+REQUIRED_ROLES = {"object_current", "edge_current", "tombstone", "whole_source_history"}
 RUNTIME = {
     "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
     "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f",
@@ -185,16 +188,32 @@ def execute(manifest_path: Path, review_path: Path, phase: str) -> None:
                 or prior_state.get("attemptId") != prior.get("attemptId")):
             raise ValueError("prior state path is not inside its recorded private attempt")
         vector = manifest.get("publicationVector")
-        if not isinstance(vector, dict) or not isinstance(vector.get("tables"), list) or not vector["tables"]:
+        if (not isinstance(vector, dict) or not isinstance(vector.get("id"), str) or not vector["id"]
+                or not isinstance(vector.get("manifestUuid"), str) or not vector["manifestUuid"]
+                or not isinstance(vector.get("tables"), list)):
             raise ValueError("continuation requires a complete publication vector")
         table_names = set()
+        roles = set()
         for table in vector["tables"]:
-            if not isinstance(table.get("name"), list) or not table.get("uuid") or type(table.get("version")) is not int or table["version"] < 0:
+            if (not isinstance(table.get("name"), list) or len(table["name"]) != 3
+                    or any(not isinstance(part, str) or not part for part in table["name"])
+                    or not isinstance(table.get("uuid"), str) or type(table.get("version")) is not int or table["version"] < 0):
                 raise ValueError("publication vector table identity is incomplete")
+            try:
+                uuid.UUID(table["uuid"])
+            except (ValueError, AttributeError):
+                raise ValueError("publication vector table UUID is invalid") from None
             name = tuple(table["name"])
             if name in table_names:
                 raise ValueError("publication vector repeats a table identity")
             table_names.add(name)
+            roles.add(table["name"][-1])
+        try:
+            uuid.UUID(vector["manifestUuid"])
+        except (ValueError, AttributeError):
+            raise ValueError("publication manifest UUID is invalid") from None
+        if roles != REQUIRED_ROLES or len(table_names) != len(REQUIRED_ROLES):
+            raise ValueError("publication vector must contain exactly the four required Ashlar table roles")
         vector_bytes = json.dumps(vector, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
         if hashlib.sha256(vector_bytes).hexdigest() != manifest.get("publicationVectorSha256"):
             raise ValueError("complete publication vector hash mismatch")
@@ -232,7 +251,9 @@ def execute(manifest_path: Path, review_path: Path, phase: str) -> None:
     attempt_id = manifest.get("attemptId")
     if not isinstance(attempt_id, str) or not attempt_id.isascii() or not attempt_id.replace("-", "").isalnum() or len(attempt_id) < 16:
         raise ValueError("attemptId must be a fresh UUID-like identifier")
-    configured_base = Path(manifest.get("attemptParent", str(Path.home() / "Library/Caches/ashlar-r02-attempts")))
+    configured_base = Path(manifest.get("attemptParent", str(DEFAULT_ATTEMPT_PARENT)))
+    if configured_base != DEFAULT_ATTEMPT_PARENT:
+        raise ValueError("attemptParent must be the private Ashlar directory under /private/tmp")
     configured_base.mkdir(mode=0o700, parents=True, exist_ok=True)
     if any(path.is_symlink() for path in (configured_base, *configured_base.parents)):
         raise ValueError("attempt parent path must not contain symlinks")
@@ -269,10 +290,10 @@ def execute(manifest_path: Path, review_path: Path, phase: str) -> None:
             if time.monotonic() >= deadline:
                 raise TimeoutError("five-minute total deadline expired")
             kind = operation.get("kind")
-            if phase == "prepublication" and kind not in {"initialize", "publish", "singleton"}:
+            if phase == "prepublication" and kind not in {"initialize", "publish", "replay"}:
                 raise ValueError("unsupported prepublication operation")
-            if phase == "continuation" and kind != "query":
-                raise ValueError("continuation manifest may contain only query operations")
+            if phase == "continuation" and kind not in {"singleton", "query"}:
+                raise ValueError("unsupported continuation operation")
             argv = operation.get("argv")
             run_one(argv, attempt, deadline, receipts / f"operation-{index:02d}.log", attempt, receipts)
             check_limits(attempt, receipts)

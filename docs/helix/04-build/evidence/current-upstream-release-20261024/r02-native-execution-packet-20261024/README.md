@@ -158,8 +158,8 @@ explicit JSON manifest and a separate Sol review receipt whose SHA-256 names
 those exact manifest bytes. It checks the exact current Git revision, four
 fixture/source hashes, seven Ashlar runtime-source hashes, and all five R05 JAR
 hashes. It requires a fresh UUID-like attempt ID, creates a mode-0700
-user-owned private directory in the user cache, and runs manifest argv steps
-serially. It kills the process group on the 300-second total deadline or
+user-owned private directory under `/private/tmp/ashlar-r02-attempts`, and runs
+manifest argv steps serially. It kills the process group on the 300-second total deadline or
 a byte-cap breach, and leaves durable attempt state so a failed attempt cannot
 be silently repeated. Command output is capped at 1 MiB each, private attempt
 data at 512 MiB, and retained receipts at 16 MiB.
@@ -168,7 +168,9 @@ The prepublication phase allows exactly initialization, batches 1–3, and the
 byte-identical batch-3 replay. It must retain the first-publication vector and
 records its complete value and digest in an fsynced state file before exiting
 as `complete-held-after-publication`. It cannot run native reads or queries. A separate
-`continuation` manifest must include the actual complete publication vector,
+`continuation` manifest must include the actual complete publication vector
+with exactly the `object_current`, `edge_current`, `tombstone`, and
+`whole_source_history` roles,
 the hash of that state file, and the exact frozen Weft request/response files
 for the original and positive Backend03 requests and Backend02 page and
 continuation. Each binding must equal the complete vector and each compiler
@@ -183,6 +185,12 @@ one phase with:
 ```sh
 python3 r02_supervisor.py --phase prepublication --manifest /absolute/private/prepublication.json --review /absolute/private/prepublication-review.json
 python3 r02_supervisor.py --phase continuation --manifest /absolute/private/continuation.json --review /absolute/private/continuation-review.json
+```
+
+The supervisor's inert phase and refusal tests run with:
+
+```sh
+python3 -m unittest discover -s docs/helix/04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024 -p 'test_r02_supervisor.py' -v
 ```
 
 The continuation command is unavailable until the first phase has completed,
