@@ -1,13 +1,14 @@
 # R04 B-source installation packet (inert draft)
 
-Status: review draft only. No PostgreSQL, Spark, source registration, catalog acceptance, feed read, destination receipt, ACK, or cleanup was performed. This packet does not authorize execution. The exact source candidate bytes, document ID and hash, plus the origin candidate bytes and hash are pinned; accepted-source authority, provider-assigned identities, B execution pins and human approval remain unresolved. The R04 schedule is still unfrozen.
+Status: review draft only. No PostgreSQL, Spark, source registration, catalog acceptance, feed read, destination receipt, ACK, or cleanup was performed. This packet does not authorize execution. Offline preparation now covers exact retained source and origin candidate bytes, the installed B runtime, a pure Truss catalog-preparation call, and a separate R04 model proposal. The model proposal prepared as valid but incomplete because Truss's packaged UMF core 0.10.0 retained `ashlar.r04` as an unknown extension; its meaning is not established by that result. Accepted-source authority, provider-assigned identities, approved B execution pins, and human approval remain unresolved. The R04 schedule is still unfrozen.
 
-The B-owned [readiness record](b-installation-readiness.json) keeps execution
-approval, shared-slot admission, origin approval, approved resource limits,
-retention owner, and provider-assigned identities unresolved. The companion
-config now records selected candidate B paths and routine role/consumer/request
-defaults; these values are not approval. Source and origin custody copies exist,
-and the post-install-verified attempt-02 runtime is retained outside the B output root. The matching effect-free byte preflight is
+The B-owned [readiness record](b-installation-readiness.json) remains inert:
+execution approval, shared-slot admission, origin approval, approved resource
+limits, retention owner, and provider-assigned identities are unresolved. The
+companion config records candidate B paths and routine role/consumer/request
+defaults; these values are not approval. Source and origin custody copies
+exist, and the post-install-verified attempt-02 runtime is retained outside the
+B output root. The matching effect-free byte preflight is
 [`truss_b_source_preflight.py`](../../../../../../src/ashlar_host/truss_b_source_preflight.py);
 it verifies the exact retained source and origin bytes without importing
 Truss/PostgreSQL or creating files. The source document revision in the packet is external metadata;
@@ -106,20 +107,39 @@ No native graph work or ACK belongs in this installation packet. A R03 status re
 ## Unresolved pins and code/evidence gaps
 
 The attempt proposal makes the follow-up review concrete without filling the
-executor config. Before any B-only installation attempt, an owner must approve
-or replace the origin payload and proposed B names/paths, confirm source reuse
-suitability and catalog CAS expectations, provide the dedicated B runtime
-receipt and retention custodian, and approve the one-attempt resource limits.
-The 5432 slot must be explicitly released after A/Arras shutdown; recheck the
-process and socket inventory immediately before launch. Truss derives a unique
-socket child from canonical PGDATA, but this does not make the fixed port
-concurrent-safe or provide an OS lock. R04 schedule freeze/execution still waits
-for completed A R03 identity custody and independently accepted B source,
-consumer, feed, and protected ACK-scope evidence.
+executor config. The candidate source is the retained 4,100-byte UMF 0.10.0
+document, SHA-256
+`498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b`;
+the candidate origin is 141 bytes, SHA-256
+`2e722d0a3c3124d2df2ff4434968de412ef6ad767d4edfd889e160f85a369247`, and
+remains unapproved. The 27-wheel CPython 3.12.14 attempt-02 install and its
+focused 24/24 SDK/API checks have separate receipts. The pure preparation result
+is recorded in `b-offline-preparation-assessment-20261023.json`; it is not
+source acceptance. The separate R04 model draft's structural preparation
+returned `valid: true`, `complete: false` with an `UNKNOWN_EXTENSION` warning;
+it does not establish the proposed extension's meaning or approval.
 
-All following values are currently unknown and intentionally `null` in the companion register: actual B source bytes and digest; accepted UMF 0.10 source version/document ID/revision/extension vocabulary; expected catalog predecessor; Truss provider acceptance revision/report/view bytes/digests; B registration and installation IDs; B source epoch/namespace; B feed, transaction inventory and consumer/registration/genesis cursor; B owner and registrar/client role names and session binding; ordinary B reader role/grant names; protected B destination ID and authority; destination receipt format and durable verification; B PGDATA/root paths, retention owner, resource bounds, and exact package/environment lock; B overlap witness against A local IDs; accepted incident-edge delete semantics required before R04 schedule freeze.
+Before any B-only installation attempt, an owner must approve or replace the
+origin payload and proposed B names/paths, confirm source reuse suitability and
+catalog CAS expectations, name a retention custodian, and approve the one-
+attempt resource limits. The 5432 slot must be explicitly released after
+A/Arras shutdown; recheck the process and socket inventory immediately before
+launch. Truss derives a unique socket child from canonical PGDATA, but this
+does not make the fixed port concurrent-safe or provide an OS lock. B-specific
+provider acceptance revision/report/view, installation and source identities,
+feed/epoch/namespace, and consumer registration/cursor can only be recorded
+after an authorized installation. R04 schedule freeze/execution additionally
+waits for completed A R03 identity custody, resolved cross-source semantics,
+independently accepted B feed evidence, and protected ACK-scope evidence.
 
-There is no independently accepted B model/report/view or B feed/epoch in the available R04 evidence. The current UMF 0.10 catalog example is a type/property vocabulary witness only. The selected R3 Truss runtime package evidence is not itself source acceptance. Existing A 0.48 source and consumer identities cannot satisfy B independence.
+The remaining readiness register in
+[`b-installation-readiness.json`](b-installation-readiness.json) and the
+unbound-pin register in `../r04-two-source-schedule-readiness.json` distinguish
+candidate values from authority and provider-issued observations. In
+particular, no independently accepted B model/report/view or B feed/epoch is
+available. Existing A source and consumer identities cannot satisfy B
+independence, and the selected R3 Truss runtime package evidence is not source
+acceptance.
 
 The new B worker/supervisor are an implementation draft, not an executable governed runbook. Attempt pins and human approval are intentionally absent, and independent provider readback of consumer registration is unavailable. The public APIs are composable transaction operations; caller-side custody, prebound B owner/registrar and reader role selection, directory ownership proof, commit certainty, and protected destination verification remain required controls. This is an evidence/control gap, not a request to extend Truss or mutate Ashlar source.
 
