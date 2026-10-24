@@ -48,12 +48,18 @@ def make_query_models():
 
 
 def refusal_location(exc: BaseException) -> str:
-    """Report only exception type and innermost source location, never payloads."""
+    """Report a bounded source-location chain without exception messages/values."""
     frame = exc.__traceback__
-    while frame is not None and frame.tb_next is not None:
+    locations = []
+    while frame is not None:
+        locations.append(f"{Path(frame.tb_frame.f_code.co_filename).name}:{frame.tb_lineno}")
         frame = frame.tb_next
-    source = f"{Path(frame.tb_frame.f_code.co_filename).name}:{frame.tb_lineno}" if frame else "unknown:0"
-    return f"{type(exc).__module__}.{type(exc).__name__} at {source}"
+    if not locations:
+        locations = ["unknown:0"]
+    # Keep the raising site and its nearest callers; never include exception
+    # text, source values, or unbounded traceback detail in the worker receipt.
+    chain = " <- ".join(reversed(locations[-8:]))
+    return f"{type(exc).__module__}.{type(exc).__name__} at {chain}"
 
 
 def run(manifest_path: Path, repository: Path) -> None:

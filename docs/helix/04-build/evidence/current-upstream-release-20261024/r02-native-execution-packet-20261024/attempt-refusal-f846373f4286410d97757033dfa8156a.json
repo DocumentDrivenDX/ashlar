@@ -1,0 +1,48 @@
+{
+  "profile": "ashlar-r02-continuation-attempt-refusal/0.1",
+  "attemptId": "f846373f4286410d97757033dfa8156a",
+  "manifestSha256": "caa17cb075de8bb5358b77622bad4118ddb41024973f26f804f0de12a2a820dd",
+  "sourceRevision": "b89de921653b700646bdf085839bb45a6498c4e4",
+  "supervisorExitCode": 2,
+  "consumed": true,
+  "supervisorState": {
+    "status": "running",
+    "sha256": "0a47b74d7740bf6446aa9df9f771f575dc9d223e896f742119d48fdc09ebd1c5"
+  },
+  "workerLogSha256": "3f5a0d37ad802f758e4ba4cabce61c507ad0234e5b017e1c934b2307d35271ab",
+  "sourceAdmission": {
+    "reportSha256": "e63a909db99e080fc83d03629a891e6ed602c955ecb69abb0a9b7a43ee8de1c3",
+    "admitted": true,
+    "published": false,
+    "acknowledged": false
+  },
+  "failure": {
+    "reportedType": "builtins.ValueError",
+    "reportedLocation": "configured_sdk_pages.py:25",
+    "callPath": [
+      "src/ashlar_host/configured_sdk_pages.py:453 compares expected_page1_rows with firstPageVisibleRows",
+      "src/ashlar_host/configured_sdk_pages.py:294 sets expected_page1_rows from full carrier rows",
+      "src/ashlar_host/configured_sdk_page_oracle.py returns rows with visible outputs and compiler key outputs"
+    ],
+    "cause": "The compiler page declares visibleOutputs=2 and keyOutputs=[2]. The pure oracle returns two three-column carrier rows: [person-1,Ada,person-1] and [person-2,Ben,person-2]. The independent source oracle firstPageVisibleRows contains only [person-1,Ada] and [person-2,Ben]. The worker compared carrier rows with visible rows and failed its assertion before writing the pre-SQL gate manifest.",
+    "effectFreeReproduction": {
+      "distribution": "selected Weft 0.4.53",
+      "compilerStatus": "compiled",
+      "carrierRows": [["person-1", "Ada", "person-1"], ["person-2", "Ben", "person-2"]],
+      "visibleRows": [["person-1", "Ada"], ["person-2", "Ben"]],
+      "sourceOracleRows": [["person-1", "Ada"], ["person-2", "Ben"]]
+    }
+  },
+  "stoppedBefore": [
+    "pre-sql gate manifest and review receipt",
+    "gate-owned singleton and grouped/page query callbacks",
+    "continuation result"
+  ],
+  "noQuerySql": {
+    "basis": "The failure occurred during effect-free expected-page construction before gate manifest creation. Gate-owned singleton and SQL callbacks are invoked only inside reviewed gate execution.",
+    "gateFilesPresent": false,
+    "publicationChanged": false,
+    "protectedAck": false
+  },
+  "nativeRetryAuthorized": false
+}

@@ -25,7 +25,7 @@ PACKET_RELATIVE = "docs/helix/04-build/evidence/current-upstream-release-2026102
 PREPUBLICATION_RESULT = ROOT / "docs/helix/04-build/evidence/current-upstream-release-20261024/r02-native-prepublication-20261024/result.json"
 PREPUBLICATION_ROOT = Path("/private/tmp/ashlar-r02-attempts/ashlar-r02-0b4774f5fb2c43bbb026da651aecd155")
 ATTEMPT_PARENT = Path("/private/tmp/ashlar-r02-attempts")
-RUNTIME_SOURCE_REVISION = "b89de921653b700646bdf085839bb45a6498c4e4"
+RUNTIME_SOURCE_REVISION = "842551f96491d361040d6312da20750b65b3571b"
 INDEX = Path("/private/tmp/ashlar-r02-weft053-index/index2.json")
 PYTHON = Path("/private/tmp/ashlar-truss050-current-cohort-9c745278-r13/runtime/venv/bin/python3.12")
 JAVA_HOME = Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home").resolve(strict=True)

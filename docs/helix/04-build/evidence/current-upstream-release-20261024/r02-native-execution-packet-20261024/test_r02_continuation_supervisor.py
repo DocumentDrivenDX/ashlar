@@ -44,8 +44,43 @@ class ContinuationPacketTests(unittest.TestCase):
         except ValueError as exc:
             summary = worker.refusal_location(exc)
         self.assertIn("ValueError", summary)
-        self.assertRegex(summary, r"test_r02_continuation_supervisor\.py:\d+$")
+        self.assertRegex(summary, r"test_r02_continuation_supervisor\.py:\d+")
+        self.assertLessEqual(summary.count(" <- "), 7)
         self.assertNotIn("private payload", summary)
+
+    def test_selected_weft_page_carriers_match_visible_source_oracle(self):
+        """Reproduce page construction without Spark; hidden key is not visible output."""
+        import hashlib
+        from test_configured_typed_graph_projection_oracle import graph_scope
+        from ashlar.weft_053_distribution import Weft053Distribution, Weft053Paths
+        from ashlar.weft_binding import LAYOUT_SHA256
+        from ashlar_host.configured_typed_graph_sdk_binding import configured_typed_graph_sdk_request
+        from ashlar_host.configured_sdk_page_oracle import configured_sdk_page_oracle
+        from ashlar_host.configured_sdk_pages import _visible_page_rows
+        from ashlar_host.delta_custody import encoded
+
+        index = Path("/private/tmp/ashlar-r02-weft053-index/index2.json")
+        raw = index.read_bytes()
+        compiler = Weft053Distribution(Weft053Paths(index, hashlib.sha256(raw).hexdigest()))
+        with graph_scope(1) as scope:
+            aliases = {name: "spark_catalog.ashlar_configured_query_test." + name.split(".")[-1]
+                       for name in scope.descriptor.versions}
+            request = configured_typed_graph_sdk_request(scope.source.configuration,
+                dict(scope.descriptor.raw), scope.vector, scope.manifest_uuid, aliases,
+                "SELECT p.person_key,p.person_name FROM Person p", {}, layout_sha256=LAYOUT_SHA256)
+            envelope = {"version": "weft.engine-page/0.1", "compiler": "ashlar-spark4-pages",
+                        "request": request, "pageSize": 2}
+            response = compiler.compile_engine_page_json(encoded(envelope))
+            program = json.loads(response)
+            carrier = configured_sdk_page_oracle(scope, request, program)({}, None)["rows"][:2]
+            visible = _visible_page_rows(program, carrier)
+            self.assertEqual(program["page"]["visibleOutputs"], 2)
+            self.assertEqual(program["page"]["keyOutputs"], [2])
+            self.assertEqual(carrier, [["person-1", "Ada", "person-1"], ["person-2", "Ben", "person-2"]])
+            self.assertEqual(visible, [["person-1", "Ada"], ["person-2", "Ben"]])
+            oracle = json.loads(Path(__file__).with_name("source-oracle.json").read_bytes())
+            expected = oracle["firstPublicationSourceDerivedExpectations"]["objectSingletons"]
+            self.assertEqual(visible, [[item["properties"]["21"], item["properties"]["22"]] for item in expected[:2]])
 
     def test_prior_invocation_bytes_are_checked_before_json_use(self):
         with tempfile.TemporaryDirectory(prefix="ashlar-r02-invocation-", dir="/private/tmp") as tmp:
