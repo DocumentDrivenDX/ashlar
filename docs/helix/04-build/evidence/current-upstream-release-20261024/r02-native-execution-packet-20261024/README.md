@@ -189,20 +189,27 @@ After batch-3 replay, the worker checks the result manifest against all six
 initialized target identities, requires exactly the four graph table roles
 and their versions, then writes the stable publication vector (configured
 physical target names, UUIDs, versions, publication ID, and manifest UUID) to
-`publication-vector.json`. It never invents a query-alias namespace. The
-supervisor refuses continuation: query compilation must bind to aliases created
-inside the live `open_configured_query_aliases` context, and the selected Weft
-0.4.53 compiler is not installed in the R05 Spark cohort. A future continuation
-runner must freeze and review the live alias-bound artifacts before executing
-their SQL.
+`publication-vector.json`. It never invents a query-alias namespace. The earlier
+prepublication supervisor refuses continuation. The new
+[`r02_continuation_supervisor.py`](r02_continuation_supervisor.py) prepares a
+separate effect-free packet for one ordinal-1 continuation using selected Weft
+0.4.53 with the verified Spark 4.2.0/Delta 4.4.1 cohort. Its worker compiles
+under the actual live alias context, freezes the exact singleton, Backend03,
+and page-1 artifacts, and pauses for independent review before SQL. Page 1
+then produces the continuation token; the worker freezes that exact
+token-bound continuation and pauses for a second review before page 2. Neither
+stage is executable until Sol reviews the exact attempt manifest and
+authorizes the matching gate receipts. No continuation SQL has run.
 
 All absolute source/config/output paths are inside the attempt root. The
 selected Python, JDK, Bun and Git executables are external runtime inputs and
 are version/hash checked by the generator and supervisor. The R05 native
-Python cohort contains Spark 4.2.0, Delta 4.4.1 and Weft 0.4.48;
-prepublication does not invoke Weft. Public UMF core 0.10.1 validation and
-Weft 0.4.53 compilation use their separately verified environments. The
-packet does not claim a unified Python package cohort.
+Python cohort contains Spark 4.2.0, Delta 4.4.1 and Weft 0.4.48. The
+continuation packet separately verifies the selected Weft 0.4.53 wheel/index
+and installed payload against that Spark/Delta cohort; it does not weaken the
+existing 0.48 verifier or claim UMF 0.10.1 is installed in the Spark
+environment. Its generated attempt-local index rewrites only schema paths to
+the primary checkout and retains the selected schema bytes and hashes.
 
 The first supervised attempt is preserved as a consumed parse refusal in
 [`attempt-refusal-23732236f7e94550b2fa24995c603b75.json`](attempt-refusal-23732236f7e94550b2fa24995c603b75.json).
@@ -256,17 +263,24 @@ hash. Sol's review receipt must bind the exact continuation manifest hash and
 approve those vector-bound artifacts. Only then can the separate invocation
 run the singleton and four query steps.
 
-The generator and supervisor require the exact Ashlar Git HEAD and selected
-source hashes at manifest creation and execution; regenerate after any code or
-source change. The generated manifest and invocation templates live inside
-the private attempt root. The approved one-shot attempt `0b4774f5fb2c43bbb026da651aecd155` completed all
-five steps and closed as `complete-held-after-publication`; its durable result
-is linked above. Its final vector is `.3` only. The selected Weft 0.4.53
-query continuation remains held: it needs a new runner that uses the exact
-live aliases and compiler cohort, freezes compiler artifacts inside that
-alias context, and receives independent review before SQL. This packet makes
+The generator and supervisor bind the selected runtime source revision,
+packet/helper/oracle hashes, previous completed publication state/vector,
+source schemas, selected Weft cohort, and exact supervisor argv. The generated
+attempt-local manifest and rebuilt index are effect-free. The run command is
+single-use and requires a separate Sol receipt over the exact manifest, prior
+state/vector, runtime, and packet file hashes. It refuses competing Java/Spark
+processes, enforces a 300-second whole-process deadline, 512 MiB private tree,
+16 MiB retained receipts and 1 MiB output cap, and records consumed state so a
+failed attempt cannot be silently repeated. The worker's live review deadline
+is 230 seconds from worker start, leaving at least 40 seconds for orderly
+operation/close and additional supervisor slack.
+
+The approved one-shot attempt `0b4774f5fb2c43bbb026da651aecd155` completed all
+five `.3` prepublication steps and closed as `complete-held-after-publication`;
+its durable result is linked above. The selected .53 continuation packet is a
+separate local `.3` read/query slice against that preserved vector. It makes
 no `.4-xxhash64`, Truss, production source, protected ACK, Unity Catalog, or
-cloud authority claim.
+cloud authority claim. No continuation native/SQL attempt has been made.
 
 The inert phase/refusal tests and focused invocation/vector checks run with:
 
@@ -274,10 +288,12 @@ The inert phase/refusal tests and focused invocation/vector checks run with:
 python3 -m unittest discover -s docs/helix/04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024 -p 'test_r02_*.py' -v
 ```
 
-The continuation invocation is unavailable until the first phase has
-completed, the actual vector and freshly compiled artifacts exist, and their
-exact manifest bytes have separate review. Each manifest must name the exact
-current Git HEAD and all pinned source/runtime hashes.
+The prepublication has completed, so the continuation packet can bind its
+actual vector effect-free. Compiler artifacts are generated only inside the
+held live scope and reviewed before each dependent SQL stage. A worker run is
+still held for Sol's review of the exact generated manifest and the separate
+two stage receipts; packet preparation itself invoked no Spark, Java, SQL,
+cloud, source, or ACK effects.
 
 ## Focused preflight outcome and open evidence
 

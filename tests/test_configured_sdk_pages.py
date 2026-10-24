@@ -4,7 +4,7 @@ from dataclasses import replace
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
-from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig,ConfiguredSdk053LiveSession,_require_frozen_page_response,_require_frozen_grouped_artifact,_supported_page_compiler,run_configured_sdk_pages
+from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig,ConfiguredSdk053LiveSession,_require_frozen_page_response,_require_frozen_grouped_artifact,_r02_review_deadline,_supported_page_compiler,run_configured_sdk_pages
 from ashlar_host.configured_local_runtime import page_configured_local,run_configured_local_r02_weft053
 from ashlar_host.path_capture import PathCaptureConfig
 
@@ -76,3 +76,15 @@ class Tests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 run_configured_local_r02_weft053(object(),ordinal=2,query=query,selection=selection)
             run.assert_not_called()
+
+    def test_r02_gate_deadline_is_bounded_by_worker_deadline_with_close_slack(self):
+        deadline,budget=_r02_review_deadline({'reviewDeadlineMonotonic':230.0,
+            'wholeProcessDeadlineMonotonic':270.0},now=0.0)
+        self.assertEqual((deadline,budget),(230.0,230))
+        for invalid in (
+            {'reviewDeadlineMonotonic':240.0,'wholeProcessDeadlineMonotonic':270.0},
+            {'reviewDeadlineMonotonic':230.0,'wholeProcessDeadlineMonotonic':269.0},
+            {'reviewDeadlineMonotonic':230,'wholeProcessDeadlineMonotonic':270.0},
+        ):
+            with self.subTest(invalid=invalid),self.assertRaises(ValueError):
+                _r02_review_deadline(invalid,now=0.0)

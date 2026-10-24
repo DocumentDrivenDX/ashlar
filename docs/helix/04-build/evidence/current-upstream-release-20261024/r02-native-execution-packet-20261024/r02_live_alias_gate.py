@@ -170,7 +170,9 @@ class R02LiveAliasReviewGate:
             _require(time.monotonic()<self.deadline);self.live_check()
             _require(self.executing_name is None)
             self.executing_name=name
-            try:value=operation()
+            try:
+                value=operation()
+                _require(time.monotonic()<self.deadline);self.live_check()
             finally:self.executing_name=None
             results[name]=value;cursor+=1
             return value
