@@ -5,6 +5,18 @@ The public Weft 0.4.53 target-matched compiler replay is recorded in the sibling
 [`weft053-r02-spark42-public-target-20261024`](../weft053-r02-spark42-public-target-20261024/README.md)
 receipt. It closes compiler compatibility only.
 
+Run `python3 preflight.py` from this directory for the effect-free static
+readiness check. It verifies the pinned UMF model, configured source, 13-event /
+three-batch fixture and public Weft receipt targets. It does not inspect process
+state or start Spark/Java. The result is `prepared_native_held` until R12 releases
+the slot, the approved process inventory is obtained, and fresh request/artifact
+bytes are bound to the new `.4-xxhash64` publication. The retained Weft replay
+uses `.3` binding examples, so its response bytes cannot be reused as R02 native
+evidence. This packet does not yet contain a native executor: the existing
+configured-local command requires an operator-owned per-invocation configuration
+and the fresh publication vector, both of which must be created after the slot
+release gate without changing the frozen source tuple.
+
 The prior `current-native-query-and-sdk-pages-20261021.json` receipt remains
 historical evidence: it used a private Weft build and an `ashlar-delta/0.3`
 publication, and it does not retain a reopenable R02 table path. Reopening that
