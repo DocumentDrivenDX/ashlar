@@ -177,8 +177,15 @@ continuation. Each binding must equal the complete vector and each compiler
 response must preserve its binding hash. Sol's review receipt must bind the
 exact continuation manifest hash and approve those vector-bound artifacts.
 Only then can the separate invocation run the singleton and four query steps.
-The seven host-source pins must be rebound after the Truss 0.50 source changes
-land. This supervisor has not been used to invoke Spark or native operations.
+The selected source is current Ashlar main commit
+`c33bef013d737b8a56f43faafe5f5c1966065d1f`. After rebasing this packet onto
+that source, all four fixture hashes and seven selected host-source hashes
+were rechecked and still match. The supervisor also requires the exact final
+packet Git HEAD in each future manifest. No phase manifest or Sol review
+receipt exists, the actual `.4` publication vector has not been created, and
+its fresh Weft responses therefore cannot yet be frozen. These are the
+remaining execution blockers; the supervisor has not been used to invoke
+Spark or native operations.
 After Sol supplies the reviewed manifest and review receipt, invoke exactly
 one phase with:
 
@@ -195,8 +202,8 @@ python3 -m unittest discover -s docs/helix/04-build/evidence/current-upstream-re
 
 The continuation command is unavailable until the first phase has completed,
 the actual vector and freshly compiled artifacts exist, and their exact
-manifest bytes have separate review. The supervisor refuses the current
-historical source revision until its explicit pin is rebound.
+manifest bytes have separate review. Each manifest must name the exact
+current Git HEAD and all pinned source/runtime hashes.
 
 ## Focused preflight outcome and open evidence
 
