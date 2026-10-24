@@ -1,0 +1,48 @@
+{
+  "wheel": {
+    "artifact": "ashlar_graph_toolkit-0.1.0.dev1-py3-none-any.whl",
+    "install_command": [
+      "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+      "-m",
+      "pip",
+      "install",
+      "--no-deps",
+      "--no-build-isolation",
+      "--disable-pip-version-check",
+      "--no-index",
+      "--target",
+      "/private/tmp/ashlar-r06-current-96b0bf40-wkYoR9/install-wheel",
+      "/private/tmp/ashlar-r06-current-96b0bf40-wkYoR9/dist/ashlar_graph_toolkit-0.1.0.dev1-py3-none-any.whl"
+    ],
+    "install_seconds": 2.409,
+    "install_returncode": 0,
+    "smoke_returncode": 0,
+    "smoke_output": "{'ashlar': '/private/tmp/ashlar-r06-current-96b0bf40-wkYoR9/install-wheel/ashlar/__init__.py', 'ashlar_host': '/private/tmp/ashlar-r06-current-96b0bf40-wkYoR9/install-wheel/ashlar_host/__init__.py', 'local_delta4_resources': 4, 'managed_profiles': ['0.3', '0.4-xxhash64']}",
+    "entrypoint_path": "/private/tmp/ashlar-r06-current-96b0bf40-wkYoR9/install-wheel/bin/ashlar",
+    "entrypoint_returncode": 0,
+    "entrypoint_first_line": "usage: ashlar [-h]"
+  },
+  "sdist": {
+    "artifact": "ashlar_graph_toolkit-0.1.0.dev1.tar.gz",
+    "install_command": [
+      "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+      "-m",
+      "pip",
+      "install",
+      "--no-deps",
+      "--no-build-isolation",
+      "--disable-pip-version-check",
+      "--no-index",
+      "--target",
+      "/private/tmp/ashlar-r06-current-96b0bf40-wkYoR9/install-sdist",
+      "/private/tmp/ashlar-r06-current-96b0bf40-wkYoR9/dist/ashlar_graph_toolkit-0.1.0.dev1.tar.gz"
+    ],
+    "install_seconds": 9.642,
+    "install_returncode": 0,
+    "smoke_returncode": 0,
+    "smoke_output": "{'ashlar': '/private/tmp/ashlar-r06-current-96b0bf40-wkYoR9/install-sdist/ashlar/__init__.py', 'ashlar_host': '/private/tmp/ashlar-r06-current-96b0bf40-wkYoR9/install-sdist/ashlar_host/__init__.py', 'local_delta4_resources': 4, 'managed_profiles': ['0.3', '0.4-xxhash64']}",
+    "entrypoint_path": "/private/tmp/ashlar-r06-current-96b0bf40-wkYoR9/install-sdist/bin/ashlar",
+    "entrypoint_returncode": 0,
+    "entrypoint_first_line": "usage: ashlar [-h]"
+  }
+}

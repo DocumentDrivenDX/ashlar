@@ -1,0 +1,81 @@
+{
+  "profile": "ashlar-r06-current-source-package-audit/0.1",
+  "source": {
+    "commit": "96b0bf40b08305dd5a48ff08a6bce383d8327a20",
+    "archive_paths": [
+      "pyproject.toml",
+      "README.md",
+      "LICENSE.md",
+      "LICENSE-MIT",
+      "LICENSE-APACHE",
+      "src",
+      "tests"
+    ],
+    "archive_sha256": "4b974f75d2af9298e47b6b050291fc148b2b7eb7bb3ec9a09afb10a1912189a9",
+    "archive_bytes": 17029120,
+    "pyproject_git_blob": "7af01eeb58eaf0dbd7ae7d0246618e97a96ca724"
+  },
+  "build": {
+    "python": "CPython 3.12.14",
+    "setuptools": "84.1.0",
+    "wheel": "0.48.0",
+    "command": "setuptools.build_meta.build_sdist(dist); setuptools.build_meta.build_wheel(dist)",
+    "network_used": false,
+    "elapsed_seconds": 17.675
+  },
+  "metadata": {
+    "name": "ashlar-graph-toolkit",
+    "version": "0.1.0.dev1",
+    "requires_python": ">=3.9",
+    "license_expression": "MIT OR Apache-2.0",
+    "license_files": [
+      "LICENSE.md",
+      "LICENSE-MIT",
+      "LICENSE-APACHE"
+    ],
+    "console_script": "ashlar = ashlar.cli:main",
+    "truss_local_pin": "truss-toolkit[local,native] 0.0.50; wheel sha256 7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00",
+    "typed_sdk_pins": [
+      "UMF core 0.10.1 platform wheels",
+      "umf_access 0.1.0.dev7",
+      "Weft 0.4.53",
+      "py-mini-racer 0.14.1"
+    ]
+  },
+  "artifacts": {
+    "wheel": {
+      "filename": "ashlar_graph_toolkit-0.1.0.dev1-py3-none-any.whl",
+      "sha256": "79cae8ffe43d95aced8cf07143bf4338838b8d320cc8fc0f6a1c93d1c331e0fd",
+      "bytes": 2374923,
+      "archive_members": 572,
+      "resource_files_expected_and_included": 67,
+      "record_payloads_verified": 571,
+      "record_errors": 0,
+      "license_payloads_match_source": true
+    },
+    "sdist": {
+      "filename": "ashlar_graph_toolkit-0.1.0.dev1.tar.gz",
+      "sha256": "c8ff9cf8edb2620849299ea83832e3ad9e251c61211405d52a34ed759d58d860",
+      "bytes": 3234198,
+      "archive_file_members": 1199,
+      "resource_files_expected_and_included": 67,
+      "missing_or_extra_resource_files": 0,
+      "license_payloads_match_source": true
+    }
+  },
+  "out_of_checkout": {
+    "wheel_and_sdist_installed_to_separate_temporary_targets": true,
+    "no_deps_no_index_no_build_isolation": true,
+    "imports_resolved_from_install_target": true,
+    "smoke": [
+      "ashlar_host.local_current_delta4_umf._pinned_resources",
+      "managed-current .3 loader",
+      "managed-current .4-xxhash64 loader"
+    ],
+    "console_entrypoint_help": "ashlar --help succeeded from both targets"
+  },
+  "limitations": [
+    "Optional dependency extras were inspected in metadata but not resolved or installed; this run was offline and deliberately avoided Spark/Delta or other native runtime installs.",
+    "This is a local macOS package build/install check; it does not qualify optional dependency installation, other platforms, runtime execution, or production support."
+  ]
+}
