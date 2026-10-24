@@ -1,0 +1,49 @@
+{
+  "profile": "ashlar-r02-consumed-attempt-refusal/0.1",
+  "attemptId": "50c53c1e79274f49b816ebf5494073e0",
+  "manifestSha256": "6b46d7c72812cd21944b4fc342cb38dcec5432702f7c067e5cbd18fbe27a90ca",
+  "sourceRevision": "9610fe98497959e944374a54fd3275dbbc6d4597",
+  "supervisorOutcome": {
+    "status": "failed-closed",
+    "workerExit": 2,
+    "elapsedSeconds": 99.502,
+    "processGroupClosed": true,
+    "processGroupCloseEvidence": "independent-empty-inventory",
+    "stateSha256": "80580d027902a9c9881ade6ac3c1663abd25a2160eb858e35ad107d15d001877",
+    "processInventorySha256": "2438561289299528d716281ec9705effd650656cb8031030d3e89ba80ac6487e"
+  },
+  "reviewedPreSqlStage": {
+    "manifestSha256": "338ff562308a560fd21ba5b3abcb49cc1b9ad57479ba3b1129e7763781d015b0",
+    "reviewSha256": "d250473ec4c64b95795766bd7a7c8fe055a41ea7aa68643e7e9e5c61e4009f35",
+    "manifestWrittenAtLocal": "2026-10-24 06:26:53 EDT",
+    "reviewWrittenAtLocal": "2026-10-24 06:27:26 EDT"
+  },
+  "workerLog": {
+    "sha256": "61ce47f51e379cdbe15a34efa3e242c8cb6418beec42ce33f4d486f674204b17",
+    "writtenAtLocal": "2026-10-24 06:27:52 EDT",
+    "observedWarnings": [
+      "Repeated GCLocker allocation waits while broadcast-exchange-24 attempted allocation.",
+      "Spark TorrentBroadcast failed to store broadcast_296."
+    ],
+    "refusal": "PathCaptureError while capturing the first Backend03 grouped query; the payload-free trace ends in path_capture.py:111 and count_star_execution.py:116/367/290."
+  },
+  "scope": {
+    "firstPublicationVectorSha256": "e962032e30d24e6308c9322c265bc82f30f27feb5580e3a64cd4e885b0baaede",
+    "configuredDriverMemory": "512m",
+    "configuredMaster": "local[1]",
+    "hostMemoryReportedForSizing": "128 GiB",
+    "reasonForR02OnlyChange": "The failure followed explicit repeated GCLocker allocation waits and a failed Spark broadcast under the hardcoded 512m driver heap. A 2g heap is the packet's previously planned ceiling and is within the reported host memory; the trace is consistent with heap pressure but does not independently prove it caused PathCaptureError.",
+    "publicationModified": false,
+    "protectedAck": false
+  },
+  "outcome": {
+    "singleton": "The ordered pre-SQL gate reached the first Backend03 action after the singleton action returned and passed its in-process source-oracle comparison; no singleton result was retained as a completed receipt.",
+    "backend03Original": "Native grouped-query SQL was attempted; PathCaptureError prevented a captured, oracle-checked result.",
+    "backend03Positive": "Not reached.",
+    "backend02Page1": "Not reached.",
+    "postPage1Manifest": "Not written.",
+    "page2Sql": "Not reached.",
+    "continuationResult": "Not written.",
+    "nativeQualification": false
+  }
+}
