@@ -83,17 +83,17 @@ def _runtime(config):
     _,_,jars=attest_runtime(config)
     return jars
 
-def open_configured_local_spark(config,jars,warehouse,*,app_name='Ashlar configured-local Delta publication'):
+def open_configured_local_spark(config,jars,warehouse,*,app_name='Ashlar configured-local Delta publication',driver_memory='512m'):
     """Open the attested configured-local Spark session with an explicit warehouse."""
     selected=_runtime(config);_require(type(jars)in (list,tuple)and list(jars)==selected)
     _require(isinstance(warehouse,Path) and warehouse.is_absolute() and warehouse.resolve()==warehouse)
-    _require(type(app_name)is str and 0<len(app_name)<=128)
+    _require(type(app_name)is str and 0<len(app_name)<=128 and driver_memory in ('512m','2g'))
     from pyspark import SparkContext
     from pyspark.sql import SparkSession
     _require(SparkSession.getActiveSession()is None and getattr(SparkSession,'_instantiatedSession',None)is None)
     _require(getattr(SparkContext,'_active_spark_context',None)is None)
     return (SparkSession.builder.master('local[1]').appName(app_name)
-        .config('spark.driver.memory','512m').config('spark.ui.enabled','false').config('spark.sql.shuffle.partitions','1')
+        .config('spark.driver.memory',driver_memory).config('spark.ui.enabled','false').config('spark.sql.shuffle.partitions','1')
         .config('spark.databricks.delta.snapshotPartitions','1').config('spark.sql.session.timeZone','UTC')
         .config(PARAMETER_SUBSTITUTION_SETTING,'true')
         .config('spark.sql.ansi.enabled','true').config('spark.sql.decimalOperations.allowPrecisionLoss','false')
@@ -102,9 +102,21 @@ def open_configured_local_spark(config,jars,warehouse,*,app_name='Ashlar configu
         .config('spark.sql.warehouse.dir',str(warehouse)).getOrCreate())
 
 
-def open_finite_spark(config,jars):
-    """Open current configured-local Spark without historical commerce pins."""
-    return open_configured_local_spark(config,jars,config.output/'warehouse')
+def open_finite_spark(config,jars,*,r02=False):
+    """Open the bounded local runtime; only the private R02 continuation gets 2 GiB."""
+    _require(type(r02)is bool)
+    return open_configured_local_spark(config,jars,config.output/'warehouse',
+        app_name='Ashlar R02 Weft 0.53 continuation' if r02 else 'Ashlar configured-local Delta publication',
+        driver_memory='2g' if r02 else '512m')
+
+
+def _verify_driver_memory(spark,*,r02):
+    """Check Spark's selected heap setting and the live R02 JVM heap size."""
+    expected='2g' if r02 else '512m'
+    _require(spark.conf.get('spark.driver.memory')==expected)
+    if r02:
+        actual=int(spark.sparkContext._jvm.java.lang.Runtime.getRuntime().maxMemory())
+        _require(1792*1024*1024<=actual<=2304*1024*1024)
 
 
 def _fields():
@@ -224,9 +236,10 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
         if not initialize:
             registry=json.loads(original_registry.raw);runtime_profile,runtime_identity,_=attest_runtime(config)
             _require(set(registry)=={'profile','scope','targets','columns','runtime_identity'}and registry['profile']=='ashlar-configured-local-installation/0.2'and registry['scope']==scope and registry['columns']=={r:[list(c)for c in cols]for r,cols in columns.items()}and registry['runtime_identity']=={'profile':runtime_profile,**runtime_identity})
-        spark=open_finite_spark(config,jars)
-        _require(spark.sparkContext.master=='local[1]'and spark.conf.get('spark.sql.session.timeZone')=='UTC'and spark.conf.get('spark.driver.memory')=='512m'
+        spark=open_finite_spark(config,jars,r02=r02 is not None)
+        _require(spark.sparkContext.master=='local[1]'and spark.conf.get('spark.sql.session.timeZone')=='UTC'
             and spark.conf.get(PARAMETER_SUBSTITUTION_SETTING)=='true')
+        _verify_driver_memory(spark,r02=r02 is not None)
         _require(spark.version=='4.2.0' and spark.sparkContext._jvm.java.lang.System.getProperty('java.specification.version')=='21')
         _require(spark.conf.get('spark.jars')==','.join(str(p)for p in jars))
         verify_loaded_delta_class(spark,jars)
