@@ -65,11 +65,23 @@ not provide an external retention policy or prove Delta files remain readable.
 metadata and deadline, not data-file availability. These owners are useful
 building blocks, but do not yet compose to the proposed port contract.
 
-The remaining source-side prerequisite is separate: Truss 0.0.49 exposes
-operation-level reread, ACK and reconciliation calls, not an owner that retains
-and renews the exact feed registration, consumer, epoch, checkpoint, destination
-and ACK scope across this interval. See the source API boundary recorded in the
-[interval proposal](source-holder-interval-proposal-20261023.md).
+The remaining source-side prerequisite is separate: selected Truss 0.0.50
+exposes operation-level reread, ACK and reconciliation calls, but no installed
+owner yet retains and renews the exact feed registration, consumer, epoch,
+checkpoint, destination and ACK scope across this interval. See the source API
+boundary recorded in the [interval proposal](source-holder-interval-proposal-20261023.md).
+
+The disabled Truss candidate at `codex/truss-source-custody-design` commit
+`fc13dbc5b541a1e8a7cf92906471421df6c02073` quarantines the exact ACK
+attempt before calling the receipt routine. It remains unexported. Source review
+of the selected 0.0.50 host found a narrower same-connection property: an open
+read-write ACK transaction cannot be adopted as the fresh read-only
+reconciliation transaction, and a broken connection is refused. The host does
+not own outer `COMMIT`/`ROLLBACK` or prove their result. Existing native tests
+cover rollback/stale handles and a lost savepoint reply, not lost outer-commit
+responses. Native commit, rollback and connection-loss cases, routine-owner ACL
+alignment, the installed migration route, and a trusted no-effect close path
+remain unqualified. This candidate does not grant source or ACK authority.
 
 ## Minimal implementation sequence
 
@@ -91,5 +103,6 @@ After Truss exposes and independently evidences that source-owned renewal API:
    Only then design a separate holder integration; campaign wiring and ACK remain
    gated on full live-interval qualification.
 
-No source edits, native connections, cloud actions, ACKs, or tests were performed
-for this note. The A1 source-holder production-target qualification remains open.
+This Ashlar evidence update performed no native connection, cloud action or
+ACK. The Truss candidate's focused tests are preparation only. The A1
+source-holder production-target qualification remains open.

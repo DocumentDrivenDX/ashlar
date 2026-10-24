@@ -22,8 +22,8 @@ A limited local development profile has exercised configured JSONL publication,
 update/delete and history, resolver singleton reads, guarded Weft queries and
 committed replay. Original UMF 0.8 commerce also has bounded local Truss 0.0.22
 publication and query evidence. These receipts qualify only their recorded
-source, model, engine versions and authority; they do not establish current Truss
-0.0.49 acceptance/feed/ACK, broad model support, managed Unity Catalog or
+source, model, engine versions and authority; they do not establish selected Truss
+0.0.50 acceptance/feed/ACK, broad model support, managed Unity Catalog or
 production authority ([configured publication](04-build/evidence/native-configured-publication-complete-20261008.json),
 [Truss 0.0.22 lifecycle](04-build/evidence/truss22-commerce-lifecycle-20261013/README.md)).
 
@@ -52,8 +52,10 @@ Delta fixtures passed with independent result and owned cleanup checks
 ([R14 result](04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/README.md)).
 The current-core configured-local `.3` path also completed a reviewed native
 initialize, three publication batches and exact replay. Its selected Weft
-0.4.53 native singleton/query continuation and the separate `.4-xxhash64`
-profile remain open ([R02 result](04-build/evidence/current-upstream-release-20261024/r02-native-prepublication-20261024/README.md)).
+0.4.53 verifier and private gate/SDK selection controls are focused-tested, but
+live alias-bound continuation, native singleton/query execution, and the
+separate `.4-xxhash64` profile remain open
+([R02 result](04-build/evidence/current-upstream-release-20261024/r02-native-prepublication-20261024/README.md)).
 Managed Unity Catalog and the full Truss lifecycle remain unqualified.
 Managed A1 also remains unadmitted: policy use and cluster-creation entitlement
 are unproven, source-holder custody is open, and no conservative total-cost
@@ -61,8 +63,12 @@ bound has been established. No A1 schema or paid compute was created or started
 ([A1 permission admission](04-build/evidence/current-upstream-release-20261023/managed-a1-permission-admission-20261024.md),
 [A1 trial constraints](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
 The synthetic 1B-node/assumed-5B-edge trial remains held because its latest
-write-only projection exceeds the 15-minute owner-review gate. Fabric activation
-is pending current source/ACK, capacity, path and cleanup admission. See the
+write-only projection exceeds the 15-minute owner-review gate. An opt-in
+concurrent table-write candidate is implemented but has no native performance
+result ([physical limits](04-build/evidence/r05-materialization-physical-limits-20261024.md),
+[candidate packet](04-build/evidence/r05-full-delta4-scale-packet-20261023/README.md)).
+Fabric activation is pending current source/ACK, capacity, path and cleanup
+admission. See the
 [toolkit delivery plan](04-build/toolkit-delivery-plan.md) for ordered work and
 acceptance criteria; detailed run results remain under [build evidence](04-build/).
 
