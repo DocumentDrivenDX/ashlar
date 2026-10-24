@@ -46,6 +46,7 @@ class LiveAliasGateTests(unittest.TestCase):
           'backend03-original':self.compiled('backend03-original'),
           'backend03-positive':self.compiled('backend03-positive'),
           'backend02-page1':{**self.compiled('backend02-page1',wrapped=True),
+            'programResponse':self.compiled('backend02-page1',wrapped=True)['response'],
             'expected':{'rows':[['person-1'],['person-2']],'continuationAfter':'["person-2"]'}}}
     def run_all(self, gate, names, *, outcome=None):
         def execute(execute_one):
@@ -59,6 +60,9 @@ class LiveAliasGateTests(unittest.TestCase):
         with self.assertRaises(PermissionError):g.freeze(bad)
         g=self.gate();path,digest=g.freeze(self.stage_one())
         self.assertTrue(path.exists());self.assertEqual(len(digest),64);self.assertTrue(self.live)
+        manifest=json.loads(path.read_text());page1=manifest['artifacts'][3]
+        self.assertEqual(page1['programResponseSha256'],__import__('hashlib').sha256(self.stage_one()['backend02-page1']['programResponse']).hexdigest())
+        self.assertTrue((self.root/'pre-sql-backend02-page1-program-response.json').exists())
         self.approve(g);hit=[]
         result=self.run_all(g,('singleton','backend03-original','backend03-positive','backend02-page1'),
             outcome={'continuationAfter':'["person-2"]'})

@@ -52,6 +52,7 @@ def _alias_map(value):
 
 def _artifact_record(name,item):
     expected_fields={'request','expected'} if name=='singleton' else {'request','response','expected'}|({'after'} if name=='backend02-continuation' else set())
+    if name=='backend02-page1':expected_fields.add('programResponse')
     _require(type(item)is dict and set(item)==expected_fields|{'publicationId','manifestUuid','vector','aliases'})
     request=item['request']; _require(type(request)is bytes and 0<len(request)<=LIMIT_ARTIFACT)
     result={'name':name,'requestSha256':_sha(request),'expected':item['expected']}
@@ -75,6 +76,12 @@ def _artifact_record(name,item):
         artifact=parsed.get('artifact',{})
         _require((parsed.get('bindingSha256')or artifact.get('bindingSha256'))==target['bindingSha256'])
         result.update(responseSha256=_sha(response),compiledSqlSha256=_sha(sql.encode()))
+        if name=='backend02-page1':
+            program_response=item['programResponse'];_require(type(program_response)is bytes and 0<len(program_response)<=LIMIT_ARTIFACT)
+            program=json.loads(program_response)
+            _require(program.get('status')=='compiled' and program.get('artifact')==artifact
+                and program.get('outputs')==parsed.get('outputs'))
+            result['programResponseSha256']=_sha(program_response)
         if name=='backend02-continuation':
             _require(type(item['after'])is str and item['after']!='null')
             result['afterSha256']=_sha(item['after'].encode())
@@ -121,11 +128,14 @@ class R02LiveAliasReviewGate:
             'manifestUuid':self.vector['manifestUuid'],'vector':self.vector,'aliases':self.aliases}for n in names}
         records=[_artifact_record(n,normalized[n])for n in names]
         total=sum(len(artifacts[n]['request'])+(len(artifacts[n].get('response',b'')))for n in names)
+        total+=sum(len(artifacts[n].get('programResponse',b''))for n in names)
         _require(total<=LIMIT_BYTES)
         for n in names:
             for suffix in ('request','response'):
                 raw=artifacts[n].get(suffix)
                 if raw is not None:_write(self.root/(self.stage+'-'+n+'-'+suffix+'.json'),raw)
+            program_response=artifacts[n].get('programResponse')
+            if program_response is not None:_write(self.root/(self.stage+'-'+n+'-program-response.json'),program_response)
         manifest={'profile':PROFILE,'attemptId':self.attempt_id,'stage':self.stage,'pid':self.pid,
             'sparkApplicationId':self.app,'sourceRevision':self.source_revision,'publicationVector':self.vector,
             'publicationVectorSha256':self.vector_sha,'aliases':self.aliases,'aliasMapSha256':self.alias_sha,
@@ -141,9 +151,8 @@ class R02LiveAliasReviewGate:
         _require(hasattr(self,'manifest_sha') and callable(execute) and not self.consumed and type(receipt_path)is type(Path())
                  and receipt_path.parent==self.root and receipt_path.name==self.stage+'-review.json')
         while time.monotonic()<self.deadline:
-            self.live_check()
             if receipt_path.exists():break
-            time.sleep(min(.1,max(0,self.deadline-time.monotonic())))
+            time.sleep(min(1.0,max(0,self.deadline-time.monotonic())))
         _require(receipt_path.exists() and time.monotonic()<self.deadline)
         st=receipt_path.lstat();_require(stat.S_ISREG(st.st_mode) and not receipt_path.is_symlink() and st.st_size<=65536)
         receipt=json.loads(receipt_path.read_text(encoding='utf-8'))

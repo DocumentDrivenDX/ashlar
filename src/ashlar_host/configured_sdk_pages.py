@@ -34,6 +34,34 @@ def _require_frozen_page_response(frozen,observed):
 
 
 @dataclass(frozen=True)
+class ConfiguredR02Weft053Selection:
+    """Private invocation data for the R02 packet runner; not CLI selectable."""
+    attempt_root:object
+    attempt_id:str
+    source_revision:str
+    prior_publication_source_revision:str
+    runner_sha256:str
+    gate_sha256:str
+    runtime:dict
+    oracle_sha256:str
+    def __post_init__(self):
+        from pathlib import Path
+        from types import MappingProxyType
+        valid_runtime=isinstance(self.runtime,(dict,MappingProxyType))
+        _require(isinstance(self.attempt_root,Path) and self.attempt_root.is_absolute()
+            and type(self.attempt_id)is str and len(self.attempt_id)==32
+            and all(c in '0123456789abcdef'for c in self.attempt_id)
+            and type(self.source_revision)is str and len(self.source_revision)==40
+            and type(self.prior_publication_source_revision)is str and len(self.prior_publication_source_revision)==40
+            and all(c in '0123456789abcdef'for c in self.source_revision+self.prior_publication_source_revision)
+            and type(self.runner_sha256)is str and len(self.runner_sha256)==64
+            and type(self.gate_sha256)is str and len(self.gate_sha256)==64
+            and valid_runtime and self.oracle_sha256=='f04f74668ac9adc46ac9928b01a4155ccad3aab6421cd297d018b7e45348aab0'
+        )
+        object.__setattr__(self,'runtime',MappingProxyType(dict(self.runtime)))
+
+
+@dataclass(frozen=True)
 class ConfiguredSdkPagesConfig:
     compiler:object
     sql:str
@@ -259,7 +287,6 @@ class ConfiguredSdk053LiveSession:
             supported_revisions={scope.source.configuration.schema_alias:[scope.source.configuration.document_revision]},
             platform=(('spark','4.2.0'),('delta','4.4.1')),
             default_timeout=timedelta(seconds=query.timeout_seconds),deadline=self.owner.deadline,catalog_entries=(self.entry,))
-        self.started=time.monotonic()
     def frozen_page1_artifact(self,continuation_after):
         _require(continuation_after==self.expected_continuation_after)
         _require(self.page1_checked_response is None)
@@ -270,6 +297,7 @@ class ConfiguredSdk053LiveSession:
         self.page1_checked_response=checked.encode()
         self.owner.expected_page1_checked_response=self.page1_checked_response
         return {'request':self.page1_request,'response':self.page1_checked_response,
+            'programResponse':self.page1_response,
             'expected':{'rows':self.expected_page1_rows,'continuationAfter':continuation_after}}
     def page(self,after=None):
         # The page-1 read is one ordered operation in the pre-SQL review
@@ -281,10 +309,15 @@ class ConfiguredSdk053LiveSession:
         else:
             _require(self.review_gate.stage=='post-page1' and self.review_gate.prior_stage_sha is not None
                 and type(after.values)is tuple)
-        self.owner.current();remaining=self.query.timeout_seconds-(time.monotonic()-self.started);_require(remaining>0)
+        self.owner.current()
         self.owner.after=None if after is None else tuple(after.values)
         self.owner.retained=0;self.owner.checked=None;self.owner.frames=[]
-        if after is None:return self.target.page(self.entry,self.query.parameters,after=None,timeout=timedelta(seconds=remaining))
+        if after is None:
+            # Reviewer wait time belongs to the process deadline, not the SDK
+            # operation timeout. Start the bounded query clock after approval.
+            self.started=time.monotonic()
+            return self.target.page(self.entry,self.query.parameters,after=None,
+                timeout=timedelta(seconds=self.query.timeout_seconds))
         # Freeze the exact continuation check before page execution.  The gate
         # then encloses the complete target.page call, including every SQL
         # statement the SDK may issue for this page.
@@ -300,48 +333,107 @@ class ConfiguredSdk053LiveSession:
         self.owner.continuation_checked=checked_raw.encode()
         self.review_gate.freeze({'backend02-continuation':{'request':request_raw,
             'response':checked_raw.encode(),'expected':expected,'after':after_raw}})
+        self.started=None
+        def execute_page2():
+            self.started=time.monotonic()
+            return self.target.page(self.entry,self.query.parameters,after=after,
+                timeout=timedelta(seconds=self.query.timeout_seconds))
         return self.review_gate.execute_after_review(self.review_gate.root/'post-page1-review.json',
-            lambda run:run('backend02-continuation',lambda:self.target.page(self.entry,self.query.parameters,
-                after=after,timeout=timedelta(seconds=remaining))))
+            lambda run:run('backend02-continuation',execute_page2))
 
 
-def run_configured_r02_weft053(scope,transport,query,aliases,*,review_gate,runtime_guard,
-        singleton_request,type_id,entity_id,source_oracle_sha256,singleton_expected,backend03_original,
-        backend03_positive,capture,decoder,expected_grouped_rows,expected_page1_after,
-        expected_page2_rows):
+def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime_guard):
     """Run the packet's exact ordered checks under one live alias owner.
 
-    This is deliberately R02-specific. Grouped compiler responses are already
-    frozen by the caller with the selected .53 compiler. The singleton and two
-    grouped statements, then page 1, all run only through the pre-SQL gate.
-    Page 2 freezes its response in the same scope and waits for its own review.
+    This is deliberately R02-specific. It compiles both grouped requests with
+    the selected .53 compiler under the live aliases, then freezes them with
+    the singleton and page-1 artifacts. Those four actions run only through
+    the pre-SQL gate. Page 2 freezes its response in the same scope and waits
+    for its own review.
     """
-    from .configured_weft_query import query_configured_projection_precompiled
     from .delta_custody import encoded
-    _require(source_oracle_sha256=='f04f74668ac9adc46ac9928b01a4155ccad3aab6421cd297d018b7e45348aab0')
-    _require(type(singleton_request)is bytes and 0<len(singleton_request)<=1048576
-        and type(type_id)is int and type(entity_id)is int
-        and type(singleton_expected)is dict
-        and type(expected_grouped_rows)is list and type(expected_page1_after)is str
-        and type(expected_page2_rows)is list)
-    _require(expected_grouped_rows==[['person-1',2,1]]
-        and expected_page1_after=='["person-2"]'
-        and expected_page2_rows==[['person-3','雪']])
-    _require(scope.context is not None and type_id in scope.source.type_ids)
-    # Use the existing native singleton port from the already-held read scope;
-    # reopening the wrapper would acquire a second scope and split custody.
-    singleton_operation=lambda:scope.singleton(type_id,entity_id)
+    from .configured_weft_query import query_configured_projection_precompiled
+    from .configured_weft_compile import compile_configured_count_star_053
+    from ashlar.weft_path_decode import PathDecodeConfig
+    from pathlib import Path
+    import importlib.util
+    import hashlib,json
+    _require(type(selection)is ConfiguredR02Weft053Selection);selection.__post_init__()
+    _require(scope.context is not None and type(query.compiler).__name__=='Weft053Distribution')
+    oracle_path=Path(__file__).resolve().parents[2]/'docs/helix/04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024/source-oracle.json'
+    oracle_raw=oracle_path.read_bytes();_require(hashlib.sha256(oracle_raw).hexdigest()==selection.oracle_sha256)
+    oracle=json.loads(oracle_raw);inputs=oracle['inputs'];source_metadata=scope.source.metadata(scope.context)
+    _require(source_metadata['model_sha256']==inputs['modelSha256']
+        and source_metadata['configuration_sha256']==inputs['configurationSha256']
+        and source_metadata['source_sha256']==inputs['sourceJsonlSha256']
+        and hashlib.sha256(scope.source.configuration.binding_source).hexdigest()==inputs['bindingSha256'])
+    source_objects=scope.source_rows()['object_current']
+    singleton_rows=[r for r in source_objects if r.get('type_id')=='17'and r.get('id')=='1']
+    _require(len(singleton_rows)==1)
+    singleton_expected=dict(singleton_rows[0])
+    oracle_singletons=oracle['firstPublicationSourceDerivedExpectations']['objectSingletons']
+    oracle_singleton=[item for item in oracle_singletons if item.get('typeId')==17 and item.get('entityId')==1]
+    _require(len(oracle_singleton)==1 and singleton_expected.get('type_id')=='17'
+        and singleton_expected.get('id')=='1'
+        and json.loads(singleton_expected['props_json'])==oracle_singleton[0]['properties'])
+    type_id=17;entity_id=1
+    singleton_request=encoded({'profile':'ashlar-r02-source-bound-singleton-request/0.1',
+        'publicationId':scope.descriptor.publication_id,'manifestUuid':scope.manifest_uuid,
+        'typeId':type_id,'entityId':entity_id,'vector':dict(scope.vector.targets)}).encode()
     original_sql=('SELECT p.person_key, COUNT(*) AS paths, COUNT_DISTINCT_PATH_TARGETS(x) AS targets '
         'FROM Person p CROSS JOIN EXPAND_PATHS(p.knows, located) AS x GROUP BY p.person_key '
         'HAVING COUNT(*) > 0 ORDER BY p.person_key')
     positive_sql=original_sql.replace('COUNT(*) > 0','COUNT(*) > 1')
-    _require(type(backend03_original)is dict and type(backend03_positive)is dict
-        and backend03_original.get('compilerVersion')=='0.4.53'
-        and backend03_positive.get('compilerVersion')=='0.4.53'
-        and backend03_original['request'].get('sql')==original_sql
-        and backend03_positive['request'].get('sql')==positive_sql)
+    def observe(*_):return None
+    paths=query.compiler.paths
+    backend03_original=compile_configured_count_star_053(scope,dict(aliases),original_sql,paths,observe=observe)
+    backend03_positive=compile_configured_count_star_053(scope,dict(aliases),positive_sql,paths,observe=observe)
+    _require(backend03_original['request']['sql']==original_sql and backend03_positive['request']['sql']==positive_sql)
+    grouped_oracle=oracle['firstPublicationSourceDerivedExpectations']['backend03GroupedPaths']
+    page_oracle=oracle['firstPublicationSourceDerivedExpectations']['backend02SdkPage']
+    _require(grouped_oracle['having']=='COUNT(*) > 0'
+        and grouped_oracle['positiveVariant']['having']=='COUNT(*) > 1')
+    group_rows=grouped_oracle['exactExpectedResultRows']
+    _require(group_rows==grouped_oracle['positiveVariant']['expectedResultRows'])
+    page1_after=json.dumps(page_oracle['continuationAfter'],separators=(',',':'),ensure_ascii=False)
+    page2_rows=page_oracle['continuationVisibleRows']
+    gate_path=Path(__file__).resolve().parents[2]/'docs/helix/04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024/r02_live_alias_gate.py'
+    _require(hashlib.sha256(Path(__file__).read_bytes()).hexdigest()==selection.runner_sha256
+        and hashlib.sha256(gate_path.read_bytes()).hexdigest()==selection.gate_sha256)
+    gate_spec=importlib.util.spec_from_file_location('_ashlar_r02_live_alias_gate',gate_path)
+    _require(gate_spec is not None and gate_spec.loader is not None)
+    gate_module=importlib.util.module_from_spec(gate_spec);gate_spec.loader.exec_module(gate_module)
+    roles=('edge_current','object_current','tombstone','whole_source_history')
+    by_role={table.rsplit('.',1)[1]:(table,pair)for table,pair in scope.vector.targets.items()}
+    _require(set(by_role)==set(roles))
+    vector={'publicationId':scope.descriptor.publication_id,'manifestUuid':scope.manifest_uuid,
+        'tables':{role:{'uuid':by_role[role][1][0],'version':by_role[role][1][1]}for role in roles}}
+    aliases_by_role={table.rsplit('.',1)[1]:aliases[table]for table in aliases}
+    runtime=dict(selection.runtime)
+    runtime.update({'continuationRunnerSha256':selection.runner_sha256,'liveAliasGateSha256':selection.gate_sha256,
+        'priorPublicationSourceRevision':selection.prior_publication_source_revision})
+    _require(runtime.get('weftIndexSha256')==query.compiler.paths.index_sha256)
+    def live_check():
+        scope.renew();aliases.renew();_require(query.compiler._verify())
+        jars=tuple(map(str,runtime_guard()));spark=transport.spark
+        _require(spark.version=='4.2.0'and spark.sparkContext.master=='local[1]'
+            and spark.sparkContext._jvm.java.lang.System.getProperty('java.specification.version')=='21'
+            and spark.conf.get('spark.sql.ansi.enabled')=='true'and spark.conf.get('spark.sql.session.timeZone')=='UTC'
+            and spark.conf.get(PARAMETER_SUBSTITUTION_SETTING)=='true'
+            and set(spark.conf.get('spark.jars').split(','))==set(jars))
+        from .configured_local_runtime_profile import verify_loaded_delta_class
+        verify_loaded_delta_class(spark,[Path(p)for p in jars])
+        _require(time.monotonic()<deadline)
+    deadline=time.monotonic()+300
+    review_gate=gate_module.R02LiveAliasReviewGate(selection.attempt_root,attempt_id=selection.attempt_id,
+        stage='pre-sql',source_revision=selection.source_revision,spark_application_id=aliases.application_id,
+        vector=vector,aliases=aliases_by_role,runtime=runtime,live_check=live_check,deadline_seconds=300)
+    expected_grouped_rows=group_rows;expected_page1_after=page1_after;expected_page2_rows=page2_rows
+    capture=query.capture;decoder=PathDecodeConfig(query.capture.maximum_cell_bytes)
+    singleton_operation=lambda:scope.singleton(type_id,entity_id)
     session=ConfiguredSdk053LiveSession(scope,transport,query,aliases,review_gate=review_gate,
         runtime_guard=runtime_guard,expected_continuation_after=expected_page1_after)
+    _require(session.expected_page1_rows==page_oracle['firstPageVisibleRows'])
     artifacts={
         'singleton':{'request':singleton_request,'expected':singleton_expected},
         'backend03-original':{'request':backend03_original['requestBytes'],
