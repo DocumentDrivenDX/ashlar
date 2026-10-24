@@ -154,6 +154,19 @@ def execute(manifest_path: Path, review_path: Path, phase: str) -> None:
     base = Path(manifest.get("attemptParent", "/private/tmp")).resolve(strict=True)
     if base.stat().st_uid != os.getuid() or base.is_symlink():
         raise ValueError("attempt parent must be a real, user-owned directory")
+    run_identity = {"phase": phase, "sourceFiles": manifest.get("sourceFiles"),
+                    "publicationVectorSha256": manifest.get("publicationVectorSha256")}
+    run_key = hashlib.sha256(json.dumps(run_identity, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+    ledger = base / f"ashlar-r02-consumed-{run_key}.json"
+    try:
+        descriptor = os.open(ledger, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    except FileExistsError:
+        raise ValueError("this source/vector phase already has a consumed one-shot attempt") from None
+    with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+        stream.write(json.dumps({"phase": phase, "manifestSha256": manifest_hash,
+                                 "attemptId": manifest.get("attemptId"), "status": "consumed"}, sort_keys=True) + "\n")
+        stream.flush()
+        os.fsync(stream.fileno())
     attempt = base / f"ashlar-r02-{attempt_id}"
     attempt.mkdir(mode=0o700)
     if attempt.stat().st_uid != os.getuid() or attempt.stat().st_mode & 0o077:
