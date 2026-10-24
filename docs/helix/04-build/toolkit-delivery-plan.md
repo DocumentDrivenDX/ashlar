@@ -259,14 +259,13 @@ The [A1 live-port review](evidence/source-holder-a1-live-port-gap-20261024.md)
 also identifies the managed-read and native-pin renewal and retained-file
 authority still needed before an ACK-capable holder can be wired.
 
-Run the small canonical persisted-carrier GraphFrames action once after the
-generator/source/oracle correspondence, selected runtime and JARs, bounded
-result/cap, and retained-file/exclusive-use custody through close are admitted
-in an isolated local slot. The [R12 packet](evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r12/README.md)
-binds the pre-Truss-0.0.50 Ashlar source/resource bytes, has independent review,
-and passed one effect-free runtime-tree static admission on that tuple. The
-current 0.0.50 `pyproject.toml` pin requires a fresh source-bound action packet;
-the local slot, execution authorization and native action remain required. Keep the
+The small canonical persisted-carrier GraphFrames action passed once on the
+current Truss-0.0.50-pinned Ashlar source in an isolated local slot. The
+[R13 packet and R14 result](evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/README.md)
+bind the generator, source, oracle, selected Spark 4.2.0/Delta 4.4.1/GraphFrames
+0.12.3/JDK 21 runtime and JARs, bounded result/cap, and retained-file custody
+through close. Its three-row one-hop result over persisted 5-node/4-edge Delta
+fixtures and owned cleanup passed; it is local action evidence only. Keep the
 1B-node/5B-edge full Delta trial held
 until its latest 16.50-minute write-only projection has owner review; the two lookups,
 two scans, actual graph action and cleanup still need an end-to-end bound. Do
@@ -275,9 +274,9 @@ few-minute goal. The [inert full-size trial packet](evidence/r05-full-delta4-sca
 sets a proposed 30-minute fail-fast ceiling and independent endpoint oracle;
 its offline two-role UMF DDL/INSERT plan passes admission, and the full trial
 driver and local supervisor have an independent source review and seven focused
-inert checks. It is not execution-ready: the tiny persisted-carrier native
-action, exact runtime/slot admission, and owner review of the 16.50-minute
-write estimate remain outstanding. Fabric R1/R2 remains a separate held lane
+inert checks. It is not execution-ready: exact full-size runtime/slot admission
+and owner review of the 16.50-minute write estimate remain outstanding.
+Fabric R1/R2 remains a separate held lane
 until current source/ACK, exact workspace paths, capacity and zero-cost cleanup are admitted
 ([fresh Fabric plan](evidence/commerce-fabric-fresh-functional-plan-20261023/README.md)).
 

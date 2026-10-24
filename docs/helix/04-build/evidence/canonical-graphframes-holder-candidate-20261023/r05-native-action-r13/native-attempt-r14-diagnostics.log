@@ -1,0 +1,10 @@
+Picked up JAVA_TOOL_OPTIONS: -Djava.io.tmpdir=/private/tmp/ashlar-r05-r14-attempt-parent-f0ml6how/ashlar-graphframes-attempt-0jtmw9r1/tmp
+Picked up JAVA_TOOL_OPTIONS: -Djava.io.tmpdir=/private/tmp/ashlar-r05-r14-attempt-parent-f0ml6how/ashlar-graphframes-attempt-0jtmw9r1/tmp
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/24 03:07:11 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/10/24 03:07:14 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in standalone/kubernetes and LOCAL_DIRS in YARN).
+[Stage 0:>                                                          (0 + 2) / 2]                                                                                26/10/24 03:07:19 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+[Stage 3:===========>                                             (10 + 2) / 50][Stage 3:====================>                                    (18 + 2) / 50][Stage 3:=============================>                           (26 + 2) / 50][Stage 3:======================================>                  (34 + 2) / 50][Stage 3:===============================================>         (42 + 4) / 50]                                                                                [Stage 7:=========================>                               (22 + 2) / 50][Stage 7:====================================>                    (32 + 2) / 50][Stage 7:===============================================>         (42 + 2) / 50]                                                                                

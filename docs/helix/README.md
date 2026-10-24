@@ -45,7 +45,10 @@ preflight remains historical evidence for its selected source and runtime only
 
 Local Spark 4.2.0/Delta 4.4.1 candidate checks include bounded Weft query and
 SDK paging; a separate native one-table Delta check accepted a candidate DDL
-shape. Managed Unity Catalog and the full Truss lifecycle remain unqualified.
+shape. One bounded local GraphFrames 0.12.3 action over persisted 5-node/4-edge
+Delta fixtures passed with independent result and owned cleanup checks
+([R14 result](04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/README.md)).
+Managed Unity Catalog and the full Truss lifecycle remain unqualified.
 The synthetic 1B-node/assumed-5B-edge trial remains held because its latest
 write-only projection exceeds the 15-minute owner-review gate. Fabric activation
 is pending current source/ACK, capacity, path and cleanup admission. See the

@@ -37,6 +37,7 @@
     "validatedRetainedPathCount": 570
   },
   "nativeActionExecuted": false,
+  "preparationSnapshot": "This record captures the gates before the R14 launch; its nativeActionExecuted=false and attemptRootCreated=false fields are preparation-time observations.",
   "priorAttemptRationale": {
     "loopbackProbe": "Parent reports a one-shot localhost bind probe succeeded in escalated context, justifying a separately authorized attempt. No probe was run in this preparation turn.",
     "sandboxRefusal": "R13 supervisor attempted Spark gateway startup but bind to 127.0.0.1:0 was denied before SparkSession creation; the one-attempt authorization was consumed and was not retried."
@@ -51,5 +52,12 @@
   "sourceOrAckEffects": false,
   "sourceRevision": "21d4941c84c2a2c3528eb1b01dc34078f71b41b2",
   "sparkStarted": false,
-  "status": "prepared-for-sol-review; execution-not-started"
+  "status": "prepared-for-sol-review; execution-not-started",
+  "subsequentExecution": {
+    "attemptsConsumed": 1,
+    "resultPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/native-attempt-r14-result-20261024.json",
+    "resultSha256": "fc9a72ff15783ac0eae3300499ca13cedd51e31bb5c7ebe678023b95824d0740",
+    "retryPerformed": false,
+    "status": "bounded-one-hop-passed"
+  }
 }

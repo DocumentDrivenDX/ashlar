@@ -10,6 +10,8 @@ One focused static admission passed on 2026-10-24. It rechecked the invocation p
 
 The authorized one-attempt invocation was consumed on 2026-10-24 and refused before SparkSession creation: the Java gateway could not bind to `127.0.0.1:0` (`Operation not permitted`). No GraphFrames action ran. The supervisor preserved the refusal and 4,329-byte diagnostics in the private attempt root; its fixture and Spark scratch directories are empty. No retry was made. See [attempt result](native-attempt-result-20261024.json).
 
-This packet does not qualify Truss lifecycle acceptance, feed, publication or ACK; native execution; managed Unity Catalog; production authority; or scale support. No cloud execution was performed.
+The separately authorized R14 attempt passed after the reviewed escalated localhost-bind path. The GraphFrames one-hop action returned three rows from synthetic 5-node/4-edge Delta fixtures; action time was 0.56 seconds and the supervised child completed in 28.09 seconds. The supervisor and parent both verified removal of `object_current` and `edge_current`; the ownership receipt and stable lock remain in the private attempt root. No retry was made. This result qualifies only this local Spark 4.2.0/Delta 4.4.1/GraphFrames 0.12.3/JDK 21.0.13 action. See [R14 result](native-attempt-r14-result-20261024.json), [worker result](native-attempt-r14-worker-result.json), and [supervisor receipt](native-attempt-r14-supervisor-receipt.json).
+
+This result does not qualify Truss lifecycle acceptance, feed, publication or ACK; managed Unity Catalog; production authority; or scale support. No cloud execution was performed.
 
 See [invocation packet](invocation-packet.json), [source custody](ashlar-source-custody.json), [static admission](static-admission-20261024.json), [authorization proposal](authorization-proposal.json), and [historical R12 packet](../r05-native-action-r12/README.md).
