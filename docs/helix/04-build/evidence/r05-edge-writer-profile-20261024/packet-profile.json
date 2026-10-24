@@ -1,0 +1,25 @@
+{
+  "profile": "ashlar-r05-edge-writer-profile/0.1",
+  "attempts": 1,
+  "nodeRows": 45000000,
+  "edgeRows": 225000000,
+  "writeRoles": ["edge_current"],
+  "writeSchedules": ["single sequential edge INSERT"],
+  "workerSeconds": 780,
+  "totalSeconds": 900,
+  "activeDeltaBytes": 17179869184,
+  "attemptRootBytes": 34359738368,
+  "minimumFreeBytes": 68719476736,
+  "eventLogBytes": 536870912,
+  "jfrBytes": 67108864,
+  "predictiveOptimizationDisabled": false,
+  "semanticOutput": "One exact selected UMF .4-xxhash64 edge_current Delta table with unchanged schema, layout, writer settings and writer-7 protocol.",
+  "expectedWitness": {
+    "rows": 225000000,
+    "minId": 0,
+    "maxId": 224999999,
+    "sumId": "25312499887500000",
+    "badRows": 0,
+    "exactMultisetUniquenessProved": false
+  }
+}

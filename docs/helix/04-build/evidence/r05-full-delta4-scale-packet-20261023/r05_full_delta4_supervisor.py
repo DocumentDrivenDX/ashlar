@@ -570,6 +570,37 @@ def _private_file_evidence(path: Path, maximum: int) -> dict:
     return result
 
 
+def _event_log_files(directory: Path) -> list[Path]:
+    """Return bounded-parser inputs recursively, refusing symlinks anywhere."""
+    files = []
+    try:
+        root_stat = directory.lstat()
+    except FileNotFoundError:
+        return files
+    if stat.S_ISLNK(root_stat.st_mode) or not stat.S_ISDIR(root_stat.st_mode):
+        raise SupervisorRefused("Spark event log root must be a real directory")
+    def walk_error(error):
+        raise error
+    for parent, dirs, names in os.walk(directory, followlinks=False, onerror=walk_error):
+        parent_path = Path(parent)
+        for name in list(dirs):
+            item = parent_path / name
+            if stat.S_ISLNK(item.lstat().st_mode):
+                raise SupervisorRefused("symlink appeared under Spark event log directory")
+        for name in names:
+            item = parent_path / name
+            item_stat = item.lstat()
+            if stat.S_ISLNK(item_stat.st_mode):
+                raise SupervisorRefused("symlink appeared under Spark event log directory")
+            relative_parent = item.parent.relative_to(directory).parts
+            is_v2_directory = bool(relative_parent and relative_parent[0].startswith("eventlog_v2_"))
+            if (stat.S_ISREG(item_stat.st_mode)
+                    and not name.endswith((".crc", ".inprogress"))
+                    and not (is_v2_directory and not name.startswith("events_"))):
+                files.append(item)
+    return sorted(files, key=lambda item: item.relative_to(directory).as_posix())
+
+
 def _spark_event_summary(root: Path) -> dict:
     """Stream SQL/job/stage/task lineage into bounded aggregates; never retain task rows."""
     directory = root / SPARK_EVENT_DIR
@@ -583,18 +614,12 @@ def _spark_event_summary(root: Path) -> dict:
     event_records = 0
     stage_links_count = 0
     try:
-        for item in sorted(directory.iterdir()):
-            item_stat = item.lstat()
-            if stat.S_ISLNK(item_stat.st_mode):
-                raise SupervisorRefused("symlink appeared under Spark event log directory")
-            if not stat.S_ISREG(item_stat.st_mode) or item.name.endswith((".crc", ".inprogress")):
-                continue
-            files.append(item)
+        files = _event_log_files(directory)
         event_bytes = sum(item.stat().st_size for item in files)
         if event_bytes > EVENT_LOG_BYTES:
             return {"status": "event-log-cap-exceeded", "eventLogBytes": event_bytes, "stages": []}
         for item in files:
-            event_hash.update(item.name.encode("utf-8") + b"\0")
+            event_hash.update(item.relative_to(directory).as_posix().encode("utf-8") + b"\0")
             with item.open("rb") as stream:
                 for raw_line in stream:
                     event_records += 1

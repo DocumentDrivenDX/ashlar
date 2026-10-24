@@ -1,0 +1,17 @@
+{
+  "profile": "ashlar-r05-edge-writer-authorization/0.1",
+  "status": "requested",
+  "packetSha256": "cd813edc78e5ee14721984d86f6dd1ceb6eb6e157009dfc892bb6dba4fe5172e",
+  "sourcePinsSha256": "e359eeb71f4864dbd572673e156df6cb6d6173740a6c370053c0077ecfcf3d4b",
+  "runtimePinsSha256": "504ad0a1958e343ae0b4b5c7787b40f1e86063519b86006aa6435ec3b4117316",
+  "attempts": 1,
+  "nodeRows": 45000000,
+  "edgeRows": 225000000,
+  "totalSeconds": 900,
+  "workerSeconds": 780,
+  "activeDeltaBytes": 17179869184,
+  "rootBytes": 34359738368,
+  "minimumFreeBytes": 68719476736,
+  "predictiveOptimizationDisabled": false,
+  "ownerDecision": "Pending explicit owner approval after Sol review."
+}
