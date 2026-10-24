@@ -1,0 +1,65 @@
+{
+  "format": "ashlar-weft-backend03-public-target-feasibility/0.1",
+  "status": "blocked_for_R02_public_target_match",
+  "scope": "Offline public Weft 0.4.53 compiler feasibility only; no Spark, Delta, native, cloud, publication or SQL rewrite.",
+  "environment": {
+    "python": "3.12.14",
+    "weft_sql": "0.4.53",
+    "weft_import": "/private/tmp/ashlar-weft053-adoption-20261023/venv/lib/python3.12/site-packages/weft/__init__.py",
+    "venv": "/private/tmp/ashlar-weft053-adoption-20261023/venv"
+  },
+  "provenance_reference": {
+    "wheel_sha256": "4c8281945b852af02cae8602747fb7b1b652ab3a1369d7650efce62ae6d35c6c",
+    "source_receipt": "../weft053-ashlar-adoption-20261023/README.md"
+  },
+  "historical_input": {
+    "path": "../../current-upstream-release-20261021/local-current/positive_grouped_graph_query.json.gz",
+    "sha256": "faca1713b9f9646ce13e3511347e1221ff016b515f8cff3912abded31c921d8f",
+    "embedded_request_sha256": "c9f096815ecdf754858866cf92fe31f021a9241567a2364954132b3445d42ff5",
+    "interfaceVersion": "weft-compile/0.4.1",
+    "dialect": "weft-sql/0.4.1",
+    "sql_sha256": "913bf497d521395e78656d8e969e0e19605beefca5d8600fd8a5e3f61f452479",
+    "model_pin": {
+      "documentId": "typed-graph-example",
+      "revision": "1",
+      "umfVersion": "0.10.0",
+      "sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b"
+    },
+    "binding_sha256": "fba15e230f93725490c2ddcb292c5d36bfeb5f4f720d584578cd66a59b91e621",
+    "requested_backend": {
+      "backendId": "ashlar.databricks.paths-keys-having",
+      "backendVersion": "0.4.1-count-star-having-spark4.2-candidate",
+      "targetProfile": "spark4.2.0-delta4.4.1-paths-keys-having-candidate"
+    }
+  },
+  "public_api": {
+    "name": "weft.compile_paths_keys_json",
+    "exact_request_status": "compiled",
+    "exact_request_response_sha256": "be2e32908d9175c5206aa9a4a9c5383b8aa6eaee282b295bd9d9e890c5d4e7c9",
+    "returned_backend": {
+      "backendId": "ashlar.databricks.paths-keys-having",
+      "backendVersion": "0.4.1-count-star-having-spark4.2-candidate",
+      "interfaceVersion": "weft-backend/0.3.0",
+      "targetProfile": "spark4.2.0-delta4.4.1-paths-keys-having-candidate"
+    },
+    "returned_binding_sha256": "fba15e230f93725490c2ddcb292c5d36bfeb5f4f720d584578cd66a59b91e621",
+    "returned_sql_sha256": "1af27292f47b4af5f1adc506e925e6e966e4eadd1c81197faadb573227bb4acc"
+  },
+  "target_matched_attempt": {
+    "change": "Only target.targetProfile changed to spark4.0.1-delta4.0.0-candidate from the public tag's separate Backend02 page fixture; original SQL/model/binding pins and backend id/version remained intact.",
+    "request_sha256": "ce20a63c41d876d275532eef7285fba5e1ed0470576d509773240b25fa65e2a4",
+    "response_sha256": "f87492a666c91a160ef5cb93b70f3c6cf907975f2249a3fb01b63251789ef238",
+    "status": "blocked",
+    "diagnostics": [
+      {
+        "code": "WFT-BACKEND-VERSION",
+        "message": "Unknown target profile",
+        "phase": "capability",
+        "recoverability": "change-profile",
+        "severity": "error"
+      }
+    ],
+    "artifact_emitted": false
+  },
+  "conclusion": "Public Weft 0.4.53 compiles the historical grouped-graph request under its embedded private Spark 4.2 candidate target. Substituting the Spark 4.0.1/Delta 4.0.0 candidate target from its separate Backend02 page fixture returns WFT-BACKEND-VERSION / Unknown target profile. These two checks do not produce a target-matched public Backend03 artifact for a new local R02 profile and do not support native execution."
+}

@@ -1,0 +1,7 @@
+# Weft 0.4.53 Backend03 public-target feasibility
+
+Status: **the historical grouped-graph request compiles under its embedded private Spark 4.2 target, but changing only its target profile to the tagged Backend02 fixture's Spark 4.0.1/Delta 4.0.0 candidate target is refused**. These two checks produce no target-matched public Backend03 artifact for a new local R02 profile and supply no native execution evidence.
+
+The exact Backend03 protocol request from the [historical grouped-graph receipt](../../current-upstream-release-20261021/local-current/positive_grouped_graph_query.json.gz) compiled through public `weft.compile_paths_keys_json` in the isolated Weft 0.4.53 environment. The returned artifact retained the request's `spark4.2.0-delta4.4.1-paths-keys-having-candidate` profile. Changing only the target profile to `spark4.0.1-delta4.0.0-candidate`, which appears in the public tag's separate Backend02 page fixture, while preserving SQL, model pin, binding, and backend id/version, returned `WFT-BACKEND-VERSION: Unknown target profile`. That Backend02 fixture does not declare a Backend03 capability.
+
+The compact [machine-readable receipt](backend03-feasibility.json) records the environment, input and response hashes, source pins, exact attempted change, and scope. The isolated runtime's wheel provenance is documented in the [0.4.53 adoption receipt](../weft053-ashlar-adoption-20261023/README.md). No SQL was rewritten; Spark, Delta, native, cloud, and publication operations were not run.
