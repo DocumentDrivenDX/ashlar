@@ -1,0 +1,89 @@
+{
+  "profile": "ashlar-truss049-r7-bounded-preflight-assessment/0.1",
+  "date": "2026-10-24",
+  "static_packet_check": {
+    "command": "python3 check_r7_packet.py",
+    "outcome": "passed",
+    "exit_code": 0,
+    "stdout": "R7 static packet valid; source/runtime bound; no preflight/native effects; root_bytes=737552060"
+  },
+  "source_binding": {
+    "packet_commit": "7c4006e880b037e2de318d04b45a8aeae9dfea12",
+    "packet_tree": "65377e9c97bab62b50a1eef7d0314cb390f8f2e4",
+    "checkout_head": "ec37f1398043eab8d9ce762d1dd9ce7f18f3ade5",
+    "status": "packet snapshot is internally verified but differs from current checkout HEAD"
+  },
+  "process_inventory": {
+    "supervisor_admission_gate": "not_reached; worker failed during runtime receipt verification before gate execution",
+    "initial_sandbox_probe": {
+      "command": "/bin/ps -axo pid=,pgid=",
+      "outcome": "blocked_by_host_permission",
+      "sanitized_error": "operation not permitted: ps"
+    },
+    "authorized_host_followup": {
+      "outcome": "completed per Sol review",
+      "finding": "No Java, Spark, or R7 process appeared"
+    }
+  },
+  "supervisor_preflight": {
+    "command": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/bin/python -I -B /private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/run_supervisor.py --preflight",
+    "escalation": "succeeded",
+    "outcome": "failed_before_admission_gates",
+    "exit_code": 1,
+    "elapsed_seconds": 4.262,
+    "exact_error": "RuntimeError: Exact isolated CPython 3.12.14 runtime required",
+    "cause": "Pinned runtime-receipt.json runtime object omits the venv_isolated boolean required by campaign_worker.py verify_runtime(); the exact expected interpreter is CPython 3.12.14 and sys.prefix differs from sys.base_prefix.",
+    "result_receipt": "not produced",
+    "prior_source_caveat": "Sol review confirmed the packet intentionally binds its archived source snapshot; only a disconnected proposal-only _source_holder_interval_proposal.py differs from current HEAD among src/, sql/, and pyproject.toml. Current-source judgment remains a later release-qualification gate.",
+    "additional_review_findings": [
+      {
+        "worker_expectation": "runtime.venv_isolated must be truthy",
+        "receipt_observation": "field absent",
+        "validation_reached_at_runtime": "yes; this was the first failure"
+      },
+      {
+        "worker_expectation": "install.pip_check starts with \"passed:\"",
+        "receipt_observation": "No broken requirements found.",
+        "validation_reached_at_runtime": "no; worker exited on the prior missing field"
+      }
+    ],
+    "live_interpreter_isolation_observation": {
+      "command": "selected venv Python with -I -B: print(sys.version, sys.prefix, sys.base_prefix, sys.prefix != sys.base_prefix)",
+      "observed_python": "3.12.14",
+      "sys_prefix_equals_selected_venv": true,
+      "sys_prefix_differs_from_sys_base_prefix": true
+    },
+    "receipt_schema_review": {
+      "scope": "All runtime receipt fields directly read by campaign_worker.py verify_runtime().",
+      "mismatches": [
+        {
+          "path": "runtime.venv_isolated",
+          "worker_contract": "must be truthy",
+          "receipt": "field absent"
+        },
+        {
+          "path": "install.pip_check",
+          "worker_contract": "string must start with \"passed:\"",
+          "receipt": "No broken requirements found."
+        }
+      ],
+      "other_directly_consumed_fields": "matched the worker contract in the reviewed receipt: schema, Python/platform/isolation settings, wheel count and selected-wheel entries, versions, installed-prefix/wheel/RECORD checks, and compiler receipt digest.",
+      "second_mismatch_runtime_reached": false
+    }
+  },
+  "native_actions": {
+    "pg_started": false,
+    "spark_started": false,
+    "migration_invoked": false,
+    "source_feed_publication_or_ack_mutated": false,
+    "offline_preflight_receipt_produced": false,
+    "execution_approval_or_start_marker_produced": false
+  },
+  "r8_correction_proposal": {
+    "scope": "Assemble a fresh packet; leave R7 worker and immutable runtime receipt unchanged.",
+    "runtime_validation": "Validate the fields actually emitted by the receipt schema. Check the recorded Python/platform/site-packages and package/wheel/RECORD pins, then independently run the selected interpreter and require sys.prefix to equal the selected venv and sys.prefix != sys.base_prefix. Do not require a receipt-only venv_isolated field unless a new receipt schema explicitly records it.",
+    "pip_check_validation": "Capture a structured pip-check result in the new receipt (exit code plus exact stdout/stderr), and validate the observed successful form such as exit_code == 0 and stdout == \"No broken requirements found.\"; do not compare against an unproduced \"passed:\" prefix.",
+    "review_gate": "Before any retry, audit the complete worker-to-receipt schema contract in one pass and enumerate every direct mismatch; bind the reviewed worker and receipt hashes into the new packet, rerun the static packet checker, and only then consider a separately authorized effect-free preflight.",
+    "native_boundary": "No execute mode, PostgreSQL/Spark start, migration, source/feed/publication/ACK action."
+  }
+}
