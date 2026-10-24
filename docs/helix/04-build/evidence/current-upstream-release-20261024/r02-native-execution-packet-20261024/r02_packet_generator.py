@@ -238,8 +238,10 @@ def make_private_layout(attempt: Path) -> None:
     cfg = attempt / "input" / "configured-typed-graph-source.json"
     value = json.loads(cfg.read_text(encoding="utf-8"))
     for field in ("source", "schema", "bindings"):
-        value[field]["path"] = Path(value[field]["path"]).name
-    # Keep the configuration bytes untouched: they are part of the pinned source set.
+        name = Path(value[field]["path"]).name
+        target = attempt / "input" / name
+        if value[field]["path"] != name or not target.is_file() or sha256(target) != value[field]["sha256"]:
+            raise ValueError(f"pinned source configuration does not resolve to staged {field} bytes")
     for name in ("delta-spark_4.2_2.13-4.4.1.jar", "delta-storage-4.4.1.jar"):
         shutil.copyfile(JAR_ROOT / name, attempt / "jars" / name)
     inventory = {name: RUNTIME_JARS[name] for name in ("delta-spark_4.2_2.13-4.4.1.jar", "delta-storage-4.4.1.jar")}
