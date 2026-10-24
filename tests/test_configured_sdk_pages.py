@@ -4,7 +4,7 @@ from dataclasses import replace
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
-from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig
+from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig,ConfiguredSdk053LiveSession,_supported_page_compiler,run_configured_sdk_pages
 from ashlar_host.configured_local_runtime import page_configured_local
 from ashlar_host.path_capture import PathCaptureConfig
 
@@ -28,3 +28,15 @@ class Tests(unittest.TestCase):
                 with self.assertRaises(ValueError):page_configured_local(object(),ordinal=1,query=invalid)
             run.assert_not_called();query=self.fixture();page_configured_local(object(),ordinal=1,query=query)
             self.assertEqual(run.call_args.kwargs,{'query':query});self.assertEqual(run.call_args.args[1],1)
+    def test_public_sdk_entrypoint_rejects_053_without_live_gate(self):
+        from ashlar.weft_053_distribution import Weft053Distribution
+        compiler=object.__new__(Weft053Distribution)
+        for name in ('compile_engine_page_json','check_engine_page_json','check_engine_read_json'):
+            setattr(compiler,name,lambda *args:None)
+        self.assertFalse(_supported_page_compiler(compiler))
+        query=replace(self.fixture(),compiler=compiler)
+        with self.assertRaises(ValueError):run_configured_sdk_pages(None,None,query,runtime_guard=lambda:())
+    def test_053_page1_refuses_direct_execution_outside_ordered_gate(self):
+        session=object.__new__(ConfiguredSdk053LiveSession)
+        session.review_gate=SimpleNamespace(stage='pre-sql',consumed=False,approved=False,executing_name=None)
+        with self.assertRaises(ValueError):session.page()

@@ -25,6 +25,10 @@ def _require(value):
     if not value:raise ValueError('Configured typed SDK page custody refused')
 
 
+def _supported_page_compiler(value):
+    return type(value)is CurrentWeftDistribution and value._verify()
+
+
 @dataclass(frozen=True)
 class ConfiguredSdkPagesConfig:
     compiler:object
@@ -48,9 +52,11 @@ class ConfiguredSdkPagesConfig:
 
 
 class _Owner:
-    def __init__(self,scope,aliases,query,entry,request,runtime_guard):
+    def __init__(self,scope,aliases,query,entry,request,runtime_guard,*,page_gate=None,
+                 expected_page1_artifact=None,allow_053=False):
         _require(type(scope)is ConfiguredLocalRead and type(aliases)is ConfiguredQueryAliases and aliases.scope is scope and callable(runtime_guard))
         self.scope,self.aliases,self.query,self.entry,self.request=scope,aliases,query,entry,request
+        self.page_gate=page_gate;self.expected_page1_artifact=expected_page1_artifact;self.allow_053=allow_053
         self.context=scope.context;self.runtime_guard=runtime_guard;self.jars=tuple(map(str,runtime_guard()))
         _require(len(self.jars)==2)
         self.program=entry.artifact();self.original=entry.originals();self.original_request=encoded(request)
@@ -63,9 +69,16 @@ class _Owner:
             'vector':dict(scope.vector.targets),'aliases':dict(aliases),'binding':request['target']['bindingSha256']}).encode()
         _require(len(self.token)<=65536)
         self.active=False;self.after=None;self.checked=None;self.retained=0;self.observations=[];self.frames=[]
+        self.native_profile_verified=False
+        self.continuation_checked=None
     def current(self):
         self.scope.renew();self.aliases.renew()
-        _require(type(self.query.compiler)is CurrentWeftDistribution and self.query.compiler._verify())
+        if type(self.query.compiler)is CurrentWeftDistribution:
+            _require(self.query.compiler._verify())
+        else:
+            from ashlar.weft_053_distribution import Weft053Distribution
+            _require(self.allow_053 and self.page_gate is not None
+                and type(self.query.compiler)is Weft053Distribution and self.query.compiler._verify())
         _require(tuple(map(str,self.runtime_guard()))==self.jars)
         spark=self.scope.transport.spark
         _require(spark.version=='4.2.0'and spark.sparkContext.master=='local[1]'
@@ -82,9 +95,14 @@ class _Owner:
         self.bind_descriptor(descriptor,self.scope.vector,context)
         rebuilt=configured_typed_graph_sdk_request(self.scope.source.configuration,dict(descriptor.raw),self.scope.vector,self.scope.manifest_uuid,dict(self.aliases),self.query.sql,request['parameters'],layout_sha256=LAYOUT_SHA256)
         _require(request==rebuilt and request==self.request)
-        checked=json.loads(self.query.compiler.check_engine_page_json(self.original,encoded(request),encoded(None if self.after is None else list(self.after))))
+        checked_raw=self.query.compiler.check_engine_page_json(self.original,encoded(request),encoded(None if self.after is None else list(self.after)))
+        checked=json.loads(checked_raw)
         _require(checked.get('status')=='compiled'and checked['artifact']==artifact and checked['outputs']==self.program['outputs']
             and artifact['columns']==self.columns and artifact['logicalPlan']['pageKey']==self.key)
+        if self.after is None and self.expected_page1_artifact is not None:
+            _require(artifact==self.expected_page1_artifact)
+        if self.after is not None and self.page_gate is not None and self.page_gate.stage=='post-page1':
+            _require(self.continuation_checked==checked_raw.encode())
         self.checked=checked
     def verify_native_profile(self,profile,context):
         _require(self.active and context is self.context and profile==self.profile and profile['targetProfile']=='spark4.2.0-delta4.4.1-candidate'
@@ -92,8 +110,10 @@ class _Owner:
             and profile['deltaJars']==JAR_SHA256
             and profile['settings']=={'spark.sql.ansi.enabled':'true','spark.sql.session.timeZone':'UTC',
                 'spark.sql.legacy.parameterSubstitution.constantsOnly':'true','comparison':'explicit UTF8_BINARY','resultTransport':'exact native STRING'});self.current()
-        spark=self.scope.transport.spark
-        _require(spark.sql("SELECT ('a' COLLATE UTF8_BINARY) = ('A' COLLATE UTF8_BINARY) AS equal").first()['equal']is False)
+        if not self.native_profile_verified:
+            spark=self.scope.transport.spark
+            _require(spark.sql("SELECT ('a' COLLATE UTF8_BINARY) = ('A' COLLATE UTF8_BINARY) AS equal").first()['equal']is False)
+            self.native_profile_verified=True
     def authorize_query(self,request,descriptor,context):
         self.bind_descriptor(descriptor,self.scope.vector,context);_require(request==self.request and self.checked is not None)
     def admit_record_integrity(self,check,artifact,context):
@@ -129,7 +149,16 @@ class _Owner:
         _require(sql in allowed and parameters==slots)
         remaining=self.query.capture.maximum_total_cell_bytes-self.retained;_require(remaining>0)
         bounds=PathCaptureConfig(self.query.capture.maximum_rows,min(self.query.capture.maximum_cell_bytes,remaining),remaining)
-        observed=capture_string_frame(self.scope.transport.spark.sql(sql,args=parameters),config=bounds)
+        def capture():return capture_string_frame(self.scope.transport.spark.sql(sql,args=parameters),config=bounds)
+        if self.allow_053:
+            gate=self.page_gate
+            _require(gate is not None and gate.consumed and gate.executing_name is not None)
+            if self.after is None:
+                _require(gate.stage=='pre-sql' and gate.executing_name=='backend02-page1')
+            else:
+                _require(gate.stage=='post-page1' and gate.executing_name=='backend02-continuation'
+                    and self.native_profile_verified)
+        observed=capture()
         self.retained+=sum(len(v.encode())for r in observed['rows']for v in r if v is not None)
         self.frames.append({'sql_sha256':hashlib.sha256(sql.encode()).hexdigest(),'schema':observed['schema'],'rows':observed['rows']})
         return SQLResult([dict(zip((n for n,_ in observed['schema']),r))for r in observed['rows']],tuple(tuple(p)for p in observed['schema']))
@@ -149,7 +178,7 @@ def run_configured_sdk_pages(scope,transport,query,*,runtime_guard):
     from ashlar.access import AshlarTarget
     from umf_access.engine_catalog import EngineRead
     _require(type(query)is ConfiguredSdkPagesConfig);query.__post_init__()
-    _require(type(query.compiler)is CurrentWeftDistribution and query.compiler._verify())
+    _require(_supported_page_compiler(query.compiler))
     values=query.parameters.model_dump(mode='python');parameters={n:{'family':'string','value':v}for n,v in values.items()}
     started=time.monotonic();items=[];pages=[];original=None
     with owned_context(open_configured_query_aliases(scope,transport))as aliases:
@@ -175,3 +204,165 @@ def run_configured_sdk_pages(scope,transport,query,*,runtime_guard):
     scope.renew();scope.parity()
     return {'profile':'ashlar-configured-sdk-pages/0.1','sql':query.sql,'items':items,'pages':pages,'has_more':bool(pages and pages[-1]['has_more']),'program':json.loads(original),'evidence':observations,
         'qualification':'Provisional required STRING pages over an original configured graph publication; enclosing runtime cleanup required. No protected ACK or PostgreSQL/remote authority.'}
+
+
+class ConfiguredSdk053LiveSession:
+    """.53 SDK page owner usable only with the R02 two-stage review gate."""
+    def __init__(self,scope,transport,query,aliases,*,review_gate,runtime_guard,expected_continuation_after):
+        from ashlar.weft_053_distribution import Weft053Distribution
+        from umf_access.engine_catalog import EngineRead
+        _require(type(query)is ConfiguredSdkPagesConfig and type(query.compiler)is Weft053Distribution
+            and type(aliases)is ConfiguredQueryAliases and aliases.scope is scope
+            and callable(runtime_guard) and review_gate.stage=='pre-sql')
+        query.__post_init__();_require(query.compiler._verify())
+        selected_jars=tuple(map(str,runtime_guard()));_require(len(selected_jars)==2)
+        spark=scope.transport.spark
+        _require(spark.version=='4.2.0'and spark.sparkContext.master=='local[1]'
+            and spark.sparkContext._jvm.java.lang.System.getProperty('java.specification.version')=='21'
+            and spark.conf.get('spark.sql.ansi.enabled')=='true'and spark.conf.get('spark.sql.session.timeZone')=='UTC'
+            and spark.conf.get(PARAMETER_SUBSTITUTION_SETTING)=='true'
+            and set(spark.conf.get('spark.jars').split(','))==set(selected_jars))
+        from .configured_local_runtime_profile import verify_loaded_delta_class
+        verify_loaded_delta_class(spark,[__import__('pathlib').Path(p)for p in selected_jars])
+        self.scope,self.transport,self.query,self.aliases=scope,transport,query,aliases
+        self.review_gate=review_gate;self.expected_continuation_after=expected_continuation_after
+        values=query.parameters.model_dump(mode='python')
+        parameters={n:{'family':'string','value':v}for n,v in values.items()}
+        request=configured_typed_graph_sdk_request(scope.source.configuration,dict(scope.descriptor.raw),
+            scope.vector,scope.manifest_uuid,dict(aliases),query.sql,parameters,layout_sha256=LAYOUT_SHA256)
+        envelope={'version':'weft.engine-page/0.1','compiler':'ashlar-spark4-pages',
+            'request':request,'pageSize':query.page_size}
+        request_raw=encoded(envelope)
+        first=query.compiler.compile_engine_page_json(request_raw)
+        second=query.compiler.compile_engine_page_json(request_raw)
+        _require(type(first)is str and first==second and 0<len(first.encode())<=1048576)
+        self.page1_response=first.encode();self.page1_request=request_raw.encode()
+        self.entry=EngineRead.from_original(first,parameters=query.parameters_type,result=query.result_type)
+        program=json.loads(first);self.page1_artifact=program['artifact']
+        self.expected_page1_rows=configured_sdk_page_oracle(scope,request,program)(values,None)['rows'][:query.page_size]
+        self.owner=_Owner(scope,aliases,query,self.entry,request,runtime_guard,page_gate=review_gate,
+            expected_page1_artifact=self.page1_artifact,allow_053=True)
+        _require(self.owner.jars==selected_jars)
+        class Executor:
+            def query(_self,sql,parameters):return self.owner.query_frame(sql,parameters)
+        from ashlar.access import AshlarTarget
+        self.target=AshlarTarget(compiler=query.compiler,compiler_method='ashlar-spark4-pages',executor=Executor(),
+            backend=scope.backend,pins=self.owner,vector=scope.vector,policy=self.owner,context=scope.context,
+            binding_sha256=request['target']['bindingSha256'],
+            supported_profiles=['ashlar-delta/0.3'],
+            supported_revisions={scope.source.configuration.schema_alias:[scope.source.configuration.document_revision]},
+            platform=(('spark','4.2.0'),('delta','4.4.1')),
+            default_timeout=timedelta(seconds=query.timeout_seconds),deadline=self.owner.deadline,catalog_entries=(self.entry,))
+        self.started=time.monotonic()
+    def frozen_page1_artifact(self,continuation_after):
+        _require(continuation_after==self.expected_continuation_after)
+        return {'request':self.page1_request,'response':self.page1_response,
+            'expected':{'rows':self.expected_page1_rows,'continuationAfter':continuation_after}}
+    def page(self,after=None):
+        # The page-1 read is one ordered operation in the pre-SQL review
+        # receipt.  A caller cannot use this .53 adapter as an ungated SQL
+        # route, even though the public .48 runner remains available.
+        if after is None:
+            _require(self.review_gate.stage=='pre-sql' and self.review_gate.consumed
+                and self.review_gate.approved and self.review_gate.executing_name=='backend02-page1')
+        else:
+            _require(self.review_gate.stage=='post-page1' and self.review_gate.prior_stage_sha is not None
+                and type(after.values)is tuple)
+        self.owner.current();remaining=self.query.timeout_seconds-(time.monotonic()-self.started);_require(remaining>0)
+        self.owner.after=None if after is None else tuple(after.values)
+        self.owner.retained=0;self.owner.checked=None;self.owner.frames=[]
+        if after is None:return self.target.page(self.entry,self.query.parameters,after=None,timeout=timedelta(seconds=remaining))
+        # Freeze the exact continuation check before page execution.  The gate
+        # then encloses the complete target.page call, including every SQL
+        # statement the SDK may issue for this page.
+        request=self.entry.artifact()['request']
+        checked_raw=self.query.compiler.check_engine_page_json(self.entry.originals(),
+            encoded(request),encoded(list(after.values)))
+        checked=json.loads(checked_raw)
+        _require(checked.get('status')=='compiled')
+        request_raw=encoded({'version':'weft.engine-page/0.1','compiler':'ashlar-spark4-pages',
+            'request':request,'pageSize':self.query.page_size}).encode()
+        after_raw=encoded(list(after.values))
+        expected=self.owner.oracle({n:v['value']for n,v in request['parameters'].items()},tuple(after.values))
+        self.owner.continuation_checked=checked_raw.encode()
+        self.review_gate.freeze({'backend02-continuation':{'request':request_raw,
+            'response':checked_raw.encode(),'expected':expected,'after':after_raw}})
+        return self.review_gate.execute_after_review(self.review_gate.root/'post-page1-review.json',
+            lambda run:run('backend02-continuation',lambda:self.target.page(self.entry,self.query.parameters,
+                after=after,timeout=timedelta(seconds=remaining))))
+
+
+def run_configured_r02_weft053(scope,transport,query,aliases,*,review_gate,runtime_guard,
+        singleton_request,progress,ordinal,type_id,entity_id,tables,materialization_clock_us,
+        current_admission,source_oracle_sha256,singleton_expected,backend03_original,
+        backend03_positive,capture,decoder,expected_grouped_rows,expected_page1_after,
+        expected_page2_rows):
+    """Run the packet's exact ordered checks under one live alias owner.
+
+    This is deliberately R02-specific. Grouped compiler responses are already
+    frozen by the caller with the selected .53 compiler. The singleton and two
+    grouped statements, then page 1, all run only through the pre-SQL gate.
+    Page 2 freezes its response in the same scope and waits for its own review.
+    """
+    from .configured_weft_query import query_configured_projection_precompiled
+    from .delta_custody import encoded
+    _require(source_oracle_sha256=='f04f74668ac9adc46ac9928b01a4155ccad3aab6421cd297d018b7e45348aab0')
+    _require(type(singleton_request)is bytes and 0<len(singleton_request)<=1048576
+        and type(ordinal)is int and type(type_id)is int and type(entity_id)is int
+        and type(singleton_expected)is dict and type(tables)is dict
+        and type(expected_grouped_rows)is list and type(expected_page1_after)is str
+        and type(expected_page2_rows)is list)
+    _require(expected_grouped_rows==[['person-1',2,1]]
+        and expected_page1_after=='["person-2"]'
+        and expected_page2_rows==[['person-3','雪']])
+    _require(scope.context is not None and progress is not None and ordinal>=1 and type_id in scope.source.type_ids)
+    # Use the existing native singleton port from the already-held read scope;
+    # reopening the wrapper would acquire a second scope and split custody.
+    singleton_operation=lambda:scope.singleton(type_id,entity_id)
+    original_sql=('SELECT p.person_key, COUNT(*) AS paths, COUNT_DISTINCT_PATH_TARGETS(x) AS targets '
+        'FROM Person p CROSS JOIN EXPAND_PATHS(p.knows, located) AS x GROUP BY p.person_key '
+        'HAVING COUNT(*) > 0 ORDER BY p.person_key')
+    positive_sql=original_sql.replace('COUNT(*) > 0','COUNT(*) > 1')
+    _require(type(backend03_original)is dict and type(backend03_positive)is dict
+        and backend03_original.get('compilerVersion')=='0.4.53'
+        and backend03_positive.get('compilerVersion')=='0.4.53'
+        and backend03_original['request'].get('sql')==original_sql
+        and backend03_positive['request'].get('sql')==positive_sql)
+    session=ConfiguredSdk053LiveSession(scope,transport,query,aliases,review_gate=review_gate,
+        runtime_guard=runtime_guard,expected_continuation_after=expected_page1_after)
+    artifacts={
+        'singleton':{'request':singleton_request,'expected':singleton_expected},
+        'backend03-original':{'request':backend03_original['requestBytes'],
+            'response':backend03_original['responseBytes'],'expected':{'rows':expected_grouped_rows}},
+        'backend03-positive':{'request':backend03_positive['requestBytes'],
+            'response':backend03_positive['responseBytes'],'expected':{'rows':expected_grouped_rows}},
+        'backend02-page1':session.frozen_page1_artifact(expected_page1_after),
+    }
+    review_gate.freeze(artifacts)
+    page1_holder={}
+    def stage_one(run):
+        singleton=run('singleton',singleton_operation)
+        _require(singleton==singleton_expected)
+        for name,sql,compiled in (
+            ('backend03-original',original_sql,backend03_original),
+            ('backend03-positive',positive_sql,backend03_positive)):
+            value=run(name,lambda sql=sql,compiled=compiled:query_configured_projection_precompiled(
+                scope,aliases,sql,compiled,capture=capture,decoder=decoder))
+            rows=value['evidence']['native_result']['rows']
+            _require(rows==expected_grouped_rows)
+        page=run('backend02-page1',session.page)
+        rows=[[item.person_key,item.person_name]for item in page.items]
+        _require(rows==session.expected_page1_rows and page.next_after is not None
+            and encoded(list(page.next_after.values))==expected_page1_after)
+        page1_holder['page']=page
+        return {'continuationAfter':expected_page1_after}
+    review_gate.execute_after_review(review_gate.root/'pre-sql-review.json',stage_one)
+    review_gate.next_stage_after_page1()
+    page1=page1_holder['page']
+    page2=session.page(after=page1.next_after)
+    observed=[[item.person_key,item.person_name]for item in page2.items]
+    _require(observed==expected_page2_rows and page2.next_after is None)
+    return {'singleton':singleton_expected,'backend03':{'original':expected_grouped_rows,
+        'positive':expected_grouped_rows},'backend02':{'page1':session.expected_page1_rows,
+        'page2':observed,'continuationAfter':expected_page1_after},
+        'vector':dict(scope.vector.targets),'aliases':dict(aliases),'scopeKind':'ashlar-delta/0.3'}

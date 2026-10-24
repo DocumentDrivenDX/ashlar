@@ -104,6 +104,7 @@ class R02LiveAliasReviewGate:
         self.runtime=runtime;self.live_check=live_check;self.deadline=time.monotonic()+deadline_seconds
         self.vector_sha=_sha(_canonical(vector));self.alias_sha=_sha(_canonical(aliases));self.runtime_sha=_sha(_canonical(runtime))
         self.approved=False;self.consumed=False;self.stage_succeeded=False
+        self.executing_name=None
         self.prior_stage_sha=None;self.page1_after=None;self.stage1_expected=None
 
     def freeze(self,artifacts):
@@ -158,7 +159,11 @@ class R02LiveAliasReviewGate:
             nonlocal cursor
             _require(cursor<len(names) and name==names[cursor] and callable(operation))
             _require(time.monotonic()<self.deadline);self.live_check()
-            value=operation();results[name]=value;cursor+=1
+            _require(self.executing_name is None)
+            self.executing_name=name
+            try:value=operation()
+            finally:self.executing_name=None
+            results[name]=value;cursor+=1
             return value
         try:
             outcome=execute(execute_one)
@@ -177,3 +182,4 @@ class R02LiveAliasReviewGate:
             and type(self.page1_after)is str and 0<len(self.page1_after.encode())<=LIMIT_ARTIFACT)
         self.prior_stage_sha=self.manifest_sha;self.prior_review_sha=self.review_sha
         self.stage='post-page1';self.approved=False;self.consumed=False;self.stage_succeeded=False
+        self.executing_name=None

@@ -73,7 +73,15 @@ class Weft053Distribution:
         _require(set(self.index)=={'profile','sourceCommit','version','wheel','root','module','files','schemas'}
             and self.index['profile']=='ashlar-weft-053-runtime-index/0.1'
             and self.index['sourceCommit']==SOURCE_COMMIT and self.index['version']==VERSION)
-        self.module=importlib.import_module('weft'); self._verify()
+        # Verify the selected wheel and installed payload before importing code
+        # from it.  This prevents an ambient ``weft`` module from executing
+        # before its origin has been bound to the pinned runtime index.
+        self.module=None
+        self._verify()
+        module=importlib.import_module('weft')
+        self.module=module
+        _require(str(Path(module.__file__).resolve())==self.index['module'])
+        self._verify()
 
     def _verify(self):
         _require(hashlib.sha256(_read(self.paths.index,MAX_INDEX)).hexdigest()==self.paths.index_sha256)
@@ -100,11 +108,14 @@ class Weft053Distribution:
                 d=Path(parent); _require(not any((d/n).is_symlink() for n in dirs+names))
                 actual_paths.update((d/n).relative_to(root).as_posix() for n in names)
         _require(actual_paths==expected)
-        module=Path(self.module.__file__).resolve(); _require(str(module)==self.index['module'])
-        _require(callable(getattr(self.module,'compile_paths_keys_json',None))
-            and callable(getattr(self.module,'compile_engine_page_json',None))
-            and callable(getattr(self.module,'check_engine_page_json',None))
-            and callable(getattr(self.module,'check_engine_read_json',None)))
+        module_path=Path(self.index['module']); _require(module_path.is_absolute() and module_path.resolve()==module_path
+            and str(module_path).startswith(str(root)+os.sep))
+        if self.module is not None:
+            _require(str(Path(self.module.__file__).resolve())==self.index['module'])
+            _require(callable(getattr(self.module,'compile_paths_keys_json',None))
+                and callable(getattr(self.module,'compile_engine_page_json',None))
+                and callable(getattr(self.module,'check_engine_page_json',None))
+                and callable(getattr(self.module,'check_engine_read_json',None)))
         schemas=self.index['schemas']; _require(type(schemas)is dict and set(schemas)==set(SCHEMA_SHA256))
         for name,digest in SCHEMA_SHA256.items():
             _require(schemas[name]['sha256']==digest and hashlib.sha256(_read(Path(schemas[name]['path']),MAX_FILE)).hexdigest()==digest)
