@@ -176,8 +176,10 @@ and Ashlar's `typed-sdk` extra now pins 0.4.53 after one exact Ashlar page fixtu
 compiled to a byte-identical response on the 0.4.52 and 0.4.53 macOS wheels
 ([adoption receipt](evidence/current-upstream-release-20261023/weft053-ashlar-adoption-20261023/README.md)).
 Public UMF `umf-v0.5.5` now selects SDK 0.5.5, access `0.1.0.dev7`, codegen
-`0.1.0a4`, and the unchanged core `0.10.0` wheel. Ashlar pins the exact public
-access asset and focused compatibility checks pass; the release's G01 PostgreSQL
+`0.1.0a4`, and the unchanged core `0.10.0` wheel. Ashlar now points both the
+access and core URLs at that public release; the core bytes remain identical,
+and the focused [core URL refresh receipt](evidence/current-upstream-release-20261023/umf-core-public-url-refresh-20261023/README.md)
+records the check. Focused compatibility checks pass; the release's G01 PostgreSQL
 and hosted checks do not qualify Ashlar's Delta or Truss paths. The tagged SDK
 has the managed Databricks
 Delta generator but lacks the reviewed `spark-delta4/0.1` direct-path
