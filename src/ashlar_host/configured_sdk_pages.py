@@ -41,6 +41,16 @@ def _require_frozen_grouped_artifact(compiled,record):
         and compiled.get('responseBytes')==compiled.get('recompiledBytes'))
 
 
+def _visible_page_rows(program,carrier_rows):
+    """Retain compiler carriers but compare SDK rows using visible outputs only."""
+    page=program.get('page')if type(program)is dict else None
+    visible=page.get('visibleOutputs')if type(page)is dict else None
+    key_outputs=page.get('keyOutputs')if type(page)is dict else None
+    _require(type(visible)is int and visible>0 and type(key_outputs)is list and len(key_outputs)>0
+        and type(carrier_rows)is list and all(type(row)is list and len(row)==visible+len(key_outputs)for row in carrier_rows))
+    return [list(row[:visible])for row in carrier_rows]
+
+
 @dataclass(frozen=True)
 class ConfiguredR02Weft053Selection:
     """Private invocation data for the R02 packet runner; not CLI selectable."""
@@ -280,7 +290,8 @@ class ConfiguredSdk053LiveSession:
         self.page1_response=first.encode();self.page1_request=request_raw.encode()
         self.entry=EngineRead.from_original(first,parameters=query.parameters_type,result=query.result_type)
         program=json.loads(first);self.page1_artifact=program['artifact']
-        self.expected_page1_rows=configured_sdk_page_oracle(scope,request,program)(values,None)['rows'][:query.page_size]
+        self.expected_page1_carrier_rows=configured_sdk_page_oracle(scope,request,program)(values,None)['rows'][:query.page_size]
+        self.expected_page1_rows=_visible_page_rows(program,self.expected_page1_carrier_rows)
         self.owner=_Owner(scope,aliases,query,self.entry,request,runtime_guard,page_gate=review_gate,
             expected_page1_artifact=self.page1_artifact,allow_053=True)
         _require(self.owner.jars==selected_jars)
@@ -306,7 +317,8 @@ class ConfiguredSdk053LiveSession:
         self.owner.expected_page1_checked_response=self.page1_checked_response
         return {'request':self.page1_request,'response':self.page1_checked_response,
             'programResponse':self.page1_response,
-            'expected':{'rows':self.expected_page1_rows,'continuationAfter':continuation_after}}
+            'expected':{'rows':self.expected_page1_rows,'carrierRows':self.expected_page1_carrier_rows,
+                'continuationAfter':continuation_after}}
     def page(self,after=None):
         # The page-1 read is one ordered operation in the pre-SQL review
         # receipt.  A caller cannot use this .53 adapter as an ungated SQL
