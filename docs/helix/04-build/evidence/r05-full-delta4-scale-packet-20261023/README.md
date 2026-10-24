@@ -61,8 +61,9 @@ Failure or phase cancellation cancels the shared Spark job group and joins both
 writer threads before the worker returns. The supervisor still owns the child
 process boundary and cleanup after quiescence. This mode has an 840-second
 phase cap within the existing 1,200-second write wall cap, and is bound by the
-packet digest and explicit owner authorization. It is a candidate only; no
-concurrent write has run.
+packet digest and explicit owner authorization. It remains a candidate only;
+the first bounded parallel attempt failed during worker cleanup and produced no
+performance comparison (details below).
 
 ## Held paired-writer discriminator
 
@@ -107,11 +108,21 @@ only after successful worker completion and process-group quiescence; the superv
 checks all four output paths, their filesystem identities, Delta UUIDs, current
 versions and writer protocols, then removes only those receipt-owned paths and
 its recorded scratch. Any mismatch or incomplete receipt preserves the attempt
-root. No authorization file is included, and the packet has not started Spark
-or run a paired comparison. The worker cap is 780 seconds; cleanup stops by
-second 860 to reserve the final 40 seconds for the supervisor receipt and slot
-release, within the 900-second aggregate cap. Sol must review the exact packet
-before execution; the authorization records the owner's already-directed
+root. No authorization file is included in this packet. The first bounded
+native attempt `ashlar-r05-paired-5032285d1c936ede07022526` failed in parallel
+mode after about 84.73 seconds. The sequential mode and its independent
+validation completed; the parallel worker then raised `AttributeError` because
+the selected PySpark 4.2.0 `SparkContext` has no `clearJobGroup`, followed by
+edge-job cancellation with `ClosedByInterruptException`. The supervisor receipt
+SHA-256 begins `f809d21e`; the worker log SHA-256 begins `87f392c9`. Its 5.4 GiB
+attempt root remains preserved. The supervisor's immediate post-exit process
+group check was non-quiescent, while a later exact process inventory showed no
+live R05 or Spark processes. Cleanup and a completed comparison are not claimed.
+The paired supervisor now allows a bounded two-second group-exit settle; any
+remaining process-group member still blocks cleanup. The worker cap is 780
+seconds; cleanup stops by second 860, reserving 40 seconds for the supervisor
+receipt and slot release within the 900-second aggregate cap. Sol must review
+the exact packet before execution; the authorization records the owner's already-directed
 sample-based local performance work, not a new permission prompt. R02 and this
 trial must be scheduled sequentially with a fresh Spark process inventory before
 each run because R02 does not use the paired supervisor's lock. To prepare

@@ -281,6 +281,22 @@ def _active_delta_bytes(root: Path) -> int:
     return total
 
 
+def _wait_for_group_quiescence(pgid: int, timeout_seconds: float = 2.0) -> bool:
+    """Allow exited child descendants a short bounded shutdown window.
+
+    A live process group remains non-quiescent after the bound and still blocks
+    cleanup. This only avoids treating a transient post-exit JVM shutdown race
+    as the final group state.
+    """
+    deadline = time.monotonic() + timeout_seconds
+    while full._group_exists(pgid):
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            return False
+        time.sleep(min(0.1, remaining))
+    return True
+
+
 def _run_child(root: Path, runtime: dict, digest: str,
                started: float, source_digest: str) -> tuple[int, bool, str | None]:
     child_deadline = started + WORKER_SECONDS
@@ -328,7 +344,7 @@ def _run_child(root: Path, runtime: dict, digest: str,
                 reason = reason or "worker-deadline-exceeded"
                 quiescent = full._kill_reap(process, wait_seconds=15)
             else:
-                quiescent = not full._group_exists(process.pid)
+                quiescent = _wait_for_group_quiescence(process.pid)
     if not quiescent:
         reason = reason or "worker-process-group-not-quiescent"
     return process.returncode if process.returncode is not None else -signal.SIGKILL, quiescent, reason
@@ -490,9 +506,8 @@ def _run_cleanup_child(root: Path, runtime: dict, deadline: float) -> tuple[dict
     if process.poll() is None:
         quiescent = full._kill_reap(process, wait_seconds=9)
         return {}, quiescent, "cleanup-child-deadline-exceeded"
-    if not full._group_exists(process.pid):
-        quiescent = True
-    else:
+    quiescent = _wait_for_group_quiescence(process.pid)
+    if not quiescent:
         quiescent = full._kill_reap(process, wait_seconds=10)
     if process.returncode != 0 or not quiescent:
         return {}, quiescent, "cleanup-child-failed-or-not-quiescent"

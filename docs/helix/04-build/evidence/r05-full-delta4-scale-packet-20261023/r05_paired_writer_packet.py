@@ -105,6 +105,31 @@ def _source_select(role_plan) -> str:
     return match.group(1)
 
 
+def _clear_spark_job_group(spark_context) -> None:
+    """Clear the per-thread job-group properties through PySpark's public API.
+
+    Spark 4.2.0 exposes Scala SparkContext.clearJobGroup, but the selected
+    PySpark 4.2.0 wrapper does not. These are the three properties set by the
+    Spark 4.2.0 JVM setJobGroup implementation.
+    """
+    for key in ("spark.job.description", "spark.jobGroup.id",
+                "spark.job.interruptOnCancel"):
+        spark_context.setLocalProperty(key, None)
+
+
+def _execute_parallel_role(*, spark, group_id: str, role: str,
+                           insert_sql: str, role_seconds: dict) -> None:
+    spark_context = spark.sparkContext
+    spark_context.setJobGroup(
+        group_id, f"R05 paired {role}", interruptOnCancel=True)
+    role_started = time.monotonic()
+    try:
+        spark.sql(insert_sql)
+    finally:
+        role_seconds[role] = round(time.monotonic() - role_started, 6)
+        _clear_spark_job_group(spark_context)
+
+
 def run_pair(*, spark, root: Path, started: float, packet_digest: str) -> dict:
     """Run the same deterministic input plan against two fresh output pairs."""
     if packet_digest != packet_sha256():
@@ -175,13 +200,10 @@ def run_pair(*, spark, root: Path, started: float, packet_digest: str) -> dict:
             from full_delta4_trial import _parallel_roles
             group_id = f"r05-paired-{int(started * 1000)}"
             def execute(role):
-                spark.sparkContext.setJobGroup(group_id, f"R05 paired {role}", interruptOnCancel=True)
-                role_started = time.monotonic()
-                try:
-                    spark.sql(role_plans[role].insert_sql)
-                finally:
-                    role_seconds[role] = round(time.monotonic() - role_started, 6)
-                    spark.sparkContext.clearJobGroup()
+                _execute_parallel_role(
+                    spark=spark, group_id=group_id, role=role,
+                    insert_sql=role_plans[role].insert_sql,
+                    role_seconds=role_seconds)
             _parallel_roles(ROLES, execute, lambda: spark.sparkContext.cancelJobGroup(group_id))
         mode_result = {"writeWallSeconds": round(time.monotonic() - write_started, 6),
                        "roleWriteSeconds": role_seconds, "tables": {}}

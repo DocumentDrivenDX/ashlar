@@ -5,13 +5,17 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import threading
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
+from unittest import mock
 
 from r05_paired_writer_packet import (
-    EDGE_ROWS, NODE_ROWS, PacketRefused, _closed_approval, _source_select,
+    EDGE_ROWS, NODE_ROWS, PacketRefused,
+    _closed_approval, _execute_parallel_role, _source_select,
 )
 import r05_paired_writer_supervisor as supervisor
+from full_delta4_trial import _parallel_roles
 
 
 class PairedWriterPacketChecks(unittest.TestCase):
@@ -67,6 +71,74 @@ class PairedWriterPacketChecks(unittest.TestCase):
             insert_sql = "INSERT INTO delta.`/tmp/x` SELECT * FROM arbitrary_table"
         with self.assertRaises(PacketRefused):
             _source_select(Invalid())
+
+    def test_parallel_failure_clears_spark_42_job_group_properties_per_thread(self):
+        barrier = threading.Barrier(2)
+        lock = threading.Lock()
+        properties = {}
+        cancel_calls = []
+
+        class FakeSparkContext:
+            def _state(self):
+                with lock:
+                    return properties.setdefault(threading.get_ident(), {})
+
+            def setJobGroup(self, group_id, description, interruptOnCancel=False):
+                values = self._state()
+                values.update({
+                    "spark.job.description": description,
+                    "spark.jobGroup.id": group_id,
+                    "spark.job.interruptOnCancel": str(interruptOnCancel).lower(),
+                })
+
+            def setLocalProperty(self, key, value):
+                values = self._state()
+                if value is None:
+                    values.pop(key, None)
+                else:
+                    values[key] = value
+
+            def cancelJobGroup(self, _group_id):
+                cancel_calls.append("cancelled")
+
+        class FakeSpark:
+            def __init__(self):
+                self.sparkContext = FakeSparkContext()
+
+            def sql(self, statement):
+                barrier.wait(timeout=2)
+                if statement == "fail":
+                    raise RuntimeError("inert simulated writer failure")
+
+        spark = FakeSpark()
+        timings = {}
+        group_id = "r05-paired-test"
+
+        def execute(role):
+            _execute_parallel_role(
+                spark=spark, group_id=group_id, role=role,
+                insert_sql="fail" if role == "node" else "succeed",
+                role_seconds=timings)
+
+        with self.assertRaisesRegex(RuntimeError, "simulated writer failure"):
+            _parallel_roles(("node", "edge"), execute,
+                            lambda: spark.sparkContext.cancelJobGroup(group_id))
+        self.assertEqual(1, len(cancel_calls))
+        self.assertEqual({"node", "edge"}, set(timings))
+        self.assertEqual([{}, {}], sorted(properties.values(), key=len))
+
+    def test_group_quiescence_wait_is_bounded_and_never_ignores_live_members(self):
+        with mock.patch.object(
+                supervisor.full, "_group_exists", side_effect=[True, True, False]):
+            self.assertTrue(supervisor._wait_for_group_quiescence(123, 0.2))
+
+        ticks = iter((0.0, 0.0, 0.1, 0.2, 0.3))
+        with mock.patch.object(
+                supervisor.full, "_group_exists", return_value=True), \
+                mock.patch.object(supervisor.time, "monotonic",
+                                  side_effect=lambda: next(ticks)), \
+                mock.patch.object(supervisor.time, "sleep"):
+            self.assertFalse(supervisor._wait_for_group_quiescence(123, 0.25))
 
     def test_cleanup_refuses_incomplete_receipts_and_preserves_attempt(self):
         from pathlib import Path
