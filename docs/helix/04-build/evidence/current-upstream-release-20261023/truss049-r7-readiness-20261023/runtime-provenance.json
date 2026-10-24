@@ -1,0 +1,229 @@
+{
+  "direct_url_archive_hashes": "All 27 installed distributions match wheel SHA-256 in direct_url.json.",
+  "installed_record_verification": "All hashed RECORD payload hashes and sizes verified against installed files.",
+  "pg_ctl_binary": {
+    "bytes": 113520,
+    "sha256": "59b641aabae44b43acfc34fd0bdeb9af9480338d39b25f3088d7c486fdd8b999",
+    "version": "18.6.1 wheel binary; hashed, not executed"
+  },
+  "pip_check": "No broken requirements found.",
+  "profile": "ashlar-r7-package-runtime-provenance/1",
+  "runtime": {
+    "include_system_site_packages": false,
+    "install_elapsed_seconds": 66.043,
+    "install_exit_code": 0,
+    "log_sha256": "c890e220caed3f6601b197a42858e8ad6e71d41bde137b2c4dabf916f1619220",
+    "log_size_bytes": 4389,
+    "platform": "macOS arm64",
+    "python": "3.12.14",
+    "site_packages_count_on_sys_path": 1,
+    "size_bytes_including_install_log": 774645581,
+    "size_cap_bytes": 1073741824
+  },
+  "scope": "isolation, package provenance, installed RECORD and dependency metadata only; no PostgreSQL or Spark execution",
+  "selected_wheels": [
+    {
+      "distribution": "annotated-types",
+      "filename": "annotated_types-0.8.0-py3-none-any.whl",
+      "sha256": "f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0",
+      "size_bytes": 13427,
+      "version": "0.8.0"
+    },
+    {
+      "distribution": "attrs",
+      "filename": "attrs-26.1.0-py3-none-any.whl",
+      "sha256": "c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309",
+      "size_bytes": 67548,
+      "version": "26.1.0"
+    },
+    {
+      "distribution": "delta_spark",
+      "filename": "delta_spark-4.4.1-py3-none-any.whl",
+      "sha256": "224814c76071236dd98c23e8d01da9f43bec21af4129cae92822ca25e5becec7",
+      "size_bytes": 54967,
+      "version": "4.4.1"
+    },
+    {
+      "distribution": "fasteners",
+      "filename": "fasteners-0.20-py3-none-any.whl",
+      "sha256": "9422c40d1e350e4259f509fb2e608d6bc43c0136f79a00db1b49046029d0b3b7",
+      "size_bytes": 18702,
+      "version": "0.20"
+    },
+    {
+      "distribution": "importlib_metadata",
+      "filename": "importlib_metadata-8.7.1-py3-none-any.whl",
+      "sha256": "5a1f80bf1daa489495071efbb095d75a634cf28a8bc299581244063b53176151",
+      "size_bytes": 27865,
+      "version": "8.7.1"
+    },
+    {
+      "distribution": "jsonschema",
+      "filename": "jsonschema-4.26.0-py3-none-any.whl",
+      "sha256": "d489f15263b8d200f8387e64b4c3a75f06629559fb73deb8fdfb525f2dab50ce",
+      "size_bytes": 90630,
+      "version": "4.26.0"
+    },
+    {
+      "distribution": "jsonschema-specifications",
+      "filename": "jsonschema_specifications-2025.9.1-py3-none-any.whl",
+      "sha256": "98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe",
+      "size_bytes": 18437,
+      "version": "2025.9.1"
+    },
+    {
+      "distribution": "mini-racer",
+      "filename": "mini_racer-0.14.1-py3-none-macosx_11_0_arm64.whl",
+      "sha256": "56cc6965a1665a50d8d613bc43aa83b4cec6b1f09acc69dc4c2845dacb201463",
+      "size_bytes": 18511166,
+      "version": "0.14.1"
+    },
+    {
+      "distribution": "pgserver-pg18",
+      "filename": "pgserver_pg18-18.6.1-cp312-cp312-macosx_14_0_arm64.whl",
+      "sha256": "424165d468f69ab6b73ac40de3258d8e9cb85b4ffb6496767671edc836cdb862",
+      "size_bytes": 10820357,
+      "version": "18.6.1"
+    },
+    {
+      "distribution": "platformdirs",
+      "filename": "platformdirs-4.12.4-py3-none-any.whl",
+      "sha256": "78bfb9db2a8471ed7eebe3c3c932da413911042994e699b384fbb4493fa872d7",
+      "size_bytes": 32596,
+      "version": "4.12.4"
+    },
+    {
+      "distribution": "psutil",
+      "filename": "psutil-7.2.2-cp36-abi3-macosx_11_0_arm64.whl",
+      "sha256": "1a7b04c10f32cc88ab39cbf606e117fd74721c831c98a27dc04578deb0c16979",
+      "size_bytes": 129859,
+      "version": "7.2.2"
+    },
+    {
+      "distribution": "psycopg",
+      "filename": "psycopg-3.3.6-py3-none-any.whl",
+      "sha256": "a1db9f7148b06a28606767efaca51fa6f9398c5c0a3810519be69d7000bdb631",
+      "size_bytes": 215490,
+      "version": "3.3.6"
+    },
+    {
+      "distribution": "psycopg-binary",
+      "filename": "psycopg_binary-3.3.6-cp312-cp312-macosx_11_0_arm64.whl",
+      "sha256": "612382ac3ed13651c7fa44b5fee9fbf7baaa2ddbc6f500391672682c5f1df9e0",
+      "size_bytes": 4769607,
+      "version": "3.3.6"
+    },
+    {
+      "distribution": "py4j",
+      "filename": "py4j-0.10.9.9-py2.py3-none-any.whl",
+      "sha256": "c7c26e4158defb37b0bb124933163641a2ff6e3a3913f7811b0ddbe07ed61533",
+      "size_bytes": 203008,
+      "version": "0.10.9.9"
+    },
+    {
+      "distribution": "pydantic",
+      "filename": "pydantic-2.14.1-py3-none-any.whl",
+      "sha256": "9195d967ec791692a04438115466764fb8b9a27b31f14a760437694f40d6b454",
+      "size_bytes": 488106,
+      "version": "2.14.1"
+    },
+    {
+      "distribution": "pydantic_core",
+      "filename": "pydantic_core-2.50.1-cp312-cp312-macosx_11_0_arm64.whl",
+      "sha256": "e8e1d6ce820aa23317e8209a86bd65a540973c12dc7552b48a4f6c8e9926815e",
+      "size_bytes": 2025779,
+      "version": "2.50.1"
+    },
+    {
+      "distribution": "pyspark",
+      "filename": "pyspark-4.2.0-py2.py3-none-any.whl",
+      "sha256": "5cc610e9ed56a022b63724e0ad62e9f7f9e47a2520802ae9d8c75826d1faf8cc",
+      "size_bytes": 450798674,
+      "version": "4.2.0"
+    },
+    {
+      "distribution": "referencing",
+      "filename": "referencing-0.37.0-py3-none-any.whl",
+      "sha256": "381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231",
+      "size_bytes": 26766,
+      "version": "0.37.0"
+    },
+    {
+      "distribution": "rpds-py",
+      "filename": "rpds_py-2026.9.1-cp312-cp312-macosx_11_0_arm64.whl",
+      "sha256": "e21c1429e205828ea886a2293a4a2c8e01f4c25d9893ca330e97a6cf73f52e7b",
+      "size_bytes": 341380,
+      "version": "2026.9.1"
+    },
+    {
+      "distribution": "ruamel.yaml",
+      "filename": "ruamel_yaml-0.19.1-py3-none-any.whl",
+      "sha256": "27592957fedf6e0b62f281e96effd28043345e0e66001f97683aa9a40c667c93",
+      "size_bytes": 118102,
+      "version": "0.19.1"
+    },
+    {
+      "distribution": "truss-toolkit",
+      "filename": "truss_toolkit-0.0.49-py3-none-any.whl",
+      "sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182",
+      "size_bytes": 6232642,
+      "version": "0.0.49"
+    },
+    {
+      "distribution": "typing-inspection",
+      "filename": "typing_inspection-0.4.4-py3-none-any.whl",
+      "sha256": "65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147",
+      "size_bytes": 14750,
+      "version": "0.4.4"
+    },
+    {
+      "distribution": "typing_extensions",
+      "filename": "typing_extensions-4.16.0-py3-none-any.whl",
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+      "size_bytes": 45571,
+      "version": "4.16.0"
+    },
+    {
+      "distribution": "umf-core",
+      "filename": "umf_core-0.10.1-cp311-abi3-macosx_11_0_arm64.whl",
+      "sha256": "49459bb2dbc37ac9b62b269e9664bac1483439c7d4c79f0b07855e9c8546c823",
+      "size_bytes": 3250983,
+      "version": "0.10.1"
+    },
+    {
+      "distribution": "umf_access",
+      "filename": "umf_access-0.1.0.dev7-py3-none-any.whl",
+      "sha256": "a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597",
+      "size_bytes": 336885,
+      "version": "0.1.0.dev7"
+    },
+    {
+      "distribution": "weft-sql",
+      "filename": "weft_sql-0.4.53-cp39-abi3-macosx_11_0_arm64.whl",
+      "sha256": "4c8281945b852af02cae8602747fb7b1b652ab3a1369d7650efce62ae6d35c6c",
+      "size_bytes": 10842336,
+      "version": "0.4.53"
+    },
+    {
+      "distribution": "zipp",
+      "filename": "zipp-4.1.1-py3-none-any.whl",
+      "sha256": "8979f52d874162f485ff2981e3891f3a3317b7a3dd43ff1e1775b9304f307a9c",
+      "size_bytes": 10582,
+      "version": "4.1.1"
+    }
+  ],
+  "source_runtime_receipt_sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a",
+  "verified_record_payload_count": 4001,
+  "versions": {
+    "delta-spark": "4.4.1",
+    "pgserver-pg18": "18.6.1",
+    "psycopg": "3.3.6",
+    "pyspark": "4.2.0",
+    "truss-toolkit": "0.0.49",
+    "umf-core": "0.10.1",
+    "umf_access": "0.1.0.dev7",
+    "weft-sql": "0.4.53"
+  },
+  "wheel_count": 27,
+  "wheelhouse_lock_sha256": "fce1c31381495aea07ae356dd1f54d35210b48e37c69ff8a7ae43dfa48687703"
+}

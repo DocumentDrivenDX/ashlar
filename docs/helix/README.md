@@ -49,8 +49,11 @@ proposal](04-build/evidence/current-upstream-release-20261023/truss049-r5-curren
 The R6 worker and supervisor were statically bound to the `6986e832` source
 snapshot. Ashlar main then moved the UMF core URL to the latest published
 release with identical wheel bytes. R6 is now a frozen record, not a current
-lifecycle packet; its live preflight and lifecycle have not run. Execution needs
-a fresh binding and owner approval ([R6 readiness](04-build/evidence/current-upstream-release-20261023/truss049-current-cohort-readiness-20261023/README.md)).
+lifecycle packet; its live preflight and lifecycle have not run ([R6 readiness](04-build/evidence/current-upstream-release-20261023/truss049-current-cohort-readiness-20261023/README.md)).
+R7 now statically binds the published UMF 0.10.1 runtime, the rebuilt bridge
+and Ashlar source `7c4006e8` under the retained Truss identities. Its private
+root is below the 1-GiB cap, but no preflight or native action has run. The
+shared local slot and fresh owner approval remain gates ([R7 packet](04-build/evidence/current-upstream-release-20261023/truss049-r7-readiness-20261023/README.md)).
 
 The small configured JSONL example has actual managed-Delta
 [publication, update/delete and history evidence](04-build/evidence/native-configured-publication-complete-20261008.json),

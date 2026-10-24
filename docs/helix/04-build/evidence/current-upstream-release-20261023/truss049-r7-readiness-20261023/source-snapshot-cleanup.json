@@ -1,0 +1,41 @@
+{
+  "cleanup": {
+    "exit_code": 0,
+    "final_root_size_bytes": 737551937,
+    "last_observed_state": "the one owned remover exited successfully; both redundant setup trees are absent; selected source archive and verified extraction remain",
+    "method": "one owned cleanup process; no second remover started",
+    "protected": [
+      "selected archive and extracted selected inputs",
+      "fresh runtime",
+      "wheelhouse target",
+      "retained PGDATA",
+      "seed",
+      "foreign process files"
+    ],
+    "root_size_admission": "measured below the 1 GiB ceiling; checker will remeasure on its final pass",
+    "scope": "only the two redundant generated source snapshot/extraction directories"
+  },
+  "profile": "ashlar-r7-source-snapshot-cleanup/0.1",
+  "purpose": "Record the bounded handling of redundant setup snapshots separately from the selected immutable source archive.",
+  "qualification": "The remover exited and the R7 root was measured. This is setup cleanup evidence only; no source, PostgreSQL, Spark or campaign action was performed.",
+  "redundant_full_extraction": {
+    "digest_note": "A bounded full-tree hash attempt was stopped before completion; no digest is claimed.",
+    "full_tree_digest": null,
+    "measured_size_kib": 719116
+  },
+  "redundant_setup_snapshot": {
+    "clone_head": "7c4006e880b037e2de318d04b45a8aeae9dfea12",
+    "clone_tree": "65377e9c97bab62b50a1eef7d0314cb390f8f2e4",
+    "disposition": "authorized removal as incomplete redundant clone; selected archive remains authoritative",
+    "index_present": false,
+    "lock_files_observed": 0,
+    "open_file_handles_observed": 0,
+    "tracked_worktree_status_lines": 15124
+  },
+  "selected_archive": {
+    "bytes": 8652800,
+    "manifest_sha256": "00d1902bda5821e478c76d8b1a264b11e59e88d3d978d7b5d34ea7a6691cb9d5",
+    "sha256": "49f1eea46cbfcf8ddc33ce841669fd9de4e41ad427863e4598f30bf92b6dfaba",
+    "status": "retained and independently verified"
+  }
+}
