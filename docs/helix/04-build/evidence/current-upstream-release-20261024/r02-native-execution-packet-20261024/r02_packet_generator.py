@@ -174,7 +174,7 @@ def create_packet(output_root: Path | None = None) -> Path:
     try:
         make_private_layout(attempt)
         umf_source, umf_commit, umf_tree = export_umf(attempt)
-        source_admission = validate_staged_source(attempt, umf_source)
+        source_admission = validate_staged_source(attempt, umf_source, umf_commit, umf_tree)
         invocation_templates = make_invocations(attempt, attempt_id, umf_source)
         parser_validation = validate_cli_invocations(invocation_templates)
         packet_files = {}
@@ -302,7 +302,8 @@ print(json.dumps(out,sort_keys=True))
     return parsed
 
 
-def validate_staged_source(attempt: Path, umf_source: Path) -> dict[str, object]:
+def validate_staged_source(attempt: Path, umf_source: Path, umf_commit: str,
+                           umf_tree: str) -> dict[str, object]:
     """Run only configured-source admission against these staged, pinned inputs."""
     output = attempt / "outputs" / "source-admission"
     environment = {"HOME": "/nonexistent", "TMPDIR": str(attempt / "tmp"),
@@ -325,7 +326,17 @@ def validate_staged_source(attempt: Path, umf_source: Path) -> dict[str, object]
     return {"reportSha256": hashlib.sha256(result.stdout).hexdigest(),
             "reportBytes": len(result.stdout), "profile": report.get("profile"),
             "producerRevision": report.get("producer_revision"), "batches": report.get("batches"),
-            "records": report.get("records"), "published": False, "acknowledged": False}
+            "records": report.get("records"), "published": False, "acknowledged": False,
+            "sourceFiles": {name: sha256(attempt / "input" / name) for name in (
+                "configured-typed-graph-source.json", "typed-graph-model.umf.json",
+                "typed-graph-source.jsonl", "typed-graph-binding.json")},
+            "producer": {"source": str(umf_source), "commit": umf_commit, "tree": umf_tree,
+                         "bun": str(BUN), "bunSha256": sha256(BUN),
+                         "git": str(GIT), "gitSha256": sha256(GIT)},
+            "receiptSha256": sha256(output / "graph-1.json"),
+            "receiptBytes": (output / "graph-1.json").stat().st_size,
+            "reportFileSha256": sha256(output / "report.json"),
+            "reportFileBytes": (output / "report.json").stat().st_size}
 
 
 def main() -> int:
