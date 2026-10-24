@@ -429,10 +429,10 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
         from .configured_local_runtime_profile import verify_loaded_delta_class
         verify_loaded_delta_class(spark,[Path(p)for p in jars])
         _require(time.monotonic()<deadline)
-    deadline=time.monotonic()+300
+    deadline,gate_budget=_r02_review_deadline(runtime)
     review_gate=gate_module.R02LiveAliasReviewGate(selection.attempt_root,attempt_id=selection.attempt_id,
         stage='pre-sql',source_revision=selection.source_revision,spark_application_id=aliases.application_id,
-        vector=vector,aliases=aliases_by_role,runtime=runtime,live_check=live_check,deadline_seconds=300)
+        vector=vector,aliases=aliases_by_role,runtime=runtime,live_check=live_check,deadline_seconds=gate_budget)
     expected_grouped_rows=group_rows;expected_page1_after=page1_after;expected_page2_rows=page2_rows
     capture=query.capture;decoder=PathDecodeConfig(query.capture.maximum_cell_bytes)
     singleton_operation=lambda:scope.singleton(type_id,entity_id)
@@ -477,3 +477,13 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
         'positive':expected_grouped_rows},'backend02':{'page1':session.expected_page1_rows,
         'page2':observed,'continuationAfter':expected_page1_after},
         'vector':dict(scope.vector.targets),'aliases':dict(aliases),'scopeKind':'ashlar-delta/0.3'}
+
+
+def _r02_review_deadline(runtime,*,now=None):
+    """Use the worker's absolute deadline and reserve at least 40s for close."""
+    now=time.monotonic() if now is None else now
+    review_deadline=runtime.get('reviewDeadlineMonotonic');process_deadline=runtime.get('wholeProcessDeadlineMonotonic')
+    _require(type(review_deadline)is float and type(process_deadline)is float
+        and type(now)is float and now<review_deadline<=process_deadline
+        and process_deadline-review_deadline>=40 and review_deadline-now<=230)
+    return review_deadline,max(1,int(review_deadline-now))
