@@ -53,7 +53,14 @@ TARGETS = {
 R05_RUNTIME_INVENTORY_SHA256 = "973d63580aec4a5f7f396befef68d19823fcf669811e3c6957346f746e6e3505"
 R05_RESULT_SHA256 = "c7d627be28af5a71192b0bb7c14edfda9d564e5084db4473de68921234b5c4ee"
 UMF_VALIDATION_SHA256 = "c37640b318db03c879ec11a54d68712ffc38e1f3c5955052000a64efddcc38d6"
-SOURCE_ORACLE_SHA256 = "7e0e50584d356e99010205b012e0d36c5b0eb7389bdda7ca2bb99d7260787892"
+SOURCE_ORACLE_SHA256 = "f04f74668ac9adc46ac9928b01a4155ccad3aab6421cd297d018b7e45348aab0"
+POSITIVE_BACKEND03 = {
+    "request_sha256": "8e89f94a3933e5f072b794ddee011dc954654b29485637f2d95254f6e9b56605",
+    "response_sha256": "481e324b6a1245566762b7a9dd213c2497e28bb0a96d8fb20541b3ce4b2ad6e7",
+    "backend": "ashlar.databricks.paths-keys-having",
+    "version": "0.4.1-count-star-having-spark4.2-candidate",
+    "profile": "spark4.2.0-delta4.4.1-paths-keys-having-candidate",
+}
 R05_JARS = {
     "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
     "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f",
@@ -180,9 +187,39 @@ def check() -> dict:
     grouped = expectations["backend03GroupedPaths"]
     derived_groups = sorted(groups.values(), key=lambda row: row["person_key"].encode("utf-8"))
     derived_rows = [[row["person_key"], row["paths"], row["distinctTerminalKeys"]]
-                    for row in derived_groups if row["paths"] > 2]
+                    for row in derived_groups if row["paths"] > 0]
     if grouped["sourceDerivedPreHavingGroups"] != derived_groups or grouped["exactExpectedResultRows"] != derived_rows:
         raise ValueError("source-derived grouped HAVING oracle mismatch")
+    original_request = json.loads(PARITY.read_text(encoding="utf-8"))["cases"]["backend03-grouped-having"]["local50"]["requestJson"]
+    original_response = json.loads(gzip.decompress((PUBLIC_TARGET / "backend03-response.json.gz").read_bytes()))
+    if sha256(original_request.encode("utf-8")) != TARGETS["backend03"]["request_sha256"]:
+        raise ValueError("original Backend03 request bytes changed")
+    original_value = json.loads(original_request)
+    if original_value.get("sql", "").count("HAVING COUNT(*) > 0") != 1 or original_response.get("logicalPlan", {}).get("having", [{}])[0].get("threshold", {}).get("value") != "0":
+        raise ValueError("original Backend03 public request/response threshold is not exactly COUNT(*) > 0")
+    if grouped.get("having") != "COUNT(*) > 0" or grouped.get("exactExpectedResultRows") != [["person-1", 2, 1]]:
+        raise ValueError("original Backend03 source-derived positive result bag is incorrect")
+    positive_request_raw = (PACKET / "positive-backend03-request.json").read_bytes()
+    positive_response_raw = (PACKET / "positive-backend03-response.json").read_bytes()
+    positive_request = json.loads(positive_request_raw)
+    positive_response = json.loads(positive_response_raw)
+    positive_variant = grouped.get("positiveVariant", {})
+    positive_backend = positive_response.get("backend", {})
+    positive_target = (positive_backend.get("backendId"), positive_backend.get("backendVersion"), positive_backend.get("targetProfile"))
+    if sha256(positive_request_raw) != POSITIVE_BACKEND03["request_sha256"] or sha256(positive_response_raw) != POSITIVE_BACKEND03["response_sha256"]:
+        raise ValueError("positive Backend03 compiler artifact digest changed")
+    if positive_variant.get("requestSha256") != POSITIVE_BACKEND03["request_sha256"] or positive_variant.get("responseSha256") != POSITIVE_BACKEND03["response_sha256"]:
+        raise ValueError("positive Backend03 oracle digests changed")
+    positive_sql = positive_request.get("sql", "")
+    expected_positive_sql = original_value.get("sql", "").replace("COUNT(*) > 0", "COUNT(*) > 1")
+    if positive_sql != expected_positive_sql or positive_request.get("target") != original_value.get("target") or positive_request.get("source") != original_value.get("source"):
+        raise ValueError("positive Backend03 request must change only the original HAVING threshold")
+    if positive_response.get("status") != "compiled" or positive_target != (POSITIVE_BACKEND03["backend"], POSITIVE_BACKEND03["version"], POSITIVE_BACKEND03["profile"]):
+        raise ValueError("positive Backend03 Weft response target/status mismatch")
+    if positive_response.get("logicalPlan", {}).get("having", [{}])[0].get("threshold", {}).get("value") != "1":
+        raise ValueError("positive Backend03 Weft logical plan did not retain threshold 1")
+    if positive_variant.get("expectedResultRows") != [["person-1", 2, 1]] or [row for row in derived_rows if row[1] > 1] != positive_variant.get("expectedResultRows"):
+        raise ValueError("positive Backend03 source-derived result bag mismatch")
     sdk = expectations["backend02SdkPage"]
     ordered_people = sorted(((props["21"], props["22"]) for (tid, _), props in objects.items() if tid == 17), key=lambda row: row[0].encode("utf-8"))
     if sdk["firstPageVisibleRows"] != [list(row) for row in ordered_people[:2]] or sdk["lookaheadKey"] != ordered_people[2][0] or sdk["continuationVisibleRows"] != [list(row) for row in ordered_people[2:4]]:
@@ -230,6 +267,7 @@ def check() -> dict:
             "publication_bound_weft_compile": "must be compiled and frozen only after the fresh .4 native publication supplies its exact UUID/version vector; do not invent or reuse the .3 binding response bytes",
         },
         "compiler_only_receipts": target_receipts,
+        "positive_backend03_compiler_artifact": {"request_sha256": POSITIVE_BACKEND03["request_sha256"], "response_sha256": POSITIVE_BACKEND03["response_sha256"], "expected_rows": [["person-1", 2, 1]]},
         "execution_gate": "The local Spark slot was reported free after the bounded R05 action; await approved process inventory, Sol's independent packet review and explicit execution direction. After publishing the fresh .4 vector, compile with public Weft 0.4.53, durably freeze/hash the exact requests, bindings, artifacts, and responses, and obtain independent vector-pin review before any SQL execution.",
         "limitations": ["Compiler receipt bindings use ashlar-delta/0.3 and are not native or publication-bound R02 evidence.", "This preflight does not admit the UMF distribution at runtime or establish Spark/Delta execution.", "No Truss, source tuple, or ACK authority is established."],
     }

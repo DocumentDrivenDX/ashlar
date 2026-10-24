@@ -50,10 +50,13 @@ validation: the frozen 0.10.0 model validated complete with no diagnostics,
 and UMF serialization round-tripped the exact 4,082 input bytes with the same
 SHA-256. [`source-oracle.json`](source-oracle.json) fixes first-publication
 singleton, edge, grouped-query and page expectations from the exact source and
-binding hashes. The grouped result is empty: the only source-derived group has
-two paths and the unchanged original request uses strict `COUNT(*) > 2`. This
-is a low-yield predicate, not grounds to alter Weft-owned SQL or substitute a
-different request.
+binding hashes. The exact hash-pinned original Backend03 request uses
+`COUNT(*) > 0` and returns the source-derived row `["person-1", 2, 1]`. A
+separately labeled, effect-free Weft 0.4.53 compilation uses the same request
+source and binding with only the threshold changed to `COUNT(*) > 1`; its
+independently derived expected bag is the same row. Its retained response is
+compiler-only, bound to `.3`, and must be freshly compiled against the actual
+`.4` publication vector, frozen, and independently reviewed before SQL.
 
 ## Frozen inputs and compiler artifacts
 
@@ -128,7 +131,8 @@ manifest commit.
    Retain full publication vectors at each ordinal and prove replay adds no
    table or manifest commit.
 4. At the first publication, issue one native singleton read. Bind the original
-   Backend03 and Backend02 requests to the complete first-publication vector and
+   Backend03 and Backend02 requests, plus the separately labeled positive
+   Backend03 request, to the complete first-publication vector and
    compile with public Weft 0.4.53. Freeze and hash each exact request, binding,
    artifact, and response; have the independent reviewer verify the complete
    vector pins before any SQL runs. Then execute the unchanged grouped query,

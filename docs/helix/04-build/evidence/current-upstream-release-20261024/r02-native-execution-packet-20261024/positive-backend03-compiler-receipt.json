@@ -1,0 +1,82 @@
+{
+  "backend": {
+    "backendId": "ashlar.databricks.paths-keys-having",
+    "backendVersion": "0.4.1-count-star-having-spark4.2-candidate",
+    "interfaceVersion": "weft-backend/0.3.0",
+    "targetProfile": "spark4.2.0-delta4.4.1-paths-keys-having-candidate"
+  },
+  "compiler": {
+    "api": "compile_paths_keys_json",
+    "distribution": "weft-sql",
+    "version": "0.4.53"
+  },
+  "originalRequestSha256": "db32c552f3de31fc8f4f11f0b1a7edfb0645026ddbe2a72b6b3f4ea6ac2e74d5",
+  "profile": "ashlar-r02-positive-backend03-public-compile/0.1",
+  "publicationBinding": {
+    "id": "local-configured-jsonl-20e9406a9dabee560465bb45f75847990ed25e1fc2d7924dc033a1a66044343a",
+    "manifestUuid": "fe262731-5255-4e64-a3f8-00ed8351767b",
+    "tables": [
+      {
+        "name": [
+          "spark_catalog",
+          "ashlar_configured_query_e7729e17899d412586847f0eb1906266",
+          "edge_current"
+        ],
+        "uuid": "82b72086-c276-4df4-b0f6-18be3d626c86",
+        "version": 2
+      },
+      {
+        "name": [
+          "spark_catalog",
+          "ashlar_configured_query_e7729e17899d412586847f0eb1906266",
+          "object_current"
+        ],
+        "uuid": "b5cac116-2ced-48ff-956f-78cf53a43458",
+        "version": 2
+      },
+      {
+        "name": [
+          "spark_catalog",
+          "ashlar_configured_query_e7729e17899d412586847f0eb1906266",
+          "tombstone"
+        ],
+        "uuid": "3bf8b020-8ffd-4e27-98da-883108d2b0d0",
+        "version": 1
+      },
+      {
+        "name": [
+          "spark_catalog",
+          "ashlar_configured_query_e7729e17899d412586847f0eb1906266",
+          "whole_source_history"
+        ],
+        "uuid": "7ed209a0-b7a4-4294-aac5-95e1bdea648d",
+        "version": 2
+      }
+    ]
+  },
+  "qualification": "Effect-free compiler artifact only. The inherited ashlar-delta/0.3 binding is not a fresh .4 publication pin and this response must be regenerated against the actual .4 vector after publication before any SQL execution.",
+  "requestSha256": "8e89f94a3933e5f072b794ddee011dc954654b29485637f2d95254f6e9b56605",
+  "responseSha256": "481e324b6a1245566762b7a9dd213c2497e28bb0a96d8fb20541b3ce4b2ad6e7",
+  "sql": "SELECT p.person_key, COUNT(*) AS paths, COUNT_DISTINCT_PATH_TARGETS(x) AS targets FROM Person p CROSS JOIN EXPAND_PATHS(p.knows, located) AS x GROUP BY p.person_key HAVING COUNT(*) > 1 ORDER BY p.person_key",
+  "status": "compiled",
+  "targetContext": {
+    "engine": "spark-sql",
+    "engineVersion": "4.2.0",
+    "id": "spark4.2.0-delta4.4.1-paths-keys-having-candidate",
+    "publicationRevision": "host-verified-local-spark4.2/0.1",
+    "sessionSettings": {
+      "comparison": "explicit UTF8_BINARY",
+      "deltaJars": {
+        "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+        "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+      },
+      "deltaVersion": "4.4.1",
+      "jdkVersion": "21",
+      "resultTransport": "exact native STRING",
+      "spark.sql.ansi.enabled": "true",
+      "spark.sql.legacy.parameterSubstitution.constantsOnly": "true",
+      "spark.sql.session.timeZone": "UTC"
+    },
+    "storageLayoutRevision": "ashlar-delta/0.3"
+  }
+}

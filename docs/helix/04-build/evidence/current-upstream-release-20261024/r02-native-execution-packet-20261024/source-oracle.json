@@ -24,9 +24,19 @@
       "sourceDerivedPreHavingGroups": [
         { "person_key": "person-1", "paths": 2, "distinctTerminalKeys": 1 }
       ],
-      "having": "COUNT(*) > 2",
-      "exactExpectedResultRows": [],
-      "note": "The unchanged original query's strict HAVING threshold removes the sole two-path group. This preserves the original compiler request; it is a low-yield runtime result for that grouping predicate."
+      "having": "COUNT(*) > 0",
+      "exactExpectedResultRows": [["person-1", 2, 1]],
+      "note": "The exact hash-pinned public request uses COUNT(*) > 0 and returns the sole source-derived two-path group.",
+      "positiveVariant": {
+        "label": "backend03-positive-count-greater-than-one",
+        "having": "COUNT(*) > 1",
+        "requestFile": "positive-backend03-request.json",
+        "requestSha256": "8e89f94a3933e5f072b794ddee011dc954654b29485637f2d95254f6e9b56605",
+        "responseFile": "positive-backend03-response.json",
+        "responseSha256": "481e324b6a1245566762b7a9dd213c2497e28bb0a96d8fb20541b3ce4b2ad6e7",
+        "expectedResultRows": [["person-1", 2, 1]],
+        "publicationBinding": "The retained compilation inherits ashlar-delta/0.3 and is compiler-only. After actual .4 publication, freshly bind and compile against the complete UUID/version vector, freeze and independently review those bytes before SQL."
+      }
     },
     "backend02SdkPage": {
       "queryRequestSha256": "3206e3c16f7721699a61974e0419b015bb0728a4d6b697e734f68a3e873ae729",
