@@ -1,0 +1,13 @@
+{
+  "approvalNote": "No previous approval applies to this changed source revision, packet digest, or custody set. Requires separate fresh owner authorization and independent review before any native attempt. No attempt parent is selected here.",
+  "attempts": 1,
+  "invocationPacketSha256": "deb2b2627edf474a49956d847db5ad99d7aa2f70e761bfe6d6288fa123a61ab1",
+  "master": "local[2]",
+  "maximumAggregateBytes": 2147483648,
+  "maximumAttemptRootBytes": 536870912,
+  "maximumDiagnosticsBytes": 134217728,
+  "maximumSeconds": 300,
+  "profile": "ashlar-canonical-graphframes-execution-authorization/0.1",
+  "proposalOnly": true,
+  "status": "proposal-only-fresh-user-approval-required"
+}

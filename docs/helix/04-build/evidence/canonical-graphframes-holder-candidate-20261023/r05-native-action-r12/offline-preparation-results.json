@@ -1,0 +1,25 @@
+{
+  "attemptParentCreated": false,
+  "authorization": "proposal-only; review is not execution authorization; fresh user approval is still required",
+  "authorizationProposalSha256": "ee177886a122b9c73e13ceec3fe084b6819eaae67654eff9bc08e298e32ac73a",
+  "currentInvocationPacketSha256": "deb2b2627edf474a49956d847db5ad99d7aa2f70e761bfe6d6288fa123a61ab1",
+  "fixtureEffect": false,
+  "focusedTests": {
+    "command": "python3.12 -B -m unittest -v test_r12_graphframes_admission.py",
+    "failed": 0,
+    "passed": 10
+  },
+  "nativeAttemptLaunched": false,
+  "nativeProcessSlotCheck": "not-run",
+  "profile": "ashlar-r05-r12-offline-preparation/0.1",
+  "proposalPacketSha256": "87afa00a9e449a02c94891afec016456225e2e228335114e12e1644f9468348b",
+  "r12CacheDirectoriesRemoved": true,
+  "reviewId": "sol-independent-review-2026-10-24-r05-r12",
+  "reviewStatus": "independently-reviewed",
+  "sourceCustodyManifestSha256": "0c3f6d94ef3d6a6d9c61267ecc2e2aa78eb1f847879f515e5553b2bf7774d640",
+  "sourceResourceFilesBound": 475,
+  "sourceRevision": "3ce9c88b7b128550491387d6e4b4a3946168cc4f",
+  "sparkStarted": false,
+  "staticRuntimeAdmission": "not-run",
+  "status": "passed-source-resource-custody-and-focused-offline-tests-only"
+}

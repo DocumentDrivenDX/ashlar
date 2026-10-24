@@ -1,0 +1,9 @@
+# R12 current-source proposal for the R05 GraphFrames action
+
+R11 remains the historical packet bound to Ashlar source `c81513113dd31cfedc29507696873e212ca8c17f`. R12 selects Ashlar source baseline `3ce9c88b7b128550491387d6e4b4a3946168cc4f`. Later docs-only commits do not change the retained source/resource bytes; the packet’s `sourceRevision` remains bound to this exact baseline. R12 reuses R11’s selected GraphFrames 0.12.3, Spark 4.2.0, Delta 4.4.1 and JDK 21 runtime inventory bytes, including the GraphX companion JAR that addressed R10’s missing `VertexRDD` classes.
+
+R12 closes the omitted Ashlar dependency custody by hashing every non-bytecode file under `src/ashlar_host` and root `pyproject.toml` in `ashlar-source-custody.json` (475 files). This includes `local_current_delta4_umf.py` and all six `resources/local-current-delta4` files changed for published UMF 0.5.6. The current invocation packet binds that manifest and every listed digest at the current source revision.
+
+Sol independently reviewed R12 under `sol-independent-review-2026-10-24-r05-r12`; both packets record `reviewStatus=independently-reviewed`. The R11 exact-packet authorization does not apply to this changed source revision, packet digest, or custody set. R12 carries only `authorization-proposal.json`; independent review does not issue execution authorization. `executionAuthorization` remains `not-issued`, and fresh user approval is still required.
+
+The focused offline GraphFrames/GraphX suite passed 10/10, and source/resource manifest digests were checked against the current checkout. Full runtime-tree static admission and native execution remain unrun. No process-slot check, native attempt, Spark start, attempt-root creation, fixture effect, or table effect occurred. See `offline-preparation-results.json`.
