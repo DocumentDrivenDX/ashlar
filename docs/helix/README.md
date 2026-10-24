@@ -37,11 +37,13 @@ Databricks, or Linux runtime qualification ([Weft adoption](04-build/evidence/cu
 The current Truss pin is 0.0.50. Its official wheel, `RECORD`, `[local,native]`
 dependency resolution, and feed/receipt/migration import surfaces pass focused
 checks with current UMF core 0.10.1/access 0.1.0.dev7, Weft 0.4.53, and psycopg
-3.3.6. The selected-source lifecycle packet is not prepared; no migration,
-source/feed/publication/ACK, or native action is qualified. The older .49 R12
-preflight remains historical evidence for its selected source and runtime only
+3.3.6. Versioned .50 source admission and feed-binding checks pass. An earlier
+selected-source packet stopped at preflight before those admission changes; a
+packet bound to the current source is still pending. No .50 migration,
+source/feed/publication/ACK, or native action is qualified
 ([.50 package qualification](04-build/evidence/current-upstream-release-20261024/truss050-package-cohort-qualification-20261024/README.md),
-[.49 R12 packet](04-build/evidence/current-upstream-release-20261023/truss049-r12-current-selected-source-lifecycle-20261024/README.md)).
+[source admission](04-build/evidence/current-upstream-release-20261024/truss050-source-admission-20261024/README.md),
+[historical R13 preflight](04-build/evidence/current-upstream-release-20261024/truss050-r13-selected-source-lifecycle-20261024/README.md)).
 
 Local Spark 4.2.0/Delta 4.4.1 candidate checks include bounded Weft query and
 SDK paging; a separate native one-table Delta check accepted a candidate DDL
