@@ -52,16 +52,22 @@ class SupervisorPhaseTests(unittest.TestCase):
         }
 
     def write_manifest(self, name: str, value: dict) -> tuple[Path, Path]:
-        path = self.root / name
+        attempt = Path(value["attemptRoot"])
+        path = attempt / name
         path.write_text(json.dumps(value, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
-        review = self.root / f"{name}.review.json"
+        review = attempt / f"{name}.review.json"
         review.write_text("{}\n", encoding="utf-8")
         return path, review
 
     def manifest_base(self, phase: str, attempt_id: str) -> dict:
+        attempt = self.private / f"ashlar-r02-{attempt_id}"
+        attempt.mkdir(mode=0o700)
+        (attempt / "receipts").mkdir(mode=0o700)
+        (attempt / "invocations").mkdir(mode=0o700)
         return {
             "profile": "ashlar-r02-one-shot/0.1", "phase": phase,
             "attemptId": attempt_id, "sourceRevision": "fixture-revision",
+            "attemptParent": str(self.private), "attemptRoot": str(attempt),
             "sourceFiles": self.source_files, "runtimeFiles": {},
             "limits": {"wallSeconds": 300, "privateBytes": supervisor.LIMIT_PRIVATE,
                        "receiptBytes": supervisor.LIMIT_RECEIPTS,
@@ -74,16 +80,44 @@ class SupervisorPhaseTests(unittest.TestCase):
 
     def make_prepublication(self) -> tuple[dict, Path]:
         manifest = self.manifest_base("prepublication", uuid.uuid4().hex)
-        operations = [("initialize", "initialize"), ("publish", "batch-1"),
-                      ("publish", "batch-2"), ("publish", "batch-3"),
-                      ("replay", "batch-3-replay")]
-        manifest["operations"] = [self.noop(case) | {"kind": kind} for kind, case in operations]
-        vector_json = json.dumps(self.vector, sort_keys=True, separators=(",", ":"))
-        writer = "import pathlib; pathlib.Path('vector.json').write_text(" + repr(vector_json) + ")"
-        manifest["operations"][-1]["argv"] = [sys.executable, "-c", writer]
+        operations = [("initialize", "initialize"), ("batch-1", "publish"),
+                      ("batch-2", "publish"), ("batch-3", "publish"),
+                      ("batch-3-replay", "replay")]
+        templates = []
+        for case, kind in operations:
+            path = Path(manifest["attemptRoot"]) / "invocations" / f"{case}.json"
+            path.write_text("{}\n", encoding="utf-8")
+            templates.append({"case": case, "kind": kind, "path": str(path),
+                              "sha256": sha(path.read_bytes())})
+        manifest["invocationTemplates"] = templates
+        manifest["invocations"] = [item["path"] for item in templates]
+        files = {}
+        for relative in ("input/configured-typed-graph-source.json", "input/typed-graph-model.umf.json",
+                         "input/typed-graph-source.jsonl", "input/typed-graph-binding.json",
+                         "jars/delta-spark_4.2_2.13-4.4.1.jar", "jars/delta-storage-4.4.1.jar",
+                         "jars/inventory.json"):
+            path = Path(manifest["attemptRoot"]) / relative
+            path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+            path.write_bytes(b"fixture\n")
+            files[relative] = sha(path.read_bytes())
+        manifest["attemptFiles"] = files
+        python = "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python3.12"
+        worker = str(Path(manifest["attemptRoot"]) / "r02_invocation_worker.py")
+        manifest["operations"] = []
+        for template in templates:
+            argv = [python, "-I", "-B", worker, "--attempt", manifest["attemptRoot"],
+                    "--case", template["case"], "--template", template["path"],
+                    "--python", python, "--java-home", "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+                    "--template-sha256", template["sha256"]]
+            manifest["operations"].append({"case": template["case"], "kind": template["kind"],
+                                            "templateSha256": template["sha256"], "argv": argv})
         manifest["publicationVectorPath"] = "vector.json"
         path, review = self.write_manifest("prepublication.json", manifest)
-        supervisor.execute(path, review, "prepublication")
+        vector_json = json.dumps(self.vector, sort_keys=True, separators=(",", ":"))
+        def inert_run(_argv, cwd, _deadline, _output, _private, _receipts):
+            (cwd / "vector.json").write_text(vector_json, encoding="utf-8")
+        with patch.object(supervisor, "run_one", inert_run):
+            supervisor.execute(path, review, "prepublication")
         attempt = self.private / f"ashlar-r02-{manifest['attemptId']}"
         return manifest, attempt / "one-shot-state.json"
 
@@ -107,7 +141,8 @@ class SupervisorPhaseTests(unittest.TestCase):
             binding_raw = json.dumps({"publication": self.vector}, sort_keys=True, separators=(",", ":"))
             request_raw = json.dumps({"target": {"bindingJson": binding_raw}}, separators=(",", ":")).encode()
             response_raw = json.dumps({"status": "compiled", "bindingSha256": sha(binding_raw.encode())}, separators=(",", ":")).encode()
-            request_path, response_path = self.root / f"{case}-request.json", self.root / f"{case}-response.json"
+            attempt = Path(manifest["attemptRoot"])
+            request_path, response_path = attempt / f"{case}-request.json", attempt / f"{case}-response.json"
             request_path.write_bytes(request_raw)
             response_path.write_bytes(response_raw)
             artifacts.append({"case": case,

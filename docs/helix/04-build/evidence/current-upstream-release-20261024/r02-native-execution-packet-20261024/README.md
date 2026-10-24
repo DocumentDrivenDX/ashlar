@@ -151,58 +151,88 @@ Spark 4.2.0 / Delta 4.4.1 runtime, `local[2]`, 2 GiB driver memory, bounded
 stream/receipt sizes, and `ashlar-delta/0.4-xxhash64`; never use a shared
 Databricks cluster.
 
+## Generated invocation packet
+
+[`r02_packet_generator.py`](r02_packet_generator.py) creates one fresh
+mode-0700 attempt directory under `/private/tmp/ashlar-r02-attempts`, stages
+the exact pinned source/configuration/binding bytes and the two Delta JARs,
+and builds a clean sparse UMF producer worktree at commit
+`2ede4c879bea5db13794a6fa30e67c821306c17f`. The worktree contains the
+committed `src/` and `spec/` closure used by UMF's public `src/index.ts`, plus
+the Bun dependencies needed to resolve those imports. The generator checks
+staged files against the Git tree and refuses staging above 384 MiB, leaving
+at least 128 MiB under the 512 MiB limit for native output and logs. This is
+an effect-free local preparation step; it does not invoke Bun, Spark, Java or
+the configured-local CLI.
+
+The attempt contains five invocation JSON templates in fixed order:
+initialize, publish batch 1, publish batch 2, publish batch 3, and replay batch
+3. The initialize invocation has the exact `null` installation digest. The
+four later templates carry the explicit `@from-initialization@` marker because
+the registry and its digest do not exist until initialization. The reviewed
+manifest routes each step through
+[`r02_invocation_worker.py`](r02_invocation_worker.py), which resolves and
+retains each final invocation's exact bytes before calling `run-configured-local`.
+After batch-3 replay, the worker checks the result manifest against all six
+initialized target identities, requires exactly the four graph table roles
+and their versions, then writes the vector candidate to
+`publication-vector.json`. Continuation SQL and native reads remain unavailable
+from this phase.
+
+All absolute source/config/output paths are inside the attempt root. The
+selected Python, JDK, Bun and Git executables are external runtime inputs and
+are version/hash checked by the generator and supervisor. The R05 native
+Python cohort contains Spark 4.2.0, Delta 4.4.1 and Weft 0.4.48;
+prepublication does not invoke Weft. Public UMF core 0.10.1 validation and
+Weft 0.4.53 compilation use their separately verified environments. The
+packet does not claim a unified Python package cohort.
+
 ## One-shot supervisor gate
 
-[`r02_supervisor.py`](r02_supervisor.py) is the packet launcher. It accepts an
-explicit JSON manifest and a separate Sol review receipt whose SHA-256 names
-those exact manifest bytes. It checks the exact current Git revision, four
-fixture/source hashes, seven Ashlar runtime-source hashes, and all five R05 JAR
-hashes. It requires a fresh UUID-like attempt ID, creates a mode-0700
-user-owned private directory under `/private/tmp/ashlar-r02-attempts`, and runs
-manifest argv steps serially. It kills the process group on the 300-second total deadline or
-a byte-cap breach, and leaves durable attempt state so a failed attempt cannot
-be silently repeated. Command output is capped at 1 MiB each, private attempt
-data at 512 MiB, and retained receipts at 16 MiB.
+[`r02_supervisor.py`](r02_supervisor.py) accepts the generated JSON manifest
+and a separate Sol review receipt whose SHA-256 names those exact manifest
+bytes. It checks the exact current Git revision, four source hashes, seven
+installed Ashlar runtime-source hashes, packet implementation hashes, all
+five R05 JAR hashes, and the selected Python/JDK/UMF/Weft identities. It
+adopts only the fresh mode-0700 user-owned attempt root named in that manifest
+and runs its argv steps serially. It kills the process group on the 300-second
+total deadline or a byte-cap breach, and leaves durable attempt state so a
+failed attempt cannot be silently repeated. Command output is capped at 1 MiB
+each, private attempt data at 512 MiB, and retained receipts at 16 MiB.
 
 The prepublication phase allows exactly initialization, batches 1–3, and the
-byte-identical batch-3 replay. It must retain the first-publication vector and
-records its complete value and digest in an fsynced state file before exiting
-as `complete-held-after-publication`. It cannot run native reads or queries. A separate
-`continuation` manifest must include the actual complete publication vector
-with exactly the `object_current`, `edge_current`, `tombstone`, and
-`whole_source_history` roles,
-the hash of that state file, and the exact frozen Weft request/response files
-for the original and positive Backend03 requests and Backend02 page and
-continuation. Each binding must equal the complete vector and each compiler
-response must preserve its binding hash. Sol's review receipt must bind the
-exact continuation manifest hash and approve those vector-bound artifacts.
-Only then can the separate invocation run the singleton and four query steps.
-The selected source is current Ashlar main commit
-`c33bef013d737b8a56f43faafe5f5c1966065d1f`. After rebasing this packet onto
-that source, all four fixture hashes and seven selected host-source hashes
-were rechecked and still match. The supervisor also requires the exact final
-packet Git HEAD in each future manifest. No phase manifest or Sol review
-receipt exists, the actual `.4` publication vector has not been created, and
-its fresh Weft responses therefore cannot yet be frozen. These are the
-remaining execution blockers; the supervisor has not been used to invoke
-Spark or native operations.
-After Sol supplies the reviewed manifest and review receipt, invoke exactly
-one phase with:
+byte-identical batch-3 replay. It retains the complete final publication
+vector and records its value and digest in an fsynced state file before exiting
+as `complete-held-after-publication`. It cannot run native reads or queries.
+A separate `continuation` manifest must include the actual complete
+publication vector with exactly the `object_current`, `edge_current`,
+`tombstone`, and `whole_source_history` roles, the hash of that state file, and
+the exact frozen Weft request/response files for the original and positive
+Backend03 requests and Backend02 page and continuation. Each binding must
+equal the complete vector and each compiler response must preserve its binding
+hash. Sol's review receipt must bind the exact continuation manifest hash and
+approve those vector-bound artifacts. Only then can the separate invocation
+run the singleton and four query steps.
+
+The generator and supervisor require the exact Ashlar Git HEAD and selected
+source hashes at manifest creation and execution; regenerate after any code or
+source change. The generated manifest and invocation templates live inside
+the private attempt root. No Sol review receipt exists, the actual `.4`
+publication vector has not been created, and its fresh Weft responses
+therefore cannot yet be frozen. These are the remaining execution blockers;
+the supervisor has not been used to invoke Spark or native operations.
+After Sol supplies the reviewed manifest and review receipt, use the exact
+paths printed by the generator for a single phase invocation.
+
+The inert phase/refusal tests and focused invocation/vector checks run with:
 
 ```sh
-python3 r02_supervisor.py --phase prepublication --manifest /absolute/private/prepublication.json --review /absolute/private/prepublication-review.json
-python3 r02_supervisor.py --phase continuation --manifest /absolute/private/continuation.json --review /absolute/private/continuation-review.json
+python3 -m unittest discover -s docs/helix/04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024 -p 'test_r02_*.py' -v
 ```
 
-The supervisor's inert phase and refusal tests run with:
-
-```sh
-python3 -m unittest discover -s docs/helix/04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024 -p 'test_r02_supervisor.py' -v
-```
-
-The continuation command is unavailable until the first phase has completed,
-the actual vector and freshly compiled artifacts exist, and their exact
-manifest bytes have separate review. Each manifest must name the exact
+The continuation invocation is unavailable until the first phase has
+completed, the actual vector and freshly compiled artifacts exist, and their
+exact manifest bytes have separate review. Each manifest must name the exact
 current Git HEAD and all pinned source/runtime hashes.
 
 ## Focused preflight outcome and open evidence

@@ -109,14 +109,64 @@ def verify_pins(manifest: dict) -> None:
     current_revision = subprocess.check_output(["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True).strip()
     if manifest.get("sourceRevision") != current_revision:
         raise ValueError("manifest sourceRevision must equal the exact current reviewed Git revision")
-    for name, expected in {**SOURCES, **HOST_SOURCES}.items():
+    for name, expected in SOURCES.items():
         path = ROOT / name
         if digest(path) != expected or manifest.get("sourceFiles", {}).get(name) != expected:
             raise ValueError(f"source hash is stale or absent: {name}")
+    for name, expected in HOST_SOURCES.items():
+        path = ROOT / name
+        if digest(path) != expected or manifest.get("hostSourceFiles", {}).get(name) != expected:
+            raise ValueError(f"host source hash is stale or absent: {name}")
+    for name, expected in manifest.get("packetFiles", {}).items():
+        path = ROOT / name if name.startswith("examples/") else PACKET / name
+        if not path.is_file() or digest(path) != expected:
+            raise ValueError(f"R02 packet implementation hash is stale or absent: {name}")
+    required_packet = {"r02_packet_generator.py", "r02_supervisor.py", "r02_invocation_worker.py",
+                       "source-oracle.json", "umf-validation.json", "positive-backend03-request.json",
+                       "positive-backend03-response.json", "positive-backend03-compiler-receipt.json",
+                       "compile-positive-backend03.py", "examples/configured-local/configuration.template.json"}
+    if set(manifest.get("packetFiles", {})) != required_packet:
+        raise ValueError("packet file inventory is incomplete or contains unexpected files")
     for raw_path, expected in RUNTIME.items():
         path = Path(raw_path)
         if not path.is_file() or digest(path) != expected or manifest.get("runtimeFiles", {}).get(path.name) != expected:
             raise ValueError(f"runtime hash is stale or absent: {path.name}")
+    identity = manifest.get("runtimeIdentity", {})
+    python = Path("/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python3.12")
+    java_home = Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home")
+    public_umf = Path("/private/tmp/umf056-public-wheel-verify/venv/bin/python3.12")
+    public_weft = Path("/private/tmp/ashlar-weft053-adoption-20261023/venv/bin/python3.12")
+    if (identity.get("nativePython") != str(python) or identity.get("javaHome") != str(java_home)
+            or identity.get("nativePythonExecutableSha256") != digest(python.resolve(strict=True))
+            or identity.get("javaExecutableSha256") != digest((java_home / "bin/java").resolve(strict=True))):
+        raise ValueError("selected Python or JDK executable identity changed")
+    probe = "import importlib.metadata as m,sys; print(m.version('pyspark')); print(m.version('delta-spark')); print(m.version('weft-sql')); print(sys.version_info.major,sys.version_info.minor,sys.version_info.micro)"
+    native = subprocess.check_output([str(python), "-I", "-c", probe], text=True).splitlines()
+    if (native != ["4.2.0", "4.4.1", "0.4.48", identity.get("nativePythonVersion")]
+            or identity.get("pyspark") != "4.2.0" or identity.get("deltaSpark") != "4.4.1"
+            or identity.get("r05WeftSql") != "0.4.48"):
+        raise ValueError("selected R05 Python package cohort changed")
+    java_release = (java_home / "release").read_bytes()
+    if hashlib.sha256(java_release).hexdigest() != identity.get("javaReleaseSha256"):
+        raise ValueError("selected JDK release identity changed")
+    umf = subprocess.check_output([str(public_umf), "-I", "-c", "import importlib.metadata as m; print(m.version('umf-core'))"], text=True).strip()
+    weft = subprocess.check_output([str(public_weft), "-I", "-c", "import importlib.metadata as m; print(m.version('weft-sql'))"], text=True).strip()
+    if umf != "0.10.1" or umf != identity.get("umfCore") or weft != "0.4.53" or weft != identity.get("weftSql"):
+        raise ValueError("selected public UMF or Weft verification cohort changed")
+    installed = identity.get("installedHostModules", {})
+    for module, expected in {
+        "ashlar_host.configured_local_cli": HOST_SOURCES["src/ashlar_host/configured_local_cli.py"],
+        "ashlar_host.configured_local_runtime": HOST_SOURCES["src/ashlar_host/configured_local_runtime.py"],
+        "ashlar_host.configured_local_publication": HOST_SOURCES["src/ashlar_host/configured_local_publication.py"],
+        "ashlar_host.configured_local_query": HOST_SOURCES["src/ashlar_host/configured_local_query.py"],
+        "ashlar_host.configured_weft_compile": HOST_SOURCES["src/ashlar_host/configured_weft_compile.py"],
+        "ashlar_host.configured_local_runtime_profile": HOST_SOURCES["src/ashlar_host/configured_local_runtime_profile.py"],
+        "ashlar_host.configured_local_read": HOST_SOURCES["src/ashlar_host/configured_local_read.py"],
+    }.items():
+        entry = installed.get(module)
+        if (not isinstance(entry, list) or len(entry) != 2 or digest(Path(entry[0])) != expected
+                or entry[1] != expected or "/site-packages/ashlar_host/" not in entry[0]):
+            raise ValueError(f"installed Ashlar module bytes differ from selected source: {module}")
 
 
 def review_gate(manifest_path: Path, manifest: dict, review_path: Path, phase: str) -> str:
@@ -260,6 +310,63 @@ def execute(manifest_path: Path, review_path: Path, phase: str) -> None:
     base = configured_base.resolve(strict=True)
     if base.stat().st_uid != os.getuid() or not stat.S_ISDIR(base.stat().st_mode) or stat.S_IMODE(base.stat().st_mode) != 0o700:
         raise ValueError("attempt parent must be a mode-0700 user-owned directory")
+    attempt_raw = Path(manifest.get("attemptRoot", ""))
+    if attempt_raw.is_symlink():
+        raise ValueError("attempt root cannot be a symlink")
+    attempt = attempt_raw.resolve(strict=True)
+    if (attempt.parent != base or attempt.name != f"ashlar-r02-{attempt_id}"
+            or attempt.stat().st_uid != os.getuid() or not stat.S_ISDIR(attempt.stat().st_mode)
+            or stat.S_IMODE(attempt.stat().st_mode) != 0o700):
+        raise ValueError("manifest must name its fresh mode-0700 user-owned attempt root")
+    if manifest_path.parent.resolve(strict=True) != attempt or review_path.resolve(strict=True).parent != attempt:
+        raise ValueError("manifest and review receipt must be retained inside the attempt root")
+    if phase == "prepublication":
+        for raw in manifest.get("invocations", []):
+            path = Path(raw)
+            if path.is_symlink() or path.resolve(strict=True).parent != (attempt / "invocations").resolve(strict=True):
+                raise ValueError("all invocation templates must be regular files in the private attempt")
+        expected_cases = [("initialize", "initialize"), ("batch-1", "publish"),
+                          ("batch-2", "publish"), ("batch-3", "publish"),
+                          ("batch-3-replay", "replay")]
+        templates = manifest.get("invocationTemplates", [])
+        if [(x.get("case"), x.get("kind")) for x in templates] != expected_cases:
+            raise ValueError("manifest must bind the five exact prepublication invocation templates")
+        if [x.get("path") for x in templates] != manifest.get("invocations"):
+            raise ValueError("invocation list differs from its hash-bound template inventory")
+        for template in templates:
+            path = Path(template.get("path", ""))
+            if path.is_symlink() or digest(path) != template.get("sha256"):
+                raise ValueError("invocation template bytes differ from their reviewed hash")
+        for relative, expected in manifest.get("attemptFiles", {}).items():
+            path = attempt / relative
+            if path.is_symlink() or attempt not in path.resolve(strict=True).parents or digest(path) != expected:
+                raise ValueError(f"staged attempt input hash mismatch: {relative}")
+        if set(manifest.get("attemptFiles", {})) != {
+            "input/configured-typed-graph-source.json", "input/typed-graph-model.umf.json",
+            "input/typed-graph-source.jsonl", "input/typed-graph-binding.json",
+            "jars/delta-spark_4.2_2.13-4.4.1.jar", "jars/delta-storage-4.4.1.jar", "jars/inventory.json",
+        }:
+            raise ValueError("staged input inventory is incomplete or unexpected")
+        operations = manifest.get("operations", [])
+        if [(op.get("case"), op.get("kind"), op.get("templateSha256")) for op in operations] != [
+            (item["case"], item["kind"], item["sha256"]) for item in templates
+        ]:
+            raise ValueError("operation sequence is not tied to the five reviewed invocation templates")
+        for operation, template in zip(operations, templates):
+            expected_argv = ["/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python3.12", "-I", "-B",
+                             str(attempt / "r02_invocation_worker.py"), "--attempt", str(attempt),
+                             "--case", template["case"], "--template", template["path"],
+                             "--python", "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python3.12",
+                             "--java-home", "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+                             "--template-sha256", template["sha256"]]
+            if operation.get("argv") != expected_argv:
+                raise ValueError("operation argv differs from the fixed local runner worker command")
+    receipts = attempt / "receipts"
+    if (not receipts.is_dir() or receipts.is_symlink() or receipts.stat().st_uid != os.getuid()
+            or stat.S_IMODE(receipts.stat().st_mode) != 0o700 or any(receipts.iterdir())):
+        raise ValueError("attempt receipts directory must be a fresh, empty private directory")
+    if (attempt / "one-shot-state.json").exists() or (attempt / "one-shot-state.json").is_symlink():
+        raise ValueError("attempt root already contains one-shot state")
     run_identity = {"phase": phase, "sourceFiles": manifest.get("sourceFiles"),
                     "publicationVectorSha256": manifest.get("publicationVectorSha256")}
     run_key = hashlib.sha256(json.dumps(run_identity, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
@@ -273,19 +380,12 @@ def execute(manifest_path: Path, review_path: Path, phase: str) -> None:
                                  "attemptId": manifest.get("attemptId"), "status": "consumed"}, sort_keys=True) + "\n")
         stream.flush()
         os.fsync(stream.fileno())
-    attempt = base / f"ashlar-r02-{attempt_id}"
-    attempt.mkdir(mode=0o700)
-    if attempt.stat().st_uid != os.getuid() or stat.S_IMODE(attempt.stat().st_mode) != 0o700:
-        attempt.rmdir()
-        raise ValueError("new attempt directory is not private and user-owned")
     state = attempt / "one-shot-state.json"
     deadline = time.monotonic() + LIMIT_SECONDS
     try:
         write_state(state, {"phase": phase, "manifestSha256": manifest_hash,
                             "attemptId": attempt_id, "sourceRevision": manifest["sourceRevision"],
                             "sourceFiles": manifest["sourceFiles"], "status": "running"})
-        receipts = attempt / "receipts"
-        receipts.mkdir(mode=0o700)
         for index, operation in enumerate(manifest.get("operations", [])):
             if time.monotonic() >= deadline:
                 raise TimeoutError("five-minute total deadline expired")
