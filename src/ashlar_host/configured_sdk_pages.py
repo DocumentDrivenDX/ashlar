@@ -467,6 +467,8 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
     def live_check():
         scope.renew();aliases.renew();_require(query.compiler._verify())
         jars=tuple(map(str,runtime_guard()));spark=transport.spark
+        from .configured_local_runtime import _verify_driver_memory
+        _verify_driver_memory(spark,r02=True)
         _require(spark.version=='4.2.0'and spark.sparkContext.master=='local[1]'
             and spark.sparkContext._jvm.java.lang.System.getProperty('java.specification.version')=='21'
             and spark.conf.get('spark.sql.ansi.enabled')=='true'and spark.conf.get('spark.sql.session.timeZone')=='UTC'
