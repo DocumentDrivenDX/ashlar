@@ -9,12 +9,12 @@ review it and explicitly direct execution before any native action starts.
 
 One attempt, one serial `local[2]` Spark session, macOS arm64 / CPython 3.12,
 Spark 4.2.0, Delta 4.4.1, JDK 21, and the public UMF core 0.10.1 distribution
-with model semantics fixed at 0.10.0. Use the two exact Delta 4.4.1
-Scala 2.13/Spark 4.2 JARs declared by the checked local Delta profile and
-record their byte hashes in the runtime admission receipt before initialization.
-The driver heap limit is 2 GiB; total wall time is 300 seconds from the first
-runtime invocation; retained packet output is capped at 16 MiB total, with each
-individual request/response or command receipt capped at 1 MiB. Stop on the
+with model semantics fixed at 0.10.0. Reuse the exact R05 Spark/Delta runtime
+JAR bytes listed below and record their byte hashes in the runtime admission
+receipt before initialization. The driver heap limit is 2 GiB; total wall time
+is 300 seconds from the first runtime invocation; the private attempt root is
+capped at 512 MiB and retained receipts at 16 MiB total, with each individual
+request/response or command receipt capped at 1 MiB. Stop on the
 first refusal, timeout, mismatch, hash drift, or failed closing check. Do not
 retry or run a platform matrix. These ceilings fit inside the configured-local
 CLI limits and are lower than its 600-second maximum.
@@ -22,13 +22,38 @@ CLI limits and are lower than its 600-second maximum.
 The current local Spark slot was reported free after the bounded R05 action.
 Before the attempt, record the approved process inventory and confirm there is
 no competing Spark/Java workload. Freeze the Python executable, JDK, Spark and
-Delta identities, both JAR hashes, public UMF wheel hash, public Weft wheel
+Delta identities, all five listed JAR hashes, public UMF wheel hash, public Weft wheel
 hash, source inputs, and generated invocation bytes before the first effect.
 The precise selected UMF wheel is the macOS arm64 asset SHA-256
 `49459bb2dbc37ac9b62b269e9664bac1483439c7d4c79f0b07855e9c8546c823`; its
 public install and package integrity evidence is the UMF adoption receipt.
 The Weft 0.4.53 macOS arm64 wheel SHA-256 is
 `4c8281945b852af02cae8602747fb7b1b652ab3a1369d7650efce62ae6d35c6c`.
+
+The exact Spark 4.2.0/Delta 4.4.1 candidate runtime was reused from the
+successful R05 R14 run. Its retained runtime inventory SHA-256 is
+`973d63580aec4a5f7f396befef68d19823fcf669811e3c6957346f746e6e3505` and its
+R05 native result SHA-256 is
+`c7d627be28af5a71192b0bb7c14edfda9d564e5084db4473de68921234b5c4ee`. JAR bytes
+were independently rehashed from the R05 paths:
+
+| Runtime JAR | SHA-256 |
+|---|---|
+| `delta-spark_4.2_2.13-4.4.1.jar` | `2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be` |
+| `delta-storage-4.4.1.jar` | `f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f` |
+| `spark-core_2.13-4.2.0.jar` | `8e0a03b66338a4a38c9089d9f798ab6a6c6583aefe93f910311704a5ec90ffc4` |
+| `spark-sql-api_2.13-4.2.0.jar` | `d789409a56db600c5160300fcd2c9651bf6f32dd8db1035a9bda17b67543b372` |
+| `spark-sql_2.13-4.2.0.jar` | `ec0a0d699c6c57300ee47ba5d54b4d1f71d3e5401fb90a2bcdcd83b942084dbf` |
+
+[`umf-validation.json`](umf-validation.json) records public UMF core 0.10.1
+validation: the frozen 0.10.0 model validated complete with no diagnostics,
+and UMF serialization round-tripped the exact 4,082 input bytes with the same
+SHA-256. [`source-oracle.json`](source-oracle.json) fixes first-publication
+singleton, edge, grouped-query and page expectations from the exact source and
+binding hashes. The grouped result is empty: the only source-derived group has
+two paths and the unchanged original request uses strict `COUNT(*) > 2`. This
+is a low-yield predicate, not grounds to alter Weft-owned SQL or substitute a
+different request.
 
 ## Frozen inputs and compiler artifacts
 
@@ -59,14 +84,18 @@ These compiler response bytes bind `ashlar-delta/0.3`; they are not sent to the
 native executor. After the fresh `.4-xxhash64` publication is complete, compile
 the same two source requests with public Weft 0.4.53 against the complete fresh
 publication vector, and create the Backend02 size-2 page and continuation
-(`after=["person-2"]`). Hash and preserve each exact new request, binding,
-artifact, and response before executing those unchanged bytes. A binding that
-does not name every table UUID/version in the captured vector is a refusal.
+(`after=["person-2"]`). This cannot be frozen before publication because its
+exact table UUID/version vector does not yet exist. Hash and preserve each new
+request, binding, artifact, and response immediately after compilation and
+before executing any SQL. An independent reviewer must verify each binding
+against the complete vector. A missing or mismatched table UUID/version is a
+refusal; never invent a vector or reuse a `.3` response as native evidence.
 
 ## Independent expected results
 
-Compute expected values only from the frozen original model, source JSONL, and
-binding bytes, without using SQL output or the native result. Use the current
+Expected values are frozen in [`source-oracle.json`](source-oracle.json) and
+were derived only from the original model, source JSONL, and binding bytes,
+without SQL output or native results. Use the current
 source-derived projection oracle in
 `src/ashlar_host/configured_typed_graph_weft_projection.py`
 (SHA-256 `e1fbaea90fc697e69dd7977f0e0cabccd2e149d5fbb916a58a4682cd44e050ea`)
@@ -85,21 +114,26 @@ manifest commit.
 ## Serial execution order
 
 1. Re-run `python3 preflight.py` from the existing R02 preflight directory and
-   retain its JSON. Confirm all four input digests and all three public compiler
-   response hashes. Capture the approved process inventory and the full runtime
-   and JAR identities. A missing identity or competing process stops the run.
-2. In a fresh private directory, admit the public UMF 0.10.1 package and
-   validate the frozen UMF 0.10.0 model through UMF's public validation and DDL
-   outputs. Freeze the exact output digests. Initialize a fresh
+   retain its JSON. It verifies all four input digests, all three original
+   public compiler responses, the public UMF receipt, source oracle, R05
+   runtime/result receipt hashes, and current local bytes for the five
+   Spark/Delta JARs listed above. Before native execution, capture the approved
+   process inventory and recheck the full runtime and JAR identities. A missing
+   identity or competing process stops the run.
+2. The public UMF 0.10.1 validation is already frozen in this packet. In a fresh
+   private directory, initialize a fresh
    `ashlar-delta/0.4-xxhash64` installation with the configured-local runner.
 3. Using one unchanged source/configuration/binding, publish batches 1, 2 and 3
    sequentially; repeat batch 3 byte-for-byte with a fresh invocation output.
    Retain full publication vectors at each ordinal and prove replay adds no
    table or manifest commit.
-4. At the first publication, issue one native singleton read, then the
-   publication-bound Backend03 grouped query and Backend02 page 1 followed by
-   continuation. Each invocation consumes only its frozen exact config and
-   compiler response. Compare each result with the independent oracle above.
+4. At the first publication, issue one native singleton read. Bind the original
+   Backend03 and Backend02 requests to the complete first-publication vector and
+   compile with public Weft 0.4.53. Freeze and hash each exact request, binding,
+   artifact, and response; have the independent reviewer verify the complete
+   vector pins before any SQL runs. Then execute the unchanged grouped query,
+   Backend02 page 1, and continuation serially, comparing each result with the
+   independent oracle above. Never execute SQL from an unfrozen compiler reply.
 5. Recheck complete native vector, file/runtime hashes, source/config custody,
    and process ownership before returning success. Any failed closing check
    invalidates the attempt and suppresses partial results.
@@ -115,18 +149,19 @@ Databricks cluster.
 
 ## Focused preflight outcome and open evidence
 
-The existing effect-free `preflight.py` completed successfully with status
-`prepared_native_held`: all pinned source bytes, 13 events/3 batches, the
-original parity source, and all three Weft 0.4.53 target/response pairs matched.
-It specifically does not admit UMF at runtime, inspect processes, or establish
-Spark/Delta execution. The historical R02 runtime receipt
+The focused effect-free `preflight.py` completed successfully with status
+`prepared_native_held`: all pinned source bytes, 13 events/3 batches, original
+parity requests, all three Weft 0.4.53 target/response pairs, public UMF
+validation, source oracle, and R05 runtime/JAR hashes matched. It does not
+inspect current process state or establish R02 Spark/Delta execution. The
+historical R02 runtime receipt
 `current-native-query-and-sdk-pages-20261021.json` (SHA-256
 `37dd8c330a5e65ad5395827e1bc839976e0a76f1e77a1726eae552edaa54cf1d`) records
 private Weft and `.3` bindings and is not current native evidence.
 
 Before execution, this packet still requires an approved current process
-inventory, exact downloaded JAR hashes, a fresh UMF validation output, and the
-new `.4` publication-bound compiler responses. This packet makes no Truss,
+inventory and new `.4` publication-bound compiler responses after their vector
+exists. This packet makes no Truss,
 production source, protected ACK, Unity Catalog, or cloud authority claim.
 
 ## Governing artifacts

@@ -1,0 +1,47 @@
+{
+  "profile": "ashlar-r02-original-source-oracle/0.1",
+  "inputs": {
+    "modelSha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "configurationSha256": "040545b8cc96701a158b8936750c89f97ce991df9652ceeacf6c66fb9d9fc168",
+    "sourceJsonlSha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+    "bindingSha256": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863"
+  },
+  "firstPublicationSourceDerivedExpectations": {
+    "objectSingletons": [
+      { "typeId": 17, "entityId": 1, "properties": { "21": "person-1", "22": "Ada", "23": 9007199254740993 } },
+      { "typeId": 17, "entityId": 2, "properties": { "21": "person-2", "22": "Ben" } },
+      { "typeId": 17, "entityId": 3, "properties": { "21": "person-3", "22": "雪" } },
+      { "typeId": 18, "entityId": 1, "properties": { "24": "place-1", "25": "Workshop" } }
+    ],
+    "directedEdges": [
+      { "typeId": 31, "edgeId": 1, "from": [17, 1], "to": [17, 2] },
+      { "typeId": 31, "edgeId": 2, "from": [17, 1], "to": [17, 2] },
+      { "typeId": 31, "edgeId": 3, "from": [17, 1], "to": [17, 1] },
+      { "typeId": 32, "edgeId": 1, "from": [17, 2], "to": [18, 1] }
+    ],
+    "backend03GroupedPaths": {
+      "queryRequestSha256": "db32c552f3de31fc8f4f11f0b1a7edfb0645026ddbe2a72b6b3f4ea6ac2e74d5",
+      "sourceDerivedPreHavingGroups": [
+        { "person_key": "person-1", "paths": 2, "distinctTerminalKeys": 1 }
+      ],
+      "having": "COUNT(*) > 2",
+      "exactExpectedResultRows": [],
+      "note": "The unchanged original query's strict HAVING threshold removes the sole two-path group. This preserves the original compiler request; it is a low-yield runtime result for that grouping predicate."
+    },
+    "backend02SdkPage": {
+      "queryRequestSha256": "3206e3c16f7721699a61974e0419b015bb0728a4d6b697e734f68a3e873ae729",
+      "pageSize": 2,
+      "firstPageVisibleRows": [["person-1", "Ada"], ["person-2", "Ben"]],
+      "lookaheadKey": "person-3",
+      "continuationAfter": ["person-2"],
+      "continuationVisibleRows": [["person-3", "雪"]],
+      "hasFurtherContinuation": false
+    }
+  },
+  "laterSourceDerivedExpectations": {
+    "batch2": "knows edge 31/1 reverses direction; edge 31/2 is deleted; object state is unchanged.",
+    "batch3": "knows edge 31/1 and located edge 32/1 are deleted; Person 17/2 is deleted.",
+    "exactReplay": "Repeating batch 3 with the exact same request bytes adds no graph or manifest commit."
+  },
+  "oracleAuthority": "Derived directly from the exact frozen JSONL/model/binding bytes and original query request; no SQL output, native result, Spark, or publication was used. The checked source projection and SDK-page oracle modules remain the runtime comparison implementation."
+}

@@ -1,0 +1,28 @@
+{
+  "profile": "ashlar-r02-public-umf-validation/0.1",
+  "distribution": {
+    "name": "umf-core",
+    "version": "0.10.1",
+    "wheelSha256": "49459bb2dbc37ac9b62b269e9664bac1483439c7d4c79f0b07855e9c8546c823"
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "platform": "Darwin arm64",
+    "environment": "/private/tmp/umf056-public-wheel-verify/venv"
+  },
+  "input": {
+    "path": "examples/end-to-end/typed-graph-model.umf.json",
+    "bytes": 4082,
+    "sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "declaredUmf": "0.10.0"
+  },
+  "result": {
+    "valid": true,
+    "complete": true,
+    "diagnostics": [],
+    "canonicalBytes": 4082,
+    "canonicalSha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "canonicalMatchesInput": true
+  },
+  "effectScope": "Public UMF model parse, validation, and serialization only; no Spark, Delta, publication, native, cloud, or source/ACK action."
+}
