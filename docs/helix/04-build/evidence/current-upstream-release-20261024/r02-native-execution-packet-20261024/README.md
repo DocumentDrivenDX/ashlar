@@ -280,7 +280,7 @@ five `.3` prepublication steps and closed as `complete-held-after-publication`;
 its durable result is linked above. The selected .53 continuation packet is a
 separate local `.3` read/query slice against that preserved vector. It makes
 no `.4-xxhash64`, Truss, production source, protected ACK, Unity Catalog, or
-cloud authority claim. No continuation native/SQL attempt has been made.
+cloud execution claim. No continuation native/SQL attempt has been made.
 
 The inert phase/refusal tests and focused invocation/vector checks run with:
 

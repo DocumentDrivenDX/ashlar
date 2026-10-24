@@ -12,9 +12,25 @@ SPEC = importlib.util.spec_from_file_location("r02_continuation_supervisor", SCR
 supervisor = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
 SPEC.loader.exec_module(supervisor)
+WORKER = Path(__file__).with_name("r02_live_alias_worker.py")
+WORKER_SPEC = importlib.util.spec_from_file_location("r02_live_alias_worker", WORKER)
+worker = importlib.util.module_from_spec(WORKER_SPEC)
+assert WORKER_SPEC.loader is not None
+WORKER_SPEC.loader.exec_module(worker)
 
 
 class ContinuationPacketTests(unittest.TestCase):
+    def test_prior_invocation_bytes_are_checked_before_json_use(self):
+        with tempfile.TemporaryDirectory(prefix="ashlar-r02-invocation-", dir="/private/tmp") as tmp:
+            path = Path(tmp) / "invocation.json"
+            raw = b'{"operation":"publish","ordinal":1}\n'
+            path.write_bytes(raw)
+            self.assertEqual(worker.read_pinned_json(path, supervisor.sha(raw)),
+                             {"operation": "publish", "ordinal": 1})
+            path.write_bytes(raw + b" ")
+            with self.assertRaisesRegex(ValueError, "bytes changed"):
+                worker.read_pinned_json(path, supervisor.sha(raw))
+
     def test_effect_free_prepare_binds_prior_state_vector_runtime_and_review_stages(self):
         with tempfile.TemporaryDirectory(prefix="ashlar-r02-cont-test-", dir="/private/tmp") as tmp:
             path, digest = supervisor.prepare(Path(tmp))

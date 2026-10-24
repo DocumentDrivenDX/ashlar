@@ -28,6 +28,16 @@ def write_new(path: Path, raw: bytes) -> None:
         os.close(fd)
 
 
+def read_pinned_json(path: Path, expected_sha256: str) -> dict:
+    raw = path.read_bytes()
+    if sha(raw) != expected_sha256:
+        raise ValueError("pinned R02 invocation bytes changed")
+    value = json.loads(raw)
+    if type(value) is not dict:
+        raise ValueError("pinned R02 invocation must be a JSON object")
+    return value
+
+
 def run(manifest_path: Path, repository: Path) -> None:
     manifest = json.loads(manifest_path.read_bytes())
     attempt = manifest_path.parent.resolve(strict=True)
@@ -62,7 +72,7 @@ def run(manifest_path: Path, repository: Path) -> None:
         raise ValueError("preserved publication vector identity changed")
 
     template_path = Path(prior["baseInvocationPath"])
-    template = json.loads(template_path.read_bytes())
+    template = read_pinned_json(template_path, prior["baseInvocationSha256"])
     installation = prior_root / "installation" / "installation.json"
     template["installation_sha256"] = sha(installation.read_bytes())
     template["output"] = str(attempt / "output")
