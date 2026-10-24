@@ -60,10 +60,13 @@ cloud execution, or production source custody
 ([prepublication result](04-build/evidence/current-upstream-release-20261024/r02-native-prepublication-20261024/README.md),
 [continuation result](04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024/native-continuation-result-427287c7f6564985b1a947bea049158a.json)).
 Managed Unity Catalog and the full Truss lifecycle remain unqualified.
-Managed A1 also remains unadmitted: policy use and cluster-creation entitlement
-are unproven, source-holder custody is open, and no conservative total-cost
-bound has been established. No A1 schema or paid compute was created or started
-([A1 permission admission](04-build/evidence/current-upstream-release-20261023/managed-a1-permission-admission-20261024.md),
+A bounded probe confirmed create/read/delete authority for one empty owned
+schema under `client_dev`; that schema was deleted and verified absent. Managed
+A1 remains unadmitted: policy use and cluster-creation entitlement are
+unproven, source-holder custody is open, and no conservative total-cost bound
+has been established. No paid compute was created or started
+([schema probe](04-build/evidence/current-upstream-release-20261023/managed-a1-schema-authority-probe-20261024.md),
+[permission admission](04-build/evidence/current-upstream-release-20261023/managed-a1-permission-admission-20261024.md),
 [A1 trial constraints](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
 The synthetic 1B-node/assumed-5B-edge trial remains held. A bounded local
 45M-node/225M-edge comparison passed for sequential and opt-in concurrent

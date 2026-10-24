@@ -18,8 +18,11 @@ ddx:
 # Managed A1 permission admission receipt
 
 Observed 2026-10-24 through the authenticated `aidev-cus` CLI using the
-escalated host session. This was read-only admission discovery. No schema, job,
-cluster or warehouse was created or started; no paid compute ran.
+escalated host session. This receipt combines prior read-only admission
+discovery with one bounded empty-schema authority probe. No job, cluster or
+warehouse was created or started; no paid compute ran. The temporary schema
+was deleted and its absence confirmed. See the [schema authority probe
+receipt](managed-a1-schema-authority-probe-20261024.md).
 
 ## Results
 
@@ -31,8 +34,15 @@ cluster or warehouse was created or started; no paid compute ran.
   predictive optimization inherited as `ENABLE`. `grants get CATALOG
   client_dev` showed `db-aidev-users` with `CREATE_SCHEMA` and `USE_CATALOG`
   (and other catalog privileges). Group membership plus these grants confirms
-  catalog-level schema-creation authority. No schema DDL was attempted; schema
-  ownership, object-drop authority, and cleanup rights remain unproven.
+  catalog-level schema-creation authority. A separate probe then created, read,
+  and deleted an empty uniquely named schema under this catalog; its owner was
+  the caller and the final absence check passed. This confirms authority for an
+  empty owned schema only. No table or other child object was created, so
+  object-drop and non-empty-schema cleanup remain unproven.
+- The schema probe's `create` response reported effective predictive
+  optimization `DISABLE`; an immediate `get` readback reported `ENABLE`. The
+  schema property remained `INHERIT`, and no manual toggle was issued. Preserve
+  this discrepancy as unresolved evidence for any later managed trial.
 - `cluster-policies get 001654FA4AA08D1A` returned the Personal Compute policy:
   fixed `cluster_type=all-purpose`, single-node profile, zero workers and
   Standard engine; `Standard_D4ds_v5` is allowed; Spark version is unrestricted;
@@ -69,16 +79,17 @@ actual-usage evidence was obtained ([authenticated discovery refresh](managed-a1
 ## Admission result
 
 The dedicated A1 path remains unadmitted. Catalog-level `CREATE_SCHEMA` and
-`USE_CATALOG` are confirmed, but policy `CAN_USE`, cluster-create entitlement,
-exact runtime/build and Unity Catalog access-mode compatibility, task and
-cluster lifecycle permissions, quota, and schema/object cleanup authority are
-unresolved. The all-purpose price illustration is not a whole-trial bound.
+`USE_CATALOG`, plus create/read/delete authority for an empty owned schema, are
+confirmed. Policy `CAN_USE`, cluster-create entitlement, exact runtime/build and
+Unity Catalog access-mode compatibility, task and cluster lifecycle permissions,
+quota, and table/object cleanup authority remain unresolved. The all-purpose
+price illustration is not a whole-trial bound.
 Live source/pin custody through independent verification, protected ACK,
 reconciliation and closing also remains a gate.
 
 The owner limits remain **$100 hard total** and **$10 preferred total**. No
 reliable conservative total including startup, idle time, ancillary usage and
-cleanup has been established. Do not create the temporary schema or start
-compute until Sol reviews admission and source-holder custody is available.
-TD-009 remains a draft; this receipt changes neither its proposal nor launch
-authority.
+cleanup has been established. The probe schema was deleted. Trial-schema
+creation or compute remains held pending Sol's review of admission and
+source-holder custody. TD-009 remains a draft; this receipt changes neither
+its proposal nor launch authority.
