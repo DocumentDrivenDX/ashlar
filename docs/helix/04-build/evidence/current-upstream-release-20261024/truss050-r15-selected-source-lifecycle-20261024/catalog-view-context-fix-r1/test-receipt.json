@@ -1,0 +1,38 @@
+{
+  "profile": "ashlar-truss048-catalog-view-context-fix-nonnative-controls/0.1",
+  "status": "passed",
+  "native_effects": false,
+  "tests": [
+    {
+      "command": "PYTHONPATH=src:tests .venv/bin/python -m unittest -v test_truss_catalog_reader",
+      "result": "2 tests passed",
+      "coverage": [
+        "current .48/.49/.50 catalog read explicitly adopts READ WRITE",
+        "accepted-document and catalog-view calls share the same transaction handle",
+        "historical catalog read explicitly adopts READ WRITE",
+        "transactions roll back after observation"
+      ]
+    },
+    {
+      "command": ".venv/bin/python docs/helix/04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/catalog-view-context-fix-r1/test_context_compatible_helper.py",
+      "result": "3 tests passed",
+      "coverage": [
+        "only the registrar helper path selects READ WRITE",
+        "source-reader role remains READ ONLY and unknown roles fail closed",
+        "candidate retains refusal handling and existing public view call"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "src/ashlar_host/truss_catalog_reader.py": "ccf7240b16ad20c8341252e799dacccecde831d52af6368a8308137ed2d46ecd",
+    "tests/test_truss_catalog_reader.py": "d82a5d0a99386ac0a9b2abea8f4a06af6ba91293386259ed11888b46dcd1e130",
+    "source_048_context_compatible_helper.py": "b99cd1edb0855de64c68322603d4ba16be1c697d21d925775e4b9ea007dec6e4",
+    "test_context_compatible_helper.py": "4bd0736b4482767faf24ac59b7a04eeb3501547b4b89de5ff3fb68f2c85d08b3"
+  },
+  "not_exercised": [
+    "PostgreSQL startup or query",
+    "Truss native helper execution",
+    "catalog-view availability after the transaction-mode correction",
+    "migration, source feed, publication, ACK, seed, or release"
+  ]
+}

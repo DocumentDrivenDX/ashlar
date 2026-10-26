@@ -48,6 +48,13 @@ is consumed and does not authorize a retry
 [source admission](04-build/evidence/current-upstream-release-20261024/truss050-source-admission-20261024/README.md),
 [R15 selected-source record](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/README.md),
 [R15 execution result](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/execution-result.json)).
+Pinned `.48` source shows that the helper's `READ ONLY` transaction caused
+`CatalogViewUnavailable(reason="context")`; Ashlar's library path now explicitly
+requests the ordinary `READ COMMITTED READ WRITE` transaction needed for
+Truss's shared catalog lock and rolls it back. A corrected helper candidate
+and focused non-native controls are recorded separately; no native retry or release
+qualification resulted
+([context trace and candidate](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/catalog-view-context-fix-r1/README.md)).
 
 Local Spark 4.2.0/Delta 4.4.1 candidate checks include bounded Weft query and
 SDK paging; a separate native one-table Delta check accepted a candidate DDL
