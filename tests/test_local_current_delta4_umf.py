@@ -5,7 +5,7 @@ import unittest
 from ashlar_host.local_current_carrier_profile import _admit_zstd_footer_inventory
 from ashlar_host.local_current_delta4_umf import (
     BUILD_INPUTS_SHA256, BRIDGE_SHA256, LOCAL_TARGET_PROFILE,
-    LocalUmfDelta4Bridge, _pinned_resources, admit_proposal,
+    LocalUmfDelta4Bridge, pinned_resources, admit_proposal,
 )
 from ashlar_host.managed_current_carriers import load_current_managed_carriers
 
@@ -14,7 +14,7 @@ class LocalCurrentDelta4UmfTests(unittest.TestCase):
     def test_all_six_original_sources_realize_to_typed_local_delta_targets(self):
         carriers = load_current_managed_carriers('ashlar-delta/0.4-xxhash64')
         sources = dict(carriers.inputs)
-        manifest, _bundle, _sources, _semantics = _pinned_resources()
+        manifest, _bundle, _sources, _semantics = pinned_resources()
         self.assertEqual(BRIDGE_SHA256, manifest['bridge']['assetSha256'])
         self.assertEqual(BUILD_INPUTS_SHA256, manifest['bridge']['buildInputsSha256'])
         aliases = {'publication_attempt_phase': 'attempts',
@@ -41,7 +41,7 @@ class LocalCurrentDelta4UmfTests(unittest.TestCase):
                     self.assertEqual(proposal['writerSettings'], [])
 
     def test_local_target_and_original_dispositions_are_closed(self):
-        _manifest, _bundle, sources, semantics = _pinned_resources()
+        _manifest, _bundle, sources, semantics = pinned_resources()
         source = sources['object_current.umf.json']
         with LocalUmfDelta4Bridge.open() as bridge:
             first = bridge.realize(source, '/private/tmp/ashlar-local-delta4-test/one', 'object_current')

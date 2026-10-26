@@ -44,7 +44,7 @@ def _read(resource, name, maximum):
     return raw
 
 
-def _pinned_resources():
+def pinned_resources():
     root = files('ashlar_host').joinpath('resources', UMF_BRIDGE_RESOURCE)
     manifest_bytes = _read(root, 'realization.json', 65536)
     semantic_bytes = _read(root, 'role-semantics.json', 32768)
@@ -168,7 +168,7 @@ class LocalUmfDelta4Bridge:
 
     @classmethod
     def open(cls):
-        _manifest, bundle, _sources, semantics = _pinned_resources()
+        _manifest, bundle, _sources, semantics = pinned_resources()
         from py_mini_racer import MiniRacer
         runtime = MiniRacer()
         try:

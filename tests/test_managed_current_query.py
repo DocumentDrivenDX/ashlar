@@ -47,10 +47,10 @@ def _source_bundle():
 
 
 def _oracle(source_bundle=None):
-    from ashlar_host.managed_current_query import (_managed_source_identity,
+    from ashlar_host.managed_current_query import (managed_source_identity,
         managed_current_oracle_receipt)
     source_bundle = source_bundle or _source_bundle()
-    identity = _managed_source_identity(source_bundle, schedule_sha256="a" * 64, schedule_step=7)
+    identity = managed_source_identity(source_bundle, schedule_sha256="a" * 64, schedule_step=7)
     value = {
         "profile": "ashlar-managed-current-source-oracle/0.1",
         "authority": "external-real-truss-holder",
@@ -92,7 +92,7 @@ class ManagedCurrentQueryTests(unittest.TestCase):
   def test_048_runtime_tuple_is_preserved_in_source_oracle_receipt(self):
     from ashlar_host.truss_current_catalog import (CURRENT_TRUSS_048_WHEEL_SHA256,
         CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
-    from ashlar_host.managed_current_query import (_managed_source_identity,
+    from ashlar_host.managed_current_query import (managed_source_identity,
         managed_current_oracle_receipt)
     bundle = _source_bundle()
     bundle['profile'] = 'ashlar-managed-current-core-binding/0.2'
@@ -103,7 +103,7 @@ class ManagedCurrentQueryTests(unittest.TestCase):
         'runtimeManifestSha256': CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256}
     bundle.pop('bindingSha256')
     bundle['bindingSha256'] = hashlib.sha256(_canonical(bundle).encode()).hexdigest()
-    identity = _managed_source_identity(bundle, schedule_sha256='a' * 64, schedule_step=7)
+    identity = managed_source_identity(bundle, schedule_sha256='a' * 64, schedule_step=7)
     oracle = _oracle(bundle)
     self.assertEqual(identity['catalogEvidenceProfile'], 'ashlar-truss-current-catalog-evidence/0.3')
     self.assertEqual(oracle.truss_version, '0.0.48')
@@ -114,7 +114,7 @@ class ManagedCurrentQueryTests(unittest.TestCase):
   def test_049_runtime_tuple_is_preserved_in_source_oracle_receipt(self):
     from ashlar_host.truss_current_catalog import (CURRENT_TRUSS_049_WHEEL_SHA256,
         CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)
-    from ashlar_host.managed_current_query import (_managed_source_identity,
+    from ashlar_host.managed_current_query import (managed_source_identity,
         managed_current_oracle_receipt)
     bundle = _source_bundle()
     bundle['profile'] = 'ashlar-managed-current-core-binding/0.2'
@@ -125,7 +125,7 @@ class ManagedCurrentQueryTests(unittest.TestCase):
         'runtimeManifestSha256': CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256}
     bundle.pop('bindingSha256')
     bundle['bindingSha256'] = hashlib.sha256(_canonical(bundle).encode()).hexdigest()
-    identity = _managed_source_identity(bundle, schedule_sha256='a' * 64, schedule_step=7)
+    identity = managed_source_identity(bundle, schedule_sha256='a' * 64, schedule_step=7)
     oracle = _oracle(bundle)
     self.assertEqual(identity['catalogEvidenceProfile'], 'ashlar-truss-current-catalog-evidence/0.4')
     self.assertEqual(oracle.truss_version, '0.0.49')
@@ -136,7 +136,7 @@ class ManagedCurrentQueryTests(unittest.TestCase):
   def test_050_runtime_tuple_is_preserved_in_source_oracle_receipt(self):
     from ashlar_host.truss_current_catalog import (CURRENT_TRUSS_050_WHEEL_SHA256,
         CURRENT_TRUSS_050_RUNTIME_MANIFEST_SHA256)
-    from ashlar_host.managed_current_query import (_managed_source_identity,
+    from ashlar_host.managed_current_query import (managed_source_identity,
         managed_current_oracle_receipt)
     bundle = _source_bundle()
     bundle['profile'] = 'ashlar-managed-current-core-binding/0.4'
@@ -147,7 +147,7 @@ class ManagedCurrentQueryTests(unittest.TestCase):
         'runtimeManifestSha256': CURRENT_TRUSS_050_RUNTIME_MANIFEST_SHA256}
     bundle.pop('bindingSha256')
     bundle['bindingSha256'] = hashlib.sha256(_canonical(bundle).encode()).hexdigest()
-    identity = _managed_source_identity(bundle, schedule_sha256='a' * 64, schedule_step=7)
+    identity = managed_source_identity(bundle, schedule_sha256='a' * 64, schedule_step=7)
     oracle = _oracle(bundle)
     self.assertEqual(identity['catalogEvidenceProfile'], 'ashlar-truss-current-catalog-evidence/0.5')
     self.assertEqual(oracle.truss_version, '0.0.50')
@@ -276,8 +276,8 @@ class ManagedCurrentQueryTests(unittest.TestCase):
   def test_source_oracle_refuses_unrelated_feed_cursor_or_schedule_before_read(self):
     source_bundle = _source_bundle()
     _oracle(source_bundle)
-    from ashlar_host.managed_current_query import _managed_source_identity
-    identity = _managed_source_identity(source_bundle, schedule_sha256="a" * 64, schedule_step=7)
+    from ashlar_host.managed_current_query import managed_source_identity
+    identity = managed_source_identity(source_bundle, schedule_sha256="a" * 64, schedule_step=7)
     unrelated = json.loads(_canonical(source_bundle))
     unrelated["source"]["feed"] = "plausible-but-unrelated-feed"
     unrelated.pop("bindingSha256")

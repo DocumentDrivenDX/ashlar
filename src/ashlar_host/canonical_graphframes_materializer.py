@@ -21,9 +21,9 @@ import stat
 import tempfile
 import shutil
 
-from .local_current_delta4_umf import LocalUmfDelta4Bridge, _pinned_resources
+from .local_current_delta4_umf import LocalUmfDelta4Bridge, pinned_resources
 from .managed_current_xxhash64_carriers import load_current_managed_xxhash64_carriers
-from .pinned_delta_graphframes import _quote_path
+from .pinned_delta_graphframes import quote_path
 
 EVIDENCE = Path(__file__).resolve().parents[2] / "docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-discriminator-r1"
 ROLES = ("object_current", "edge_current")
@@ -185,7 +185,7 @@ def _table_identity(path):
 
 
 def _delta_uuid(spark, path):
-    rows = spark.sql(f"DESCRIBE DETAIL {_quote_path(path)}").collect()
+    rows = spark.sql(f"DESCRIBE DETAIL {quote_path(path)}").collect()
     if len(rows) != 1:
         raise PermissionError("Exactly one Delta detail row required for ownership check")
     value = rows[0].asDict(recursive=True).get("id")
@@ -274,7 +274,7 @@ def materialize_canonical_discriminator(spark, fixture_root):
         raise PermissionError("Exact Spark 4.2.0 local runtime required before DDL")
     root = _private_root(fixture_root)
     for role in ROLES:
-        _quote_path(root / role)
+        quote_path(root / role)
     lock_fd = _acquire_lock(root)
     try:
         allowed = {".ashlar-graphframes-action.lock"}
@@ -283,11 +283,11 @@ def materialize_canonical_discriminator(spark, fixture_root):
         source = _frozen_source()
         carriers = load_current_managed_xxhash64_carriers()
         generated = json.loads(carriers.generated_bytes)
-        _manifest, _bundle, sources, semantics = _pinned_resources()
+        _manifest, _bundle, sources, semantics = pinned_resources()
         if (generated.get("profile") != "ashlar-managed-current-carriers/0.4-xxhash64"
                 or generated.get("generator", {}).get("revision") != source["umfRevision"]):
             raise PermissionError("Selected UMF `.4` generated carrier is not admitted")
-        quoted_paths = {role: _quote_path(root / role) for role in ROLES}
+        quoted_paths = {role: quote_path(root / role) for role in ROLES}
         with LocalUmfDelta4Bridge.open() as bridge:
             proposals = {}
             for role in ROLES:

@@ -113,7 +113,7 @@ def open_finite_spark(config,jars,*,r02=False):
         driver_memory='2g' if r02 else '512m')
 
 
-def _verify_driver_memory(spark,*,r02):
+def verify_driver_memory(spark,*,r02):
     """Check Spark's selected heap setting and the live R02 JVM heap size."""
     expected='2g' if r02 else '512m'
     _require(spark.conf.get('spark.driver.memory')==expected)
@@ -290,7 +290,7 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
         spark=open_finite_spark(config,jars,r02=r02 is not None)
         _require(spark.sparkContext.master=='local[1]'and spark.conf.get('spark.sql.session.timeZone')=='UTC'
             and spark.conf.get(PARAMETER_SUBSTITUTION_SETTING)=='true')
-        _verify_driver_memory(spark,r02=r02 is not None)
+        verify_driver_memory(spark,r02=r02 is not None)
         _require(spark.version=='4.2.0' and spark.sparkContext._jvm.java.lang.System.getProperty('java.specification.version')=='21')
         _require(spark.conf.get('spark.jars')==','.join(str(p)for p in jars))
         verify_loaded_delta_class(spark,jars)

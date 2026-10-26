@@ -178,7 +178,7 @@ def note_expected_rows(previous,state,changes,batch,columns,materialized_at,even
     return graph_expected_rows(previous,state,changes,batch,columns,materialized_at,event_bytes)
 
 
-def _native_xxhash64(spark,changes,state):
+def native_xxhash64(spark,changes,state):
     """Compute exact expected `.4` hashes with the same native Spark function."""
     result={}
     for kind,typed in (('object','type_id'),('edge','rel_type_id')):
@@ -284,7 +284,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             graph_tables={role:tables[role]for role in graph_columns}
             validate_graph_edge_orders(expected,admission.changes,admission.parsed.event_bytes)
             after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=materialized_at,schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,native_scalar_profile=_native_scalar_profile(admission,graph),lookup_hash_profile=lookup_hash_profile)
-            hashes=_native_xxhash64(spark,admission.changes,after) if carrier_profile=='ashlar-delta/0.4-xxhash64' else None
+            hashes=native_xxhash64(spark,admission.changes,after) if carrier_profile=='ashlar-delta/0.4-xxhash64' else None
             following=graph_expected_rows(expected,after,admission.changes,batch,graph_columns,materialized_at,admission.parsed.event_bytes,admission.parsed.edge_order_keys,lookup_hashes=hashes)
             steps,elisions=local_effect_plan(generated,expected,graph_tables,lookup_hash_profile=lookup_hash_profile)
             revisions={json.loads(page.prior.content)['installationId']:str(max(int(value)for value in admission.revisions))}if admission.revisions else {json.loads(page.prior.content)['installationId']:'0'}

@@ -123,7 +123,7 @@ class SyntheticGraphFixture:
         object.__setattr__(self, "input_sha256", fixture_input_digest())
 
 
-def _quote_path(path):
+def quote_path(path):
     text = str(path)
     if (not text.startswith("/") or "\x00" in text or "`" in text
             or "\n" in text or "\r" in text or len(text.encode()) > 4096):
@@ -183,7 +183,7 @@ class PinnedSyntheticDeltaFixture:
         paths = {}
         for role, path in table_paths.items():
             text = str(path)
-            _quote_path(text)
+            quote_path(text)
             paths[role] = text
         if len(set(paths.values())) != 2:
             raise ValueError("Distinct current-table Delta paths required")
@@ -192,7 +192,7 @@ class PinnedSyntheticDeltaFixture:
 
     def _observe_table(self, role):
         path = self._paths[role]
-        name = _quote_path(path)
+        name = quote_path(path)
         details = self._spark.sql("DESCRIBE DETAIL " + name).limit(2).collect()
         if len(details) != 1:
             raise ValueError("One actual Delta table detail row required")
@@ -352,7 +352,7 @@ def create_synthetic_delta_fixture(spark, table_paths, fixture=None):
     values = {"object_current": selected.node_rows, "edge_current": selected.edge_rows}
     for role in ("object_current", "edge_current"):
         path = str(table_paths[role])
-        _quote_path(path)
+        quote_path(path)
         fields = signatures[role]
         schema = StructType([StructField(name,
             StringType() if kind == "string" else LongType(), nullable)
@@ -1181,14 +1181,14 @@ class PinnedCanonicalSyntheticDeltaFixture:
         paths = {}
         for role in ("object_current", "edge_current"):
             text = str(table_paths[role])
-            _quote_path(text)
+            quote_path(text)
             paths[role] = text
         self._paths = paths
         self._maximum_lease_seconds = maximum_lease_seconds
 
     def _observe_table(self, role):
         path = self._paths[role]
-        name = _quote_path(path)
+        name = quote_path(path)
         details = self._spark.sql("DESCRIBE DETAIL " + name).limit(2).collect()
         if len(details) != 1:
             raise ValueError("One actual canonical Delta table detail row required")

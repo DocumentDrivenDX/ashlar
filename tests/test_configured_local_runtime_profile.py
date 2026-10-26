@@ -10,7 +10,7 @@ from types import MappingProxyType, SimpleNamespace
 from unittest.mock import patch
 
 from ashlar_host import configured_local_runtime_profile as profile
-from ashlar_host.configured_local_runtime import open_finite_spark,_verify_driver_memory
+from ashlar_host.configured_local_runtime import open_finite_spark,verify_driver_memory
 
 
 class Tests(unittest.TestCase):
@@ -70,9 +70,9 @@ class Tests(unittest.TestCase):
                 runtime=types.SimpleNamespace(maxMemory=lambda:heap)
                 jvm=types.SimpleNamespace(java=types.SimpleNamespace(lang=types.SimpleNamespace(Runtime=types.SimpleNamespace(getRuntime=lambda:runtime))))
                 return types.SimpleNamespace(conf=types.SimpleNamespace(get=lambda key:memory),sparkContext=types.SimpleNamespace(_jvm=jvm))
-            _verify_driver_memory(spark("2g",2*1024**3),r02=True)
-            with self.assertRaises(ValueError):_verify_driver_memory(spark("512m",512*1024**2),r02=True)
-            _verify_driver_memory(spark("512m",512*1024**2),r02=False)
+            verify_driver_memory(spark("2g",2*1024**3),r02=True)
+            with self.assertRaises(ValueError):verify_driver_memory(spark("512m",512*1024**2),r02=True)
+            verify_driver_memory(spark("512m",512*1024**2),r02=False)
 
     def test_open_refuses_existing_default_session_or_context_before_builder(self):
         with tempfile.TemporaryDirectory() as directory:
