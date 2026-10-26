@@ -258,10 +258,10 @@ class _Owner:
 
 def run_configured_sdk_pages(scope,transport,query,*,runtime_guard):
     """Use AshlarTarget pages, then close aliases before returning provisional JSON."""
-    from ashlar.access import AshlarTarget
-    from umf_access.engine_catalog import EngineRead
     _require(type(query)is ConfiguredSdkPagesConfig);query.__post_init__()
     _require(_supported_page_compiler(query.compiler))
+    from ashlar.access import AshlarTarget
+    from umf_access.engine_catalog import EngineRead
     values=query.parameters.model_dump(mode='python');parameters={n:{'family':'string','value':v}for n,v in values.items()}
     started=time.monotonic();items=[];pages=[];original=None
     with owned_context(open_configured_query_aliases(scope,transport))as aliases:
