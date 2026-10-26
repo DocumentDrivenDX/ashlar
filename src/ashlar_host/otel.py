@@ -86,7 +86,7 @@ class OtelRun:
                     and signal.getsignal(signal.SIGCHLD) == signal.SIG_DFL
                     and sys.version_info[:2] == (3, 11))
             self._config = config
-            version = metadata.version('ashlar-graph-toolkit')
+            version = metadata.version('umf-ashlar')
             # Startup precedes work effects; shutdown's selected budget governs
             # closure only. Construction has its own finite two-second ceiling.
             deadline = time.monotonic() + 2

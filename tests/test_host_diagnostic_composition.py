@@ -31,7 +31,7 @@ class CompositionTests(unittest.TestCase):
         self.root=Path(temporary.name).resolve()
         self.config=replace(fixtures.DiagnosticsConfigurationTests().configuration(),capture_root=self.root)
         def version(name):
-            return '0.1.0.dev0' if name=='ashlar-graph-toolkit' else module.SDK_VERSIONS[name]
+            return '0.1.0.dev0' if name=='umf-ashlar' else module.SDK_VERSIONS[name]
         self.metadata=patch('ashlar_host.diagnostic_composition.metadata.version',side_effect=version)
         self.metadata.start();self.addCleanup(self.metadata.stop)
 
@@ -56,7 +56,7 @@ class CompositionTests(unittest.TestCase):
         for missing in module.SDK_VERSIONS:
             def version(name):
                 if name==missing:return 'wrong'
-                return '0.1.0.dev0' if name=='ashlar-graph-toolkit' else module.SDK_VERSIONS[name]
+                return '0.1.0.dev0' if name=='umf-ashlar' else module.SDK_VERSIONS[name]
             with patch.object(module.metadata,'version',side_effect=version),patch.object(module,'DiagnosticRun')as capture,patch.object(module,'OtelRun')as worker:
                 with self.assertRaisesRegex(HostError,'^diagnostics-configuration$'):
                     with module.diagnostic_run(self.config):pass

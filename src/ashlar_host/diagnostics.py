@@ -308,7 +308,7 @@ class DiagnosticRun:
             _require(type(config) is DiagnosticsConfig and type(sink) is DiagnosticSignalSink,
                      'diagnostics-configuration')
             try:
-                version = metadata.version('ashlar-graph-toolkit')
+                version = metadata.version('umf-ashlar')
             except Exception:
                 raise DiagnosticsError('diagnostics-configuration') from None
             self.resource = {'service.name': 'ashlar-host', 'service.version': version,

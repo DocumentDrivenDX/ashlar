@@ -188,7 +188,7 @@ class SDKWorkerTests(unittest.TestCase):
     def setUp(self):
         self.env=patch.dict(os.environ,{},clear=True);self.env.start();self.addCleanup(self.env.stop)
         actual=metadata.version
-        self.version=patch('ashlar_host._otel_worker.metadata.version',side_effect=lambda name:'0.1.0.dev0' if name=='ashlar-graph-toolkit' else actual(name))
+        self.version=patch('ashlar_host._otel_worker.metadata.version',side_effect=lambda name:'0.1.0.dev0' if name=='umf-ashlar' else actual(name))
         self.version.start();self.addCleanup(self.version.stop)
         self.sent=[];self.workers=[]
         self.addCleanup(self.cleanup)
