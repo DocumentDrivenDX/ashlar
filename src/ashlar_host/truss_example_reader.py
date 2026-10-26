@@ -5,7 +5,7 @@ import hashlib,json,os
 from pathlib import Path
 from .evolution_cli import InvocationFile
 from .evolution_producer import snapshot
-from .truss_resume_cli import parse_resume_truss_configuration
+from .truss_resume_cli import DEFAULT_CARRIER_PROFILE,parse_resume_truss_configuration
 from .private_graph_custody import decode_custody_bytes
 
 
@@ -47,6 +47,7 @@ def run_configure_truss_example_reader_command(example_directory,connection_conf
         selections={'feed','source_page_path','source_page_sha256','request_digest'}
         if type(value)is not dict or not selections<=set(value):raise ValueError('Original publication intent required')
         normalized={k:v for k,v in query.items()if k!='publication_intent'}|{k:value[k]for k in selections}
+    normalized={**normalized,'carrier_profile':normalized.get('carrier_profile',DEFAULT_CARRIER_PROFILE)}
     if (type(live)is not dict or set(live)!={'profile','data_directory','connection_uri'}or live['profile']!='ashlar-local-truss-connection/0.1'
             or type(live['connection_uri'])is not str or not live['connection_uri']or len(live['connection_uri'])>4096 or '\0'in live['connection_uri']):raise ValueError('Exact original live local connection configuration required')
     data=setup.get('data_directory')

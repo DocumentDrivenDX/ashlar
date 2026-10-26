@@ -248,8 +248,6 @@ def _graphframes_python_origins():
 
 
 def _ashlar_module_origin(expected_wheel_sha, expected_module_sha):
-    import ashlar_host.pinned_delta_graphframes as implementation
-
     distribution = importlib.metadata.distribution("ashlar-graph-toolkit")
     direct_url = distribution.read_text("direct_url.json")
     if direct_url is None:
@@ -263,7 +261,8 @@ def _ashlar_module_origin(expected_wheel_sha, expected_module_sha):
             wheel_sha = legacy.partition("=")[2]
     if wheel_sha != expected_wheel_sha:
         raise PermissionError("Installed Ashlar wheel differs from the selected reviewed wheel")
-    origin = _distribution_module_origin(distribution, implementation.__file__)
+    origin = _distribution_module_origin(
+        distribution, distribution.locate_file("ashlar_host/pinned_delta_graphframes.py"))
     if origin["sha256"] != expected_module_sha:
         raise PermissionError("Installed Ashlar smoke module differs from the reviewed module pin")
     return {"distribution": distribution.metadata["Name"],

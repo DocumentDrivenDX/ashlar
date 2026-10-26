@@ -14,7 +14,7 @@ from ashlar.schema import decode_retained_json
 from .managed_current_core import (CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64,
                                    ManagedCurrentCoreConfig, restore_managed_current_admission)
 from .managed_current_carriers import load_current_managed_carriers
-from .managed_current_query import _managed_source_identity
+from .managed_current_query import managed_source_identity
 from .truss_note_publication import graph_expected_rows
 
 PROFILE = "ashlar-managed-current-source-prefix/0.1"
@@ -217,7 +217,7 @@ def _build_managed_current_prefix_oracle(prefix_bytes, *, prefix_sha256, config,
                      and bundle["source"].get("trussVersion") == expected_source_truss_version,
                      "Every frozen prefix page must use the selected Truss source version")
         admission = restore_managed_current_admission(bundle, config)
-        identity = _managed_source_identity(bundle, schedule_sha256=prefix["scheduleSha256"],
+        identity = managed_source_identity(bundle, schedule_sha256=prefix["scheduleSha256"],
                                             schedule_step=ordinal)
         verify_request_digest(request)
         revisions = {revision: hashlib.sha256(selected["report"]).hexdigest()

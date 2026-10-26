@@ -33,6 +33,9 @@ class Tests(unittest.TestCase):
         request = request_for('original-stream', transaction, 'original-origin',
             {'A': sources.admissions[0].prepared.schema_revisions[0]})
         driver = object.__new__(NativeDriver); driver.context = object(); driver.held = True
+        # This fixture bypasses NativeDriver.__init__; preserve the constructor's
+        # explicit legacy lookup-hash default for plan_graph's policy binding.
+        driver.lookup_hash_profile = 'sha256-json-v1'
         driver.source_admission = sources; driver.original_admission = encoded(sources.metadata())
         driver.source_sessions = object(); driver.ack_sessions = object(); driver.columns = sources.columns
         driver.tables = {role: 'local.original.' + role for role in (*sources.columns, 'attempts', 'manifest')}

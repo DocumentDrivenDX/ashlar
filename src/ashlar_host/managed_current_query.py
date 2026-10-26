@@ -72,7 +72,7 @@ class ManagedCurrentSourceOracle:
     runtime_manifest_sha256: str | None = None
 
 
-def _managed_source_identity(source_bundle, *, schedule_sha256, schedule_step):
+def managed_source_identity(source_bundle, *, schedule_sha256, schedule_step):
     """Derive oracle identity only from the retained, digest-bound Truss bundle."""
     _require(type(source_bundle) is dict
              and source_bundle.get("status") == "preinstallation-source-bundle")
@@ -213,7 +213,7 @@ def admit_managed_current_source_oracle(value, *, source_bundle, schedule_sha256
     _require(type(supplied) is str and _SHA.fullmatch(supplied)
              and hashlib.sha256(_canonical(unsigned).encode("utf-8")).hexdigest() == supplied,
              "Digest-bound original external Truss source snapshot required")
-    identity = _managed_source_identity(source_bundle, schedule_sha256=schedule_sha256,
+    identity = managed_source_identity(source_bundle, schedule_sha256=schedule_sha256,
                                         schedule_step=schedule_step)
     _require(value["profile"] == _PROFILE and value["authority"] == "external-real-truss-holder"
              and value["trussVersion"] in ("0.0.44", "0.0.45", "0.0.48", "0.0.49", "0.0.50")
@@ -519,7 +519,7 @@ class ManagedCurrentReadOwner:
                  and type(schedule_sha256) is str and _SHA.fullmatch(schedule_sha256)
                  and type(schedule_step) is int and schedule_step >= 1
                  and type(maximum_rows) is int and 1 <= maximum_rows <= 1000)
-        identity = _managed_source_identity(source_bundle, schedule_sha256=schedule_sha256,
+        identity = managed_source_identity(source_bundle, schedule_sha256=schedule_sha256,
                                             schedule_step=schedule_step)
         _require((oracle.truss_version, oracle.catalog_evidence_profile,
                   oracle.runtime_wheel_sha256, oracle.runtime_manifest_sha256,

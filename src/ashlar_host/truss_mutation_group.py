@@ -113,7 +113,7 @@ def run_mutate_truss_record_group_command(configuration: str|Path,output: str|Pa
     import psycopg
     from truss import Ok,CatalogDocument,CatalogRuntimeConfiguration,create_reference_assembly,adopt_psycopg_host,ObjectFound,ObjectNotFound,EdgeFound,EdgeNotFound
     from truss.contracts import TextValue,BooleanValue,NullValue,MapValue,MapEntry
-    from truss.groups import CreateEdge,UpdateObject,UpdateEdge,Delete,StoredObjectReference,AuthoredValue,NullOrderKey,TextOrderKey,Created,Changed,Unchanged,Deleted,GroupSuccess,CommittedReceiptReplay
+    from truss.groups import CreateEdge,UpdateObject,UpdateEdge,Delete,StoredObjectReference,AuthoredValue,NullOrderKey,TextOrderKey,Created,Changed,Deleted,GroupSuccess,CommittedReceiptReplay
     def value(result):
         if not isinstance(result,Ok):raise RuntimeError('Public Truss mutation refused')
         return result.value

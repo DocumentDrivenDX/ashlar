@@ -29,10 +29,10 @@ class Tests(unittest.TestCase):
             def catalog_view_request(self, **kwargs):
                 calls.append(('request', kwargs)); return object()
             def accepted_document_in_transaction(self, tx, *, document_id, maximum_bytes):
-                calls.append(('source', document_id, maximum_bytes))
+                calls.append(('source', tx, document_id, maximum_bytes))
                 return Ok(source)
             def catalog_view_in_transaction(self, tx, request):
-                calls.append(('view', request)); return Ok(Available(SimpleNamespace(original_bytes=view_raw)))
+                calls.append(('view', tx, request)); return Ok(Available(SimpleNamespace(original_bytes=view_raw)))
             def dispose(self): calls.append('dispose')
         class Host:
             def adopt_transaction(self, **kwargs): calls.append(('transaction', kwargs)); return Ok('tx')
@@ -69,6 +69,11 @@ class Tests(unittest.TestCase):
             self.assertEqual(evidence.runtime_wheel_sha256, wheel)
             self.assertEqual(evidence.runtime_manifest_sha256, manifest)
             self.assertIn("SET LOCAL statement_timeout = '2000ms'", calls)
+            self.assertIn(('transaction', {'access_mode': 'read_write'}), calls)
+            source_transactions = [entry[1] for entry in calls if type(entry) is tuple and entry[0] == 'source']
+            view_transactions = [entry[1] for entry in calls if type(entry) is tuple and entry[0] == 'view']
+            self.assertEqual(source_transactions, ['tx'])
+            self.assertEqual(view_transactions, source_transactions)
             self.assertEqual(calls[-4:], ['dispose', 'detach', 'rollback', 'connection-close'])
 
     def test_selected_historical_revisions_preserve_bytes_and_rollback_catalog_lock_transaction(self):
@@ -102,7 +107,7 @@ class Tests(unittest.TestCase):
         batch=types.SimpleNamespace(profile='truss-native-feed/0.1',begin=json.dumps({'catalogPrerequisites':[{'revision':'0','reportBytesBase64':None},{'revision':'1','reportBytesBase64':'original'},{'revision':'2','reportBytesBase64':'original'}]}).encode())
         with patch.dict(sys.modules,{'truss':sdk}),patch('ashlar_host.truss_catalog_reader.batch_row'):
             actual=read_historical_catalog_views(Connection,batch)
-        self.assertEqual(actual,originals);self.assertIn({},calls);self.assertIn('SET TRANSACTION ISOLATION LEVEL READ COMMITTED',calls);self.assertNotIn('SET TRANSACTION ISOLATION LEVEL READ COMMITTED READ ONLY',calls)
+        self.assertEqual(actual,originals);self.assertIn({'access_mode':'read_write'},calls);self.assertIn('SET TRANSACTION ISOLATION LEVEL READ COMMITTED',calls);self.assertNotIn('SET TRANSACTION ISOLATION LEVEL READ COMMITTED READ ONLY',calls)
         self.assertEqual([entry for entry in calls if type(entry)is tuple],[('read','1'),('read','2')])
         self.assertEqual(calls[-4:],['dispose','detach','rollback','connection-close'])
 

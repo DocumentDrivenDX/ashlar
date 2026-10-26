@@ -19,7 +19,7 @@ from .truss_ack_journal import admit_truss_ack_attempt
 from .truss_catalog_reader import read_historical_catalog_views
 from .truss_feed_sessions import TrussFeedSessions
 from .truss_graph_admission import TrussGraphAdmission
-from .truss_note_publication import bind_ordinary_connection,read_next_page,validate_graph_edge_orders,graph_expected_rows,_native_xxhash64
+from .truss_note_publication import bind_ordinary_connection,read_next_page,validate_graph_edge_orders,graph_expected_rows,native_xxhash64
 from .truss_page_archive import encode_truss_page
 from .truss_recovery import restore_truss_apply_state
 
@@ -139,7 +139,7 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=stamp,
                 schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,native_scalar_profile='typed'if admission.typed else'string',
                 lookup_hash_profile=driver.lookup_hash_profile)
-            hashes=(_native_xxhash64(transport.spark,admission.changes,after)
+            hashes=(native_xxhash64(transport.spark,admission.changes,after)
                     if driver.lookup_hash_profile=='spark-xxhash64-typed-key/0.1' else None)
             following=graph_expected_rows(expected,after,admission.changes,batch,driver.columns,stamp,admission.parsed.event_bytes,admission.parsed.edge_order_keys,lookup_hashes=hashes)
             steps,elisions=local_effect_plan(generated,expected,graph_tables,lookup_hash_profile=driver.lookup_hash_profile)

@@ -20,7 +20,7 @@ from ashlar_host.local_current_carrier_profile import (
     _observed_role, _protocol, apply_local_writer_settings, create_local_current_xxhash64_tables,
     verify_local_writer_settings,
 )
-from ashlar_host.truss_note_publication import _native_xxhash64,graph_expected_rows
+from ashlar_host.truss_note_publication import native_xxhash64,graph_expected_rows
 
 import test_truss_typed_admission
 
@@ -118,7 +118,7 @@ class LocalCurrentXxhash64ProfileTests(unittest.TestCase):
                 hash_rows=[Row({**row,'lookup_hash':-17}) for row in inputs]
                 return Result(hash_rows)
         native=Spark()
-        hashes=_native_xxhash64(native,admission.parsed.changes,after)
+        hashes=native_xxhash64(native,admission.parsed.changes,after)
         self.assertTrue(native.statements)
         self.assertTrue(all('xxhash64(CAST(k.source_system AS STRING),CAST(k.' in statement
                             and ' AS BIGINT),CAST(k.id AS BIGINT)) AS lookup_hash' in statement

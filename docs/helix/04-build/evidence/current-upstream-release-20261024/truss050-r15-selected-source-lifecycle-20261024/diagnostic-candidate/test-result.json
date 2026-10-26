@@ -1,0 +1,13 @@
+{
+  "profile": "ashlar-r15-empty-view-diagnostic-candidate/0.1",
+  "command": "/private/tmp/ashlar-truss050-current-cohort-9c745278-r13/runtime/venv/bin/python -B -m unittest discover -s <candidate-dir> -p 'test_*.py' -v",
+  "runtime": "pinned R15 runtime venv; Python 3.12.14; Truss 0.0.50 per retained runtime-receipt.json",
+  "outcome": "passed",
+  "tests": 3,
+  "native_or_database_access": false,
+  "files_sha256": {
+    "catalog_view_diagnostic.py": "04a90b13550a757a2e62c1204cd1a73938c136daee1ad962e19f9c21262f0e1a",
+    "test_catalog_view_diagnostic.py": "f469de9a3b6bf0443b1bcb578973cc9402c7672585a3f3dd796bbd5d35d937a7"
+  },
+  "scope": "Only candidate helper classification; demonstrates byte pass-through, reason preservation for CatalogViewUnavailable, and fail-closed unexpected result. Does not demonstrate why the retained .48 view was unavailable, repair that condition, or qualify migration/readiness."
+}

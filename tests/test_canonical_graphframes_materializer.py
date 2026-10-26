@@ -8,7 +8,7 @@ from ashlar_host.canonical_graphframes_materializer import (
     EXPECTED_PROTOCOL, _acquire_lock, _frozen_source, _private_root, _protocol,
     _spark_type_names, _verify_detail_layout,
 )
-from ashlar_host.pinned_delta_graphframes import _quote_path
+from ashlar_host.pinned_delta_graphframes import quote_path
 
 
 class CanonicalGraphFramesMaterializerTests(unittest.TestCase):
@@ -72,7 +72,7 @@ class CanonicalGraphFramesMaterializerTests(unittest.TestCase):
     def test_path_quote_rejects_sql_delimiters_and_controls(self):
         for path in ("/tmp/a`b", "/tmp/a\nb", "/tmp/a\x00b"):
             with self.assertRaises(ValueError):
-                _quote_path(path)
+                quote_path(path)
 
 
 if __name__ == "__main__":

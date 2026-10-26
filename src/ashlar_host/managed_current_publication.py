@@ -671,7 +671,6 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
 
     def _previous_progress(self, request):
         from base64 import b64decode
-        from .managed_current_incremental import _require
         rows = self.transport.query('SELECT publication_id,profile_version,table_versions_json,source_progress_json,'
             'schema_revisions_json,validation_report_json,cast(unix_micros(recorded_at) AS STRING) AS recorded_at FROM '
             + quote_table_identifier(self.names['publication_manifest'])
@@ -727,7 +726,7 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
         return progress
 
     def _validate_predecessor_attempt(self, manifest, report, current, row):
-        from .managed_current_incremental import PROFILE, request_anchor, _require
+        from .managed_current_incremental import PROFILE, request_anchor
         payload_text = row.get('payload_json')
         _require(row.get('phase') == 'committed'
                  and row.get('request_digest') == report.get('request_digest')
@@ -916,7 +915,6 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
         return sorted((_canonical(row) for row in cast(role, rows)))
 
     def _validate_effect_rows(self):
-        from .managed_current_incremental import _require
         observed = self.incremental_reader.read(self.admission.changes)
         expected_rows = self.plan['expectedRows']
         event_keys = {change.state.key for change in self.admission.changes}

@@ -1,0 +1,34 @@
+name: Stage PyPI release candidate
+
+on:
+  push:
+    tags: ["v*.*.*"]
+permissions:
+  contents: write
+
+concurrency:
+  group: pypi-candidate-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  candidate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v7
+      - name: Require a stable package version matching the tag
+        run: uv build
+      - name: Bind artifacts to tag and source
+        run: >-
+          python scripts/verify_release_artifacts.py create-manifest --dist-dir dist
+          --output dist/release-manifest.json --tag "$GITHUB_REF_NAME"
+          --repository "$GITHUB_REPOSITORY" --source-commit "$GITHUB_SHA"
+          --package ashlar-graph-toolkit
+      - name: Create draft GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "$GITHUB_REF_NAME" --verify-tag --draft
+          --title "Ashlar $GITHUB_REF_NAME" --generate-notes dist/*

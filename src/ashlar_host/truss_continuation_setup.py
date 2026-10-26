@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 from .evolution_cli import InvocationFile
 from .evolution_producer import snapshot
 from .private_graph_custody import decode_custody_bytes
-from .truss_resume_cli import parse_resume_truss_configuration
+from .truss_resume_cli import DEFAULT_CARRIER_PROFILE,parse_resume_truss_configuration
 from .truss_page_archive import MAXIMUM_ARCHIVE_BYTES
 
 
@@ -24,6 +24,7 @@ def run_configure_truss_continuation_command(configuration,continuation_result,o
     originals=[InvocationFile.read(path,maximum)for path,maximum in ((configuration,65536),(report_path,262144))]
     original=decode_custody_bytes(originals[0].raw);report=decode_custody_bytes(originals[1].raw)
     expected=dict(original)
+    if type(expected)is dict:expected.setdefault('carrier_profile',DEFAULT_CARRIER_PROFILE)
     original_intent=None
     if type(original)is dict and 'publication_intent'in original:
         selected=original['publication_intent']

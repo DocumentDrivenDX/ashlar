@@ -1,0 +1,91 @@
+{
+  "approval": {
+    "approval_file_matches_payload": true,
+    "approval_file_sha256": "dffaa8e6df82265fbaac6272ebea86264146c2c8bb76fb18caeefa6164a1cfbf",
+    "canonical_payload_sha256": "339630ccf702af61317c05f536cf6f246d5763ab151e3f5ba2e1c5512b2050ce",
+    "decision": "Approve this exact read-only diagnostic",
+    "proposal_commit": "9e9366f494153410b4aa9b423dc353161bad3d9f",
+    "source": "Direct human approval recorded by the parent task for this exact read-only diagnostic."
+  },
+  "attempt": {
+    "attempt_path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/catalog-view-reason-r1",
+    "automatic_retries": 0,
+    "catalog_query_started": false,
+    "count": 1,
+    "failure": "PackageNotFoundError at the helper version guard. Exact pinned .48 API imports succeeded; importlib.metadata reports no distribution named truss, so the explicit version lookup raised before database connection or catalog query.",
+    "no_retry_or_follow_on_native_attempt": true,
+    "started_marker_created": true,
+    "started_record": {
+      "approval_payload_sha256": "339630ccf702af61317c05f536cf6f246d5763ab151e3f5ba2e1c5512b2050ce",
+      "no_migration_or_source_feed_publication_stage": true,
+      "prestart_retained_pgdata": {
+        "bytes": 63998352,
+        "file_count": 1248,
+        "tree_sha256": "abb464cc096dfce6bc6bd2720f6f6a17aa92c08af5a601146736ca71a308e6d2"
+      },
+      "profile": "ashlar-truss050-r15-catalog-view-reason-started/0.1",
+      "reason_helper_sha256": "960c1a5c57bc805ba6ea24636f01496f7184f1f9361822e994c4576522c3e649",
+      "supervisor_sha256": "40e9e0e2edc967e00345c9e30bd635d1f6eb1fe69d5364ab43d18f45eae19596"
+    },
+    "supervisor_exit_code": 1,
+    "worker_exit_code": 1,
+    "worker_result": null,
+    "worker_stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "worker_stdout": {
+      "bytes": 56,
+      "redacted_json": {
+        "error_type": "PackageNotFoundError",
+        "outcome": "error"
+      },
+      "sha256": "db04f4f949f8469b7de41edf700bd66775199a8afbd70afb7fd14b95ad241fe6"
+    }
+  },
+  "custody": {
+    "cleanup_status": "postmaster_pid_absent",
+    "cold_backup": {
+      "bytes": 63998352,
+      "file_count": 1248,
+      "tree_sha256": "abb464cc096dfce6bc6bd2720f6f6a17aa92c08af5a601146736ca71a308e6d2"
+    },
+    "cold_backup_matches_approved_prestart_tree": true,
+    "cold_backup_path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/catalog-view-reason-r1/cold-backup/pgdata",
+    "combined_retained_and_attempt_bytes": 128003300,
+    "matching_process_census_rows": [],
+    "original_r15_failure_evidence_sha256": "16e453fd14bc4ef355c299809d7c3f16b50cc8cf00a0e28436eb0ff95bd091bf",
+    "post_attempt_pgdata": {
+      "bytes": 63999633,
+      "file_count": 1248,
+      "tree_sha256": "3af09760735b08e5ff094596ace02b7ab5762f5d87c2c482f5531c97b79b7c39"
+    },
+    "postgres_log_bytes": 12498,
+    "postmaster_pid_absent": true,
+    "prestart_pgdata": {
+      "bytes": 63998352,
+      "file_count": 1248,
+      "tree_sha256": "abb464cc096dfce6bc6bd2720f6f6a17aa92c08af5a601146736ca71a308e6d2"
+    },
+    "retained_data_path": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data",
+    "runtime_lock_empty": true,
+    "runtime_socket_directory_empty": true
+  },
+  "forbidden_stages": "not invoked: migration/source/feed/publication/ACK/seed/continuation",
+  "limits": {
+    "attempts": 1,
+    "automatic_retries": 0,
+    "child_deadline_seconds": 120,
+    "cloud_resources": false,
+    "combined_retained_and_attempt_bytes": 1073741824,
+    "log_bytes": 16777216,
+    "parallelism": "sequential local only"
+  },
+  "profile": "ashlar-truss050-r15-catalog-view-reason-execution/0.1",
+  "source_only_diagnosis": {
+    "availability_reason": "still unknown; no catalog-view request executed",
+    "isolated_pinned_runtime_check": "Truss .48 public API imports succeeded; importlib.metadata.distribution(\"truss\") is absent.",
+    "smallest_candidate_correction": "Remove the unsupported distribution-version lookup and bind the helper to the pinned .48 runtime receipt and exact catalog API file hashes already in the approval payload; any source/runtime hash change requires a new exact approval before another run."
+  },
+  "status": "completed_failed_before_catalog_query"
+}

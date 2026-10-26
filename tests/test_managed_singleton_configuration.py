@@ -11,7 +11,7 @@ class Tests(unittest.TestCase):
         pin=lambda name:{'path':p(name),'sha256':'a'*64}
         self.value={'profile':'ashlar-managed-singleton/0.1',
             'selection':dict(installation=pin('installation'),intake_proof=pin('intake'),source_configuration=pin('source.json'),journal=p('journal'),publication_id='original-publication',completed_ordinal=2,maximum_journal_bytes=1048576,maximum_rows=1000),
-            'sql':dict(host='https://adb-123.1.azuredatabricks.net',profile='explicit',config_file=p('credentials'),cli=p('databricks'),warehouse_id='a'*16,warehouse_name='dedicated',warehouse_creator='owner',actor_id='original-id',actor_name='owner',statement_seconds=30,http_seconds=5,maximum_rows=1000,maximum_result_bytes=1048576,maximum_statements=128),
+            'sql':dict(host='https://adb-123.1.azuredatabricks.net',profile='explicit',config_file=p('credentials'),cli=p('databricks'),warehouse_id='a'*16,warehouse_name='dedicated',warehouse_creator='owner',actor_id='original-id',actor_name='owner',statement_seconds=30,http_seconds=5,maximum_rows=1000,maximum_result_bytes=1048576,maximum_statements=128,catalog=None,schema=None),
             'pins':dict(profile='ashlar-managed-pin-reader/0.1',host='127.0.0.1',hostaddr='127.0.0.1',port=25440,expected_server_address='172.18.0.2',expected_server_port=5432,dbname='pins',user='ordinary_reader',sslmode='disable',passfile=p('private-passfile'),connect_timeout_seconds=5,statement_timeout_ms=5000,lock_timeout_ms=1000),
             'producer':dict(source=p('umf'),bun=p('bun'),git=p('git'),timeout_seconds=30,maximum_output_bytes=1048576,maximum_receipt_bytes=1048576),
             'selector':dict(source_system='original',type_id=17,entity_id=1),

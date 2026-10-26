@@ -72,7 +72,10 @@ def read_historical_catalog_views(connection_factory,batch,archived_acceptance_f
         connection.execute("SET LOCAL statement_timeout = '15000ms'")
         host=adopt_psycopg_host(connection);assembly=None;primary=None
         try:
-            tx=value(host.adopt_transaction())
+            # Truss 0.0.48's public catalog-view function takes a shared schema
+            # lock and returns unavailable in READ ONLY transactions. This path
+            # performs only public catalog observations and rolls back below.
+            tx=value(host.adopt_transaction(access_mode='read_write'))
             assembly=value(create_reference_assembly(CatalogRuntimeConfiguration(),host))
             seed=assembly.catalog_view_request()
             for revision in revisions:
@@ -148,7 +151,10 @@ def read_current_catalog_evidence(connection_factory,batch):
                            else "SET LOCAL statement_timeout = '15000ms'")
         host=adopt_psycopg_host(connection);assembly=None;primary=None
         try:
-            tx=value(host.adopt_transaction(),'transaction')
+            # Keep the accepted-document and catalog-view calls on one
+            # READ COMMITTED transaction. Truss 0.0.48 requires READ WRITE for
+            # its view's FOR SHARE lock; the transaction is rolled back below.
+            tx=value(host.adopt_transaction(access_mode='read_write'),'transaction')
             assembly=value(create_reference_assembly(CatalogRuntimeConfiguration(),host),'assembly')
             seed=assembly.catalog_view_request(definition_count='65536',encoded_bytes='16777216')
             for revision,raw,report in prerequisites:

@@ -38,12 +38,23 @@ The current Truss pin is 0.0.50. Its official wheel, `RECORD`, `[local,native]`
 dependency resolution, and feed/receipt/migration import surfaces pass focused
 checks with current UMF core 0.10.1/access 0.1.0.dev7, Weft 0.4.53, and psycopg
 3.3.6. Versioned .50 source admission and feed-binding checks pass. The
-reviewed current-source R15 packet supersedes R14 and is preflight-ready;
-native execution remains held pending exact owner approval. No .50 migration,
-source/feed/publication/ACK, or native action is qualified
+reviewed current-source R15 packet was executed once under exact hash-bound
+approval. The attempt stopped at the initial `.48` read-only custody gate
+because its helper received an empty JSON view. PostgreSQL is stopped and the
+verified cold backup remains preserved. No `.50` migration, publication, ACK,
+seed, continuation, or lifecycle qualification resulted. The one-shot approval
+is consumed and does not authorize a retry
 ([.50 package qualification](04-build/evidence/current-upstream-release-20261024/truss050-package-cohort-qualification-20261024/README.md),
 [source admission](04-build/evidence/current-upstream-release-20261024/truss050-source-admission-20261024/README.md),
-[R15 selected-source preflight](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/README.md)).
+[R15 selected-source record](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/README.md),
+[R15 execution result](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/execution-result.json)).
+Pinned `.48` source shows that the helper's `READ ONLY` transaction caused
+`CatalogViewUnavailable(reason="context")`; Ashlar's library path now explicitly
+requests the ordinary `READ COMMITTED READ WRITE` transaction needed for
+Truss's shared catalog lock and rolls it back. A corrected helper candidate
+and focused non-native controls are recorded separately; no native retry or release
+qualification resulted
+([context trace and candidate](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/catalog-view-context-fix-r1/README.md)).
 
 Local Spark 4.2.0/Delta 4.4.1 candidate checks include bounded Weft query and
 SDK paging; a separate native one-table Delta check accepted a candidate DDL

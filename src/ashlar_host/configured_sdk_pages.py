@@ -258,10 +258,10 @@ class _Owner:
 
 def run_configured_sdk_pages(scope,transport,query,*,runtime_guard):
     """Use AshlarTarget pages, then close aliases before returning provisional JSON."""
-    from ashlar.access import AshlarTarget
-    from umf_access.engine_catalog import EngineRead
     _require(type(query)is ConfiguredSdkPagesConfig);query.__post_init__()
     _require(_supported_page_compiler(query.compiler))
+    from ashlar.access import AshlarTarget
+    from umf_access.engine_catalog import EngineRead
     values=query.parameters.model_dump(mode='python');parameters={n:{'family':'string','value':v}for n,v in values.items()}
     started=time.monotonic();items=[];pages=[];original=None
     with owned_context(open_configured_query_aliases(scope,transport))as aliases:
@@ -467,8 +467,8 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
     def live_check():
         scope.renew();aliases.renew();_require(query.compiler._verify())
         jars=tuple(map(str,runtime_guard()));spark=transport.spark
-        from .configured_local_runtime import _verify_driver_memory
-        _verify_driver_memory(spark,r02=True)
+        from .configured_local_runtime import verify_driver_memory
+        verify_driver_memory(spark,r02=True)
         _require(spark.version=='4.2.0'and spark.sparkContext.master=='local[1]'
             and spark.sparkContext._jvm.java.lang.System.getProperty('java.specification.version')=='21'
             and spark.conf.get('spark.sql.ansi.enabled')=='true'and spark.conf.get('spark.sql.session.timeZone')=='UTC'
