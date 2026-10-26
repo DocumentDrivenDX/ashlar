@@ -17,6 +17,8 @@ from .truss_catalog_reader import parse_archived_acceptance_files, read_historic
 from .truss_page_archive import decode_truss_page, MAXIMUM_ARCHIVE_BYTES
 from .configured_local_runtime_profile import PROFILE as CURRENT_RUNTIME_PROFILE, JAR_NAMES as CURRENT_RUNTIME_JAR_NAMES, PARAMETER_SUBSTITUTION_SETTING, SPARK_VERSION as CURRENT_SPARK_VERSION, verify_loaded_delta_class
 
+DEFAULT_CARRIER_PROFILE = 'ashlar-delta/0.3'
+
 
 @dataclass(frozen=True)
 class _CurrentTrussRuntime:
@@ -39,7 +41,7 @@ def parse_resume_truss_configuration(configuration, output):
     required = base | ({'publication_intent'} if type(config) is dict and 'publication_intent' in config else selections)
     if type(config) is not dict or not required <= set(config) <= required | {'archived_acceptance_files','destination_id','runtime_profile','carrier_profile'}:
         raise ValueError('Exact original Truss resume configuration required')
-    carrier_profile=config.get('carrier_profile','ashlar-delta/0.3')
+    carrier_profile=config.get('carrier_profile',DEFAULT_CARRIER_PROFILE)
     if carrier_profile not in ('ashlar-delta/0.3','ashlar-delta/0.4-xxhash64'):
         raise ValueError('Exact supported local current carrier profile required')
     config['carrier_profile']=carrier_profile
