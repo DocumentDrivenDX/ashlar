@@ -1,0 +1,66 @@
+{
+  "inputs": {
+    "classifier_sha256": "04a90b13550a757a2e62c1204cd1a73938c136daee1ad962e19f9c21262f0e1a",
+    "failed_r15_result_sha256": "16e453fd14bc4ef355c299809d7c3f16b50cc8cf00a0e28436eb0ff95bd091bf",
+    "pg_ctl_sha256": "59b641aabae44b43acfc34fd0bdeb9af9480338d39b25f3088d7c486fdd8b999",
+    "r15_original_readonly_helper_sha256": "cd9a39b76490db46e93d68edb44f5bc2b9cb978f4a152ded359a04ec66d3efcf",
+    "reason_helper_sha256": "960c1a5c57bc805ba6ea24636f01496f7184f1f9361822e994c4576522c3e649",
+    "supervisor_sha256": "40e9e0e2edc967e00345c9e30bd635d1f6eb1fe69d5364ab43d18f45eae19596",
+    "truss048_catalog_runtime_sha256": "c3090a85ae7a3d4b210509defc31514729670f62fb2755bd78dbc7852a3e31b0",
+    "truss048_catalog_view_sha256": "167fc8fd2e304a9aaf9d485d957b0d124542617caa2f16c82f3d7aee42ec890c",
+    "truss048_runtime_receipt_sha256": "bbc590badfa88ea7c950a40f867ddd62f409df078aa461575a3b7db6c7288b7b",
+    "truss048_runtime_wheel_sha256": "1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3",
+    "truss050_local_runtime_sha256": "7a0fce2fd418a3c239e7f6e847ac952d152d1967638251a4ebba2f5f29b90728",
+    "truss050_runtime_receipt_sha256": "fe48796cead974bc06821bd296428f47b389e1016a7b43ff186ec15cb03f72e5"
+  },
+  "limits": {
+    "attempts": 1,
+    "automatic_retries": 0,
+    "child_deadline_seconds": 120,
+    "cloud_resources": false,
+    "combined_retained_and_attempt_bytes": 1073741824,
+    "log_bytes": 16777216,
+    "parallelism": "sequential local only"
+  },
+  "profile": "ashlar-truss050-r15-catalog-view-reason-readonly-approval/0.1",
+  "read_boundary": {
+    "database_role": "ashlar048_accept_consumer_r1",
+    "forbidden_stages": [
+      "migration",
+      "source mutation",
+      "feed mutation",
+      "publication",
+      "ACK",
+      "seed submission",
+      "continuation"
+    ],
+    "query": "one Truss catalog_view_in_transaction request with complete scope and existing 65536-definition/16777216-byte bounds",
+    "result_output": "availability/reason only; no source bytes, report bytes, catalog-view bytes, or connection data",
+    "statement_timeout_ms": 2000,
+    "transaction": "READ COMMITTED READ ONLY"
+  },
+  "retained_state": {
+    "cold_backup_path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/catalog-view-reason-r1/cold-backup/pgdata",
+    "data_path": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data",
+    "expected_external_runtime_effects": [
+      "LocalPostgres reuses the existing empty runtime lock and empty private socket directory; transient socket files are removed by shutdown.",
+      "PostgreSQL may change its internal data/WAL/control files and append to the bounded PGDATA log; the pre-start cold copy preserves the exact state."
+    ],
+    "post_attempt_bytes": 63998352,
+    "post_attempt_file_count": 1248,
+    "post_attempt_tree_sha256": "abb464cc096dfce6bc6bd2720f6f6a17aa92c08af5a601146736ca71a308e6d2",
+    "postgres_log_cap_bytes": 16777216,
+    "postgres_log_path": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data/log",
+    "postgres_major": "18",
+    "runtime_lock_bytes": 0,
+    "runtime_lock_path": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data.truss-runtime.lock",
+    "runtime_lock_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime_socket_directory": "/private/tmp/truss-pg18-501/31d9238e0397bd8473c8bea3",
+    "runtime_socket_directory_must_be_empty_mode_0700": true
+  },
+  "scope": "one local PostgreSQL startup from the exact stopped post-R15 retained PGDATA; cold-copy and verify that current state first; execute only the pinned read-only catalog-view reason helper as the existing registrar; capture CatalogViewUnavailable.reason or available status; cleanly stop PostgreSQL and preserve all custody; no migration/source/feed/publication/ACK/seed/continuation operations",
+  "selected_source": {
+    "commit": "2eeecf409033c6c7c92ded72ec7e43c569dffaf9",
+    "tree": "a97e9e1e275294e840690bbe792e795afbeffff7"
+  }
+}

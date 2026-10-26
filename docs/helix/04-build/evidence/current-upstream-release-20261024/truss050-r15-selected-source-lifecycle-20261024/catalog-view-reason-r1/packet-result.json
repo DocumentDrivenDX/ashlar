@@ -1,0 +1,33 @@
+{
+  "approval_marker_created": false,
+  "approval_payload_path": "approval-payload.json",
+  "approval_payload_sha256": "339630ccf702af61317c05f536cf6f246d5763ab151e3f5ba2e1c5512b2050ce",
+  "cold_backup_created": false,
+  "focused_controls": {
+    "IPC_probe": false,
+    "classifier_test_command": "/private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/venv/bin/python -B -m unittest discover -s <diagnostic-candidate-dir> -p 'test_*.py' -v",
+    "classifier_tests": 3,
+    "isolated_import_control": "passed: pinned .48 interpreter with -I -B loads worker and pinned classifier; capture() was not called",
+    "native_helper_or_postgres_started": false,
+    "outcome": "passed",
+    "runtime": "pinned Truss 0.0.48 helper venv; Python 3.12.14",
+    "supervisor_test_command": "/private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/venv/bin/python -B -m unittest discover -s <catalog-view-reason-r1-dir> -p 'test_*.py' -v",
+    "supervisor_tests": 5
+  },
+  "payload_hashing": "SHA-256 over JSON serialized with sorted keys and separators comma/colon, without a trailing newline",
+  "profile": "ashlar-truss050-r15-catalog-view-reason-proposal/0.1",
+  "proposal_files_sha256": {
+    "README.md": "46187c9d3f00bae08af8f303cc381e0dcbc9ffafea933d66bfdccf3d825d070b",
+    "classifier": "04a90b13550a757a2e62c1204cd1a73938c136daee1ad962e19f9c21262f0e1a",
+    "classifier_tests": "f469de9a3b6bf0443b1bcb578973cc9402c7672585a3f3dd796bbd5d35d937a7",
+    "read_catalog_view_reason.py": "960c1a5c57bc805ba6ea24636f01496f7184f1f9361822e994c4576522c3e649",
+    "run_catalog_view_reason_r1.py": "40e9e0e2edc967e00345c9e30bd635d1f6eb1fe69d5364ab43d18f45eae19596",
+    "test_readonly_reason_controls.py": "e9cb9b9b8415060603fea1405f23daa595b8540e7544d1b9693431f9f2f5c883"
+  },
+  "proposed_attempt_path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/catalog-view-reason-r1",
+  "proposed_attempt_path_exists": false,
+  "runtime_auxiliaries_checked_read_only": true,
+  "runtime_lock_preexisting_empty": true,
+  "runtime_socket_directory_preexisting_empty_mode_0700": true,
+  "status": "prepared_not_executed"
+}
