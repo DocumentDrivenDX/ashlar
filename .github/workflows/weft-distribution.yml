@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   consumer:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         python: ['3.9', '3.12']
@@ -29,7 +29,7 @@ jobs:
         run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_weft_paths_package test_weft_paths_distribution test_weft_paths_cli test_ordinary_query_connection
   extended:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.extended }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         python: ['3.9', '3.12']
