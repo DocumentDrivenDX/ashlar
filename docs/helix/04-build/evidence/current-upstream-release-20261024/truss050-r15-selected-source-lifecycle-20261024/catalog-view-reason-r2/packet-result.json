@@ -1,8 +1,19 @@
 {
-  "approval_marker_created": false,
+  "approval_marker_created": true,
   "approval_payload_file_sha256": "81dbc0b4f10edde226bb12bba1f6c4019a920960e5b8dc8373fa0bdcc1ba5358",
   "approval_payload_path": "approval-payload.json",
   "approval_payload_sha256": "1d3336c0e93cd3af1fffd04db773398a5ba16c71cee03be75ed8b04e3fbd1b60",
+  "execution": {
+    "attempts": 1,
+    "automatic_retries": 0,
+    "catalog_view_reason": "context",
+    "cold_backup_created_and_verified": true,
+    "combined_retained_and_attempt_bytes": 128005458,
+    "postgres_cleanup_and_process_socket_custody": "passed",
+    "result_path": "execution-result.json",
+    "result_sha256": "7c9ad29c219434b57f446ab3b331961e68d6e2c7c1b084653b60600d19b25bf2",
+    "worker_outcome": "unavailable"
+  },
   "focused_controls": {
     "IPC_probe": false,
     "approval_or_attempt_marker_created": false,
@@ -47,7 +58,7 @@
     "r1_execution_result_sha256": "2ae03aacf33970b3b98f5256e4d2cff294086085ad2970241f41867f6d9e67a7"
   },
   "profile": "ashlar-truss050-r15-catalog-view-reason-r2-proposal/0.1",
-  "proposed_attempt_path_exists": false,
+  "proposed_attempt_path_exists": true,
   "retained_state": {
     "bytes": 63999633,
     "cold_backup_path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/catalog-view-reason-r2/cold-backup/pgdata",
@@ -56,7 +67,7 @@
     "tree_sha256": "3af09760735b08e5ff094596ace02b7ab5762f5d87c2c482f5531c97b79b7c39"
   },
   "source_files_sha256": {
-    "README.md": "4100d0893fec204f5b71fd0d9c4c67aefd448982bd6c88a96eac1e2b36cc2e95",
+    "README.md": "d62ed5bceb6b6a5151c460d5f6c1a1dce7bc1a57f02dbd6539bbe9d41913d7d4",
     "classifier": "04a90b13550a757a2e62c1204cd1a73938c136daee1ad962e19f9c21262f0e1a",
     "r1_execution_result": "2ae03aacf33970b3b98f5256e4d2cff294086085ad2970241f41867f6d9e67a7",
     "read_catalog_view_reason_r2.py": "42863dfe421b8738fc1721ba40612f7e3eec773a34eba88f790592813b4a8cc6",
@@ -65,5 +76,5 @@
     "test_read_catalog_view_reason_r2.py": "b3ecb4b315cc7362c2d310d94baec3cdae2e4fd94462f21d60297e4d3e14ac0f",
     "truss048_runtime_receipt": "bbc590badfa88ea7c950a40f867ddd62f409df078aa461575a3b7db6c7288b7b"
   },
-  "status": "prepared_not_executed"
+  "status": "executed_once_unavailable_context"
 }

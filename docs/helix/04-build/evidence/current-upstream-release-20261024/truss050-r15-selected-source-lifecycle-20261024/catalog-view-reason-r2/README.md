@@ -46,9 +46,9 @@ The proposed bounds remain one attempt, zero retries, a 120-second helper
 deadline, 1 GiB combined retained/attempt bytes, 16 MiB per log, sequential local
 execution, and no cloud resources. The supervisor verifies the current stopped
 PGDATA tree, takes and checks the cold copy, and stops PostgreSQL in its cleanup
-path. A new approval is required for this exact packet before any startup or
-helper execution. The [approval payload](approval-payload.json) is not an
-approval marker and this packet has not been executed.
+path. At preparation time, the [approval payload](approval-payload.json) was a
+proposal and no attempt marker had been created. The user subsequently approved
+that exact payload and the supervisor ran once.
 
 The source-only controls passed under the pinned `.48` Python 3.12.14 runtime.
 Before creating an attempt marker or starting PostgreSQL, the supervisor checks
@@ -62,5 +62,12 @@ auxiliary preconditions.
 These checks establish only the candidate's control shape; they do not show
 that the retained catalog view is available.
 
-See [packet-result.json](packet-result.json) for exact file hashes, canonical
-approval payload SHA-256, and test commands.
+The one approved execution returned `CatalogViewUnavailable(reason=context)`.
+The exact reason enum is recorded without inferring its cause; the underlying
+catalog-view availability remains unresolved. The cold backup matches the
+approved pre-start PGDATA tree and PostgreSQL cleanup/custody checks passed.
+See [execution-result.json](execution-result.json) for the bounded result and
+custody evidence.
+
+See [packet-result.json](packet-result.json) for the canonical approval payload
+SHA-256, source hashes, and focused test commands.

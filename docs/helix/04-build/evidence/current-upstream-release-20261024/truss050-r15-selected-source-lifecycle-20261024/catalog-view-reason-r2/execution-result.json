@@ -1,0 +1,88 @@
+{
+  "approval": {
+    "approval_file_matches_payload": true,
+    "approval_file_sha256": "81dbc0b4f10edde226bb12bba1f6c4019a920960e5b8dc8373fa0bdcc1ba5358",
+    "canonical_payload_sha256": "1d3336c0e93cd3af1fffd04db773398a5ba16c71cee03be75ed8b04e3fbd1b60",
+    "decision": "Approve the exact R2 diagnostic. Run it once, capture the result, and stop the repeated approval and review loops.",
+    "packet_commit": "a763cc9aba9ee9a3e0954fac9dce7efe5fb034cc",
+    "source": "Direct user approval recorded in parent task for this exact R2 diagnostic."
+  },
+  "attempt": {
+    "attempt_path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/catalog-view-reason-r2",
+    "automatic_retries": 0,
+    "catalog_view_request_count": 1,
+    "count": 1,
+    "helper_sha256": "42863dfe421b8738fc1721ba40612f7e3eec773a34eba88f790592813b4a8cc6",
+    "meaning": "Pinned Truss 0.0.48 returned CatalogViewUnavailable with reason context. No interpretation beyond the API reason enum is recorded.",
+    "started_marker_created": true,
+    "started_record": {
+      "approval_payload_sha256": "1d3336c0e93cd3af1fffd04db773398a5ba16c71cee03be75ed8b04e3fbd1b60",
+      "no_migration_or_source_feed_publication_stage": true,
+      "prestart_retained_pgdata": {
+        "bytes": 63999633,
+        "file_count": 1248,
+        "tree_sha256": "3af09760735b08e5ff094596ace02b7ab5762f5d87c2c482f5531c97b79b7c39"
+      },
+      "profile": "ashlar-truss050-r15-catalog-view-reason-r2-started/0.1",
+      "reason_helper_sha256": "42863dfe421b8738fc1721ba40612f7e3eec773a34eba88f790592813b4a8cc6",
+      "supervisor_sha256": "487e86fb751df361bbe20d3d8e2705af236bb172f7570ecc3af3731fc7b99051"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 45,
+      "sha256": "f020b0e500321341dc4d95c09dfd9be66d0a9e02fd2f28b1260ca91b4007077d"
+    },
+    "supervisor_exit_code": 0,
+    "supervisor_sha256": "487e86fb751df361bbe20d3d8e2705af236bb172f7570ecc3af3731fc7b99051",
+    "worker_exit_code": 0,
+    "worker_result": {
+      "outcome": "unavailable",
+      "reason": "context"
+    }
+  },
+  "custody": {
+    "cleanup_status": "postmaster_pid_absent",
+    "cold_backup": {
+      "bytes": 63999633,
+      "file_count": 1248,
+      "tree_sha256": "3af09760735b08e5ff094596ace02b7ab5762f5d87c2c482f5531c97b79b7c39"
+    },
+    "cold_backup_matches_approved_prestart_tree": true,
+    "cold_backup_path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/catalog-view-reason-r2/cold-backup/pgdata",
+    "combined_retained_and_attempt_bytes": 128005458,
+    "matching_process_census_rows": [],
+    "postgres_log_bytes": 13779,
+    "postgres_log_path": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data/log",
+    "postmaster_pid_absent": true,
+    "prestart_pgdata": {
+      "bytes": 63999633,
+      "file_count": 1248,
+      "tree_sha256": "3af09760735b08e5ff094596ace02b7ab5762f5d87c2c482f5531c97b79b7c39"
+    },
+    "retained_data_after": {
+      "bytes": 64000914,
+      "file_count": 1248,
+      "tree_sha256": "a10f302f0f29109431fb49a6a0a17eecd9cc374b9985236ea128ccaf5e3ba32d"
+    },
+    "retained_data_path": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data",
+    "runtime_lock_empty": true,
+    "runtime_socket_directory_empty": true
+  },
+  "forbidden_stages": "not invoked: migration/source/feed/publication/ACK/seed/continuation/restore/cloud/grants",
+  "limits": {
+    "attempts": 1,
+    "automatic_retries": 0,
+    "child_deadline_seconds": 120,
+    "cloud_resources": false,
+    "combined_retained_and_attempt_bytes": 1073741824,
+    "log_bytes": 16777216,
+    "parallelism": "sequential local only"
+  },
+  "native_retries_or_follow_on_attempts": 0,
+  "profile": "ashlar-truss050-r15-catalog-view-reason-r2-execution/0.1",
+  "r1_failure_evidence_unchanged": true,
+  "status": "completed_unavailable_context"
+}
