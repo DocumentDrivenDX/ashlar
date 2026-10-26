@@ -1,0 +1,138 @@
+{
+  "profile": "ashlar-truss050-r15-execution-result/0.1",
+  "date": "2026-10-25",
+  "attempt": "attempt-r15-91d4ef97-5998-4ddb-83c3-869233ac4c8f",
+  "outcome": "stopped_at_initial_read_only_048_custody_gate",
+  "selected_source": {
+    "commit": "2eeecf409033c6c7c92ded72ec7e43c569dffaf9",
+    "tree": "a97e9e1e275294e840690bbe792e795afbeffff7",
+    "manifest_sha256": "eb1ae0da17735561b51f77c393e78d1cf60910cf7124c9bc791a111d67b99376",
+    "archive_sha256": "f60d7c8388e4095bcfe8995dd9ea9578d6655a290578d3a4ea48d0835c512aa7",
+    "runtime_input_objects": {
+      "src": "02e10442a973712e49a357a6c2847236c9f4792b",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "pyproject.toml": "7af01eeb58eaf0dbd7ae7d0246618e97a96ca724"
+    }
+  },
+  "approval": {
+    "human_decision": "Approve this exact bounded R15 attempt",
+    "payload_sha256": "239bc4e2a500aeb5804ba071da0daf3cada9b84a1a5a1151e7cb6684f730304a",
+    "file_sha256": "f2756d5867fe6989c2c3e17228991c9f7de141cbe0e94509e4f0a3b6e8a72de8",
+    "file_bytes": 1508,
+    "file_mode": "0600",
+    "arras_custody_clear_sha256": "f237e49ce76013400c9cff077bbc3ae2a7200947f68de3c9882320914fb9cdbd"
+  },
+  "implementation": {
+    "worker_sha256": "1b53b7e3cce395d45e6d29c9b07763400dc32be7b820457cbc08e816e70eb2b9",
+    "supervisor_sha256": "088843dc10131151dc0935a210529df170e8f182c18d4da43b1cc2c1d120bcba",
+    "runtime_receipt_sha256": "fe48796cead974bc06821bd296428f47b389e1016a7b43ff186ec15cb03f72e5",
+    "source_helper_sha256": "cd9a39b76490db46e93d68edb44f5bc2b9cb978f4a152ded359a04ec66d3efcf"
+  },
+  "limits": {
+    "attempts": 1,
+    "automatic_retries": 0,
+    "child_deadline_seconds": 600,
+    "combined_retained_and_attempt_bytes": 128422666,
+    "combined_byte_cap": 1073741824,
+    "log_byte_cap": 16777216,
+    "parallelism": "sequential local only",
+    "cloud_resources": false
+  },
+  "execution": {
+    "started_marker_sha256": "0730d82677139d8425e0d8218147b0eb8517bc1d8325f98a00be7f4c431bb47c",
+    "supervisor_receipt_sha256": "9357609c5be4953f71906679d46748b273edd351f13852f320fcfcbcdc12d3d5",
+    "exit_code": 1,
+    "child_runtime_seconds": 13.502,
+    "elapsed_seconds_including_cleanup": 13.506,
+    "supervisor_stop_cause": null,
+    "worker_process_group_remaining": [],
+    "failure_stage": "pre-migration-source-read-started",
+    "failure": "Preserved .48 read-only helper failed during --custody: source_048_readonly_helper.py raised JSONDecodeError (Expecting value, line 1 column 1) at json.loads(raw_view).",
+    "migration_apply_invoked": false,
+    "source_or_consumer_mutated": false,
+    "publication_or_ack_mutated": false,
+    "seed_submitted": false,
+    "continuation_attempted": false,
+    "started_marker_bytes": 574,
+    "supervisor_receipt_bytes": 1123,
+    "started_marker_path": "execution-started-r15-91d4ef97-5998-4ddb-83c3-869233ac4c8f.json",
+    "supervisor_receipt_path": "logs/supervisor-attempt-r15-91d4ef97-5998-4ddb-83c3-869233ac4c8f.json"
+  },
+  "custody": {
+    "postgres_data_path": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data",
+    "postgres_version": "18",
+    "postgres_postmaster_pid_absent": true,
+    "supervisor_cleanup_status": "postmaster_pid_absent",
+    "cold_backup_path": "attempt-r15-91d4ef97-5998-4ddb-83c3-869233ac4c8f/cold-backup/pgdata",
+    "cold_backup_before_pg_start": true,
+    "cold_backup_cold_copy_verified": true,
+    "cold_backup_bytes": 63997052,
+    "cold_backup_file_count": 1248,
+    "cold_backup_tree_sha256": "67f15dff3198ba6b28bbe93a35cb7b595fe0439f84bcb4c14b9ef6d1f4c9effc",
+    "cold_backup_and_prestart_source_tree_match": true,
+    "post_attempt_pgdata_bytes": 63998352,
+    "post_attempt_pgdata_file_count": 1248,
+    "post_attempt_pgdata_tree_sha256": "abb464cc096dfce6bc6bd2720f6f6a17aa92c08af5a601146736ca71a308e6d2",
+    "post_attempt_pgdata_differences_from_backup": {
+      "changed_count": 8,
+      "added_count": 0,
+      "removed_count": 0,
+      "changed_paths": [
+        "base/5/pg_internal.init",
+        "global/pg_control",
+        "global/pg_internal.init",
+        "log",
+        "pg_stat/pgstat.stat",
+        "pg_subtrans/0000",
+        "pg_wal/000000010000000000000001",
+        "postmaster.opts"
+      ],
+      "interpretation": "PostgreSQL startup/shutdown changed these on-disk files. The failed read-only gate did not reach the migration or publication code. The exact pre-start state remains in the verified cold backup; no restore/restart was attempted."
+    }
+  },
+  "attempt_stage_files": [
+    "backup-started.json",
+    "backup-committed.json",
+    "postgres-start-intent.json",
+    "postgres-started.json",
+    "pre-migration-source-read-started.json"
+  ],
+  "absent_later_stages": [
+    "migration-apply-started.json",
+    "migration-apply-result.json",
+    "migration-verified.json",
+    "source-after-migration.json",
+    "genesis-publication-started.json",
+    "genesis-publication-committed.json",
+    "seed-started.json",
+    "seed-committed.json",
+    "continuation-started.json",
+    "continuation-committed.json",
+    "campaign-completed.json"
+  ],
+  "retained_logs": {
+    "stdout_bytes": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_bytes": 3359,
+    "stderr_sha256": "1285c946eab939aa5af8f0cb9a5b4ebd6c2ec85fde2b4200030e81312096dc70"
+  },
+  "retry_disposition": "one-shot approval consumed; no retry or replacement attempt is authorized",
+  "release_disposition": "not qualified; native migration, publication, ACK, seed, and continuation gates did not pass",
+  "diagnosis": {
+    "helper_path": "source_048_readonly_helper.py",
+    "invocation": "run_048_helper(conninfo, \"--custody\") from campaign_worker_r15.py",
+    "failure_location": "verify_source() called catalog_view_in_transaction(), assigned raw_view=b\"\" for non-CatalogViewAvailable, then json.loads(raw_view) raised JSONDecodeError",
+    "input_classification": "The JSON input was not a missing local file. The API result was successful at the outer Ok layer but the value was not CatalogViewAvailable, so the helper synthesized an empty byte string.",
+    "api_unavailable_reason_values_from_pinned_truss_source": [
+      "context",
+      "closure",
+      "definition",
+      "profile",
+      "resource"
+    ],
+    "observed_reason": "not retained; helper discarded the CatalogViewUnavailable.reason before parsing",
+    "provenance_check_status": "report/view hash and complete-scope/revision comparisons were not reached; retained execution result cannot identify which unavailable reason occurred",
+    "minimal_diagnostic_correction": "Handle CatalogViewUnavailable explicitly and raise a bounded diagnostic containing its reason before attempting JSON parsing. This makes the failure legible; it does not establish that the view is available or that migration is ready.",
+    "retry_status": "No helper rerun, source/feed mutation, restore/restart, or further native attempt is authorized by the consumed one-shot approval."
+  }
+}
