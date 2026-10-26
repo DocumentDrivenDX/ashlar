@@ -14,7 +14,12 @@ dependencies = []
 
 [project.optional-dependencies]
 truss-local = ["truss-toolkit[local,native] @ https://github.com/DocumentDrivenDX/truss/releases/download/v0.0.50/truss_toolkit-0.0.50-py3-none-any.whl#sha256=7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00"]
-local-delta = ["pyspark==4.2.0", "delta-spark==4.4.1", "py-mini-racer==0.14.1"]
+local-delta = [
+    "pyspark==4.2.0",
+    "delta-spark==4.4.1",
+    "mini-racer==0.12.2; python_version < '3.10'",
+    "mini-racer==0.14.1; python_version >= '3.10'",
+]
 managed-read = ["databricks-sdk==0.155.0", "psycopg[binary]==3.3.6"]
 weft-validation = ["jsonschema==4.26.0", "referencing==0.37.0", "rpds-py==2026.9.1", "attrs==26.1.0", "jsonschema-specifications==2025.9.1", "typing-extensions==4.16.0"]
 typed-sdk = [
@@ -22,7 +27,8 @@ typed-sdk = [
     "umf-core @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.6/umf_core-0.10.1-cp311-abi3-linux_x86_64.whl#sha256=3512e56730d1dab59d803b20301aea3ac8f6896b0dab452f767f4c3575b9ff4c ; sys_platform == 'linux' and platform_machine == 'x86_64'",
     "umf_access @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.5/umf_access-0.1.0.dev7-py3-none-any.whl#sha256=a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597",
     "weft-sql==0.4.53",
-    "py-mini-racer==0.14.1",
+    "mini-racer==0.12.2; python_version < '3.10'",
+    "mini-racer==0.14.1; python_version >= '3.10'",
 ]
 duckdb = ["duckdb==2.0.0"]
 puppy = ["duckdb==2.0.0", "neo4j==6.4.1"]
