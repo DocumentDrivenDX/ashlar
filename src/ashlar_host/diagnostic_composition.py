@@ -19,7 +19,7 @@ def preflight(config):
         if (type(config) is not DiagnosticsConfig or sys.version_info[:2] != (3, 11)
                 or os.name != 'posix' or signal.getsignal(signal.SIGCHLD) != signal.SIG_DFL):
             raise ValueError()
-        metadata.version('ashlar-graph-toolkit')
+        metadata.version('umf-ashlar')
         for name, version in SDK_VERSIONS.items():
             if metadata.version(name) != version:
                 raise ValueError()

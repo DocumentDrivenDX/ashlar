@@ -115,7 +115,7 @@ Use the [configured local Delta workflow](examples/configured-local/README.md)
 to initialize an isolated installation, publish or replay successive original
 transactions, and read retained publication-bound objects with durable local checkpoints.
 
-The distribution is `ashlar-graph-toolkit`; the import is `ashlar`. It has no
+The distribution is `umf-ashlar`; the import is `ashlar`. It has no
 runtime dependencies. `commerce-source` emits complete original transaction
 bytes; `inspect-source` verifies source custody. These source commands do not
 publish or acknowledge data. The installed `publish-commerce` and `query-commerce` commands

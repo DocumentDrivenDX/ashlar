@@ -25,7 +25,7 @@ jobs:
           python scripts/verify_release_artifacts.py create-manifest --dist-dir dist
           --output dist/release-manifest.json --tag "$GITHUB_REF_NAME"
           --repository "$GITHUB_REPOSITORY" --source-commit "$GITHUB_SHA"
-          --package ashlar-graph-toolkit
+          --package umf-ashlar
       - name: Create draft GitHub release
         env:
           GH_TOKEN: ${{ github.token }}

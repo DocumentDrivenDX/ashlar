@@ -379,7 +379,7 @@ class SDKWorker:
     def __init__(self, settings: Settings, send: Optional[Callable] = None,
                  progress: Optional[Callable] = None):
         require(type(settings) is Settings and sys.version_info[:2] == (3, 11))
-        require(metadata.version('ashlar-graph-toolkit') == settings.service_version)
+        require(metadata.version('umf-ashlar') == settings.service_version)
         require(all(metadata.version(name) == version for name, version in SDK_VERSIONS.items()))
         # Root constructs a clean environment. Refuse accidental ambient SDK knobs.
         require(not any(name.startswith('OTEL_') or name.lower() in ('http_proxy', 'https_proxy', 'all_proxy', 'no_proxy', 'ssl_cert_file', 'ssl_cert_dir', 'requests_ca_bundle', 'curl_ca_bundle') for name in os.environ))
