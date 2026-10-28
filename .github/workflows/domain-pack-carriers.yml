@@ -1,6 +1,7 @@
 name: Domain-pack carrier controls
 on:
   push:
+    branches: [main]
     paths:
       - tools/check_domain_pack_datasets.ts
       - tests/domain-pack-datasets.test.ts
@@ -10,6 +11,9 @@ on:
       - tools/check_domain_pack_datasets.ts
       - tests/domain-pack-datasets.test.ts
       - .github/workflows/domain-pack-carriers.yml
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event_name == 'workflow_dispatch' && github.run_id || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 permissions:
   contents: read
 jobs:
