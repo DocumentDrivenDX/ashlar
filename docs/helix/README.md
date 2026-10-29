@@ -10,6 +10,7 @@ Native singleton reads work through the publication resolver independently of Fa
 - [Runnable setup, ingest and query example](../../examples/end-to-end/README.md)
 - [Toolkit components and local commands](../../src/ashlar/README.md)
 - [Execution plan and evidence](04-build/end-to-end-plan.md)
+- [Current release closure sequence](04-build/release-closure-20261029.md)
 - [Product requirements](01-frame/prd.md) and [consumer conformance strategy](03-test/consumer-conformance-plan.md)
 - [Physical tables](02-design/contracts/CONTRACT-003-delta-graph-tables.md),
   [publication boundary](02-design/contracts/CONTRACT-001-publication-boundary.md),
