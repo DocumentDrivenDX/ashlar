@@ -221,6 +221,7 @@ class ManagedCurrentPersonPageOwner(ManagedCurrentReadOwner):
         target = request.get("target") if type(request) is dict else None
         _require(type(target) is dict and target.get("backendVersion") == XXHASH64_BACKEND02_VERSION,
                  "Only selected managed Backend02 pages are admitted")
+        self._renew()
         _require(self.person_policy.authorize_page(principal=self.principal, request=request,
             artifact=artifact, publication=self.receipt["manifest"]) is None,
             "Current policy must complete page authorization")

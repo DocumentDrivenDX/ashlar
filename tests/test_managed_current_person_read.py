@@ -1,5 +1,6 @@
 import unittest
 from types import SimpleNamespace
+from unittest.mock import patch
 
 from ashlar_host.managed_current_person_read import (
     ManagedCurrentPersonPageOwner, ManagedCurrentPersonPolicy,
@@ -91,6 +92,19 @@ class PersonPageOwnerTests(unittest.TestCase):
                                  {}, None, None)
         self.assertEqual(owner.person_policy.pages, 0)
 
+    def test_request_policy_runs_only_after_current_custody_renewal(self):
+        from ashlar_host.managed_current_weft_binding import XXHASH64_BACKEND02_VERSION
+
+        owner = object.__new__(ManagedCurrentPersonPageOwner)
+        calls = []
+        owner._renew = lambda: calls.append("renew")
+        owner.person_policy = _Policy()
+        owner.person_policy.authorize_page = lambda **kwargs: calls.append("authorize")
+        owner.principal, owner.receipt = "person@example.test", {"manifest": {}}
+        request = {"target": {"backendVersion": XXHASH64_BACKEND02_VERSION}}
+        with patch("ashlar_host.managed_current_query.ManagedCurrentReadOwner.admit_artifact"):
+            owner.admit_artifact(request, {}, None, None)
+        self.assertEqual(calls, ["renew", "authorize"])
 
 if __name__ == "__main__":
     unittest.main()

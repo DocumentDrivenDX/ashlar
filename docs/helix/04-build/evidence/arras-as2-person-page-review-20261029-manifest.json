@@ -1,0 +1,25 @@
+{
+  "profile": "ashlar-as2-person-page-review-binding/0.1",
+  "base_commit": "c83ae1a2b1b2a9b23e9ce56e19dd2de5f43a7a66",
+  "date": "2026-10-29",
+  "scope": "local custody-before-policy correction and focused regression; no native/cloud/release/push",
+  "focused_check": {
+    "tests_passed": 21,
+    "elapsed_seconds": 0.055,
+    "modules": 2
+  },
+  "files": [
+    {
+      "path": "src/ashlar_host/managed_current_person_read.py",
+      "sha256": "8f6b9a7a15d32a94ec78bb6681353d7169fa1e43cc9fc19fddcc3d4fd0725e0f"
+    },
+    {
+      "path": "tests/test_managed_current_person_read.py",
+      "sha256": "c00b4dd6d0687b25e334d81cd2ccc3bdf8c0a019e70580c0b7c51246022da2e3"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/arras-as2-person-page-review-20261029.md",
+      "sha256": "d95c0d31af501f2fbe402c49e9601ea399843afc93b8373e9c0fb381c23b5b69"
+    }
+  ]
+}
