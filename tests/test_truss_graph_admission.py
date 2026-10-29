@@ -1,8 +1,9 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 import base64,hashlib,json,unittest
 from pathlib import Path
+from unittest.mock import patch
 from ashlar.truss_native_feed import native_feed_batch
-from ashlar_host.truss_graph_admission import TrussGraphAdmission
+from ashlar_host.truss_graph_admission import TrussGraphAdmission,TrussEmptyIntervalAdmission,EMPTY_INTERVAL_PROFILE
 
 class Tests(unittest.TestCase):
     def original(self,bad_endpoint=False,bad_pin=False):
@@ -42,3 +43,19 @@ class Tests(unittest.TestCase):
         catalog['scope']={'kind':'module','documentId':'cohort','moduleId':'m'}
         with self.assertRaisesRegex(ValueError,'Complete public historical catalog view required'):
             TrussGraphAdmission(batch,{'1':json.dumps(catalog).encode()})
+
+    def test_current_empty_interval_admits_coverage_without_entity_meaning(self):
+        prior,_=self.original();before=json.loads(base64.b64decode(prior.cursor_after));after={**before,'nextXid':'50'}
+        payload={'interfaceVersion':'truss-native-feed/0.1','prior':before,'next':after,'writerXid':None,
+            'configuration':{},'catalogPrerequisites':[],'revisions':[],'changes':[],'sources':[],'reservations':[]}
+        raw=json.dumps(payload).encode();batch=native_feed_batch(raw,sha256=hashlib.sha256(raw).hexdigest(),
+            prior=json.dumps(before).encode(),next=json.dumps(after).encode(),feed=prior.feed)
+        with patch('importlib.metadata.version',return_value='0.0.50'),\
+             patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',return_value='pinned-profile'):
+            admitted=TrussEmptyIntervalAdmission(batch)
+        with self.assertRaisesRegex(ValueError,'Original transaction page'):
+            TrussGraphAdmission(batch,{})
+        self.assertEqual(admitted.metadata()['profile'],EMPTY_INTERVAL_PROFILE)
+        self.assertEqual(admitted.metadata()['source_transaction_sha256'],hashlib.sha256(raw).hexdigest())
+        self.assertEqual(admitted.changes,())
+        with self.assertRaises(PermissionError):admitted.admit(object())

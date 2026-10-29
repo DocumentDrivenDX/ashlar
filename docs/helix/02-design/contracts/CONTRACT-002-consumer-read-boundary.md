@@ -373,6 +373,44 @@ recovery_required/PROGRESS_INCOMPARABLE. Authorization precedes progress disclos
 If no safe complete publication is available, return unavailable without a claimed
 publication. Mixed table progress cannot produce status ok under this profile.
 
+### Opaque Truss receipt visibility for a held publication
+
+The proposed zero-wait `compare_truss_receipt` read MUST accept an opaque original
+Truss receipt and the exact publication selected for the same person's read. It
+MUST authenticate that person and apply current effective policy before exposing
+publication progress. It MUST hold and renew the complete native publication
+vector while binding the exact original source-retained destination ACK receipt
+to that publication and its source progress. The answer is one of `included`, `known_behind`, `invalid`
+or `unknown`, bound to that publication ID. `included` requires an authorized
+source proof that the complete committed transaction, including any no-op
+interval, is covered by the retained receipt's target cursor. `known_behind`
+requires an authorized proof that the token was issued and lies beyond that
+exact retained target; a prior retained publication may supply this bound. `invalid`
+requires source proof of a malformed or never-issued token. Missing proof,
+retention, incomparable epoch/registration, changed policy or unavailable
+source authority yields `unknown` without a progress disclosure.
+
+The feed cursor is unsigned caller data. Canonical encoding, registration and
+monotonic `nextXid` checks do not prove a delivered interval. The proposed
+source operation must match every supplied `FeedAckReceipt` byte and binding
+against Truss's immutable retained ACK receipt, authorize the action token as
+the current person, and compare the authoritative writer within Truss. Ashlar
+must separately bind that receipt to the held manifest, complete predecessor
+and seed lineage, no-op coverage and native vector before claiming inclusion.
+An unretained or pre-ACK publication remains `unknown` absent an equivalent
+source-attested proof.
+
+Truss's current `reached_in_transaction(token, consumer_id=...)` compares against
+its registered source consumer checkpoint. That checkpoint can advance after the
+selected Ashlar publication, so this method MUST NOT be used as destination
+inclusion evidence. Arras MUST NOT decode token positions, compare transaction
+numbers, infer inclusion from source ACK or publication time, or relabel an
+unverified `minimumProgress` check as receipt comparison. A person-scoped public
+Truss operation that validates the token and compares it with a supplied exact
+source-retained destination receipt, or an equivalent source-attested proof, is required before
+the `included` and `known_behind` outcomes can be implemented. Until then the
+runtime capability remains unsupported rather than claiming freshness.
+
 ## Precedence and Compatibility
 
 CONTRACT-001 governs publication and retained history. This Contract governs the

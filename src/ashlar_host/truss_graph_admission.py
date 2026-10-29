@@ -17,6 +17,41 @@ CURRENT_045_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.2'
 CURRENT_048_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.3'
 CURRENT_049_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.4'
 CURRENT_050_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.5'
+EMPTY_INTERVAL_PROFILE='ashlar-truss-empty-interval-semantic-admission/0.1'
+
+
+class TrussEmptyIntervalAdmission:
+    """Current-runtime no-op source coverage; no catalog or entity interpretation."""
+    def __init__(self,batch):
+        import importlib.metadata
+        from .truss_current_catalog import installed_current_truss_profile
+        batch_row(batch)
+        if batch.profile!='truss-native-feed/0.1' or not batch.batch_id.startswith('empty-interval:'):
+            raise ValueError('Original complete Truss empty interval required')
+        parsed=typed_scalar_entity_changes(batch.begin,sha256=hashlib.sha256(batch.begin).hexdigest(),
+            prior=base64.b64decode(batch.cursor_before,validate=True),
+            next=base64.b64decode(batch.cursor_after,validate=True),feed=batch.feed)
+        if parsed.changes or parsed.event_bytes or batch.cursor_before==batch.cursor_after:
+            raise ValueError('Advancing no-effect Truss interval required')
+        version=importlib.metadata.version('truss-toolkit')
+        if version not in (CURRENT_TRUSS_048_VERSION,CURRENT_TRUSS_049_VERSION,CURRENT_TRUSS_050_VERSION):
+            raise ValueError('Supported installed current Truss empty-interval runtime required')
+        profile=installed_current_truss_profile()
+        self.batch=batch;self.parsed=parsed;self.changes=();self.revisions={};self.typed=True
+        self.current=True;self.current_truss_version=version;self.runtime_profile=profile
+
+    def metadata(self):
+        return {'profile':EMPTY_INTERVAL_PROFILE,'source_profile':self.batch.profile,
+                'feed':self.batch.feed,'epoch':self.batch.epoch,
+                'source_transaction_sha256':hashlib.sha256(self.batch.begin).hexdigest(),
+                'truss_version':self.current_truss_version,'runtime_profile':self.runtime_profile,
+                'qualification':'Original advancing public no-effect feed interval under a pinned installed current Truss runtime; no entity or catalog interpretation. Durable destination publication and source ACK remain separate.'}
+
+    def admit(self,change):
+        raise PermissionError('Empty interval admits no entity change')
+
+    def admit_transition(self,previous,change):
+        raise PermissionError('Empty interval admits no entity transition')
 
 def current_admission_profile(version):
     try:
@@ -59,7 +94,7 @@ def require_facet_value(family,facets,value):
 class TrussGraphAdmission:
     def __init__(self,batch,catalog_views):
         batch_row(batch)
-        if batch.profile!='truss-native-feed/0.1'or not (type(catalog_views)is dict or isinstance(catalog_views,CurrentCatalogEvidence)):raise ValueError('Original native page and explicit original catalog evidence required')
+        if batch.profile!='truss-native-feed/0.1'or batch.batch_id.startswith('empty-interval:')or not (type(catalog_views)is dict or isinstance(catalog_views,CurrentCatalogEvidence)):raise ValueError('Original transaction page and explicit original catalog evidence required')
         self.typed=False;self.batch=batch;self.parsed=typed_scalar_entity_changes(batch.begin,sha256=hashlib.sha256(batch.begin).hexdigest(),prior=base64.b64decode(batch.cursor_before,validate=True),next=base64.b64decode(batch.cursor_after,validate=True),feed=batch.feed)
         payload=json.loads(batch.begin);self.revisions={};self.events={};self.current=isinstance(catalog_views,CurrentCatalogEvidence)
         self.catalog_views=dict(catalog_views.views if self.current else catalog_views)

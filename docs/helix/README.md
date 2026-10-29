@@ -48,6 +48,10 @@ is consumed and does not authorize a retry
 [source admission](04-build/evidence/current-upstream-release-20261024/truss050-source-admission-20261024/README.md),
 [R15 selected-source record](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/README.md),
 [R15 execution result](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/execution-result.json)).
+An AS-0 local candidate now retains and plans advancing Truss empty-interval
+coverage, while opaque receipt comparison and broader Arras query mapping remain
+upstream/interface gaps. Truss 0.0.51 is not yet an installed supported cohort
+([AS-0 disposition](04-build/evidence/arras-as0-local-20261029.md)).
 Pinned `.48` source shows that the helper's `READ ONLY` transaction caused
 `CatalogViewUnavailable(reason="context")`; Ashlar's library path now explicitly
 requests the ordinary `READ COMMITTED READ WRITE` transaction needed for

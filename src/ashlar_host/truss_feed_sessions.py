@@ -120,12 +120,18 @@ class TrussFeedSessions:
             if receipt_destination_id(self.destination_id)is None:raise TrussSessionError('Explicit destination identity required')
             require_truss_receipt_sdk()
         elif self.destination_id is not None:raise TrussSessionError('Destination identity requires receipt mode')
-        if type(self.page)is not _sdk()[4] or self.page.outcome!='transaction' or not callable(self.connection_factory):
-            raise TrussSessionError('Actual complete Truss transaction page and ordinary connection factory required')
+        if type(self.page)is not _sdk()[4] or self.page.outcome not in ('transaction','empty_interval') or not callable(self.connection_factory):
+            raise TrussSessionError('Actual complete Truss page and ordinary connection factory required')
         batch=self.batch()
         cursor=decode_retained_json(self.page.prior.content)
-        if self.page.consumer_id!=cursor['consumerId'] or self.page.registration_id!=cursor['registrationId'] or self.page.writer_xid!=batch.batch_id:
+        writer=batch.batch_id if self.page.outcome=='transaction' else None
+        if (self.page.consumer_id!=cursor['consumerId'] or self.page.registration_id!=cursor['registrationId']
+                or self.page.writer_xid!=writer or (self.page.outcome=='empty_interval')!=(batch.batch_id.startswith('empty-interval:'))):
             raise TrussSessionError('Original page registration/writer differs')
+        if self.page.outcome=='empty_interval':
+            following=decode_retained_json(self.page.next.content)
+            if self.page.safe_watermark_xid!=following['nextXid']:
+                raise TrussSessionError('Empty interval does not reach the original safe frontier')
 
     def batch(self):
         return native_feed_batch(self.page.content,sha256=self.page.sha256,

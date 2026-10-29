@@ -9,7 +9,7 @@ from ashlar.stored_publisher import validate_applied_artifact
 from .delta_custody import encoded, sha, LocalDeltaEffects
 from .driver import NativeDriver, progress_union
 from .private_graph_custody import decode_custody_bytes, require_custody_digest
-from .truss_graph_admission import TrussGraphAdmission
+from .truss_graph_admission import TrussGraphAdmission,TrussEmptyIntervalAdmission
 from .truss_note_publication import graph_expected_rows
 
 
@@ -59,7 +59,7 @@ def _restore_truss_publication(driver, request_digest, *, interrupted=False, pre
     effects. Neither path publishes or acknowledges.
     """
     require_custody_digest(request_digest)
-    if type(driver) is not NativeDriver or type(driver.source_admission) is not TrussGraphAdmission:
+    if type(driver) is not NativeDriver or type(driver.source_admission) not in (TrussGraphAdmission,TrussEmptyIntervalAdmission):
         raise PermissionError('Actual reopened Truss graph driver required')
     driver.require(driver.context)
     db = driver.transport.db

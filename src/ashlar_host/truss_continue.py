@@ -18,7 +18,7 @@ from .publication_planning import local_effect_plan,truss_request_for
 from .truss_ack_journal import admit_truss_ack_attempt
 from .truss_catalog_reader import read_historical_catalog_views
 from .truss_feed_sessions import TrussFeedSessions
-from .truss_graph_admission import TrussGraphAdmission
+from .truss_graph_admission import TrussGraphAdmission,TrussEmptyIntervalAdmission
 from .truss_note_publication import bind_ordinary_connection,read_next_page,validate_graph_edge_orders,graph_expected_rows,native_xxhash64
 from .truss_page_archive import encode_truss_page
 from .truss_recovery import restore_truss_apply_state
@@ -67,7 +67,7 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
     Caller holds the existing installation lease and outer transport/Spark/source
     lifetime. Results remain provisional until those owners close successfully.
     """
-    if (type(driver)is not NativeDriver or type(driver.source_admission)is not TrussGraphAdmission
+    if (type(driver)is not NativeDriver or type(driver.source_admission) not in (TrussGraphAdmission,TrussEmptyIntervalAdmission)
             or type(driver.source_sessions)is not TrussFeedSessions or driver.ack_sessions is not driver.source_sessions
             or not callable(connection_factory)or type(driver.policy.active)is not dict):
         raise PermissionError('Actual restored Truss graph continuation owner required')
@@ -96,6 +96,7 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         progress=json.loads(encoded(driver.policy.active['progress']))
         predecessor=driver.policy.active['publication_id']
     original_predecessor=predecessor;cursor=source.page.next.content
+    current_revisions=json.loads(driver.policy.active['manifest']['schema_revisions_json'])
     original_cursor=json.loads(cursor);consumer=source.page.consumer_id;feed=source.feed
     ordinary=bind_ordinary_connection(connection_factory,context);transport=driver.transport
     root=transport.journal_path.parent;deadline=time.monotonic()+wait_seconds;results=[]
@@ -106,16 +107,20 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         current=json.loads(page.prior.content)
         if any(current[key]!=original_cursor[key]for key in ('installationId','sourceEpoch','registrationId','consumerId')):
             raise ValueError('Original Truss installation/source epoch changed')
-        if page.outcome=='empty_interval':break
+        if page.outcome=='empty_interval' and page.next.content==page.prior.content:break
         sessions=TrussFeedSessions(page,feed,ordinary,context,destination_receipts=source.destination_receipts,destination_id=source.destination_id);batch=sessions.batch()
-        from .truss_catalog_reader import read_graph_catalog_evidence
-        admission=TrussGraphAdmission(batch,read_graph_catalog_evidence(connection_factory,batch,archives))
+        if page.outcome=='empty_interval':
+            admission=TrussEmptyIntervalAdmission(batch)
+        else:
+            from .truss_catalog_reader import read_graph_catalog_evidence
+            admission=TrussGraphAdmission(batch,read_graph_catalog_evidence(connection_factory,batch,archives))
         if driver.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
             from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION
             if not admission.current or admission.current_truss_version not in (
                     CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION):
                 raise PermissionError('Local `.4` continuation page requires exact Truss 0.0.48, 0.0.49 or 0.0.50 catalog evidence')
-        revisions={current['installationId']:str(max(int(value)for value in admission.revisions))}if admission.revisions else {current['installationId']:'0'}
+        revisions=(current_revisions if page.outcome=='empty_interval' else
+            {current['installationId']:str(max(int(value)for value in admission.revisions))}if admission.revisions else {current['installationId']:'0'})
         request=truss_request_for(feed,batch,predecessor,revisions)
         digest=request['request_digest'];publication_id='truss-graph-'+digest
         if transport.db.execute('SELECT 1 FROM local_source_plan WHERE request_digest=?',(digest,)).fetchone():
@@ -153,7 +158,7 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context)
             results.append({'manifest':dict(descriptor.raw),'source_page':{'path':str(page_path),'sha256':hashlib.sha256(page_raw).hexdigest()},
                 'publication_intent':selection})
-            state=after;expected=following;progress=following_driver.policy.active['progress'];predecessor=publication_id;cursor=page.next.content
+            state=after;expected=following;progress=following_driver.policy.active['progress'];predecessor=publication_id;cursor=page.next.content;current_revisions=revisions
         except BaseException as error:
             try:
                 error.ashlar_truss_continuation_interruption={

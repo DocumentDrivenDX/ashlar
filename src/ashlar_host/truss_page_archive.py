@@ -26,9 +26,13 @@ def encode_truss_page(page, feed):
     batch = native_feed_batch(page.content, sha256=page.sha256, prior=page.prior.content,
         next=page.next.content, feed=feed)
     cursor = decode_custody_bytes(page.prior.content)
+    writer=batch.batch_id if page.outcome=='transaction' else None
     if (page.consumer_id != cursor['consumerId'] or page.registration_id != cursor['registrationId']
-            or page.writer_xid != batch.batch_id or page.outcome != 'transaction'):
+            or page.outcome not in ('transaction','empty_interval') or page.writer_xid != writer
+            or (page.outcome=='empty_interval')!=(batch.batch_id.startswith('empty-interval:'))):
         raise ValueError('Original Truss page registration/writer differs')
+    if page.outcome=='empty_interval' and page.safe_watermark_xid!=decode_custody_bytes(page.next.content)['nextXid']:
+        raise ValueError('Original empty interval safe frontier differs')
     value = {'profile': PROFILE, 'feed': feed, 'content': base64.b64encode(page.content).decode(),
         'prior': base64.b64encode(page.prior.content).decode(), 'next': base64.b64encode(page.next.content).decode(),
         'sha256': page.sha256, 'consumer_id': page.consumer_id, 'registration_id': page.registration_id,
@@ -58,9 +62,11 @@ def decode_truss_page(raw, expected_sha256, feed):
         decoded[field] = base64.b64decode(text, validate=True)
         if base64.b64encode(decoded[field]).decode() != text:
             raise ValueError('Canonical original Truss page byte carrier required')
-    for field in ('feed', 'sha256', 'consumer_id', 'registration_id', 'writer_xid', 'safe_watermark_xid', 'outcome'):
+    for field in ('feed', 'sha256', 'consumer_id', 'registration_id', 'safe_watermark_xid', 'outcome'):
         if type(value[field]) is not str or not value[field] or len(value[field]) > 256:
             raise ValueError('Original bounded Truss page scalar required')
+    if value['writer_xid'] is not None and (type(value['writer_xid']) is not str or not value['writer_xid'] or len(value['writer_xid'])>256):
+        raise ValueError('Original bounded Truss page writer required')
     FeedPage, FeedCursor = _types()
     page = FeedPage(content=decoded['content'], sha256=value['sha256'], prior=FeedCursor(content=decoded['prior']),
         next=FeedCursor(content=decoded['next']), consumer_id=value['consumer_id'], registration_id=value['registration_id'],

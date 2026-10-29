@@ -15,8 +15,8 @@ from .truss_backend import TrussPublisherBackend
 from .truss_catalog_reader import read_historical_catalog_views
 from .truss_continue import admit_truss_continuation_head
 from .truss_feed_sessions import TrussFeedSessions
-from .truss_graph_admission import TrussGraphAdmission
-from .truss_note_publication import bind_ordinary_connection,validate_graph_edge_orders,graph_expected_rows
+from .truss_graph_admission import TrussGraphAdmission,TrussEmptyIntervalAdmission
+from .truss_note_publication import bind_ordinary_connection,validate_graph_edge_orders,graph_expected_rows,native_xxhash64
 from .truss_page_archive import decode_truss_page, MAXIMUM_ARCHIVE_BYTES
 
 
@@ -86,15 +86,21 @@ def publish_saved_truss_selection(driver,connection_factory,intent_path,intent_s
         for table,version in json.loads(manifest['table_versions_json']).items():
             if int(transport.original_history(transport.targets[table])[0]['version'])!=version:
                 raise ValueError('Original saved predecessor current native vector differs')
-    sessions=TrussFeedSessions(page,intent['feed'],bind_ordinary_connection(connection_factory,context),context)
-    from .truss_catalog_reader import read_graph_catalog_evidence
-    admission=TrussGraphAdmission(sessions.batch(),read_graph_catalog_evidence(connection_factory,sessions.batch(),archives))
+    sessions=TrussFeedSessions(page,intent['feed'],bind_ordinary_connection(connection_factory,context),context,
+        destination_receipts=source.destination_receipts,destination_id=source.destination_id)
+    if page.outcome=='empty_interval':
+        admission=TrussEmptyIntervalAdmission(sessions.batch())
+    else:
+        from .truss_catalog_reader import read_graph_catalog_evidence
+        admission=TrussGraphAdmission(sessions.batch(),read_graph_catalog_evidence(connection_factory,sessions.batch(),archives))
     installation=json.loads(page.prior.content)['installationId']
-    revisions={installation:str(max(int(value)for value in admission.revisions))}if admission.revisions else {installation:'0'}
+    revisions=(json.loads(manifest['schema_revisions_json']) if page.outcome=='empty_interval' else
+        {installation:str(max(int(value)for value in admission.revisions))}if admission.revisions else {installation:'0'})
     request=truss_request_for(intent['feed'],sessions.batch(),predecessor,revisions)
     if request['request_digest']!=intent['request_digest']:raise ValueError('Original saved request/predecessor differs')
     following=NativeDriver.from_existing_truss(transport,driver.policy,context,driver.tables,admission.changes,driver.columns,
-        source_admission=admission,source_sessions=sessions,ack_sessions=sessions)
+        source_admission=admission,source_sessions=sessions,ack_sessions=sessions,
+        lookup_hash_profile=driver.lookup_hash_profile)
     target=transport.targets[driver.tables['attempts']]
     attempts=DeltaAttemptStore(AttemptExecutor(following),CarrierPolicy(following,'attempts'),target.table,target.uuid)
     with owned_context(following.writer(intent['feed'],context)):
@@ -110,9 +116,12 @@ def publish_saved_truss_selection(driver,connection_factory,intent_path,intent_s
         stamp=(datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc)+datetime.timedelta(microseconds=int(planning['recorded_at']))).isoformat()
         graph_tables={role:driver.tables[role]for role in driver.columns}
         validate_graph_edge_orders(previous,admission.changes,admission.parsed.event_bytes)
-        after,generated=graph_sql_plan(state,sessions.batch(),graph_tables,materialized_at=stamp,schema_policy=admission.admit,schema_transition_policy=admission.admit_transition)
-        expected=graph_expected_rows(previous,after,admission.changes,sessions.batch(),driver.columns,stamp,admission.parsed.event_bytes,admission.parsed.edge_order_keys)
-        steps,elisions=local_effect_plan(generated,previous,graph_tables)
+        after,generated=graph_sql_plan(state,sessions.batch(),graph_tables,materialized_at=stamp,schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,
+            native_scalar_profile='typed'if admission.typed else'string',lookup_hash_profile=driver.lookup_hash_profile)
+        hashes=(native_xxhash64(transport.spark,admission.changes,after)
+                if driver.lookup_hash_profile=='spark-xxhash64-typed-key/0.1' else None)
+        expected=graph_expected_rows(previous,after,admission.changes,sessions.batch(),driver.columns,stamp,admission.parsed.event_bytes,admission.parsed.edge_order_keys,lookup_hashes=hashes)
+        steps,elisions=local_effect_plan(generated,previous,graph_tables,lookup_hash_profile=driver.lookup_hash_profile)
         following.policy.active={'request':request,'steps':steps,'generated_steps':generated,'elisions':elisions,'previous_expected':previous,
             'expected':expected,'previous_progress':progress,'progress':progress_union(progress,json.loads(request['source_checkpoint_json'])),
             'publication_id':intent['publication_id'],'recorded_at':planning['recorded_at']}

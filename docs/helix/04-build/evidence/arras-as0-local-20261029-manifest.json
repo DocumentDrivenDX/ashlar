@@ -1,0 +1,91 @@
+{
+  "base_commit": "63f5cd890a0bdc6f80ade9402c63b0d36c473396",
+  "candidate_scope": "local-contract-and-implementation; no native, cloud, source ACK, release or push",
+  "date": "2026-10-29",
+  "files": [
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md",
+      "sha256": "110c411721e801fd442b4f2643bd7f05fa944c9f4c24f572fbf1dcfe1cf3abab"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md",
+      "sha256": "12dbfe9a1ce58d3acdc4f130573cbb12096b52cc3c90ad6da9cc8a66b112966c"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md",
+      "sha256": "ed4dd55eb212411011837bfc1dee482d7d88868935d77b106df0d36504266cbc"
+    },
+    {
+      "path": "docs/helix/README.md",
+      "sha256": "95e5195e39417a2cbde23b26bd2a58fbe7ae222c5284b0b1692f0a574352b2ae"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/arras-as0-local-20261029.md",
+      "sha256": "b650ba1c3c25403f8bbb79b14f26246a6bebe27fc41a02a679d41b6a5081938b"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/arras-as0-local-20261029-continuation.md",
+      "sha256": "c9ad52722d8848af9232d1b5d0d9854a154af3995158f2bd76d1e79914bb3983"
+    },
+    {
+      "path": "src/ashlar/truss_native_feed.py",
+      "sha256": "b66592354310377260ceaf4a8ded91209ce1a89e463bdfda45a3c372063eeb7b"
+    },
+    {
+      "path": "src/ashlar_host/driver.py",
+      "sha256": "6be24fc43aa63044efc1b0033d27a46899e39a103763f13a86af3c5b6b9d4f6a"
+    },
+    {
+      "path": "src/ashlar_host/truss_continue.py",
+      "sha256": "a9a7c38a79ac4a64b2328478b24e1d1468653d31c3bb3513e20b82212e657c66"
+    },
+    {
+      "path": "src/ashlar_host/truss_feed_sessions.py",
+      "sha256": "3e333ece5c6705637f4383d17ccd02ed33254fed5ade962562a763bee3ba2aeb"
+    },
+    {
+      "path": "src/ashlar_host/truss_graph_admission.py",
+      "sha256": "d7058f532c8b9eb8e3291a9631055d505a346b34dcb84c36284167ccfd4db9f5"
+    },
+    {
+      "path": "src/ashlar_host/truss_page_archive.py",
+      "sha256": "e27d520923b9843afffaf1cb482a289b1744ac0f13c011ff2d4461adb916d162"
+    },
+    {
+      "path": "src/ashlar_host/truss_recovery.py",
+      "sha256": "6b1aeead3cff366c1b6fe7c2002469530663faf3b81e3213865ee196c952f966"
+    },
+    {
+      "path": "src/ashlar_host/truss_resume_cli.py",
+      "sha256": "35405b1e07c21c5a76a648b75409a3f2706fc6278960791f3e0d1eac869ccbb9"
+    },
+    {
+      "path": "src/ashlar_host/truss_saved_publication.py",
+      "sha256": "c5c8b94f9b5c1e85fc511e15adf93cf86a69bc7479ab780570110e510e5376d9"
+    },
+    {
+      "path": "tests/test_truss_continue.py",
+      "sha256": "7d55f5673c7cb74c87380a43fad13a2ab90adbe5423e40e903dd49cc9ff09b92"
+    },
+    {
+      "path": "tests/test_truss_graph_admission.py",
+      "sha256": "61d1530fc40cf87fcba94fd805f4872c6049a8eb89c329a95f31efbc0408663e"
+    },
+    {
+      "path": "tests/test_truss_native_feed.py",
+      "sha256": "404937a923e5c7257df448358f62508da330b9cf20bf420945165fe160b12105"
+    },
+    {
+      "path": "tests/test_truss_page_archive.py",
+      "sha256": "2f6a51bbbd87bf3d28908e6b37a74f8ed49a2f71b29b8f1c4f7645b882df9a3c"
+    }
+  ],
+  "focused_check": {
+    "diff_check": "passed",
+    "elapsed_seconds": 0.316,
+    "evidence": "docs/helix/04-build/evidence/arras-as0-local-20261029.md",
+    "modules": 10,
+    "tests_passed": 41
+  },
+  "profile": "ashlar-local-as0-candidate-binding/0.1"
+}

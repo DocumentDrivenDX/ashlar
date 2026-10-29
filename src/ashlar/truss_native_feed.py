@@ -81,6 +81,8 @@ def _scalar_entity_changes(content,*,sha256,prior,next,feed,allow_edges,typed=Fa
     epoch=before['sourceEpoch'];source=before['installationId']
     rows=payload.get('changes')
     if type(rows)is not list or len(rows)>4096:raise NativeFeedError('Bounded complete journal array required')
+    if payload.get('writerXid') is None and ('writerXid' not in payload or rows or any(payload.get(k)!=[] for k in ('catalogPrerequisites','revisions','sources','reservations'))):
+        raise NativeFeedError('Empty interval cannot carry transaction members')
     originals=[];changes=[];seen=set();property_versions=set();edge_orders=[];last=0
     for row in rows:
         seq=_integer(row['seq'])
@@ -154,8 +156,15 @@ def native_feed_batch(content,*,sha256,prior,next,feed):
         position=cursor['nextXid']
         if not position.isascii()or not position.isdecimal()or str(int(position))!=position or not 0<=int(position)<2**64:raise NativeFeedError('Original unsigned native cursor position required')
     if any(before[k]!=after[k]for k in ('installationId','sourceEpoch','consumerId','registrationId')):raise NativeFeedError('Native registration/installation/epoch changed')
-    writer=payload.get('writerXid')
-    if type(writer)is not str or not writer.isascii()or not writer.isdecimal()or str(int(writer))!=writer or not 1<=int(writer)<2**64 or not int(before['nextXid'])<=int(writer)<int(after['nextXid']):raise NativeFeedError('Actual committed writer interval required; empty intervals are not entity batches')
     if any(type(payload.get(k))is not list for k in ('catalogPrerequisites','revisions','changes','sources','reservations'))or type(payload.get('configuration'))is not dict:raise NativeFeedError('Complete original native transaction members required')
+    writer=payload.get('writerXid')
+    if writer is None:
+        if ('writerXid' not in payload or int(after['nextXid'])<int(before['nextXid']) or
+                any(payload[k] for k in ('catalogPrerequisites','revisions','changes','sources','reservations'))):
+            raise NativeFeedError('Complete empty committed interval required')
+        batch_id='empty-interval:'+sha256
+    else:
+        if type(writer)is not str or not writer.isascii()or not writer.isdecimal()or str(int(writer))!=writer or not 1<=int(writer)<2**64 or not int(before['nextXid'])<=int(writer)<int(after['nextXid']):raise NativeFeedError('Actual committed writer interval required')
+        batch_id=writer
     encode=lambda value:base64.b64encode(value).decode('ascii')
-    return SourceBatch('truss-native-feed/0.1',feed,before['sourceEpoch'],writer,encode(prior),encode(next),(),content,b'',records_digest((content,)))
+    return SourceBatch('truss-native-feed/0.1',feed,before['sourceEpoch'],batch_id,encode(prior),encode(next),(),content,b'',records_digest((content,)))

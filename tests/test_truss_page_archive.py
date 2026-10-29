@@ -24,6 +24,23 @@ class Tests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'digest differs'):
                 decode_truss_page(raw+b' ', expected_sha256=hashlib.sha256(raw).hexdigest(), feed=owner.feed)
 
+    def test_progress_only_page_roundtrips_with_null_writer(self):
+        import json
+        from dataclasses import replace
+        from ashlar_host.truss_feed_sessions import TrussFeedSessions
+        owner,*_=cases.Tests().setup_case()
+        before=json.loads(owner.page.next.content);after={**before,'nextXid':'50'}
+        payload={'interfaceVersion':'truss-native-feed/0.1','prior':before,'next':after,'writerXid':None,
+            'configuration':{},'catalogPrerequisites':[],'revisions':[],'changes':[],'sources':[],'reservations':[]}
+        content=json.dumps(payload).encode()
+        page=replace(owner.page,prior=cases.Cursor(owner.page.next.content),next=cases.Cursor(json.dumps(after).encode()),
+            content=content,sha256=hashlib.sha256(content).hexdigest(),writer_xid=None,safe_watermark_xid='50',outcome='empty_interval')
+        with patch('ashlar_host.truss_page_archive._types',return_value=(cases.Page,cases.Cursor)),\
+             patch('ashlar_host.truss_feed_sessions._sdk',return_value=(None,None,None,None,cases.Page,None)):
+            raw=encode_truss_page(page,owner.feed)
+            self.assertEqual(decode_truss_page(raw,hashlib.sha256(raw).hexdigest(),owner.feed),page)
+            self.assertTrue(TrussFeedSessions(page,owner.feed,owner.connection_factory,owner.context).batch().batch_id.startswith('empty-interval:'))
+
     def test_two_mib_original_page_archive_and_staging_roundtrip(self):
         import json
         from dataclasses import replace

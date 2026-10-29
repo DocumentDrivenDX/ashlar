@@ -1493,6 +1493,27 @@ MUST retain every original byte, including unknown content and the full vector;
 neither truncation nor a digest-only substitute is permitted. Both original and
 encoded lengths MUST be bounded, and encoded overflow MUST refuse before ACK.
 
+### Complete Truss source coverage without entity changes
+
+For the selected `truss-native-feed/0.1` source profile, an original public
+`empty_interval` page with a null writer and no catalog, journal, source or
+reservation members MAY advance the source cursor without changing any graph
+row. Ashlar MUST retain its complete original page bytes, digest, prior and next
+cursors, consumer, registration, installation and epoch. The next cursor MUST
+equal the page's safe frontier and follow the prior cursor within that same
+registration. An unchanged prior/next cursor is only a poll result; it MUST NOT
+create a publication or source ACK.
+
+An advancing empty interval MUST use the same predecessor, immutable publication
+manifest, complete table-version vector, durable source-plan, replay and
+publication-before-ACK gates as an entity transaction. Its graph table versions
+may remain identical while its published source progress changes. The schema
+revision vector MUST carry forward the admitted predecessor; an empty page
+cannot establish new catalog meaning. Recovery MUST reproduce the exact original
+page and request, including an uncertain publication or ACK outcome. A later
+transaction MUST begin at the published next cursor. No source ACK, delivery
+observation or wall-clock timestamp alone establishes destination visibility.
+
 ## Configured typed immutable-file publication
 
 The local configured lifecycle MAY consume the separately versioned

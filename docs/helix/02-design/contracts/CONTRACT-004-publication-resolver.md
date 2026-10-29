@@ -82,6 +82,49 @@ Simulated backend checks cannot qualify live authentication, retention, data-fil
 custody, native execution or concurrency. UMF schema meaning requires its pinned
 shared producer and independent target admission.
 
+## Arras authored-read integration boundary
+
+The first Arras bridge may call `read_singleton` only for an explicit original
+publication ID and complete `(source, kind, type ID, entity ID)` identity. The
+host supplies the current person's authenticated executor, backend, policy and
+full pin vector. That operation returns a row or authorized absence; it does
+not compile Weft, issue a source position or compare a Truss receipt.
+
+The existing bounded local authored-Key page path uses an original configured
+UMF 0.10 graph publication, full vector and local Spark aliases:
+`configured_typed_graph_sdk_request` → Weft
+`compile_engine_page_json` → `EngineRead.from_original` →
+`AshlarTarget.page`. Its Backend02 `weft-sql/0.2.0` request binds required,
+facetless STRING keys/properties and STRING parameters. It is a local
+`ashlar-delta/0.3` candidate, not a person-scoped managed `.4` execution
+receipt. The original compiler artifact, result model, current policy and
+complete held publication vector must agree; cursor and rows share that
+vector. `AshlarTarget.read/page` require original compiler catalog entries
+and do not accept a raw Arras `Statement` as a generic query.
+
+`AshlarTarget` recognizes the selected
+`ashlar-managed-current-core/0.2-xxhash64` page target for
+`ashlar-delta/0.4-xxhash64`, and `managed_current_sdk_pages_request` is a
+separate candidate builder. Arras's bounded Backend02 mapping can supply its
+accepted source bundle and exact `weftBindingInputs` to that builder, compile
+the original result with `compile_engine_page_json`, make
+`EngineRead.from_original` and call `AshlarTarget.page`. Ashlar still lacks a
+production current-person managed session/policy owner and native execution
+proof for that composition. The fixture `ManagedCurrentReadOwner` requires an
+oracle and expected rows and MUST NOT be used as an ordinary runtime opener.
+A local alias or `.3` receipt MUST NOT
+be relabeled as managed `.4` support.
+
+No public owning mapping turns every Arras `ModuleInfo` and raw `Statement`
+into a generic query; the bounded Backend02 composition requires original
+source provenance and explicit selected-profile evidence. Backend03 grouped queries use a different
+`weft-sql/0.4.1` compiler/request boundary and require separate mapping and
+execution qualification. Until those bindings exist, Arras must advertise
+only its independently proven pinned singleton bridge and refuse broader
+query profiles. Published `source_progress_json` and `recorded_at` may supply
+snapshot-bound freshness facts only after the same held policy/vector checks;
+they cannot substitute for receipt inclusion proof.
+
 ## Active-pin registry substrate
 
 The private PostgreSQL ashlar_pins registry retains immutable pin identity,

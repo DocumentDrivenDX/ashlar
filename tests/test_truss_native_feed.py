@@ -67,6 +67,29 @@ class Tests(unittest.TestCase):
         altered={**row,'cursor_after':row['cursor_before']}
         with self.assertRaises(StagingError):batch_from_row(altered)
 
+    def test_empty_interval_is_a_complete_progress_only_batch(self):
+        from ashlar.truss_native_feed import typed_scalar_entity_changes
+        from ashlar.staging import batch_row,batch_from_row
+        from ashlar.source_checkpoint import truss_checkpoint
+        before={'profile':'truss-caller-asserted-feed/0.1','sourceEpoch':'epoch','installationId':'installation','consumerId':'consumer','registrationId':'registration','nextXid':'43'}
+        after={**before,'nextXid':'50'}
+        payload={'interfaceVersion':'truss-native-feed/0.1','prior':before,'next':after,'writerXid':None,
+                 'configuration':{},'catalogPrerequisites':[],'revisions':[],'changes':[],'sources':[],'reservations':[]}
+        def selected(value):
+            content=json.dumps(value).encode()
+            return native_feed_batch(content,sha256=hashlib.sha256(content).hexdigest(),prior=json.dumps(before).encode(),next=json.dumps(after).encode(),feed='selected-feed')
+        batch=selected(payload)
+        self.assertTrue(batch.batch_id.startswith('empty-interval:'))
+        self.assertEqual(typed_scalar_entity_changes(batch.begin,sha256=hashlib.sha256(batch.begin).hexdigest(),
+            prior=json.dumps(before).encode(),next=json.dumps(after).encode(),feed=batch.feed).changes,())
+        self.assertEqual(batch_from_row(batch_row(batch)),batch)
+        self.assertEqual(json.loads(truss_checkpoint(batch))['position'],batch.cursor_after)
+        for altered in ({key:value for key,value in payload.items()if key!='writerXid'},
+                        {**payload,'changes':[{'unknown':'transaction'}]},
+                        {**payload,'next':{**before,'nextXid':'42'}}):
+            with self.subTest(altered=altered):
+                with self.assertRaises(NativeFeedError):selected(altered)
+
     def test_public_exact_string_tags_decode_but_other_values_refuse(self):
         import base64
         content,kwargs=self.case();payload=json.loads(content);wrapper=payload['changes'][0]['new_value'];event=json.loads(base64.b64decode(wrapper['bytesBase64']))

@@ -19,6 +19,56 @@ from ashlar_host.truss_continue import continue_truss_graph
 
 
 class Tests(unittest.TestCase):
+    def test_advancing_empty_interval_uses_durable_progress_publication(self):
+        import base64
+        from ashlar.apply import empty_state
+        from test_truss_feed_sessions import Page,Cursor
+        from ashlar_host.schema_rows import fixture_columns
+        from ashlar_host.resources import RESOURCE_ROOT
+        batch,catalogs=cases.Tests().original();prior=base64.b64decode(batch.cursor_after)
+        before=json.loads(prior);after={**before,'nextXid':'50'}
+        payload={'interfaceVersion':'truss-native-feed/0.1','prior':before,'next':after,'writerXid':None,
+            'configuration':{},'catalogPrerequisites':[],'revisions':[],'changes':[],'sources':[],'reservations':[]}
+        content=json.dumps(payload).encode();page=Page(content,hashlib.sha256(content).hexdigest(),Cursor(prior),
+            Cursor(json.dumps(after).encode()),writer_xid=None,safe_watermark_xid='50',outcome='empty_interval')
+        with TemporaryDirectory()as directory:
+            root=Path(directory).resolve();db=sqlite3.connect(':memory:')
+            try:
+                db.execute('CREATE TABLE local_source_plan(request_digest TEXT,original TEXT)')
+                context=object();source=object.__new__(TrussFeedSessions)
+                object.__setattr__(source,'page',SimpleNamespace(next=Cursor(prior),consumer_id='consumer',registration_id='registration'))
+                object.__setattr__(source,'feed','feed');object.__setattr__(source,'context',context)
+                columns=fixture_columns(RESOURCE_ROOT);expected={role:[]for role in columns}
+                driver=object.__new__(NativeDriver);driver.context=context;driver.source_admission=TrussGraphAdmission(batch,catalogs)
+                driver.lookup_hash_profile='sha256-json-v1';driver.source_sessions=source;driver.ack_sessions=source;driver.columns=columns
+                driver.policy=SimpleNamespace(active={'request':{'stream':'feed'},'manifest':{'schema_revisions_json':'{"installation":"3"}'},
+                    'publication_id':'old','expected':expected,'progress':{'feed':{'epoch':'epoch','position':base64.b64encode(prior).decode()}}})
+                driver.tables={role:'local.truss.'+role for role in (*columns,'attempts','manifest')}
+                driver.transport=SimpleNamespace(db=db,journal_path=root/'operations.sqlite',targets={driver.tables['attempts']:SimpleNamespace(table=driver.tables['attempts'],uuid='uuid')})
+                @contextmanager
+                def writer(*args):yield
+                driver.writer=writer
+                admitted=SimpleNamespace(changes=(),revisions={},typed=True,parsed=SimpleNamespace(event_bytes=(),edge_order_keys=()),
+                    admit=lambda change:None,admit_transition=lambda prior,change:None,current=True,current_truss_version='0.0.50')
+                following=object.__new__(NativeDriver);following.transport=driver.transport;following.policy=driver.policy
+                def published(backend,feed,original,**kwargs):
+                    self.assertEqual(original.batch_id,'empty-interval:'+page.sha256)
+                    self.assertEqual(json.loads(kwargs['schema_revisions_json']),{'installation':'3'})
+                    self.assertEqual(following.policy.active['steps'],[])
+                    self.assertEqual(following.policy.active['expected'],expected)
+                    self.assertNotEqual(following.policy.active['progress']['feed']['position'],following.policy.active['progress']['feed']['previous'])
+                    return SimpleNamespace(raw={'publication_id':following.policy.active['publication_id']})
+                with patch('ashlar_host.truss_continue._ready',return_value=empty_state()),\
+                     patch('ashlar_host.truss_continue.read_next_page',return_value=page),\
+                     patch('ashlar_host.truss_feed_sessions._sdk',return_value=(None,None,None,None,Page,None)),\
+                     patch('ashlar_host.truss_page_archive._types',return_value=(Page,Cursor)),\
+                     patch('ashlar_host.truss_continue.TrussEmptyIntervalAdmission',return_value=admitted),\
+                     patch.object(NativeDriver,'from_existing_truss',return_value=following),\
+                     patch('ashlar_host.truss_continue.publish_truss_transaction',side_effect=published):
+                    result=continue_truss_graph(driver,lambda:None)
+                self.assertEqual(len(result['publications']),1)
+            finally:db.close()
+
     def test_existing_owner_checks_and_empty_page_no_publication(self):
         batch,catalogs=cases.Tests().original();admission=TrussGraphAdmission(batch,catalogs)
         with TemporaryDirectory()as directory:
@@ -33,7 +83,7 @@ class Tests(unittest.TestCase):
                 object.__setattr__(source,'page',SimpleNamespace(next=SimpleNamespace(content=cursor_raw),consumer_id='consumer',registration_id='registration'))
                 object.__setattr__(source,'feed','feed');object.__setattr__(source,'context',context)
                 driver.source_sessions=source;driver.ack_sessions=source;driver.source_admission=admission;driver.context=context
-                driver.policy=SimpleNamespace(active={'request':{'stream':'feed'},'manifest':{'publication_id':'old','table_versions_json':'{}'},
+                driver.policy=SimpleNamespace(active={'request':{'stream':'feed'},'manifest':{'publication_id':'old','table_versions_json':'{}','schema_revisions_json':'{}'},
                     'expected':{'object_current':[],'edge_current':[],'tombstone':[],'whole_source_history':[]},'progress':{},'publication_id':'old'})
                 driver.tables={'attempts':'local.truss.attempts'};pending=[]
                 driver.transport=SimpleNamespace(db=db,journal_path=root/'operations.sqlite',targets={},query=lambda *args:SimpleNamespace(rows=pending))
@@ -44,7 +94,7 @@ class Tests(unittest.TestCase):
                     try:yield
                     finally:events.append('close')
                 driver.writer=writer
-                page=SimpleNamespace(prior=SimpleNamespace(content=cursor_raw),consumer_id='consumer',registration_id='registration',outcome='empty_interval')
+                page=SimpleNamespace(prior=SimpleNamespace(content=cursor_raw),next=SimpleNamespace(content=cursor_raw),consumer_id='consumer',registration_id='registration',outcome='empty_interval')
                 with patch('ashlar_host.truss_continue.manifest_pin_vector',return_value=object()),patch('ashlar_host.truss_continue.admit_truss_ack_attempt'), \
                      patch.object(TrussFeedSessions,'observe_checkpoint',return_value=cursor_raw),patch('ashlar_host.truss_continue.read_next_page',return_value=page)as read, \
                      patch('ashlar_host.truss_continue.publish_truss_transaction')as publish:
@@ -92,7 +142,7 @@ class Tests(unittest.TestCase):
                 columns=fixture_columns(RESOURCE_ROOT);expected={role:[]for role in columns}
                 driver=object.__new__(NativeDriver);driver.context=context;driver.source_admission=admission;driver.lookup_hash_profile='sha256-json-v1'
                 driver.source_sessions=source;driver.ack_sessions=source;driver.columns=columns
-                driver.policy=SimpleNamespace(active={'request':{'stream':'feed'},'publication_id':'old','expected':expected,'progress':{}})
+                driver.policy=SimpleNamespace(active={'request':{'stream':'feed'},'manifest':{'schema_revisions_json':'{}'},'publication_id':'old','expected':expected,'progress':{}})
                 driver.tables={role:'local.truss.'+role for role in (*columns,'attempts','manifest')}
                 driver.transport=SimpleNamespace(db=db,journal_path=root/'operations.sqlite',targets={driver.tables['attempts']:SimpleNamespace(table=driver.tables['attempts'],uuid='original-uuid')})
                 life=[]

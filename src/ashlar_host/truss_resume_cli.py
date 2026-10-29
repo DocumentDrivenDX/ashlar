@@ -218,14 +218,17 @@ def run_selected_truss_command(configuration, output, operation, *, report_write
     from .supply_chain_native import PrivateFiniteLease
     from .truss_note_publication import bind_ordinary_connection
     from .truss_feed_sessions import TrussFeedSessions
-    from .truss_graph_admission import TrussGraphAdmission
+    from .truss_graph_admission import TrussGraphAdmission,TrussEmptyIntervalAdmission
     from .schema_rows import fixture_columns,local_current_columns
     from .resources import RESOURCE_ROOT
     context = object()
     def connection(): return psycopg.connect(config['connection_uri'],autocommit=False,connect_timeout=5)
     sessions = TrussFeedSessions(page,config['feed'],bind_ordinary_connection(connection,context),context,**({'destination_receipts':True,'destination_id':config['destination_id']}if 'destination_id'in config else {}))
-    from .truss_catalog_reader import read_graph_catalog_evidence
-    admission = TrussGraphAdmission(sessions.batch(),read_graph_catalog_evidence(connection,sessions.batch(),archives))
+    if page.outcome=='empty_interval':
+        admission=TrussEmptyIntervalAdmission(sessions.batch())
+    else:
+        from .truss_catalog_reader import read_graph_catalog_evidence
+        admission = TrussGraphAdmission(sessions.batch(),read_graph_catalog_evidence(connection,sessions.batch(),archives))
     _require_runtime_matches_admission(admission,config)
     lease = PrivateFiniteLease(publication,create=False)
     try:
