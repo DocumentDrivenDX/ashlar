@@ -80,14 +80,16 @@ migration, source/feed operation, publication, ACK, seed, or continuation path.
 Neither script uses the R15 worker, supervisor, or spent approval.
 The supervisor SHA-256 is
 `a82c42f454889849147df5ab1126325781bed91629df0ff0bc6489e54816aba9`; the
-test file SHA-256 is
-`347a73e15d5bcbbdb341fcf374e176ae2b9354b3c95c83ca62558d7f63e7cb06`. These
-inputs are collected in `r16-input-freeze.json` (SHA-256
-`9c53cfcafbef4d7055cc0e68ac75aa6925dd94edc9e69ec1f2a1a885dd3cfbf3`).
+focused test file SHA-256 is
+`bfb97f047d7471c770d2d85e4d1e759db4042743c2f724ba44e5235db1abb531`; it also
+covers the origin pre-run gate. The effect-free inputs, including the `.48`
+helper, origin gate, and receipt, are collected in
+`r16-input-freeze.json` (SHA-256
+`6e9a4d96154fb6473f4ffb6ff27bffdb837a9bdf39b61836021ee792ef87535e`).
 
 The fresh effect-free run is preserved in `preflight-receipt.json`. It verifies
 the exact narrow archive/wheel/pg_ctl hashes, the tracked exact seed request, installed direct URL and successful
-`pip check`, and declares execution not admitted. Three focused inert tests pass
+`pip check`, and declares execution not admitted. Eight focused inert tests pass
 in `test_r16_preflight.py`: wrong source hash stops before external commands,
 preflight mode is mandatory, and the frozen source/runtime/tool constants are
 fixed. No database process or native Truss method was invoked.
@@ -135,6 +137,33 @@ exact source content hash can be verified from the Truss read object without
 retaining a second source-file copy. The prior `.50` bridge-readiness receipt
 binds an older Ashlar commit and cannot qualify this `.51` snapshot.
 
+The historical `acceptance-origin.json` is a separate required input to
+`src/ashlar_host/truss_record_group.py`: its preflight reads both the source
+document and a bounded origin map, and renews both before apply and replay.
+The public `.48` `AcceptedDocument` returns the exact source content, so the
+worker can capture that file after the post-start source gate and verify its
+expected digest. It does not expose the origin map. A read-only search found no
+tracked Git blob or current `/private/tmp` file for the historical origin map;
+its SHA-256 remains recorded as
+`a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed`, but its
+bytes are not recoverable from the checked sources.
+
+The public seed preflight only requires a bounded JSON map with string keys and
+string values; it does not impose a historical origin schema. I prepared a
+separate proposed local Truss acceptance-trial candidate at `origin-map-r16-proposed.json`, profile
+`ashlar-r16-seed-origin/0.1`, SHA-256
+`c19540a4c1cc3561365cc4ec38a71da44fdc4648b8f27a6540c81eb5233badc5`. Its
+`authority_scope` identifies a local Truss acceptance trial, and its purpose
+says it is not production-source authority. This is a new asserted
+semantic input, not recovered history. The R16 seed request bytes and operations
+remain unchanged; R15 recorded that the request was never submitted. The
+effect-free `r16_native_origin_gate.py` verifies these exact candidate bytes and
+returns `candidate_verified_review_required`, with execution authorization
+false. Sol and the owner must review this semantic change and bind it in a fresh
+one-run approval before any native stage. A genesis ACK by itself would consume
+the pending cursor while leaving the approved seed/continuation incomplete, so
+the worker must keep that stage behind the same one-run approval.
+
 ## Future packet boundary (proposal only)
 
 This document and its preflight are not an execution packet and contain no
@@ -173,7 +202,32 @@ The backup was additionally checked read-only with the hash-bound Homebrew `pg_c
 
 A single future approval can safely cover one staged run if it binds the expected historical identities and hashes in advance and the worker makes every stage conditional: after copy/start, it freshly reads and compares source identity/hash, catalog revision, full view/report, feed, consumer registration, and genesis checkpoint against those frozen values; it then records the actual genesis-page hash before migration and requires the same page bytes after migration before publication. Any discrepancy exits before migration. This does not need a second approval because no unbounded value is accepted: dynamic observations must equal the pre-bound expected values. If any expected view/page cannot be bound or observed exactly, stop and prepare a new proposal.
 
-The selected external Homebrew runtime has PostgreSQL 18.6 and JDK 21.0.13; however, the old Spark/Delta JAR paths from R15 are absent and no matching Spark/Delta jars were found under `/private/tmp`. The `.51[native]` environment contains Truss and psycopg but not PySpark/Delta. Consequently a native lifecycle worker is not yet runnable: the exact local Spark/Delta runtime and compatible connection/publication execution cohort must be reassembled and hash-qualified before implementation can be frozen.
+An exact separate Truss 0.0.48 compatibility environment is now recorded in
+`truss048-readonly-runtime-receipt-r16.json`. It uses the public wheel with
+SHA-256 `1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3`,
+the exact native-extra dependency closure, 740 installed RECORD payloads
+verified with zero mismatches, and a clean `pip check`. Its helper preflight
+reports Truss 0.0.48 with PostgreSQL and Spark not started. This qualifies
+imports and package integrity only; it does not qualify source/feed behavior or
+the database connection. The `.48` helper validates an explicit extracted
+source root against the fixed R16 archive/input manifest before any source or
+feed mode; a missing or mismatched root stops before importing Ashlar modules
+or opening a connection. All 569 extracted `src/` files matched the manifest
+in an effect-free check. Page archive creation now validates the expected
+consumer/registration and genesis cursor before writing; the `.48` `FeedPage`
+API has no `facts` member, so no unsupported count is claimed.
+
+The separate .51 cohort now has PySpark 4.2.0, Delta 4.4.1 and the upstream
+package cohort installed with clean imports and `pip check`; its manifest and
+JAR hashes are recorded by the runtime-cohort evidence. A bounded
+`local[1]` JVM startup/configuration probe loaded Spark 4.2.0 on JDK 21.0.13,
+configured Delta's extension/catalog, loaded both Delta classes, read only the
+`default` database name, and stopped in 7.369 seconds. It read or wrote no
+tables. The Delta POM declares scala-library 2.13.17 while Spark's runtime
+bundle contains 2.13.18; startup and class loading passed, but semantic Delta
+read/write remains unqualified. The .48 source/feed custody also remains
+unobserved because PostgreSQL was not started. No native execution is admitted
+by this candidate.
 
 Proposed hard ceilings for a separately authorized single local attempt are:
 one attempt, zero automatic retries, 600 seconds child runtime, 512 MiB maximum

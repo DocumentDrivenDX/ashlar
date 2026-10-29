@@ -28,7 +28,10 @@
       "state_custody.restored_pgdata_path",
       "state_custody.new_registry_pre_effect_backup_sha256_or_exact_creation_rule",
       "state_custody.fresh_process_inventory_receipt_sha256_or_exact_immediate_prestart_rule",
-      "seed_custody.new_execution_approval"
+      "seed_custody.new_execution_approval",
+      "seed_custody.origin_map_path",
+      "seed_custody.origin_map_bytes_and_sha256",
+      "seed_custody.origin_gate_code_sha256"
     ],
     "must_match_frozen_expectations": [
       "source.archive_sha256",
@@ -94,7 +97,14 @@
     "git_blob": "93951954795ce8fa376871626d6c4def5454dfa7",
     "git_commit": "48fb9cb047f95854d59d0882af31156aab5f1f99",
     "new_execution_approval": null,
-    "note": "Exact historical request bytes are available; the R15 approval is spent and does not authorize R16 submission",
+    "origin_gate_code_path": "r16_native_origin_gate.py",
+    "origin_gate_code_sha256": "80d937e7c8ec9fff51d04cb08ecea27c6c32dd05df6b87d2bb0a87fc62347ebf",
+    "origin_map_historical_sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed",
+    "origin_map_path": "origin-map-r16-proposed.json",
+    "origin_map_profile": "ashlar-r16-seed-origin/0.1",
+    "origin_map_expected_sha256": "c19540a4c1cc3561365cc4ec38a71da44fdc4648b8f27a6540c81eb5233badc5",
+    "origin_map_status": "proposed_new_local_truss_acceptance_trial_semantics; requires independent review and exact one-run approval; not historical identity",
+    "note": "Exact historical request bytes are available; the accepted source bytes can be captured from the post-start public .48 read. The proposed origin map is a new explicit local Truss acceptance-trial semantic input, not recovered historical provenance. It requires independent review and fresh one-run approval; the spent R15 approval does not authorize R16 submission",
     "operation_count": 7,
     "request_bytes": 1657,
     "request_key": "ashlar-current-048-lifecycle-seed-r1",
@@ -125,6 +135,7 @@
     "note": "Expected values are frozen from R15/R14 preparation only; the actual public .48 identity/view/feed/checkpoint must be reobserved from restored PGDATA before migration, compared to these pins, and halted on any mismatch"
   },
   "stage_order": [
+    "pre-run effect-free gate: verify the exact proposed R16 local-development origin map and SHA-256; this is only input integrity, and independent review plus fresh one-run approval remain required before native stages",
     "preserve current 11-file discrepancy tree to new path",
     "verify/copy cold backup to distinct fresh PGDATA target",
     "create and verify new registry pre-effect backup",

@@ -1,0 +1,128 @@
+{
+  "authorization_scope": "effect-free import and pip integrity only; no database, feed or source operation",
+  "dependencies": [
+    {
+      "direct_url": null,
+      "installed_location": "/private/tmp/ashlar-r16-truss048-readonly-compat-312/lib/python3.12/site-packages",
+      "name": "truss-toolkit",
+      "record_entries_checked": 466,
+      "record_errors": 0,
+      "record_unhashed_entries": 212,
+      "version": "0.0.48"
+    },
+    {
+      "direct_url": null,
+      "installed_location": "/private/tmp/ashlar-r16-truss048-readonly-compat-312/lib/python3.12/site-packages",
+      "name": "jsonschema",
+      "record_entries_checked": 44,
+      "record_errors": 0,
+      "record_unhashed_entries": 38,
+      "version": "4.26.0"
+    },
+    {
+      "direct_url": null,
+      "installed_location": "/private/tmp/ashlar-r16-truss048-readonly-compat-312/lib/python3.12/site-packages",
+      "name": "jsonschema-specifications",
+      "record_entries_checked": 28,
+      "record_errors": 0,
+      "record_unhashed_entries": 5,
+      "version": "2025.9.1"
+    },
+    {
+      "direct_url": null,
+      "installed_location": "/private/tmp/ashlar-r16-truss048-readonly-compat-312/lib/python3.12/site-packages",
+      "name": "referencing",
+      "record_entries_checked": 19,
+      "record_errors": 0,
+      "record_unhashed_entries": 14,
+      "version": "0.37.0"
+    },
+    {
+      "direct_url": null,
+      "installed_location": "/private/tmp/ashlar-r16-truss048-readonly-compat-312/lib/python3.12/site-packages",
+      "name": "attrs",
+      "record_entries_checked": 35,
+      "record_errors": 0,
+      "record_unhashed_entries": 20,
+      "version": "26.1.0"
+    },
+    {
+      "direct_url": null,
+      "installed_location": "/private/tmp/ashlar-r16-truss048-readonly-compat-312/lib/python3.12/site-packages",
+      "name": "rpds-py",
+      "record_entries_checked": 9,
+      "record_errors": 0,
+      "record_unhashed_entries": 2,
+      "version": "2026.9.1"
+    },
+    {
+      "direct_url": null,
+      "installed_location": "/private/tmp/ashlar-r16-truss048-readonly-compat-312/lib/python3.12/site-packages",
+      "name": "mini-racer",
+      "record_entries_checked": 19,
+      "record_errors": 0,
+      "record_unhashed_entries": 11,
+      "version": "0.14.1"
+    },
+    {
+      "direct_url": null,
+      "installed_location": "/private/tmp/ashlar-r16-truss048-readonly-compat-312/lib/python3.12/site-packages",
+      "name": "psycopg",
+      "record_entries_checked": 90,
+      "record_errors": 0,
+      "record_unhashed_entries": 84,
+      "version": "3.3.6"
+    },
+    {
+      "direct_url": null,
+      "installed_location": "/private/tmp/ashlar-r16-truss048-readonly-compat-312/lib/python3.12/site-packages",
+      "name": "psycopg-binary",
+      "record_entries_checked": 25,
+      "record_errors": 0,
+      "record_unhashed_entries": 4,
+      "version": "3.3.6"
+    },
+    {
+      "direct_url": null,
+      "installed_location": "/private/tmp/ashlar-r16-truss048-readonly-compat-312/lib/python3.12/site-packages",
+      "name": "typing-extensions",
+      "record_entries_checked": 5,
+      "record_errors": 0,
+      "record_unhashed_entries": 2,
+      "version": "4.16.0"
+    }
+  ],
+  "helper": {
+    "path": "docs/helix/04-build/evidence/current-upstream-release-20261024/truss051-r16-effectfree-candidate-20261029/r16_pre_migration_source_helper.py",
+    "preflight": {
+      "pg_started": false,
+      "profile": "ashlar-truss048-readonly-compat-preflight/0.1",
+      "spark_started": false,
+      "truss": "0.0.48"
+    },
+    "sha256": "62707a3febf1f67b7a06edc1cc7ccba1a843c1dc3540fae2ac8b4406e09ea13d",
+    "source_root_gate": {
+      "archive_sha256": "cb57fdb7d338f345cfad157463fdbe94a2be7dcf69e728c474954c2939c14a0b",
+      "extracted_root": "/private/tmp/ashlar-r16-source-48fb9cb0-check/src",
+      "result": "all source files matched; effect-free",
+      "source_manifest_sha256": "fb79cebc5b1388b49d0687c9f77c61187125299758ee7388fd64ba2c9d533348",
+      "validated_src_file_count": 569
+    }
+  },
+  "installed_record_errors": 0,
+  "installed_record_payloads_verified": 740,
+  "notes": "Distinct Python 3.12.14 environment for the retained public .48 pre-migration gate with exact wheel dependencies and RECORD payload verification. Does not qualify database connection or catalog/source/feed behavior.",
+  "pip_check": "No broken requirements found.",
+  "profile": "ashlar-r16-truss048-readonly-compat-runtime/0.1",
+  "python": {
+    "path": "/private/tmp/ashlar-r16-truss048-readonly-compat-312/bin/python",
+    "version": "Python 3.12.14"
+  },
+  "truss_wheel": {
+    "official_asset": "truss_toolkit-0.0.48-py3-none-any.whl",
+    "official_release": "https://github.com/DocumentDrivenDX/truss/releases/tag/v0.0.48",
+    "official_release_api_digest": "sha256:1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3",
+    "path": "/private/tmp/ashlar-r16-truss048-readonly-wheelhouse/truss_toolkit-0.0.48-py3-none-any.whl",
+    "sha256": "1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3"
+  }
+}

@@ -4,7 +4,7 @@
     "old_full_archive_sha256": "5ff1ce357e85721248eb3733a1d7ddf3635e01e3136e2f69cb2462bb5b9fd985",
     "reason": "replaced by exact executable-input archive; historical evidence is separately hash-bound"
   },
-  "authorization": "none; effect-free preflight only; native lifecycle not implemented",
+  "authorization": "none; helper/read-only packet corrections and runtime receipts only; no native lifecycle worker or execution authorization",
   "external_pg_ctl": {
     "path": "/opt/homebrew/Cellar/postgresql@18/18.6_1/bin/pg_ctl",
     "sha256": "3021087af95fd33bfd83106c85de47c4756e44aa7edde78446e7593604d1b451",
@@ -12,13 +12,17 @@
   },
   "packet_files": {
     "../truss050-r16-recovery-packet-candidate-20261029/truss051-package-integrity.json": "72d884543e020506a38d7a930c9f481429503dc8e323b85fd102924117737f0d",
-    "future-scope-template.json": "af39604afeca0b68e59f8a21792bc8598241c5b82bea2c887ec4ac6cf445dba2",
+    "future-scope-template.json": "d2acb4b0f904ddda9b10e58555265fbca0623c0fb7162ad3cb24bece2b653ed9",
+    "origin-map-r16-proposed.json": "c19540a4c1cc3561365cc4ec38a71da44fdc4648b8f27a6540c81eb5233badc5",
     "preflight-receipt.json": "b53ae2e2ae5f9ad4c8ca4ff3dd200354b2abf6dfcd18a1a7257681f687f21a11",
+    "r16_native_origin_gate.py": "abb5895a1ad15f092b66355832c8c99b185856afd6ca2bab446710d819615aa3",
+    "r16_pre_migration_source_helper.py": "62707a3febf1f67b7a06edc1cc7ccba1a843c1dc3540fae2ac8b4406e09ea13d",
     "r16_preflight_worker.py": "f03a190bbac08cf4caa59ed8927c0f48b9d346eeecd1260e03546b7b8a243fb2",
     "run_supervisor_r16.py": "a82c42f454889849147df5ab1126325781bed91629df0ff0bc6489e54816aba9",
     "source-inputs-manifest-r16.json": "fb79cebc5b1388b49d0687c9f77c61187125299758ee7388fd64ba2c9d533348",
     "state-observation-r16.json": "4fd19518df6f23454cfdbf8cd816b5a3f262b1bc7d5f9fec69b80a154366395b",
-    "test_r16_preflight.py": "347a73e15d5bcbbdb341fcf374e176ae2b9354b3c95c83ca62558d7f63e7cb06"
+    "test_r16_preflight.py": "bfb97f047d7471c770d2d85e4d1e759db4042743c2f724ba44e5235db1abb531",
+    "truss048-readonly-runtime-receipt-r16.json": "1ae2d48fcda993c5841f99d1f9f45a689f1f778007d39826224206a474f8bb74"
   },
   "post_freeze_repository_delta": {
     "classification": "unrelated TD-009 source-holder proposal; outside R16 frozen archive and not part of Truss/native execution path",
