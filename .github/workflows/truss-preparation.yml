@@ -1,6 +1,7 @@
 name: Truss preparation controls
 on:
   push:
+    branches: [main]
     paths:
       - 'src/ashlar/cli.py'
       - 'src/ashlar_host/*truss*'
@@ -22,6 +23,9 @@ on:
       - 'docs/helix/02-design/contracts/CONTRACT-005-schema-intake.md'
       - 'docs/helix/02-design/technical-designs/TD-004-*'
       - '.github/workflows/truss-preparation.yml'
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event_name == 'workflow_dispatch' && github.run_id || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 permissions:
   contents: read
 jobs:

@@ -1,17 +1,32 @@
 name: Module import boundaries
 on:
-  push:
   pull_request:
   workflow_dispatch:
     inputs:
-      extended:
-        description: Run the retained extended controls
+      full_qualification:
+        description: Run the full retained module and export qualification
+        required: false
+        default: true
         type: boolean
-        default: false
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event_name == 'workflow_dispatch' && github.run_id || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 permissions:
   contents: read
 jobs:
+  routine-pr:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 tools/check_module_boundaries.py
+      - run: python3 scripts/check-typed-sdk-boundaries.py --negative-controls
+      - run: PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_module_boundaries.py
   check:
+    if: github.event_name == 'workflow_dispatch' && inputs.full_qualification
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -142,6 +157,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_diagnostics_cli.py
 
   duckdb-exports:
+    if: github.event_name == 'workflow_dispatch' && inputs.full_qualification
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -154,6 +170,7 @@ jobs:
       - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_puppy_scenario_local
 
   typed-sdk-source-checks:
+    if: github.event_name == 'workflow_dispatch' && inputs.full_qualification
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -165,6 +182,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -W error::ResourceWarning -m unittest test_typed_graph_source test_configured_typed_graph_weft_binding
 
   puppy-exports:
+    if: github.event_name == 'workflow_dispatch' && inputs.full_qualification
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

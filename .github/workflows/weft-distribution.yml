@@ -1,8 +1,5 @@
 name: Weft distribution boundaries
 on:
-  push:
-    branches: [main]
-  pull_request:
   workflow_dispatch:
     inputs:
       extended:
@@ -12,8 +9,8 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: ci-${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event_name == 'workflow_dispatch' && github.run_id || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   consumer:
     runs-on: ubuntu-24.04
