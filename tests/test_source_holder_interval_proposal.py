@@ -2,7 +2,10 @@
 import unittest
 
 from ashlar_host._source_holder_interval_proposal import (
+    SourceHolderAckUncertain,
+    SourceHolderAckIncomplete,
     SourceHolderCloseError,
+    commit_and_reconcile_protected_ack_proposal,
     hold_source_holder_interval_proposal,
 )
 
@@ -16,6 +19,7 @@ class _Handle:
         self.close_error = close_error
         self.renew_result = renew_result
         self.close_result = close_result
+        self.remaining = 60
 
     def renew(self):
         self.events.append(self.role + ".renew")
@@ -28,6 +32,9 @@ class _Handle:
         if self.close_error is not None:
             raise self.close_error
         return self.close_result
+
+    def remaining_lifetime_seconds(self):
+        return self.remaining
 
 
 class _Port:
@@ -64,10 +71,11 @@ class SourceHolderIntervalProposalTests(unittest.TestCase):
         )
         return events, handles, ports
 
-    def hold(self, ports):
+    def hold(self, ports, *, context=None):
+        context = object() if context is None else context
         return hold_source_holder_interval_proposal(
             *ports, receipt_bytes=b"receipt", vector=object(), source_selection=object(),
-            request_bytes=b"request", context=object(),
+            request_bytes=b"request", context=context,
         )
 
     def test_opens_in_order_renews_all_before_body_and_closes_reverse(self):
@@ -177,6 +185,140 @@ class SourceHolderIntervalProposalTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "interval is closed"):
             interval.renew_all()
         self.assertEqual(events, before)
+
+    def test_protected_ack_renews_immediately_commits_and_reconciles_exact_bytes(self):
+        events, _, ports = self.setup_ports()
+        class Ack:
+            def commit(self, *args):
+                events.append(("ack.commit", args))
+            def reconcile(self, *args):
+                events.append(("ack.reconcile", args))
+                return (args[0], args[1], args[2])
+        context = object()
+        with self.hold(ports, context=context) as interval:
+            commit_and_reconcile_protected_ack_proposal(
+                interval, Ack(), request_bytes=b"request", manifest_bytes=b"manifest",
+                receipt_bytes=b"receipt", context=context,
+            )
+        self.assertEqual(events[6:12], [
+            "managed.renew", "pins.renew", "source.renew",
+            ("ack.commit", (b"request", b"manifest", b"receipt", context)),
+            ("ack.reconcile", (b"request", b"manifest", b"receipt", context)),
+            "source.close",
+        ])
+
+    def test_successful_ack_is_one_shot_per_interval(self):
+        events, _, ports = self.setup_ports()
+        context = object()
+        class Ack:
+            def commit(self, *args): events.append("ack.commit")
+            def reconcile(self, *args): return (args[0], args[1], args[2])
+        with self.hold(ports, context=context) as interval:
+            args = dict(request_bytes=b"request", manifest_bytes=b"manifest",
+                        receipt_bytes=b"receipt", context=context)
+            commit_and_reconcile_protected_ack_proposal(interval, Ack(), **args)
+            with self.assertRaisesRegex(ValueError, "already attempted"):
+                commit_and_reconcile_protected_ack_proposal(interval, Ack(), **args)
+        self.assertEqual(events.count("ack.commit"), 1)
+
+    def test_uncertain_commit_is_one_shot_per_interval(self):
+        events, _, ports = self.setup_ports()
+        context = object()
+        class Ack:
+            def commit(self, *args):
+                events.append("ack.commit")
+                raise OSError("unknown outcome")
+            def reconcile(self, *args): self.fail("reconcile not reached")
+        with self.hold(ports, context=context) as interval:
+            args = dict(request_bytes=b"request", manifest_bytes=b"manifest",
+                        receipt_bytes=b"receipt", context=context)
+            for expected in (SourceHolderAckUncertain, ValueError):
+                with self.assertRaises(expected):
+                    commit_and_reconcile_protected_ack_proposal(interval, Ack(), **args)
+        self.assertEqual(events.count("ack.commit"), 1)
+
+    def test_ack_reconciliation_failure_is_uncertain_and_closes_all(self):
+        events, _, ports = self.setup_ports()
+        context = object()
+        class Ack:
+            def commit(self, *args): events.append("ack.commit")
+            def reconcile(self, *args):
+                events.append("ack.reconcile")
+                raise OSError("readback failed")
+        with self.assertRaises(SourceHolderAckUncertain):
+            with self.hold(ports, context=context) as interval:
+                commit_and_reconcile_protected_ack_proposal(
+                    interval, Ack(), request_bytes=b"request", manifest_bytes=b"manifest",
+                    receipt_bytes=b"receipt", context=context,
+                )
+        self.assertEqual(events[-3:], ["source.close", "pins.close", "managed.close"])
+
+    def test_nonmatching_reconcile_readback_is_uncertain(self):
+        events, _, ports = self.setup_ports()
+        context = object()
+        class Ack:
+            def commit(self, *args): events.append("ack.commit")
+            def reconcile(self, *args): return (b"other", args[1], args[2])
+        with self.assertRaises(SourceHolderAckUncertain):
+            with self.hold(ports, context=context) as interval:
+                commit_and_reconcile_protected_ack_proposal(
+                    interval, Ack(), request_bytes=b"request", manifest_bytes=b"manifest",
+                    receipt_bytes=b"receipt", context=context,
+                )
+
+    def test_ack_bytes_must_match_opened_request_and_receipt(self):
+        events, _, ports = self.setup_ports()
+        context = object()
+        class Ack:
+            def commit(self, *args): self.fail("must not commit")
+            def reconcile(self, *args): self.fail("must not reconcile")
+        with self.assertRaisesRegex(ValueError, "differ from source-holder opening"):
+            with self.hold(ports, context=context) as interval:
+                commit_and_reconcile_protected_ack_proposal(
+                    interval, Ack(), request_bytes=b"changed", manifest_bytes=b"manifest",
+                    receipt_bytes=b"receipt", context=context,
+                )
+
+    def test_nonfinite_window_and_live_coverage_are_refused(self):
+        for value in (float("nan"), float("inf")):
+            events, _, ports = self.setup_ports()
+            with self.assertRaises(ValueError):
+                with hold_source_holder_interval_proposal(
+                    *ports, receipt_bytes=b"receipt", vector=object(),
+                    source_selection=object(), request_bytes=b"request", context=object(),
+                    ack_window_seconds=value,
+                ):
+                    self.fail("nonfinite window admitted")
+        events, handles, ports = self.setup_ports()
+        context = object()
+        with self.hold(ports, context=context) as interval:
+            handles["managed"].remaining = float("inf")
+            with self.assertRaisesRegex(ValueError, "does not cover ACK window"):
+                commit_and_reconcile_protected_ack_proposal(
+                    interval, object(), request_bytes=b"request", manifest_bytes=b"manifest",
+                    receipt_bytes=b"receipt", context=context,
+                )
+
+    def test_close_failure_after_exact_reconciliation_is_incomplete(self):
+        events, _, ports = self.setup_ports(failures={"pins.close": OSError("close")})
+        context = object()
+        class Ack:
+            def commit(self, *args): events.append("ack.commit")
+            def reconcile(self, *args): return (args[0], args[1], args[2])
+        with self.assertRaises(SourceHolderAckIncomplete):
+            with self.hold(ports, context=context) as interval:
+                commit_and_reconcile_protected_ack_proposal(
+                    interval, Ack(), request_bytes=b"request", manifest_bytes=b"manifest",
+                    receipt_bytes=b"receipt", context=context,
+                )
+
+    def test_insufficient_coverage_refuses_before_body_and_closes(self):
+        events, _, ports = self.setup_ports()
+        ports[1].handle.remaining_lifetime_seconds = lambda: 29
+        with self.assertRaisesRegex(ValueError, "does not cover ACK window"):
+            with self.hold(ports):
+                self.fail("body must not run")
+        self.assertEqual(events[-3:], ["source.close", "pins.close", "managed.close"])
 
 
 if __name__ == "__main__":

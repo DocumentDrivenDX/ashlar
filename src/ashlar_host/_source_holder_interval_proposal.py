@@ -2,14 +2,15 @@
 """Proposal-only source-holder handle lifetime choreography.
 
 This private helper mirrors the draft ports in CONTRACT-001 and TD-009. It
-does not implement a native adapter, establish authority or lease coverage,
-produce an ACK-ready result, or expose commit/reconcile operations. No campaign
-or Truss entrypoint imports it.
+exposes injected-port choreography for exact-byte ACK commit and reconciliation.
+It is not a native adapter and establishes no source authority. No campaign or
+Truss entrypoint imports it.
 """
 from __future__ import annotations
 
 from contextlib import contextmanager
 from dataclasses import dataclass, field
+import math
 from typing import Protocol
 
 
@@ -35,6 +36,7 @@ class SourceHolderCloseError(SourceHolderIntervalError):
 class RenewableHandle(Protocol):
     def renew(self) -> object: ...
     def close(self) -> object: ...
+    def remaining_lifetime_seconds(self) -> float: ...
 
 
 class ManagedPublicationReadPort(Protocol):
@@ -49,6 +51,20 @@ class TrussSourceCustodyPort(Protocol):
     def open(self, source_selection: object, request_bytes: bytes, context: object) -> RenewableHandle: ...
 
 
+class TrussProtectedReceiptAckPort(Protocol):
+    def commit(self, request_bytes: bytes, manifest_bytes: bytes, receipt_bytes: bytes, context: object) -> object: ...
+    # Reconcile returns exact original (request, manifest, receipt) bytes.
+    def reconcile(self, request_bytes: bytes, manifest_bytes: bytes, receipt_bytes: bytes, context: object) -> tuple[bytes, bytes, bytes]: ...
+
+
+class SourceHolderAckUncertain(SourceHolderIntervalError):
+    """ACK was attempted but exact settlement could not be established."""
+
+
+class SourceHolderAckIncomplete(SourceHolderIntervalError):
+    """ACK may be settled, but required close checks did not complete."""
+
+
 @dataclass(frozen=True)
 class SourceHolderIntervalHandles:
     """The three opened handles; their presence proves no authority or duration."""
@@ -56,7 +72,13 @@ class SourceHolderIntervalHandles:
     managed_publication: RenewableHandle
     native_pin: RenewableHandle
     truss_source: RenewableHandle
+    _request_bytes: bytes = field(repr=False, compare=False)
+    _receipt_bytes: bytes = field(repr=False, compare=False)
+    _context: object = field(repr=False, compare=False)
+    _ack_window_seconds: float = field(repr=False, compare=False)
     _active: bool = field(default=True, init=False, repr=False, compare=False)
+    _ack_attempted: bool = field(default=False, init=False, repr=False, compare=False)
+    _ack_reconciled: bool = field(default=False, init=False, repr=False, compare=False)
 
     def renew_all(self) -> None:
         """Recheck in the fixed order; callers must not infer a lease duration."""
@@ -65,6 +87,7 @@ class SourceHolderIntervalHandles:
         for role, handle in self.ordered():
             try:
                 handle.renew()
+                _require_coverage(role, handle, self._ack_window_seconds)
             except BaseException as error:
                 add_note = getattr(error, "add_note", None)
                 if callable(add_note):
@@ -113,6 +136,14 @@ def _close_reverse(handles: list[tuple[str, object]]) -> tuple[tuple[SourceHolde
     return tuple(failures), first_error
 
 
+def _require_coverage(role: str, handle: object, minimum: float) -> None:
+    coverage = getattr(handle, "remaining_lifetime_seconds", None)
+    remaining = coverage() if callable(coverage) else None
+    if (type(remaining) not in (int, float) or not math.isfinite(remaining)
+            or remaining < minimum):
+        raise SourceHolderIntervalError(f"Draft {role} does not cover ACK window")
+
+
 @contextmanager
 def hold_source_holder_interval_proposal(
     managed_publication_port: ManagedPublicationReadPort,
@@ -124,8 +155,9 @@ def hold_source_holder_interval_proposal(
     source_selection: object,
     request_bytes: bytes,
     context: object,
+    ack_window_seconds: float = 30.0,
 ):
-    """Open, renew-all, yield and reverse-close draft handles without ACK.
+    """Open, renew-all, yield and reverse-close the draft source-holder interval.
 
     The API is deliberately disconnected from campaign code. An open/renew
     success says only that injected ports returned without error at that
@@ -134,7 +166,9 @@ def hold_source_holder_interval_proposal(
     """
     if (type(receipt_bytes) is not bytes or not receipt_bytes
             or type(request_bytes) is not bytes or not request_bytes
-            or vector is None or source_selection is None or context is None):
+            or vector is None or source_selection is None or context is None
+            or type(ack_window_seconds) not in (int, float)
+            or not math.isfinite(ack_window_seconds) or ack_window_seconds <= 0):
         raise SourceHolderIntervalError("Exact draft source-holder inputs required")
     ports = (
         ("managed_publication", managed_publication_port,
@@ -163,7 +197,8 @@ def hold_source_holder_interval_proposal(
                 raise SourceHolderIntervalError(f"Draft {role} renewable closable handle required")
             opened[role] = handle
         interval = SourceHolderIntervalHandles(
-            opened["managed_publication"], opened["native_pin"], opened["truss_source"]
+            opened["managed_publication"], opened["native_pin"], opened["truss_source"],
+            request_bytes, receipt_bytes, context, ack_window_seconds,
         )
         interval.renew_all()
         yield interval
@@ -178,4 +213,52 @@ def hold_source_holder_interval_proposal(
         _record_close_failures(primary, failures)
         raise primary.with_traceback(primary_traceback)
     if failures:
+        if interval is not None and interval._ack_reconciled:
+            raise SourceHolderAckIncomplete(
+                "Protected ACK reconciled but source-holder closes were incomplete"
+            ) from first_close_error
         raise SourceHolderCloseError(failures) from first_close_error
+
+
+def commit_and_reconcile_protected_ack_proposal(
+    interval: SourceHolderIntervalHandles,
+    ack_port: TrussProtectedReceiptAckPort,
+    *, request_bytes: bytes, manifest_bytes: bytes, receipt_bytes: bytes,
+    context: object,
+) -> None:
+    """Renew immediately before one exact-byte commit and exact-byte readback.
+
+    Reconciliation must return the exact original request, manifest and receipt
+    bytes. The call is one-shot even after an uncertain commit outcome; retry
+    requires original-operation reconciliation outside this helper.
+    """
+    if (type(request_bytes) is not bytes or not request_bytes
+            or type(manifest_bytes) is not bytes or not manifest_bytes
+            or type(receipt_bytes) is not bytes or not receipt_bytes
+            or context is None or type(interval) is not SourceHolderIntervalHandles):
+        raise SourceHolderIntervalError("Exact protected ACK inputs and live interval required")
+    if request_bytes != interval._request_bytes or receipt_bytes != interval._receipt_bytes:
+        raise SourceHolderIntervalError("Protected ACK bytes differ from source-holder opening custody")
+    if context is not interval._context:
+        raise SourceHolderIntervalError("Protected ACK context differs from source-holder opening context")
+    if interval._ack_attempted:
+        raise SourceHolderIntervalError("Protected ACK already attempted in this source-holder interval")
+    interval.renew_all()
+    commit = getattr(ack_port, "commit", None)
+    reconcile = getattr(ack_port, "reconcile", None)
+    if not callable(commit) or not callable(reconcile):
+        raise SourceHolderIntervalError("Protected exact-byte ACK commit/reconcile port required")
+    object.__setattr__(interval, "_ack_attempted", True)
+    try:
+        commit(request_bytes, manifest_bytes, receipt_bytes, context)
+    except BaseException as error:
+        raise SourceHolderAckUncertain("Protected ACK commit outcome is uncertain") from error
+    try:
+        readback = reconcile(request_bytes, manifest_bytes, receipt_bytes, context)
+    except BaseException as error:
+        raise SourceHolderAckUncertain("Protected ACK exact reconciliation failed") from error
+    if (type(readback) is not tuple or len(readback) != 3
+            or any(type(item) is not bytes for item in readback)
+            or readback != (request_bytes, manifest_bytes, receipt_bytes)):
+        raise SourceHolderAckUncertain("Protected ACK readback does not match exact original bytes")
+    object.__setattr__(interval, "_ack_reconciled", True)
