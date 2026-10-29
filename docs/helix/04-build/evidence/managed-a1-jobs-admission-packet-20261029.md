@@ -66,22 +66,14 @@ or successful execution.
 The preference is less than $10 total and the hard ceiling is $100 total,
 including prior campaign spend, startup, idle time during external ACK, storage,
 network, background usage, cancellation/termination delay and owned cleanup.
-The retained Central US retail observation records $0.255 per VM-hour for each
-`Standard_D4ds_v5` node and $0.30 per Premium Jobs DBU-hour. The current Azure
-[Databricks pricing page](https://azure.microsoft.com/en-us/pricing/details/databricks/)
-lists the Jobs DBU price; the retained
-[dated price observation](current-upstream-release-20261023/managed-fixed-jobs-retail-observation.json)
-contains the selected regional VM and Jobs meters. For two nodes, the conditional
-hourly formula is `$0.51 + $0.30 × actual total Jobs DBU/hour`; the DBU rate for
-this candidate is unknown. If, only for illustration, each node consumed no more
-than the earlier unverified 2 DBU/hour threshold, total compute would be
-`$1.71/hour`, or `$1.14` for a 40-minute slot and `$9.12` for eight such slots,
-before ancillary charges. These are conditional calculations, not admission
-figures. No complete bound is available because actual DBU consumption, startup
-and idle billing increments, ancillary meters and total cleanup remain unknown.
-Neither a duration limit nor a public-price estimate is accepted as the cost
-bound. Do not launch until current metering/rates support a conservative total
-estimate below $100 with cleanup reserve; prefer staying below $10.
+The current Azure [Databricks pricing page](https://azure.microsoft.com/en-us/pricing/details/databricks/)
+lists Premium Jobs at `$0.30/DBU-hour` and D4ds v5 Jobs at 1.00 DBU/node; paired
+with the retained [Central US VM price observation](current-upstream-release-20261023/managed-fixed-jobs-retail-observation.json),
+the two-node 40-minute compute reference is about `$0.74` (about `$0.76` using
+the pricing page's displayed PAYG total). The practical `$10` target and `$100`
+escalation operating plan is recorded in the [cost-plan review](managed-a1-jobs-cost-bound-review-20261029.md);
+it is not a provider-enforced invoice cap. Do not launch until prior attributable
+A1 spend is checked and runtime/access and source-holder gates pass.
 
 ## Required admission and post-start readback
 
@@ -96,10 +88,11 @@ missing, ambiguous, or conflicting result stops later effects.
    the exact `spark_version` maintenance identifier, policy-compliant worker
    count and node type, engine, Photon setting, UC access mode, and full
    effective cluster configuration. Confirm no pool is used.
-3. Obtain a conservative charge bound using current workspace/account rates and
-   meters for compute, startup/idle billing increments, disk, network, background
-   optimization, external ACK wait, and termination/cleanup tails. Include prior
-   A1 campaign spend and retain a cleanup reserve under the $100 ceiling.
+3. Apply the reviewed cost plan to available current rates and usage evidence;
+   check attributable prior A1 campaign spend and retain the cleanup reserve
+   within the $10 target and $100 escalation ceiling. Include startup/idle, disk,
+   network, background optimization, external ACK wait, and termination/cleanup
+   in the forecast; the plan is an operating control, not a provider cap.
 4. Independently pass the source/ACK holder, frozen request/source prefix and
    latest package-cohort gates in the A1 constraints and TD-009. Confirm the
    live source read/pin remains held through ACK commit, reconciliation and
