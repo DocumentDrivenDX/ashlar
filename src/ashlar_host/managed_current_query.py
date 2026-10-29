@@ -871,12 +871,13 @@ class ManagedCurrentReadOwner:
             for key, value in previous.items():
                 sc.setLocalProperty(key, value)
 
-    def run_backend03(self, compiler, request, *, timeout_seconds=90):
+    def run_backend03(self, compiler, request, *, timeout_seconds=90, retain_response=False,
+                      admit_compiled=None):
         """Compile and execute one original Backend03 query under this owner."""
         from ashlar.weft_query import read_weft
         _require(callable(getattr(compiler, "compile_json", None))
                  and type(timeout_seconds) is int and 1 <= timeout_seconds <= 90
-                 and type(request) is dict)
+                 and type(request) is dict and type(retain_response) is bool)
         raw = compiler.compile_json(_canonical(request))
         _require(type(raw) is str and len(raw.encode("utf-8")) <= 4 * 1024 * 1024)
         compiled = json.loads(raw)
@@ -895,16 +896,28 @@ class ManagedCurrentReadOwner:
             "targetProfile": "ashlar-managed-current-core/0.1",
         })
         _require(artifact.get("backend") == expected_backend)
+        if admit_compiled is not None:
+            _require(callable(admit_compiled))
+            # Versioned compiler admission must complete before entering the
+            # native read boundary. Pass bytes only so the callback cannot
+            # mutate the parsed artifact that will be sent to read_weft.
+            admit_compiled(raw.encode("utf-8"))
         revisions = json.loads(self.receipt["manifest"]["schema_revisions_json"])
         with self.deadline(timedelta(seconds=timeout_seconds)):
             result = read_weft(self, self.backend, self, self.vector, self,
                 request=request, artifact=artifact, context=self.context,
                 supported_profiles=[self.carrier_profile],
                 supported_revisions={name: [revision] for name, revision in revisions.items()})
-        return {"request": request, "artifact": artifact,
+        result = {"request": request, "artifact": artifact,
                 "rows": [list(row) for row in result],
                 "runtimeIdentity": self.runtime_identity,
                 "publicationReceipt": self.receipt}
+        if retain_response:
+            response_bytes = raw.encode("utf-8")
+            result.update({"compilerResponseBytes": response_bytes,
+                           "compilerResponseSha256": hashlib.sha256(response_bytes).hexdigest(),
+                           "compilerSqlSha256": hashlib.sha256(artifact["sql"].encode("utf-8")).hexdigest()})
+        return result
 
     def run_backend03_case(self, compiler, request, *, case, expected_rows,
                            source_commit, linux_wheel_sha256,

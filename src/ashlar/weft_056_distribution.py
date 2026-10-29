@@ -111,17 +111,18 @@ class Weft056Distribution:
         module_path=Path(self.index['module']); _require(module_path.is_absolute() and module_path.resolve()==module_path and str(module_path).startswith(str(root)+os.sep))
         if self.module is not None:
             _require(str(Path(self.module.__file__).resolve())==self.index['module'] and self.module.__version__==VERSION)
-            _require(all(callable(getattr(self.module,n,None)) for n in ('compile_paths_keys_json','compile_engine_page_json','check_engine_page_json','check_engine_read_json')))
+            _require(all(callable(getattr(self.module,n,None)) for n in ('compile_json','compile_paths_keys_json','compile_engine_page_json','check_engine_page_json','check_engine_read_json')))
         schemas=self.index['schemas']; _require(type(schemas)is dict and set(schemas)==set(SCHEMA_SHA256))
         for name,digest in SCHEMA_SHA256.items():
             _require(schemas[name]['sha256']==digest and hashlib.sha256(_read(Path(schemas[name]['path']),MAX_FILE)).hexdigest()==digest)
         return True
     def _call(self,name,*args):
-        self._verify(); _require(name in {'compile_paths_keys_json','compile_engine_page_json','check_engine_page_json','check_engine_read_json'})
+        self._verify(); _require(name in {'compile_json','compile_paths_keys_json','compile_engine_page_json','check_engine_page_json','check_engine_read_json'})
         if name=='check_engine_page_json':
             _require(len(args)==3 and all(type(x)is str and 0<len(x.encode())<=MAX_REQUEST for x in args[:2]) and (args[2]is None or type(args[2])is str and 0<len(args[2].encode())<=MAX_REQUEST))
         else: _require(all(type(x)is str and 0<len(x.encode())<=MAX_REQUEST for x in args))
         out=getattr(self.module,name)(*args); _require(type(out)is str and 0<len(out.encode())<=MAX_RESPONSE); self._verify(); return out
+    def compile_json(self,request): return self._call('compile_json',request)
     def compile_paths_keys_json(self,request): return self._call('compile_paths_keys_json',request)
     def compile_engine_page_json(self,request): return self._call('compile_engine_page_json',request)
     def check_engine_page_json(self,original,request,after=None): return self._call('check_engine_page_json',original,request,after)

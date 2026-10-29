@@ -52,6 +52,13 @@ class Weft056DistributionTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 instance._refuse_bytecode_caches()
 
+    def test_compile_json_is_exposed_only_through_the_verified_056_boundary(self):
+        from types import SimpleNamespace
+        compiler = object.__new__(Weft056Distribution)
+        compiler.module = SimpleNamespace(compile_json=lambda request: request + '-response')
+        with patch.object(Weft056Distribution, '_verify', return_value=True):
+            self.assertEqual(compiler.compile_json('original-request'), 'original-request-response')
+
 
 if __name__ == '__main__':
     unittest.main()

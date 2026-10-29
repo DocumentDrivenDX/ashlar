@@ -31,7 +31,7 @@ SHA-256 as the public release metadata.
 | UMF Core 0.10.3 | [`python-v0.10.3`](https://github.com/DocumentDrivenDX/umf/releases/tag/python-v0.10.3), `7d334dec45948953718bfacd3ed6dd199cadba79` | macOS arm64, `umf_core-0.10.3-cp311-abi3-macosx_11_0_arm64.whl` | 3,331,547 | `dc2586793e1492d1f825bd9e12f27d5db9f9330ae2343d9e7773c7052f1f6ea6` |
 | UMF Core 0.10.3 | same | Linux x86_64, `umf_core-0.10.3-cp311-abi3-manylinux_2_34_x86_64.whl` | 3,612,043 | `cd35f255900ec122e5e2d47d1fbac658cc127d3f16ba82e643e199b7d8cebd75` |
 | UMF Access 0.1.0.dev8 | [`umf-v0.5.7`](https://github.com/DocumentDrivenDX/umf/releases/tag/umf-v0.5.7), `dce9b430422242edd135e69a7a64620d0244784e` | Python wheel, `umf_access-0.1.0.dev8-py3-none-any.whl` | 580,062 | `1a21c1ddd59f6b23e9f0b33228280564af0e96bb4d13699b89616d5143e4fd23` |
-| Weft 0.4.56 (`umf-weft`) | [`v0.4.56`](https://github.com/DocumentDrivenDX/weft/releases/tag/v0.4.56), `2f62e1148d1b2030558550e4f6f2ffe518bac62d` | macOS arm64, `umf_weft-0.4.56-cp39-abi3-macosx_11_0_arm64.whl` | 11,190,603 | `68f9297b4b55df483b86d3041040991c4dadfb9b4d136afcff1420c43f93ae41d` |
+| Weft 0.4.56 (`umf-weft`) | [`v0.4.56`](https://github.com/DocumentDrivenDX/weft/releases/tag/v0.4.56), `2f62e1148d1b2030558550e4f6f2ffe518bac62d` | macOS arm64, `umf_weft-0.4.56-cp39-abi3-macosx_11_0_arm64.whl` | 11,190,603 | `68f9297b4b55df483b86d3041040991c4dadfb9b4d63afcff1420c43f93ae41d` |
 | Weft 0.4.56 (`umf-weft`) | same | Linux x86_64, `umf_weft-0.4.56-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl` | 14,358,901 | `32f4c38d9a614dd4c3a367f8b24d5cd4ba41ec80c2a4a2e3423e2082a294dbdd` |
 
 The access wheel summary says `Target qualification pending`; the package is
