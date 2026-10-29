@@ -1,0 +1,3000 @@
+{
+  "archive_bytes": 8755200,
+  "archive_path": "/private/tmp/ashlar-r16-source-48fb9cb0.tar",
+  "archive_sha256": "cb57fdb7d338f345cfad157463fdbe94a2be7dcf69e728c474954c2939c14a0b",
+  "commit": "48fb9cb047f95854d59d0882af31156aab5f1f99",
+  "commit_tree": "5776238063057a36b2b2dff9b19de9f264d7ac21",
+  "content_bytes": 8280140,
+  "files": 594,
+  "objects": {
+    "pyproject.toml": "8e0a8754fc99fbdcb3b53f7ff121364544ffff4b",
+    "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+    "src": "f1fee0eba063d53ceaae14cc6a0793c2a07bc198"
+  },
+  "profile": "ashlar-r16-selected-source-inputs/0.1",
+  "seed_request": {
+    "bytes": 1657,
+    "current_head_at_observation": "fa601db54183e56318d35de6c5a07e9ba4de5028",
+    "git_blob": "93951954795ce8fa376871626d6c4def5454dfa7",
+    "git_commit": "48fb9cb047f95854d59d0882af31156aab5f1f99",
+    "path": "docs/helix/04-build/evidence/current-upstream-release-20261022/truss-049-lifecycle-ready/seed-request.json",
+    "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771"
+  },
+  "selected_files": [
+    {
+      "bytes": 4369,
+      "path": "pyproject.toml",
+      "sha256": "a7c3dee5e9382fc27a9ea31c8b0ee0d82263622dfb1f0110be93cea9debe2848"
+    },
+    {
+      "bytes": 3996,
+      "path": "sql/ashlar-delta-v03/01-baseline.sql",
+      "sha256": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060"
+    },
+    {
+      "bytes": 804,
+      "path": "sql/ashlar-delta-v03/02-forward-adjacency.sql",
+      "sha256": "55da40832749f39f53f25ca90a2c85a868f5a7b3383cfb9651f50f74d706b325"
+    },
+    {
+      "bytes": 804,
+      "path": "sql/ashlar-delta-v03/03-reverse-adjacency.sql",
+      "sha256": "3c4575478efa7dd84d7545069a996c01e7d15a10b53fe52c9954a8c89ac066c9"
+    },
+    {
+      "bytes": 584,
+      "path": "sql/ashlar-delta-v03/04-degree-summary.sql",
+      "sha256": "ac2176e0d145bb21dc8edffd047c5d357343f215f181c0109902d4eaa0722dd5"
+    },
+    {
+      "bytes": 1251,
+      "path": "sql/ashlar-delta-v03/05-typed-examples.sql",
+      "sha256": "356b465eae7e4effe22d013a034efc2dd872eaf779a9b10d6a07953723b0a1ac"
+    },
+    {
+      "bytes": 863,
+      "path": "sql/ashlar-delta-v03/06-coordination-candidate.sql",
+      "sha256": "bdc2449dd72092a8e1eaa547ff0ccf81194ba66b506af106387c6f02e7239581"
+    },
+    {
+      "bytes": 5545,
+      "path": "sql/ashlar-delta-v03/README.md",
+      "sha256": "642a629148c6dbaa8359fcad436accec9b4b262f06a0d7093ed25499890ca6e5"
+    },
+    {
+      "bytes": 1866,
+      "path": "sql/ashlar-delta-v03/manifest.json",
+      "sha256": "b20caabb2e46ddcf657365e3811850102dd281a81d83910e9ae9f718e6199339"
+    },
+    {
+      "bytes": 999,
+      "path": "sql/ashlar-delta-v03/native-singleton.sql",
+      "sha256": "311a7cabed197c991e13ad53dddfb1705cbe45bc82bfbf572bc75cf927953316"
+    },
+    {
+      "bytes": 824,
+      "path": "sql/ashlar-delta-v03/publication-descriptor.sql",
+      "sha256": "5f98d741d4fbe313f3cc960b1473dc7c6ca5bef47a4ada87a5c51e1faa18b300"
+    },
+    {
+      "bytes": 20628,
+      "path": "sql/ashlar-delta-v03/runtime-carriers.generated.json",
+      "sha256": "89bcb139316bfbb110c9f3beaa1b582de6d521239217abcc307e55fc43a81e45"
+    },
+    {
+      "bytes": 12472,
+      "path": "sql/ashlar-original-commerce-local/runtime-carriers.generated.json",
+      "sha256": "612dda9253d1f32c2a00cc524c138f6e7a555b45d69eaf4edf5bf83816641905"
+    },
+    {
+      "bytes": 2470,
+      "path": "sql/ashlar-outbox/01-postgresql.sql",
+      "sha256": "3d120a63c1afebf0f8a057ce4b66301fc837eb34220adb340227c4dc339be739"
+    },
+    {
+      "bytes": 3903,
+      "path": "sql/ashlar-pins/01-postgresql.sql",
+      "sha256": "18f3428464b9cd5e53eb30148523cb01679c899c9baf619aff7b53bdd3a56798"
+    },
+    {
+      "bytes": 2334,
+      "path": "sql/ashlar-pins/02-native-fixture-check.sql",
+      "sha256": "8f8b8bbb4e82ac5bda18189c02ce6ae9bfa54e78056fee9d8531cb8dd5fe727e"
+    },
+    {
+      "bytes": 1021,
+      "path": "sql/ashlar-pins/03-read-guard.sql",
+      "sha256": "2375285850541023bd27ce4f8197e640c31c9c07b82a9f1e75180614670600fe"
+    },
+    {
+      "bytes": 1023,
+      "path": "sql/ashlar-pins/04-table-guard.sql",
+      "sha256": "690debb6483993d13ff91a516bf2fc85f611a434c91aaa488367f4bd07f7a9db"
+    },
+    {
+      "bytes": 3936,
+      "path": "sql/ashlar-pins/05-maintenance-quarantine.sql",
+      "sha256": "0cf3c3fe189f708fb619fa84ecd664c644ed929442c70e8cd91fbd2fc75e3280"
+    },
+    {
+      "bytes": 809,
+      "path": "sql/ashlar-pins/06-availability-guard.sql",
+      "sha256": "76a361114fe92cbc9da63984d4190ef720b1576f0765fd35e60a1e0e2509ee29"
+    },
+    {
+      "bytes": 11821,
+      "path": "sql/ashlar-source-ack/01-postgresql.sql",
+      "sha256": "70dd93f7fc53e6b0832ccde78066960a8815d0aed4597a32a7d9fc43ef17225c"
+    },
+    {
+      "bytes": 3595,
+      "path": "sql/profile-custody/01-postgresql.sql",
+      "sha256": "65552b02d3517c0bc06e31642cdef528bf279a8d15dece309eadb1f556bfb87d"
+    },
+    {
+      "bytes": 2851,
+      "path": "sql/profile-custody/02-native-check.sql",
+      "sha256": "d20ae5811adbf1a849203f69e89334dca016c5b636a9dd666489d3d3e42fcc99"
+    },
+    {
+      "bytes": 1840,
+      "path": "sql/profile-custody/README.md",
+      "sha256": "3efffa069bb13b20759cd6ea08477d58d0b10e2fa18dae4c715f1ceb4485ff34"
+    },
+    {
+      "bytes": 3767,
+      "path": "sql/typed-sdk-actions/01-local-admission.sql",
+      "sha256": "72ea5a46fa9b8047cf996a86acd1b6a96b1ada68e94071fccdede6abd7f4eb1e"
+    },
+    {
+      "bytes": 12907,
+      "path": "src/ashlar/README.md",
+      "sha256": "facb296c4f91dd9ce9a441728281c3cbe136c094b4c6521ac1f97321b529e7d3"
+    },
+    {
+      "bytes": 1338,
+      "path": "src/ashlar/__init__.py",
+      "sha256": "526a516261ac24c20bc981c3238ccfd9eac727f0a906729529eb3db92bf72322"
+    },
+    {
+      "bytes": 75,
+      "path": "src/ashlar/__main__.py",
+      "sha256": "82ce76f42906d5e80d49c41486216cd76c8ed6ed5a5804d253e39c32471c2810"
+    },
+    {
+      "bytes": 14813,
+      "path": "src/ashlar/_weft_installation_mechanics.py",
+      "sha256": "575ec902a434de2bfeb77d29fe807ba454ec3bf2781370b98bd3816fd4a49638"
+    },
+    {
+      "bytes": 25133,
+      "path": "src/ashlar/access.py",
+      "sha256": "d1a0599d9d4b81f0715c5006af655cdf50426996d64a83e10a95c9b0040751f2"
+    },
+    {
+      "bytes": 6598,
+      "path": "src/ashlar/apply.py",
+      "sha256": "9a919570df562378a27e41094ce3223fe7bf2912068f8c1d0bdc02644a253678"
+    },
+    {
+      "bytes": 5891,
+      "path": "src/ashlar/archaeology_source.py",
+      "sha256": "f4b734f75fe147cebdc6bc3ee216b77031c2b649630c9d13fad0c58d0a9c4637"
+    },
+    {
+      "bytes": 6116,
+      "path": "src/ashlar/assertions.py",
+      "sha256": "13122d2b7b582ddfaefec73070115e71ac7c5b8a7816eeb6a5b34f5a2748eb8f"
+    },
+    {
+      "bytes": 12017,
+      "path": "src/ashlar/async_access.py",
+      "sha256": "bd3e7e2d958abaa30032a186b2d93c8ee5b25ca53d1bc9ea30c7452993d6bcc2"
+    },
+    {
+      "bytes": 18587,
+      "path": "src/ashlar/attempt_store.py",
+      "sha256": "307bad232a203486190e9acf90ce1d4b9f3cc67bb78b80bf4fed35810e2545e3"
+    },
+    {
+      "bytes": 2479,
+      "path": "src/ashlar/authority.py",
+      "sha256": "34e54a3938089bd31703634d66e3f2b582df2eb60b18ccc4e321f6c9121bf428"
+    },
+    {
+      "bytes": 6858,
+      "path": "src/ashlar/binding.py",
+      "sha256": "ba8a8695b13895e1b7169a3e32ff28deddc6fe9aefcaa50dbf1b5a84ae383231"
+    },
+    {
+      "bytes": 4971,
+      "path": "src/ashlar/catalog.py",
+      "sha256": "ee4047eeaaba6ee0ea5bcda669b840ccb3d3723ce3698d44bdbadddf339204db"
+    },
+    {
+      "bytes": 100315,
+      "path": "src/ashlar/cli.py",
+      "sha256": "fb03a6bfbb9ecc1decbde8ee18331d5a7f777a10595242d57bb85da9a52b7b44"
+    },
+    {
+      "bytes": 17295,
+      "path": "src/ashlar/commerce_evolution.py",
+      "sha256": "37cc8b432983d6425884c92b77fbf0882880f654ece44bcf301026c083e16d0f"
+    },
+    {
+      "bytes": 5725,
+      "path": "src/ashlar/commerce_source.py",
+      "sha256": "edbcd313127284bc477e7439eeaa87f4b3ddcda37fc3bd589105971c9baa2608"
+    },
+    {
+      "bytes": 6635,
+      "path": "src/ashlar/csv_source.py",
+      "sha256": "4e92116d66eff1b674e15a8451eb21933d4073e5627c55b75b27bc32ce796698"
+    },
+    {
+      "bytes": 4255,
+      "path": "src/ashlar/current_contributors.py",
+      "sha256": "887cdf740efaf8e7fb0fb76b5269333f48dc176eb818fcc0fb7693b545cd5116"
+    },
+    {
+      "bytes": 4133,
+      "path": "src/ashlar/durable_publisher.py",
+      "sha256": "bda957eb65171f1d40f9080d65d3a4ecafed3a2bb226399c7ceee0bf1cfee6e1"
+    },
+    {
+      "bytes": 5863,
+      "path": "src/ashlar/ecology_source.py",
+      "sha256": "9d54ce7652a1bb06c8b9f93e4c9a6f1bb2bdf0396e5933073e959c2117a52483"
+    },
+    {
+      "bytes": 2796,
+      "path": "src/ashlar/effect_validation.py",
+      "sha256": "dcf2dcf6ccbe227251558eaa501a948008805aae89f64c1b5e28c2dffc26a3cf"
+    },
+    {
+      "bytes": 702,
+      "path": "src/ashlar/execution_scope.py",
+      "sha256": "6f772544cf15a36a536e8ada963c755bb0332dfc4ba5a0a9dc7d9b304dfed9af"
+    },
+    {
+      "bytes": 14783,
+      "path": "src/ashlar/graph_release.py",
+      "sha256": "6d06a1dadd63c62c8ffd7a9377dc76b45beff9e65a18283b2c6c406d4e1b7651"
+    },
+    {
+      "bytes": 3449,
+      "path": "src/ashlar/lineage.py",
+      "sha256": "cf5f0dba9bdc9550a390d1639fefacd0acce957f25d4499e2157f669bf555aba"
+    },
+    {
+      "bytes": 1688,
+      "path": "src/ashlar/maintenance.py",
+      "sha256": "6a1a9444e1332303019fd2a995fddf9c75e5921867edc51027fcb15065ed9490"
+    },
+    {
+      "bytes": 8282,
+      "path": "src/ashlar/manifest.py",
+      "sha256": "af97bf65f45c67cf0e9b6845026fcdbcaec779d5382aeda20bcde02d9f781678"
+    },
+    {
+      "bytes": 7942,
+      "path": "src/ashlar/medical_source.py",
+      "sha256": "7f2e256df8a3920d6912b9765effe39c8e8e536943a3f924c6f3afa199da02ed"
+    },
+    {
+      "bytes": 4324,
+      "path": "src/ashlar/native.py",
+      "sha256": "3c632d3e6e71ad1dd00b9d11c5ba4a3e750d0477a51f593c62b0a8a19f68bda8"
+    },
+    {
+      "bytes": 4645,
+      "path": "src/ashlar/origin.py",
+      "sha256": "5da681092201b0880eb31bc7c54381b3513ffddedaa3efc7ba445040cfd51aa4"
+    },
+    {
+      "bytes": 6570,
+      "path": "src/ashlar/outbox.py",
+      "sha256": "c37d20f38d58a0913d4bf0261665d2b0c49ecbd08aebc563a13243269dd7c935"
+    },
+    {
+      "bytes": 6117,
+      "path": "src/ashlar/payments_source.py",
+      "sha256": "625c3b49c6b3d2187b8781c476198ef12420a7a0530c2b045881f8bb3793c40d"
+    },
+    {
+      "bytes": 885,
+      "path": "src/ashlar/phase_read.py",
+      "sha256": "790e7ca941d99092bf78da0a8cc8a9a2140741b6c59b70342e2ec00afffc39a2"
+    },
+    {
+      "bytes": 6257,
+      "path": "src/ashlar/pins.py",
+      "sha256": "5ed4bec93502682df16ed08f578a66a5b39c5f7fd752750dc64a9583c1abdcd8"
+    },
+    {
+      "bytes": 12853,
+      "path": "src/ashlar/primitive_binding.py",
+      "sha256": "faeab0912e719347fd56763e1fd11530066cb96ccd96f4b2fd0a824f057f1023"
+    },
+    {
+      "bytes": 13172,
+      "path": "src/ashlar/primitive_field_binding.py",
+      "sha256": "3f130a17179a9faee1e3868e9507bca8199a69c8a5de9fe1ac367c3261662f2a"
+    },
+    {
+      "bytes": 2186,
+      "path": "src/ashlar/profile_custody.py",
+      "sha256": "3f22d91e2544eb755058e2f0a7413e789bbde4e61cff216d5bd026e75be977ee"
+    },
+    {
+      "bytes": 3412,
+      "path": "src/ashlar/protocol.py",
+      "sha256": "09a1aeb03269a261dbfc7cb3f9ea3aee0fcc7d5d18b2d679c534ec2aef047aa7"
+    },
+    {
+      "bytes": 6905,
+      "path": "src/ashlar/publication.py",
+      "sha256": "bba7a4ff4e204d08ec2a1817888d2e40dc1d491be658c8ad6f79afbc57d812c8"
+    },
+    {
+      "bytes": 521,
+      "path": "src/ashlar/publication_current_arguments.py",
+      "sha256": "c827877539248f35b5f9715952ebff35ce520f3c9f09f46ac857bf2d5803addd"
+    },
+    {
+      "bytes": 6795,
+      "path": "src/ashlar/publisher.py",
+      "sha256": "9d1cfd706a378111314ad83a845897cf9ec92711a12e78849b02997166f6140f"
+    },
+    {
+      "bytes": 2304,
+      "path": "src/ashlar/quarantine.py",
+      "sha256": "273d94aa2e4a30c5110a0371cfd1250663be3607f7e7b60cd54964fcdc406e4e"
+    },
+    {
+      "bytes": 3634,
+      "path": "src/ashlar/recovery.py",
+      "sha256": "be9d01bb3135527d278e210dffb035f02fe04a776c97cdd6106e34dfd6d23408"
+    },
+    {
+      "bytes": 10908,
+      "path": "src/ashlar/report_parts.py",
+      "sha256": "5e0d73a951c07079cc73921dbcb7bbc4295f9f88e1c06d1a964cbc0d70b7a3bf"
+    },
+    {
+      "bytes": 2161,
+      "path": "src/ashlar/request_validation_memo.py",
+      "sha256": "b740a6429000087f512c4a5287889e48b4d1fdb78d65e1b5b0b7f54e4763b24d"
+    },
+    {
+      "bytes": 7020,
+      "path": "src/ashlar/retention.py",
+      "sha256": "6ecf4250461cee159b164ca8036e9b0334e9491ef79496600af4a2dee098831e"
+    },
+    {
+      "bytes": 5492,
+      "path": "src/ashlar/retention_policy.py",
+      "sha256": "ba168387907798776142e628b211f81c64afc15afe5e5656cc3224a1d481f64f"
+    },
+    {
+      "bytes": 4379,
+      "path": "src/ashlar/schema.py",
+      "sha256": "69f55b72ad616d22d26bf24c13b667d4a7f02a068a745975389dfb679e60c62d"
+    },
+    {
+      "bytes": 1369,
+      "path": "src/ashlar/schema_policies.py",
+      "sha256": "22affabdd0078692b903720f6302b37978c46a429119a9b062815bca0d566892"
+    },
+    {
+      "bytes": 2417,
+      "path": "src/ashlar/schema_registry.py",
+      "sha256": "7c27f8325dc8f0d67bfe0c24ff3ed57fe8766693f373ffdfae4ac439278713d8"
+    },
+    {
+      "bytes": 11706,
+      "path": "src/ashlar/sdk_ordered_page.py",
+      "sha256": "c5c7fd05b4b673b8e22d80c800c56a212f78161824ad3307ecf67cf632c6d8f8"
+    },
+    {
+      "bytes": 5195,
+      "path": "src/ashlar/sdk_presence.py",
+      "sha256": "571841c774d78dde70306013b5bb0174f4da4509d397a218b783ac228ef7ae5c"
+    },
+    {
+      "bytes": 1612,
+      "path": "src/ashlar/sdk_related_keys.py",
+      "sha256": "371807dca154cb1c0f3d99079e5d6d03a64bdcd5c16f2c5deee3deba08efeebb"
+    },
+    {
+      "bytes": 7638,
+      "path": "src/ashlar/semantic_policy.py",
+      "sha256": "9e651818f560deff804f850100b47304303342d66056bc3b44c8b7b08f1c8deb"
+    },
+    {
+      "bytes": 7170,
+      "path": "src/ashlar/singleton.py",
+      "sha256": "91d1addf13d4f309251c08372dd678e22f9984fd8b0f738b0acefe124349fbaa"
+    },
+    {
+      "bytes": 4401,
+      "path": "src/ashlar/source.py",
+      "sha256": "457d751bc0b7b7ce300fa248fd453ac90b86aa1046b8c8f7d5b24ec00025c1c6"
+    },
+    {
+      "bytes": 10393,
+      "path": "src/ashlar/source_checkpoint.py",
+      "sha256": "32360d70ea708cb1cffe8e6c3c7533a57f153748f54f782182f8a34e13f92d34"
+    },
+    {
+      "bytes": 5626,
+      "path": "src/ashlar/source_config.py",
+      "sha256": "722fea047f9081b70343db0e1d24ba65a11a2033d43c2555aec88bdab33e3bc7"
+    },
+    {
+      "bytes": 8573,
+      "path": "src/ashlar/staging.py",
+      "sha256": "a1e741b229aa359aaf3f7e60d37d0c9cc75255e87c697aa5309aa1cd9a9a0a33"
+    },
+    {
+      "bytes": 14362,
+      "path": "src/ashlar/stored_publisher.py",
+      "sha256": "aec1763b0d9f435f5b5b21bc80ccad01fb5e0c5e19182beee66ce5533568dc21"
+    },
+    {
+      "bytes": 5878,
+      "path": "src/ashlar/supply_chain_source.py",
+      "sha256": "d8447ae0dd22cd589028e3de256177e26431d75f17cb0a0bc2b3d38e08df8986"
+    },
+    {
+      "bytes": 5649,
+      "path": "src/ashlar/truss_feed.py",
+      "sha256": "fca757cd7745efc0010f6ad2f6f9186b65753b3518f3e0d22d0a191ce1c963a9"
+    },
+    {
+      "bytes": 8393,
+      "path": "src/ashlar/truss_input.py",
+      "sha256": "88c8e00defb01b40134069cc9834d087462fe69af3bc3ae327f4d3e24b580507"
+    },
+    {
+      "bytes": 12230,
+      "path": "src/ashlar/truss_native_feed.py",
+      "sha256": "b66592354310377260ceaf4a8ded91209ce1a89e463bdfda45a3c372063eeb7b"
+    },
+    {
+      "bytes": 777,
+      "path": "src/ashlar/truss_publication.py",
+      "sha256": "3b28fa37e708a35a30e761f00fb0af521e01ca8e335f8b7a8c839b275bdb1cd5"
+    },
+    {
+      "bytes": 16069,
+      "path": "src/ashlar/typed_graph_source.py",
+      "sha256": "00bbfb7d1f6ecd6daa4dbac1d1e20ef5cc888a06e2cce5a869e490304b087408"
+    },
+    {
+      "bytes": 8141,
+      "path": "src/ashlar/typed_graph_source_config.py",
+      "sha256": "c944ad95d6a1f82cfeeedbb96652999ba063f881608edba46e45e591603000ee"
+    },
+    {
+      "bytes": 9962,
+      "path": "src/ashlar/typed_source_config.py",
+      "sha256": "dde6bed6e0f69a4cbdc920d81a5aeeece3161e796e091ff6c2f36d2f1a6684a3"
+    },
+    {
+      "bytes": 9723,
+      "path": "src/ashlar/typed_source_policy.py",
+      "sha256": "ad11990fe210ebb73015c23d33e3202d2b10216546295c2643197565577819fc"
+    },
+    {
+      "bytes": 8353,
+      "path": "src/ashlar/weft_053_distribution.py",
+      "sha256": "e57a90ce73983b2f021b55ed9af418dc60dfa86764b798974d2e1ba152e6b88a"
+    },
+    {
+      "bytes": 8663,
+      "path": "src/ashlar/weft_056_distribution.py",
+      "sha256": "3ac317df44f4e4589f80afe580eb9d5259c972063b34849ebbdf253daced597b"
+    },
+    {
+      "bytes": 4359,
+      "path": "src/ashlar/weft_binding.py",
+      "sha256": "9e7c23a52990075c4b8373a5e17ba78b519e1fc12b2f465fe04b1bf21e4d1105"
+    },
+    {
+      "bytes": 4097,
+      "path": "src/ashlar/weft_count_star_distribution.py",
+      "sha256": "a66d508fbcad8c946fc4623a9fd4f6d84b174db4bc432dc329b36557570d7f36"
+    },
+    {
+      "bytes": 7383,
+      "path": "src/ashlar/weft_count_star_installation.py",
+      "sha256": "57ffe8ac82d13c4840fdfcffb973080ec9b1f17e66fb1183f310e21234cc7e52"
+    },
+    {
+      "bytes": 10193,
+      "path": "src/ashlar/weft_count_star_package.py",
+      "sha256": "ffcd29e1c11f991ee757b1abaedb711152466fbb9e76183edebe16152d18f1bf"
+    },
+    {
+      "bytes": 8517,
+      "path": "src/ashlar/weft_current_distribution.py",
+      "sha256": "d60a1ddd51b0b8d69c19fcdbd851c39eaebe4857da9b45870e93c08245ab9796"
+    },
+    {
+      "bytes": 15445,
+      "path": "src/ashlar/weft_decode.py",
+      "sha256": "d004cbc327baae0ff7663e1cc763daed2acb10298b7a22be199a1ca65a96b39c"
+    },
+    {
+      "bytes": 4249,
+      "path": "src/ashlar/weft_distribution.py",
+      "sha256": "a6936b6b8fb70f368668b1eecf71562a34293183162b605418cc85fc9adfa2c6"
+    },
+    {
+      "bytes": 4529,
+      "path": "src/ashlar/weft_implicit_arithmetic_distribution.py",
+      "sha256": "90113b390a3007dd12513b8c8a47482cc8bff3e0d5372700927fff1ecfcf6377"
+    },
+    {
+      "bytes": 5174,
+      "path": "src/ashlar/weft_implicit_arithmetic_installation.py",
+      "sha256": "da5eae50452b935b5242adf7ea55758f3848e432a9a47e1d6c26183292238d99"
+    },
+    {
+      "bytes": 7442,
+      "path": "src/ashlar/weft_implicit_arithmetic_package.py",
+      "sha256": "870b71bcfaf86dc5a83975cd8aed80fa70eee5c4896bd3b1f5ea879abbf5a3d2"
+    },
+    {
+      "bytes": 35106,
+      "path": "src/ashlar/weft_installation.py",
+      "sha256": "725fee70b3260d5edbadfe58414faafda3bac19c4f3e05d2d28169977eec9551"
+    },
+    {
+      "bytes": 11215,
+      "path": "src/ashlar/weft_path_decode.py",
+      "sha256": "3a344ab5cb09fc451eb3f776abb19326862814bcc0b590fb1223d3854f39ec39"
+    },
+    {
+      "bytes": 3835,
+      "path": "src/ashlar/weft_paths_distribution.py",
+      "sha256": "9d85bda70715a182c3361da27c4b7481528fd4d898f39d09b5a22f8d2edb5e10"
+    },
+    {
+      "bytes": 6798,
+      "path": "src/ashlar/weft_paths_installation.py",
+      "sha256": "7bc3eea0e5ccfb43a6b63822a66d736ec475b3d9957750201e0f3c6d9719dbed"
+    },
+    {
+      "bytes": 4088,
+      "path": "src/ashlar/weft_paths_keys_distribution.py",
+      "sha256": "e20dcf294dcd4dd1646aea1420d072bb1f66e56f53861a0ab5298fb18a51ddd4"
+    },
+    {
+      "bytes": 6907,
+      "path": "src/ashlar/weft_paths_keys_installation.py",
+      "sha256": "13aa85ad7a22e0b2f1ff6d5a30890c13d6d5f1b053877e515371a49a4657d197"
+    },
+    {
+      "bytes": 27707,
+      "path": "src/ashlar/weft_paths_keys_package.py",
+      "sha256": "bf02dbb60e4c2d21ed0926ed2fd047aad4fc10871dd9ea8c418576b2bad7338e"
+    },
+    {
+      "bytes": 25938,
+      "path": "src/ashlar/weft_paths_package.py",
+      "sha256": "ae4f0e391da4e2ad70d87719b4aeb097a6f99e848bcc0023ec64abb31927501f"
+    },
+    {
+      "bytes": 28201,
+      "path": "src/ashlar/weft_query.py",
+      "sha256": "3b539c2994492841c27ae8c9793b1838f0d72c5ab7cf51f876b072baef5f58ca"
+    },
+    {
+      "bytes": 6756,
+      "path": "src/ashlar/weft_related_keys_decode.py",
+      "sha256": "8fffa5247bb136b4cab2a060150ad6ff79283996745836ef0f9051cb631a6b2b"
+    },
+    {
+      "bytes": 2064,
+      "path": "src/ashlar/whole_entity.py",
+      "sha256": "36d42411645c0912befb23b1be52eb58cdf75cedd406da3f887175f3c7141545"
+    },
+    {
+      "bytes": 518,
+      "path": "src/ashlar_host/__init__.py",
+      "sha256": "357709258e84cb1eecbc910487582e113ae0731871d2a3c484b4330db4b68283"
+    },
+    {
+      "bytes": 34494,
+      "path": "src/ashlar_host/_otel_worker.py",
+      "sha256": "5a858131afd05e745b5f3eb37d8396ab923edb8230a8cf2322b741c7e1dd3e32"
+    },
+    {
+      "bytes": 6935,
+      "path": "src/ashlar_host/_source_holder_interval_proposal.py",
+      "sha256": "a9b7719ac8116824af5ea8208d2c6ec1bfcfe8860af3d6e5340e435af81d625e"
+    },
+    {
+      "bytes": 1308,
+      "path": "src/ashlar_host/_truss_preparation_worker.py",
+      "sha256": "7a5da63135ec7f5bda3f18a6a9d1d185c36d9e179f2b8ce03a1845c8dd05569d"
+    },
+    {
+      "bytes": 14304,
+      "path": "src/ashlar_host/ack.py",
+      "sha256": "4cca31db9c6a3a39790303148db1fc3f9ae5490c1f6bf86c178b1ee8fd88d8ac"
+    },
+    {
+      "bytes": 6418,
+      "path": "src/ashlar_host/ack_sessions.py",
+      "sha256": "9a97f7b2d12df41de8695f6cde8ccf090e1d295c2073cd2f3f7915306745c607"
+    },
+    {
+      "bytes": 4076,
+      "path": "src/ashlar_host/archaeology_oracle.py",
+      "sha256": "1c6e426183787b2b87819144345303a1654d89149e9b9184d6b117374a314ab5"
+    },
+    {
+      "bytes": 18193,
+      "path": "src/ashlar_host/canonical_graphframes_materializer.py",
+      "sha256": "b6ea734f93ecc9ba2d7f77bd3d30e46746fd76db2183c7716ebd7036b876cb19"
+    },
+    {
+      "bytes": 3341,
+      "path": "src/ashlar_host/commerce.py",
+      "sha256": "aa59312be47c5f2f79d094d731b0b418ad9702de54519aaaed7c77ca44297f4f"
+    },
+    {
+      "bytes": 11078,
+      "path": "src/ashlar_host/commerce_admission.py",
+      "sha256": "7f096da3e3433b9d37e3e6fa162a3e34e7f74b92e47932281f4b9dfc8333b7d6"
+    },
+    {
+      "bytes": 4263,
+      "path": "src/ashlar_host/commerce_binding.py",
+      "sha256": "10aed60bf49c39e2d73d612c3e130d977859ee47f0238951cde1dac4723ba399"
+    },
+    {
+      "bytes": 13248,
+      "path": "src/ashlar_host/commerce_evolution.py",
+      "sha256": "564352549a41d02e8c47bed3a9e3fe61dcdec7722c584068aa0eb78c8591e7e0"
+    },
+    {
+      "bytes": 9074,
+      "path": "src/ashlar_host/commerce_export_cli.py",
+      "sha256": "719eb731119917c9c77a4c0d0ef3f9121b88255e62d5852d26b7d7d42d42f703"
+    },
+    {
+      "bytes": 19720,
+      "path": "src/ashlar_host/commerce_fabric_admission.py",
+      "sha256": "8d5c7e135f845db72cc4f3077d482e058b2a821207f869d352e80b8b42151416"
+    },
+    {
+      "bytes": 4314,
+      "path": "src/ashlar_host/commerce_fabric_delta.py",
+      "sha256": "c69974c310fc58c2946e08a19a6da679bfcf3f43a52380276a43300b289ce1a5"
+    },
+    {
+      "bytes": 4946,
+      "path": "src/ashlar_host/commerce_fabric_delta_cli.py",
+      "sha256": "b03ad7115df2971dbb8dbb908f3548efaf21693020d1d9c1d4b4db7a77201ebb"
+    },
+    {
+      "bytes": 17654,
+      "path": "src/ashlar_host/commerce_fabric_deployment.py",
+      "sha256": "d714de08ed49815d2349d706d4c990f5799208a634c70f46df863db0fb6579d6"
+    },
+    {
+      "bytes": 4534,
+      "path": "src/ashlar_host/commerce_fabric_release.py",
+      "sha256": "10dcabaaa4347538123c7c76d133e998ac27d1d62d2d897ef83bf05fa4cf2abd"
+    },
+    {
+      "bytes": 8575,
+      "path": "src/ashlar_host/commerce_graph_release.py",
+      "sha256": "ac9b039900f003f64872a1bfe6a42ebf8c85f39117622b3d67af1a85b9c8a46d"
+    },
+    {
+      "bytes": 1978,
+      "path": "src/ashlar_host/commerce_graphframes_release.py",
+      "sha256": "0d20bd71a50a0092c9a964f61724b5b14258fe0d454690daf4101303dada677c"
+    },
+    {
+      "bytes": 15974,
+      "path": "src/ashlar_host/commerce_graphframes_scenarios.py",
+      "sha256": "6ef00df118664c4b54580524ce2564fd84078dd09f8d8ff2c200103493649578"
+    },
+    {
+      "bytes": 2932,
+      "path": "src/ashlar_host/commerce_implicit_arithmetic.py",
+      "sha256": "a51af04b552c2144a97b8bb518b014da31bd8d5e49179ad5c49b9f7841d3a0b9"
+    },
+    {
+      "bytes": 7047,
+      "path": "src/ashlar_host/commerce_original_scenarios.py",
+      "sha256": "572f7fe8058a553b34522c8d00f538b7ef39646edb0432de7ca8cb1aba67f1d5"
+    },
+    {
+      "bytes": 8994,
+      "path": "src/ashlar_host/commerce_path_oracle.py",
+      "sha256": "abf3840201ebcfdbca8b3bcc784ace9cde1cabd486f8c15f8ea38d02494375a9"
+    },
+    {
+      "bytes": 5786,
+      "path": "src/ashlar_host/commerce_path_request.py",
+      "sha256": "21bb8f32296a94ddb8b26e8a870e27017feb1aea2ff0f94ff48637bca8786051"
+    },
+    {
+      "bytes": 9704,
+      "path": "src/ashlar_host/commerce_publication_sources.py",
+      "sha256": "6b769d8ef1dc30808f6638b536964fa3c23529b63bf391cd52cd1514160ce5d1"
+    },
+    {
+      "bytes": 2682,
+      "path": "src/ashlar_host/commerce_query_command.py",
+      "sha256": "c76cd4c17a3d7ae7062f1770ae08f2b47bf5b5f5e6e6dc884203633e6552463e"
+    },
+    {
+      "bytes": 22942,
+      "path": "src/ashlar_host/commerce_query_lifecycle.py",
+      "sha256": "9aa277c4fa7b3d246460782bfd3cea6a1e512685f61f468b6dea7d44fabf5978"
+    },
+    {
+      "bytes": 1026,
+      "path": "src/ashlar_host/commerce_query_selection.py",
+      "sha256": "1dc3e160ee4fec736ccd1af8c572ba74c970fb38fad32049d00b86003b81b8a9"
+    },
+    {
+      "bytes": 925,
+      "path": "src/ashlar_host/commerce_query_sources.py",
+      "sha256": "d661efbaa56f8771340df21b5284cc267e0df2d3fc0b2d5f3030d2a3b1b7970f"
+    },
+    {
+      "bytes": 9798,
+      "path": "src/ashlar_host/commerce_source_receipt.py",
+      "sha256": "4b65d5437de7519ec4ce2e434eb5483bb7833e65153d66a358584e6fd1f62769"
+    },
+    {
+      "bytes": 22154,
+      "path": "src/ashlar_host/config.py",
+      "sha256": "13672a5d7aa6b0a764da90626c0d4cac72901cf73804e87e013ed5c569b5a0ec"
+    },
+    {
+      "bytes": 4146,
+      "path": "src/ashlar_host/configured_graph_custody.py",
+      "sha256": "3d5cb69e10b38c955a47bad5c4507b59b0717d1138e6a765717fee50859ab1ac"
+    },
+    {
+      "bytes": 17585,
+      "path": "src/ashlar_host/configured_local_cli.py",
+      "sha256": "686d47f4925457174c44ae1f198c1e7e61c441a9814552a553c0b68a50a7493b"
+    },
+    {
+      "bytes": 2560,
+      "path": "src/ashlar_host/configured_local_graph_release.py",
+      "sha256": "d5dc659855fb74ca408b6ecc31eeb08aa505fa81256f0c95261c40a7a33205b8"
+    },
+    {
+      "bytes": 16769,
+      "path": "src/ashlar_host/configured_local_publication.py",
+      "sha256": "dcbb7b146431351b68b63699637dbe6e94acbcaf770286a2fb1e5a284ba31646"
+    },
+    {
+      "bytes": 4721,
+      "path": "src/ashlar_host/configured_local_query.py",
+      "sha256": "ff51001d937f10eaff53663a43358e2aede00723c9ade7110d21952ffff19466"
+    },
+    {
+      "bytes": 13230,
+      "path": "src/ashlar_host/configured_local_read.py",
+      "sha256": "340bb76f6aecb2ee0db13967643aa64452e4b6dadef048096edb29ee62af0df5"
+    },
+    {
+      "bytes": 34041,
+      "path": "src/ashlar_host/configured_local_runtime.py",
+      "sha256": "a76c95c278a46c1c043f0bf8efe7073ebd9648841cbd046d1addc12221722afc"
+    },
+    {
+      "bytes": 3832,
+      "path": "src/ashlar_host/configured_local_runtime_profile.py",
+      "sha256": "082a69af610550bb0db19a8c8a4da09666e6031feb714eca3d07261d0a868033"
+    },
+    {
+      "bytes": 6918,
+      "path": "src/ashlar_host/configured_query_aliases.py",
+      "sha256": "b214ba7f840a44376fd493c6b7f5eecc323bd56998553d80caf7bb3d3de085f6"
+    },
+    {
+      "bytes": 11424,
+      "path": "src/ashlar_host/configured_sdk_page_oracle.py",
+      "sha256": "26470d6536d473e17fd42aefdb58e56fd302cd19aad47d2433cd843eb8a51ffc"
+    },
+    {
+      "bytes": 38748,
+      "path": "src/ashlar_host/configured_sdk_pages.py",
+      "sha256": "99c64c2ace2eab272ed45246f2bf1ff9ac027b41b03c0d7bde934a29626d63e0"
+    },
+    {
+      "bytes": 5108,
+      "path": "src/ashlar_host/configured_source_admission.py",
+      "sha256": "54806efaaa05ef02c27140d1d1ec7fb75b8a87f86e4863376e3724fe21942cb5"
+    },
+    {
+      "bytes": 1356,
+      "path": "src/ashlar_host/configured_source_admission_config.py",
+      "sha256": "38a460b3fcf6cd576304388b851201df7a31cbbb99af496b8313405a82501c7c"
+    },
+    {
+      "bytes": 9752,
+      "path": "src/ashlar_host/configured_source_local.py",
+      "sha256": "927dc9303effe1ef88105fdc223bc6038f5ae089345bdd175974a69120e75d92"
+    },
+    {
+      "bytes": 3455,
+      "path": "src/ashlar_host/configured_typed_graph_sdk_binding.py",
+      "sha256": "a660c6a22fb0f1919fa8bf74fb131cff621e89292eb3f19f227b6b8b204e08fc"
+    },
+    {
+      "bytes": 4407,
+      "path": "src/ashlar_host/configured_typed_graph_source_admission.py",
+      "sha256": "cf1a2c2b98c8b32316d9b2b85856492f92119203b1a7449f7fcb9663f7f17f6e"
+    },
+    {
+      "bytes": 6062,
+      "path": "src/ashlar_host/configured_typed_graph_weft_binding.py",
+      "sha256": "c71fd65406cb8b4869e99f437f76e5559f43091a2e90414c1144a2798190c56a"
+    },
+    {
+      "bytes": 19994,
+      "path": "src/ashlar_host/configured_typed_graph_weft_projection.py",
+      "sha256": "e1fbaea90fc697e69dd7977f0e0cabccd2e149d5fbb916a58a4682cd44e050ea"
+    },
+    {
+      "bytes": 4523,
+      "path": "src/ashlar_host/configured_typed_source_admission.py",
+      "sha256": "48c8e0380bcbf4cdfb0c3aef1164a7084f277ebbceec5e6235584f96fa707412"
+    },
+    {
+      "bytes": 5086,
+      "path": "src/ashlar_host/configured_typed_weft_binding.py",
+      "sha256": "05daa079ce919fc3fe0388605e13f3576a3a92b44762ac703d9dd06bbf8bb38a"
+    },
+    {
+      "bytes": 16732,
+      "path": "src/ashlar_host/configured_typed_weft_projection.py",
+      "sha256": "465ebb22bc022d40e2a84533d920bb2a9872f0c86c72b971acd97f468a0a8f9e"
+    },
+    {
+      "bytes": 3374,
+      "path": "src/ashlar_host/configured_weft_binding.py",
+      "sha256": "f692d70ba71ef01fec92781c420a2beef45b15a60a185edd84914c7cf961d2f8"
+    },
+    {
+      "bytes": 7479,
+      "path": "src/ashlar_host/configured_weft_compile.py",
+      "sha256": "7e2442973975785e9a698e81a28172185160db0ff8f8315d6ad86333f5bcf723"
+    },
+    {
+      "bytes": 7510,
+      "path": "src/ashlar_host/configured_weft_projection.py",
+      "sha256": "60eae9e0493ef5ccbc7ea48f3a3501103dacf604dd73aeae3a51faad712db5d4"
+    },
+    {
+      "bytes": 12090,
+      "path": "src/ashlar_host/configured_weft_query.py",
+      "sha256": "66faf6730bb1ab75b0b1a6d8bdcc2fd151a702fe5cdf39d9e1a8ede6174a5949"
+    },
+    {
+      "bytes": 2104,
+      "path": "src/ashlar_host/connection.py",
+      "sha256": "e3a73bbb8afaa8ecae85b6f34024eb7ad9aaf45426ea771eef24a371af8ae32f"
+    },
+    {
+      "bytes": 44815,
+      "path": "src/ashlar_host/count_star_admission.py",
+      "sha256": "68df2a7d93ce92a5a7c883ebd25b6a55be009e8ccdbb0b5e29967371df693930"
+    },
+    {
+      "bytes": 1322,
+      "path": "src/ashlar_host/count_star_command.py",
+      "sha256": "a18d5e066854f6f0eea0d48ee1fd350e0f0aa2f5fa7db101ea84524959ea028a"
+    },
+    {
+      "bytes": 1826,
+      "path": "src/ashlar_host/count_star_configuration.py",
+      "sha256": "a9679d5fe696dcf81ae74b111e0d791fe8ff3f44d243e4916b076b23b3fded31"
+    },
+    {
+      "bytes": 26480,
+      "path": "src/ashlar_host/count_star_execution.py",
+      "sha256": "ab19908cdcbe2f37adef98ccd469a31c5d4244f7f95367feeba6630198728e01"
+    },
+    {
+      "bytes": 4346,
+      "path": "src/ashlar_host/count_star_oracle.py",
+      "sha256": "cb2d560e1b49eb26c267785f9c91f6cc166b99489ad54357d992fb25567e7403"
+    },
+    {
+      "bytes": 2453,
+      "path": "src/ashlar_host/count_star_query.py",
+      "sha256": "f0f9efcde1f61f54009dace4a4b9c636d01bf63158a4769161f09a70acc92661"
+    },
+    {
+      "bytes": 741,
+      "path": "src/ashlar_host/count_star_request.py",
+      "sha256": "992e0ad99ae2fde8ebe9790b0026b63bb6b864ccaaba0e6c95efe79014ab6e75"
+    },
+    {
+      "bytes": 5856,
+      "path": "src/ashlar_host/count_star_schema.py",
+      "sha256": "9e155506c39bba101ad6fdc3ed756f284d7066d0f234ec508a4edde818f9a21a"
+    },
+    {
+      "bytes": 5970,
+      "path": "src/ashlar_host/databricks_current_metadata.py",
+      "sha256": "77acf988b116348afe3ba828ee2873a1b27ff07e17766c147e5d03e480839003"
+    },
+    {
+      "bytes": 8478,
+      "path": "src/ashlar_host/databricks_current_query.py",
+      "sha256": "c9ae2cd81eed58ccf7a3e6fe79deca9886d3c37136264ae8d266eddd019ea5a8"
+    },
+    {
+      "bytes": 6949,
+      "path": "src/ashlar_host/databricks_current_source_capture.py",
+      "sha256": "7360fa92d69362c03036a0869068cff44c1bde414e69066030abf20f4ba59cd6"
+    },
+    {
+      "bytes": 12246,
+      "path": "src/ashlar_host/databricks_current_spark.py",
+      "sha256": "97dbc59c8e82659291c64d5262358a06379692c087d29b0762fb0648bdc6a16e"
+    },
+    {
+      "bytes": 10313,
+      "path": "src/ashlar_host/delta_action_admission.py",
+      "sha256": "58bb872fbf621e58ab3ac946ee16efd49ac2278d735f0d542d28e677528d5604"
+    },
+    {
+      "bytes": 9673,
+      "path": "src/ashlar_host/delta_atomic.py",
+      "sha256": "3b834527246fdfa8ce88a81a0dad1da9277bd8154d434ccd5dcd54253d030fae"
+    },
+    {
+      "bytes": 81903,
+      "path": "src/ashlar_host/delta_custody.py",
+      "sha256": "e913c1cdaf4d2637286226354dd645a8b8c39f21819357e1a3e92c0f02f563d7"
+    },
+    {
+      "bytes": 9919,
+      "path": "src/ashlar_host/delta_publication.py",
+      "sha256": "160718d711bd369be2f110e4c2cc22dcb23a07a5c428f4391af723196399911e"
+    },
+    {
+      "bytes": 4784,
+      "path": "src/ashlar_host/delta_query.py",
+      "sha256": "816449bf10915d5e69136e665e92f86133d87bdb9386eae42725bbca097103b7"
+    },
+    {
+      "bytes": 1522,
+      "path": "src/ashlar_host/delta_receipt.py",
+      "sha256": "2ce4093b074b12d681837a6a3fa94785a18af3d26ad8179d6de5281ce7d73d78"
+    },
+    {
+      "bytes": 4382,
+      "path": "src/ashlar_host/diagnostic_composition.py",
+      "sha256": "07c85ec4b16e636be043280abde72f04e4da1dad6e19f0cd5ceb3b862e1f1c0a"
+    },
+    {
+      "bytes": 37172,
+      "path": "src/ashlar_host/diagnostics.py",
+      "sha256": "b8054de40e4b25e72ce357dcaddbf629aa2a67f5df04dee34d476ca033a6b322"
+    },
+    {
+      "bytes": 191138,
+      "path": "src/ashlar_host/driver.py",
+      "sha256": "8a8688c8b5c52b018b3f838ccd9da62806064b38f728859b95065067f24858f8"
+    },
+    {
+      "bytes": 7105,
+      "path": "src/ashlar_host/duckdb_graph_export.py",
+      "sha256": "1450b96fac3a2392de45872e81469b84463d3fd6fb584422cf04b0e3318aa729"
+    },
+    {
+      "bytes": 3784,
+      "path": "src/ashlar_host/ecology_oracle.py",
+      "sha256": "de1b64143cb715b1c70df1b7bf330e7a9a17171dcf1edc640b36271de15df560"
+    },
+    {
+      "bytes": 4545,
+      "path": "src/ashlar_host/effective_grants.py",
+      "sha256": "7b7bf9fe9212e5ee66510b14adb31d0f6230b06ee04f154159de50c7f991ab7d"
+    },
+    {
+      "bytes": 23112,
+      "path": "src/ashlar_host/evolution_admission.py",
+      "sha256": "0ee11ea1456ee9aff6e03299ca2e4ffdfff42e4ce4ac98987eb8c932db0aea7f"
+    },
+    {
+      "bytes": 16912,
+      "path": "src/ashlar_host/evolution_cli.py",
+      "sha256": "ba0d717515b6a77a0ad9f9275db3769083a369a22676c92ef9eeb8e66dfd5b58"
+    },
+    {
+      "bytes": 9758,
+      "path": "src/ashlar_host/evolution_composition.py",
+      "sha256": "adb9944400627cf2566e950f4eb3b32975d7f7073ebdf88f4d90dc1301eb21e5"
+    },
+    {
+      "bytes": 3811,
+      "path": "src/ashlar_host/evolution_continuation_timing.py",
+      "sha256": "6e5c82bd4264fedfa6567080e67c867c0292b5d1c1b7b601da908677cedd8962"
+    },
+    {
+      "bytes": 29188,
+      "path": "src/ashlar_host/evolution_operator.py",
+      "sha256": "5d9716999e0215bad97e49fe0518a80c742cd6859621e26b08a09e71aec64d2b"
+    },
+    {
+      "bytes": 10899,
+      "path": "src/ashlar_host/evolution_plan.py",
+      "sha256": "12583b0e9490306ba7ffb9b4814c56dd996053cea91adc07bd8c18e96327bb88"
+    },
+    {
+      "bytes": 2272,
+      "path": "src/ashlar_host/evolution_producer.py",
+      "sha256": "5cec116705a46ac7022a3840af7d233909b15c843a8bc017b9ffaf57ca0a263c"
+    },
+    {
+      "bytes": 26999,
+      "path": "src/ashlar_host/evolution_run.py",
+      "sha256": "7d5483cc0659c61163fe8002e024a21c8ece1dbc2b2d480748bf82cfb5ffebee"
+    },
+    {
+      "bytes": 8063,
+      "path": "src/ashlar_host/evolution_singleton.py",
+      "sha256": "9a73d8de09112531eda12f6851cb708ad9fbc939bd65544de0bcaf253d8f61cd"
+    },
+    {
+      "bytes": 3242,
+      "path": "src/ashlar_host/evolution_verification.py",
+      "sha256": "459d9fe204bf9a7987ace3ea973647500a4c311182b0be1b8d061f2598f8582b"
+    },
+    {
+      "bytes": 13012,
+      "path": "src/ashlar_host/evolution_verification_cli.py",
+      "sha256": "c0233d8ff38aed8ea8accc7a770a1adf0756bdfe67a91b57dc9f9449bfbb1a41"
+    },
+    {
+      "bytes": 4590,
+      "path": "src/ashlar_host/evolution_verification_types.py",
+      "sha256": "b5c42c55af765cab98c1d2e53c42989cece74d240b42f029890a5dd820ba8240"
+    },
+    {
+      "bytes": 3355,
+      "path": "src/ashlar_host/exact_report.py",
+      "sha256": "0f1266263baaa8e66c28be3f3aec785574aa6f6c68b01fff2e8bf792c885d77a"
+    },
+    {
+      "bytes": 14203,
+      "path": "src/ashlar_host/existing_outbox_authority.py",
+      "sha256": "7e8a180b08839d716bc419a798f061ccba8712f50db8591f21ae352ad664ccfa"
+    },
+    {
+      "bytes": 41997,
+      "path": "src/ashlar_host/fabric_cli_runtime.py",
+      "sha256": "7cc3c74e1edf84728d49a470bd2d6e3376db7374b4393a92e813486f71578884"
+    },
+    {
+      "bytes": 18816,
+      "path": "src/ashlar_host/fabric_deployment_http.py",
+      "sha256": "e33c1fe1be53d23c8426256e7ea241ee75a1a55e71d93ddf8e720ce452ccfa34"
+    },
+    {
+      "bytes": 8948,
+      "path": "src/ashlar_host/fabric_gql.py",
+      "sha256": "14d8d9b8068b25cdd7917c6bed81a6fd882d11d98430f769382af4db958a8970"
+    },
+    {
+      "bytes": 4385,
+      "path": "src/ashlar_host/fabric_gql_cli.py",
+      "sha256": "41abd3627737ddd4aff8f9b6077ccb7c420492c43d6ddcea7f050f584585c187"
+    },
+    {
+      "bytes": 5372,
+      "path": "src/ashlar_host/fabric_graph_definition.py",
+      "sha256": "558be65b66a66e40457c9e3fcdee8c82861498a2c92b9ac34a74130b5f2af591"
+    },
+    {
+      "bytes": 25246,
+      "path": "src/ashlar_host/fabric_http.py",
+      "sha256": "b578ec518ba02d201306df6bde04e13d241f2ac60e3026eb3eef35ec3904eb42"
+    },
+    {
+      "bytes": 3917,
+      "path": "src/ashlar_host/fabric_http_configuration.py",
+      "sha256": "0402a55b72cbcad98e1d5894e17583da2a9f620455bdcf69b69cbe6586cc58da"
+    },
+    {
+      "bytes": 9778,
+      "path": "src/ashlar_host/fabric_launch_readiness.py",
+      "sha256": "a5ab7e08e37f00f884df144683fe934912eafdf0f9c6323f7640a75ac801dbf1"
+    },
+    {
+      "bytes": 4375,
+      "path": "src/ashlar_host/fabric_notebook.py",
+      "sha256": "112435639ca40f0013b8e2404a009d127f3a10cb089b6c444198a784ac21cfcb"
+    },
+    {
+      "bytes": 8143,
+      "path": "src/ashlar_host/fabric_ordinary_http.py",
+      "sha256": "bb97ef874890a7c174365d73ccaf8a3cce163b918c6b56604cdd52e18ea474bb"
+    },
+    {
+      "bytes": 6700,
+      "path": "src/ashlar_host/fabric_pack_delta.py",
+      "sha256": "d5e3224e4b346624998bb476c1f08ab2268d495d9e345992f77b079f0d3b9d84"
+    },
+    {
+      "bytes": 5985,
+      "path": "src/ashlar_host/fabric_pack_preparation.py",
+      "sha256": "5352b05ce24fc9c468cc377c74a0f578a4f1d6e56cf3e295f299bc74f47c77c6"
+    },
+    {
+      "bytes": 7573,
+      "path": "src/ashlar_host/fabric_pack_scenarios.py",
+      "sha256": "2add586f83ed57896c0ee2f762b8ee507f4f05920ba2f4d90392ed39232fe09c"
+    },
+    {
+      "bytes": 27209,
+      "path": "src/ashlar_host/fabric_release_journal.py",
+      "sha256": "3fac1550c280c86d6a5f481dd5069a114241251bd8fe66abbe6e39cc6176e8d3"
+    },
+    {
+      "bytes": 10872,
+      "path": "src/ashlar_host/fabric_runtime_file_scan.py",
+      "sha256": "554623189c3367787108bc8256a884d8cc9f1b4cf6ed617f70da761cb0fa4ae5"
+    },
+    {
+      "bytes": 13895,
+      "path": "src/ashlar_host/file_progress.py",
+      "sha256": "e6cdd148e33c2ecee9e8db1cd7db289d26a865abe7a5d726a39730662555e412"
+    },
+    {
+      "bytes": 10458,
+      "path": "src/ashlar_host/finite_dataset.py",
+      "sha256": "cbf1acd8598729944c9a79b8d3e69069e1c279bfecd0eaad791aa3c7939a26cf"
+    },
+    {
+      "bytes": 4297,
+      "path": "src/ashlar_host/finite_export_cli.py",
+      "sha256": "99ee9d0d32925c8a686384739b5edd84820a4e04c4db75ddc15d28a9e32f70a6"
+    },
+    {
+      "bytes": 5656,
+      "path": "src/ashlar_host/finite_graph_custody.py",
+      "sha256": "ddaaf42d1ae206af9125b2876e738452ed800af916c86e7a4d4f4dbb2af9d055"
+    },
+    {
+      "bytes": 5425,
+      "path": "src/ashlar_host/finite_graph_export.py",
+      "sha256": "481f33a323ad576f40e8b4e20ccb785f0499074bfef32cb00625eb547d7c5ac8"
+    },
+    {
+      "bytes": 21001,
+      "path": "src/ashlar_host/finite_native.py",
+      "sha256": "e5bff1e6996d2fc1966e22bb47dbc89af9c9e70bfe1b1f2071f43d45ce8d2eb2"
+    },
+    {
+      "bytes": 3370,
+      "path": "src/ashlar_host/finite_pack.py",
+      "sha256": "76cde8468e9ea0cbf7a831134a0b43aa44660df37e83c1a9f7ed758dc8870070"
+    },
+    {
+      "bytes": 7162,
+      "path": "src/ashlar_host/finite_projection.py",
+      "sha256": "d58f8ea58a80d4276672f104ad88716858a9527d21af723ae8b5d879ffdc9c02"
+    },
+    {
+      "bytes": 23322,
+      "path": "src/ashlar_host/finite_publication.py",
+      "sha256": "0b214aab540ff162601911b10e306cb83ec570ee29f16cffa257ba6c8b80e6f0"
+    },
+    {
+      "bytes": 6361,
+      "path": "src/ashlar_host/graph_export_diff.py",
+      "sha256": "1b3fc5a42481199f20d21dde14b8e63671595ec559765b99a55487d0a68553b7"
+    },
+    {
+      "bytes": 3233,
+      "path": "src/ashlar_host/graph_export_materialization_cli.py",
+      "sha256": "feb4bed74c38056a21b63e7b609f952807248417b98e277834b3f7537ed81217"
+    },
+    {
+      "bytes": 7317,
+      "path": "src/ashlar_host/graph_export_read.py",
+      "sha256": "aaec2d82ff633b8cd5a2b3e08236afcc939af59bbc60b09ffd5e9376e0b3f073"
+    },
+    {
+      "bytes": 4702,
+      "path": "src/ashlar_host/graph_export_setup.py",
+      "sha256": "d912b49ff7c891034955225bbb9ec7077f2da19c6d64c420a4c3505a2aec974b"
+    },
+    {
+      "bytes": 7281,
+      "path": "src/ashlar_host/graph_release_delta.py",
+      "sha256": "99e9d9ca484bfadc61a7df0d944bf398bc26a311eed251c7b4733e13a8ae4f43"
+    },
+    {
+      "bytes": 8992,
+      "path": "src/ashlar_host/graph_sql.py",
+      "sha256": "3ceda6f1f7cbd8b84fdfed6632b10593cc1647675064371a9b8520672e3f9a44"
+    },
+    {
+      "bytes": 2662,
+      "path": "src/ashlar_host/graphframes_case_selection.py",
+      "sha256": "e6abe059b2cd9c383ca2594db6c6127e26842d77fc93476c869a4c6712740866"
+    },
+    {
+      "bytes": 10434,
+      "path": "src/ashlar_host/graphframes_cli.py",
+      "sha256": "9bf32fba2aa076122fdf245dbba0379790afde905713936569937ea02d10b1f7"
+    },
+    {
+      "bytes": 11310,
+      "path": "src/ashlar_host/graphframes_export.py",
+      "sha256": "8faafe167ea28269faf0a5d666202f79ad91e789eb1e67e8ed0e615bbf31ce79"
+    },
+    {
+      "bytes": 3468,
+      "path": "src/ashlar_host/graphframes_export_setup.py",
+      "sha256": "482bf792b76a0d486b6aadda52d9c9fbedee9cc02aa2df1b186d8adffb870cd4"
+    },
+    {
+      "bytes": 6854,
+      "path": "src/ashlar_host/graphframes_isolated_runtime.py",
+      "sha256": "aad98f1f8285cdb92df2c12c4b9896d9dd939f791a7c76ec52416344e4ae666b"
+    },
+    {
+      "bytes": 23473,
+      "path": "src/ashlar_host/graphframes_local.py",
+      "sha256": "a692f2e17d965d3c1fc44f1215100207b00d5593a190f7c2881a7fe68f9b21c9"
+    },
+    {
+      "bytes": 12993,
+      "path": "src/ashlar_host/graphframes_local_setup.py",
+      "sha256": "a69254bf8c3f9343d6c61f4621b6c0c3bf37b356a838d977c8c0a3ad0d50b99d"
+    },
+    {
+      "bytes": 20524,
+      "path": "src/ashlar_host/graphframes_pack_scenarios.py",
+      "sha256": "7e9ebbee2b8d3c67c8888e8a8b264ccd477639e46aa3872a8273434111a3c3c3"
+    },
+    {
+      "bytes": 48102,
+      "path": "src/ashlar_host/graphframes_release.py",
+      "sha256": "85e71083b54a6bf6574f6469d51b2429d5921bfb95b54800600bafeb31b711f4"
+    },
+    {
+      "bytes": 3057,
+      "path": "src/ashlar_host/graphframes_runtime_probe.py",
+      "sha256": "eb0be9c1ab65503a7c4eb713954dabf147d239b33316377d7f2df0533c35b0a2"
+    },
+    {
+      "bytes": 7490,
+      "path": "src/ashlar_host/immutable_snapshot_memo.py",
+      "sha256": "5e7a696b0b55b811cc30931156bf73c79648302c873c917a80a1770a50a00099"
+    },
+    {
+      "bytes": 1315,
+      "path": "src/ashlar_host/implicit_arithmetic_command.py",
+      "sha256": "3198709fc00a4b5b2c7ee0b5f342057497390dc71e61a7cf243d6d911f89b304"
+    },
+    {
+      "bytes": 3035,
+      "path": "src/ashlar_host/implicit_arithmetic_configuration.py",
+      "sha256": "dd7e27b7a2bcf79f6b7dd20dd1f796df49bb2734334bd881d7cf858a5cb25573"
+    },
+    {
+      "bytes": 6136,
+      "path": "src/ashlar_host/implicit_arithmetic_profile.py",
+      "sha256": "74d76eb8aab01c7bd6b692b468ecd4417e5118143d65971fbfbb3759ff974dfb"
+    },
+    {
+      "bytes": 881,
+      "path": "src/ashlar_host/implicit_arithmetic_query.py",
+      "sha256": "5df3405c3bc9837206202f9b5ee1e3320b509481c8191a0c6fd1bf5823606642"
+    },
+    {
+      "bytes": 1293,
+      "path": "src/ashlar_host/implicit_arithmetic_request.py",
+      "sha256": "5149e035c82a54fd99276c58a7a8008fc13684418512f1aff3f5a2113c681d69"
+    },
+    {
+      "bytes": 3800,
+      "path": "src/ashlar_host/indexed_query.py",
+      "sha256": "80f6c77b6d006eb6c948282794c243e1260e9171f6e2b9013abe031192a9fae9"
+    },
+    {
+      "bytes": 1721,
+      "path": "src/ashlar_host/lifecycle.py",
+      "sha256": "423ea8d966acac9db17f3c37207c044a9c0d16afeeadfeaadc735976a8c5b565"
+    },
+    {
+      "bytes": 20757,
+      "path": "src/ashlar_host/local_current_carrier_profile.py",
+      "sha256": "31f76220ee48a906145b0d684cb8c39758b2ef1789f28b85ff939f0449dd1085"
+    },
+    {
+      "bytes": 15138,
+      "path": "src/ashlar_host/local_current_delta4_umf.py",
+      "sha256": "23517c57ff2291f30606371e4a4a8078b7ab1af869ac79e19e21b8146d3d3510"
+    },
+    {
+      "bytes": 12268,
+      "path": "src/ashlar_host/local_current_development.py",
+      "sha256": "ad2f9c4e7b5d3d8110467f320df737281333839cea62889777d21300c0105df3"
+    },
+    {
+      "bytes": 5398,
+      "path": "src/ashlar_host/local_graph_export.py",
+      "sha256": "3596b31e482c2c2c319d58b1bfbcd63f5197101995722250b838a883d52b878d"
+    },
+    {
+      "bytes": 7732,
+      "path": "src/ashlar_host/local_journal_compaction.py",
+      "sha256": "51c941e79c342556893ecbd676e1a0cb3f87f9ff0bd70795a54aba107bf074d0"
+    },
+    {
+      "bytes": 3174,
+      "path": "src/ashlar_host/local_physical_carriers.py",
+      "sha256": "f9fb5b654cc22d500c38a9fbea66bb00e8fd4a2b6f64d57c5cc20280f4ab07af"
+    },
+    {
+      "bytes": 8878,
+      "path": "src/ashlar_host/local_receipt_codec.py",
+      "sha256": "c764f69d13a154876741d88b876e0421c393d4bf78a4403faf7c7ddbd16326ef"
+    },
+    {
+      "bytes": 10205,
+      "path": "src/ashlar_host/managed_actions.py",
+      "sha256": "07cdef44ab2ba25d212dac1ec05239ee25caaeea786ace5be12a3fa630cf6f75"
+    },
+    {
+      "bytes": 12985,
+      "path": "src/ashlar_host/managed_bulk.py",
+      "sha256": "56e316fd2c87ee5e96b725bd610f4660dcc71e4bba6d80ce45312af86acf411d"
+    },
+    {
+      "bytes": 5587,
+      "path": "src/ashlar_host/managed_carriers.py",
+      "sha256": "d0d882d74293d8d14cec359012cfeae2737c5c4ffc876b3bf7baf317a3edd89a"
+    },
+    {
+      "bytes": 4430,
+      "path": "src/ashlar_host/managed_connector.py",
+      "sha256": "17fc8bfccce36e7797959335c972a0680080c26115e2222b7e573b933069704a"
+    },
+    {
+      "bytes": 12891,
+      "path": "src/ashlar_host/managed_current_campaign.py",
+      "sha256": "d464459b37b50d3cad4a8cb09a0369a75a6783a544b283d19dd54e88d4a54ae1"
+    },
+    {
+      "bytes": 4933,
+      "path": "src/ashlar_host/managed_current_carriers.py",
+      "sha256": "75786101cf4d2e6e8dcdaf19b8761bbb98213d62a38c82fb1f79bd4666c59efd"
+    },
+    {
+      "bytes": 29854,
+      "path": "src/ashlar_host/managed_current_core.py",
+      "sha256": "713e8a9738ff476c991c806a59a060ff94b8518b9ad8f35091751664c2695941"
+    },
+    {
+      "bytes": 26872,
+      "path": "src/ashlar_host/managed_current_incremental.py",
+      "sha256": "ab16b3d7aaf000d88ec88e1e1fd12082860e2fc027894ad1f11aa7f59932b5ab"
+    },
+    {
+      "bytes": 6545,
+      "path": "src/ashlar_host/managed_current_parity.py",
+      "sha256": "0a3171bcd6ea5c3ecc6b2e0c3d221a415e83a3143f74d52b21c77363fcfe66f7"
+    },
+    {
+      "bytes": 15973,
+      "path": "src/ashlar_host/managed_current_person_read.py",
+      "sha256": "8f6b9a7a15d32a94ec78bb6681353d7169fa1e43cc9fc19fddcc3d4fd0725e0f"
+    },
+    {
+      "bytes": 14810,
+      "path": "src/ashlar_host/managed_current_prefix_custody_v2.py",
+      "sha256": "103e3a5803d28bd1444b2e814a388a561c5938286a3fe8808253a7c4c7d9ff89"
+    },
+    {
+      "bytes": 73968,
+      "path": "src/ashlar_host/managed_current_publication.py",
+      "sha256": "39b8de0be59580e35475737661b038267be59cfc1de6b0e13fcd5761f036411a"
+    },
+    {
+      "bytes": 59490,
+      "path": "src/ashlar_host/managed_current_query.py",
+      "sha256": "6809b3d0677ad4c225e5f0a38e0dc1cd72de54747d947786d88d84759d5c8ebb"
+    },
+    {
+      "bytes": 30561,
+      "path": "src/ashlar_host/managed_current_receipt_read.py",
+      "sha256": "3622f68156cda0604e70e0c615870b01a8b8b49ce6924619ea7cea9b33a7ad40"
+    },
+    {
+      "bytes": 52526,
+      "path": "src/ashlar_host/managed_current_spark_receipt_read.py",
+      "sha256": "f39f4d649b79e0edfb1a0f3181581413be71b750edb39aa1cf5ee5ecaf529d37"
+    },
+    {
+      "bytes": 15698,
+      "path": "src/ashlar_host/managed_current_spark_source_oracle.py",
+      "sha256": "596c58557cf2bffffcfc03b055ce27a4c901256364f9092faed178a7093b403f"
+    },
+    {
+      "bytes": 18663,
+      "path": "src/ashlar_host/managed_current_trial.py",
+      "sha256": "0e60c82da25a459cf498c815b0c2bc598092d559c33362a5758d7eae207802bd"
+    },
+    {
+      "bytes": 4555,
+      "path": "src/ashlar_host/managed_current_truss_cursor.py",
+      "sha256": "39439f8860c126f02f864f2c576712a726c318d2706b4504601c20b37742a4ea"
+    },
+    {
+      "bytes": 21782,
+      "path": "src/ashlar_host/managed_current_weft_binding.py",
+      "sha256": "70b935211cd7fb843efe767982d4a1530a8bd7e38520b9607885ce9efe9445dd"
+    },
+    {
+      "bytes": 5291,
+      "path": "src/ashlar_host/managed_current_xxhash64_carriers.py",
+      "sha256": "2b371bf3d228bbc31e97134b665a6d974c42ffca37b99e73d51b4491c0494513"
+    },
+    {
+      "bytes": 17163,
+      "path": "src/ashlar_host/managed_custody.py",
+      "sha256": "bfcb05077398467527a7471571818b330481cded7b9a0a5b5a8ff866c16e78ac"
+    },
+    {
+      "bytes": 10216,
+      "path": "src/ashlar_host/managed_lifecycle.py",
+      "sha256": "01b98ea3aaa99a54608da8951482d5f8900a2e1949468fb38617588478eeb721"
+    },
+    {
+      "bytes": 12266,
+      "path": "src/ashlar_host/managed_pin_reader.py",
+      "sha256": "c0710d98031cbb41b4d25605b211ed8acf1fb6d7070aea877b21d75010162207"
+    },
+    {
+      "bytes": 15812,
+      "path": "src/ashlar_host/managed_publication_selection.py",
+      "sha256": "54bd5038a2af5a5cb2fba577906b0eb3621f237c77f946084ef0ffc14d87b79b"
+    },
+    {
+      "bytes": 5471,
+      "path": "src/ashlar_host/managed_record_admission.py",
+      "sha256": "d736ad64393d619d553a12ff54da3a871351a102f5099cec7b723bad260ed3d8"
+    },
+    {
+      "bytes": 13471,
+      "path": "src/ashlar_host/managed_search.py",
+      "sha256": "2eabd580b52c311568b353837726a6c0ff5ab0b3a94348eef455febcdb0136b0"
+    },
+    {
+      "bytes": 11361,
+      "path": "src/ashlar_host/managed_singleton.py",
+      "sha256": "b29d836ad9e7612ed2720bf44e43295bde60e187c4b407d2ea93181fce1bb044"
+    },
+    {
+      "bytes": 6064,
+      "path": "src/ashlar_host/managed_singleton_cli.py",
+      "sha256": "08c6bd26275948e75694258e7718b20e65bf105b9a3d3603978af97d08cb707e"
+    },
+    {
+      "bytes": 4651,
+      "path": "src/ashlar_host/managed_singleton_configuration.py",
+      "sha256": "9f1a650a51d14f3041405070273cefc20a28a98524491aa23f0239f0802257a0"
+    },
+    {
+      "bytes": 9298,
+      "path": "src/ashlar_host/managed_source_oracle.py",
+      "sha256": "5d5c5780ee147aa8ab6b7adc5c031968a751c80b53bb9e460c02722a60f93409"
+    },
+    {
+      "bytes": 14401,
+      "path": "src/ashlar_host/managed_sql_read.py",
+      "sha256": "d11de6a8d9c4326dca82ecc2a1b68e07d2b23d6cff80a2f4f5b135474adfc530"
+    },
+    {
+      "bytes": 11035,
+      "path": "src/ashlar_host/medical_commit_inspection.py",
+      "sha256": "119a5c3b26435438cdfee3b84f2654717fd8db0ec6869fe7712fd332890b3146"
+    },
+    {
+      "bytes": 6486,
+      "path": "src/ashlar_host/medical_commit_inspection_configuration.py",
+      "sha256": "f9b52d2ce7681b8a81cb4b5af7f89653849975038bc48a22acae00ebdf2010f2"
+    },
+    {
+      "bytes": 2153,
+      "path": "src/ashlar_host/medical_failure_location.py",
+      "sha256": "f66989ba39ae66e48247317bc5f5b751d4fc9ffde4203fbc6a8180f8d1447c1a"
+    },
+    {
+      "bytes": 2054,
+      "path": "src/ashlar_host/medical_inspection_selection.py",
+      "sha256": "8b0da12b2ab35358fb247a7d5d7442e9d4903cdc90c4ed614ea80cc0a9429e67"
+    },
+    {
+      "bytes": 7359,
+      "path": "src/ashlar_host/medical_installation.py",
+      "sha256": "274ead6bd2c8b91051baf091b41bb9ab42bd6f82827684efbb74a962c83823fc"
+    },
+    {
+      "bytes": 22534,
+      "path": "src/ashlar_host/medical_journal_inspection.py",
+      "sha256": "f299c3cb3990ef1fa1ebfad2238c97435c7e02ec7f0426ac0c38df5aeb5518f7"
+    },
+    {
+      "bytes": 9189,
+      "path": "src/ashlar_host/medical_journal_inspection_configuration.py",
+      "sha256": "b00c561da171608b04959a15c87293675ba9628f4796eab16d91576953941698"
+    },
+    {
+      "bytes": 6830,
+      "path": "src/ashlar_host/medical_mapped_vnodes.py",
+      "sha256": "8f3a90ad0e9bd042b71b154c0fa8723a59c5802197dba000c0c7840125e2e9a4"
+    },
+    {
+      "bytes": 4408,
+      "path": "src/ashlar_host/medical_preflight_timing.py",
+      "sha256": "4befa8571ffa8a29d5ca61c2733b052d89fa16cf65ef9b4228a3e4ce1c27dac6"
+    },
+    {
+      "bytes": 23162,
+      "path": "src/ashlar_host/medical_process_inspection.py",
+      "sha256": "ea96ab207d72d45e9df92cac2f4925948d368fd1fbd7cda082d3140d370881d5"
+    },
+    {
+      "bytes": 2906,
+      "path": "src/ashlar_host/medical_process_supervision.py",
+      "sha256": "0654508c10a8d4c5febaad6b5d4e3bc0db98819b92aca4fdc37c0af892c6ef6e"
+    },
+    {
+      "bytes": 18408,
+      "path": "src/ashlar_host/medical_producer.py",
+      "sha256": "74376c43b1a04626f3837bef27903c5f6a130f5f1cb40f8be4f70414c52a6eee"
+    },
+    {
+      "bytes": 13065,
+      "path": "src/ashlar_host/medical_prospective_manifest.py",
+      "sha256": "00f4ece7097ae53ae55497c4d313a8612cb7c42fec4f13779751772a2b75260a"
+    },
+    {
+      "bytes": 4735,
+      "path": "src/ashlar_host/medical_prospective_manifest_configuration.py",
+      "sha256": "8b71d9f7f3b41329872b2727dbe9c32f81d1eca66589bf052ffb443364239599"
+    },
+    {
+      "bytes": 9722,
+      "path": "src/ashlar_host/medical_publication_plan.py",
+      "sha256": "09731776eea9a1b67619c48e24c6a3630eb2a5b913d6ff80b63b051529e10e42"
+    },
+    {
+      "bytes": 18213,
+      "path": "src/ashlar_host/medical_publication_sources.py",
+      "sha256": "73cc0de06afca5ff0a70f1c60ab311ac85e57f9397557cd578ab7b7bb37ec5b1"
+    },
+    {
+      "bytes": 13122,
+      "path": "src/ashlar_host/medical_query_batch.py",
+      "sha256": "47adcdb54be1b8548d3e3b9740e078066f21381e73f47f680f4cae9907c4bd5c"
+    },
+    {
+      "bytes": 3886,
+      "path": "src/ashlar_host/medical_query_configuration.py",
+      "sha256": "432ef466ab5b2507b6f1a3b289e3e249be74fe6d8f3b6b16287ca7ec2da5b385"
+    },
+    {
+      "bytes": 516,
+      "path": "src/ashlar_host/medical_query_local.py",
+      "sha256": "34802a58a9f3eea7e0549435324025a3229f95f6c1c71efd8f7d066e1681bdb1"
+    },
+    {
+      "bytes": 14438,
+      "path": "src/ashlar_host/medical_query_requests.py",
+      "sha256": "5edf485b9d8266b0ccecb9da70c13fa54403a2a28b666cc7100a07d3b5f38e21"
+    },
+    {
+      "bytes": 10912,
+      "path": "src/ashlar_host/medical_query_source.py",
+      "sha256": "80beb678a556242dcc24fa99b0b5ec249b622e29702ae83f5098185207042563"
+    },
+    {
+      "bytes": 6822,
+      "path": "src/ashlar_host/medical_read_observation.py",
+      "sha256": "78c7f09b40ade30c25c773fb7a21b4d7befc45ba312741015eabe62169be3c65"
+    },
+    {
+      "bytes": 1680,
+      "path": "src/ashlar_host/medical_read_sources.py",
+      "sha256": "7634e00b790da183c1cbabd4c1a80ee6009be8bd3a6af54c5ab9ce12102e8169"
+    },
+    {
+      "bytes": 587,
+      "path": "src/ashlar_host/medical_singleton_local.py",
+      "sha256": "bb2c1e07e2968e50b2728e985afbd1ddd4f9c8e44e1d3a040c93b9f3cff50fa2"
+    },
+    {
+      "bytes": 14506,
+      "path": "src/ashlar_host/medical_singleton_query.py",
+      "sha256": "7134997f2d23dd93b6ec260d5ce273cec2e43cd908b8ffef12e9e4af62bd0280"
+    },
+    {
+      "bytes": 4899,
+      "path": "src/ashlar_host/medical_singleton_request.py",
+      "sha256": "e57092fc64eb74d6854f6f068eeebbcf677fa5a75b84bd4b952305829d51e4a7"
+    },
+    {
+      "bytes": 8785,
+      "path": "src/ashlar_host/medical_worker_capture.py",
+      "sha256": "29dce2c7d914022d4fd7a720915d38b44a4314fd60b6a8534a30cb7123ae1c0c"
+    },
+    {
+      "bytes": 1428,
+      "path": "src/ashlar_host/native_owner_lane.py",
+      "sha256": "e759e5992fc1b0a04c48aae3a227b7a45906655a6b8991c94e2c3c6ee285e580"
+    },
+    {
+      "bytes": 5874,
+      "path": "src/ashlar_host/native_singleton_capture.py",
+      "sha256": "5303027333ee65bca9e612dbb03aabdc5cb60154727f0fb43dccc7f984182747"
+    },
+    {
+      "bytes": 17444,
+      "path": "src/ashlar_host/onelake_release_upload.py",
+      "sha256": "831e36267c02226757a5f1668b5570bb32855274843681600b08b316717abde7"
+    },
+    {
+      "bytes": 915,
+      "path": "src/ashlar_host/ordinary_query_connection.py",
+      "sha256": "fd632c190df0de7b1bced58e4e44bcb949247a44985591936fbb060ef08e4c6e"
+    },
+    {
+      "bytes": 7837,
+      "path": "src/ashlar_host/original_commerce_local_cli.py",
+      "sha256": "0e59fc8f2b8988cd2cf91e5a5410d56a0075647e5b5c8cc83f7701623b931640"
+    },
+    {
+      "bytes": 6762,
+      "path": "src/ashlar_host/original_commerce_local_configuration.py",
+      "sha256": "bea1dbe8776e3ffbfe9c498a24e13129b5ae84a9d8d48022c1118df9a8b70f9b"
+    },
+    {
+      "bytes": 21242,
+      "path": "src/ashlar_host/original_commerce_local_setup.py",
+      "sha256": "32d84b6455061957e29715c1858699ea2ddaf43508d18b0e8f8b84049b540435"
+    },
+    {
+      "bytes": 16868,
+      "path": "src/ashlar_host/original_commerce_publication.py",
+      "sha256": "ddfc9245c2ba2b0bfc38dce7fca5fbddaf693582cdf3c8fadfb031b2023913f8"
+    },
+    {
+      "bytes": 6166,
+      "path": "src/ashlar_host/original_commerce_reopen.py",
+      "sha256": "084a6c088e3abc6d16f86c847d3ccc8f1e5f066ced1d668e0e58cc1ee646e2d7"
+    },
+    {
+      "bytes": 6356,
+      "path": "src/ashlar_host/original_medical_installation_handoff.py",
+      "sha256": "57c244fa1de903fa13afbaeae97737140d3f4e6b127165b74b08dc33a6bedf77"
+    },
+    {
+      "bytes": 13340,
+      "path": "src/ashlar_host/original_medical_local_cli.py",
+      "sha256": "f6cf00b07bada872efe7a53883459ea2ee1e84916dd1540f51e4d0de50932897"
+    },
+    {
+      "bytes": 20327,
+      "path": "src/ashlar_host/original_medical_local_configuration.py",
+      "sha256": "aedee87e573fd21c0642e4ecc43997758a07faf89e69a1da53f8fa128de4ef6b"
+    },
+    {
+      "bytes": 31836,
+      "path": "src/ashlar_host/original_medical_local_publication.py",
+      "sha256": "b139556efa33279bdb0d4e04f27d64ed76b0cb0742ed3d68fc3422c67dbe6fd0"
+    },
+    {
+      "bytes": 13599,
+      "path": "src/ashlar_host/original_medical_local_read.py",
+      "sha256": "a865d4154d2ae624928c9613034868a7806610c819d24b44068198d52819c4d7"
+    },
+    {
+      "bytes": 1964,
+      "path": "src/ashlar_host/original_medical_local_read_sources.py",
+      "sha256": "a518c4c62fc777d9b3efe487be3d2dcf675817d7394b90ae084f5ca3905d2ff5"
+    },
+    {
+      "bytes": 15914,
+      "path": "src/ashlar_host/original_medical_local_setup.py",
+      "sha256": "ecd54cf1924b04ccfba2856d959b9ff6fa6990f7137349837eef595cd36da163"
+    },
+    {
+      "bytes": 2146,
+      "path": "src/ashlar_host/original_medical_local_sources.py",
+      "sha256": "760d082da373933a56568f84d468d4d458567c5ff34c3f5a37ccebe690f23e17"
+    },
+    {
+      "bytes": 3873,
+      "path": "src/ashlar_host/original_medical_native_session.py",
+      "sha256": "43d1fa4aa0bca99aef22eca541df4d364094d4212c58db17c724d934be99e052"
+    },
+    {
+      "bytes": 12179,
+      "path": "src/ashlar_host/original_medical_publication.py",
+      "sha256": "f3e6a6a41f1e04893424bec5b430058c1eaf93f2e9aa4433a12aac4de74e2621"
+    },
+    {
+      "bytes": 21880,
+      "path": "src/ashlar_host/original_medical_runtime.py",
+      "sha256": "9c600000392bd3dcd8ecae94e0565e8a14d0250f093e468c0aba222bb435ca8d"
+    },
+    {
+      "bytes": 17447,
+      "path": "src/ashlar_host/otel.py",
+      "sha256": "b9ec7039c1c7d2472e277d765be9b56fa02b70297aea1525066aaabc79e7d40f"
+    },
+    {
+      "bytes": 786,
+      "path": "src/ashlar_host/otel_profile.py",
+      "sha256": "adebe771edef7f484b2efd460d7060b7c1321af2d4f80b30458ccca198d20aa2"
+    },
+    {
+      "bytes": 4938,
+      "path": "src/ashlar_host/pack_configuration.py",
+      "sha256": "a4f6daaa12130fc7a1149f4001181d19b246a1693b59cd3d774e18419439464e"
+    },
+    {
+      "bytes": 5611,
+      "path": "src/ashlar_host/pack_count_star_compile.py",
+      "sha256": "bd6f94a51b3a15a4b65c7f64c8870e751e67e640e293e3274ab5f686b4a8547b"
+    },
+    {
+      "bytes": 5719,
+      "path": "src/ashlar_host/pack_count_star_oracle.py",
+      "sha256": "1ff09da87217343c6053be26e782636f9f150282755628369218bafe6dcf363f"
+    },
+    {
+      "bytes": 9586,
+      "path": "src/ashlar_host/pack_count_star_query.py",
+      "sha256": "a97416a15d8b90d81a31af7e7f87885f461317c4f64184f0e13564d7227348d7"
+    },
+    {
+      "bytes": 7379,
+      "path": "src/ashlar_host/pack_count_star_reader.py",
+      "sha256": "5918037e7121e5320edb31efa50e0d744ae91b0be550edab3f2ee8cbeedf885e"
+    },
+    {
+      "bytes": 7373,
+      "path": "src/ashlar_host/pack_count_star_request.py",
+      "sha256": "02180f213b741d4a6f7d46d3afde5ed3a24129b5ee069fa33ada8e492622eea2"
+    },
+    {
+      "bytes": 14986,
+      "path": "src/ashlar_host/pack_native_cli.py",
+      "sha256": "ffd8ea1e82def11e67fe4b2d6c4e72db6f3035ae683b42f799c415719dd339be"
+    },
+    {
+      "bytes": 22636,
+      "path": "src/ashlar_host/pack_scenario_queries.py",
+      "sha256": "9c40b165bd6ced957f4e77fc4fce60b6b5cd1fe88dd4c98d5b7d43bf774c7472"
+    },
+    {
+      "bytes": 35015,
+      "path": "src/ashlar_host/path_admission.py",
+      "sha256": "ef68e570fb56eb9b43c7139ece44b66cc7c9c5cdd603d3c9a4d1f62677b19056"
+    },
+    {
+      "bytes": 4943,
+      "path": "src/ashlar_host/path_capture.py",
+      "sha256": "96c2f68823b7dd6f1dea15d66b2b3c0d5b13ad13da2fb22917dc3e1e4c887de5"
+    },
+    {
+      "bytes": 23042,
+      "path": "src/ashlar_host/path_execution.py",
+      "sha256": "dfe45af880af76b75160bbe3fdd9e7726e6e507fd483fc1886eb044407480bd1"
+    },
+    {
+      "bytes": 3079,
+      "path": "src/ashlar_host/path_schema.py",
+      "sha256": "006ff5de14e6a2e0cfd9607c5d385326ff318b31d8dccd96ebab4d9063846354"
+    },
+    {
+      "bytes": 23129,
+      "path": "src/ashlar_host/paths_query.py",
+      "sha256": "9cb07652703351b1c562a4df23cfc796a5a84400e51c8bc295ea9fd764f4a42c"
+    },
+    {
+      "bytes": 913,
+      "path": "src/ashlar_host/payments_count_cli.py",
+      "sha256": "311ed631436ca065aeee639b4797e096dc19b9fdfc70e2dd8fbe15c404ed9b73"
+    },
+    {
+      "bytes": 7380,
+      "path": "src/ashlar_host/payments_count_query.py",
+      "sha256": "4556021100e77fe4bfe5ff0a4fb35997166475be9f74d9ce99fc55df6c73213e"
+    },
+    {
+      "bytes": 3642,
+      "path": "src/ashlar_host/payments_oracle.py",
+      "sha256": "6b1d74db65dcad5940e633e29dc3315ab01d64e2efa3a5c1e508f0527f2090cb"
+    },
+    {
+      "bytes": 826,
+      "path": "src/ashlar_host/payments_scenario_cli.py",
+      "sha256": "b927838dc81844d20e84688bfc4c53d30470f5cc37838b0110903bd375d6b096"
+    },
+    {
+      "bytes": 7103,
+      "path": "src/ashlar_host/payments_scenario_query.py",
+      "sha256": "468dba82d81050831f24101fccbccec6cf653ccc4459a92eac0161179f75dbde"
+    },
+    {
+      "bytes": 5214,
+      "path": "src/ashlar_host/phase_absence.py",
+      "sha256": "052793a0ca229b4c763d85771c81ae93ec895e96ff1afcd03ac1191457d99e65"
+    },
+    {
+      "bytes": 101141,
+      "path": "src/ashlar_host/pinned_delta_graphframes.py",
+      "sha256": "5601a4728212b1878f066a569470f36cc9d1c79d546c94e02022b29adac731f3"
+    },
+    {
+      "bytes": 1924,
+      "path": "src/ashlar_host/postgres.py",
+      "sha256": "737e378956dfe3f4bef0523fa3317a3b2da8b57eb67b9c3909c3cd696fc21f3e"
+    },
+    {
+      "bytes": 17414,
+      "path": "src/ashlar_host/private_graph_custody.py",
+      "sha256": "673657295ed3ed69217b500fdc604a53ea8b44a9d6c55bfd47f1f38dc7fa3e77"
+    },
+    {
+      "bytes": 5147,
+      "path": "src/ashlar_host/process_capture.py",
+      "sha256": "3d4bc7399987dd8e9b6099be6b012b32bf28460537baa7a4b43154086e2757b2"
+    },
+    {
+      "bytes": 8352,
+      "path": "src/ashlar_host/publication_current_authority.py",
+      "sha256": "a9ace168156e5fbe2a91137ce19e1112ad92df8163397212f9755a500487f4ec"
+    },
+    {
+      "bytes": 9833,
+      "path": "src/ashlar_host/publication_current_cli.py",
+      "sha256": "bbc2b967d6d64fcc38186c21ab5fd83c32fa2cf664b7f5f9334a3635e1c46f08"
+    },
+    {
+      "bytes": 11734,
+      "path": "src/ashlar_host/publication_current_stage.py",
+      "sha256": "3e9ba997dfd82ebf2270383a7533f7d7967f5fc153881762b14421ca35798791"
+    },
+    {
+      "bytes": 5014,
+      "path": "src/ashlar_host/publication_planning.py",
+      "sha256": "e097474eba579520058a658f11863eaf86662f6f4b3df7c673118c520c06c4d9"
+    },
+    {
+      "bytes": 35825,
+      "path": "src/ashlar_host/publication_reader.py",
+      "sha256": "3ad58abb874f2d54609ffd845738d16258f293e12a977c259c05273090761043"
+    },
+    {
+      "bytes": 8070,
+      "path": "src/ashlar_host/puppy_carrier.py",
+      "sha256": "54a727162389b756f0aa7390ee1ff30b5d67e7e2094a6339ff3c6a98ce3d0e9c"
+    },
+    {
+      "bytes": 3925,
+      "path": "src/ashlar_host/puppy_carrier_cli.py",
+      "sha256": "169ba691db747b16714604c692bcaca58fbdce2d2941d03a4bc07710f54fab6d"
+    },
+    {
+      "bytes": 8528,
+      "path": "src/ashlar_host/puppy_commerce_prepare.py",
+      "sha256": "0101034932955471456ceeb4ac3d4f586c08295b2c56db8bc1ac2050f8ac9d05"
+    },
+    {
+      "bytes": 12540,
+      "path": "src/ashlar_host/puppy_commerce_projection.py",
+      "sha256": "e4cfe3fee394096a3ab1160a58fbe23bb083d65ffaeab1450cac50e10473e13e"
+    },
+    {
+      "bytes": 15165,
+      "path": "src/ashlar_host/puppy_commerce_scenarios.py",
+      "sha256": "c52619dc107176cbfc00a2402a439129b2a340c719776cf9ae39bef25eda7a5f"
+    },
+    {
+      "bytes": 11181,
+      "path": "src/ashlar_host/puppy_export_cli.py",
+      "sha256": "1a182052dd860b73d766e3bc3c56e76b1a836cbb5b374f0f12c3d44cad1e3281"
+    },
+    {
+      "bytes": 3310,
+      "path": "src/ashlar_host/puppy_export_setup.py",
+      "sha256": "5a6cfa5263c4970c3a0493db596385b6d36b2e3de09348ded8ee27e3898ef76f"
+    },
+    {
+      "bytes": 50538,
+      "path": "src/ashlar_host/puppy_finite_local.py",
+      "sha256": "9d63a03e3c2043139275a2d9cd86c6e1cc69f0c7947322fc8968340e2f453109"
+    },
+    {
+      "bytes": 13069,
+      "path": "src/ashlar_host/puppy_finite_pack.py",
+      "sha256": "8e8d1188bedd50ed342543d3e86c823a889616ae271ef3aa9018bac775823228"
+    },
+    {
+      "bytes": 3610,
+      "path": "src/ashlar_host/puppy_gremlin.py",
+      "sha256": "48d699e1d8c50703fc644e0185995109ba22bd3f883c3f54c91ce9ed411788c2"
+    },
+    {
+      "bytes": 10419,
+      "path": "src/ashlar_host/puppy_gremlin_transport.py",
+      "sha256": "052d7949a8d3e5e1d876ff9e89b8fff2150f4345b489b81afcd22f948b4d4487"
+    },
+    {
+      "bytes": 13229,
+      "path": "src/ashlar_host/puppy_native.py",
+      "sha256": "8b8ff299a7c104b8e8daa63e7eaad1829001935bc3f1f166a067677cf429e11d"
+    },
+    {
+      "bytes": 11073,
+      "path": "src/ashlar_host/puppy_release.py",
+      "sha256": "22f02f3b2e1181c24f496bfb5b8b8d15b9379d464ef4816a41b741acf6a1e3ff"
+    },
+    {
+      "bytes": 24297,
+      "path": "src/ashlar_host/puppy_release_cli.py",
+      "sha256": "2b2c65b77ba83cdb09aa1cbd5a172e5366053767fe8887d14a5c42201384b48d"
+    },
+    {
+      "bytes": 6960,
+      "path": "src/ashlar_host/puppy_release_document.py",
+      "sha256": "9677f20aaeb96e6ed58f7267841d54e850f1249d2154e6f446cc8938bb75f100"
+    },
+    {
+      "bytes": 6587,
+      "path": "src/ashlar_host/puppy_scenario_cleanup.py",
+      "sha256": "7e066c447df3a97e4ef1b1f2b29195f3e5cbe3ecae44f24cc65235b9a4bb3431"
+    },
+    {
+      "bytes": 10233,
+      "path": "src/ashlar_host/puppy_scenario_cli.py",
+      "sha256": "62a72367cdb8114a0067843214cd69334dc8d340b792622bf4e715b6dc571efc"
+    },
+    {
+      "bytes": 9234,
+      "path": "src/ashlar_host/puppy_scenario_configuration.py",
+      "sha256": "6425478a2f33a67e9c66a6bbbfaa0e62f76ab9e6283bf81115bdee73eea56c3b"
+    },
+    {
+      "bytes": 7037,
+      "path": "src/ashlar_host/puppy_scenario_native.py",
+      "sha256": "eaa38918b00b2077cd07d8039ab8b9bcd09157c54da64dfe0a0c6cae02efb836"
+    },
+    {
+      "bytes": 9862,
+      "path": "src/ashlar_host/puppy_scenario_preparation.py",
+      "sha256": "c5948f8757c88045d202d73f032800787321c05ef78d1530b7bbb4b63a910d2e"
+    },
+    {
+      "bytes": 4882,
+      "path": "src/ashlar_host/puppy_scenario_processes.py",
+      "sha256": "b2c448f14b44d405f08b8b2c8bd4c247d5fd207405e5e5840df962510c14b7b6"
+    },
+    {
+      "bytes": 3995,
+      "path": "src/ashlar_host/puppy_scenario_sources.py",
+      "sha256": "2eec2e197ffc305502d4965628ce376b1670c6548915bcba6032ea471e8fde1c"
+    },
+    {
+      "bytes": 10166,
+      "path": "src/ashlar_host/puppy_scenario_worker.py",
+      "sha256": "137b23f76d3826e78945eec916ca10fdca76877874a57931713b3438b5894608"
+    },
+    {
+      "bytes": 804,
+      "path": "src/ashlar_host/query_invocation_custody.py",
+      "sha256": "9fc7df000c6bd9fd02eeb37f5a394da60fdcd235b46e09bbacb1956cb4f9f1ab"
+    },
+    {
+      "bytes": 40557,
+      "path": "src/ashlar_host/r04_schedule.py",
+      "sha256": "8d863fa61794d7ff1f07a8008364387407e5f738c81db37cbed48df113ee60df"
+    },
+    {
+      "bytes": 26343,
+      "path": "src/ashlar_host/r04_slot_plan.py",
+      "sha256": "9a2921a8b0717a8167da494018417679ee5841e2c24061d81f89a9759f13da65"
+    },
+    {
+      "bytes": 2488,
+      "path": "src/ashlar_host/r04_truss049_feed.py",
+      "sha256": "b620e853737eded8e85c9467632e3874c50a0bd93ff96310bf166e32d986fd89"
+    },
+    {
+      "bytes": 1565,
+      "path": "src/ashlar_host/r04_truss050_feed.py",
+      "sha256": "ddb5b58334d842dce37f17a912bad910774135f7da87871adf26d61b9485128d"
+    },
+    {
+      "bytes": 1546,
+      "path": "src/ashlar_host/r04_truss051_feed.py",
+      "sha256": "ef47d60f54e915a0db34e9becd7807db5b42893cefceedc5d740922d36454720"
+    },
+    {
+      "bytes": 5495,
+      "path": "src/ashlar_host/read_only_transport.py",
+      "sha256": "194069ab4bcfba2e6b547a43ab565c21a4cef1331a6bf7e25336ef3de7aea9ec"
+    },
+    {
+      "bytes": 4207,
+      "path": "src/ashlar_host/registered_detail_proof.py",
+      "sha256": "1843097f7827b93d9b7c4737e4d7b68093162f120e8e19702ca56e1fde738589"
+    },
+    {
+      "bytes": 5826,
+      "path": "src/ashlar_host/relationship_plan.py",
+      "sha256": "c50ee613b1396609aa87ff6c7d4e2cd23f26caf1a22dd34460c7e426f2d3d628"
+    },
+    {
+      "bytes": 6221,
+      "path": "src/ashlar_host/relationship_query.py",
+      "sha256": "9f559274bb62c7696c00227c057a81b6fabc2b4f43dca810c527ba6bed1f5c6e"
+    },
+    {
+      "bytes": 148,
+      "path": "src/ashlar_host/resources/__init__.py",
+      "sha256": "204406c57d492492db69f923ab5c9a36633da7e6b9f519acf65abaff68add8cb"
+    },
+    {
+      "bytes": 5901,
+      "path": "src/ashlar_host/resources/check_commerce_dataset.ts",
+      "sha256": "5e6b4ad0a44759e658e4ba7e0c1cb52b508cf9ff327ab06cc5952ca8137aad9d"
+    },
+    {
+      "bytes": 7100,
+      "path": "src/ashlar_host/resources/check_finite_pack_dataset.ts",
+      "sha256": "bd9a38402da8385838e46a2cbff33823fd265a3fe5718beae2d60d3457a8a87f"
+    },
+    {
+      "bytes": 4279,
+      "path": "src/ashlar_host/resources/check_medical_dataset.ts",
+      "sha256": "78acc7901f3de4f20f188ceb110368fa87ce2aae981baae89466b06fc0bc0fa0"
+    },
+    {
+      "bytes": 6352,
+      "path": "src/ashlar_host/resources/check_supply_chain_dataset.ts",
+      "sha256": "f81f11dfac05c424e476dc79c2408721b9a19752c1ca6dc176d6c25138288b1d"
+    },
+    {
+      "bytes": 3788,
+      "path": "src/ashlar_host/resources/cohort-inverse.umf.json",
+      "sha256": "93616163c291fcc23e113dcaa98051012d8716506256c8d18ef73b402c77d54e"
+    },
+    {
+      "bytes": 175817,
+      "path": "src/ashlar_host/resources/evolution/candidate.json",
+      "sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba"
+    },
+    {
+      "bytes": 7419,
+      "path": "src/ashlar_host/resources/evolution/check_evolution.ts",
+      "sha256": "30ec82f34bd06eae9a23fb852b98482142e2fba1dcb12d9dbf370f2d8bafd3d2"
+    },
+    {
+      "bytes": 27544,
+      "path": "src/ashlar_host/resources/evolution/original-model.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    },
+    {
+      "bytes": 84770,
+      "path": "src/ashlar_host/resources/evolution/public-presence.json.gz",
+      "sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae"
+    },
+    {
+      "bytes": 174123,
+      "path": "src/ashlar_host/resources/evolution/seed-candidate.json",
+      "sha256": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692"
+    },
+    {
+      "bytes": 67527,
+      "path": "src/ashlar_host/resources/evolution/seed-public.json.gz",
+      "sha256": "392b8a20395b53566fc9c73ed10cd37d714ce2d45330fd465bb31f4a43a6a6a1"
+    },
+    {
+      "bytes": 1194249,
+      "path": "src/ashlar_host/resources/evolution/source-closure.json",
+      "sha256": "ab05e309c867e8e65eda93d0bec234cf4c815a077d0f6959a0a03a5759c389e6"
+    },
+    {
+      "bytes": 23078,
+      "path": "src/ashlar_host/resources/graph.json",
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e"
+    },
+    {
+      "bytes": 5928,
+      "path": "src/ashlar_host/resources/local-current-delta4/THIRD_PARTY_NOTICES.txt",
+      "sha256": "8177eaded1ef5e38152c2ab4d88df6029b90d032ca8a7cddedee61def508bca9"
+    },
+    {
+      "bytes": 676,
+      "path": "src/ashlar_host/resources/local-current-delta4/bridge-entry.ts",
+      "sha256": "d05088842f4c00d21151b1707e74e8477bda54f860940f7996540705140b11c8"
+    },
+    {
+      "bytes": 41370,
+      "path": "src/ashlar_host/resources/local-current-delta4/build-inputs.json",
+      "sha256": "b314d067d88ede4117f37c0b25604f53fac5753b5c5c2d05500762530950a26a"
+    },
+    {
+      "bytes": 3212,
+      "path": "src/ashlar_host/resources/local-current-delta4/realization.json",
+      "sha256": "da7d4b2a50ca949632520e64a616674646ecc3f829c3b9574dadced42ee84089"
+    },
+    {
+      "bytes": 11389,
+      "path": "src/ashlar_host/resources/local-current-delta4/role-semantics.json",
+      "sha256": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d"
+    },
+    {
+      "bytes": 508540,
+      "path": "src/ashlar_host/resources/local-current-delta4/umf-spark-delta4.iife.js",
+      "sha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5"
+    },
+    {
+      "bytes": 17412,
+      "path": "src/ashlar_host/resources/managed-current-core-010-xxhash64/edge_current.umf.json",
+      "sha256": "18732a5991f77d4b74a3ef2a77d4512b2b550e9de43a4085f342dfc326d237bb"
+    },
+    {
+      "bytes": 2098,
+      "path": "src/ashlar_host/resources/managed-current-core-010-xxhash64/index.json",
+      "sha256": "c5ea92626f06abf3905f42ad3b5bdc517d494292cfafe7eb80fb042d592b0b4e"
+    },
+    {
+      "bytes": 15053,
+      "path": "src/ashlar_host/resources/managed-current-core-010-xxhash64/object_current.umf.json",
+      "sha256": "6457b4b1a56fa5530732ef098b21b4a6ed5179db6d99a000545bf5c300caf771"
+    },
+    {
+      "bytes": 5840,
+      "path": "src/ashlar_host/resources/managed-current-core-010-xxhash64/publication_attempt_phase.umf.json",
+      "sha256": "d6ca4b087f36e2a14d03d363a67a49059016ef1cd96b8792771dddec0dee99dc"
+    },
+    {
+      "bytes": 6673,
+      "path": "src/ashlar_host/resources/managed-current-core-010-xxhash64/publication_manifest.umf.json",
+      "sha256": "fa4a5bdf9493eca17f563030f20cfc5a3d36938fb7998c9839b85923ae9cc0d8"
+    },
+    {
+      "bytes": 14752,
+      "path": "src/ashlar_host/resources/managed-current-core-010-xxhash64/runtime-carriers.generated.json",
+      "sha256": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa"
+    },
+    {
+      "bytes": 9031,
+      "path": "src/ashlar_host/resources/managed-current-core-010-xxhash64/tombstone.umf.json",
+      "sha256": "dabf700f674c95d84b8bf2ee5f40e7fb6d989ec8052c3790744cd24352afebf0"
+    },
+    {
+      "bytes": 5818,
+      "path": "src/ashlar_host/resources/managed-current-core-010-xxhash64/whole_source_history.umf.json",
+      "sha256": "381b5f2bd566d39ea5583d3f4764c6b8f64c049c15544b4e1c5cb3cb6fd3f934"
+    },
+    {
+      "bytes": 17099,
+      "path": "src/ashlar_host/resources/managed-current-core-010/edge_current.umf.json",
+      "sha256": "efb67da7c4fdbdee302aaed58634423019d1bc0d930412505f636b3ccc18a51e"
+    },
+    {
+      "bytes": 2059,
+      "path": "src/ashlar_host/resources/managed-current-core-010/index.json",
+      "sha256": "e7fb6216f7edfb163f1120dd2a8e3d8fd75e9d6864f399538164c8f8bb8dcf7c"
+    },
+    {
+      "bytes": 14714,
+      "path": "src/ashlar_host/resources/managed-current-core-010/object_current.umf.json",
+      "sha256": "75166b5a168da6e00e11810f9b29833da3683ee4734a3ded68344e91810d68be"
+    },
+    {
+      "bytes": 5840,
+      "path": "src/ashlar_host/resources/managed-current-core-010/publication_attempt_phase.umf.json",
+      "sha256": "d6ca4b087f36e2a14d03d363a67a49059016ef1cd96b8792771dddec0dee99dc"
+    },
+    {
+      "bytes": 6673,
+      "path": "src/ashlar_host/resources/managed-current-core-010/publication_manifest.umf.json",
+      "sha256": "fa4a5bdf9493eca17f563030f20cfc5a3d36938fb7998c9839b85923ae9cc0d8"
+    },
+    {
+      "bytes": 14330,
+      "path": "src/ashlar_host/resources/managed-current-core-010/runtime-carriers.generated.json",
+      "sha256": "438e63964bd79670481a05670d881b7551737a90f6492713807946748d14cd07"
+    },
+    {
+      "bytes": 9031,
+      "path": "src/ashlar_host/resources/managed-current-core-010/tombstone.umf.json",
+      "sha256": "dabf700f674c95d84b8bf2ee5f40e7fb6d989ec8052c3790744cd24352afebf0"
+    },
+    {
+      "bytes": 5818,
+      "path": "src/ashlar_host/resources/managed-current-core-010/whole_source_history.umf.json",
+      "sha256": "381b5f2bd566d39ea5583d3f4764c6b8f64c049c15544b4e1c5cb3cb6fd3f934"
+    },
+    {
+      "bytes": 17098,
+      "path": "src/ashlar_host/resources/managed-delta-v03/edge_current.umf.json",
+      "sha256": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302"
+    },
+    {
+      "bytes": 1217,
+      "path": "src/ashlar_host/resources/managed-delta-v03/index.json",
+      "sha256": "3905d10dc5ec5e7bc7297004e9e73e6786e53dbf4d2533ecdd351c0b38ba7679"
+    },
+    {
+      "bytes": 14713,
+      "path": "src/ashlar_host/resources/managed-delta-v03/object_current.umf.json",
+      "sha256": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884"
+    },
+    {
+      "bytes": 17855,
+      "path": "src/ashlar_host/resources/managed-delta-v03/property_journal.umf.json",
+      "sha256": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5"
+    },
+    {
+      "bytes": 5839,
+      "path": "src/ashlar_host/resources/managed-delta-v03/publication_attempt_phase.umf.json",
+      "sha256": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c"
+    },
+    {
+      "bytes": 6672,
+      "path": "src/ashlar_host/resources/managed-delta-v03/publication_manifest.umf.json",
+      "sha256": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d"
+    },
+    {
+      "bytes": 20628,
+      "path": "src/ashlar_host/resources/managed-delta-v03/runtime-carriers.generated.json",
+      "sha256": "89bcb139316bfbb110c9f3beaa1b582de6d521239217abcc307e55fc43a81e45"
+    },
+    {
+      "bytes": 9158,
+      "path": "src/ashlar_host/resources/managed-delta-v03/source_record.umf.json",
+      "sha256": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375"
+    },
+    {
+      "bytes": 9030,
+      "path": "src/ashlar_host/resources/managed-delta-v03/tombstone.umf.json",
+      "sha256": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13"
+    },
+    {
+      "bytes": 5817,
+      "path": "src/ashlar_host/resources/managed-delta-v03/whole_source_history.umf.json",
+      "sha256": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926"
+    },
+    {
+      "bytes": 3272,
+      "path": "src/ashlar_host/resources/managed_record_values.ts",
+      "sha256": "2c0fd1d28c187403a76976be3160e037b6ccadbb1642a7aea06dd0894c4d1ae5"
+    },
+    {
+      "bytes": 3706,
+      "path": "src/ashlar_host/resources/native/medical_mapped_vnodes.c",
+      "sha256": "98e2b1c9236eb282042ca595f3f9bcc56b4c732d53f30e7d25050ebada1d1e13"
+    },
+    {
+      "bytes": 27544,
+      "path": "src/ashlar_host/resources/ontology.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    },
+    {
+      "bytes": 5808,
+      "path": "src/ashlar_host/resources/original-commerce-local/attempts.umf.json",
+      "sha256": "484d29fb690d1c9f7cf1870fe444d558f6e6f3d0116847912a4fe812c724a571"
+    },
+    {
+      "bytes": 12821,
+      "path": "src/ashlar_host/resources/original-commerce-local/e-correspondence.json",
+      "sha256": "e108cf10abdc072d3dd872aaf634cba1e4136a0d9960c1decda8df242df30a4b"
+    },
+    {
+      "bytes": 16846,
+      "path": "src/ashlar_host/resources/original-commerce-local/edge_current.umf.json",
+      "sha256": "18bdcd39e2b9ac6498211cca27ff85609b2ca5f74757a5f0550e677889c600a3"
+    },
+    {
+      "bytes": 423,
+      "path": "src/ashlar_host/resources/original-commerce-local/index.json",
+      "sha256": "a82f501e19fec251644d3f058179d7d714e31de5db866d8899b6d758a58f8d28"
+    },
+    {
+      "bytes": 6650,
+      "path": "src/ashlar_host/resources/original-commerce-local/manifest.umf.json",
+      "sha256": "0e5a0f5a9553dc463ccb656388cf635280b77d7bc08a2423c8c7ded1a3725f46"
+    },
+    {
+      "bytes": 14498,
+      "path": "src/ashlar_host/resources/original-commerce-local/object_current.umf.json",
+      "sha256": "296c61500c08836431f7f3191a0b54025b1c836090e4d5ae71e88c5c3eab182f"
+    },
+    {
+      "bytes": 2478,
+      "path": "src/ashlar_host/resources/original-commerce-local/provenance.json",
+      "sha256": "fb2bff45bc7849d298208d0436d99295c01696bdcdd8101f63caa8069e122e9a"
+    },
+    {
+      "bytes": 12472,
+      "path": "src/ashlar_host/resources/original-commerce-local/runtime-carriers.generated.json",
+      "sha256": "612dda9253d1f32c2a00cc524c138f6e7a555b45d69eaf4edf5bf83816641905"
+    },
+    {
+      "bytes": 8968,
+      "path": "src/ashlar_host/resources/original-commerce-local/tombstone.umf.json",
+      "sha256": "fb334f92f16b0b6da22dd3bacb66470c119d897c01f12f86ba24782dbbb06712"
+    },
+    {
+      "bytes": 5820,
+      "path": "src/ashlar_host/resources/original-commerce-local/whole_source_history.umf.json",
+      "sha256": "42edbd1d4f33591d11a8bf441bcbb8e5aa2b20ff931915bce9db9d9445f674b2"
+    },
+    {
+      "bytes": 3996,
+      "path": "src/ashlar_host/resources/sql/ashlar-delta-v03/01-baseline.sql",
+      "sha256": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060"
+    },
+    {
+      "bytes": 2470,
+      "path": "src/ashlar_host/resources/sql/ashlar-outbox/01-postgresql.sql",
+      "sha256": "3d120a63c1afebf0f8a057ce4b66301fc837eb34220adb340227c4dc339be739"
+    },
+    {
+      "bytes": 11821,
+      "path": "src/ashlar_host/resources/sql/ashlar-source-ack/01-postgresql.sql",
+      "sha256": "70dd93f7fc53e6b0832ccde78066960a8815d0aed4597a32a7d9fc43ef17225c"
+    },
+    {
+      "bytes": 2907,
+      "path": "src/ashlar_host/resources/typed-query-record.umf.json",
+      "sha256": "34c92fc000a65d4f419f342bac2e10b32affdbea7e3d4ab522e1fbe66a1eae7f"
+    },
+    {
+      "bytes": 2680,
+      "path": "src/ashlar_host/resources/typed-record.umf.json",
+      "sha256": "73bb04b2c0eedf273f785e2833952a5b641d9e4a4bc72f5d717c2c69ba3456eb"
+    },
+    {
+      "bytes": 3570,
+      "path": "src/ashlar_host/resources/typed-related-record.umf.json",
+      "sha256": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5"
+    },
+    {
+      "bytes": 8599,
+      "path": "src/ashlar_host/resources/typed_graph_values.ts",
+      "sha256": "157891b6ec08dcc921e69f0c7d2241997dc79942b6311e331394f13273109f25"
+    },
+    {
+      "bytes": 2961,
+      "path": "src/ashlar_host/resources/typed_record_values.ts",
+      "sha256": "78eadab829454ac9009f7a00e0b0daa28e6e7b59fea9287c0c7a42fdcc8eed53"
+    },
+    {
+      "bytes": 412,
+      "path": "src/ashlar_host/runtime.py",
+      "sha256": "8e8d42be3a6a0de3f2a98feca7e80445e93089124db687cfddd235f702732f9e"
+    },
+    {
+      "bytes": 2065,
+      "path": "src/ashlar_host/schema_rows.py",
+      "sha256": "675ff54274c1cacf132b88e98e5d56a92cd96b0d7fb06256260f7a5fa8fa99b8"
+    },
+    {
+      "bytes": 9275,
+      "path": "src/ashlar_host/source-correspondence.json",
+      "sha256": "587cc96f178bca90b31123a09e9c3ac2292aa830337fbf4b783705e4fc0ce4a2"
+    },
+    {
+      "bytes": 4027,
+      "path": "src/ashlar_host/source.py",
+      "sha256": "fdf3e5186a3443113f26dfaa487faa2cf62b3b85fd9e09648c395a429762fcf4"
+    },
+    {
+      "bytes": 208,
+      "path": "src/ashlar_host/source_identity.py",
+      "sha256": "6e47f09d98f4dacbbb4596771702eb124a19636d10e1249e635bd661431b2d79"
+    },
+    {
+      "bytes": 7745,
+      "path": "src/ashlar_host/source_sessions.py",
+      "sha256": "8dbf62fa422e1b2ae211f8647f9ab6931b7530ad48c0ff9c16286cdb4377c938"
+    },
+    {
+      "bytes": 10843,
+      "path": "src/ashlar_host/supply_chain_binary_evidence.py",
+      "sha256": "657795fcbd7466998b4ba064561758ea872101934f761e434697870fe5cae61d"
+    },
+    {
+      "bytes": 4974,
+      "path": "src/ashlar_host/supply_chain_cli.py",
+      "sha256": "bdb4726db6611f6118e6816c3c74b4bccfb70b9110f59d049ad52f24f8c0f40b"
+    },
+    {
+      "bytes": 6764,
+      "path": "src/ashlar_host/supply_chain_common_cli.py",
+      "sha256": "177c676159aed99cdf9ffc423338fb6dfe1b0b5fed7ad4b00af3f95107f5fb8d"
+    },
+    {
+      "bytes": 10258,
+      "path": "src/ashlar_host/supply_chain_common_count_requests.py",
+      "sha256": "0cb9c91630228d23f3a65987c7357275acf4713555b616781693cbde09fea90d"
+    },
+    {
+      "bytes": 13047,
+      "path": "src/ashlar_host/supply_chain_common_query.py",
+      "sha256": "1c5d037a6030bc6e9d97c8ecc5559b84adc56093b3377cfdff2915dfc62e4d7d"
+    },
+    {
+      "bytes": 24727,
+      "path": "src/ashlar_host/supply_chain_common_read.py",
+      "sha256": "b87d854911a8ea73c49b59d1944b890842653e4e8b416847c74e9eef7e5d4465"
+    },
+    {
+      "bytes": 4676,
+      "path": "src/ashlar_host/supply_chain_common_requests.py",
+      "sha256": "42b5c9aebf40be97559a7ff32817e0fec36bf0e4b0ca52310d5a89ab046f5604"
+    },
+    {
+      "bytes": 2431,
+      "path": "src/ashlar_host/supply_chain_common_setup.py",
+      "sha256": "9b7af662fd09915c65f63088bd923c33cf2129b8cacefe204ac23ac82349297f"
+    },
+    {
+      "bytes": 4863,
+      "path": "src/ashlar_host/supply_chain_compile.py",
+      "sha256": "b7618a5754ada8d00cfc063ef9c444001e27bca7ac593223dd406d606b9475db"
+    },
+    {
+      "bytes": 1842,
+      "path": "src/ashlar_host/supply_chain_configuration.py",
+      "sha256": "98b5a5c5181a5237d9267006a9dd01c7b9111e246d03d0f9468daa669f8ed258"
+    },
+    {
+      "bytes": 7270,
+      "path": "src/ashlar_host/supply_chain_finite_source.py",
+      "sha256": "512f4320593846a45edd06fceb0b15cc5f4146a4824b950939a0e66a639744b9"
+    },
+    {
+      "bytes": 9971,
+      "path": "src/ashlar_host/supply_chain_graph_release.py",
+      "sha256": "ed16ae57d7b294c6fe8a5f1cf90ba49cbcd3452fcafa727f30e2cb566ffad1cb"
+    },
+    {
+      "bytes": 2540,
+      "path": "src/ashlar_host/supply_chain_graphframes.py",
+      "sha256": "a30ad796d276be00b02b1b46f03ea090d4eb1daf9abcb8f160be6d5859026e0b"
+    },
+    {
+      "bytes": 6919,
+      "path": "src/ashlar_host/supply_chain_graphframes_cli.py",
+      "sha256": "e4d784d7163b4f747d6a785a2f5adf6caa8dc82278bde92823d36f561264b39a"
+    },
+    {
+      "bytes": 23495,
+      "path": "src/ashlar_host/supply_chain_native.py",
+      "sha256": "e1cfa1036117af7ca959b2297b71e0c825812ce1c70ba7599cf5c1473cffe219"
+    },
+    {
+      "bytes": 6976,
+      "path": "src/ashlar_host/supply_chain_native_cli.py",
+      "sha256": "1b36229b363c549d25512dc869db038c1fbf86b1e34f34c8c776feca0d328427"
+    },
+    {
+      "bytes": 6908,
+      "path": "src/ashlar_host/supply_chain_oracle.py",
+      "sha256": "d0b2a513b6e5babe1165726aea44eaefe1f4e0e51134affb64961b42fe3fb875"
+    },
+    {
+      "bytes": 3412,
+      "path": "src/ashlar_host/supply_chain_path_request.py",
+      "sha256": "c7d8802b0d7e526210480ac9e9d8e4c95124c20f80514ecab942cadcff3e0c04"
+    },
+    {
+      "bytes": 15760,
+      "path": "src/ashlar_host/supply_chain_producer.py",
+      "sha256": "a5878c6de94699873a8e95017be2953ce5db2963f8e785caefe219f5fadd3661"
+    },
+    {
+      "bytes": 6293,
+      "path": "src/ashlar_host/supply_chain_projection.py",
+      "sha256": "d3dcfd8d0366d514099d684d82cf40630b10aff483ede8bc25ca358281f05cb7"
+    },
+    {
+      "bytes": 2689,
+      "path": "src/ashlar_host/supply_chain_publication.py",
+      "sha256": "f6a8610ef7c31b206b6d717e987e329cfb270e4561f1e86b1101309eb15051e4"
+    },
+    {
+      "bytes": 7292,
+      "path": "src/ashlar_host/supply_chain_query.py",
+      "sha256": "27f65da5700e9c414b4d5526173236eb6c320658b558005b0960f38c19d2db4a"
+    },
+    {
+      "bytes": 10996,
+      "path": "src/ashlar_host/supply_chain_reader.py",
+      "sha256": "2f74e2e32ed54199f0d4fa641495e211d81652e7e304a5863ad7c5a1cdf1d48e"
+    },
+    {
+      "bytes": 7609,
+      "path": "src/ashlar_host/supply_chain_request.py",
+      "sha256": "ba54a84ea392b91dc34e383a9b25cf577a1c84fb170de270a4e4d5fe58efc5b6"
+    },
+    {
+      "bytes": 7438,
+      "path": "src/ashlar_host/supply_chain_two_hop_query.py",
+      "sha256": "4812f9ac96d3a9a74bfdd03badb948897aaf926c26987899149c55e7b5d0a5e6"
+    },
+    {
+      "bytes": 3347,
+      "path": "src/ashlar_host/truss_ack_journal.py",
+      "sha256": "4ab00d9e715e7caeafc2d6b8ed032ccdb88a7aa438533f8ff949698f2735b817"
+    },
+    {
+      "bytes": 8149,
+      "path": "src/ashlar_host/truss_arithmetic_example.py",
+      "sha256": "c4375d94e1a2a1d5ffeb0488a9a8965a881c1cd597779ca67898aacafe55ba46"
+    },
+    {
+      "bytes": 13004,
+      "path": "src/ashlar_host/truss_arithmetic_projection.py",
+      "sha256": "964cb870315616d10180c318f3add9dabad15035f71cc275f28f7dcd31426f7c"
+    },
+    {
+      "bytes": 1893,
+      "path": "src/ashlar_host/truss_arithmetic_query_cli.py",
+      "sha256": "b6dcdc021951f0c3a5bcfe058357a6ffdac8846ae2ed58a74f0e767d9dfbaad4"
+    },
+    {
+      "bytes": 3807,
+      "path": "src/ashlar_host/truss_b_source_preflight.py",
+      "sha256": "51180c3ae24f5b9c812a7bef132c4e27aa37a56cc6b65f407a68a69cac5b7155"
+    },
+    {
+      "bytes": 849,
+      "path": "src/ashlar_host/truss_backend.py",
+      "sha256": "3150fb179b56f25764090543684e39dd6811a89d65cc03c4d52e0eeab7abf0ee"
+    },
+    {
+      "bytes": 15012,
+      "path": "src/ashlar_host/truss_catalog_reader.py",
+      "sha256": "231c3d2c364f4f75c467e08d0ede64ece018e0225ea7159e107e013c7ed5e286"
+    },
+    {
+      "bytes": 11369,
+      "path": "src/ashlar_host/truss_compatible_binding.py",
+      "sha256": "9fdedd896740c266f8006b2f3616db3ea9f8778ed60e57fec96a13a1fd179c22"
+    },
+    {
+      "bytes": 1888,
+      "path": "src/ashlar_host/truss_compatible_query_cli.py",
+      "sha256": "43d8f7acbb81542323e45675cf938c7b29a25dccf635d2ae5d13fa7a718a1a0b"
+    },
+    {
+      "bytes": 2639,
+      "path": "src/ashlar_host/truss_compatible_revisions.py",
+      "sha256": "605a80f974ff0304cc641c8df9de7fdf70c586f50511c1fa6ebc42664d53c339"
+    },
+    {
+      "bytes": 6084,
+      "path": "src/ashlar_host/truss_continuation_setup.py",
+      "sha256": "e624466b5dc8f59d272dad08176ddd46e9f753a6b69f3620a77368f77829ca2c"
+    },
+    {
+      "bytes": 14506,
+      "path": "src/ashlar_host/truss_continue.py",
+      "sha256": "10e44ca84bb72f440cc967ff7f54df5d058315f6687f6bad6d54803d6ef165d8"
+    },
+    {
+      "bytes": 2461,
+      "path": "src/ashlar_host/truss_continue_cli.py",
+      "sha256": "f86f320578ac652571df82cdd435360c1e648087dc7b56e595328f42d1e5c472"
+    },
+    {
+      "bytes": 24038,
+      "path": "src/ashlar_host/truss_current_catalog.py",
+      "sha256": "48eca77e336f2ec5d17527c24c5a7dd5d032892e10659ccf9a182501d805d895"
+    },
+    {
+      "bytes": 4305,
+      "path": "src/ashlar_host/truss_evolve_graph.py",
+      "sha256": "86580e975ee873d95781d0797a40f968bf99e386425f3bf7c374f514d953ebb4"
+    },
+    {
+      "bytes": 13375,
+      "path": "src/ashlar_host/truss_example.py",
+      "sha256": "bd0569e349582a77bb0d20c9659fa81947e8da8df345eab5c19125d648a64a66"
+    },
+    {
+      "bytes": 5623,
+      "path": "src/ashlar_host/truss_example_reader.py",
+      "sha256": "c803e5f15e2876434a4a332497ce5d924e9b0c33fe3aa135ed4d6b92b488e99a"
+    },
+    {
+      "bytes": 23224,
+      "path": "src/ashlar_host/truss_feed_sessions.py",
+      "sha256": "3e333ece5c6705637f4383d17ccd02ed33254fed5ade962562a763bee3ba2aeb"
+    },
+    {
+      "bytes": 24537,
+      "path": "src/ashlar_host/truss_graph_admission.py",
+      "sha256": "e74133046266d6cebfb762d8ae809d36e4b7016e469e8cfa349017c88837ad44"
+    },
+    {
+      "bytes": 9057,
+      "path": "src/ashlar_host/truss_graph_change.py",
+      "sha256": "c15d5433db983eace8f66d26167ea8a648d362a7fc5699535925101f4d2997d4"
+    },
+    {
+      "bytes": 4889,
+      "path": "src/ashlar_host/truss_graph_custody.py",
+      "sha256": "651621fed89ea81f74bf5139a0deeeab5aa4426a86685cc2ff2714f2f495d82a"
+    },
+    {
+      "bytes": 4494,
+      "path": "src/ashlar_host/truss_graph_export.py",
+      "sha256": "12c4fe10df122e7f20e6e91103cf6ff3353e83e9c0790708dd9d941530e6d7a5"
+    },
+    {
+      "bytes": 2920,
+      "path": "src/ashlar_host/truss_graph_export_cli.py",
+      "sha256": "b2d0e632404e95548b6ffaa431a2f9b55736e8748786f9a73edc48541ce2e8d7"
+    },
+    {
+      "bytes": 10178,
+      "path": "src/ashlar_host/truss_graph_lifecycle.py",
+      "sha256": "8a8a27d74589573edac7b3d3d5757e348282922a4eed3f5f4c221fb7014dd00e"
+    },
+    {
+      "bytes": 7220,
+      "path": "src/ashlar_host/truss_graph_mutation.py",
+      "sha256": "afce5652bb65f732505de0a35498007e15f93613b8f7434111877adadea11f11"
+    },
+    {
+      "bytes": 749,
+      "path": "src/ashlar_host/truss_implicit_arithmetic_request.py",
+      "sha256": "df2d9bcbd9eabaf67a716ab4407d10a35aebac8988626bd619205d44e510d04f"
+    },
+    {
+      "bytes": 2869,
+      "path": "src/ashlar_host/truss_indexed_commerce_cli.py",
+      "sha256": "b7d9c93dcdee361b1cd41d4976984ff6ba11e39916a753e7d24dc64baf3f7f31"
+    },
+    {
+      "bytes": 7554,
+      "path": "src/ashlar_host/truss_indexed_commerce_guard.py",
+      "sha256": "bd15446ff1e4cf5d05f0505675c49edb8c24be1bc174740fa5d3105bd68ff68b"
+    },
+    {
+      "bytes": 13831,
+      "path": "src/ashlar_host/truss_indexed_commerce_oracle.py",
+      "sha256": "9d46a4b187c96392b297e71812ff812fc308bd72abe6bd0c67d0cbfaa300f431"
+    },
+    {
+      "bytes": 12107,
+      "path": "src/ashlar_host/truss_indexed_commerce_query.py",
+      "sha256": "f7bc33e09e8ea6aef217fa8803f604eeea21a6a7260fe39ad2ff53da044b2f98"
+    },
+    {
+      "bytes": 8826,
+      "path": "src/ashlar_host/truss_indexed_commerce_request.py",
+      "sha256": "f5a42c1862d2a77c8a26980c497cfbad77598b5cd641b1eabd8dca50f59d2453"
+    },
+    {
+      "bytes": 7629,
+      "path": "src/ashlar_host/truss_integer_source_guard.py",
+      "sha256": "75b5bcb08d921416aa663958f4debe5bd336447730f6730184e3ee57c969700a"
+    },
+    {
+      "bytes": 9172,
+      "path": "src/ashlar_host/truss_join_count.py",
+      "sha256": "5790f6cffbc8fc788dae82774b63f17a34823a7907617695797451f0e45bcd14"
+    },
+    {
+      "bytes": 2559,
+      "path": "src/ashlar_host/truss_local_postgres.py",
+      "sha256": "e1b70f131ef072a788660fb63d0c52ca4bffbdc062c587507e07fd57ffba302b"
+    },
+    {
+      "bytes": 3354,
+      "path": "src/ashlar_host/truss_local_server.py",
+      "sha256": "622d71bfbfc2635a102fefb7a14dc53cdc9443a994d635a2d47275664316b259"
+    },
+    {
+      "bytes": 7553,
+      "path": "src/ashlar_host/truss_local_setup.py",
+      "sha256": "68a43007919bab1834515c7d75a2f12accca9ab6bb69406d995d11644b7bd797"
+    },
+    {
+      "bytes": 18998,
+      "path": "src/ashlar_host/truss_mutation_group.py",
+      "sha256": "339013905619abb8c7fcb571c9546342a514f6fe77b773570e7ee25e678122c7"
+    },
+    {
+      "bytes": 6065,
+      "path": "src/ashlar_host/truss_note_admission.py",
+      "sha256": "0a633c8a519d67115d19ec0977a26801b9a99c7591d693c14eb77c3b24325cbd"
+    },
+    {
+      "bytes": 4655,
+      "path": "src/ashlar_host/truss_note_cli.py",
+      "sha256": "b15f8b71b136087e95670e869f65cc93eed5d2395459d131e75e51aa97d42714"
+    },
+    {
+      "bytes": 983,
+      "path": "src/ashlar_host/truss_note_evolution.py",
+      "sha256": "2ba3cf512a55f2a6b93687aa954078b16fbdf69099adb95cecc6c2e5dc140f1b"
+    },
+    {
+      "bytes": 7063,
+      "path": "src/ashlar_host/truss_note_mutation.py",
+      "sha256": "010cc2a14c5d6974829084aa2bb39c980ce9739eefe7b668979a2974ac6ffbc5"
+    },
+    {
+      "bytes": 26515,
+      "path": "src/ashlar_host/truss_note_publication.py",
+      "sha256": "5430fc77fd4ffefdfc20af0e13301c63cb97116fd6e53a2d24b7893ec735ad37"
+    },
+    {
+      "bytes": 10317,
+      "path": "src/ashlar_host/truss_numeric_grouped_count.py",
+      "sha256": "887aba7fe8eccd6085cff4e7e05163eafa6428af8a9499668fec2049b99d8b5e"
+    },
+    {
+      "bytes": 1921,
+      "path": "src/ashlar_host/truss_numeric_grouped_count_cli.py",
+      "sha256": "a4ae2ebe8bb2e82dfd6531189a7f4e439b39e14ca4e7c701669ffef8c5ecb8f9"
+    },
+    {
+      "bytes": 4930,
+      "path": "src/ashlar_host/truss_page_archive.py",
+      "sha256": "e27d520923b9843afffaf1cb482a289b1744ac0f13c011ff2d4461adb916d162"
+    },
+    {
+      "bytes": 27730,
+      "path": "src/ashlar_host/truss_preparation.py",
+      "sha256": "14a639cf9edc09f8b3b519652e5d4a8096b0e49611e766cabc14df754aae179c"
+    },
+    {
+      "bytes": 14175,
+      "path": "src/ashlar_host/truss_preparation_configuration.py",
+      "sha256": "4867e5a4fbc099fbe7ddd7f3aacd446fe26ee56f4932fae5b54061a54674ff2c"
+    },
+    {
+      "bytes": 5616,
+      "path": "src/ashlar_host/truss_query_batch.py",
+      "sha256": "6e4b2f219dfe7177683615a91c197ab4344fcd11666fefc886ffdada6963a671"
+    },
+    {
+      "bytes": 1719,
+      "path": "src/ashlar_host/truss_query_cli.py",
+      "sha256": "88afb8551f440d8e6098c0b1d0a091a6e212490fc49bec32e39a7293c5992dc5"
+    },
+    {
+      "bytes": 7676,
+      "path": "src/ashlar_host/truss_record_delete.py",
+      "sha256": "01f77bdf47ca909989320e425ef7dd73295e543ab9c10b14849733bd89a57492"
+    },
+    {
+      "bytes": 7123,
+      "path": "src/ashlar_host/truss_record_example.py",
+      "sha256": "c3f3c8ecb04c95ef8dcd3495972a3b3fc30345f0828d123e814113fb09572c3f"
+    },
+    {
+      "bytes": 16555,
+      "path": "src/ashlar_host/truss_record_group.py",
+      "sha256": "e0817afd6d48b99c66f612381b38787055fe6a5e8ec3d55e4381402d7081456b"
+    },
+    {
+      "bytes": 8453,
+      "path": "src/ashlar_host/truss_record_mutation.py",
+      "sha256": "30e664bf2b6801882d2ded044eba48992d69a9e2fd02eaf6938c5ad806e744c0"
+    },
+    {
+      "bytes": 4462,
+      "path": "src/ashlar_host/truss_record_read.py",
+      "sha256": "4b1e708ed479b536519e99f99f548f4051fac978dd3f0b8157995f11f19477ae"
+    },
+    {
+      "bytes": 9013,
+      "path": "src/ashlar_host/truss_record_update.py",
+      "sha256": "75f86129b479e543d63486d959eb47d188431a6b1e85a26de556f7614fa0ba82"
+    },
+    {
+      "bytes": 10345,
+      "path": "src/ashlar_host/truss_recovery.py",
+      "sha256": "6b1aeead3cff366c1b6fe7c2002469530663faf3b81e3213865ee196c952f966"
+    },
+    {
+      "bytes": 11114,
+      "path": "src/ashlar_host/truss_relationship_filter.py",
+      "sha256": "83344de3cb575cdcda3dcf589953ca67272ae8a0ffab75b1498602ec7c58012d"
+    },
+    {
+      "bytes": 4642,
+      "path": "src/ashlar_host/truss_resume.py",
+      "sha256": "70729dde40bef7c9b9dbcedc90c35c46f402937cdc3ae4b60b584e55e6bcb3cf"
+    },
+    {
+      "bytes": 18195,
+      "path": "src/ashlar_host/truss_resume_cli.py",
+      "sha256": "c7888818a482f2d1143305dc20ee33f3e004d00df2369e65d2ad38d6e1a478aa"
+    },
+    {
+      "bytes": 3598,
+      "path": "src/ashlar_host/truss_resume_setup.py",
+      "sha256": "33b20a3345b46a1945d7d66303ba7359e3e589c77c154797567f66962dae816f"
+    },
+    {
+      "bytes": 663,
+      "path": "src/ashlar_host/truss_runtime.py",
+      "sha256": "59f9337faf3a41284ebcdc13d404cd6dc70b612cd4f7a9fad60d8d7b7fdabde0"
+    },
+    {
+      "bytes": 1432,
+      "path": "src/ashlar_host/truss_saved_cli.py",
+      "sha256": "e100b2b68d205da40b91763b4c7f3ccb254c4c1c2d3bc14247697847dbbfe85f"
+    },
+    {
+      "bytes": 10791,
+      "path": "src/ashlar_host/truss_saved_publication.py",
+      "sha256": "c5c8b94f9b5c1e85fc511e15adf93cf86a69bc7479ab780570110e510e5376d9"
+    },
+    {
+      "bytes": 1909,
+      "path": "src/ashlar_host/truss_scalar_join_count_cli.py",
+      "sha256": "d81f80d34a3db39e42882836fd83f61b018b1587f5919d45132ca4fd102262e2"
+    },
+    {
+      "bytes": 13274,
+      "path": "src/ashlar_host/truss_scalar_join_projection.py",
+      "sha256": "5d514c3a2e3a0c999ed47753b90c1e6a3b37e2fd1de559751de0d422ff15df4f"
+    },
+    {
+      "bytes": 1891,
+      "path": "src/ashlar_host/truss_scalar_join_query_cli.py",
+      "sha256": "8168b541fde7acebe3a5279e62a420704455a4760e47f8ee1cac03e35c7e37d5"
+    },
+    {
+      "bytes": 16968,
+      "path": "src/ashlar_host/truss_scalar_projection.py",
+      "sha256": "9145911691926f4525742c7c277a40ffc44be1e16461e91909b9a39b64488981"
+    },
+    {
+      "bytes": 1877,
+      "path": "src/ashlar_host/truss_scalar_query_cli.py",
+      "sha256": "b5d52b11ab986369061c39687bdef084026192d6d41511977f6e478ccb9696c9"
+    },
+    {
+      "bytes": 4922,
+      "path": "src/ashlar_host/truss_schema_acceptance.py",
+      "sha256": "25ab62deada806bdf45e1c16f2d98fe00c9e14ae3f5232aa4e94bbc3de7e8a25"
+    },
+    {
+      "bytes": 14717,
+      "path": "src/ashlar_host/truss_schema_evolution.py",
+      "sha256": "eec3e56377d08d46e80421f41a1c246960ed0f789d255ffaa9ad63419f506870"
+    },
+    {
+      "bytes": 5873,
+      "path": "src/ashlar_host/truss_singleton.py",
+      "sha256": "31de5b48a1f00352efa031a1df6c9449f2d943490696e3b7818c74d90ff4e36f"
+    },
+    {
+      "bytes": 17274,
+      "path": "src/ashlar_host/truss_two_hop_count.py",
+      "sha256": "84334a9e6af5c2f0f0d5f2ba8f7dd01ed6d73bee9acf4ae0872a1979579ea0bb"
+    },
+    {
+      "bytes": 1902,
+      "path": "src/ashlar_host/truss_two_hop_count_cli.py",
+      "sha256": "e5e7fb75d73a016c69212daa47be799ec7f9ffbd25c27effe1064532987dfa35"
+    },
+    {
+      "bytes": 1119,
+      "path": "src/ashlar_host/truss_two_hop_projection.py",
+      "sha256": "daf49a798e7737eda581286907e3809fedd5b7341c497bde6f5fa55cc042ff82"
+    },
+    {
+      "bytes": 1923,
+      "path": "src/ashlar_host/truss_two_hop_target_count_cli.py",
+      "sha256": "9ba2e93da8cb9dda550cb80a83c970a6db5f0b74e895b56050837397507bebde"
+    },
+    {
+      "bytes": 9879,
+      "path": "src/ashlar_host/truss_typed_edge_command.py",
+      "sha256": "b614ed44a086214a40311435d32630f52b5833ce910da347a729f9f7bca0fff5"
+    },
+    {
+      "bytes": 7968,
+      "path": "src/ashlar_host/truss_typed_edge_delete.py",
+      "sha256": "58be0c54ada0404ef88e7e78f537fe060817a446bfeef71bdff1187d85c8ceea"
+    },
+    {
+      "bytes": 12383,
+      "path": "src/ashlar_host/truss_typed_edge_update.py",
+      "sha256": "32732648693c800346346b9cb2c3f1c3b87299c457a4baad95a060da2e3fc9ff"
+    },
+    {
+      "bytes": 9444,
+      "path": "src/ashlar_host/truss_typed_query_batch.py",
+      "sha256": "bdfbcb48983610fec6ab175baf45507f04ae6631c3044bd26377109c294fc67c"
+    },
+    {
+      "bytes": 11837,
+      "path": "src/ashlar_host/truss_typed_related_example.py",
+      "sha256": "99606742ddb4058283a1da919b25c6aa551e7b99e326860bfb359bdb7fc00e02"
+    },
+    {
+      "bytes": 1728,
+      "path": "src/ashlar_host/truss_typed_related_query_cli.py",
+      "sha256": "7ffc4ee82a86151e28b76b01b83dd3a8acc4b82c7d8832c1d3e62b67a7bd209a"
+    },
+    {
+      "bytes": 10385,
+      "path": "src/ashlar_host/truss_value_projection.py",
+      "sha256": "87e6e91419925b222da66233a46bab7692fe0d20d87e3f44daaa982f761d00f2"
+    },
+    {
+      "bytes": 69303,
+      "path": "src/ashlar_host/truss_weft_query.py",
+      "sha256": "e983da4a7a1f9185c76abd7c9e28cc5f702654411912473a1c76bd3103ffc329"
+    },
+    {
+      "bytes": 12945,
+      "path": "src/ashlar_host/typed_actions.py",
+      "sha256": "028bac402645f857fd73c733a112c97c6e5f11e9907279b32f71117d6ab3060b"
+    },
+    {
+      "bytes": 13551,
+      "path": "src/ashlar_host/typed_bulk.py",
+      "sha256": "a5be0807461f153d2dfca2ba76ff8bc47acddb33a829e0e24bf523ec8ecb75eb"
+    },
+    {
+      "bytes": 6642,
+      "path": "src/ashlar_host/typed_graph_admission.py",
+      "sha256": "50932976ee45ae2f206d98f55370c9c39787e3831d693ad9e836d30e37453358"
+    },
+    {
+      "bytes": 5837,
+      "path": "src/ashlar_host/typed_record_admission.py",
+      "sha256": "a1892160d42b6ae3cbafea7e22b6fbc5ef3bf08f909d8c9f715d7da5b41d92be"
+    },
+    {
+      "bytes": 5384,
+      "path": "src/ashlar_host/weft_compatible_cli.py",
+      "sha256": "df0e470c82c4317b8550cb6f7c7b696191f4f1a2e29a008e2d541dbfe8f2f9b7"
+    }
+  ],
+  "selected_paths": [
+    "pyproject.toml",
+    "src/",
+    "sql/"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "execution_admitted": false,
+  "external_pg_ctl": {
+    "path": "/opt/homebrew/Cellar/postgresql@18/18.6_1/bin/pg_ctl",
+    "sha256": "3021087af95fd33bfd83106c85de47c4756e44aa7edde78446e7593604d1b451",
+    "version": "pg_ctl (PostgreSQL) 18.6 (Homebrew)"
+  },
+  "installed_truss_direct_url": {
+    "archive_info": {
+      "hash": "sha256=eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57",
+      "hashes": {
+        "sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57"
+      }
+    },
+    "url": "file:///private/tmp/umf_truss-0.0.51-py3-none-any.whl"
+  },
+  "native_effects": false,
+  "pip_check": "No broken requirements found.",
+  "profile": "ashlar-truss-r16-effectfree-preflight/0.1",
+  "runtime_python": "/private/tmp/ashlar-r16-truss051-effectfree-312/bin/python",
+  "seed_request": {
+    "bytes": 1657,
+    "operation_count": 7,
+    "path": "docs/helix/04-build/evidence/current-upstream-release-20261022/truss-049-lifecycle-ready/seed-request.json",
+    "request_key": "ashlar-current-048-lifecycle-seed-r1",
+    "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771"
+  },
+  "source_archive": {
+    "path": "/private/tmp/ashlar-r16-source-48fb9cb0.tar",
+    "sha256": "cb57fdb7d338f345cfad157463fdbe94a2be7dcf69e728c474954c2939c14a0b"
+  },
+  "source_commit": "48fb9cb047f95854d59d0882af31156aab5f1f99",
+  "source_pyproject_pin": "truss-local = [\"umf-truss[native] @ https://github.com/DocumentDrivenDX/truss/releases/download/v0.0.51/umf_truss-0.0.51-py3-none-any.whl#sha256=eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57\"]",
+  "supervisor": "r16-read-only-preflight",
+  "supervisor_sha256": "a82c42f454889849147df5ab1126325781bed91629df0ff0bc6489e54816aba9",
+  "supervisor_worker_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261024/truss051-r16-effectfree-candidate-20261029/r16_preflight_worker.py",
+  "truss_wheel": {
+    "path": "/private/tmp/umf_truss-0.0.51-py3-none-any.whl",
+    "sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57",
+    "version": "0.0.51"
+  },
+  "worker_sha256": "f03a190bbac08cf4caa59ed8927c0f48b9d346eeecd1260e03546b7b8a243fb2"
+}

@@ -1,0 +1,52 @@
+{
+  "archive_supersession": {
+    "old_full_archive_bytes": 731811840,
+    "old_full_archive_sha256": "5ff1ce357e85721248eb3733a1d7ddf3635e01e3136e2f69cb2462bb5b9fd985",
+    "reason": "replaced by exact executable-input archive; historical evidence is separately hash-bound"
+  },
+  "authorization": "none; effect-free preflight only; native lifecycle not implemented",
+  "external_pg_ctl": {
+    "path": "/opt/homebrew/Cellar/postgresql@18/18.6_1/bin/pg_ctl",
+    "sha256": "3021087af95fd33bfd83106c85de47c4756e44aa7edde78446e7593604d1b451",
+    "version": "18.6"
+  },
+  "packet_files": {
+    "../truss050-r16-recovery-packet-candidate-20261029/truss051-package-integrity.json": "72d884543e020506a38d7a930c9f481429503dc8e323b85fd102924117737f0d",
+    "future-scope-template.json": "af39604afeca0b68e59f8a21792bc8598241c5b82bea2c887ec4ac6cf445dba2",
+    "preflight-receipt.json": "b53ae2e2ae5f9ad4c8ca4ff3dd200354b2abf6dfcd18a1a7257681f687f21a11",
+    "r16_preflight_worker.py": "f03a190bbac08cf4caa59ed8927c0f48b9d346eeecd1260e03546b7b8a243fb2",
+    "run_supervisor_r16.py": "a82c42f454889849147df5ab1126325781bed91629df0ff0bc6489e54816aba9",
+    "source-inputs-manifest-r16.json": "fb79cebc5b1388b49d0687c9f77c61187125299758ee7388fd64ba2c9d533348",
+    "state-observation-r16.json": "4fd19518df6f23454cfdbf8cd816b5a3f262b1bc7d5f9fec69b80a154366395b",
+    "test_r16_preflight.py": "347a73e15d5bcbbdb341fcf374e176ae2b9354b3c95c83ca62558d7f63e7cb06"
+  },
+  "post_freeze_repository_delta": {
+    "classification": "unrelated TD-009 source-holder proposal; outside R16 frozen archive and not part of Truss/native execution path",
+    "files": [
+      "docs/helix/04-build/evidence/source-holder-interval-proposal-r2-20261029.md",
+      "src/ashlar_host/_source_holder_interval_proposal.py",
+      "tests/test_source_holder_interval_proposal.py"
+    ],
+    "head_after_freeze": "fa601db54183e56318d35de6c5a07e9ba4de5028"
+  },
+  "profile": "ashlar-truss-r16-effectfree-input-freeze/0.1",
+  "runtime": {
+    "embedded_050_index_sha256": "4c6baf0282e3d0b5492f070c9c07d89ff0c9a819e748f3820f60b11c1f51c7aa",
+    "manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "outer_index_sha256": "d1672e85ae0e89137986fc57669186af47e5826366bd430284aba9b7cf52c37d",
+    "truss": "0.0.51",
+    "wheel_sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57"
+  },
+  "source": {
+    "archive_bytes": 8755200,
+    "archive_path": "/private/tmp/ashlar-r16-source-48fb9cb0.tar",
+    "archive_sha256": "cb57fdb7d338f345cfad157463fdbe94a2be7dcf69e728c474954c2939c14a0b",
+    "commit": "48fb9cb047f95854d59d0882af31156aab5f1f99",
+    "selected_paths": [
+      "pyproject.toml",
+      "src/",
+      "sql/"
+    ],
+    "tree": "5776238063057a36b2b2dff9b19de9f264d7ac21"
+  }
+}

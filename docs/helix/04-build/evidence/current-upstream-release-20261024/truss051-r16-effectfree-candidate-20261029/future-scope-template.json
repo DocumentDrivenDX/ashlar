@@ -1,0 +1,149 @@
+{
+  "approval_parity": "Before authorization, the approval, future native worker, and future native supervisor must agree byte-for-byte on all fixed inputs, selected paths, limits, and expected identity/hash gates. Native worker_sha256 and supervisor_sha256 must be populated with reviewed code hashes before approval. Runtime-derived receipt hashes remain null in this template and are bound as outputs at their stages; each must pass its documented comparison gate before any subsequent effect. Null pre-run fields fail admission; null runtime outputs are expected until their stage. This template grants no authority.",
+  "authorization": null,
+  "effect_free_preflight_code": {
+    "note": "These hashes identify read-only preflight tools only; they are not native lifecycle worker/supervisor approval pins.",
+    "supervisor_path": "run_supervisor_r16.py",
+    "supervisor_sha256": "a82c42f454889849147df5ab1126325781bed91629df0ff0bc6489e54816aba9",
+    "worker_path": "r16_preflight_worker.py",
+    "worker_sha256": "f03a190bbac08cf4caa59ed8927c0f48b9d346eeecd1260e03546b7b8a243fb2"
+  },
+  "limits": {
+    "aggregate_retained_plus_attempt_bytes_max": 2147483648,
+    "attempt_root_bytes_max": 536870912,
+    "attempts": 1,
+    "automatic_retries": 0,
+    "child_deadline_seconds": 600,
+    "cloud_resources": false,
+    "combined_log_bytes_max": 16777216,
+    "parallelism": "sequential local only"
+  },
+  "pre_run_approval_requirements": {
+    "must_be_filled_before_approval": [
+      "authorization",
+      "source.worker_sha256",
+      "source.supervisor_sha256",
+      "runtime.connection_factory_sha256",
+      "state_custody.discrepancy_preservation_path",
+      "state_custody.restored_pgdata_path",
+      "state_custody.new_registry_pre_effect_backup_sha256_or_exact_creation_rule",
+      "state_custody.fresh_process_inventory_receipt_sha256_or_exact_immediate_prestart_rule",
+      "seed_custody.new_execution_approval"
+    ],
+    "must_match_frozen_expectations": [
+      "source.archive_sha256",
+      "runtime.wheel_sha256",
+      "runtime.outer_migration_index_sha256",
+      "runtime.embedded_050_index_sha256",
+      "runtime.runtime_manifest_sha256",
+      "runtime.external_pg_ctl_sha256",
+      "source_custody.expected_accepted_source_document_id",
+      "source_custody.expected_source_revision",
+      "source_custody.expected_source_registration_id",
+      "source_custody.expected_source_sha256",
+      "source_custody.expected_catalog_revision",
+      "source_custody.expected_complete_view_sha256",
+      "source_custody.expected_source_report_sha256",
+      "source_custody.expected_feed_id",
+      "source_custody.expected_consumer_id",
+      "source_custody.expected_consumer_registration_id",
+      "source_custody.expected_genesis_checkpoint_sha256",
+      "seed_custody.request_sha256"
+    ]
+  },
+  "profile": "ashlar-truss-r16-future-native-scope-template/0.1",
+  "runtime": {
+    "connection_factory_sha256": null,
+    "embedded_050_index_sha256": "4c6baf0282e3d0b5492f070c9c07d89ff0c9a819e748f3820f60b11c1f51c7aa",
+    "external_pg_ctl_sha256": "3021087af95fd33bfd83106c85de47c4756e44aa7edde78446e7593604d1b451",
+    "external_pg_ctl_version": "pg_ctl (PostgreSQL) 18.6 (Homebrew)",
+    "outer_migration_index_sha256": "d1672e85ae0e89137986fc57669186af47e5826366bd430284aba9b7cf52c37d",
+    "psycopg_version": "3.3.6",
+    "runtime_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "truss_version": "0.0.51",
+    "wheel_sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57"
+  },
+  "runtime_derived_receipt_gates": [
+    {
+      "field": "state_custody.discrepancy_preservation_tree_sha256",
+      "gate": "verify exact file manifest and bounded byte count; stop before copy/start on mismatch",
+      "stage": "after preserving the 11-file tree, before restored-copy/start"
+    },
+    {
+      "field": "state_custody.restored_pgdata_tree_sha256",
+      "gate": "compare copied tree against cold-backup inventory and control metadata; stop before start on mismatch",
+      "stage": "after copy, before PostgreSQL start"
+    },
+    {
+      "field": "state_custody.new_registry_pre_effect_backup_sha256",
+      "gate": "verify backup and registry state, then bind receipt; stop before migration if invalid",
+      "stage": "before any migration effect"
+    },
+    {
+      "field": "source_custody.fresh_post_start_observation_receipt_sha256",
+      "gate": "require every observed source/view/feed/consumer/checkpoint identity and hash to equal pre-run pins; stop before migration on any mismatch",
+      "stage": "after one PostgreSQL start, before migration"
+    },
+    {
+      "field": "source_custody.fresh_observed_genesis_page_sha256",
+      "gate": "bind actual page hash; require byte-identical page after migration before publication",
+      "stage": "after post-start custody gate, before migration"
+    }
+  ],
+  "seed_custody": {
+    "git_blob": "93951954795ce8fa376871626d6c4def5454dfa7",
+    "git_commit": "48fb9cb047f95854d59d0882af31156aab5f1f99",
+    "new_execution_approval": null,
+    "note": "Exact historical request bytes are available; the R15 approval is spent and does not authorize R16 submission",
+    "operation_count": 7,
+    "request_bytes": 1657,
+    "request_key": "ashlar-current-048-lifecycle-seed-r1",
+    "request_path": "docs/helix/04-build/evidence/current-upstream-release-20261022/truss-049-lifecycle-ready/seed-request.json",
+    "request_sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771"
+  },
+  "source": {
+    "archive_sha256": "cb57fdb7d338f345cfad157463fdbe94a2be7dcf69e728c474954c2939c14a0b",
+    "commit": "48fb9cb047f95854d59d0882af31156aab5f1f99",
+    "supervisor_sha256": null,
+    "worker_sha256": null
+  },
+  "source_custody": {
+    "expected_accepted_source_document_id": "ashlar-current-045-lifecycle-20261021",
+    "expected_catalog_revision": 1,
+    "expected_complete_view_sha256": "cc36fe489326f73c2eaf153ba2e025feeb76eaa88ffa0d6b675a1f4772264dc7",
+    "expected_consumer_id": "ashlar-current-048-lifecycle-20261022",
+    "expected_consumer_registration_id": "9f03eb5d-ce72-437f-8b32-0112c130e724",
+    "expected_feed_id": "ashlar-current-045-lifecycle",
+    "expected_genesis_checkpoint_sha256": "c74e4c2dd697421f26a378454ec489bcb83501a4997235b670bdb011e4e7be8e",
+    "expected_source_registration_id": "ccfcd423-5893-4df9-8f88-6504e086bd4d",
+    "expected_source_report_sha256": "c797191c90c516b0997801a63605d297e5e429b50e922cd7da2d39640d570c9a",
+    "expected_source_revision": "ashlar-current-045-lifecycle-r1",
+    "expected_source_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+    "fresh_observed_genesis_page_sha256": null,
+    "fresh_post_start_observation_receipt_sha256": null,
+    "historical_origin_sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed",
+    "note": "Expected values are frozen from R15/R14 preparation only; the actual public .48 identity/view/feed/checkpoint must be reobserved from restored PGDATA before migration, compared to these pins, and halted on any mismatch"
+  },
+  "stage_order": [
+    "preserve current 11-file discrepancy tree to new path",
+    "verify/copy cold backup to distinct fresh PGDATA target",
+    "create and verify new registry pre-effect backup",
+    "one PostgreSQL start on the verified restored PGDATA",
+    "fresh accepted-source and complete-view/feed/consumer/checkpoint custody gate; stop before migration on mismatch",
+    "record and bind actual genesis-page hash, then one exact .48-to-.51 migration route and post-migration source/page recheck",
+    "one bounded genesis publication, independent complete verification, protected ACK",
+    "one exact approved seed after genesis ACK",
+    "independent continuation verification and protected ACK"
+  ],
+  "state_custody": {
+    "cold_backup_tree_sha256": "67f15dff3198ba6b28bbe93a35cb7b595fe0439f84bcb4c14b9ef6d1f4c9effc",
+    "discrepancy_preservation_path": null,
+    "discrepancy_preservation_tree_sha256": null,
+    "fresh_process_inventory_receipt_sha256": null,
+    "new_registry_pre_effect_backup_sha256": null,
+    "restored_pgdata_path": null,
+    "restored_pgdata_tree_sha256": null,
+    "selected_incomplete_pgdata_tree_sha256": "b979795a32e5b6c9f0d9bbda7849f130e20aa2846af96220cbbcbdfce6937c75"
+  },
+  "status": "incomplete; not executable; not an approval"
+}
