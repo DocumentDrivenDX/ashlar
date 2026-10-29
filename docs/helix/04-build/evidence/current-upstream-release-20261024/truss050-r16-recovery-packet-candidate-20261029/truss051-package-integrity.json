@@ -1,0 +1,123 @@
+{
+  "profile": "ashlar-truss051-effectfree-package-cohort-integrity/0.2",
+  "wheel": {
+    "path": "/private/tmp/umf_truss-0.0.51-py3-none-any.whl",
+    "sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57",
+    "bytes": 6240193,
+    "official_asset_url": "https://github.com/DocumentDrivenDX/truss/releases/download/v0.0.51/umf_truss-0.0.51-py3-none-any.whl"
+  },
+  "pyproject_pin": {
+    "line": "truss-local = [\"umf-truss[native] @ https://github.com/DocumentDrivenDX/truss/releases/download/v0.0.51/umf_truss-0.0.51-py3-none-any.whl#sha256=eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57\"]",
+    "line_sha256": "a50bc5505aa803c4f2c710462c58f56a1e9cfca298525d3dd3f90d4222c85151",
+    "file_sha256": "a7c3dee5e9382fc27a9ea31c8b0ee0d82263622dfb1f0110be93cea9debe2848"
+  },
+  "installed_distribution": {
+    "name": "umf-truss",
+    "version": "0.0.51",
+    "location": "/private/tmp/ashlar-r16-truss051-effectfree-312/lib/python3.12/site-packages",
+    "metadata_sha256": "df80fb7733fa7b9127100ffdb80c095784da1fbf720fa4de7e503a66a881cccc",
+    "direct_url": {
+      "archive_info": {
+        "hash": "sha256=eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57",
+        "hashes": {
+          "sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57"
+        }
+      },
+      "url": "file:///private/tmp/umf_truss-0.0.51-py3-none-any.whl"
+    }
+  },
+  "runtime_manifest": {
+    "sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "bytes": 5395,
+    "embedded_050_index_sha256": "4c6baf0282e3d0b5492f070c9c07d89ff0c9a819e748f3820f60b11c1f51c7aa"
+  },
+  "record_integrity": {
+    "sha256_entries_checked": 482,
+    "unhashed_entries": 213,
+    "mismatches": [],
+    "passed": true
+  },
+  "resolved_distributions": {
+    "umf-truss": "0.0.51",
+    "jsonschema": "4.26.0",
+    "mini-racer": "0.14.1",
+    "referencing": "0.37.0",
+    "psycopg": "3.3.6",
+    "psycopg-binary": "3.3.6",
+    "pgserver-pg18": null,
+    "weft-sql": null,
+    "umf-weft": null,
+    "umf-core": null,
+    "umf-access": null
+  },
+  "pip_check": {
+    "command": "/private/tmp/ashlar-r16-truss051-effectfree-312/bin/python -m pip check",
+    "exit_code": 0,
+    "stdout": "No broken requirements found.\n",
+    "stderr": "WARNING: The directory '/Users/erik/Library/Caches/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.\n",
+    "passed": true
+  },
+  "extras": {
+    "truss_local_optional_dependency_key": "preserved for compatibility; now declares only umf-truss[native] 0.0.51",
+    "native": "installed: psycopg 3.3.6 and psycopg-binary 3.3.6; pip check passes",
+    "local": "not required for host-supplied connections per Truss v0.0.51 immutable release notes; LocalPostgres runtime is a separate optional flow and is not claimed installed or qualified",
+    "former_combined_local_native_attempt": "failed to resolve pgserver-pg18==18.6.1 from configured index; no database was started"
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "path": "/private/tmp/ashlar-r16-truss051-effectfree-312"
+  },
+  "source_freeze": {
+    "git_head": "6b5834ed0c5ec6be0ff2b66db25103de23023639",
+    "worktree_status_count": 31,
+    "status_entries": [
+      " M docs/helix/04-build/toolkit-delivery-plan.md",
+      " M pyproject.toml",
+      " M src/ashlar_host/configured_sdk_pages.py",
+      " M src/ashlar_host/driver.py",
+      " M src/ashlar_host/truss_catalog_reader.py",
+      " M src/ashlar_host/truss_continue.py",
+      " M src/ashlar_host/truss_current_catalog.py",
+      " M src/ashlar_host/truss_graph_admission.py",
+      " M src/ashlar_host/truss_note_publication.py",
+      " M src/ashlar_host/truss_resume_cli.py",
+      " M tests/test_managed_current_page_target.py",
+      " M tests/test_r04_schedule.py",
+      " M tests/test_truss_catalog_reader.py",
+      " M tests/test_truss_current_catalog.py",
+      "?? docs/helix/04-build/evidence/ashlar-umf-ashlar-development-artifact-qualification-20261028.md",
+      "?? docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r10/",
+      "?? docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r11/",
+      "?? docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r5/",
+      "?? docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r6/",
+      "?? docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r7/",
+      "?? docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r8/",
+      "?? docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r9/",
+      "?? docs/helix/04-build/evidence/current-upstream-release-20261024/truss050-r16-recovery-packet-candidate-20261029/",
+      "?? docs/helix/04-build/evidence/current-upstream-release-20261029/",
+      "?? docs/helix/04-build/evidence/managed-a1-compute-policy-refresh-20261029.md",
+      "?? docs/helix/04-build/evidence/managed-a1-jobs-admission-packet-20261029.md",
+      "?? src/ashlar/weft_056_distribution.py",
+      "?? src/ashlar_host/r04_truss051_feed.py",
+      "?? src/ashlar_host/truss_local_postgres.py",
+      "?? tests/test_truss_local_postgres.py",
+      "?? tests/test_weft_056_distribution.py"
+    ],
+    "frozen": false,
+    "reason": "Shared checkout still has concurrent tracked/untracked source, tests and evidence. Parent has not yet supplied the final committed HEAD for source freeze. No exact R16 source archive, worker or supervisor generated."
+  },
+  "native_effects": false,
+  "qualification": "Exact wheel provenance, installed metadata, catalog runtime manifest, wheel RECORD, and base plus native dependencies pass. The local extra remains incomplete; no native API, PostgreSQL, Spark, migration, source or ACK action was performed.",
+  "external_postgres_observation": {
+    "configured_path": "/opt/homebrew/opt/postgresql@18/bin/pg_ctl",
+    "resolved_path": "/opt/homebrew/Cellar/postgresql@18/18.6_1/bin/pg_ctl",
+    "sha256": "3021087af95fd33bfd83106c85de47c4756e44aa7edde78446e7593604d1b451",
+    "bytes": 98976,
+    "version_exit_code": 0,
+    "version_stdout": "pg_ctl (PostgreSQL) 18.6 (Homebrew)",
+    "read_only": true,
+    "started": false,
+    "qualification": "Host observation only; future R16 supervisor must bind exact path/hash and connection factory; no native migration qualification"
+  }
+}

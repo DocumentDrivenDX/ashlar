@@ -15,6 +15,7 @@ from .configured_query_aliases import ConfiguredQueryAliases,open_configured_que
 from .configured_typed_graph_sdk_binding import configured_typed_graph_sdk_request
 from .configured_local_runtime_profile import JAR_SHA256,PARAMETER_SUBSTITUTION_SETTING
 from ashlar.weft_current_distribution import CurrentWeftDistribution
+from ashlar.weft_056_distribution import Weft056Distribution
 from .configured_sdk_page_oracle import configured_sdk_page_oracle
 from .delta_custody import encoded
 from .path_capture import PathCaptureConfig,capture_string_frame
@@ -26,7 +27,7 @@ def _require(value):
 
 
 def _supported_page_compiler(value):
-    return type(value)is CurrentWeftDistribution and value._verify()
+    return type(value) in (CurrentWeftDistribution,Weft056Distribution) and value._verify()
 
 
 def _require_frozen_page_response(frozen,observed):
@@ -155,7 +156,7 @@ class _Owner:
         self.continuation_checked=None
     def current(self):
         self.scope.renew();self.aliases.renew()
-        if type(self.query.compiler)is CurrentWeftDistribution:
+        if type(self.query.compiler) in (CurrentWeftDistribution,Weft056Distribution):
             _require(self.query.compiler._verify())
         else:
             from ashlar.weft_053_distribution import Weft053Distribution

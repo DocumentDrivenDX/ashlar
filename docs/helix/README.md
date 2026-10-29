@@ -23,22 +23,20 @@ update/delete and history, resolver singleton reads, guarded Weft queries and
 committed replay. Original UMF 0.8 commerce also has bounded local Truss 0.0.22
 publication and query evidence. These receipts qualify only their recorded
 source, model, engine versions and authority; they do not establish selected Truss
-0.0.50 acceptance/feed/ACK, broad model support, managed Unity Catalog or
+0.0.51 acceptance/feed/ACK, broad model support, managed Unity Catalog or
 production authority ([configured publication](04-build/evidence/native-configured-publication-complete-20261008.json),
 [Truss 0.0.22 lifecycle](04-build/evidence/truss22-commerce-lifecycle-20261013/README.md)).
 
-Current dependency pins include Weft 0.4.53 and UMF core 0.10.1/access
-0.1.0.dev7. Focused checks passed for one tagged Weft page fixture and the UMF
-macOS arm64 install/core path; Linux assets were byte-verified but not run.
-These are package and compiler checks, not emitted-SQL execution or native,
-Databricks, or Linux runtime qualification ([Weft adoption](04-build/evidence/current-upstream-release-20261023/weft053-ashlar-adoption-20261023/README.md),
-[UMF adoption](04-build/evidence/current-upstream-release-20261023/umf-0.10.1-ashlar-adoption-20261024/README.md)).
+The candidate pins Weft 0.4.56, UMF core 0.10.3 and access 0.1.0.dev8.
+Focused installed macOS checks passed for compiler responses and the managed
+page-target admission; Linux assets were byte-verified but not run. These
+checks do not qualify emitted-SQL execution or native/managed publication
+([current adoption](04-build/evidence/current-upstream-release-20261029/r01-umf-weft-pins-20261029/README.md)).
 
-The current Truss pin is 0.0.50. Its official wheel, `RECORD`, `[local,native]`
-dependency resolution, and feed/receipt/migration import surfaces pass focused
-checks with current UMF core 0.10.1/access 0.1.0.dev7, Weft 0.4.53, and psycopg
-3.3.6. Versioned .50 source admission and feed-binding checks pass. The
-reviewed current-source R15 packet was executed once under exact hash-bound
+The candidate `truss-local` extra selects Truss 0.0.51 with its `[native]`
+dependencies and an externally supplied PostgreSQL 18.6 tool. Wheel, installed
+file and profile checks pass; the new versioned adapter has effect-free tests.
+The reviewed current-source R15 packet was executed once under exact hash-bound
 approval. The attempt stopped at the initial `.48` read-only custody gate
 because its helper received an empty JSON view. PostgreSQL is stopped and the
 verified cold backup remains preserved. No `.50` migration, publication, ACK,
@@ -50,8 +48,10 @@ is consumed and does not authorize a retry
 [R15 execution result](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/execution-result.json)).
 An AS-0 local candidate now retains and plans advancing Truss empty-interval
 coverage, while opaque receipt comparison and broader Arras query mapping remain
-upstream/interface gaps. Truss 0.0.51 is not yet an installed supported cohort
-([AS-0 disposition](04-build/evidence/arras-as0-local-20261029.md)).
+upstream/interface gaps. No .51 native source/read, feed, migration, publication
+or ACK has run; a fresh R16 packet is still required
+([AS-0 disposition](04-build/evidence/arras-as0-local-20261029.md),
+[R16 candidate](04-build/evidence/current-upstream-release-20261024/truss050-r16-recovery-packet-candidate-20261029/README.md)).
 Pinned `.48` source shows that the helper's `READ ONLY` transaction caused
 `CatalogViewUnavailable(reason="context")`; Ashlar's library path now explicitly
 requests the ordinary `READ COMMITTED READ WRITE` transaction needed for

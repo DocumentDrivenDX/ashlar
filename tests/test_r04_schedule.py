@@ -14,6 +14,7 @@ from ashlar_host.r04_slot_plan import (DATA_ROLES, NATIVE_ROLES,
 from ashlar_host.r04_truss049_feed import (MAXIMUM_BYTES, MAXIMUM_FACTS,
     read_next_transaction)
 from ashlar_host.r04_truss050_feed import read_next_transaction as read_next_transaction_050
+from ashlar_host.r04_truss051_feed import read_next_transaction as read_next_transaction_051
 from ashlar.truss_native_feed import native_feed_batch
 from ashlar_host.publication_planning import truss_request_for
 from ashlar_host.delta_custody import LocalDeltaEffects
@@ -245,6 +246,31 @@ class R04ScheduleCustodyTests(unittest.TestCase):
             with self.assertRaisesRegex(R04CustodyError,'Truss 0.0.50 did not return a public FeedPage'):
                 read_next_transaction_050(WrongPageAssembly(),object(),binding,
                                           ok_type=Ok,page_type=type(page_value))
+
+    def test_truss051_feed_owner_requires_renamed_distribution_and_keeps_read_only_shape(self):
+        from types import SimpleNamespace
+        from unittest.mock import patch
+        from ashlar_host.truss_current_catalog import CURRENT_051_EVIDENCE_PROFILE
+        class Ok:
+            def __init__(self, value): self.value = value
+        page_value = page(source='A')
+        class Assembly:
+            def __init__(self): self.calls = []
+            def read_feed_in_transaction(self, transaction, **kwargs):
+                self.calls.append((transaction, kwargs)); return Ok(page_value)
+        distribution=SimpleNamespace(version='0.0.51',metadata={'Name':'umf-truss'})
+        assembly=Assembly(); binding=self.owner.schedule.document()['source_bindings']['A']
+        with patch('ashlar_host.truss_current_catalog.installed_truss_distribution',return_value=distribution), \
+             patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',return_value=CURRENT_051_EVIDENCE_PROFILE):
+            result=read_next_transaction_051(assembly,object(),binding,ok_type=Ok,page_type=type(page_value))
+        self.assertIs(result,page_value)
+        self.assertEqual(assembly.calls[0][1],{'consumer_id':binding['consumer_id'],
+            'maximum_facts':MAXIMUM_FACTS,'maximum_bytes':MAXIMUM_BYTES})
+        distribution.metadata={'Name':'truss-toolkit'}
+        with patch('ashlar_host.truss_current_catalog.installed_truss_distribution',return_value=distribution), \
+             patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',return_value=CURRENT_051_EVIDENCE_PROFILE):
+            with self.assertRaisesRegex(R04CustodyError,'Exact UMF Truss 0.0.51'):
+                read_next_transaction_051(assembly,object(),binding,ok_type=Ok,page_type=type(page_value))
 
     def test_semantic_schedule_is_canonical_closed_and_eight_prefixes_exist(self):
         chosen = schedule()

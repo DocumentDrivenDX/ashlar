@@ -1,0 +1,151 @@
+{
+  "profile": "ashlar-truss-r16-readonly-state-observation/0.2",
+  "observed_at": "2026-10-29",
+  "native_effects": false,
+  "repository_observation": {
+    "head": "c83ae1a2b1b2a9b23e9ce56e19dd2de5f43a7a66",
+    "tree": "d818d6444bcd8f68bf08e19067ca39776d5f2774",
+    "selected_source_binding": "pending source-review completion and fresh snapshot freeze"
+  },
+  "process_inventory": {
+    "initial_attempt": {
+      "command": "ps -Ao pid,ppid,lstart,command",
+      "result": "denied by sandbox: operation not permitted"
+    },
+    "later_parent_observation": {
+      "observed_at": "2026-10-29T22:35:50Z",
+      "command": "ps -Ao pid,ppid,command | rg -i ...",
+      "result": "read-only filtered process inventory succeeded",
+      "selected_pgdata_process_present": false,
+      "other_postgresql_processes_exist": true,
+      "unrelated_process_details_retained": false,
+      "final_admission": false
+    },
+    "no_server_using_selected_data_path_at_observation": true
+  },
+  "pg_ctl_status": {
+    "command": "/private/tmp/ashlar-truss050-current-cohort-9c745278-r13/runtime/venv/lib/python3.12/site-packages/pgserver/pginstall/bin/pg_ctl status -D /private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data",
+    "exit_code": 4,
+    "stdout": "",
+    "stderr": "pg_ctl: directory \"/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data\" is not a database cluster directory"
+  },
+  "retained_pgdata": {
+    "path": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data",
+    "exists": true,
+    "postgres_version": null,
+    "postmaster_pid_present": false,
+    "file_count": 11,
+    "bytes": 17197691,
+    "tree_sha256": "b979795a32e5b6c9f0d9bbda7849f130e20aa2846af96220cbbcbdfce6937c75",
+    "files": [
+      {
+        "path": "log",
+        "bytes": 13779,
+        "sha256": "dcb3fa1d9db4941cb8fc63d4c1b3dd0f7723f63a7b84687b569300738371e499"
+      },
+      {
+        "path": "postmaster.opts",
+        "bytes": 426,
+        "sha256": "15329b8bd26e27b7b92dab7ef43610a0daf148d487ec648bd8c8e1dd0feecc74"
+      },
+      {
+        "path": "base/5/pg_internal.init",
+        "bytes": 160944,
+        "sha256": "32d6fde7b72133b33b74c0323ecc7a494d025a674217b4b8b87031289d8a10d2"
+      },
+      {
+        "path": "global/pg_control",
+        "bytes": 8192,
+        "sha256": "cc643062ebfc66787909438aefd1bc4ad07aac6e125ec6a9fa1795b046ecefb8"
+      },
+      {
+        "path": "global/pg_internal.init",
+        "bytes": 28536,
+        "sha256": "c01e97d8ac684ecc50c7d3f0f41de42afd121dff8264805fcd14c4cb6bfee1c9"
+      },
+      {
+        "path": "pg_logical/replorigin_checkpoint",
+        "bytes": 8,
+        "sha256": "957feab4ef91b10e52e5acbd739c8adf6d15c25e8f445ec5eab9ef1e9fc26859"
+      },
+      {
+        "path": "pg_multixact/offsets/0000",
+        "bytes": 8192,
+        "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+      },
+      {
+        "path": "pg_stat/pgstat.stat",
+        "bytes": 184014,
+        "sha256": "fd51621acdaa66aa1990a7029f2d10747cf41daa8d409288ada45970d7769d6b"
+      },
+      {
+        "path": "pg_subtrans/0000",
+        "bytes": 8192,
+        "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+      },
+      {
+        "path": "pg_wal/000000010000000000000001",
+        "bytes": 16777216,
+        "sha256": "1296d7dadf664c1502c7e67be02dee290ba1e1bc42a80aec5f5b9185ec23717f"
+      },
+      {
+        "path": "pg_xact/0000",
+        "bytes": 8192,
+        "sha256": "54fee96f7435d75c5266e84c7457309de74090cb0fd0b99df9512ddf4d229f32"
+      }
+    ]
+  },
+  "prior_cold_backup": {
+    "path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/attempt-r15-91d4ef97-5998-4ddb-83c3-869233ac4c8f/cold-backup/pgdata",
+    "exists": true,
+    "postgres_version": "18",
+    "postmaster_pid_present": false,
+    "file_count": 1248,
+    "bytes": 63997052,
+    "tree_sha256": "67f15dff3198ba6b28bbe93a35cb7b595fe0439f84bcb4c14b9ef6d1f4c9effc",
+    "matches_historical_r15_cold_backup_receipt": true
+  },
+  "prior_r15_reported_post_attempt_pgdata": {
+    "file_count": 1248,
+    "bytes": 63998352,
+    "tree_sha256": "abb464cc096dfce6bc6bd2720f6f6a17aa92c08af5a601146736ca71a308e6d2"
+  },
+  "prior_recovery_registry": {
+    "path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/attempt-r15-91d4ef97-5998-4ddb-83c3-869233ac4c8f/truss-migration-recovery.sqlite3",
+    "exists": false
+  },
+  "source_runtime_inputs": {
+    "truss_version_pinned": "0.0.50 (historical R15; upstream review pending for latest pin)",
+    "truss_wheel_sha256": "7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00",
+    "current_r15_runtime_receipt_sha256": "fe48796cead974bc06821bd296428f47b389e1016a7b43ff186ec15cb03f72e5",
+    "corrected_048_helper_sha256": "b99cd1edb0855de64c68322603d4ba16be1c697d21d925775e4b9ea007dec6e4",
+    "old_r15_worker_sha256": "1b53b7e3cce395d45e6d29c9b07763400dc32be7b820457cbc08e816e70eb2b9",
+    "old_r15_supervisor_sha256": "088843dc10131151dc0935a210529df170e8f182c18d4da43b1cc2c1d120bcba",
+    "old_worker_helper_sha256": "cd9a39b76490db46e93d68edb44f5bc2b9cb978f4a152ded359a04ec66d3efcf",
+    "old_worker_helper_is_corrected_candidate": false,
+    "truss051_candidate_wheel_sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57",
+    "source_hash_freeze": "pending upstream dependency review; do not bind transient tree hashes"
+  },
+  "native_actions": {
+    "postgres_started": false,
+    "migration_invoked": false,
+    "source_or_consumer_mutated": false,
+    "publication_or_ack_mutated": false,
+    "seed_submitted": false,
+    "continuation_attempted": false,
+    "backup_or_restore_performed": false
+  },
+  "selected_runtime_candidate": {
+    "version": "0.0.51",
+    "distribution": "umf-truss",
+    "wheel_path": "/private/tmp/umf_truss-0.0.51-py3-none-any.whl",
+    "wheel_sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57",
+    "runtime_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "outer_migration_index_sha256": "d1672e85ae0e89137986fc57669186af47e5826366bd430284aba9b7cf52c37d",
+    "embedded_050_migration_index_sha256": "4c6baf0282e3d0b5492f070c9c07d89ff0c9a819e748f3820f60b11c1f51c7aa",
+    "isolated_runtime": "/private/tmp/ashlar-r16-truss051-effectfree-312",
+    "ashlar_profile": "ashlar-truss-current-catalog-evidence/0.6",
+    "native_effects": false,
+    "qualification": "Effect-free package/profile only; native API, migration, source/feed lifecycle, publication, ACK and managed/cloud use unqualified"
+  }
+}

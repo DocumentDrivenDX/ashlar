@@ -47,7 +47,7 @@ class ManagedCurrentPageTargetTests(unittest.TestCase):
         import weft
 
         cls.weft = weft
-        cls.weft_version = package_version("weft-sql")
+        cls.weft_version = package_version("umf-weft")
         bundle = bind_current_core(_current_admission(), _xxhash_config())
         request = managed_current_sdk_pages_request(
             bundle, _inputs(bundle),

@@ -15,6 +15,8 @@ from ashlar_host.truss_current_catalog import (
     CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_049_WHEEL_SHA256,
     CURRENT_050_EVIDENCE_PROFILE, CURRENT_TRUSS_050_VERSION,
     CURRENT_TRUSS_050_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_050_WHEEL_SHA256,
+    CURRENT_051_EVIDENCE_PROFILE, CURRENT_TRUSS_051_VERSION,
+    CURRENT_TRUSS_051_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_051_WHEEL_SHA256,
     CurrentCatalogEvidence, interpret_current_catalog, require_current_truss_runtime,
     require_installed_current_catalog_evidence,
 )
@@ -56,6 +58,8 @@ class TrussCurrentCatalogTests(unittest.TestCase):
                          'ashlar-truss-current-umf010-graph-semantic-admission/0.4')
         self.assertEqual(current_admission_profile(CURRENT_TRUSS_050_VERSION),
                          'ashlar-truss-current-umf010-graph-semantic-admission/0.5')
+        self.assertEqual(current_admission_profile(CURRENT_TRUSS_051_VERSION),
+                         'ashlar-truss-current-umf010-graph-semantic-admission/0.6')
         with self.assertRaisesRegex(ValueError, 'versioned current Truss'):
             current_admission_profile('0.0.46')
 
