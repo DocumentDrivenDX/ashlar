@@ -16,6 +16,11 @@ def read_configured_local_graph_release(scope):
     if type(scope)is not ConfiguredLocalRead:
         raise ValueError('Actual configured publication read scope required')
     scope.renew();expected=scope.source_rows()
+    # The admitted descriptor selects the carrier layout. Never reinterpret a
+    # publication under a caller-selected or default profile.
+    profile=scope.descriptor.profile
+    if profile not in ('ashlar-delta/0.3','ashlar-delta/0.4-xxhash64'):
+        raise ValueError('Unsupported exact configured graph carrier profile')
     roles={scope.tables[r]:r for r in ('object_current','edge_current')}
     bags={r:Counter(map(encoded,expected[r]))for r in roles.values()}
     class Policy:
@@ -28,7 +33,7 @@ def read_configured_local_graph_release(scope):
         def authorize_graph_result(self,descriptor,nodes,edges,context):
             self.bind_descriptor(descriptor,scope.vector,context);scope.renew()
             for kind,role,rows in (('node','object_current',nodes),('edge','edge_current',edges)):
-                original=[validate_release_carrier(dict(row),kind)for row in expected[role]]
+                original=[validate_release_carrier(dict(row),kind,profile=profile)for row in expected[role]]
                 if Counter(encoded(dict(row))for row in rows)!=Counter(map(encoded,original)):
                     raise ValueError('Complete independent configured graph bag differs')
     release=None;primary=None
@@ -36,7 +41,7 @@ def read_configured_local_graph_release(scope):
         release=read_graph_release(scope.executor,scope.backend,scope.pins,scope.vector,Policy(),
             publication_id=scope.descriptor.publication_id,
             node_table=scope.tables['object_current'],edge_table=scope.tables['edge_current'],
-            context=scope.context,supported_profiles=['ashlar-delta/0.3'],
+            context=scope.context,supported_profiles=[profile],
             supported_revisions={k:[v]for k,v in json.loads(scope.descriptor.raw['schema_revisions_json']).items()},
             max_nodes=len(expected['object_current']),max_edges=len(expected['edge_current']))
     except BaseException as error:primary=error

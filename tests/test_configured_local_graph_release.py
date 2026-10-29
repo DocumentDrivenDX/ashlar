@@ -7,6 +7,7 @@ from unittest.mock import patch
 from ashlar.graph_release import validate_release_carrier,NODE_INTS,NODE_TEXT,EDGE_INTS,EDGE_TEXT
 from ashlar.native import SQLResult
 from ashlar_host.configured_local_graph_release import read_configured_local_graph_release
+from ashlar_host import configured_local_graph_release as graph_release_module
 from ashlar_host.configured_graph_custody import build_configured_graph_custody
 from ashlar_host.local_graph_export import LocalGraphExportSelection,open_local_graph_export
 from ashlar_host.delta_custody import encoded
@@ -26,6 +27,53 @@ def native_projection(scope):
 
 
 class Tests(unittest.TestCase):
+    def test_descriptor_selects_xxhash64_export_and_unknown_profile_refuses(self):
+        from types import SimpleNamespace
+        from test_graph_release import carrier
+
+        nodes=[carrier('node','1'),carrier('node','2')]
+        edges=[carrier('edge','7')]
+        for row in nodes+edges:row['lookup_hash']='-1'
+
+        def scope_for(profile):
+            scope=object.__new__(graph_release_module.ConfiguredLocalRead)
+            for name,value in {
+                '_active':True,
+                'descriptor':SimpleNamespace(profile=profile,publication_id='selected',raw={'schema_revisions_json':'{}'}),
+                'source_rows':lambda:{'object_current':nodes,'edge_current':edges},
+                'tables':{'object_current':'local.nodes','edge_current':'local.edges'},
+                'vector':object(),'executor':object(),'backend':object(),'pins':object(),'context':object(),
+                'renew':lambda:None,'bind_descriptor':lambda *args:None,
+            }.items():object.__setattr__(scope,name,value)
+            return scope
+
+        forwarded=[];validated=[]
+        validate=graph_release_module.validate_release_carrier
+        def record_validation(row,kind,*,profile='ashlar-delta/0.3'):
+            validated.append(profile)
+            return validate(row,kind,profile=profile)
+        def fake_read(executor,backend,pins,vector,policy,**kwargs):
+            forwarded.extend(kwargs['supported_profiles'])
+            profile=kwargs['supported_profiles'][0]
+            output_nodes=[validate(row,'node',profile=profile)for row in nodes]
+            output_edges=[validate(row,'edge',profile=profile)for row in edges]
+            policy.authorize_graph_result(scope.descriptor,output_nodes,output_edges,scope.context)
+            return SimpleNamespace(payload=b'{}',sha256='test')
+
+        scope=scope_for('ashlar-delta/0.4-xxhash64')
+        with patch.object(graph_release_module,'read_graph_release',side_effect=fake_read), \
+             patch.object(graph_release_module,'validate_release_carrier',side_effect=record_validation):
+            read_configured_local_graph_release(scope)
+        self.assertEqual(forwarded,['ashlar-delta/0.4-xxhash64'])
+        self.assertTrue(validated)
+        self.assertEqual(set(validated),{'ashlar-delta/0.4-xxhash64'})
+
+        unknown=scope_for('future/1')
+        with patch.object(graph_release_module,'read_graph_release') as reader:
+            with self.assertRaisesRegex(ValueError,'Unsupported exact configured graph carrier profile'):
+                read_configured_local_graph_release(unknown)
+            reader.assert_not_called()
+
     def test_complete_old_successor_graph_and_reusable_saved_pair(self):
         captured=[]
         for ordinal in (1,3):
