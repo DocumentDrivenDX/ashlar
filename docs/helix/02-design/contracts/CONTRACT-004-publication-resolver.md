@@ -109,15 +109,29 @@ separate candidate builder. Arras's bounded Backend02 mapping can supply its
 accepted source bundle and exact `weftBindingInputs` to that builder, compile
 the original result with `compile_engine_page_json`, make
 `EngineRead.from_original` and call `AshlarTarget.page`. Ashlar still lacks a
-production current-person managed session/policy owner and native execution
-proof for that composition. The fixture `ManagedCurrentReadOwner` requires an
-oracle and expected rows and MUST NOT be used as an ordinary runtime opener.
-A local alias or `.3` receipt MUST NOT
-be relabeled as managed `.4` support.
+native-qualified production current-person managed session/policy owner and
+execution proof for that composition.
+`ashlar_host.managed_current_person_read.ManagedCurrentPersonPageOwner` is a
+separate local candidate opener for this selected `.4` Backend02 page subset;
+its `backend02_target(compiler, entry)` constructs the held `AshlarTarget`:
+the host MUST supply a Spark session authenticated as the current person, an
+exact observed runtime/namespace, the accepted original source bundle and
+retained managed publication receipt, and a mandatory policy that rechecks
+effective UC row/column rights at opening, request, result and closing. The
+opener MUST independently reopen the exact manifest, full four-role vector,
+six-role native inventory, accepted source progress and selected physical
+profile; only compiler SQL with exact typed parameter carriers may execute,
+under a finite deadline and row cap. The policy revision is part of page
+continuation context and a change MUST refuse the read. This candidate does
+not create compute or claim production source authority. The campaign
+`ManagedCurrentReadOwner` requires an oracle and expected rows and MUST NOT be
+used as an ordinary runtime opener. A local alias or `.3` receipt MUST NOT be
+relabeled as managed `.4` support.
 
 No public owning mapping turns every Arras `ModuleInfo` and raw `Statement`
 into a generic query; the bounded Backend02 composition requires original
-source provenance and explicit selected-profile evidence. Backend03 grouped queries use a different
+source provenance and explicit selected-profile evidence. Backend03 grouped
+queries use a different
 `weft-sql/0.4.1` compiler/request boundary and require separate mapping and
 execution qualification. Until those bindings exist, Arras must advertise
 only its independently proven pinned singleton bridge and refuse broader

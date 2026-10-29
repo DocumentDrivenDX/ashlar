@@ -1,0 +1,35 @@
+{
+  "profile": "ashlar-local-as2-person-page-candidate-binding/0.1",
+  "base_commit": "ac3bc852b0dc8a59e66605c0c3a53cc1c449c832",
+  "date": "2026-10-29",
+  "candidate_scope": "local contract and person-page opener; no native/managed execution, source ACK, release or push",
+  "upstream_local_sources": {
+    "arras_page_preparation": "11b817c",
+    "truss_receipt_boundary_specification": "5ce7114a"
+  },
+  "focused_check": {
+    "modules": 2,
+    "tests_passed": 20,
+    "elapsed_seconds": 0.047,
+    "evidence": "docs/helix/04-build/evidence/arras-as2-person-page-local-20261029.md",
+    "diff_check": "passed"
+  },
+  "files": [
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md",
+      "sha256": "6b58a42fa7121b3241cbc65f88367177f8f340e7cdbb10e8070800fec0e697a4"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/arras-as2-person-page-local-20261029.md",
+      "sha256": "32494e364337ab3fd353d20bc57ec50b3c4cec84758df81bb3d7818bc51d4e55"
+    },
+    {
+      "path": "src/ashlar_host/managed_current_person_read.py",
+      "sha256": "8fcbcc655337d010ea596ae24796f4f6e7f7586f5629b4511c06a2a55d711d4a"
+    },
+    {
+      "path": "tests/test_managed_current_person_read.py",
+      "sha256": "8d0c163232206256fc21b0f683f06478dd5545d5bea21122b22ac3f461511413"
+    }
+  ]
+}
