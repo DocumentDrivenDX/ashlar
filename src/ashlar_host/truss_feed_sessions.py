@@ -216,14 +216,57 @@ class TrussFeedSessions:
         return self._perform(request_bytes,manifest_bytes,vector,context,pins,publication_backend,
             supported_profiles,supported_revisions,reconcile=False)
 
+    @staticmethod
+    def _require_051_source_runtime():
+        from .truss_current_catalog import (CURRENT_TRUSS_051_VERSION,
+            CURRENT_051_EVIDENCE_PROFILE,installed_current_truss_profile,
+            installed_truss_distribution)
+        try:
+            distribution=installed_truss_distribution()
+            profile=installed_current_truss_profile()
+        except ValueError as error:
+            raise TrussSessionError('Pinned Truss 0.0.51 runtime required for source interval ACK') from error
+        if (distribution.version!=CURRENT_TRUSS_051_VERSION
+                or profile!=CURRENT_051_EVIDENCE_PROFILE):
+            raise TrussSessionError('Pinned Truss 0.0.51 runtime required for source custody')
+
+    def renew_051_source_custody(self,*,context):
+        """Read-only current-page and retained-page source observation."""
+        self._require_051_source_runtime()
+        if context is not self.context:raise PermissionError('Original Truss host context required')
+        connection=self.connection_factory(context);primary=None
+        try:
+            with _assembly(connection,True)as (assembly,tx):
+                self._renew_051_current_page_in_transaction(assembly,tx)
+        except BaseException as error:primary=error
+        finish(primary,[connection.rollback,connection.close])
+
     def reconcile(self,request_bytes,manifest_bytes,vector,*,context,pins,publication_backend,supported_profiles,supported_revisions):
         """Observe the exact current cursor on a fresh session; never retry a write."""
         return self._perform(request_bytes,manifest_bytes,vector,context,pins,publication_backend,
             supported_profiles,supported_revisions,reconcile=True)
 
-    def _perform(self,request_bytes,manifest_bytes,vector,context,pins,backend,profiles,revisions,*,reconcile):
+    def reconcile_051_source_interval(self,request_bytes,manifest_bytes,vector,*,context,pins,publication_backend,supported_profiles,supported_revisions):
+        """Freshly reconcile exact .51 receipt and advanced checkpoint."""
+        from .truss_current_catalog import (CURRENT_TRUSS_051_VERSION,
+            CURRENT_051_EVIDENCE_PROFILE,installed_current_truss_profile,
+            installed_truss_distribution)
+        try:
+            distribution=installed_truss_distribution()
+            profile=installed_current_truss_profile()
+        except ValueError as error:
+            raise TrussSessionError('Pinned Truss 0.0.51 runtime required for source interval reconciliation') from error
+        if (distribution.version!=CURRENT_TRUSS_051_VERSION
+                or profile!=CURRENT_051_EVIDENCE_PROFILE):
+            raise TrussSessionError('Pinned Truss 0.0.51 runtime required for source interval reconciliation')
+        return self._perform(request_bytes,manifest_bytes,vector,context,pins,publication_backend,
+            supported_profiles,supported_revisions,reconcile=True,source_refresh_051=True)
+
+    def _perform(self,request_bytes,manifest_bytes,vector,context,pins,backend,profiles,revisions,*,reconcile,source_refresh_051=False):
         if self.destination_receipts:
-            return self._perform_receipt(request_bytes,manifest_bytes,vector,context,pins,backend,profiles,revisions,reconcile=reconcile)
+            return self._perform_receipt(request_bytes,manifest_bytes,vector,context,pins,backend,profiles,revisions,
+                reconcile=reconcile,source_refresh_051=source_refresh_051)
+        if source_refresh_051:raise TrussSessionError('Truss .51 source interval requires destination receipt mode')
         if any(type(raw)is not bytes or not 0<len(raw)<=4194304 for raw in (request_bytes,manifest_bytes)):
             raise TrussSessionError('Bounded original publication bytes required')
         request=decode_retained_json(request_bytes);manifest=decode_retained_json(manifest_bytes)
@@ -278,7 +321,7 @@ class TrussFeedSessions:
         return answer
 
 
-    def _perform_receipt(self,request_bytes,manifest_bytes,vector,context,pins,backend,profiles,revisions,*,reconcile):
+    def _perform_receipt(self,request_bytes,manifest_bytes,vector,context,pins,backend,profiles,revisions,*,reconcile,source_refresh_051=False):
         if any(type(raw)is not bytes or not 0<len(raw)<=4194304 for raw in (request_bytes,manifest_bytes)):
             raise TrussSessionError('Bounded original publication bytes required')
         request=decode_retained_json(request_bytes);manifest=decode_retained_json(manifest_bytes)
@@ -304,6 +347,8 @@ class TrussFeedSessions:
                 with _assembly(connection,reconcile)as (assembly,tx):
                     method=getattr(assembly,'reconcile_feed_ack_in_transaction'if reconcile else'acknowledge_feed_with_receipt_in_transaction',None)
                     if not callable(method):raise TrussSessionError('Actual source release lacks receipt ACK capability')
+                    if source_refresh_051 and not reconcile:
+                        raise TrussSessionError('Truss .51 source refresh is read-only; source ACK needs live managed-read and native-pin owners')
                     observed=_value(method(tx,self.page,destination_id=destination,request_sha256=request_sha,publication_id=manifest['publication_id'],receipt_bytes=receipt))
                     if reconcile:
                         if type(observed)is not reconcile_type or observed.outcome not in ('matched','missing','conflicting'):
@@ -311,7 +356,11 @@ class TrussFeedSessions:
                         if observed.outcome=='missing':
                             if observed.receipt is not None or observed.checkpoint!=self.page.prior:raise TrussSessionError('Missing original receipt cannot prove original ACK outcome')
                         elif observed.outcome=='conflicting':raise TrussSessionError('Original source ACK receipt conflict')
-                        else:exact(observed.receipt);answer={'receipt_observed':True}
+                        else:
+                            exact(observed.receipt)
+                            if source_refresh_051 and observed.checkpoint!=self.page.next:
+                                raise TrussSessionError('Truss .51 reconciled receipt checkpoint differs')
+                            answer={'receipt_observed':True}
                     else:
                         if type(observed)is not ack_type or observed.checkpoint!=self.page.next or observed.outcome not in ('advanced','equal'):
                             raise TrussSessionError('Actual pending receipt ACK correspondence differs')
@@ -335,3 +384,47 @@ class TrussFeedSessions:
             source_receipt_sha256=receipt_sha,source_receipt_retained=True,
             scope='Exact source-retained opaque destination receipt after consumer-verified durable publication; caller controls source commit; no history release.')
         return answer
+
+    def _renew_051_current_page_in_transaction(self,assembly,tx):
+        """Immediately pre-ACK: verify current checkpoint and retained bytes."""
+        page_type=_sdk()[4]
+        fields=('content','sha256','prior','next','consumer_id','registration_id',
+                'writer_xid','safe_watermark_xid','outcome')
+        current=_value(assembly.read_feed_in_transaction(tx,consumer_id=self.page.consumer_id,
+            maximum_facts=4096,maximum_bytes=8388608))
+        reread_method=getattr(assembly,'reread_feed_in_transaction',None)
+        if (type(current)is not page_type or not callable(reread_method)
+                or any(getattr(current,key)!=getattr(self.page,key)for key in fields)):
+            raise TrussSessionError('Truss .51 current source page differs before receipt ACK')
+        retained=_value(reread_method(tx,self.page,maximum_facts=4096,maximum_bytes=8388608))
+        if (type(retained)is not page_type
+                or any(getattr(retained,key)!=getattr(self.page,key)for key in fields)):
+            raise TrussSessionError('Truss .51 exact retained source page differs before receipt ACK')
+
+    def close_051_source_interval(self,*,context,require_advanced=True):
+        """Independently reread source cursor and retained page after receipt readback."""
+        self._require_051_source_runtime()
+        if context is not self.context:raise PermissionError('Original Truss host context required')
+        if type(require_advanced)is not bool:raise TrussSessionError('Explicit source close cursor expectation required')
+        connection=self.connection_factory(context);primary=None
+        try:
+            with _assembly(connection,True)as (assembly,tx):
+                page_type=_sdk()[4]
+                current=_value(assembly.read_feed_in_transaction(tx,consumer_id=self.page.consumer_id,
+                    maximum_facts=4096,maximum_bytes=8388608))
+                reread_method=getattr(assembly,'reread_feed_in_transaction',None)
+                if (type(current)is not page_type or current.consumer_id!=self.page.consumer_id
+                        or current.registration_id!=self.page.registration_id
+                        or (require_advanced and current.prior.content!=self.page.next.content)
+                        or (not require_advanced and current.prior.content not in
+                            (self.page.prior.content,self.page.next.content))):
+                    raise TrussSessionError('Truss .51 closing source registration/cursor differs')
+                if not callable(reread_method):raise TrussSessionError('Truss .51 retained-page reread unavailable at close')
+                retained=_value(reread_method(tx,self.page,maximum_facts=4096,maximum_bytes=8388608))
+                fields=('content','sha256','prior','next','consumer_id','registration_id',
+                        'writer_xid','safe_watermark_xid','outcome')
+                if (type(retained)is not page_type
+                        or any(getattr(retained,key)!=getattr(self.page,key)for key in fields)):
+                    raise TrussSessionError('Truss .51 exact retained source page differs at close')
+        except BaseException as error:primary=error
+        finish(primary,[connection.rollback,connection.close])

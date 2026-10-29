@@ -21,16 +21,13 @@ ddx:
 
 # Truss 0.0.51 source-holder capability inspection — 2026-10-29
 
-**Disposition: source-holder integration remains unavailable, though the
-source half is implementable in principle.** The contract opens the external
+**Disposition: source-holder integration remains unavailable.** The contract opens the external
 holder only after durable verifier success, for the bounded protected ACK,
-reconciliation and close interval. Truss 0.0.51 exposes current page read,
-retained-page reread, exact-receipt ACK and ACK reconciliation. It has no named
-source lease or renewal handle. That absence does not by itself make an
-Ashlar-owned bounded holder impossible: repeated exact current-read and
-retained-reread checks can renew observed source custody, while Truss's ACK
-compare-and-set handles a cursor race after the last check. A held connection
-alone is insufficient. No source, publication, ACK, or native method was
+reconciliation and close interval. Truss 0.0.51 exposes current page read, retained-page reread, exact-receipt ACK
+and ACK reconciliation. It has no named source lease or renewal handle. A
+read-only `.51` probe now checks current and retained page identity; a bounded
+effectful holder remains unavailable until live managed-read and native-pin
+owner handles exist and the orchestration is reviewed. No source, publication, ACK, or native method was
 invoked.
 
 ## Selected package and public API
@@ -45,7 +42,16 @@ The installed public `NativeFeedCapability` protocol accepts a transaction for
 `read_feed_in_transaction` and `reread_feed_in_transaction`. It also exposes
 `acknowledge_feed_with_receipt_in_transaction` and
 `reconcile_feed_ack_in_transaction`, with destination ID, request digest,
-publication ID and exact receipt bytes. The public `FeedPage` retains exact
+publication ID and exact receipt bytes. In the selected 0.0.51 runtime the exact
+signatures are: `read_feed_in_transaction(self, transaction, *, consumer_id,
+maximum_facts=4096, maximum_bytes=8388608)`;
+`reread_feed_in_transaction(self, transaction, page, *, maximum_facts=4096,
+maximum_bytes=8388608)`; and both ACK/reconcile methods take
+`(self, transaction, page, *, destination_id, request_sha256, publication_id,
+receipt_bytes)`. The return types are `Outcome[FeedPage | FeedUnavailable]`,
+`Outcome[FeedPage | FeedUnavailable]`,
+`Outcome[FeedReceiptAcknowledged | FeedUnavailable]`, and
+`Outcome[FeedAckReconciled | FeedUnavailable]`, respectively. The public `FeedPage` retains exact
 cursor bytes and page content/digest; `FeedAckReceipt` retains installation,
 epoch, consumer and registration IDs, both cursors, feed digest, destination,
 request digest, publication ID, and exact receipt bytes/digest. These types
@@ -105,49 +111,53 @@ run, and this inspection did not perform one.
 
 ## Ashlar call-site boundary
 
-Ashlar's current `TrussFeedSessions._read` calls the public page-read method
+Ashlar's ordinary `TrussFeedSessions._read` calls the public page-read method
 inside `_assembly`, then closes the connection in its caller
-(`src/ashlar_host/truss_feed_sessions.py:38-49,156-168`). Receipt ACK and
-reconciliation use a separate `_assembly` transaction; `pins.hold(...)` covers
-only the ACK/reconciliation operation, with connection rollback/close after it
-(`src/ashlar_host/truss_feed_sessions.py:298-336`). This preserves exact source
-receipt bytes and uses actual public methods. It correctly need not retain a
-connection across managed verification, but it does not yet provide the
-post-verifier source renewal and independent closing sequence.
+(`src/ashlar_host/truss_feed_sessions.py:38-49,156-168`). The added
+`renew_051_source_custody` calls public current-page read followed by exact
+retained-page reread in one read-only transaction
+(`src/ashlar_host/truss_feed_sessions.py:233-242,388-402`). Gated
+`reconcile_051_source_interval` and `close_051_source_interval` perform fresh
+read-only receipt reconciliation and independent source close
+(`src/ashlar_host/truss_feed_sessions.py:249-263,404-430`). The public
+`acknowledge_post_verifier_source_interval` fails closed; there is no supported
+effectful composition because no live managed-read/native-pin owner inputs exist.
 
 The versioned `.51` adapter only verifies the installed distribution/profile
 and delegates one read-only R04 page read
 (`src/ashlar_host/r04_truss051_feed.py:10-28`). The managed current Spark reader
 is an offline verifier, explicitly exposes no ACK port, and its selected source
 versions end at `.50` (`src/ashlar_host/managed_current_spark_receipt_read.py:78-125`).
-R16 remains effect-free preflight: its execution receipt says
+The method signatures above were inspected using
+`/private/tmp/ashlar-r16-truss051-effectfree-312/bin/python` and
+`inspect.signature`; this inspection imported type definitions only and invoked
+no Truss method. R16 remains effect-free preflight: its execution receipt says
 `native_effects=false` and `execution_admitted=false`; expected accepted source,
 feed, consumer, and checkpoint custody was not observed. It cannot provide a
 real `.51` source selection for a local holder run.
 
 ## Exact next integration seam
 
-The smallest code seam is the receipt branch of
-`TrussFeedSessions._perform_receipt` (`src/ashlar_host/truss_feed_sessions.py:281-337`):
-before calling `acknowledge_feed_with_receipt_in_transaction`, require a strict
-same-registration `read_feed` at the original prior cursor and an unconditional
-`reread_feed` of the exact original page in the selected `.51` public API; after
-the single caller commit, require fresh exact `reconcile_feed_ack_in_transaction`
-and an independent closing observation before reporting success. Retain exact
-request/manifest/source-receipt bytes, all source IDs/cursors, and the full
-publication vector across the sequence. A versioned `.51` wrapper may select
-this seam, but it must use real page/session objects and actual public calls;
-protocol fakes are suitable for choreography tests only.
+Ashlar now retains only read-only `.51` current-page plus exact retained-page
+renewal (`TrussFeedSessions.renew_051_source_custody`) and separately gated
+reconciliation/closing primitives. These call public `read_feed_in_transaction`,
+`reread_feed_in_transaction`, and (for reconciliation only)
+`reconcile_feed_ack_in_transaction`; they do not ACK. The exported
+`acknowledge_post_verifier_source_interval` boundary fails closed unconditionally
+until live managed-read and native-pin owner handles are available. In
+particular, `ManagedCurrentSparkReceiptReopenObservation` is constructible
+offline output, explicitly has no ACK port, and is rejected without touching
+source methods. A protocol-fake regression proves no ACK, reconciliation, or
+close call occurs through that rejected route.
 
-That source seam is not the complete contract holder. Its caller must first
-independently reopen the exact durable managed receipt with
-`ManagedCurrentSQLReceiptReader.reopen(request_bytes, manifest_bytes,
-expected_receipt)` and keep an admitted managed-read handle and native pin
-handle live through ACK, reconciliation and their independent closes. No such
-source-owner orchestration is currently wired, and R16 supplies no accepted
-`.51` source/feed/consumer/checkpoint evidence to exercise or admit it. Thus the
-adapter cannot be treated as a campaign gate or release pass from protocol
-fakes alone.
+The future source-only sequence, after valid live owner inputs exist, is: verify
+current `.51` page and exact retained page immediately before ACK; invoke exact
+receipt ACK CAS with the original request/manifest bytes and full vector; commit
+once; reconcile from a fresh read-only transaction; then independently close by
+checking the advanced cursor and retained original page. Any uncertain outcome
+uses reconciliation only; it never retries the ACK. This describes the intended
+seam, not implemented behavior. Neither protocol fakes nor this source-only
+read path are a complete managed campaign holder or release gate.
 
 ## Minimum owner capability before Ashlar integration
 
@@ -169,14 +179,13 @@ review before Ashlar claims the contract is satisfied.
 
 Release-closure gates 2 and 4 remain blocked on the source holder; the existing
 proposal helper remains fake-port choreography only. The next executable slice
-requires actual accepted `.51` source/feed/consumer/cursor custody, a reviewed
-bounded source-owner strategy using public operations or a versioned upstream
-custody API if needed, plus separately admitted managed-read and native-pin
-owners. It must not be represented by a local transaction alone, caller
+requires actual accepted `.51` source/feed/consumer/cursor custody, live admitted
+managed-read and native-pin handles, and a reviewed bounded source-owner
+strategy using public operations or a versioned upstream custody API if needed. It must not be represented by a local transaction alone, caller
 assertion, synthetic feed, or adapter that merely checks method names.
 
-Verification was limited to read-only wheel hash/size, installed version and
-public protocol/dataclass/SQL source inspection, and Ashlar call-site
-inspection. Static inspection also confirmed the caller-owned transaction
-interface and where feed reads and receipt ACK acquire locks. There was no
-native or cloud work and no effectful test.
+Verification includes read-only wheel hash/size, installed version and exact
+public API signature/dataclass/SQL inspection; call-site inspection; four
+focused source-seam protocol-fake tests; and 16 combined focused source receipt
+and session tests. No real Truss method, native source, or cloud operation was
+invoked. There was no effectful test.
