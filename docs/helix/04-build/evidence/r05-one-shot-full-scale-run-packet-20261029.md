@@ -51,6 +51,21 @@ sample's measured throughput, target seconds are `sample_seconds × 22.2222 / .8
 | Sequential setup + writes + one combined row/value and endpoint-formula scan | 66.278 s | 1,841.056 s / 30.684 min |
 | Concurrent setup + writes + one combined row/value and endpoint-formula scan | 60.924 s | 1,692.333 s / 28.206 min |
 
+The sample's active bytes work out to 10.4866 bytes per node row
+(`471,896,757 / 45M`) and 11.4197 bytes per edge row
+(`2,569,437,803 / 225M`), or 11.2642 bytes per row weighted across the
+270M-row pair. Linear target arithmetic is about 10.49 GB for 1B node rows and
+57.10 GB for 5B edge rows, 67.585 GB total active Parquet. This excludes logs,
+staging, retained files, shuffle/spill and graph-engine working data.
+
+For one workload unit of 1M nodes plus 5M edges, the measured concurrent write
+took `30.620 / 45 = 0.6804 s`; the setup/write/combined-scan mode took
+`60.924 / 45 = 1.3539 s`. At 80% of the measured rate, these become 0.8506 s
+and 1.6923 s per unit. The target contains 1,000 such units, or 22.222 times
+the 45-unit sample; the resulting write-only and measured-mode estimates are
+14.176 and 28.206 minutes.
+These are planning extrapolations from one sample, not target-scale measurements.
+
 Use the concurrent write sample as the planning baseline for the one-run
 candidate, while retaining its second-in-JVM bias. The **80% throughput target**
 is writes completed within 850.556 seconds. A result beyond that value fails
@@ -68,9 +83,15 @@ scan. The 30.304 s sample residual after writes also includes table setup and
 metadata, so it does not isolate scan time. Scaling that entire residual at 80%
 gives a 14.03-minute planning anchor, not an endpoint-scan measurement.
 
-The measured setup/write/combined-scan projection is 28.206 minutes before the
-remaining point lookups, second scan, graph action, startup, final checks and
-cleanup. Their target-scale costs are unmeasured, so the total remains unknown.
+The linear 80%-rate projection for setup/write/combined-scan is 28.206 minutes.
+Express the end-to-end estimate as **28.206 minutes + X**, where X includes any
+target-scale deviation in that projected phase (for example, warmup/cache
+effects, Delta metadata/file geometry, spill or skew) plus the additional
+separate scan, two point lookups, graph action, startup, final checks and
+cleanup. These effects and phases are unmeasured; the 28.206-minute projection
+is not a fixed measured portion, so X and the total remain unknown. The first
+combined pass is already represented in 28.206 minutes; only the requested
+second pass belongs among the additional phases in X.
 At a 15-minute total, the measured portion alone needs at least 1.88× speedup
 (46.8% elapsed-time reduction); at five minutes it needs at least 5.64×
 (82.3% reduction), before remaining phases. A 30-minute envelope leaves 1.79
