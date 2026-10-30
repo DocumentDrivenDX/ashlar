@@ -115,8 +115,11 @@ are not represented as completed work here:
    vector shape binder. It also has a bounded native Spark hash-observation
    adapter for a journal-pinned six-role installation; that adapter has only
    inert fake-transport tests so far. The module starts no Spark session,
-   writes no tables, and cannot mint a complete manifest. Native composition
-   and effect verification remain.
+   writes no tables, and cannot mint a complete manifest. A separate frozen
+   transaction-1 intent now emits three parameterized `.4` INSERT proposals
+   bound to the request and installation-profile digests; it also performs no
+   native writes. Fresh-empty-head admission, durable effect custody, native
+   snapshot comparison and manifest commit/readback remain.
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.
 3. A Weft 0.4.56 host distribution adapter for the local configured runtime.

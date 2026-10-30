@@ -22,12 +22,14 @@ from .managed_current_carriers import load_current_managed_carriers
 from .managed_source_oracle import _original_inventory
 
 PROFILE = "ashlar-configured-local-delta4-publication-core/0.1"
+EFFECT_PLAN_PROFILE = "ashlar-configured-local-delta4-effect-plan/0.1"
 CARRIER_PROFILE = "ashlar-delta/0.4-xxhash64"
 LOOKUP_HASH_PROFILE = "spark-xxhash64-typed-key/0.1"
 DATA_ROLES = ("edge_current", "object_current", "tombstone", "whole_source_history")
 INSTALLATION_ROLES = ("object_current", "edge_current", "tombstone", "whole_source_history",
                       "publication_attempt_phase", "publication_manifest")
 _MINT = object()
+_EFFECT_MINT = object()
 
 
 def _require(value, message="Configured-local Delta 0.4 publication refused"):
@@ -319,6 +321,128 @@ def observe_delta4_lookup_hashes(plan: ConfiguredLocalDelta4BatchPlan, transport
         hashes[key] = row["lookup_hash"]
     _require(set(hashes) == expected, "Complete role-qualified Spark hash vector required")
     return hashes
+
+
+@dataclass(frozen=True, init=False)
+class ConfiguredLocalDelta4EffectPlan:
+    """Immutable parameterized transaction-1 SQL intent; never executed here."""
+    profile: str
+    request_digest: str
+    installation_profile_sha256: str
+    intent_digest: str
+    effect_plan_sha256: str
+    steps_json: str
+    _identity: tuple
+
+    def __init__(self, request_digest, installation_profile_sha256, intent_digest,
+                 effect_plan_sha256, steps_json, *, _mint=None):
+        _require(_mint is _EFFECT_MINT, "Factory-owned `.4` native effect plan required")
+        for key, value in locals().copy().items():
+            if key not in ("self", "_mint"):
+                object.__setattr__(self, key, value)
+        object.__setattr__(self, "profile", EFFECT_PLAN_PROFILE)
+        object.__setattr__(self, "_identity", (self.profile, self.request_digest,
+            self.installation_profile_sha256, self.intent_digest,
+            self.effect_plan_sha256, self.steps_json))
+
+    @property
+    def steps(self):
+        _require(self._identity == (self.profile, self.request_digest,
+                                     self.installation_profile_sha256, self.intent_digest,
+                                     self.effect_plan_sha256, self.steps_json),
+                 "Frozen `.4` native effect plan changed")
+        steps = decode_retained_json(self.steps_json.encode("utf-8"))
+        _require(_sha(_canonical(steps).encode("utf-8")) == self.effect_plan_sha256,
+                 "Exact `.4` native effect plan digest required")
+        _require(self.intent_digest == _sha(_canonical({
+            "request_digest": self.request_digest,
+            "installation_profile_sha256": self.installation_profile_sha256,
+            "effect_plan_sha256": self.effect_plan_sha256,
+        }).encode("utf-8")), "Exact bound `.4` native effect intent digest required")
+        return steps
+
+
+def build_delta4_transaction1_effect_plan(plan: ConfiguredLocalDelta4BatchPlan, *, tables: dict,
+                                           installation_profile: dict):
+    """Build three exact parameterized INSERTs for a fresh empty `.4` installation.
+
+    Fresh-empty native heads remain a caller admission precondition. This
+    builder only binds the plan to the retained six-role profile and emits
+    immutable SQL intent; it performs no native reads or mutations.
+    """
+    from ashlar.native import quote_table_identifier
+    _require(type(plan) is ConfiguredLocalDelta4BatchPlan)
+    plan.require_current()
+    _require(type(tables) is dict and set(tables) == set(INSTALLATION_ROLES),
+             "Exact six-role configured local table map required")
+    _require(type(installation_profile) is dict
+             and installation_profile.get("profile") == "ashlar-local-current-installation-profile/0.1"
+             and installation_profile.get("physical_profile") == CARRIER_PROFILE
+             and installation_profile.get("lookup_hash_profile") == LOOKUP_HASH_PROFILE
+             and type(installation_profile.get("roles")) is dict
+             and set(installation_profile["roles"]) == set(INSTALLATION_ROLES),
+             "Exact retained six-role `.4` installation profile required")
+    for role in INSTALLATION_ROLES:
+        table = tables[role]
+        quote_table_identifier(table)
+        role_profile = installation_profile["roles"][role]
+        _require(type(role_profile) is dict and table == "local.configured." + role
+                 and role_profile.get("table") == table,
+                 "`.4` native effect target differs from retained installation role")
+        _uuid(role_profile.get("uuid"))
+    source_rows = plan.expected_rows
+    _require(source_rows["tombstone"] == [] and bool(source_rows["object_current"])
+             and bool(source_rows["edge_current"]) and bool(source_rows["whole_source_history"])
+             and len(source_rows["object_current"]) + len(source_rows["edge_current"]) == 8
+             and len(source_rows["whole_source_history"]) == 8,
+             "Exact eight-event transaction-1 fresh-install projection required")
+    carriers = load_current_managed_carriers(CARRIER_PROFILE)
+    steps = []
+    for role in ("object_current", "edge_current", "whole_source_history"):
+        rows = source_rows[role]
+        fields = carriers.ordered_fields(role)
+        native_names = [name for name, _kind, _nullable in fields]
+        staging_fields = [(name, "STRING" if name == "published_at" else kind)
+                          for name, kind, _nullable in fields if name != "lookup_hash"]
+        if role == "whole_source_history":
+            staging_fields = [(name, kind) for name, kind, _nullable in fields]
+        _require(all(set(row) == {name for name, _kind in staging_fields} for row in rows),
+                 "Exact `.4` source staging field set required")
+        for row in rows:
+            _require(all(type(value) is not float for value in row.values()),
+                     "Floating-point source staging values are forbidden")
+            for name, kind in staging_fields:
+                value = row[name]
+                if kind == "BIGINT":
+                    _require(value is None or type(value) is int and -(1 << 63) <= value < (1 << 63),
+                             "Exact signed BIGINT source staging value required")
+                else:
+                    _require(value is None or type(value) is str,
+                             "Exact STRING source staging value required")
+        staging_schema = "ARRAY<STRUCT<" + ",".join(name + ":" + kind for name, kind in staging_fields) + ">>"
+        relation = "(SELECT explode(from_json(:rows,'" + staging_schema + "')) AS s)"
+        output = []
+        for name in native_names:
+            if name == "lookup_hash":
+                type_column = "type_id" if role == "object_current" else "rel_type_id"
+                output.append("xxhash64(CAST(s.source_system AS STRING),CAST(s." + type_column
+                              + " AS BIGINT),CAST(s.id AS BIGINT)) AS lookup_hash")
+            elif name == "published_at":
+                output.append("timestamp_micros(CAST(s.published_at AS BIGINT)) AS published_at")
+            else:
+                output.append("s." + name)
+        sql = ("INSERT INTO " + quote_table_identifier(tables[role]) + " ("
+               + ",".join(native_names) + ") SELECT " + ",".join(output) + " FROM " + relation)
+        steps.append({"statement": sql, "parameters": {"rows": _canonical(rows)}})
+    effect_plan_sha256 = _sha(_canonical(steps).encode("utf-8"))
+    request_digest = plan.request["request_digest"]
+    installation_profile_sha256 = _sha(_canonical(installation_profile).encode("utf-8"))
+    intent_digest = _sha(_canonical({"request_digest": request_digest,
+        "installation_profile_sha256": installation_profile_sha256,
+        "effect_plan_sha256": effect_plan_sha256}).encode("utf-8"))
+    return ConfiguredLocalDelta4EffectPlan(request_digest, installation_profile_sha256,
+                                           intent_digest, effect_plan_sha256,
+                                           _canonical(steps), _mint=_EFFECT_MINT)
 
 
 def build_delta4_realized_vector(manifest_row: dict, installation: dict):

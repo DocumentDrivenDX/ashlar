@@ -9,7 +9,8 @@ from types import MappingProxyType, SimpleNamespace
 from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration
 from ashlar_host.configured_local_delta4_publication import (
     DATA_ROLES, INSTALLATION_ROLES,
-    build_delta4_realized_vector, materialize_delta4_expected_rows,
+    build_delta4_realized_vector, build_delta4_transaction1_effect_plan,
+    materialize_delta4_expected_rows,
     observe_delta4_lookup_hashes,
     plan_configured_local_delta4_transaction1,
 )
@@ -64,6 +65,65 @@ class Tests(unittest.TestCase):
                             for row in rows[role]))
         person = next(row for row in rows["object_current"] if row["type_id"] == 17 and row["id"] == 1)
         self.assertEqual(person["logical_key_json"], '["person-1"]')
+
+    def test_transaction1_effect_plan_is_three_closed_parameterized_typed_inserts(self):
+        plan = self.plan()
+        _owner, profile, _calls = self.native_fixture(plan)
+        tables = {role: "local.configured." + role for role in INSTALLATION_ROLES}
+        effect = build_delta4_transaction1_effect_plan(plan, tables=tables,
+                                                       installation_profile=profile)
+        steps = effect.steps
+        self.assertEqual(effect.profile, "ashlar-configured-local-delta4-effect-plan/0.1")
+        self.assertNotEqual(effect.intent_digest, plan.request["request_digest"])
+        self.assertEqual(len(effect.installation_profile_sha256), 64)
+        self.assertEqual(len(effect.effect_plan_sha256), 64)
+        self.assertEqual(len(steps), 3)
+        self.assertEqual([step["statement"].split("INSERT INTO ", 1)[1].split(" (", 1)[0].replace("`", "")
+                          for step in steps], [
+            "local.configured.object_current", "local.configured.edge_current",
+            "local.configured.whole_source_history"])
+        self.assertTrue(all(set(step) == {"statement", "parameters"}
+                            and set(step["parameters"]) == {"rows"}
+                            and step["statement"].startswith("INSERT INTO ")
+                            and "MERGE" not in step["statement"]
+                            and "UPDATE" not in step["statement"]
+                            and "DELETE" not in step["statement"]
+                            and "from_json(:rows,'ARRAY<STRUCT<" in step["statement"]
+                            for step in steps))
+        self.assertIn("xxhash64(CAST(s.source_system AS STRING),CAST(s.type_id AS BIGINT),CAST(s.id AS BIGINT))",
+                      steps[0]["statement"])
+        self.assertIn("xxhash64(CAST(s.source_system AS STRING),CAST(s.rel_type_id AS BIGINT),CAST(s.id AS BIGINT))",
+                      steps[1]["statement"])
+        self.assertIn("timestamp_micros(CAST(s.published_at AS BIGINT))", steps[0]["statement"])
+        staged = [json.loads(step["parameters"]["rows"]) for step in steps]
+        all_values = staged[0] + staged[1] + staged[2]
+        self.assertTrue(all(type(value) is not float for row in all_values for value in row.values()))
+        person = next(row for row in staged[0] if row["id"] == 1)
+        self.assertEqual(person["props_json"], '{"21":"person-1","22":"Ada","23":9007199254740993}')
+        self.assertIn("9007199254740993", person["props_json"])
+        self.assertIsNone(person["root_id"])
+        self.assertEqual(sum(row["source_system"] == "typed-graph-source"
+                             and row["rel_type_id"] == 31 and row["id"] == 3
+                             for row in staged[1]), 1)
+
+        changed_profile = json.loads(json.dumps(profile))
+        changed_profile["roles"]["object_current"]["uuid"] = str(
+            uuid.uuid5(uuid.NAMESPACE_URL, "different-object-current"))
+        changed = build_delta4_transaction1_effect_plan(plan, tables=tables,
+                                                        installation_profile=changed_profile)
+        self.assertEqual(changed.steps, effect.steps)
+        self.assertNotEqual(changed.installation_profile_sha256,
+                            effect.installation_profile_sha256)
+        self.assertNotEqual(changed.intent_digest, effect.intent_digest)
+
+    def test_transaction1_effect_plan_refuses_wrong_role_binding(self):
+        plan = self.plan()
+        _owner, profile, _calls = self.native_fixture(plan)
+        tables = {role: "local.configured." + role for role in INSTALLATION_ROLES}
+        tables["object_current"] = "local.other.object_current"
+        with self.assertRaises(ValueError):
+            build_delta4_transaction1_effect_plan(plan, tables=tables,
+                                                  installation_profile=profile)
 
     def test_native_hash_map_must_cover_exact_keys_and_signed_bigints(self):
         plan = self.plan()
