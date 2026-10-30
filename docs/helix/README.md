@@ -35,31 +35,14 @@ checks do not qualify emitted-SQL execution or native/managed publication
 ([current adoption](04-build/evidence/current-upstream-release-20261029/r01-umf-weft-pins-20261029/README.md)).
 
 The candidate `truss-local` extra selects Truss 0.0.51 with its `[native]`
-dependencies and an externally supplied PostgreSQL 18.6 tool. Wheel, installed
-file and profile checks pass; the new versioned adapter has effect-free tests.
-The reviewed current-source R15 packet was executed once under exact hash-bound
-approval. The attempt stopped at the initial `.48` read-only custody gate
-because its helper received an empty JSON view. PostgreSQL is stopped and the
-verified cold backup remains preserved. No `.50` migration, publication, ACK,
-seed, continuation, or lifecycle qualification resulted. The one-shot approval
-is consumed and does not authorize a retry
-([.50 package qualification](04-build/evidence/current-upstream-release-20261024/truss050-package-cohort-qualification-20261024/README.md),
-[source admission](04-build/evidence/current-upstream-release-20261024/truss050-source-admission-20261024/README.md),
-[R15 selected-source record](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/README.md),
-[R15 execution result](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/execution-result.json)).
-An AS-0 local candidate now retains and plans advancing Truss empty-interval
-coverage, while opaque receipt comparison and broader Arras query mapping remain
-upstream/interface gaps. No .51 native source/read, feed, migration, publication
-or ACK has run; a fresh R16 packet is still required
-([AS-0 disposition](04-build/evidence/arras-as0-local-20261029.md),
-[R16 candidate](04-build/evidence/current-upstream-release-20261024/truss050-r16-recovery-packet-candidate-20261029/README.md)).
-Pinned `.48` source shows that the helper's `READ ONLY` transaction caused
-`CatalogViewUnavailable(reason="context")`; Ashlar's library path now explicitly
-requests the ordinary `READ COMMITTED READ WRITE` transaction needed for
-Truss's shared catalog lock and rolls it back. A corrected helper candidate
-and focused non-native controls are recorded separately; no native retry or release
-qualification resulted
-([context trace and candidate](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/catalog-view-context-fix-r1/README.md)).
+dependencies. The latest R16 one-shot attempt restored its cold backup, then
+refused before PostgreSQL start after 305.595 seconds of preparation; its
+approval is spent and no migration, publication, ACK, seed or continuation
+occurred. R17 now has a bounded 900-second local scope and passing effect-free
+checks, but remains a review proposal without owner approval or native execution.
+Neither result qualifies the Truss lifecycle; selected-source acceptance and
+feed/ACK evidence remain open ([R16 failure](04-build/evidence/current-upstream-release-20261024/truss051-r16-native-candidate-20261029/r16-failure-evidence.json),
+[R17 proposal](04-build/evidence/current-upstream-release-20261024/truss051-r17-native-candidate-20261029/README.md)).
 
 Local Spark 4.2.0/Delta 4.4.1 candidate checks include bounded Weft query and
 SDK paging; a separate native one-table Delta check accepted a candidate DDL
@@ -80,19 +63,19 @@ publication, query, or ACK was exercised ([initialization evidence](04-build/evi
 Managed Unity Catalog and the full Truss lifecycle remain unqualified.
 A bounded probe confirmed create/read/delete authority for one empty owned
 schema under `client_dev`; that schema was deleted and verified absent. Managed
-A1 remains unadmitted: policy use and cluster-creation entitlement are
-unproven, source-holder custody is open, and no conservative total-cost bound
-has been established. No paid compute was created or started
-([schema probe](04-build/evidence/current-upstream-release-20261023/managed-a1-schema-authority-probe-20261024.md),
-[permission admission](04-build/evidence/current-upstream-release-20261023/managed-a1-permission-admission-20261024.md),
+A1 remains held: Jobs creation and execution authority, exact runtime/access
+mode, live source/ACK custody, prior spend and a bounded total cost remain
+unproven. The two-node shape and cost figures are candidates, not admission;
+no paid compute was created or started ([A1 admission packet](04-build/evidence/managed-a1-jobs-admission-packet-20261029.md),
+[schema probe](04-build/evidence/current-upstream-release-20261023/managed-a1-schema-authority-probe-20261024.md),
 [A1 trial constraints](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
-The synthetic 1B-node/assumed-5B-edge trial remains held. A bounded local
-45M-node/225M-edge comparison passed for sequential and opt-in concurrent
-Delta writing. At 80% of measured throughput, concurrent writes alone project
-to 14.18 minutes; full-size validation, reads, and graph export remain outside
-that bound and require owner review before a full run
-([paired result](04-build/evidence/r05-paired-writer-second-20261024/README.md),
-[physical limits](04-build/evidence/r05-materialization-physical-limits-20261024.md)).
+The owner decision for the synthetic 1B-node/assumed-5B-edge trial is
+“Hold and redesign first.” The 45M/225M sample projects 28.206 minutes for
+setup, writes and one combined row/value plus endpoint-formula scan at 80% of
+measured throughput; the end-to-end estimate is 28.206 minutes + X, with the
+additional scan, lookups, graph action, startup, checks and cleanup unmeasured.
+No full run is authorized ([R05 redesign napkin](04-build/evidence/r05-redesign-napkin-math-20261029.md),
+[R05 packet](04-build/evidence/r05-one-shot-full-scale-run-packet-20261029.md)).
 Fabric activation is pending current source/ACK, capacity, path and cleanup
 admission. See the
 [toolkit delivery plan](04-build/toolkit-delivery-plan.md) for ordered work and
