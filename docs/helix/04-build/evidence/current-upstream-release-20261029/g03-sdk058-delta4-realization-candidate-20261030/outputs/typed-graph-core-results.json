@@ -1,0 +1,4197 @@
+{
+  "profile": "ashlar.g03-sdk058-public-core-validation/1",
+  "producer": {
+    "sdk": "0.5.8",
+    "semanticCore": "0.10.0",
+    "entrySha256": "071544fcc83c5abcf1e280890e1516613f679a58cf245b31a7bf16f0b6dd24fd"
+  },
+  "modelSha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+  "requestSha256": "cd1bd2654c8fcd2ecd1246e0be44b8f94026faa2ef58cf75d7293f8652c990e7",
+  "groups": [
+    {
+      "groupIndex": 0,
+      "recordResults": [
+        {
+          "request": {
+            "deliveryId": "graph-object-17-1-1",
+            "recordSha256": "949f7fbb47ccf859fb1e5e7834b7942a8c4b54e1340395c7ac8fe6aad96a81a5",
+            "typeId": 17,
+            "propsSha256": "7285752b8f8ef755844e2eaef51706f38f7839c16efcce884876e5a5ff425701",
+            "identity": {
+              "module": "m",
+              "element": "Person"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_key"
+                },
+                "state": "present",
+                "value": {
+                  "string": "person-1"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_name"
+                },
+                "state": "present",
+                "value": {
+                  "string": "Ada"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "value": {
+                  "integerToken": "9007199254740993"
+                }
+              }
+            ]
+          },
+          "result": {
+            "operation": "validate-core-record-values",
+            "version": "2.0.0",
+            "source": {
+              "umf": "0.10.0",
+              "id": "typed-graph-example",
+              "vocabularies": {},
+              "modules": [
+                {
+                  "id": "m",
+                  "namespace": "urn:typed-graph:",
+                  "elements": [
+                    {
+                      "id": "Person",
+                      "name": "Person",
+                      "extensions": {},
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "person_key"
+                        },
+                        {
+                          "module": "m",
+                          "element": "person_name"
+                        },
+                        {
+                          "module": "m",
+                          "element": "quantity"
+                        }
+                      ],
+                      "keys": [
+                        {
+                          "id": "identity",
+                          "name": "Identity",
+                          "fields": [
+                            {
+                              "module": "m",
+                              "element": "person_key"
+                            }
+                          ],
+                          "primary": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "person_key",
+                      "name": "person_key",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "person_name",
+                      "name": "person_name",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "quantity",
+                      "name": "quantity",
+                      "scalarType": "integer",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "absent-allowed",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "Place",
+                      "name": "Place",
+                      "extensions": {},
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "place_key"
+                        },
+                        {
+                          "module": "m",
+                          "element": "place_name"
+                        }
+                      ],
+                      "keys": [
+                        {
+                          "id": "identity",
+                          "name": "Identity",
+                          "fields": [
+                            {
+                              "module": "m",
+                              "element": "place_key"
+                            }
+                          ],
+                          "primary": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "place_key",
+                      "name": "place_key",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "place_name",
+                      "name": "place_name",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    }
+                  ],
+                  "relationships": [
+                    {
+                      "id": "knows",
+                      "name": "knows",
+                      "source": [
+                        {
+                          "module": "m",
+                          "element": "Person"
+                        }
+                      ],
+                      "target": [
+                        {
+                          "module": "m",
+                          "element": "Person",
+                          "key": "identity"
+                        }
+                      ],
+                      "sourceMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetLifecycle": "independent",
+                      "directed": true
+                    },
+                    {
+                      "id": "located",
+                      "name": "located",
+                      "source": [
+                        {
+                          "module": "m",
+                          "element": "Person"
+                        }
+                      ],
+                      "target": [
+                        {
+                          "module": "m",
+                          "element": "Place",
+                          "key": "identity"
+                        }
+                      ],
+                      "sourceMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetLifecycle": "independent",
+                      "directed": true
+                    }
+                  ]
+                }
+              ]
+            },
+            "identity": {
+              "module": "m",
+              "element": "Person"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_key"
+                },
+                "state": "present",
+                "value": {
+                  "string": "person-1"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_name"
+                },
+                "state": "present",
+                "value": {
+                  "string": "Ada"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "value": {
+                  "integerToken": "9007199254740993"
+                }
+              }
+            ],
+            "documentValidation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            },
+            "validation": {
+              "valid": true,
+              "complete": false,
+              "diagnostics": [
+                {
+                  "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                  "path": "/identity",
+                  "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                  "severity": "warning"
+                },
+                {
+                  "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                  "path": "/identity",
+                  "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                  "severity": "warning"
+                }
+              ]
+            },
+            "fields": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_key"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_name"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              }
+            ]
+          }
+        },
+        {
+          "request": {
+            "deliveryId": "graph-object-17-2-1",
+            "recordSha256": "7074df0933934530832f49f25ff0d6c52a89517a577c7ecee458f4813efd293e",
+            "typeId": 17,
+            "propsSha256": "08a8b4e9dfb4da07406b6ab5fb997e0a7ad3b8c3f428a1c1266c707df7572931",
+            "identity": {
+              "module": "m",
+              "element": "Person"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_key"
+                },
+                "state": "present",
+                "value": {
+                  "string": "person-2"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_name"
+                },
+                "state": "present",
+                "value": {
+                  "string": "Ben"
+                }
+              }
+            ]
+          },
+          "result": {
+            "operation": "validate-core-record-values",
+            "version": "2.0.0",
+            "source": {
+              "umf": "0.10.0",
+              "id": "typed-graph-example",
+              "vocabularies": {},
+              "modules": [
+                {
+                  "id": "m",
+                  "namespace": "urn:typed-graph:",
+                  "elements": [
+                    {
+                      "id": "Person",
+                      "name": "Person",
+                      "extensions": {},
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "person_key"
+                        },
+                        {
+                          "module": "m",
+                          "element": "person_name"
+                        },
+                        {
+                          "module": "m",
+                          "element": "quantity"
+                        }
+                      ],
+                      "keys": [
+                        {
+                          "id": "identity",
+                          "name": "Identity",
+                          "fields": [
+                            {
+                              "module": "m",
+                              "element": "person_key"
+                            }
+                          ],
+                          "primary": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "person_key",
+                      "name": "person_key",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "person_name",
+                      "name": "person_name",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "quantity",
+                      "name": "quantity",
+                      "scalarType": "integer",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "absent-allowed",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "Place",
+                      "name": "Place",
+                      "extensions": {},
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "place_key"
+                        },
+                        {
+                          "module": "m",
+                          "element": "place_name"
+                        }
+                      ],
+                      "keys": [
+                        {
+                          "id": "identity",
+                          "name": "Identity",
+                          "fields": [
+                            {
+                              "module": "m",
+                              "element": "place_key"
+                            }
+                          ],
+                          "primary": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "place_key",
+                      "name": "place_key",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "place_name",
+                      "name": "place_name",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    }
+                  ],
+                  "relationships": [
+                    {
+                      "id": "knows",
+                      "name": "knows",
+                      "source": [
+                        {
+                          "module": "m",
+                          "element": "Person"
+                        }
+                      ],
+                      "target": [
+                        {
+                          "module": "m",
+                          "element": "Person",
+                          "key": "identity"
+                        }
+                      ],
+                      "sourceMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetLifecycle": "independent",
+                      "directed": true
+                    },
+                    {
+                      "id": "located",
+                      "name": "located",
+                      "source": [
+                        {
+                          "module": "m",
+                          "element": "Person"
+                        }
+                      ],
+                      "target": [
+                        {
+                          "module": "m",
+                          "element": "Place",
+                          "key": "identity"
+                        }
+                      ],
+                      "sourceMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetLifecycle": "independent",
+                      "directed": true
+                    }
+                  ]
+                }
+              ]
+            },
+            "identity": {
+              "module": "m",
+              "element": "Person"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_key"
+                },
+                "state": "present",
+                "value": {
+                  "string": "person-2"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_name"
+                },
+                "state": "present",
+                "value": {
+                  "string": "Ben"
+                }
+              }
+            ],
+            "documentValidation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            },
+            "validation": {
+              "valid": true,
+              "complete": false,
+              "diagnostics": [
+                {
+                  "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                  "path": "/identity",
+                  "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                  "severity": "warning"
+                },
+                {
+                  "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                  "path": "/identity",
+                  "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                  "severity": "warning"
+                }
+              ]
+            },
+            "fields": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_key"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_name"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "absent",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              }
+            ]
+          }
+        },
+        {
+          "request": {
+            "deliveryId": "graph-object-17-3-1",
+            "recordSha256": "6f15c0a66a66a3b8d855626a118a464ee3aebeb34dbbd5776776f3d0f18ed32d",
+            "typeId": 17,
+            "propsSha256": "ff6f256e5d0ba398eca3d593a46b1e0f6fb0f416672298e7bcacdf069bbbf925",
+            "identity": {
+              "module": "m",
+              "element": "Person"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_key"
+                },
+                "state": "present",
+                "value": {
+                  "string": "person-3"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_name"
+                },
+                "state": "present",
+                "value": {
+                  "string": "雪"
+                }
+              }
+            ]
+          },
+          "result": {
+            "operation": "validate-core-record-values",
+            "version": "2.0.0",
+            "source": {
+              "umf": "0.10.0",
+              "id": "typed-graph-example",
+              "vocabularies": {},
+              "modules": [
+                {
+                  "id": "m",
+                  "namespace": "urn:typed-graph:",
+                  "elements": [
+                    {
+                      "id": "Person",
+                      "name": "Person",
+                      "extensions": {},
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "person_key"
+                        },
+                        {
+                          "module": "m",
+                          "element": "person_name"
+                        },
+                        {
+                          "module": "m",
+                          "element": "quantity"
+                        }
+                      ],
+                      "keys": [
+                        {
+                          "id": "identity",
+                          "name": "Identity",
+                          "fields": [
+                            {
+                              "module": "m",
+                              "element": "person_key"
+                            }
+                          ],
+                          "primary": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "person_key",
+                      "name": "person_key",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "person_name",
+                      "name": "person_name",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "quantity",
+                      "name": "quantity",
+                      "scalarType": "integer",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "absent-allowed",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "Place",
+                      "name": "Place",
+                      "extensions": {},
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "place_key"
+                        },
+                        {
+                          "module": "m",
+                          "element": "place_name"
+                        }
+                      ],
+                      "keys": [
+                        {
+                          "id": "identity",
+                          "name": "Identity",
+                          "fields": [
+                            {
+                              "module": "m",
+                              "element": "place_key"
+                            }
+                          ],
+                          "primary": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "place_key",
+                      "name": "place_key",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "place_name",
+                      "name": "place_name",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    }
+                  ],
+                  "relationships": [
+                    {
+                      "id": "knows",
+                      "name": "knows",
+                      "source": [
+                        {
+                          "module": "m",
+                          "element": "Person"
+                        }
+                      ],
+                      "target": [
+                        {
+                          "module": "m",
+                          "element": "Person",
+                          "key": "identity"
+                        }
+                      ],
+                      "sourceMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetLifecycle": "independent",
+                      "directed": true
+                    },
+                    {
+                      "id": "located",
+                      "name": "located",
+                      "source": [
+                        {
+                          "module": "m",
+                          "element": "Person"
+                        }
+                      ],
+                      "target": [
+                        {
+                          "module": "m",
+                          "element": "Place",
+                          "key": "identity"
+                        }
+                      ],
+                      "sourceMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetLifecycle": "independent",
+                      "directed": true
+                    }
+                  ]
+                }
+              ]
+            },
+            "identity": {
+              "module": "m",
+              "element": "Person"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_key"
+                },
+                "state": "present",
+                "value": {
+                  "string": "person-3"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_name"
+                },
+                "state": "present",
+                "value": {
+                  "string": "雪"
+                }
+              }
+            ],
+            "documentValidation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            },
+            "validation": {
+              "valid": true,
+              "complete": false,
+              "diagnostics": [
+                {
+                  "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                  "path": "/identity",
+                  "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                  "severity": "warning"
+                },
+                {
+                  "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                  "path": "/identity",
+                  "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                  "severity": "warning"
+                }
+              ]
+            },
+            "fields": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_key"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_name"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "absent",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              }
+            ]
+          }
+        },
+        {
+          "request": {
+            "deliveryId": "graph-object-18-1-1",
+            "recordSha256": "203d63c990912b67a38aa12e68bef9136443f200ffd5a57569b34bc5e42ed88c",
+            "typeId": 18,
+            "propsSha256": "99ca1f4dbc589a2e5b60af9ef1791f7979ee22af06030f9f51b347819a0d1122",
+            "identity": {
+              "module": "m",
+              "element": "Place"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "place_key"
+                },
+                "state": "present",
+                "value": {
+                  "string": "place-1"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "place_name"
+                },
+                "state": "present",
+                "value": {
+                  "string": "Workshop"
+                }
+              }
+            ]
+          },
+          "result": {
+            "operation": "validate-core-record-values",
+            "version": "2.0.0",
+            "source": {
+              "umf": "0.10.0",
+              "id": "typed-graph-example",
+              "vocabularies": {},
+              "modules": [
+                {
+                  "id": "m",
+                  "namespace": "urn:typed-graph:",
+                  "elements": [
+                    {
+                      "id": "Person",
+                      "name": "Person",
+                      "extensions": {},
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "person_key"
+                        },
+                        {
+                          "module": "m",
+                          "element": "person_name"
+                        },
+                        {
+                          "module": "m",
+                          "element": "quantity"
+                        }
+                      ],
+                      "keys": [
+                        {
+                          "id": "identity",
+                          "name": "Identity",
+                          "fields": [
+                            {
+                              "module": "m",
+                              "element": "person_key"
+                            }
+                          ],
+                          "primary": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "person_key",
+                      "name": "person_key",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "person_name",
+                      "name": "person_name",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "quantity",
+                      "name": "quantity",
+                      "scalarType": "integer",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "absent-allowed",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "Place",
+                      "name": "Place",
+                      "extensions": {},
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "place_key"
+                        },
+                        {
+                          "module": "m",
+                          "element": "place_name"
+                        }
+                      ],
+                      "keys": [
+                        {
+                          "id": "identity",
+                          "name": "Identity",
+                          "fields": [
+                            {
+                              "module": "m",
+                              "element": "place_key"
+                            }
+                          ],
+                          "primary": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "place_key",
+                      "name": "place_key",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "place_name",
+                      "name": "place_name",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    }
+                  ],
+                  "relationships": [
+                    {
+                      "id": "knows",
+                      "name": "knows",
+                      "source": [
+                        {
+                          "module": "m",
+                          "element": "Person"
+                        }
+                      ],
+                      "target": [
+                        {
+                          "module": "m",
+                          "element": "Person",
+                          "key": "identity"
+                        }
+                      ],
+                      "sourceMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetLifecycle": "independent",
+                      "directed": true
+                    },
+                    {
+                      "id": "located",
+                      "name": "located",
+                      "source": [
+                        {
+                          "module": "m",
+                          "element": "Person"
+                        }
+                      ],
+                      "target": [
+                        {
+                          "module": "m",
+                          "element": "Place",
+                          "key": "identity"
+                        }
+                      ],
+                      "sourceMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetLifecycle": "independent",
+                      "directed": true
+                    }
+                  ]
+                }
+              ]
+            },
+            "identity": {
+              "module": "m",
+              "element": "Place"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "place_key"
+                },
+                "state": "present",
+                "value": {
+                  "string": "place-1"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "place_name"
+                },
+                "state": "present",
+                "value": {
+                  "string": "Workshop"
+                }
+              }
+            ],
+            "documentValidation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            },
+            "validation": {
+              "valid": true,
+              "complete": false,
+              "diagnostics": [
+                {
+                  "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                  "path": "/identity",
+                  "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                  "severity": "warning"
+                },
+                {
+                  "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                  "path": "/identity",
+                  "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                  "severity": "warning"
+                }
+              ]
+            },
+            "fields": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "place_key"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "place_name"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "dataset": {
+        "operation": "validate-core-dataset-values-compact",
+        "version": "1.0.0",
+        "scope": "supplied-dataset-only",
+        "provenance": "unverified",
+        "source": {
+          "umf": "0.10.0",
+          "id": "typed-graph-example",
+          "vocabularies": {},
+          "modules": [
+            {
+              "id": "m",
+              "namespace": "urn:typed-graph:",
+              "elements": [
+                {
+                  "id": "Person",
+                  "name": "Person",
+                  "extensions": {},
+                  "kind": "record",
+                  "members": [
+                    {
+                      "module": "m",
+                      "element": "person_key"
+                    },
+                    {
+                      "module": "m",
+                      "element": "person_name"
+                    },
+                    {
+                      "module": "m",
+                      "element": "quantity"
+                    }
+                  ],
+                  "keys": [
+                    {
+                      "id": "identity",
+                      "name": "Identity",
+                      "fields": [
+                        {
+                          "module": "m",
+                          "element": "person_key"
+                        }
+                      ],
+                      "primary": true
+                    }
+                  ]
+                },
+                {
+                  "id": "person_key",
+                  "name": "person_key",
+                  "scalarType": "string",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "required",
+                  "cardinality": "one"
+                },
+                {
+                  "id": "person_name",
+                  "name": "person_name",
+                  "scalarType": "string",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "required",
+                  "cardinality": "one"
+                },
+                {
+                  "id": "quantity",
+                  "name": "quantity",
+                  "scalarType": "integer",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "absent-allowed",
+                  "cardinality": "one"
+                },
+                {
+                  "id": "Place",
+                  "name": "Place",
+                  "extensions": {},
+                  "kind": "record",
+                  "members": [
+                    {
+                      "module": "m",
+                      "element": "place_key"
+                    },
+                    {
+                      "module": "m",
+                      "element": "place_name"
+                    }
+                  ],
+                  "keys": [
+                    {
+                      "id": "identity",
+                      "name": "Identity",
+                      "fields": [
+                        {
+                          "module": "m",
+                          "element": "place_key"
+                        }
+                      ],
+                      "primary": true
+                    }
+                  ]
+                },
+                {
+                  "id": "place_key",
+                  "name": "place_key",
+                  "scalarType": "string",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "required",
+                  "cardinality": "one"
+                },
+                {
+                  "id": "place_name",
+                  "name": "place_name",
+                  "scalarType": "string",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "required",
+                  "cardinality": "one"
+                }
+              ],
+              "relationships": [
+                {
+                  "id": "knows",
+                  "name": "knows",
+                  "source": [
+                    {
+                      "module": "m",
+                      "element": "Person"
+                    }
+                  ],
+                  "target": [
+                    {
+                      "module": "m",
+                      "element": "Person",
+                      "key": "identity"
+                    }
+                  ],
+                  "sourceMultiplicity": {
+                    "min": 0,
+                    "max": "*"
+                  },
+                  "targetMultiplicity": {
+                    "min": 0,
+                    "max": "*"
+                  },
+                  "targetLifecycle": "independent",
+                  "directed": true
+                },
+                {
+                  "id": "located",
+                  "name": "located",
+                  "source": [
+                    {
+                      "module": "m",
+                      "element": "Person"
+                    }
+                  ],
+                  "target": [
+                    {
+                      "module": "m",
+                      "element": "Place",
+                      "key": "identity"
+                    }
+                  ],
+                  "sourceMultiplicity": {
+                    "min": 0,
+                    "max": "*"
+                  },
+                  "targetMultiplicity": {
+                    "min": 0,
+                    "max": "*"
+                  },
+                  "targetLifecycle": "independent",
+                  "directed": true
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "scope": {
+            "id": "[\"typed-graph-jsonl\",\"typed-graph-1\",\"typed-graph-1\",\"fca32e4884745439a4f7807d9ae6f0229dc4d0885b3f71d8266677e26899e526\"]",
+            "closure": "supplied-dataset-only"
+          },
+          "records": [
+            {
+              "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-1"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Ada"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "present",
+                  "value": {
+                    "integerToken": "9007199254740993"
+                  }
+                }
+              ]
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-2"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Ben"
+                  }
+                }
+              ]
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"3\"]",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-3"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "雪"
+                  }
+                }
+              ]
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"object\",\"18\",\"1\"]",
+              "identity": {
+                "module": "m",
+                "element": "Place"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "place-1"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Workshop"
+                  }
+                }
+              ]
+            }
+          ],
+          "relationships": [
+            {
+              "instanceId": "[\"typed-graph-source\",\"edge\",\"31\",\"1\"]",
+              "identity": {
+                "module": "m",
+                "id": "knows"
+              },
+              "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+              "target": {
+                "identity": {
+                  "module": "m",
+                  "element": "Person",
+                  "key": "identity"
+                },
+                "values": [
+                  {
+                    "string": "person-2"
+                  }
+                ]
+              }
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"edge\",\"31\",\"2\"]",
+              "identity": {
+                "module": "m",
+                "id": "knows"
+              },
+              "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+              "target": {
+                "identity": {
+                  "module": "m",
+                  "element": "Person",
+                  "key": "identity"
+                },
+                "values": [
+                  {
+                    "string": "person-2"
+                  }
+                ]
+              }
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"edge\",\"31\",\"3\"]",
+              "identity": {
+                "module": "m",
+                "id": "knows"
+              },
+              "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+              "target": {
+                "identity": {
+                  "module": "m",
+                  "element": "Person",
+                  "key": "identity"
+                },
+                "values": [
+                  {
+                    "string": "person-1"
+                  }
+                ]
+              }
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"edge\",\"32\",\"1\"]",
+              "identity": {
+                "module": "m",
+                "id": "located"
+              },
+              "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+              "target": {
+                "identity": {
+                  "module": "m",
+                  "element": "Place",
+                  "key": "identity"
+                },
+                "values": [
+                  {
+                    "string": "place-1"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "records": [
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "result": {
+              "operation": "validate-core-record-values",
+              "version": "2.0.0",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-1"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Ada"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "present",
+                  "value": {
+                    "integerToken": "9007199254740993"
+                  }
+                }
+              ],
+              "documentValidation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              },
+              "validation": {
+                "valid": true,
+                "complete": false,
+                "diagnostics": [
+                  {
+                    "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                    "severity": "warning"
+                  },
+                  {
+                    "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                    "severity": "warning"
+                  }
+                ]
+              },
+              "fields": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                }
+              ],
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+            "result": {
+              "operation": "validate-core-record-values",
+              "version": "2.0.0",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-2"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Ben"
+                  }
+                }
+              ],
+              "documentValidation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              },
+              "validation": {
+                "valid": true,
+                "complete": false,
+                "diagnostics": [
+                  {
+                    "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                    "severity": "warning"
+                  },
+                  {
+                    "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                    "severity": "warning"
+                  }
+                ]
+              },
+              "fields": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "absent",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                }
+              ],
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"3\"]",
+            "result": {
+              "operation": "validate-core-record-values",
+              "version": "2.0.0",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-3"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "雪"
+                  }
+                }
+              ],
+              "documentValidation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              },
+              "validation": {
+                "valid": true,
+                "complete": false,
+                "diagnostics": [
+                  {
+                    "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                    "severity": "warning"
+                  },
+                  {
+                    "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                    "severity": "warning"
+                  }
+                ]
+              },
+              "fields": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "absent",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                }
+              ],
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"18\",\"1\"]",
+            "result": {
+              "operation": "validate-core-record-values",
+              "version": "2.0.0",
+              "identity": {
+                "module": "m",
+                "element": "Place"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "place-1"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Workshop"
+                  }
+                }
+              ],
+              "documentValidation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              },
+              "validation": {
+                "valid": true,
+                "complete": false,
+                "diagnostics": [
+                  {
+                    "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                    "severity": "warning"
+                  },
+                  {
+                    "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                    "severity": "warning"
+                  }
+                ]
+              },
+              "fields": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_key"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_name"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                }
+              ],
+              "sourceRef": "#/source"
+            }
+          }
+        ],
+        "keys": [
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "result": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-1"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d31",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+            "result": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-2"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d32",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"3\"]",
+            "result": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-3"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d33",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"18\",\"1\"]",
+            "result": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Place",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "place-1"
+                }
+              ],
+              "keyPath": "/modules/0/elements/4/keys/0",
+              "bytesHex": "554d464b31010407706c6163652d31",
+              "sourceRef": "#/source"
+            }
+          }
+        ],
+        "relationships": [
+          {
+            "instanceId": "[\"typed-graph-source\",\"edge\",\"31\",\"1\"]",
+            "identity": {
+              "module": "m",
+              "id": "knows"
+            },
+            "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "targetInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+            "targetKey": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-2"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d32",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"edge\",\"31\",\"2\"]",
+            "identity": {
+              "module": "m",
+              "id": "knows"
+            },
+            "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "targetInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+            "targetKey": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-2"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d32",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"edge\",\"31\",\"3\"]",
+            "identity": {
+              "module": "m",
+              "id": "knows"
+            },
+            "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "targetInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "targetKey": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-1"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d31",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"edge\",\"32\",\"1\"]",
+            "identity": {
+              "module": "m",
+              "id": "located"
+            },
+            "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+            "targetInstanceId": "[\"typed-graph-source\",\"object\",\"18\",\"1\"]",
+            "targetKey": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Place",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "place-1"
+                }
+              ],
+              "keyPath": "/modules/0/elements/4/keys/0",
+              "bytesHex": "554d464b31010407706c6163652d31",
+              "sourceRef": "#/source"
+            }
+          }
+        ],
+        "datasetValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "obligations": [
+          {
+            "id": "dataset.keys",
+            "state": "satisfied",
+            "scope": "supplied-dataset-only"
+          },
+          {
+            "id": "dataset.relationships",
+            "state": "satisfied",
+            "scope": "supplied-dataset-only"
+          }
+        ],
+        "residuals": []
+      }
+    },
+    {
+      "groupIndex": 1,
+      "recordResults": [],
+      "dataset": {
+        "operation": "validate-core-dataset-values-compact",
+        "version": "1.0.0",
+        "scope": "supplied-dataset-only",
+        "provenance": "unverified",
+        "source": {
+          "umf": "0.10.0",
+          "id": "typed-graph-example",
+          "vocabularies": {},
+          "modules": [
+            {
+              "id": "m",
+              "namespace": "urn:typed-graph:",
+              "elements": [
+                {
+                  "id": "Person",
+                  "name": "Person",
+                  "extensions": {},
+                  "kind": "record",
+                  "members": [
+                    {
+                      "module": "m",
+                      "element": "person_key"
+                    },
+                    {
+                      "module": "m",
+                      "element": "person_name"
+                    },
+                    {
+                      "module": "m",
+                      "element": "quantity"
+                    }
+                  ],
+                  "keys": [
+                    {
+                      "id": "identity",
+                      "name": "Identity",
+                      "fields": [
+                        {
+                          "module": "m",
+                          "element": "person_key"
+                        }
+                      ],
+                      "primary": true
+                    }
+                  ]
+                },
+                {
+                  "id": "person_key",
+                  "name": "person_key",
+                  "scalarType": "string",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "required",
+                  "cardinality": "one"
+                },
+                {
+                  "id": "person_name",
+                  "name": "person_name",
+                  "scalarType": "string",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "required",
+                  "cardinality": "one"
+                },
+                {
+                  "id": "quantity",
+                  "name": "quantity",
+                  "scalarType": "integer",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "absent-allowed",
+                  "cardinality": "one"
+                },
+                {
+                  "id": "Place",
+                  "name": "Place",
+                  "extensions": {},
+                  "kind": "record",
+                  "members": [
+                    {
+                      "module": "m",
+                      "element": "place_key"
+                    },
+                    {
+                      "module": "m",
+                      "element": "place_name"
+                    }
+                  ],
+                  "keys": [
+                    {
+                      "id": "identity",
+                      "name": "Identity",
+                      "fields": [
+                        {
+                          "module": "m",
+                          "element": "place_key"
+                        }
+                      ],
+                      "primary": true
+                    }
+                  ]
+                },
+                {
+                  "id": "place_key",
+                  "name": "place_key",
+                  "scalarType": "string",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "required",
+                  "cardinality": "one"
+                },
+                {
+                  "id": "place_name",
+                  "name": "place_name",
+                  "scalarType": "string",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "required",
+                  "cardinality": "one"
+                }
+              ],
+              "relationships": [
+                {
+                  "id": "knows",
+                  "name": "knows",
+                  "source": [
+                    {
+                      "module": "m",
+                      "element": "Person"
+                    }
+                  ],
+                  "target": [
+                    {
+                      "module": "m",
+                      "element": "Person",
+                      "key": "identity"
+                    }
+                  ],
+                  "sourceMultiplicity": {
+                    "min": 0,
+                    "max": "*"
+                  },
+                  "targetMultiplicity": {
+                    "min": 0,
+                    "max": "*"
+                  },
+                  "targetLifecycle": "independent",
+                  "directed": true
+                },
+                {
+                  "id": "located",
+                  "name": "located",
+                  "source": [
+                    {
+                      "module": "m",
+                      "element": "Person"
+                    }
+                  ],
+                  "target": [
+                    {
+                      "module": "m",
+                      "element": "Place",
+                      "key": "identity"
+                    }
+                  ],
+                  "sourceMultiplicity": {
+                    "min": 0,
+                    "max": "*"
+                  },
+                  "targetMultiplicity": {
+                    "min": 0,
+                    "max": "*"
+                  },
+                  "targetLifecycle": "independent",
+                  "directed": true
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "scope": {
+            "id": "[\"typed-graph-jsonl\",\"typed-graph-1\",\"typed-graph-2\",\"dd11847ce5a4b5a20de6dc8a4305d253826ce0361e3b3562948136b86c9c3219\"]",
+            "closure": "supplied-dataset-only"
+          },
+          "records": [
+            {
+              "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-1"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Ada"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "present",
+                  "value": {
+                    "integerToken": "9007199254740993"
+                  }
+                }
+              ]
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-2"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Ben"
+                  }
+                }
+              ]
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"3\"]",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-3"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "雪"
+                  }
+                }
+              ]
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"object\",\"18\",\"1\"]",
+              "identity": {
+                "module": "m",
+                "element": "Place"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "place-1"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Workshop"
+                  }
+                }
+              ]
+            }
+          ],
+          "relationships": [
+            {
+              "instanceId": "[\"typed-graph-source\",\"edge\",\"31\",\"1\"]",
+              "identity": {
+                "module": "m",
+                "id": "knows"
+              },
+              "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+              "target": {
+                "identity": {
+                  "module": "m",
+                  "element": "Person",
+                  "key": "identity"
+                },
+                "values": [
+                  {
+                    "string": "person-1"
+                  }
+                ]
+              }
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"edge\",\"31\",\"3\"]",
+              "identity": {
+                "module": "m",
+                "id": "knows"
+              },
+              "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+              "target": {
+                "identity": {
+                  "module": "m",
+                  "element": "Person",
+                  "key": "identity"
+                },
+                "values": [
+                  {
+                    "string": "person-1"
+                  }
+                ]
+              }
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"edge\",\"32\",\"1\"]",
+              "identity": {
+                "module": "m",
+                "id": "located"
+              },
+              "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+              "target": {
+                "identity": {
+                  "module": "m",
+                  "element": "Place",
+                  "key": "identity"
+                },
+                "values": [
+                  {
+                    "string": "place-1"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "records": [
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "result": {
+              "operation": "validate-core-record-values",
+              "version": "2.0.0",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-1"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Ada"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "present",
+                  "value": {
+                    "integerToken": "9007199254740993"
+                  }
+                }
+              ],
+              "documentValidation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              },
+              "validation": {
+                "valid": true,
+                "complete": false,
+                "diagnostics": [
+                  {
+                    "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                    "severity": "warning"
+                  },
+                  {
+                    "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                    "severity": "warning"
+                  }
+                ]
+              },
+              "fields": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                }
+              ],
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+            "result": {
+              "operation": "validate-core-record-values",
+              "version": "2.0.0",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-2"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Ben"
+                  }
+                }
+              ],
+              "documentValidation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              },
+              "validation": {
+                "valid": true,
+                "complete": false,
+                "diagnostics": [
+                  {
+                    "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                    "severity": "warning"
+                  },
+                  {
+                    "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                    "severity": "warning"
+                  }
+                ]
+              },
+              "fields": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "absent",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                }
+              ],
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"3\"]",
+            "result": {
+              "operation": "validate-core-record-values",
+              "version": "2.0.0",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-3"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "雪"
+                  }
+                }
+              ],
+              "documentValidation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              },
+              "validation": {
+                "valid": true,
+                "complete": false,
+                "diagnostics": [
+                  {
+                    "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                    "severity": "warning"
+                  },
+                  {
+                    "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                    "severity": "warning"
+                  }
+                ]
+              },
+              "fields": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "absent",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                }
+              ],
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"18\",\"1\"]",
+            "result": {
+              "operation": "validate-core-record-values",
+              "version": "2.0.0",
+              "identity": {
+                "module": "m",
+                "element": "Place"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "place-1"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Workshop"
+                  }
+                }
+              ],
+              "documentValidation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              },
+              "validation": {
+                "valid": true,
+                "complete": false,
+                "diagnostics": [
+                  {
+                    "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                    "severity": "warning"
+                  },
+                  {
+                    "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                    "severity": "warning"
+                  }
+                ]
+              },
+              "fields": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_key"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_name"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                }
+              ],
+              "sourceRef": "#/source"
+            }
+          }
+        ],
+        "keys": [
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "result": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-1"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d31",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+            "result": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-2"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d32",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"3\"]",
+            "result": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-3"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d33",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"18\",\"1\"]",
+            "result": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Place",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "place-1"
+                }
+              ],
+              "keyPath": "/modules/0/elements/4/keys/0",
+              "bytesHex": "554d464b31010407706c6163652d31",
+              "sourceRef": "#/source"
+            }
+          }
+        ],
+        "relationships": [
+          {
+            "instanceId": "[\"typed-graph-source\",\"edge\",\"31\",\"1\"]",
+            "identity": {
+              "module": "m",
+              "id": "knows"
+            },
+            "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+            "targetInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "targetKey": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-1"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d31",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"edge\",\"31\",\"3\"]",
+            "identity": {
+              "module": "m",
+              "id": "knows"
+            },
+            "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "targetInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "targetKey": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-1"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d31",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"edge\",\"32\",\"1\"]",
+            "identity": {
+              "module": "m",
+              "id": "located"
+            },
+            "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"2\"]",
+            "targetInstanceId": "[\"typed-graph-source\",\"object\",\"18\",\"1\"]",
+            "targetKey": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Place",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "place-1"
+                }
+              ],
+              "keyPath": "/modules/0/elements/4/keys/0",
+              "bytesHex": "554d464b31010407706c6163652d31",
+              "sourceRef": "#/source"
+            }
+          }
+        ],
+        "datasetValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "obligations": [
+          {
+            "id": "dataset.keys",
+            "state": "satisfied",
+            "scope": "supplied-dataset-only"
+          },
+          {
+            "id": "dataset.relationships",
+            "state": "satisfied",
+            "scope": "supplied-dataset-only"
+          }
+        ],
+        "residuals": []
+      }
+    },
+    {
+      "groupIndex": 2,
+      "recordResults": [
+        {
+          "request": {
+            "deliveryId": "graph-object-17-2-2",
+            "recordSha256": "c1a5a737dfe3a9fb1edfb9c07375595f4f8b454bf9330653a5fda61c4875e211",
+            "typeId": 17,
+            "propsSha256": "08a8b4e9dfb4da07406b6ab5fb997e0a7ad3b8c3f428a1c1266c707df7572931",
+            "identity": {
+              "module": "m",
+              "element": "Person"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_key"
+                },
+                "state": "present",
+                "value": {
+                  "string": "person-2"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_name"
+                },
+                "state": "present",
+                "value": {
+                  "string": "Ben"
+                }
+              }
+            ]
+          },
+          "result": {
+            "operation": "validate-core-record-values",
+            "version": "2.0.0",
+            "source": {
+              "umf": "0.10.0",
+              "id": "typed-graph-example",
+              "vocabularies": {},
+              "modules": [
+                {
+                  "id": "m",
+                  "namespace": "urn:typed-graph:",
+                  "elements": [
+                    {
+                      "id": "Person",
+                      "name": "Person",
+                      "extensions": {},
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "person_key"
+                        },
+                        {
+                          "module": "m",
+                          "element": "person_name"
+                        },
+                        {
+                          "module": "m",
+                          "element": "quantity"
+                        }
+                      ],
+                      "keys": [
+                        {
+                          "id": "identity",
+                          "name": "Identity",
+                          "fields": [
+                            {
+                              "module": "m",
+                              "element": "person_key"
+                            }
+                          ],
+                          "primary": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "person_key",
+                      "name": "person_key",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "person_name",
+                      "name": "person_name",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "quantity",
+                      "name": "quantity",
+                      "scalarType": "integer",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "absent-allowed",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "Place",
+                      "name": "Place",
+                      "extensions": {},
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "place_key"
+                        },
+                        {
+                          "module": "m",
+                          "element": "place_name"
+                        }
+                      ],
+                      "keys": [
+                        {
+                          "id": "identity",
+                          "name": "Identity",
+                          "fields": [
+                            {
+                              "module": "m",
+                              "element": "place_key"
+                            }
+                          ],
+                          "primary": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "place_key",
+                      "name": "place_key",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    },
+                    {
+                      "id": "place_name",
+                      "name": "place_name",
+                      "scalarType": "string",
+                      "extensions": {},
+                      "kind": "field",
+                      "nullability": "required",
+                      "cardinality": "one"
+                    }
+                  ],
+                  "relationships": [
+                    {
+                      "id": "knows",
+                      "name": "knows",
+                      "source": [
+                        {
+                          "module": "m",
+                          "element": "Person"
+                        }
+                      ],
+                      "target": [
+                        {
+                          "module": "m",
+                          "element": "Person",
+                          "key": "identity"
+                        }
+                      ],
+                      "sourceMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetLifecycle": "independent",
+                      "directed": true
+                    },
+                    {
+                      "id": "located",
+                      "name": "located",
+                      "source": [
+                        {
+                          "module": "m",
+                          "element": "Person"
+                        }
+                      ],
+                      "target": [
+                        {
+                          "module": "m",
+                          "element": "Place",
+                          "key": "identity"
+                        }
+                      ],
+                      "sourceMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetMultiplicity": {
+                        "min": 0,
+                        "max": "*"
+                      },
+                      "targetLifecycle": "independent",
+                      "directed": true
+                    }
+                  ]
+                }
+              ]
+            },
+            "identity": {
+              "module": "m",
+              "element": "Person"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_key"
+                },
+                "state": "present",
+                "value": {
+                  "string": "person-2"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_name"
+                },
+                "state": "present",
+                "value": {
+                  "string": "Ben"
+                }
+              }
+            ],
+            "documentValidation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            },
+            "validation": {
+              "valid": true,
+              "complete": false,
+              "diagnostics": [
+                {
+                  "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                  "path": "/identity",
+                  "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                  "severity": "warning"
+                },
+                {
+                  "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                  "path": "/identity",
+                  "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                  "severity": "warning"
+                }
+              ]
+            },
+            "fields": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_key"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "person_name"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "absent",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "dataset": {
+        "operation": "validate-core-dataset-values-compact",
+        "version": "1.0.0",
+        "scope": "supplied-dataset-only",
+        "provenance": "unverified",
+        "source": {
+          "umf": "0.10.0",
+          "id": "typed-graph-example",
+          "vocabularies": {},
+          "modules": [
+            {
+              "id": "m",
+              "namespace": "urn:typed-graph:",
+              "elements": [
+                {
+                  "id": "Person",
+                  "name": "Person",
+                  "extensions": {},
+                  "kind": "record",
+                  "members": [
+                    {
+                      "module": "m",
+                      "element": "person_key"
+                    },
+                    {
+                      "module": "m",
+                      "element": "person_name"
+                    },
+                    {
+                      "module": "m",
+                      "element": "quantity"
+                    }
+                  ],
+                  "keys": [
+                    {
+                      "id": "identity",
+                      "name": "Identity",
+                      "fields": [
+                        {
+                          "module": "m",
+                          "element": "person_key"
+                        }
+                      ],
+                      "primary": true
+                    }
+                  ]
+                },
+                {
+                  "id": "person_key",
+                  "name": "person_key",
+                  "scalarType": "string",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "required",
+                  "cardinality": "one"
+                },
+                {
+                  "id": "person_name",
+                  "name": "person_name",
+                  "scalarType": "string",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "required",
+                  "cardinality": "one"
+                },
+                {
+                  "id": "quantity",
+                  "name": "quantity",
+                  "scalarType": "integer",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "absent-allowed",
+                  "cardinality": "one"
+                },
+                {
+                  "id": "Place",
+                  "name": "Place",
+                  "extensions": {},
+                  "kind": "record",
+                  "members": [
+                    {
+                      "module": "m",
+                      "element": "place_key"
+                    },
+                    {
+                      "module": "m",
+                      "element": "place_name"
+                    }
+                  ],
+                  "keys": [
+                    {
+                      "id": "identity",
+                      "name": "Identity",
+                      "fields": [
+                        {
+                          "module": "m",
+                          "element": "place_key"
+                        }
+                      ],
+                      "primary": true
+                    }
+                  ]
+                },
+                {
+                  "id": "place_key",
+                  "name": "place_key",
+                  "scalarType": "string",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "required",
+                  "cardinality": "one"
+                },
+                {
+                  "id": "place_name",
+                  "name": "place_name",
+                  "scalarType": "string",
+                  "extensions": {},
+                  "kind": "field",
+                  "nullability": "required",
+                  "cardinality": "one"
+                }
+              ],
+              "relationships": [
+                {
+                  "id": "knows",
+                  "name": "knows",
+                  "source": [
+                    {
+                      "module": "m",
+                      "element": "Person"
+                    }
+                  ],
+                  "target": [
+                    {
+                      "module": "m",
+                      "element": "Person",
+                      "key": "identity"
+                    }
+                  ],
+                  "sourceMultiplicity": {
+                    "min": 0,
+                    "max": "*"
+                  },
+                  "targetMultiplicity": {
+                    "min": 0,
+                    "max": "*"
+                  },
+                  "targetLifecycle": "independent",
+                  "directed": true
+                },
+                {
+                  "id": "located",
+                  "name": "located",
+                  "source": [
+                    {
+                      "module": "m",
+                      "element": "Person"
+                    }
+                  ],
+                  "target": [
+                    {
+                      "module": "m",
+                      "element": "Place",
+                      "key": "identity"
+                    }
+                  ],
+                  "sourceMultiplicity": {
+                    "min": 0,
+                    "max": "*"
+                  },
+                  "targetMultiplicity": {
+                    "min": 0,
+                    "max": "*"
+                  },
+                  "targetLifecycle": "independent",
+                  "directed": true
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "scope": {
+            "id": "[\"typed-graph-jsonl\",\"typed-graph-1\",\"typed-graph-3\",\"91147c4ba601af0c3ed9512d03cb8a0797a64c096c06c4284967e0abe6e29170\"]",
+            "closure": "supplied-dataset-only"
+          },
+          "records": [
+            {
+              "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-1"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Ada"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "present",
+                  "value": {
+                    "integerToken": "9007199254740993"
+                  }
+                }
+              ]
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"3\"]",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-3"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "雪"
+                  }
+                }
+              ]
+            },
+            {
+              "instanceId": "[\"typed-graph-source\",\"object\",\"18\",\"1\"]",
+              "identity": {
+                "module": "m",
+                "element": "Place"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "place-1"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Workshop"
+                  }
+                }
+              ]
+            }
+          ],
+          "relationships": [
+            {
+              "instanceId": "[\"typed-graph-source\",\"edge\",\"31\",\"3\"]",
+              "identity": {
+                "module": "m",
+                "id": "knows"
+              },
+              "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+              "target": {
+                "identity": {
+                  "module": "m",
+                  "element": "Person",
+                  "key": "identity"
+                },
+                "values": [
+                  {
+                    "string": "person-1"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "records": [
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "result": {
+              "operation": "validate-core-record-values",
+              "version": "2.0.0",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-1"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Ada"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "present",
+                  "value": {
+                    "integerToken": "9007199254740993"
+                  }
+                }
+              ],
+              "documentValidation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              },
+              "validation": {
+                "valid": true,
+                "complete": false,
+                "diagnostics": [
+                  {
+                    "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                    "severity": "warning"
+                  },
+                  {
+                    "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                    "severity": "warning"
+                  }
+                ]
+              },
+              "fields": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                }
+              ],
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"3\"]",
+            "result": {
+              "operation": "validate-core-record-values",
+              "version": "2.0.0",
+              "identity": {
+                "module": "m",
+                "element": "Person"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "person-3"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "雪"
+                  }
+                }
+              ],
+              "documentValidation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              },
+              "validation": {
+                "valid": true,
+                "complete": false,
+                "diagnostics": [
+                  {
+                    "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                    "severity": "warning"
+                  },
+                  {
+                    "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                    "severity": "warning"
+                  }
+                ]
+              },
+              "fields": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_key"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "person_name"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "quantity"
+                  },
+                  "state": "absent",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                }
+              ],
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"18\",\"1\"]",
+            "result": {
+              "operation": "validate-core-record-values",
+              "version": "2.0.0",
+              "identity": {
+                "module": "m",
+                "element": "Place"
+              },
+              "values": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_key"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "place-1"
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_name"
+                  },
+                  "state": "present",
+                  "value": {
+                    "string": "Workshop"
+                  }
+                }
+              ],
+              "documentValidation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              },
+              "validation": {
+                "valid": true,
+                "complete": false,
+                "diagnostics": [
+                  {
+                    "code": "RECORD_KEY_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Dataset key equality/uniqueness needs a separately qualified check",
+                    "severity": "warning"
+                  },
+                  {
+                    "code": "RECORD_RELATIONSHIP_CONTEXT_REQUIRED",
+                    "path": "/identity",
+                    "message": "Relationship/endpoint constraints need a separately qualified dataset check",
+                    "severity": "warning"
+                  }
+                ]
+              },
+              "fields": [
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_key"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                },
+                {
+                  "field": {
+                    "module": "m",
+                    "element": "place_name"
+                  },
+                  "state": "present",
+                  "validation": {
+                    "valid": true,
+                    "complete": true,
+                    "diagnostics": []
+                  }
+                }
+              ],
+              "sourceRef": "#/source"
+            }
+          }
+        ],
+        "keys": [
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "result": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-1"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d31",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"17\",\"3\"]",
+            "result": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-3"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d33",
+              "sourceRef": "#/source"
+            }
+          },
+          {
+            "instanceId": "[\"typed-graph-source\",\"object\",\"18\",\"1\"]",
+            "result": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Place",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "place-1"
+                }
+              ],
+              "keyPath": "/modules/0/elements/4/keys/0",
+              "bytesHex": "554d464b31010407706c6163652d31",
+              "sourceRef": "#/source"
+            }
+          }
+        ],
+        "relationships": [
+          {
+            "instanceId": "[\"typed-graph-source\",\"edge\",\"31\",\"3\"]",
+            "identity": {
+              "module": "m",
+              "id": "knows"
+            },
+            "sourceInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "targetInstanceId": "[\"typed-graph-source\",\"object\",\"17\",\"1\"]",
+            "targetKey": {
+              "operation": "encode-core-key-tuple",
+              "version": "4.0.0",
+              "profile": "umf-key-tuple-v1",
+              "identity": {
+                "module": "m",
+                "element": "Person",
+                "key": "identity"
+              },
+              "values": [
+                {
+                  "string": "person-1"
+                }
+              ],
+              "keyPath": "/modules/0/elements/0/keys/0",
+              "bytesHex": "554d464b31010408706572736f6e2d31",
+              "sourceRef": "#/source"
+            }
+          }
+        ],
+        "datasetValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "obligations": [
+          {
+            "id": "dataset.keys",
+            "state": "satisfied",
+            "scope": "supplied-dataset-only"
+          },
+          {
+            "id": "dataset.relationships",
+            "state": "satisfied",
+            "scope": "supplied-dataset-only"
+          }
+        ],
+        "residuals": []
+      }
+    }
+  ]
+}

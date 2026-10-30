@@ -1,0 +1,200 @@
+{
+  "profile": "ashlar.g03-sdk058-realization-closure/1",
+  "claim": "Effect-free parity of selected SDK public Core outputs and six Delta 4 DDL proposals against frozen local baselines; no native release qualification.",
+  "selectedRelease": {
+    "name": "UMF SDK",
+    "version": "0.5.8",
+    "githubTag": "umf-v0.5.8",
+    "tagCommit": "efb4042719866888ad80c01cb2da694972eb2738",
+    "source": "R01 upstream pin receipt; selected latest release at its recorded check time."
+  },
+  "actualProducer": {
+    "commit": "855f6c48649496fc60b3303798790d0ddb55d38f",
+    "tree": "53f2bfffbc0c5780e79d76d8fd3d202239d088b2",
+    "archiveSha256": "2aaf24741aee1c135fade5b7631db90d710e6211977fb9ca7fcc080ea7fdf58d",
+    "archiveSizeBytes": 30834843,
+    "installedTreeSha256": "7227738ae23966239b67d3e9df72f848c101761719ef4b39477fe86de6ef519c"
+  },
+  "runtime": {
+    "nodeVersion": "v26.12.1",
+    "nodePath": "/opt/homebrew/Cellar/node/26.12.1/bin/node",
+    "nodeSha256": "9af7e24478e538455cf4af53a2607f1b79304bd5e25458b041fb855c3c167991",
+    "nodeSizeBytes": 132848
+  },
+  "semanticCore": "0.10.0",
+  "executionBoundary": {
+    "spark": false,
+    "managedCatalog": false,
+    "publication": false,
+    "sourceAck": false,
+    "accessPythonPackageUsed": false,
+    "pythonCorePackageUsed": false
+  },
+  "historicalTypedGraphReceipt": {
+    "producerRevision": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+    "sha256": "cee1a4df50dd6103cea7ac59884a498019387f3607eed300ca79140c9fc502e9",
+    "result": "all three frozen request groups exactly match SDK 0.5.8 public Core record results and compact dataset result objects; typed-graph-1 group contains four record results. Full source/event correspondence checks were not rerun through the release SDK."
+  },
+  "filePins": [
+    {
+      "path": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-distribution/umf-sdk.tgz",
+      "sizeBytes": 30834843,
+      "sha256": "2aaf24741aee1c135fade5b7631db90d710e6211977fb9ca7fcc080ea7fdf58d"
+    },
+    {
+      "path": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-distribution/manifest.json",
+      "sizeBytes": 229540,
+      "sha256": "0683f83ffef546c7c48d0b267528fafe83c16006a2cef5fdb299260ebb444309"
+    },
+    {
+      "path": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-producer-closure.json",
+      "sizeBytes": 2645,
+      "sha256": "e90c44cb79cc5ce39921274cc155c8634232635fc9ba02565d43846f6ee1152f"
+    },
+    {
+      "path": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-producer-receipt.json",
+      "sizeBytes": 685185,
+      "sha256": "1ddd2b37623ec1daaffbb592200adafc9f8bb27522c65f1b5584f0a9aec945c4"
+    },
+    {
+      "path": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-install/g03-sdk-install-custody.json",
+      "sizeBytes": 1612,
+      "sha256": "a1ba0b4346da1304562b3c2bd48d3fcd35c35fef779e38e959980b877c5cdea4"
+    },
+    {
+      "path": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-install/node_modules/@umf/core/package.json",
+      "sizeBytes": 1286,
+      "sha256": "4533bf7e5ed7bb0aba4e3bdf395818423281ae464b96a73fe492c57291e81500"
+    },
+    {
+      "path": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-install/node_modules/@umf/core/manifest.json",
+      "sizeBytes": 229540,
+      "sha256": "0683f83ffef546c7c48d0b267528fafe83c16006a2cef5fdb299260ebb444309"
+    },
+    {
+      "path": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-install/node_modules/@umf/core/dist/umf.js",
+      "sizeBytes": 13864963,
+      "sha256": "071544fcc83c5abcf1e280890e1516613f679a58cf245b31a7bf16f0b6dd24fd"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/26.12.1/bin/node",
+      "sizeBytes": 132848,
+      "sha256": "9af7e24478e538455cf4af53a2607f1b79304bd5e25458b041fb855c3c167991"
+    },
+    {
+      "path": "src/ashlar_host/resources/local-current-delta4/umf-spark-delta4.iife.js",
+      "sizeBytes": 508540,
+      "sha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5"
+    },
+    {
+      "path": "src/ashlar_host/resources/typed_graph_values.ts",
+      "sizeBytes": 8599,
+      "sha256": "157891b6ec08dcc921e69f0c7d2241997dc79942b6311e331394f13273109f25"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/build_typed_graph_request.py",
+      "sizeBytes": 1048,
+      "sha256": "b142de3e7b4348bb1fcdd2b7417dd408ace26acf7eeb25512b62984fad9c7789"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/qualify_release.mjs",
+      "sizeBytes": 10749,
+      "sha256": "caeec36be4bba7de0bf31e30adf6587cb6ab328b79117fb56f79b459a0cffdcf"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/README.md",
+      "sizeBytes": 3954,
+      "sha256": "ff7cca71cced40345dac4357dfb28066785742bdbd3ff5312b65e4dc1ae325d2"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/carriers/edge_current.umf.json",
+      "sizeBytes": 17412,
+      "sha256": "18732a5991f77d4b74a3ef2a77d4512b2b550e9de43a4085f342dfc326d237bb"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/carriers/index.json",
+      "sizeBytes": 2098,
+      "sha256": "c5ea92626f06abf3905f42ad3b5bdc517d494292cfafe7eb80fb042d592b0b4e"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/carriers/object_current.umf.json",
+      "sizeBytes": 15053,
+      "sha256": "6457b4b1a56fa5530732ef098b21b4a6ed5179db6d99a000545bf5c300caf771"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/carriers/publication_attempt_phase.umf.json",
+      "sizeBytes": 5840,
+      "sha256": "d6ca4b087f36e2a14d03d363a67a49059016ef1cd96b8792771dddec0dee99dc"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/carriers/publication_manifest.umf.json",
+      "sizeBytes": 6673,
+      "sha256": "fa4a5bdf9493eca17f563030f20cfc5a3d36938fb7998c9839b85923ae9cc0d8"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/carriers/runtime-carriers.generated.json",
+      "sizeBytes": 14752,
+      "sha256": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/carriers/tombstone.umf.json",
+      "sizeBytes": 9031,
+      "sha256": "dabf700f674c95d84b8bf2ee5f40e7fb6d989ec8052c3790744cd24352afebf0"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/carriers/whole_source_history.umf.json",
+      "sizeBytes": 5818,
+      "sha256": "381b5f2bd566d39ea5583d3f4764c6b8f64c049c15544b4e1c5cb3cb6fd3f934"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/typed-graph/configured-typed-graph-source.json",
+      "sizeBytes": 703,
+      "sha256": "040545b8cc96701a158b8936750c89f97ce991df9652ceeacf6c66fb9d9fc168"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/typed-graph/source-oracle.json",
+      "sizeBytes": 4938,
+      "sha256": "6a0bfb29131c210b68ce7644b93bac484f845526ef87c23482ac1d6d70f344c1"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/typed-graph/typed-graph-binding.json",
+      "sizeBytes": 1430,
+      "sha256": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/typed-graph/typed-graph-model.umf.json",
+      "sizeBytes": 4082,
+      "sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/typed-graph/typed-graph-source.jsonl",
+      "sizeBytes": 5724,
+      "sha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/outputs/carrier-proposals.json",
+      "sizeBytes": 48912,
+      "sha256": "d00c4a9d0c6c1fd0946007a5ae2495ee95960ba094d1a46dbed0dc6d966e68ea"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/outputs/old-2ede-receipt.json",
+      "sizeBytes": 86463,
+      "sha256": "cee1a4df50dd6103cea7ac59884a498019387f3607eed300ca79140c9fc502e9"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/outputs/qualification.json",
+      "sizeBytes": 3408,
+      "sha256": "9765ad4eb982b1b0148bba10721b9a20ed28a3a6118f6e5166ec0edc9cec64d8"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/outputs/typed-graph-core-results.json",
+      "sizeBytes": 134737,
+      "sha256": "ba3f514aa54e7a6fc7c969ed0a342af86d4eee35005324afc94c96486172c79d"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/outputs/typed-graph-request.json",
+      "sizeBytes": 19769,
+      "sha256": "cd1bd2654c8fcd2ecd1246e0be44b8f94026faa2ef58cf75d7293f8652c990e7"
+    }
+  ]
+}

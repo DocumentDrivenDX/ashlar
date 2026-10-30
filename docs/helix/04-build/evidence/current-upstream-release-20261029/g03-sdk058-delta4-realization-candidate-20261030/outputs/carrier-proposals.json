@@ -1,0 +1,718 @@
+{
+  "profile": "ashlar.g03-sdk058-vs-existing-delta4-carrier/1",
+  "sdk": {
+    "distribution": "UMF SDK 0.5.8",
+    "entry": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-install/node_modules/@umf/core/dist/umf.js",
+    "entrySha256": "071544fcc83c5abcf1e280890e1516613f679a58cf245b31a7bf16f0b6dd24fd"
+  },
+  "existingBridge": {
+    "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/local-current-delta4/umf-spark-delta4.iife.js",
+    "sha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5"
+  },
+  "roles": [
+    {
+      "role": "object_current",
+      "sourceBytes": 15053,
+      "sourceSha256": "6457b4b1a56fa5530732ef098b21b4a6ed5179db6d99a000545bf5c300caf771",
+      "release": {
+        "targetProfile": "spark-delta4/0.1",
+        "realizationProfile": "umf.delta.spark-realization/0.1.0",
+        "target": {
+          "profile": "spark-delta4/0.1",
+          "kind": "delta-path",
+          "path": "/virtual/ashlar-g03-umf058/object_current",
+          "identitySha256": "06c2e6b1dd8a1a99baaecffd227de159e3d19e43de2cfb2412dfeafa3e8fa6a6"
+        },
+        "sql": "CREATE TABLE delta.`/virtual/ashlar-g03-umf058/object_current` (\n  `source_system` STRING NOT NULL,\n  `type_id` BIGINT NOT NULL,\n  `id` BIGINT NOT NULL,\n  `logical_key_json` STRING NOT NULL,\n  `schema_revision` STRING NOT NULL,\n  `entity_version` BIGINT NOT NULL,\n  `props_json` STRING NOT NULL,\n  `retained_json` STRING NOT NULL,\n  `root_id` BIGINT,\n  `source_feed` STRING NOT NULL,\n  `source_epoch` STRING NOT NULL,\n  `source_position` BIGINT,\n  `published_at` TIMESTAMP NOT NULL,\n  `lookup_hash` BIGINT NOT NULL COMMENT 'Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.',\n  `apply_batch_id` STRING,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA CLUSTER BY (`lookup_hash`)\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='lookup_hash,source_system,type_id,id');\n",
+        "definition": {
+          "profile": "databricks-managed-delta/0.1",
+          "name": [
+            "object_current"
+          ],
+          "clusterBy": [
+            "lookup_hash"
+          ],
+          "partitionBy": [],
+          "properties": {
+            "delta.dataSkippingStatsColumns": "lookup_hash,source_system,type_id,id",
+            "delta.targetFileSize": "67108864",
+            "delta.parquet.compression.codec": "zstd"
+          }
+        },
+        "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"source_system\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"type_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"logical_key_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"schema_revision\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"entity_version\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"props_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"retained_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"root_id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_feed\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_epoch\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_position\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"published_at\",\"type\":\"timestamp\",\"nullable\":false,\"metadata\":{}},{\"name\":\"lookup_hash\",\"type\":\"long\",\"nullable\":false,\"metadata\":{\"comment\":\"Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.\"}},{\"name\":\"apply_batch_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_cursor_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+        "sourceSha256": "e85a5bc62c1214121ba37719bbdd2ff0a09d938aaf624a317b949508f401f25c",
+        "schemaSha256": "ae42872387493d3dd1d6393950ef177fbb513418b5935c1eba1f348f4bef25dc",
+        "writerSettings": [
+          {
+            "key": "spark.sql.parquet.compression.codec",
+            "value": "zstd"
+          }
+        ],
+        "dispositions": [
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+            "authoredValue": [
+              "lookup_hash"
+            ],
+            "outcome": "sql",
+            "explanation": "Authored order is emitted as local Delta CLUSTER BY SQL."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties/delta.dataSkippingStatsColumns",
+            "authoredValue": "lookup_hash,source_system,type_id,id",
+            "outcome": "sql",
+            "explanation": "Authored property is preserved in local Delta table property SQL."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties/delta.parquet.compression.codec",
+            "authoredValue": "zstd",
+            "outcome": "writer-setting",
+            "explanation": "Translated to required Spark writer setting spark.sql.parquet.compression.codec=zstd; this proposal does not execute the setting."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties/delta.targetFileSize",
+            "authoredValue": "67108864",
+            "outcome": "unrealized-performance-hint",
+            "explanation": "Retained the exact authored byte-size target; local Delta 4 realization does not apply or guarantee this file size."
+          }
+        ],
+        "qualification": "Pure local Spark Delta 4 DDL/config proposal only; no Spark execution, Delta protocol admission, clustering/statistics effectiveness, target-file-size realization, UC behavior or managed Databricks behavior is established."
+      },
+      "existingBridge": {
+        "targetProfile": "spark-delta4/0.1",
+        "realizationProfile": "umf.delta.spark-realization/0.1.0",
+        "target": {
+          "profile": "spark-delta4/0.1",
+          "kind": "delta-path",
+          "path": "/virtual/ashlar-g03-umf058/object_current",
+          "identitySha256": "06c2e6b1dd8a1a99baaecffd227de159e3d19e43de2cfb2412dfeafa3e8fa6a6"
+        },
+        "sql": "CREATE TABLE delta.`/virtual/ashlar-g03-umf058/object_current` (\n  `source_system` STRING NOT NULL,\n  `type_id` BIGINT NOT NULL,\n  `id` BIGINT NOT NULL,\n  `logical_key_json` STRING NOT NULL,\n  `schema_revision` STRING NOT NULL,\n  `entity_version` BIGINT NOT NULL,\n  `props_json` STRING NOT NULL,\n  `retained_json` STRING NOT NULL,\n  `root_id` BIGINT,\n  `source_feed` STRING NOT NULL,\n  `source_epoch` STRING NOT NULL,\n  `source_position` BIGINT,\n  `published_at` TIMESTAMP NOT NULL,\n  `lookup_hash` BIGINT NOT NULL COMMENT 'Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.',\n  `apply_batch_id` STRING,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA CLUSTER BY (`lookup_hash`)\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='lookup_hash,source_system,type_id,id');\n",
+        "definition": {
+          "profile": "databricks-managed-delta/0.1",
+          "name": [
+            "object_current"
+          ],
+          "clusterBy": [
+            "lookup_hash"
+          ],
+          "partitionBy": [],
+          "properties": {
+            "delta.dataSkippingStatsColumns": "lookup_hash,source_system,type_id,id",
+            "delta.targetFileSize": "67108864",
+            "delta.parquet.compression.codec": "zstd"
+          }
+        },
+        "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"source_system\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"type_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"logical_key_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"schema_revision\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"entity_version\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"props_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"retained_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"root_id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_feed\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_epoch\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_position\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"published_at\",\"type\":\"timestamp\",\"nullable\":false,\"metadata\":{}},{\"name\":\"lookup_hash\",\"type\":\"long\",\"nullable\":false,\"metadata\":{\"comment\":\"Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.\"}},{\"name\":\"apply_batch_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_cursor_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+        "sourceSha256": "e85a5bc62c1214121ba37719bbdd2ff0a09d938aaf624a317b949508f401f25c",
+        "schemaSha256": "ae42872387493d3dd1d6393950ef177fbb513418b5935c1eba1f348f4bef25dc",
+        "writerSettings": [
+          {
+            "key": "spark.sql.parquet.compression.codec",
+            "value": "zstd"
+          }
+        ],
+        "dispositions": [
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+            "authoredValue": [
+              "lookup_hash"
+            ],
+            "outcome": "sql",
+            "explanation": "Authored order is emitted as local Delta CLUSTER BY SQL."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties/delta.dataSkippingStatsColumns",
+            "authoredValue": "lookup_hash,source_system,type_id,id",
+            "outcome": "sql",
+            "explanation": "Authored property is preserved in local Delta table property SQL."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties/delta.parquet.compression.codec",
+            "authoredValue": "zstd",
+            "outcome": "writer-setting",
+            "explanation": "Translated to required Spark writer setting spark.sql.parquet.compression.codec=zstd; this proposal does not execute the setting."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties/delta.targetFileSize",
+            "authoredValue": "67108864",
+            "outcome": "unrealized-performance-hint",
+            "explanation": "Retained the exact authored byte-size target; local Delta 4 realization does not apply or guarantee this file size."
+          }
+        ],
+        "qualification": "Pure local Spark Delta 4 DDL/config proposal only; no Spark execution, Delta protocol admission, clustering/statistics effectiveness, target-file-size realization, UC behavior or managed Databricks behavior is established."
+      },
+      "equal": true,
+      "fieldOrderEqual": true,
+      "sqlEqual": true
+    },
+    {
+      "role": "edge_current",
+      "sourceBytes": 17412,
+      "sourceSha256": "18732a5991f77d4b74a3ef2a77d4512b2b550e9de43a4085f342dfc326d237bb",
+      "release": {
+        "targetProfile": "spark-delta4/0.1",
+        "realizationProfile": "umf.delta.spark-realization/0.1.0",
+        "target": {
+          "profile": "spark-delta4/0.1",
+          "kind": "delta-path",
+          "path": "/virtual/ashlar-g03-umf058/edge_current",
+          "identitySha256": "45406cb4cfb60e300f24e92d2eabf6816da676af4207ae4bda261d04ba406c78"
+        },
+        "sql": "CREATE TABLE delta.`/virtual/ashlar-g03-umf058/edge_current` (\n  `source_system` STRING NOT NULL,\n  `rel_type_id` BIGINT NOT NULL,\n  `id` BIGINT NOT NULL,\n  `source_type` BIGINT NOT NULL,\n  `source_id` BIGINT NOT NULL,\n  `target_type` BIGINT NOT NULL,\n  `target_id` BIGINT NOT NULL,\n  `schema_revision` STRING NOT NULL,\n  `entity_version` BIGINT NOT NULL,\n  `props_json` STRING NOT NULL,\n  `retained_json` STRING NOT NULL,\n  `order_key` STRING,\n  `source_feed` STRING NOT NULL,\n  `source_epoch` STRING NOT NULL,\n  `source_position` BIGINT,\n  `published_at` TIMESTAMP NOT NULL,\n  `lookup_hash` BIGINT NOT NULL COMMENT 'Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, rel_type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.',\n  `apply_batch_id` STRING,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA CLUSTER BY (`lookup_hash`)\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='lookup_hash,source_system,rel_type_id,id');\n",
+        "definition": {
+          "profile": "databricks-managed-delta/0.1",
+          "name": [
+            "edge_current"
+          ],
+          "clusterBy": [
+            "lookup_hash"
+          ],
+          "partitionBy": [],
+          "properties": {
+            "delta.dataSkippingStatsColumns": "lookup_hash,source_system,rel_type_id,id",
+            "delta.targetFileSize": "67108864",
+            "delta.parquet.compression.codec": "zstd"
+          }
+        },
+        "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"source_system\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"rel_type_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_type\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"target_type\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"target_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"schema_revision\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"entity_version\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"props_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"retained_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"order_key\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_feed\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_epoch\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_position\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"published_at\",\"type\":\"timestamp\",\"nullable\":false,\"metadata\":{}},{\"name\":\"lookup_hash\",\"type\":\"long\",\"nullable\":false,\"metadata\":{\"comment\":\"Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, rel_type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.\"}},{\"name\":\"apply_batch_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_cursor_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+        "sourceSha256": "b8744a5c5378f0ab96bd30ef43e0875507c5f495787f55661c59ad4862f4bb25",
+        "schemaSha256": "eb17bbf49525de56c8faac2f9005541f711119949db30441ccb087c715eede00",
+        "writerSettings": [
+          {
+            "key": "spark.sql.parquet.compression.codec",
+            "value": "zstd"
+          }
+        ],
+        "dispositions": [
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+            "authoredValue": [
+              "lookup_hash"
+            ],
+            "outcome": "sql",
+            "explanation": "Authored order is emitted as local Delta CLUSTER BY SQL."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties/delta.dataSkippingStatsColumns",
+            "authoredValue": "lookup_hash,source_system,rel_type_id,id",
+            "outcome": "sql",
+            "explanation": "Authored property is preserved in local Delta table property SQL."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties/delta.parquet.compression.codec",
+            "authoredValue": "zstd",
+            "outcome": "writer-setting",
+            "explanation": "Translated to required Spark writer setting spark.sql.parquet.compression.codec=zstd; this proposal does not execute the setting."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties/delta.targetFileSize",
+            "authoredValue": "67108864",
+            "outcome": "unrealized-performance-hint",
+            "explanation": "Retained the exact authored byte-size target; local Delta 4 realization does not apply or guarantee this file size."
+          }
+        ],
+        "qualification": "Pure local Spark Delta 4 DDL/config proposal only; no Spark execution, Delta protocol admission, clustering/statistics effectiveness, target-file-size realization, UC behavior or managed Databricks behavior is established."
+      },
+      "existingBridge": {
+        "targetProfile": "spark-delta4/0.1",
+        "realizationProfile": "umf.delta.spark-realization/0.1.0",
+        "target": {
+          "profile": "spark-delta4/0.1",
+          "kind": "delta-path",
+          "path": "/virtual/ashlar-g03-umf058/edge_current",
+          "identitySha256": "45406cb4cfb60e300f24e92d2eabf6816da676af4207ae4bda261d04ba406c78"
+        },
+        "sql": "CREATE TABLE delta.`/virtual/ashlar-g03-umf058/edge_current` (\n  `source_system` STRING NOT NULL,\n  `rel_type_id` BIGINT NOT NULL,\n  `id` BIGINT NOT NULL,\n  `source_type` BIGINT NOT NULL,\n  `source_id` BIGINT NOT NULL,\n  `target_type` BIGINT NOT NULL,\n  `target_id` BIGINT NOT NULL,\n  `schema_revision` STRING NOT NULL,\n  `entity_version` BIGINT NOT NULL,\n  `props_json` STRING NOT NULL,\n  `retained_json` STRING NOT NULL,\n  `order_key` STRING,\n  `source_feed` STRING NOT NULL,\n  `source_epoch` STRING NOT NULL,\n  `source_position` BIGINT,\n  `published_at` TIMESTAMP NOT NULL,\n  `lookup_hash` BIGINT NOT NULL COMMENT 'Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, rel_type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.',\n  `apply_batch_id` STRING,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA CLUSTER BY (`lookup_hash`)\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='lookup_hash,source_system,rel_type_id,id');\n",
+        "definition": {
+          "profile": "databricks-managed-delta/0.1",
+          "name": [
+            "edge_current"
+          ],
+          "clusterBy": [
+            "lookup_hash"
+          ],
+          "partitionBy": [],
+          "properties": {
+            "delta.dataSkippingStatsColumns": "lookup_hash,source_system,rel_type_id,id",
+            "delta.targetFileSize": "67108864",
+            "delta.parquet.compression.codec": "zstd"
+          }
+        },
+        "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"source_system\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"rel_type_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_type\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"target_type\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"target_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"schema_revision\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"entity_version\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"props_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"retained_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"order_key\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_feed\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_epoch\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_position\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"published_at\",\"type\":\"timestamp\",\"nullable\":false,\"metadata\":{}},{\"name\":\"lookup_hash\",\"type\":\"long\",\"nullable\":false,\"metadata\":{\"comment\":\"Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, rel_type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.\"}},{\"name\":\"apply_batch_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_cursor_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+        "sourceSha256": "b8744a5c5378f0ab96bd30ef43e0875507c5f495787f55661c59ad4862f4bb25",
+        "schemaSha256": "eb17bbf49525de56c8faac2f9005541f711119949db30441ccb087c715eede00",
+        "writerSettings": [
+          {
+            "key": "spark.sql.parquet.compression.codec",
+            "value": "zstd"
+          }
+        ],
+        "dispositions": [
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+            "authoredValue": [
+              "lookup_hash"
+            ],
+            "outcome": "sql",
+            "explanation": "Authored order is emitted as local Delta CLUSTER BY SQL."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties/delta.dataSkippingStatsColumns",
+            "authoredValue": "lookup_hash,source_system,rel_type_id,id",
+            "outcome": "sql",
+            "explanation": "Authored property is preserved in local Delta table property SQL."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties/delta.parquet.compression.codec",
+            "authoredValue": "zstd",
+            "outcome": "writer-setting",
+            "explanation": "Translated to required Spark writer setting spark.sql.parquet.compression.codec=zstd; this proposal does not execute the setting."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties/delta.targetFileSize",
+            "authoredValue": "67108864",
+            "outcome": "unrealized-performance-hint",
+            "explanation": "Retained the exact authored byte-size target; local Delta 4 realization does not apply or guarantee this file size."
+          }
+        ],
+        "qualification": "Pure local Spark Delta 4 DDL/config proposal only; no Spark execution, Delta protocol admission, clustering/statistics effectiveness, target-file-size realization, UC behavior or managed Databricks behavior is established."
+      },
+      "equal": true,
+      "fieldOrderEqual": true,
+      "sqlEqual": true
+    },
+    {
+      "role": "tombstone",
+      "sourceBytes": 9031,
+      "sourceSha256": "dabf700f674c95d84b8bf2ee5f40e7fb6d989ec8052c3790744cd24352afebf0",
+      "release": {
+        "targetProfile": "spark-delta4/0.1",
+        "realizationProfile": "umf.delta.spark-realization/0.1.0",
+        "target": {
+          "profile": "spark-delta4/0.1",
+          "kind": "delta-path",
+          "path": "/virtual/ashlar-g03-umf058/tombstone",
+          "identitySha256": "c457f3864c033e43b94df559664de1c8921e7d08bb85727afc938d290545070a"
+        },
+        "sql": "CREATE TABLE delta.`/virtual/ashlar-g03-umf058/tombstone` (\n  `source_system` STRING NOT NULL,\n  `entity_kind` STRING NOT NULL,\n  `type_id` BIGINT NOT NULL,\n  `id` BIGINT NOT NULL,\n  `entity_version` BIGINT NOT NULL,\n  `source_feed` STRING NOT NULL,\n  `source_epoch` STRING NOT NULL,\n  `source_position` BIGINT,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA CLUSTER BY (`source_system`, `type_id`, `id`);\n",
+        "definition": {
+          "profile": "databricks-managed-delta/0.1",
+          "name": [
+            "tombstone"
+          ],
+          "clusterBy": [
+            "source_system",
+            "type_id",
+            "id"
+          ],
+          "partitionBy": [],
+          "properties": {}
+        },
+        "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"source_system\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"entity_kind\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"type_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"entity_version\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_feed\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_epoch\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_position\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_cursor_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+        "sourceSha256": "fb646c9cdca3572c4b6834dacc3f6a81cf7f3f3e83057b5c5833b20e92d4c87d",
+        "schemaSha256": "2d7f473cfc1a389d3fd1d72d0f2fad4cf3a7d95efe4942888a5aa1f3d4fe46d3",
+        "writerSettings": [],
+        "dispositions": [
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+            "authoredValue": [
+              "source_system",
+              "type_id",
+              "id"
+            ],
+            "outcome": "sql",
+            "explanation": "Authored order is emitted as local Delta CLUSTER BY SQL."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties",
+            "authoredValue": {},
+            "outcome": "none-authored",
+            "explanation": "No table properties were authored."
+          }
+        ],
+        "qualification": "Pure local Spark Delta 4 DDL/config proposal only; no Spark execution, Delta protocol admission, clustering/statistics effectiveness, target-file-size realization, UC behavior or managed Databricks behavior is established."
+      },
+      "existingBridge": {
+        "targetProfile": "spark-delta4/0.1",
+        "realizationProfile": "umf.delta.spark-realization/0.1.0",
+        "target": {
+          "profile": "spark-delta4/0.1",
+          "kind": "delta-path",
+          "path": "/virtual/ashlar-g03-umf058/tombstone",
+          "identitySha256": "c457f3864c033e43b94df559664de1c8921e7d08bb85727afc938d290545070a"
+        },
+        "sql": "CREATE TABLE delta.`/virtual/ashlar-g03-umf058/tombstone` (\n  `source_system` STRING NOT NULL,\n  `entity_kind` STRING NOT NULL,\n  `type_id` BIGINT NOT NULL,\n  `id` BIGINT NOT NULL,\n  `entity_version` BIGINT NOT NULL,\n  `source_feed` STRING NOT NULL,\n  `source_epoch` STRING NOT NULL,\n  `source_position` BIGINT,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA CLUSTER BY (`source_system`, `type_id`, `id`);\n",
+        "definition": {
+          "profile": "databricks-managed-delta/0.1",
+          "name": [
+            "tombstone"
+          ],
+          "clusterBy": [
+            "source_system",
+            "type_id",
+            "id"
+          ],
+          "partitionBy": [],
+          "properties": {}
+        },
+        "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"source_system\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"entity_kind\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"type_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"entity_version\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_feed\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_epoch\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_position\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_cursor_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+        "sourceSha256": "fb646c9cdca3572c4b6834dacc3f6a81cf7f3f3e83057b5c5833b20e92d4c87d",
+        "schemaSha256": "2d7f473cfc1a389d3fd1d72d0f2fad4cf3a7d95efe4942888a5aa1f3d4fe46d3",
+        "writerSettings": [],
+        "dispositions": [
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+            "authoredValue": [
+              "source_system",
+              "type_id",
+              "id"
+            ],
+            "outcome": "sql",
+            "explanation": "Authored order is emitted as local Delta CLUSTER BY SQL."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties",
+            "authoredValue": {},
+            "outcome": "none-authored",
+            "explanation": "No table properties were authored."
+          }
+        ],
+        "qualification": "Pure local Spark Delta 4 DDL/config proposal only; no Spark execution, Delta protocol admission, clustering/statistics effectiveness, target-file-size realization, UC behavior or managed Databricks behavior is established."
+      },
+      "equal": true,
+      "fieldOrderEqual": true,
+      "sqlEqual": true
+    },
+    {
+      "role": "whole_source_history",
+      "sourceBytes": 5818,
+      "sourceSha256": "381b5f2bd566d39ea5583d3f4764c6b8f64c049c15544b4e1c5cb3cb6fd3f934",
+      "release": {
+        "targetProfile": "spark-delta4/0.1",
+        "realizationProfile": "umf.delta.spark-realization/0.1.0",
+        "target": {
+          "profile": "spark-delta4/0.1",
+          "kind": "delta-path",
+          "path": "/virtual/ashlar-g03-umf058/whole_source_history",
+          "identitySha256": "9bb8cf83de718027b6cbe7ff516411774def3abc0198c7f056548d7e3e0231b5"
+        },
+        "sql": "CREATE TABLE delta.`/virtual/ashlar-g03-umf058/whole_source_history` (\n  `feed` STRING NOT NULL,\n  `epoch` STRING NOT NULL,\n  `delivery_id` STRING NOT NULL,\n  `digest` STRING NOT NULL,\n  `change_json` STRING NOT NULL,\n  `raw_base64` STRING NOT NULL\n) USING DELTA;\n",
+        "definition": {
+          "profile": "databricks-managed-delta/0.1",
+          "name": [
+            "whole_source_history"
+          ],
+          "clusterBy": [],
+          "partitionBy": [],
+          "properties": {}
+        },
+        "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"feed\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"epoch\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"delivery_id\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"digest\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"change_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"raw_base64\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}]}",
+        "sourceSha256": "ce295b6b8735871ed9a86457ae9df67cee6a54f25c342286f124e1226b71dd55",
+        "schemaSha256": "c28182433e92d4017f10b51b312de9bf1e67aa1aa684183cc4e2d96a094f4f12",
+        "writerSettings": [],
+        "dispositions": [
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties",
+            "authoredValue": {},
+            "outcome": "none-authored",
+            "explanation": "No table properties were authored."
+          }
+        ],
+        "qualification": "Pure local Spark Delta 4 DDL/config proposal only; no Spark execution, Delta protocol admission, clustering/statistics effectiveness, target-file-size realization, UC behavior or managed Databricks behavior is established."
+      },
+      "existingBridge": {
+        "targetProfile": "spark-delta4/0.1",
+        "realizationProfile": "umf.delta.spark-realization/0.1.0",
+        "target": {
+          "profile": "spark-delta4/0.1",
+          "kind": "delta-path",
+          "path": "/virtual/ashlar-g03-umf058/whole_source_history",
+          "identitySha256": "9bb8cf83de718027b6cbe7ff516411774def3abc0198c7f056548d7e3e0231b5"
+        },
+        "sql": "CREATE TABLE delta.`/virtual/ashlar-g03-umf058/whole_source_history` (\n  `feed` STRING NOT NULL,\n  `epoch` STRING NOT NULL,\n  `delivery_id` STRING NOT NULL,\n  `digest` STRING NOT NULL,\n  `change_json` STRING NOT NULL,\n  `raw_base64` STRING NOT NULL\n) USING DELTA;\n",
+        "definition": {
+          "profile": "databricks-managed-delta/0.1",
+          "name": [
+            "whole_source_history"
+          ],
+          "clusterBy": [],
+          "partitionBy": [],
+          "properties": {}
+        },
+        "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"feed\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"epoch\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"delivery_id\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"digest\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"change_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"raw_base64\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}]}",
+        "sourceSha256": "ce295b6b8735871ed9a86457ae9df67cee6a54f25c342286f124e1226b71dd55",
+        "schemaSha256": "c28182433e92d4017f10b51b312de9bf1e67aa1aa684183cc4e2d96a094f4f12",
+        "writerSettings": [],
+        "dispositions": [
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties",
+            "authoredValue": {},
+            "outcome": "none-authored",
+            "explanation": "No table properties were authored."
+          }
+        ],
+        "qualification": "Pure local Spark Delta 4 DDL/config proposal only; no Spark execution, Delta protocol admission, clustering/statistics effectiveness, target-file-size realization, UC behavior or managed Databricks behavior is established."
+      },
+      "equal": true,
+      "fieldOrderEqual": true,
+      "sqlEqual": true
+    },
+    {
+      "role": "publication_manifest",
+      "sourceBytes": 6673,
+      "sourceSha256": "fa4a5bdf9493eca17f563030f20cfc5a3d36938fb7998c9839b85923ae9cc0d8",
+      "release": {
+        "targetProfile": "spark-delta4/0.1",
+        "realizationProfile": "umf.delta.spark-realization/0.1.0",
+        "target": {
+          "profile": "spark-delta4/0.1",
+          "kind": "delta-path",
+          "path": "/virtual/ashlar-g03-umf058/publication_manifest",
+          "identitySha256": "092d06b73f29ababf41dfbbeaf1c57b2a177e7635efc915b49fec282248f2f65"
+        },
+        "sql": "CREATE TABLE delta.`/virtual/ashlar-g03-umf058/publication_manifest` (\n  `publication_id` STRING NOT NULL,\n  `profile_version` STRING NOT NULL,\n  `table_versions_json` STRING NOT NULL,\n  `source_progress_json` STRING NOT NULL,\n  `schema_revisions_json` STRING NOT NULL,\n  `validation_report_json` STRING NOT NULL,\n  `recorded_at` TIMESTAMP NOT NULL\n) USING DELTA;\n",
+        "definition": {
+          "profile": "databricks-managed-delta/0.1",
+          "name": [
+            "publication_manifest"
+          ],
+          "clusterBy": [],
+          "partitionBy": [],
+          "properties": {}
+        },
+        "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"publication_id\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"profile_version\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"table_versions_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_progress_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"schema_revisions_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"validation_report_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"recorded_at\",\"type\":\"timestamp\",\"nullable\":false,\"metadata\":{}}]}",
+        "sourceSha256": "13326879fb82cd277d3de295bc4c824a7c32928c73b5b4f72e9145972edda865",
+        "schemaSha256": "aecced8d524add1cc4b7324358bce16325b53d00fb41c35b51f18dc951f57ee8",
+        "writerSettings": [],
+        "dispositions": [
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties",
+            "authoredValue": {},
+            "outcome": "none-authored",
+            "explanation": "No table properties were authored."
+          }
+        ],
+        "qualification": "Pure local Spark Delta 4 DDL/config proposal only; no Spark execution, Delta protocol admission, clustering/statistics effectiveness, target-file-size realization, UC behavior or managed Databricks behavior is established."
+      },
+      "existingBridge": {
+        "targetProfile": "spark-delta4/0.1",
+        "realizationProfile": "umf.delta.spark-realization/0.1.0",
+        "target": {
+          "profile": "spark-delta4/0.1",
+          "kind": "delta-path",
+          "path": "/virtual/ashlar-g03-umf058/publication_manifest",
+          "identitySha256": "092d06b73f29ababf41dfbbeaf1c57b2a177e7635efc915b49fec282248f2f65"
+        },
+        "sql": "CREATE TABLE delta.`/virtual/ashlar-g03-umf058/publication_manifest` (\n  `publication_id` STRING NOT NULL,\n  `profile_version` STRING NOT NULL,\n  `table_versions_json` STRING NOT NULL,\n  `source_progress_json` STRING NOT NULL,\n  `schema_revisions_json` STRING NOT NULL,\n  `validation_report_json` STRING NOT NULL,\n  `recorded_at` TIMESTAMP NOT NULL\n) USING DELTA;\n",
+        "definition": {
+          "profile": "databricks-managed-delta/0.1",
+          "name": [
+            "publication_manifest"
+          ],
+          "clusterBy": [],
+          "partitionBy": [],
+          "properties": {}
+        },
+        "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"publication_id\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"profile_version\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"table_versions_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"source_progress_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"schema_revisions_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"validation_report_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"recorded_at\",\"type\":\"timestamp\",\"nullable\":false,\"metadata\":{}}]}",
+        "sourceSha256": "13326879fb82cd277d3de295bc4c824a7c32928c73b5b4f72e9145972edda865",
+        "schemaSha256": "aecced8d524add1cc4b7324358bce16325b53d00fb41c35b51f18dc951f57ee8",
+        "writerSettings": [],
+        "dispositions": [
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties",
+            "authoredValue": {},
+            "outcome": "none-authored",
+            "explanation": "No table properties were authored."
+          }
+        ],
+        "qualification": "Pure local Spark Delta 4 DDL/config proposal only; no Spark execution, Delta protocol admission, clustering/statistics effectiveness, target-file-size realization, UC behavior or managed Databricks behavior is established."
+      },
+      "equal": true,
+      "fieldOrderEqual": true,
+      "sqlEqual": true
+    },
+    {
+      "role": "publication_attempt_phase",
+      "sourceBytes": 5840,
+      "sourceSha256": "d6ca4b087f36e2a14d03d363a67a49059016ef1cd96b8792771dddec0dee99dc",
+      "release": {
+        "targetProfile": "spark-delta4/0.1",
+        "realizationProfile": "umf.delta.spark-realization/0.1.0",
+        "target": {
+          "profile": "spark-delta4/0.1",
+          "kind": "delta-path",
+          "path": "/virtual/ashlar-g03-umf058/publication_attempt_phase",
+          "identitySha256": "7edb969f04e1aeed1535e63d3138c7a53a0857e90f359465010440f79dbba1a3"
+        },
+        "sql": "CREATE TABLE delta.`/virtual/ashlar-g03-umf058/publication_attempt_phase` (\n  `stream` STRING NOT NULL,\n  `batch_id` STRING NOT NULL,\n  `phase` STRING NOT NULL,\n  `request_digest` STRING NOT NULL,\n  `payload_json` STRING NOT NULL,\n  `payload_digest` STRING NOT NULL\n) USING DELTA;\n",
+        "definition": {
+          "profile": "databricks-managed-delta/0.1",
+          "name": [
+            "publication_attempt_phase"
+          ],
+          "clusterBy": [],
+          "partitionBy": [],
+          "properties": {}
+        },
+        "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"stream\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"batch_id\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"phase\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"request_digest\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"payload_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"payload_digest\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}]}",
+        "sourceSha256": "aff6fcc7351974b4cdfde5dd45a23ff886c24de9d705c61d8cd4e5bd10c5c4f3",
+        "schemaSha256": "25182ffd06f9e748919d7a4bd6576efa97d8e1f809fb35003a0c317cc91fff20",
+        "writerSettings": [],
+        "dispositions": [
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties",
+            "authoredValue": {},
+            "outcome": "none-authored",
+            "explanation": "No table properties were authored."
+          }
+        ],
+        "qualification": "Pure local Spark Delta 4 DDL/config proposal only; no Spark execution, Delta protocol admission, clustering/statistics effectiveness, target-file-size realization, UC behavior or managed Databricks behavior is established."
+      },
+      "existingBridge": {
+        "targetProfile": "spark-delta4/0.1",
+        "realizationProfile": "umf.delta.spark-realization/0.1.0",
+        "target": {
+          "profile": "spark-delta4/0.1",
+          "kind": "delta-path",
+          "path": "/virtual/ashlar-g03-umf058/publication_attempt_phase",
+          "identitySha256": "7edb969f04e1aeed1535e63d3138c7a53a0857e90f359465010440f79dbba1a3"
+        },
+        "sql": "CREATE TABLE delta.`/virtual/ashlar-g03-umf058/publication_attempt_phase` (\n  `stream` STRING NOT NULL,\n  `batch_id` STRING NOT NULL,\n  `phase` STRING NOT NULL,\n  `request_digest` STRING NOT NULL,\n  `payload_json` STRING NOT NULL,\n  `payload_digest` STRING NOT NULL\n) USING DELTA;\n",
+        "definition": {
+          "profile": "databricks-managed-delta/0.1",
+          "name": [
+            "publication_attempt_phase"
+          ],
+          "clusterBy": [],
+          "partitionBy": [],
+          "properties": {}
+        },
+        "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"stream\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"batch_id\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"phase\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"request_digest\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"payload_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"payload_digest\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}]}",
+        "sourceSha256": "aff6fcc7351974b4cdfde5dd45a23ff886c24de9d705c61d8cd4e5bd10c5c4f3",
+        "schemaSha256": "25182ffd06f9e748919d7a4bd6576efa97d8e1f809fb35003a0c317cc91fff20",
+        "writerSettings": [],
+        "dispositions": [
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+            "authoredValue": [],
+            "outcome": "none-authored",
+            "explanation": "No columns were authored for this layout choice."
+          },
+          {
+            "sourcePointer": "/extensions/umf.delta.definition/properties",
+            "authoredValue": {},
+            "outcome": "none-authored",
+            "explanation": "No table properties were authored."
+          }
+        ],
+        "qualification": "Pure local Spark Delta 4 DDL/config proposal only; no Spark execution, Delta protocol admission, clustering/statistics effectiveness, target-file-size realization, UC behavior or managed Databricks behavior is established."
+      },
+      "equal": true,
+      "fieldOrderEqual": true,
+      "sqlEqual": true
+    }
+  ]
+}

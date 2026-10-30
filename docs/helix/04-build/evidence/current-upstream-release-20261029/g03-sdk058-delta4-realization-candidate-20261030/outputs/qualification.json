@@ -1,0 +1,87 @@
+{
+  "profile": "ashlar.g03-sdk058-effect-free-qualification/1",
+  "runtime": {
+    "node": "v26.12.1",
+    "argv0": "/opt/homebrew/Cellar/node/26.12.1/bin/node",
+    "nodeSha256": "9af7e24478e538455cf4af53a2607f1b79304bd5e25458b041fb855c3c167991",
+    "nodeSizeBytes": 132848
+  },
+  "release": {
+    "distribution": "UMF SDK 0.5.8",
+    "semanticCore": "0.10.0",
+    "exported": [
+      "readDocument",
+      "validateCoreRecordValues",
+      "validateCoreDatasetValuesCompact",
+      "verifyCoreDatasetValuesCompact",
+      "realizeSparkDelta4DDL"
+    ]
+  },
+  "producerClosure": {
+    "preflight": {
+      "closureStatus": true,
+      "sourceCommit": true,
+      "sourceTree": true,
+      "archiveHash": true,
+      "closureHash": true,
+      "producerReceiptHash": true,
+      "installedTree": true,
+      "installedEntryHash": true,
+      "installedPackageVersion": true,
+      "oldBridgeHash": true
+    },
+    "status": "passed",
+    "sourceCommit": "855f6c48649496fc60b3303798790d0ddb55d38f",
+    "sourceTree": "53f2bfffbc0c5780e79d76d8fd3d202239d088b2",
+    "archiveSha256": "2aaf24741aee1c135fade5b7631db90d710e6211977fb9ca7fcc080ea7fdf58d",
+    "archiveSizeBytes": 30834843,
+    "closureSha256": "e90c44cb79cc5ce39921274cc155c8634232635fc9ba02565d43846f6ee1152f",
+    "producerReceiptSha256": "1ddd2b37623ec1daaffbb592200adafc9f8bb27522c65f1b5584f0a9aec945c4",
+    "installedSdkTreeSha256": "7227738ae23966239b67d3e9df72f848c101761719ef4b39477fe86de6ef519c"
+  },
+  "inputs": {
+    "modelSha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "requestSha256": "cd1bd2654c8fcd2ecd1246e0be44b8f94026faa2ef58cf75d7293f8652c990e7",
+    "coreResultSha256": "ba3f514aa54e7a6fc7c969ed0a342af86d4eee35005324afc94c96486172c79d",
+    "carrierOutputSha256": "d00c4a9d0c6c1fd0946007a5ae2495ee95960ba094d1a46dbed0dc6d966e68ea",
+    "oldBridgeSha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5"
+  },
+  "typedGraph": {
+    "groups": 3,
+    "eventCount": 13,
+    "recordValidationCount": 5,
+    "everyGroupDatasetVerifiable": true,
+    "historicalReceiptComparison": {
+      "producerRevision": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+      "receiptSha256": "cee1a4df50dd6103cea7ac59884a498019387f3607eed300ca79140c9fc502e9",
+      "groups": [
+        {
+          "groupIndex": 0,
+          "recordCount": 4,
+          "recordResultsExactlyEqual": true,
+          "compactDatasetResultExactlyEqual": true
+        },
+        {
+          "groupIndex": 1,
+          "recordCount": 0,
+          "recordResultsExactlyEqual": true,
+          "compactDatasetResultExactlyEqual": true
+        },
+        {
+          "groupIndex": 2,
+          "recordCount": 1,
+          "recordResultsExactlyEqual": true,
+          "compactDatasetResultExactlyEqual": true
+        }
+      ],
+      "allGroupsExactlyEqual": true,
+      "scope": "Core record results and compact dataset result objects on the frozen request; historical producer identity and source authority are not transferred."
+    }
+  },
+  "carrier": {
+    "roles": 6,
+    "allProposalsExactlyEqual": true,
+    "differences": []
+  },
+  "qualification": "Effect-free public UMF source checks and local Delta 4 CREATE proposals only. Typed-graph parity is limited to public Core record and compact-dataset result objects on the frozen request. No Spark, table, publication, query, managed UC, or source ACK activity."
+}
