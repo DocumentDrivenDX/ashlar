@@ -119,6 +119,8 @@ review. No native execution is authorized by this finding.
 The subsequent read-only prefix observer now checks the four contiguous states
 against retained plan/operation rows, named native commits, exact receipts and
 complete six-role bags. It also checks the catalog table location against the
-original path. These are inert tests only. The observer still requires a live
-fresh-head token from before any effect; a restarted owner cannot reconstruct
-that token from a nonempty table, so restart recovery and dispatch remain open.
+original path. Recovery-only rehydration now reconstructs the original
+fresh-head token from exact retained source scope and historical empty version-1
+snapshots, including original CREATE/registration history, allowing a new local
+owner to observe a committed prefix. These are inert tests only. Native effect
+dispatch, ambiguous-operation recovery and completion witness remain open.

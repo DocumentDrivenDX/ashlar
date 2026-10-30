@@ -14,6 +14,7 @@ from ashlar_host.configured_local_delta4_publication import (
     build_delta4_transaction1_effect_plan,
     open_configured_local_delta4_authority,
     plan_configured_local_delta4_transaction1,
+    rehydrate_delta4_fresh_head_admission,
 )
 from ashlar_host.configured_local_runtime import ConfiguredLocalAdmission
 from ashlar_host.configured_source_local import ConfiguredLocalBatchSpec, ConfiguredLocalSource
@@ -38,6 +39,15 @@ class Tests(unittest.TestCase):
         transport.installation_id = "delta4-inert-installation"
         transport.registry_sha = "a" * 64
         transport.journal_sha = "b" * 64
+        for role, target in ((role, transport.targets["local.configured." + role])
+                             for role in INSTALLATION_ROLES):
+            fake.native_metadata[role][1] = json.dumps({
+                "profile": "ashlar-local-delta-installation-commit/0.1",
+                "installation_id": transport.installation_id,
+                "registry_sha256": transport.registry_sha,
+                "journal_sha256": transport.journal_sha,
+                "uuid": target.uuid,
+            }, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False)
         transport.operation_capacity = None
         transport.journal_path = root / "operations.sqlite"
         transport.journal_path.touch(mode=0o600)
@@ -77,6 +87,27 @@ class Tests(unittest.TestCase):
             self.plan, effect, transport, fake.profile, fresh, source,
             admission, self.context, transport.policy)
         return fake, transport, effect, source, admission, authority
+
+    def reopen_authority(self, transport, effect, source):
+        context = object()
+        reopened = copy.copy(transport)
+        reopened.policy = PrivatePolicy(context, tuple(reopened.targets.values()))
+        reopened.policy.initializing = False
+        source2 = object.__new__(ConfiguredLocalSource)
+        source2.context = context; source2.graph = True; source2._active = True
+        source2.batches = (object(),)
+        source2._specs = (ConfiguredLocalBatchSpec(1, self.plan.request_json,
+                                                   self.plan.publication_id),)
+        source2.renew = lambda selected: self.assertIs(selected, context)
+        source2.metadata = source.metadata
+        admission2 = object.__new__(ConfiguredLocalAdmission)
+        admission2.source = source2; admission2.context = context
+        fresh2 = rehydrate_delta4_fresh_head_admission(
+            self.plan, effect, reopened, reopened.installation_profile, source2, context)
+        authority2 = open_configured_local_delta4_authority(
+            self.plan, effect, reopened, reopened.installation_profile, fresh2,
+            source2, admission2, context, reopened.policy)
+        return reopened, source2, fresh2, authority2
 
     def test_durable_source_scope_is_byte_exact_across_reopen_and_replay(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -197,6 +228,7 @@ class Tests(unittest.TestCase):
                 sort_keys=True, separators=(",", ":"))
             fake.histories[role] = [version, before, 0]
             fake.native_metadata[role][version] = metadata
+            fake.native_operations[role][version] = "WRITE"
             snapshot = transport._snapshot(target, version)
             receipt = {"profile": "ashlar-local-delta-receipt/0.1",
                 "operation": key, "operation_sha256": body_sha,
@@ -225,6 +257,81 @@ class Tests(unittest.TestCase):
                 self.assertEqual(result["states"], ["committed"] * prefix
                                  + ["missing"] * (3 - prefix))
                 self.assertIsNone(transport.policy.active)
+
+    def test_rehydrated_baseline_reconciles_restart_prefixes(self):
+        for prefix in (1, 2, 3):
+            with self.subTest(prefix=prefix), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory).resolve(); root.chmod(0o700)
+                fake, transport, effect, source, _admission, authority = self.build(root)
+                with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                    with authority.hold():
+                        pass
+                    self._seed_committed_prefix(fake, transport, effect, prefix)
+                    reopened, _source2, restored, authority2 = self.reopen_authority(
+                        transport, effect, source)
+                    self.assertEqual(restored.heads, authority.fresh.heads)
+                    result = authority2.reconcile_effect_prefix()
+                self.assertEqual(result["committed_prefix"], prefix)
+                self.assertIsNone(reopened.policy.active)
+
+    def test_baseline_rehydration_refuses_corrupt_scope_and_nonempty_history(self):
+        for fault in ("corrupt_scope", "nonempty_baseline", "forged_version_zero"):
+            with self.subTest(fault=fault), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory).resolve(); root.chmod(0o700)
+                fake, transport, effect, source, _admission, authority = self.build(root)
+                with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                    with authority.hold():
+                        pass
+                if fault == "corrupt_scope":
+                    transport.db.execute(
+                        "UPDATE local_source_plan SET original=original || ' '")
+                    transport.db.commit()
+                elif fault == "forged_version_zero":
+                    import hashlib
+                    row_key, original = transport.db.execute(
+                        "SELECT request_digest,original FROM local_source_plan").fetchone()
+                    envelope = json.loads(original)
+                    scope = envelope["scope"]
+                    heads = json.loads(scope["fresh_heads_json"])
+                    inventory = json.loads(scope["fresh_inventory_json"])
+                    for role in INSTALLATION_ROLES:
+                        heads[role]["version"] = 0
+                        inventory[role]["version"] = 0
+                    canonical = lambda value: json.dumps(
+                        value, sort_keys=True, separators=(",", ":"),
+                        ensure_ascii=False, allow_nan=False)
+                    scope["fresh_heads_json"] = canonical(heads)
+                    scope["fresh_heads_sha256"] = hashlib.sha256(
+                        scope["fresh_heads_json"].encode()).hexdigest()
+                    scope["fresh_inventory_json"] = canonical(inventory)
+                    scope["fresh_inventory_sha256"] = hashlib.sha256(
+                        scope["fresh_inventory_json"].encode()).hexdigest()
+                    envelope["scope_sha256"] = hashlib.sha256(
+                        canonical(scope).encode()).hexdigest()
+                    transport.db.execute(
+                        "UPDATE local_source_plan SET original=? WHERE request_digest=?",
+                        (canonical(envelope), row_key))
+                    transport.db.commit()
+                else:
+                    fake.expected = materialize_delta4_expected_rows(
+                        self.plan, fake.lookup_hashes)
+                    fake.baseline_rows["object_current"] = list(
+                        fake.expected["object_current"])
+                context = object()
+                reopened = copy.copy(transport)
+                reopened.policy = PrivatePolicy(context, tuple(reopened.targets.values()))
+                reopened.policy.initializing = False
+                source2 = object.__new__(ConfiguredLocalSource)
+                source2.context = context; source2.graph = True; source2._active = True
+                source2.batches = (object(),)
+                source2._specs = (ConfiguredLocalBatchSpec(1, self.plan.request_json,
+                                                           self.plan.publication_id),)
+                source2.renew = lambda _selected: None
+                source2.metadata = source.metadata
+                with self.assertRaises(ValueError):
+                    rehydrate_delta4_fresh_head_admission(
+                        self.plan, effect, reopened, reopened.installation_profile,
+                        source2, context)
 
     def test_readonly_reconciliation_refuses_ambiguous_or_changed_prefix(self):
         for fault in ("prepared", "submitted", "missing_plan", "changed_plan", "extra_native",

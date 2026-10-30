@@ -1176,6 +1176,153 @@ def admit_delta4_fresh_empty_installation(transport, installation_profile):
                                                     _canonical(inventory), _mint=_FRESH_HEAD_MINT)
 
 
+def rehydrate_delta4_fresh_head_admission(plan, effect_plan, transport,
+                                           installation_profile, source, context):
+    """Rebuild only the pinned pre-effect baseline token from durable custody.
+
+    The function never treats current heads as the baseline. It authenticates
+    the retained scope and re-reads every original historical baseline version,
+    requiring its complete table snapshot to remain empty.
+    """
+    from .configured_source_local import ConfiguredLocalSource
+    from .delta_custody import LocalDeltaTransport
+    from ashlar.effect_validation import validate_effect_snapshot
+    _require(type(plan) is ConfiguredLocalDelta4BatchPlan
+             and type(effect_plan) is ConfiguredLocalDelta4EffectPlan
+             and type(transport) is LocalDeltaTransport
+             and type(source) is ConfiguredLocalSource
+             and source.context is context and source.graph is True,
+             "Exact `.4` recovery source and local journal owners required")
+    profile_sha = _require_delta4_transport(transport, installation_profile)
+    plan.require_current(); effect_plan.steps
+    _require(effect_plan.request_digest == plan.request["request_digest"]
+             and effect_plan.installation_profile_sha256 == profile_sha,
+             "Frozen `.4` source/effect/profile binding required")
+    spec = source.spec(1, context)
+    _require(spec.request_json == plan.request_json
+             and spec.request() == plan.request,
+             "Exact original transaction-1 request bytes required for recovery")
+    metadata = source.metadata(context)
+    _require(type(metadata) is dict
+             and metadata.get("configuration_sha256") == plan.configuration_sha256
+             and metadata.get("source_sha256") == plan.source_sha256
+             and metadata.get("model_sha256") == plan.model_sha256,
+             "Current recovery source custody differs from frozen `.4` plan")
+
+    db = transport.db
+    schema = db.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='local_source_plan'").fetchall()
+    _require(len(schema) == 1 and type(schema[0][0]) is str
+             and re.sub(r"\s+", "", schema[0][0]).lower()
+             == "createtablelocal_source_plan(request_digesttextprimarykey,originaltextnotnull)",
+             "Original durable `.4` source-scope journal schema required")
+    _require(db.execute("PRAGMA user_version").fetchone()[0] == SOURCE_SCOPE_JOURNAL_VERSION,
+             "Original durable `.4` source-scope journal marker required")
+    retained = _read_delta4_source_scope_rows(db)
+    _require(len(retained) == 1
+             and retained[0][0] == plan.request["request_digest"],
+             "Unique original transaction-1 source scope required")
+    envelope = _validate_delta4_source_scope_row(*retained[0])
+    scope = envelope["scope"]
+    source_plan = {
+        "stream": plan.stream, "batch_id": plan.batch_id,
+        "publication_id": plan.publication_id,
+        "source_sha256": plan.source_sha256,
+        "configuration_sha256": plan.configuration_sha256,
+        "model_sha256": plan.model_sha256,
+        "binding_sha256": plan.binding_sha256,
+        "batch_sha256": plan.batch_sha256,
+        "materialized_at_us": plan.materialized_at_us,
+        "source_oracle_sha256": plan.source_oracle_sha256,
+    }
+    metadata_json = _canonical(metadata)
+    expected_effect = {"profile": effect_plan.profile,
+                       "request_digest": effect_plan.request_digest,
+                       "installation_profile_sha256": effect_plan.installation_profile_sha256,
+                       "intent_digest": effect_plan.intent_digest,
+                       "effect_plan_sha256": effect_plan.effect_plan_sha256,
+                       "steps_json": effect_plan.steps_json}
+    journal_path_object = transport.journal_path
+    journal_stat = journal_path_object.lstat()
+    _require(stat.S_ISREG(journal_stat.st_mode) and journal_stat.st_uid == os.getuid()
+             and not journal_stat.st_mode & 0o022,
+             "Private original local journal file required for recovery")
+    _require(scope["request"] == {"json": spec.request_json,
+                                  "sha256": _sha(spec.request_json.encode("utf-8")),
+                                  "request_digest": plan.request["request_digest"]}
+             and scope["source_metadata"] == {
+                 "json": metadata_json,
+                 "sha256": _sha(metadata_json.encode("utf-8"))}
+             and scope["source_plan"] == source_plan
+             and scope["effect_plan"] == expected_effect
+             and scope["installation_profile_sha256"]
+             == _sha(_canonical(installation_profile).encode("utf-8"))
+             and scope["installation_id"] == transport.installation_id
+             and scope["journal"] == {
+                 "path": str(journal_path_object.resolve()),
+                 "registry_sha256": transport.registry_sha,
+                 "journal_identity_sha256": transport.journal_sha,
+                 "file_device": journal_stat.st_dev,
+                 "file_inode": journal_stat.st_ino},
+             "Retained `.4` source/effect/install/journal binding changed")
+
+    heads_json = scope["fresh_heads_json"]
+    inventory_json = scope["fresh_inventory_json"]
+    heads = decode_retained_json(heads_json.encode("utf-8"))
+    inventory = decode_retained_json(inventory_json.encode("utf-8"))
+    _require(type(heads) is dict and set(heads) == set(INSTALLATION_ROLES)
+             and _canonical(heads) == heads_json
+             and type(inventory) is dict and set(inventory) == set(INSTALLATION_ROLES),
+             "Complete retained six-role `.4` baseline required")
+    carriers = load_current_managed_carriers(CARRIER_PROFILE)
+    observed_inventory = {}
+    for role in INSTALLATION_ROLES:
+        target, current_version, protocol, fields = _observe_delta4_role(
+            transport, role, installation_profile)
+        baseline = heads[role]
+        expected_fields = tuple((name, kind, nullable) for name, kind, nullable
+                                in installation_profile["roles"][role]["fields"])
+        _require(type(baseline) is dict and set(baseline) == {"uuid", "version"}
+                 and baseline["uuid"] == target.uuid
+                 and type(baseline["version"]) is int
+                 and baseline["version"] == 1
+                 and baseline["version"] <= current_version < 2**63
+                 and fields == expected_fields
+                 and protocol == installation_profile["roles"][role]["protocol"],
+                 "Retained `.4` version-1 baseline identity/schema/protocol differs from its role")
+        history = transport.original_history(target)
+        history_by_version = {item["version"]: item for item in history}
+        registration_metadata = _canonical({
+            "profile": "ashlar-local-delta-installation-commit/0.1",
+            "installation_id": transport.installation_id,
+            "registry_sha256": transport.registry_sha,
+            "journal_sha256": transport.journal_sha,
+            "uuid": target.uuid,
+        })
+        _require(set(history_by_version) >= {0, 1}
+                 and history_by_version[0].get("operation") == "CREATE TABLE"
+                 and history_by_version[0].get("userMetadata") is None
+                 and history_by_version[1].get("operation") == "SET TBLPROPERTIES"
+                 and history_by_version[1].get("userMetadata") == registration_metadata,
+                 "Native version 1 must retain exact CREATE and installation-registration history")
+        expected_inventory = {
+            "name": target.table, "uuid": target.uuid,
+            "version": baseline["version"],
+            "schemaSha256": _sha(_canonical(fields).encode("utf-8")),
+            "protocolSha256": _sha(_canonical(protocol).encode("utf-8")),
+        }
+        _require(inventory[role] == expected_inventory,
+                 "Retained `.4` baseline inventory differs from its six-role profile")
+        columns = tuple((name, kind) for name, kind, _nullable
+                        in carriers.ordered_fields(role))
+        validate_effect_snapshot(transport, target.table, target.uuid,
+                                 baseline["version"], columns, [])
+        observed_inventory[role] = expected_inventory
+    _require(_canonical(observed_inventory) == inventory_json,
+             "Rehydrated `.4` baseline inventory is not canonical")
+    return ConfiguredLocalDelta4FreshHeadAdmission(
+        profile_sha, heads_json, inventory_json, _mint=_FRESH_HEAD_MINT)
+
+
 def validate_delta4_transaction1_snapshots(plan: ConfiguredLocalDelta4BatchPlan, transport,
                                            installation_profile: dict,
                                            fresh: ConfiguredLocalDelta4FreshHeadAdmission, *,

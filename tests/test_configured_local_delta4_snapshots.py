@@ -4,6 +4,7 @@ from pathlib import Path
 import sqlite3
 import hashlib
 import json
+import re
 from types import MappingProxyType, SimpleNamespace
 import unittest
 import uuid
@@ -13,7 +14,7 @@ from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuratio
 from ashlar_host.configured_local_delta4_publication import (
     DATA_ROLES, INSTALLATION_ROLES, admit_delta4_fresh_empty_installation,
     materialize_delta4_expected_rows, plan_configured_local_delta4_transaction1,
-    validate_delta4_transaction1_snapshots,
+    rehydrate_delta4_fresh_head_admission, validate_delta4_transaction1_snapshots,
 )
 from ashlar_host.delta_custody import LocalDeltaTransport
 from ashlar_host.managed_current_carriers import load_current_managed_carriers
@@ -44,9 +45,12 @@ class FakeTransport:
         self.path_detail_mismatch = path_detail_mismatch
         self.table_location_mismatch = table_location_mismatch
         self.expected = None
+        self.baseline_rows = {role: [] for role in INSTALLATION_ROLES}
         self.plan = plan
         self.lookup_hashes = {}
         self.native_metadata = {role: {} for role in INSTALLATION_ROLES}
+        self.native_operations = {role: {0: "CREATE TABLE", 1: "SET TBLPROPERTIES"}
+                                 for role in INSTALLATION_ROLES}
         for role in ("object_current", "edge_current"):
             column = "type_id" if role == "object_current" else "rel_type_id"
             for key in plan.pending_lookup_keys[role]:
@@ -88,17 +92,20 @@ class FakeTransport:
 
     def original_history(self, target):
         role = target.table.rsplit(".", 1)[1]
-        return [{"version": value, **({"userMetadata": self.native_metadata[role][value],
-                                       "operation": "WRITE"}
-                                      if value in self.native_metadata[role] else {})}
+        return [{"version": value,
+                 "operation": self.native_operations[role].get(value),
+                 **({"userMetadata": self.native_metadata[role][value]}
+                    if value in self.native_metadata[role] else {})}
                 for value in self.histories[role]]
 
     def snapshot(self, target, version):
         role = target.table.rsplit(".", 1)[1]
         carriers = load_current_managed_carriers("ashlar-delta/0.4-xxhash64")
         fields = carriers.ordered_fields(role)
+        source_rows = (self.baseline_rows[role] if version == 1 else
+                       self.expected[role] if self.expected is not None else [])
         rows = [{name: str(value) if type(value) is int else value for name, value in row.items()}
-                for row in (self.expected[role] if self.expected is not None else [])]
+                for row in source_rows]
         rows.sort(key=lambda row: json.dumps(row, sort_keys=True, separators=(",", ":"),
                                              ensure_ascii=False, allow_nan=False))
         schema = [[name, {"STRING": "string", "BIGINT": "bigint", "TIMESTAMP": "timestamp"}[kind]]
@@ -158,7 +165,8 @@ class FakeTransport:
         if sql.endswith("LIMIT 0"):
             return SimpleNamespace(rows=[], columns=columns)
         if "VERSION AS OF" in sql:
-            rows = self.expected[role]
+            version = int(re.search(r"VERSION AS OF (\d+)", sql).group(1))
+            rows = (self.baseline_rows[role] if version == 1 else self.expected[role])
             rendered = [{name: str(value) if type(value) is int else value for name, value in row.items()}
                         for row in rows]
             if self.row_fault == (role, "duplicate") and rendered:
