@@ -20,6 +20,15 @@ extra. The separately reviewed `truss-local` candidate selects Truss 0.0.51.
 This evidence does not establish native
 publication, Databricks, Truss lifecycle, or production authority.
 
+Read-only GitHub `releases/latest` checks on 2026-10-30 returned the selected
+[`UMF SDK 0.5.8`](https://github.com/DocumentDrivenDX/umf/releases/tag/umf-v0.5.8)
+(target `efb4042719866888ad80c01cb2da694972eb2738`),
+[`Weft 0.4.56`](https://github.com/DocumentDrivenDX/weft/releases/tag/v0.4.56)
+(target `2f62e1148d1b2030558550e4f6f2ffe518bac62d`), and
+[`Truss 0.0.51`](https://github.com/DocumentDrivenDX/truss/releases/tag/v0.0.51).
+This verifies the selected release coordinates at that check time; it adds no
+runtime qualification.
+
 ## Exact public release assets
 
 GitHub release API metadata identifies the immutable public tags and asset
