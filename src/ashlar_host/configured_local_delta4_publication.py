@@ -249,6 +249,78 @@ def materialize_delta4_expected_rows(plan: ConfiguredLocalDelta4BatchPlan, looku
     return rows
 
 
+def observe_delta4_lookup_hashes(plan: ConfiguredLocalDelta4BatchPlan, transport,
+                                installation_profile: dict):
+    """Observe transaction-1 `.4` fingerprints through its owned Spark transport.
+
+    This is a bounded read-only native operation. It does not admit or write a
+    publication, and it cannot mint a manifest. The separate installation
+    profile must be the retained six-role `.4` profile from initialization.
+    """
+    from .delta_custody import LocalDeltaTransport
+    _require(type(plan) is ConfiguredLocalDelta4BatchPlan)
+    plan.require_current()
+    _require(type(transport) is LocalDeltaTransport,
+             "Caller-owned local Delta transport required")
+    _require(type(installation_profile) is dict
+             and installation_profile.get("profile") == "ashlar-local-current-installation-profile/0.1"
+             and installation_profile.get("physical_profile") == CARRIER_PROFILE
+             and installation_profile.get("lookup_hash_profile") == LOOKUP_HASH_PROFILE
+             and type(installation_profile.get("roles")) is dict
+             and set(installation_profile["roles"]) == set(INSTALLATION_ROLES),
+             "Retained six-role `.4` installation profile required")
+    _require(getattr(transport, "installation_profile", None) == installation_profile,
+             "`.4` installation profile must be pinned by the native operation journal")
+    _require(set(transport.targets) == {"local.configured." + role for role in INSTALLATION_ROLES},
+             "Exact six-role initialized local Delta registry required")
+    for role in INSTALLATION_ROLES:
+        observed = installation_profile["roles"][role]
+        target = transport.targets["local.configured." + role]
+        _require(type(observed) is dict and observed.get("table") == target.table
+                 and observed.get("path") == str(target.path) and observed.get("uuid") == target.uuid,
+                 "Initialized `.4` role identity differs from its retained profile")
+    keys = []
+    expected = set()
+    for role in ("object_current", "edge_current"):
+        identity_column = "type_id" if role == "object_current" else "rel_type_id"
+        for key in plan.pending_lookup_keys[role]:
+            values = (role, key["source_system"], key[identity_column], key["id"])
+            _require(type(values[0]) is str and type(values[1]) is str
+                     and type(values[2]) is int and type(values[3]) is int,
+                     "Exact role-qualified typed hash key required")
+            token = (role, values[1], values[2], values[3])
+            _require(token not in expected, "Unique role-qualified source identity required")
+            expected.add(token)
+            keys.append({"role": role, "source_system": values[1],
+                         "type_id": values[2], "id": values[3]})
+    _require(0 < len(keys) <= 1000, "Bounded transaction-1 typed hash inventory required")
+    sql = ("SELECT k.role AS role,k.source_system AS source_system,k.type_id AS type_id,k.id AS id,"
+           "xxhash64(CAST(k.source_system AS STRING),CAST(k.type_id AS BIGINT),CAST(k.id AS BIGINT)) AS lookup_hash "
+           "FROM (SELECT explode(from_json(:keys,'ARRAY<STRUCT<role:STRING,source_system:STRING,type_id:BIGINT,id:BIGINT>>')) AS k)")
+    native_result = transport.query(sql, {"keys": _canonical(keys)})
+    _require(type(native_result.columns) is tuple and native_result.columns == (
+        ("role", "STRING"), ("source_system", "STRING"), ("type_id", "BIGINT"),
+        ("id", "BIGINT"), ("lookup_hash", "BIGINT")),
+        "Exact ordered native `.4` Spark hash result schema required")
+    result = native_result.rows
+    _require(type(result) is list and len(result) == len(expected),
+             "Complete bounded native `.4` Spark hash observations required")
+    hashes = {}
+    for row in result:
+        _require(type(row) is dict and set(row) == {
+            "role", "source_system", "type_id", "id", "lookup_hash"},
+            "Exact native `.4` Spark hash result shape required")
+        key = (row["role"], row["source_system"], row["type_id"], row["id"])
+        _require(key in expected and key not in hashes
+                 and type(row["type_id"]) is int and type(row["id"]) is int
+                 and type(row["lookup_hash"]) is int
+                 and -(1 << 63) <= row["lookup_hash"] < (1 << 63),
+                 "Exact unique signed BIGINT Spark hash result required")
+        hashes[key] = row["lookup_hash"]
+    _require(set(hashes) == expected, "Complete role-qualified Spark hash vector required")
+    return hashes
+
+
 def build_delta4_realized_vector(manifest_row: dict, installation: dict):
     """Bind six-role observations to a separately retained manifest row.
 

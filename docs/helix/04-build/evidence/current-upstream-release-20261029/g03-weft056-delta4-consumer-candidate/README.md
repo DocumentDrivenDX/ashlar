@@ -112,8 +112,11 @@ are not represented as completed work here:
    publication, and retains the native four-role vector plus independent
    six-role inventory. `configured_local_delta4_publication.py` now supplies a
    pure transaction-1 source plan, role-qualified hash input validation and
-   vector shape binder; it starts no Spark session, writes no tables, and cannot
-   mint a complete manifest. Native composition and effect verification remain.
+   vector shape binder. It also has a bounded native Spark hash-observation
+   adapter for a journal-pinned six-role installation; that adapter has only
+   inert fake-transport tests so far. The module starts no Spark session,
+   writes no tables, and cannot mint a complete manifest. Native composition
+   and effect verification remain.
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.
 3. A Weft 0.4.56 host distribution adapter for the local configured runtime.

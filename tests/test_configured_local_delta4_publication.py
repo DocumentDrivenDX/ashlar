@@ -1,16 +1,20 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure configured-local Delta 0.4 core: no Spark or native effects."""
 from pathlib import Path
+import json
 import unittest
 import uuid
+from types import MappingProxyType, SimpleNamespace
 
 from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration
 from ashlar_host.configured_local_delta4_publication import (
     DATA_ROLES, INSTALLATION_ROLES,
     build_delta4_realized_vector, materialize_delta4_expected_rows,
+    observe_delta4_lookup_hashes,
     plan_configured_local_delta4_transaction1,
 )
 from ashlar_host.managed_current_carriers import load_current_managed_carriers
+from ashlar_host.delta_custody import LocalDeltaTransport
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -85,6 +89,71 @@ class Tests(unittest.TestCase):
         values = self.lookup_hashes(plan)
         with self.assertRaises(ValueError):
             materialize_delta4_expected_rows(plan, {**values, **overlap})
+
+    def native_fixture(self, plan, *, bad_profile=False, omit_result=False, bad_columns=False):
+        owner = object.__new__(LocalDeltaTransport)
+        targets = {}
+        roles = {}
+        for role in INSTALLATION_ROLES:
+            table = "local.configured." + role
+            target = SimpleNamespace(table=table, path=Path("/tmp") / role, uuid=str(uuid.uuid5(uuid.NAMESPACE_URL, role)))
+            targets[table] = target
+            roles[role] = {"table": table, "path": str(target.path), "uuid": target.uuid}
+        owner.targets = MappingProxyType(targets)
+        profile = {
+            "profile": "ashlar-local-current-installation-profile/0.1",
+            "physical_profile": "ashlar-delta/0.4-xxhash64",
+            "lookup_hash_profile": "spark-xxhash64-typed-key/0.1",
+            "roles": roles,
+        }
+        if bad_profile:
+            profile["physical_profile"] = "ashlar-delta/0.3"
+        owner.installation_profile = profile
+        calls = []
+
+        def query(sql, parameters):
+            calls.append((sql, parameters))
+            self.assertIn("xxhash64(CAST(k.source_system AS STRING),CAST(k.type_id AS BIGINT),CAST(k.id AS BIGINT))", sql)
+            keys = json.loads(parameters["keys"])
+            rows = [{"role": key["role"], "source_system": key["source_system"],
+                     "type_id": key["type_id"], "id": key["id"], "lookup_hash": -(index + 1)}
+                    for index, key in enumerate(keys)]
+            columns = (("role", "STRING"), ("source_system", "STRING"), ("type_id", "STRING"),
+                       ("id", "BIGINT"), ("lookup_hash", "BIGINT")) if bad_columns else (
+                       ("role", "STRING"), ("source_system", "STRING"), ("type_id", "BIGINT"),
+                       ("id", "BIGINT"), ("lookup_hash", "BIGINT"))
+            return SimpleNamespace(rows=rows[:-1] if omit_result else rows, columns=columns)
+
+        owner.query = query
+        return owner, profile, calls
+
+    def test_native_hash_observation_is_one_bounded_read_for_exact_six_role_installation(self):
+        plan = self.plan()
+        owner, profile, calls = self.native_fixture(plan)
+        hashes = observe_delta4_lookup_hashes(plan, owner, profile)
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(len(hashes), 8)
+        self.assertEqual({key[0] for key in hashes}, {"object_current", "edge_current"})
+
+    def test_native_hash_observation_refuses_wrong_profile_or_incomplete_result(self):
+        plan = self.plan()
+        owner, profile, calls = self.native_fixture(plan, bad_profile=True)
+        with self.assertRaises(ValueError):
+            observe_delta4_lookup_hashes(plan, owner, profile)
+        self.assertEqual(calls, [])
+        owner, profile, calls = self.native_fixture(plan)
+        owner.installation_profile = None
+        with self.assertRaises(ValueError):
+            observe_delta4_lookup_hashes(plan, owner, profile)
+        self.assertEqual(calls, [])
+        owner, profile, calls = self.native_fixture(plan, omit_result=True)
+        with self.assertRaises(ValueError):
+            observe_delta4_lookup_hashes(plan, owner, profile)
+        self.assertEqual(len(calls), 1)
+        owner, profile, calls = self.native_fixture(plan, bad_columns=True)
+        with self.assertRaises(ValueError):
+            observe_delta4_lookup_hashes(plan, owner, profile)
+        self.assertEqual(len(calls), 1)
 
     def test_realized_vector_binds_separately_supplied_retained_manifest(self):
         versions = {"local.configured." + role: index for index, role in enumerate(DATA_ROLES, 1)}
