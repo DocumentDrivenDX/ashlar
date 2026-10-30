@@ -107,9 +107,13 @@ to this gate.
 The following remain prerequisites to a Sol-reviewable execution packet and
 are not represented as completed work here:
 
-1. A reviewed one-shot initializer/publisher that applies only `typed-graph-1`
-   under `ashlar-delta/0.4-xxhash64`, creates one immutable publication, and
-   retains the native four-role vector plus independent six-role inventory.
+1. A reviewed one-shot native initializer/publisher that applies only
+   `typed-graph-1` under `ashlar-delta/0.4-xxhash64`, creates one immutable
+   publication, and retains the native four-role vector plus independent
+   six-role inventory. `configured_local_delta4_publication.py` now supplies a
+   pure transaction-1 source plan, role-qualified hash input validation and
+   vector shape binder; it starts no Spark session, writes no tables, and cannot
+   mint a complete manifest. Native composition and effect verification remain.
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.
 3. A Weft 0.4.56 host distribution adapter for the local configured runtime.

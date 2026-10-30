@@ -68,7 +68,8 @@ def configured_prefix_carrier_rows(configuration,batches,*,materialization_clock
     if len(raw.encode())>maximum_bytes:raise ValueError('Complete original carrier byte bound exceeded')
     originals_file.renew(262144);configuration.verify();return ConfiguredCarrierRows(raw)
 
-def _original_inventory(batches, columns, *, materialized_at):
+def _original_inventory(batches, columns, *, materialized_at, carrier_profile='ashlar-delta/0.3',
+                        lookup_hashes=None, logical_keys=None):
     # Independent source-to-carrier expectations: do not call graph_sql_plan or
     # consume generated SQL rows as an oracle.
     instant=datetime.datetime.fromisoformat(materialized_at)
@@ -76,6 +77,10 @@ def _original_inventory(batches, columns, *, materialized_at):
     elapsed=instant-datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc)
     stamp=str((elapsed.days*86400+elapsed.seconds)*1000000+elapsed.microseconds)
     current={};history=[];deletes=[];deliveries={}
+    if carrier_profile not in ('ashlar-delta/0.3', 'ashlar-delta/0.4-xxhash64'):
+        raise ValueError('Exact configured carrier profile required')
+    if carrier_profile == 'ashlar-delta/0.4-xxhash64' and lookup_hashes is not None and type(lookup_hashes) is not dict:
+        raise ValueError('Native `.4` lookup fingerprint observations required')
     for batch in batches:
         for record in batch.records:
             delivery=(batch.feed,batch.epoch,record.delivery_id)
@@ -86,17 +91,49 @@ def _original_inventory(batches, columns, *, materialized_at):
             event=json.loads(record.raw);kind=event['entity_kind'];key=(kind,event['source_system'],event['type_id'],event['id'])
             identity={'source_system':event['source_system'],'type_id' if kind=='object' else 'rel_type_id':int(event['type_id']),'id':int(event['id'])}
             row={name:None for name,typ in columns['object_current' if kind=='object' else 'edge_current']}
-            row.update({k:str(v) for k,v in identity.items()})
-            row.update(schema_revision=event['schema_revision'],entity_version=event['entity_version'],props_json=event['props_json'],retained_json=event['retained_json'],
+            typed_current = carrier_profile == 'ashlar-delta/0.4-xxhash64'
+            row.update({k:(v if typed_current else str(v)) for k,v in identity.items()})
+            row.update(schema_revision=event['schema_revision'],entity_version=(int(event['entity_version']) if typed_current else event['entity_version']),props_json=event['props_json'],retained_json=event['retained_json'],
                        source_feed=batch.feed,source_epoch=batch.epoch,source_cursor_json=json.dumps({'profile':batch.profile,'offset':batch.cursor_after},separators=(',',':')),
                        source_delivery_id=record.delivery_id,published_at=stamp,lookup_hash=hashlib.sha256(json.dumps(identity,ensure_ascii=False,separators=(',',':')).encode()).hexdigest(),apply_batch_id=batch.batch_id)
-            if kind=='object':row['logical_key_json']='[]'
+            if carrier_profile == 'ashlar-delta/0.4-xxhash64':
+                row.pop('lookup_hash')
+                row['source_position'] = int(record.cursor)
+                if kind == 'object':
+                    row['root_id'] = None
+                    key = ('object', event['source_system'], int(event['type_id']), int(event['id']))
+                    if type(logical_keys) is not dict or key not in logical_keys:
+                        raise ValueError('Exact original `.4` object logical key required')
+                    row['logical_key_json'] = logical_keys[key]
+                else:
+                    row['order_key'] = None
+                if lookup_hashes is not None:
+                    lookup_role = 'object_current' if kind == 'object' else 'edge_current'
+                    lookup_key = (lookup_role, event['source_system'], int(event['type_id']), int(event['id']))
+                    if lookup_key not in lookup_hashes:
+                        raise ValueError('Native `.4` lookup fingerprint omitted a complete source identity')
+                    value = lookup_hashes[lookup_key]
+                    if type(value) is not int or not -(1 << 63) <= value < (1 << 63):
+                        raise ValueError('Native `.4` lookup fingerprint must be a signed BIGINT')
+                    row['lookup_hash'] = value
+            if kind=='object':
+                if not typed_current:row['logical_key_json']='[]'
             else:
-                a,b=event['endpoints'];row.update(source_type=a['type_id'],source_id=a['id'],target_type=b['type_id'],target_id=b['id'])
+                a,b=event['endpoints']
+                if typed_current:
+                    row.update(source_type=int(a['type_id']),source_id=int(a['id']),target_type=int(b['type_id']),target_id=int(b['id']))
+                else:
+                    row.update(source_type=a['type_id'],source_id=a['id'],target_type=b['type_id'],target_id=b['id'])
             if event['operation']=='delete':
                 current.pop(key)
                 delete={name:None for name,typ in columns['tombstone']}
-                delete.update(source_system=event['source_system'],entity_kind=kind,type_id=event['type_id'],id=event['id'],entity_version=event['entity_version'],source_feed=batch.feed,source_epoch=batch.epoch,source_cursor_json=row['source_cursor_json'],source_delivery_id=record.delivery_id)
+                delete.update(source_system=event['source_system'],entity_kind=kind,
+                    type_id=(int(event['type_id']) if typed_current else event['type_id']),
+                    id=(int(event['id']) if typed_current else event['id']),
+                    entity_version=(int(event['entity_version']) if typed_current else event['entity_version']),
+                    source_feed=batch.feed,source_epoch=batch.epoch,source_cursor_json=row['source_cursor_json'],source_delivery_id=record.delivery_id)
+                if carrier_profile == 'ashlar-delta/0.4-xxhash64':
+                    delete['source_position'] = int(record.cursor)
                 deletes.append(delete)
             else:current[key]=row
             def typed_key(k,t,i):return {'source':event['source_system'],'kind':k,'type_id':int(t),'id':int(i)}
