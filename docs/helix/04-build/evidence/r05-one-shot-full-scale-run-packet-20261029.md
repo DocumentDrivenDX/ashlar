@@ -66,6 +66,35 @@ the 45-unit sample; the resulting write-only and measured-mode estimates are
 14.176 and 28.206 minutes.
 These are planning extrapolations from one sample, not target-scale measurements.
 
+### Design-target checkpoint (napkin math)
+
+For this checkpoint only, interpret “a few minutes” as a **provisional five-minute
+design target** (300 s); the phrase has not been assigned a numeric threshold by
+the owner and this is not an approved pass/fail criterion. The 3,041,334,560
+sample active bytes over the 30.620 s concurrent write imply 99.33 decimal MB/s
+observed, or 79.46 MB/s at the 80% planning rate. Scaling active bytes by
+22.2222 gives 67.585 GB, which would require 225.28 MB/s end to end to fit in
+300 s. That is 2.84× the 80%-discounted write rate (and excludes setup,
+validation and graph work).
+
+The fuller measured phase is 60.924 s for setup, writes and one combined scan.
+Its 80%-discounted linear projection is 1,692.3 s (28.206 min), or 5.64× the
+entire provisional 300 s budget before any omitted phases. To meet 300 s by
+linear extrapolation, that complete measured phase would need to take no more
+than `300 × .8 / 22.2222 = 10.8 s` on the 45M/225M sample; once omitted phases
+are budgeted, the gate is lower: `(300 − omitted_phase_seconds) × .8 / 22.2222`.
+The 10.8 s figure is a necessary upper bound for the measured phase, not a
+claim that the sample by itself proves target-scale behavior.
+
+Do no expensive optimization or full run yet. First profile a smaller,
+representative sample that separately measures writes, persisted scans, and
+GraphFrames overhead, so the dominant phase and its scaling behavior are
+visible. Require that profiled path to meet an agreed budget in a full-path
+local pilot before reconsidering 1B/5B. A single warm, second-in-JVM sample does
+not establish a physical I/O bottleneck, a performance proof, or a reliable
+full-scale runtime. The 1B/5B attempt remains held, and the 15-minute
+owner-review constraint remains in force.
+
 Use the concurrent write sample as the planning baseline for the one-run
 candidate, while retaining its second-in-JVM bias. The **80% throughput target**
 is writes completed within 850.556 seconds. A result beyond that value fails
