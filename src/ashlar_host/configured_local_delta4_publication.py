@@ -851,6 +851,57 @@ class ConfiguredLocalDelta4WriterAuthority:
         finish(primary, [*closing, close_lock])
         return result
 
+    def prepare_effect_plan(self):
+        """Retain the exact three-step plan under a temporary prepare-only grant.
+
+        The grant admits the whole effects document only. It never authorizes an
+        ordinal operation intent, and it is revoked before this method returns.
+        Caller must already be inside this owner's held fresh source/head scope.
+        """
+        from .delta_custody import LocalDeltaEffects
+        self._require_current(held=True)
+        self._check_fresh_heads()
+        self._retain_source_scope()
+        effects = LocalDeltaEffects(self.transport)
+        operation = "effects:" + self.effect_plan.intent_digest
+        original, digest, identities = effects.original_plan(
+            operation, self.effect_plan.intent_digest, self.effect_plan.steps)
+        expected_intent = json.loads(original)
+        _require(expected_intent == {
+            "profile": "ashlar-local-delta-effects/0.1",
+            "installation_id": self.transport.installation_id,
+            "operation": operation,
+            "intent_digest": self.effect_plan.intent_digest,
+            "steps": self.effect_plan.steps,
+        } and len(identities) == 3,
+            "Exact frozen `.4` three-operation plan required")
+        self.policy._activate_delta4_prepare(self, expected_intent, self.context)
+        result = None
+        primary = None
+        try:
+            result = effects.prepare(operation, self.effect_plan.intent_digest,
+                                     self.effect_plan.steps, context=self.context)
+            _require(result == {"plan_sha256": digest,
+                                "intent_digest": self.effect_plan.intent_digest,
+                                "operation": operation,
+                                "operation_ids": identities},
+                     "Exact retained `.4` whole-plan receipt required")
+            _require(self.transport.db.execute(
+                "SELECT count(*) FROM local_operation").fetchone() == (0,),
+                "Prepare-only `.4` scope must not create operation intents")
+            self._check_fresh_heads()
+            self._retain_source_scope()
+        except BaseException as error:
+            primary = error
+        try:
+            self.policy._deactivate_delta4_prepare(self)
+        except BaseException as error:
+            if primary is None:
+                primary = error
+        if primary is not None:
+            raise primary
+        return result
+
     def _deactivate(self):
         self._active = False
 

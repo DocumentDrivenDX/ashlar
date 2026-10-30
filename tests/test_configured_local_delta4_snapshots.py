@@ -121,6 +121,10 @@ class FakeTransport:
         return {"id": identity, "location": str(target.path)}
 
     def spark_port(self):
+        class Conf:
+            def get(self, key, default=None):
+                return {"spark.sql.session.timeZone": "UTC",
+                        "spark.sql.ansi.enabled": "true"}.get(key, default)
         class Reader:
             def __init__(self, outer): self.outer = outer
             def format(self, _value): return self
@@ -133,7 +137,7 @@ class FakeTransport:
                     name=name, dataType=SimpleNamespace(typeName=lambda kind=names[kind]: kind),
                     nullable=nullable) for name, kind, nullable in fields])
                 return SimpleNamespace(schema=schema)
-        return SimpleNamespace(read=Reader(self))
+        return SimpleNamespace(read=Reader(self), conf=Conf())
 
     def query(self, sql, _parameters):
         if "xxhash64(" in sql:

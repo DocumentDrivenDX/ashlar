@@ -18,7 +18,8 @@ from ashlar_host.configured_local_delta4_publication import (
 )
 from ashlar_host.configured_local_runtime import ConfiguredLocalAdmission
 from ashlar_host.configured_source_local import ConfiguredLocalBatchSpec, ConfiguredLocalSource
-from ashlar_host.delta_custody import (LocalDeltaEffects, original_operation_intent,
+from ashlar_host.delta_custody import (LocalDeltaEffects, LocalDeltaError,
+                                       original_operation_intent,
                                        sha as custody_sha)
 from ashlar_host.local_receipt_codec import encode_local_receipt, original_receipt_chunks
 from ashlar_host.configured_local_delta4_publication import materialize_delta4_expected_rows
@@ -496,6 +497,62 @@ class Tests(unittest.TestCase):
         policy.admit({"profile": "ashlar-local-delta-effects/0.1",
                       "intent_digest": request_digest, "steps": []}, self.context)
         self.assertIs(policy.active, before)
+
+    def test_delta4_prepare_only_grant_retains_plan_and_denies_operations(self):
+        from ashlar_host.delta_custody import LocalDeltaEffects
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            _fake, transport, effect, _source, _admission, authority = self.build(root)
+            original_prepare = LocalDeltaEffects.prepare
+            observed = {}
+
+            def guarded_prepare(effects, operation, intent_digest, steps, *, context):
+                expected, _digest, _ids = effects.original_plan(
+                    operation, intent_digest, steps)
+                transport.policy.admit(json.loads(expected), context)
+                observed["plan"] = expected
+                with self.assertRaises(PermissionError):
+                    transport.policy.admit({
+                        "profile": "ashlar-local-delta-operation/0.1",
+                        "request_digest": intent_digest,
+                    }, context)
+                return original_prepare(effects, operation, intent_digest,
+                                        steps, context=context)
+
+            with patch.object(LocalDeltaEffects, "prepare", guarded_prepare):
+                with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                    with authority.hold():
+                        result = authority.prepare_effect_plan()
+                        self.assertIsNone(transport.policy._delta4_prepare_owner)
+                        self.assertIsNone(transport.policy._delta4_prepare_intent)
+                        self.assertEqual(result["intent_digest"], effect.intent_digest)
+                        self.assertEqual(transport.db.execute(
+                            "SELECT count(*) FROM local_operation").fetchone(), (0,))
+                    prefix = authority.reconcile_effect_prefix()
+            self.assertEqual(prefix["committed_prefix"], 0)
+            self.assertEqual(prefix["states"], ["missing", "missing", "missing"])
+            self.assertEqual(transport.db.execute(
+                "SELECT operation,digest FROM local_plan").fetchone(),
+                ("effects:" + effect.intent_digest,
+                 result["plan_sha256"]))
+            self.assertIsNotNone(observed.get("plan"))
+            self.assertIsNone(transport.policy._delta4_prepare_owner)
+
+    def test_delta4_prepare_refuses_changed_retained_plan_and_revokes_grant(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            _fake, transport, effect, _source, _admission, authority = self.build(root)
+            operation = "effects:" + effect.intent_digest
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    transport.db.execute("INSERT INTO local_plan VALUES(?,?,?)",
+                                         (operation, "{}", "0" * 64))
+                    transport.db.commit()
+                    with self.assertRaises(LocalDeltaError):
+                        authority.prepare_effect_plan()
+                    self.assertIsNone(transport.policy._delta4_prepare_owner)
+                    self.assertIsNone(transport.policy._delta4_prepare_intent)
+            self.assertIsNone(transport.policy._delta4_prepare_owner)
 
 
 if __name__ == "__main__":

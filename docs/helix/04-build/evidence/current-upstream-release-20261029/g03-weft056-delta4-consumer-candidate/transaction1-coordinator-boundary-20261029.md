@@ -124,3 +124,6 @@ fresh-head token from exact retained source scope and historical empty version-1
 snapshots, including original CREATE/registration history, allowing a new local
 owner to observe a committed prefix. These are inert tests only. Native effect
 dispatch, ambiguous-operation recovery and completion witness remain open.
+The whole three-step effect plan can now be retained through the original
+`LocalDeltaEffects.prepare` API under a temporary prepare-only policy grant;
+every ordinal operation intent remains denied. No native effect has run.

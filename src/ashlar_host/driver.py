@@ -208,6 +208,8 @@ class PrivatePolicy:
         self.targets = targets
         self.active = None
         self.initializing = True
+        self._delta4_prepare_owner = None
+        self._delta4_prepare_intent = None
 
     @contextmanager
     def writer(self, *args):
@@ -229,6 +231,25 @@ class PrivatePolicy:
             'previous_expected': value['previous_expected'], 'generated_steps': value['generated_steps'],
             'elisions': value['zero_match_elisions'], 'recorded_at': value['recorded_at']}
 
+    def _activate_delta4_prepare(self, owner, intent, context):
+        """Grant one held `.4` whole-plan admission; operation dispatch stays denied."""
+        from .configured_local_delta4_publication import ConfiguredLocalDelta4WriterAuthority
+        if (type(owner) is not ConfiguredLocalDelta4WriterAuthority
+                or context is not self.context or self.initializing
+                or self.active is not None or self._delta4_prepare_owner is not None
+                or type(intent) is not dict
+                or intent.get('profile') != 'ashlar-local-delta-effects/0.1'):
+            raise PermissionError('Original held `.4` prepare-only authority required')
+        owner._require_current(held=True)
+        self._delta4_prepare_owner = owner
+        self._delta4_prepare_intent = intent
+
+    def _deactivate_delta4_prepare(self, owner):
+        if self._delta4_prepare_owner is not owner:
+            raise PermissionError('Original `.4` prepare-only owner required')
+        self._delta4_prepare_owner = None
+        self._delta4_prepare_intent = None
+
     def admit(self, intent, context):
         if context is not self.context:
             raise PermissionError('Original private writer context required')
@@ -238,6 +259,18 @@ class PrivatePolicy:
             if not self.initializing or intent['targets'] != expected:
                 raise PermissionError('Original fresh target registry required')
             return
+        if profile == 'ashlar-local-delta-effects/0.1' and self._delta4_prepare_owner is not None:
+            owner = self._delta4_prepare_owner
+            if (context is not self.context or self.active is not None
+                    or self._delta4_prepare_intent is None
+                    or intent != self._delta4_prepare_intent):
+                raise PermissionError('Exact held `.4` whole-plan preparation required')
+            owner._require_current(held=True)
+            owner._check_fresh_heads()
+            owner._retain_source_scope()
+            return
+        if profile == 'ashlar-local-delta-operation/0.1' and self._delta4_prepare_owner is not None:
+            raise PermissionError('`.4` prepare-only scope cannot admit native operations')
         active = self.active
         if active is None:
             raise PermissionError('Original native request admission missing')
