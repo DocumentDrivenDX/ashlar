@@ -445,6 +445,211 @@ def build_delta4_transaction1_effect_plan(plan: ConfiguredLocalDelta4BatchPlan, 
                                            _canonical(steps), _mint=_EFFECT_MINT)
 
 
+_FRESH_HEAD_MINT = object()
+
+
+@dataclass(frozen=True, init=False)
+class ConfiguredLocalDelta4FreshHeadAdmission:
+    """Read-only proof that one journal-pinned six-role installation is fresh and empty."""
+    installation_profile_sha256: str
+    heads_json: str
+    inventory_json: str
+    _identity: tuple
+
+    def __init__(self, installation_profile_sha256, heads_json, inventory_json, *, _mint=None):
+        _require(_mint is _FRESH_HEAD_MINT, "Native fresh `.4` head admission required")
+        for key, value in locals().copy().items():
+            if key not in ("self", "_mint"):
+                object.__setattr__(self, key, value)
+        object.__setattr__(self, "_identity", (installation_profile_sha256, heads_json, inventory_json))
+
+    def require_current(self):
+        _require(self._identity == (self.installation_profile_sha256, self.heads_json,
+                                     self.inventory_json),
+                 "Frozen native fresh `.4` head admission changed")
+
+    @property
+    def heads(self):
+        self.require_current()
+        return decode_retained_json(self.heads_json.encode("utf-8"))
+
+
+def _require_delta4_transport(transport, installation_profile):
+    from .delta_custody import LocalDeltaTransport
+    from ashlar.native import quote_table_identifier
+    _require(type(transport) is LocalDeltaTransport
+             and type(installation_profile) is dict
+             and transport.installation_profile == installation_profile
+             and installation_profile.get("profile") == "ashlar-local-current-installation-profile/0.1"
+             and installation_profile.get("physical_profile") == CARRIER_PROFILE
+             and installation_profile.get("lookup_hash_profile") == LOOKUP_HASH_PROFILE
+             and type(installation_profile.get("roles")) is dict
+             and set(installation_profile["roles"]) == set(INSTALLATION_ROLES)
+             and set(transport.targets) == {"local.configured." + role for role in INSTALLATION_ROLES},
+             "Journal-pinned exact six-role `.4` local installation required")
+    seen_uuids = set()
+    for role in INSTALLATION_ROLES:
+        target = transport.targets["local.configured." + role]
+        profile_role = installation_profile["roles"][role]
+        _require(type(profile_role) is dict and profile_role.get("table") == target.table
+                 and profile_role.get("path") == str(target.path)
+                 and profile_role.get("uuid") == target.uuid,
+                 "Native target UUID/path differs from exact retained `.4` role profile")
+        _uuid(profile_role["uuid"])
+        _require(target.uuid not in seen_uuids, "Unique six-role Delta UUID inventory required")
+        seen_uuids.add(target.uuid)
+        quote_table_identifier(target.table)
+    return _sha(_canonical(installation_profile).encode("utf-8"))
+
+
+def _observe_delta4_role(transport, role, installation_profile):
+    from ashlar.native import quote_table_identifier
+    from ashlar.protocol import validate_protocol_detail
+    from .configured_local_runtime import PROFILE as READER_PROTOCOL
+    target = transport.targets["local.configured." + role]
+    selected = installation_profile["roles"][role]
+    # The path-based proof and table-name proof must resolve to the same Delta
+    # object.  A catalog alias can otherwise point somewhere else while the
+    # path reader still sees the initialized installation.
+    path_detail = transport._detail(target, full=True)
+    _require(type(path_detail) is dict and path_detail.get("id") == target.uuid,
+             "Path-based Delta UUID must match the retained table UUID")
+    detail_result = transport.query("DESCRIBE DETAIL " + quote_table_identifier(target.table), {})
+    _require(type(detail_result.rows) is list and len(detail_result.rows) == 1,
+             "Unique native Delta detail required")
+    detail = detail_result.rows[0]
+    _require(type(detail) is dict and detail.get("id") == target.uuid
+             and detail.get("format") == "delta",
+             "Exact native Delta UUID and format required")
+    normalized = dict(detail)
+    normalized["minReaderVersion"] = str(normalized.get("minReaderVersion"))
+    normalized["minWriterVersion"] = str(normalized.get("minWriterVersion"))
+    features = normalized.get("tableFeatures")
+    _require(type(features) in (list, tuple), "Complete native Delta feature inventory required")
+    normalized["tableFeatures"] = json.dumps(list(features), separators=(",", ":"))
+    protocol = validate_protocol_detail(normalized, uuid=target.uuid, profile=READER_PROTOCOL)
+    _require(protocol == selected.get("protocol"),
+             "Native Delta protocol differs from retained `.4` role profile")
+
+    history = transport.original_history(target)
+    _require(type(history) is list and 0 < len(history) <= 1000
+             and all(type(item) is dict and type(item.get("version")) is int
+                     and 0 <= item["version"] < 2**63 for item in history),
+             "Complete bounded native Delta history required")
+    versions = [item["version"] for item in history]
+    head = max(versions)
+    _require(len(set(versions)) == len(versions)
+             and head < len(versions)
+             and sorted(versions) == list(range(len(versions)))
+             and versions.count(head) == 1,
+             "Unique contiguous native Delta history from version zero through current head required")
+
+    native = (transport.spark.read.format("delta").option("versionAsOf", head)
+              .load(str(target.path)).schema)
+    kind_names = {"string": "STRING", "long": "BIGINT", "timestamp": "TIMESTAMP"}
+    actual_fields = tuple((field.name, kind_names.get(field.dataType.typeName()), field.nullable)
+                          for field in native.fields)
+    expected_fields = tuple((name, kind, nullable) for name, kind, nullable in selected["fields"])
+    _require(actual_fields == expected_fields,
+             "Pinned native schema differs from retained `.4` UMF role fields")
+    return target, head, protocol, actual_fields
+
+
+def admit_delta4_fresh_empty_installation(transport, installation_profile):
+    """Read-only fresh-empty gate for all six initialized `.4` local roles."""
+    from ashlar.native import quote_table_identifier
+    profile_sha = _require_delta4_transport(transport, installation_profile)
+    heads = {}
+    inventory = {}
+    for role in INSTALLATION_ROLES:
+        target, version, protocol, fields = _observe_delta4_role(transport, role, installation_profile)
+        table = quote_table_identifier(target.table)
+        count_result = transport.query("SELECT count(*) AS row_count FROM " + table
+                                       + " VERSION AS OF " + str(version), {})
+        _require(count_result.columns == (("row_count", "BIGINT"),)
+                 and type(count_result.rows) is list and len(count_result.rows) == 1
+                 and type(count_result.rows[0].get("row_count")) is int
+                 and count_result.rows[0]["row_count"] == 0,
+                 "All six fresh `.4` native heads must be empty")
+        versions = [entry["version"] for entry in transport.original_history(target)]
+        _require(sorted(versions) == [0, 1] and version == 1,
+                 "Fresh initialized `.4` role must have only CREATE and installation registration commits")
+        heads[role] = {"uuid": target.uuid, "version": version}
+        inventory[role] = {"name": target.table, "uuid": target.uuid, "version": version,
+                           "schemaSha256": _sha(_canonical(fields).encode("utf-8")),
+                           "protocolSha256": _sha(_canonical(protocol).encode("utf-8"))}
+    for table_name in ("local_operation", "local_plan", "local_publication_artifact",
+                       "local_source_plan"):
+        row = transport.db.execute("SELECT count(*) FROM " + table_name).fetchone()
+        _require(row == (0,), "Fresh `.4` operation journal must contain no prior publication intent")
+    return ConfiguredLocalDelta4FreshHeadAdmission(profile_sha, _canonical(heads),
+                                                    _canonical(inventory), _mint=_FRESH_HEAD_MINT)
+
+
+def validate_delta4_transaction1_snapshots(plan: ConfiguredLocalDelta4BatchPlan, transport,
+                                           installation_profile: dict,
+                                           fresh: ConfiguredLocalDelta4FreshHeadAdmission, *,
+                                           lookup_hashes: dict, effect_versions: dict):
+    """Compare four pinned `.4` role bags after the three retained INSERT effects.
+
+    Successful historical reads prove those Delta snapshots are readable now;
+    this result does not establish a future retention window or ACK authority.
+    """
+    from ashlar.effect_validation import validate_effect_snapshot
+    from ashlar.native import quote_table_identifier
+    profile_sha = _require_delta4_transport(transport, installation_profile)
+    _require(type(plan) is ConfiguredLocalDelta4BatchPlan
+             and type(fresh) is ConfiguredLocalDelta4FreshHeadAdmission)
+    plan.require_current(); fresh.require_current()
+    _require(fresh.installation_profile_sha256 == profile_sha
+             and type(effect_versions) is dict and set(effect_versions) == set(DATA_ROLES)
+             and all(type(value) is int and 0 <= value < 2**63 for value in effect_versions.values()),
+             "Exact four-role post-effect version vector and matching fresh admission required")
+    baseline = fresh.heads
+    for role in DATA_ROLES:
+        delta = 0 if role == "tombstone" else 1
+        _require(effect_versions[role] == baseline[role]["version"] + delta,
+                 "One-shot `.4` role version must follow its exact fresh head by the fixed INSERT count")
+    expected_rows = materialize_delta4_expected_rows(plan, lookup_hashes)
+    carriers = load_current_managed_carriers(CARRIER_PROFILE)
+    observed = {}
+    inventory = {}
+    for role in INSTALLATION_ROLES:
+        target, version, protocol, fields = _observe_delta4_role(transport, role, installation_profile)
+        if role in ("publication_attempt_phase", "publication_manifest"):
+            _require(version == baseline[role]["version"],
+                     "`.4` metadata roles must remain at their fresh versions after transaction-1")
+        if role in DATA_ROLES:
+            expected_version = effect_versions[role]
+            _require(version == expected_version,
+                     "Native `.4` current head differs from exact expected role version")
+            columns = tuple((name, kind) for name, kind, _nullable in carriers.ordered_fields(role))
+            string_rows = [{name: (str(value) if type(value) is int else value)
+                            for name, value in row.items()} for row in expected_rows[role]]
+            validate_effect_snapshot(transport, target.table, target.uuid, version, columns,
+                                     string_rows)
+            if role in ("object_current", "edge_current"):
+                from .local_current_carrier_profile import verify_local_xxhash64_snapshot
+                hash_role_count = verify_local_xxhash64_snapshot(transport.spark, target.path,
+                                                                  version, role)
+                _require(hash_role_count == len(expected_rows[role]),
+                         "Complete native `.4` xxhash64 full-key snapshot required")
+            observed[role] = {"uuid": target.uuid, "version": version,
+                              "rows": len(expected_rows[role])}
+        inventory[role] = {"name": target.table, "uuid": target.uuid, "version": version,
+                           "schemaSha256": _sha(_canonical(fields).encode("utf-8")),
+                           "protocolSha256": _sha(_canonical(protocol).encode("utf-8"))}
+    return {"profile": "ashlar-configured-local-delta4-snapshot-admission/0.1",
+            "carrierProfile": CARRIER_PROFILE,
+            "requestDigest": plan.request["request_digest"],
+            "installationProfileSha256": profile_sha,
+            "freshHeadsSha256": _sha(fresh.heads_json.encode("utf-8")),
+            "dataRoles": observed,
+            "installationInventory": inventory,
+            "snapshotReadability": "pinned snapshots readable at observation time; future retention not established",
+            "protectedAck": False}
+
+
 def build_delta4_realized_vector(manifest_row: dict, installation: dict):
     """Bind six-role observations to a separately retained manifest row.
 
