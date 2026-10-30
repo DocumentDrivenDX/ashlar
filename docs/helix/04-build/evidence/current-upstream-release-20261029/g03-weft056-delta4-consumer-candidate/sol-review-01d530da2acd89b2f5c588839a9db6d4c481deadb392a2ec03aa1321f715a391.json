@@ -1,0 +1,25 @@
+{
+  "profile": "ashlar-g03-delta4-txn1-sol-packet-review/0.1",
+  "packetTreeSha256": "01d530da2acd89b2f5c588839a9db6d4c481deadb392a2ec03aa1321f715a391",
+  "sourceCommit": "45c71c9f2adebc98e2c3113be008126cd1c580a0",
+  "review": "accepted-for-one-fresh-local-effects-attempt",
+  "reviewedScope": "initialize six local Delta 0.4 roles; native prepared/applying; three typed-graph-1 graph INSERT effects; verify complete native bags, receipts and terminal heads; stop before applied, manifest, consumer and ACK",
+  "limits": {
+    "wallSeconds": 450,
+    "processTreeRssBytes": 2147483648,
+    "attemptBytes": 536870912,
+    "combinedStdoutStderrBytes": 1048576,
+    "sparkSessionsAtOnce": 1,
+    "cloud": false,
+    "scale": false,
+    "retry": false
+  },
+  "checks": {
+    "packetTests": "6 passed under pinned R16 Python 3.12.14",
+    "runtimeAssets": "pinned Python, PySpark 4.2.0, Delta 4.4.1, Java 21, JARs, wheels and clean exact-commit UMF producer preflight passed without Spark",
+    "sourceAndOracle": "four frozen source inputs plus source-oracle.json match packet digests",
+    "sourceTree": "src/ashlar and src/ashlar_host match reviewed source-directory digests",
+    "supervisor": "fresh private attempt, one-shot dispatch, bounded resources, process-group cleanup before a second Spark session"
+  },
+  "claimLimit": "local historical-UMF G03 effects evidence only; does not qualify selected UMF SDK 0.5.8 / Core 0.10.3, Weft 0.4.56 native consumer, Truss, managed production, publication or ACK"
+}
