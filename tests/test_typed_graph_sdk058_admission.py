@@ -12,6 +12,7 @@ from ashlar_host.typed_graph_sdk058_admission import (
     admit_typed_graph_sdk058,
     admit_typed_graph_sdk058_policy,
 )
+from ashlar_host.configured_source_local import _Sdk058TypedGraphConfiguration
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / 'docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030'
@@ -55,6 +56,16 @@ class TypedGraphSdk058AdmissionTests(unittest.TestCase):
         self.assertEqual(policy.producer_revision, SDK058_PRODUCER_REVISION)
         self.assertEqual(policy.request_bytes, build_typed_graph_request(self.configuration))
         self.assertEqual(self.manifest['profile'], SDK058_ADMISSION_PROFILE)
+
+    def test_local_cutover_wraps_source_config_without_changing_historical_default(self):
+        wrapped=_Sdk058TypedGraphConfiguration.admitted(
+            self.configuration,None,self.release_bytes)
+        self.assertIsNone(self.configuration.policy)
+        self.assertIsNone(self.configuration.original_receipt)
+        self.assertEqual(self.configuration.producer_revision,GRAPH_CHECK_PIN)
+        self.assertEqual(wrapped.policy.producer_revision,SDK058_PRODUCER_REVISION)
+        self.assertEqual(wrapped.policy_revision,SDK058_PRODUCER_REVISION)
+        wrapped.verify()
 
     def test_manifest_mismatch_refuses_before_execution(self):
         altered = dict(self.manifest, sourceSha256='0' * 64)

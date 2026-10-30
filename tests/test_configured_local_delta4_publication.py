@@ -13,6 +13,7 @@ from ashlar_host.configured_local_delta4_publication import (
     materialize_delta4_expected_rows,
     observe_delta4_lookup_hashes,
     plan_configured_local_delta4_transaction1,
+    _valid_installation_profile_identity,
 )
 from ashlar_host.managed_current_carriers import load_current_managed_carriers
 from ashlar_host.delta_custody import LocalDeltaTransport
@@ -23,6 +24,37 @@ CONFIG = ROOT / "examples/end-to-end/configured-typed-graph-source.json"
 
 
 class Tests(unittest.TestCase):
+    def test_sdk058_installation_identity_requires_exact_selected_bridge_and_policy(self):
+        from ashlar_host.local_current_delta4_umf_sdk058 import (
+            BRIDGE_SHA256, BUILD_INPUTS_SHA256, LOCAL_TARGET_PROFILE, MANIFEST_SHA256,
+            UMF_REALIZATION_PROFILE,
+        )
+        from ashlar_host.typed_graph_sdk058_admission import (
+            SDK058_ARCHIVE_SHA256, SDK058_PRODUCER_REVISION, SDK058_SOURCE_COMMIT,
+            SDK058_SOURCE_TREE, SDK058_TAG_COMMIT,
+        )
+        profile={
+            "profile":"ashlar-local-current-installation-profile/0.2",
+            "physical_profile":"ashlar-delta/0.4-xxhash64",
+            "lookup_hash_profile":"spark-xxhash64-typed-key/0.1",
+            "generated_carriers_sha256":"cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa",
+            "source_policy_revision":SDK058_PRODUCER_REVISION,
+            "umf_revision":"0.5.8","umf_candidate_commit":SDK058_SOURCE_COMMIT,
+            "umf_selected_tag_commit":SDK058_TAG_COMMIT,"umf_source_tree":SDK058_SOURCE_TREE,
+            "umf_archive_sha256":SDK058_ARCHIVE_SHA256,
+            "local_realization":LOCAL_TARGET_PROFILE,
+            "umf_realization_profile":UMF_REALIZATION_PROFILE,
+            "umf_realization_manifest_sha256":MANIFEST_SHA256,
+            "umf_bridge_sha256":BRIDGE_SHA256,"umf_build_inputs_sha256":BUILD_INPUTS_SHA256,
+            "writer_settings":[{"key":"spark.sql.parquet.compression.codec","value":"zstd"}],
+            "roles":{},
+        }
+        self.assertTrue(_valid_installation_profile_identity(profile))
+        self.assertFalse(_valid_installation_profile_identity(
+            dict(profile,source_policy_revision="2ede4c879bea5db13794a6fa30e67c821306c17f")))
+        self.assertFalse(_valid_installation_profile_identity(
+            dict(profile,umf_bridge_sha256="0"*64)))
+
     def plan(self):
         configuration = load_typed_graph_jsonl_configuration(CONFIG.resolve())
         return plan_configured_local_delta4_transaction1(

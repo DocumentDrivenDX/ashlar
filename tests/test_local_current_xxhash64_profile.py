@@ -17,7 +17,8 @@ from ashlar_host.truss_graph_admission import TrussGraphAdmission
 from ashlar_host.driver import NativeDriver
 from ashlar_host.delta_custody import DeltaTarget
 from ashlar_host.local_current_carrier_profile import (
-    _observed_role, _protocol, apply_local_writer_settings, create_local_current_xxhash64_tables,
+    _observed_role, _protocol, SDK058_PROFILE, apply_local_writer_settings,
+    create_local_current_xxhash64_tables, create_local_current_xxhash64_sdk058_tables,
     verify_local_writer_settings,
 )
 from ashlar_host.truss_note_publication import native_xxhash64,graph_expected_rows
@@ -205,6 +206,8 @@ class LocalCurrentXxhash64ProfileTests(unittest.TestCase):
                        side_effect=inert_observation):
                 targets,profile,columns=create_local_current_xxhash64_tables(spark,output,tables)
             self.assertEqual(len(targets),6)
+            self.assertEqual(profile['profile'],'ashlar-local-current-installation-profile/0.1')
+            self.assertEqual(profile['umf_revision'],'2ede4c879bea5db13794a6fa30e67c821306c17f')
             self.assertEqual(len(observed),6)
             self.assertEqual(len(spark.statements),6)
             self.assertEqual(set(profile['roles']),set(roles))
@@ -214,6 +217,39 @@ class LocalCurrentXxhash64ProfileTests(unittest.TestCase):
             self.assertTrue(all(statement.startswith('CREATE TABLE delta.`')
                                 and 'USING DELTA' in statement and ' LOCATION ' not in statement
                                 for statement in spark.statements))
+
+    def test_sdk058_creator_is_explicit_and_keeps_six_role_identity_closed(self):
+        class Conf:
+            value=None
+            def set(self,key,value):self.value=(key,value)
+            def get(self,key):return self.value[1] if self.value and self.value[0]==key else None
+        class Spark:
+            def __init__(self):self.statements=[];self.conf=Conf()
+            def sql(self,statement):self.statements.append(statement)
+        with tempfile.TemporaryDirectory() as temporary:
+            output=Path(temporary).resolve()/'sdk058';output.mkdir()
+            roles=('object_current','edge_current','tombstone','whole_source_history','attempts','manifest')
+            tables={role:'local.configured.'+role for role in roles}
+            def inert_observation(spark,carrier_role,table,path,fields,layout,field_metadata=None):
+                path.mkdir()
+                return DeltaTarget(table,path,'uuid-'+carrier_role),{
+                    'carrier_role':carrier_role,'table':table,'path':str(path),
+                    'uuid':'uuid-'+carrier_role,'fields':[list(field) for field in fields],
+                    'field_metadata':[dict(item) for item in field_metadata],
+                    'protocol':{},'clustering_columns':layout.get('clusterBy',[]),
+                    'partition_columns':layout.get('partitionBy',[]),
+                    'layout_properties':layout.get('properties',{})}
+            with patch('ashlar_host.local_current_carrier_profile._observed_role',
+                       side_effect=inert_observation):
+                targets,profile,columns=create_local_current_xxhash64_sdk058_tables(
+                    Spark(),output,tables,table_prefix='local.configured')
+            self.assertEqual(profile['profile'],SDK058_PROFILE)
+            self.assertEqual(profile['umf_revision'],'0.5.8')
+            self.assertEqual(profile['umf_candidate_commit'],'855f6c48649496fc60b3303798790d0ddb55d38f')
+            self.assertEqual(profile['umf_selected_tag_commit'],'efb4042719866888ad80c01cb2da694972eb2738')
+            self.assertEqual(set(profile['roles']),set(roles))
+            self.assertEqual(len({target.uuid for target in targets}),6)
+            self.assertEqual(set(columns),set(roles))
 
     def test_writer_settings_apply_before_work_and_reopen_verification_never_repairs(self):
         class Conf:

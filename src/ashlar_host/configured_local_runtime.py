@@ -45,6 +45,7 @@ class ConfiguredLocalRuntimeConfig:
     installation_sha256:Optional[str]
     jar_inventory:Optional[Mapping]=None
     carrier_profile:str='ashlar-delta/0.3'
+    sdk058_admission:object=None
     def __post_init__(self):
         for path in (self.installation,self.output,self.jars,self.java_home):_path(path)
         _require(type(self.admission)is ConfiguredSourceAdmissionConfig);self.admission.__post_init__()
@@ -61,14 +62,26 @@ class ConfiguredLocalRuntimeConfig:
         _require(type(self.stream)is str and 0<len(self.stream.encode())<=1024 and '\0'not in self.stream)
         _require(type(self.installation_id)is str and re.fullmatch('[A-Za-z0-9][A-Za-z0-9:_-]{0,127}',self.installation_id)is not None)
         _require(type(self.carrier_profile)is str and self.carrier_profile in CONFIGURED_LOCAL_CARRIERS)
+        _require(self.sdk058_admission is None or self.carrier_profile=='ashlar-delta/0.4-xxhash64')
+        if self.sdk058_admission is not None:
+            from .typed_graph_sdk058_admission import TypedGraphSdk058AdmissionConfig
+            _require(type(self.sdk058_admission)is TypedGraphSdk058AdmissionConfig)
+            self.sdk058_admission.__post_init__()
         token=self.materialization_clock_us
         _require(type(token)is str and re.fullmatch('0|[1-9][0-9]{0,18}',token)is not None and int(token)<2**63)
         try:datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc)+datetime.timedelta(microseconds=int(token))
         except OverflowError:raise ValueError('Configured local clock outside finite UTC range')from None
         _require(self.installation_sha256 is None or type(self.installation_sha256)is str and re.fullmatch('[0-9a-f]{64}',self.installation_sha256)is not None)
         object.__setattr__(self,'operation_capacity',operation_capacity(self.operation_capacity))
+        protected_paths=[self.admission.configuration,self.admission.producer.source,
+            self.admission.producer.bun,self.admission.producer.git,self.jars,self.java_home]
+        if self.sdk058_admission is not None:
+            protected_paths.extend((self.sdk058_admission.node,self.sdk058_admission.sdk_package_root,
+                self.sdk058_admission.sdk_archive,self.sdk058_admission.producer_closure,
+                self.sdk058_admission.producer_receipt,self.sdk058_admission.install_custody,
+                self.sdk058_admission.source_admission_manifest))
         for path in (self.installation,self.output):
-            for original in (self.admission.configuration,self.admission.producer.source,self.admission.producer.bun,self.admission.producer.git,self.jars,self.java_home):
+            for original in protected_paths:
                 _require(path!=original and path not in original.parents and original not in path.parents)
 
 
@@ -146,11 +159,14 @@ def _create_configured_xxhash64_tables(spark,installation,tables,creator):
     """Call the pinned UMF six-role realization with this installation's aliases."""
     _require(isinstance(installation,Path) and installation.is_absolute() and installation.resolve()==installation)
     created,profile,_schemas=creator(spark,installation,tables,table_prefix='local.configured')
-    profile_keys={'profile','physical_profile','lookup_hash_profile','generated_carriers_sha256','umf_revision',
+    base_profile_keys={'profile','physical_profile','lookup_hash_profile','generated_carriers_sha256','umf_revision',
         'local_realization','umf_realization_profile','umf_candidate_commit','umf_realization_manifest_sha256',
         'umf_bridge_sha256','umf_build_inputs_sha256','writer_settings','roles'}
-    _require(type(profile)is dict and set(profile)==profile_keys
-        and profile.get('profile')=='ashlar-local-current-installation-profile/0.1'
+    sdk058=type(profile)is dict and profile.get('profile')=='ashlar-local-current-installation-profile/0.2'
+    expected_keys=(base_profile_keys|{'source_policy_revision','umf_selected_tag_commit','umf_source_tree','umf_archive_sha256'}
+                   if sdk058 else base_profile_keys)
+    _require(type(profile)is dict and set(profile)==expected_keys
+        and profile.get('profile')==('ashlar-local-current-installation-profile/0.2' if sdk058 else 'ashlar-local-current-installation-profile/0.1')
         and profile.get('physical_profile')=='ashlar-delta/0.4-xxhash64'
         and profile.get('lookup_hash_profile')=='spark-xxhash64-typed-key/0.1'
         and type(profile.get('roles'))is dict and set(profile['roles'])==set(tables))
@@ -175,6 +191,9 @@ def _scope(config,source):
             'configuration_sha256':hashlib.sha256(source.configuration_file.raw).hexdigest(),'source_sha256':hashlib.sha256(source.original_source).hexdigest(),
             'model_sha256':source.configuration.model_sha256,'operation_capacity':None if config.operation_capacity is None else dict(config.operation_capacity)}
     if config.carrier_profile!='ashlar-delta/0.3':scope['physical_profile']=config.carrier_profile
+    if config.sdk058_admission is not None:
+        from .typed_graph_sdk058_admission import SDK058_PRODUCER_REVISION
+        scope['typed_graph_policy_revision']=SDK058_PRODUCER_REVISION
     return scope
 
 
@@ -247,8 +266,10 @@ class ConfiguredLocalAdmission:
 
 
 def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
-    _require(type(config)is ConfiguredLocalRuntimeConfig);config.__post_init__();jars=_runtime(config)
+    _require(type(config)is ConfiguredLocalRuntimeConfig);config.__post_init__()
     initialize=ordinal is None
+    _require(config.sdk058_admission is None or initialize)
+    jars=_runtime(config)
     # The .4 installer is separately versioned and intentionally has no
     # continuation, publication, read, or query route until those consumers
     # bind its six-role carrier profile and complete vector.
@@ -279,7 +300,12 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
     try:
         if initialize:config.installation.mkdir(mode=0o700)
         lease=PrivateFiniteLease(config.installation,create=initialize)
-        context=object();source_manager=open_configured_local_source(config.admission,stream=config.stream,context=context);source=source_manager.__enter__()
+        context=object()
+        if config.sdk058_admission is None:
+            source_manager=open_configured_local_source(config.admission,stream=config.stream,context=context)
+        else:
+            source_manager=open_configured_local_source(config.admission,stream=config.stream,context=context,sdk058_admission=config.sdk058_admission)
+        source=source_manager.__enter__()
         _require(not export or source.graph)
         if query is not None:_require(type(query)is not ConfiguredSdkPagesConfig or source.graph)
         _require(selector is None or selector[0]in source.type_ids)
@@ -298,9 +324,15 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
         if initialize:
             carrier_profile_record=None
             if config.carrier_profile=='ashlar-delta/0.4-xxhash64':
-                from .local_current_carrier_profile import create_local_current_xxhash64_tables
+                from .local_current_carrier_profile import (
+                    create_local_current_xxhash64_tables,
+                    create_local_current_xxhash64_sdk058_tables,
+                )
+                creator=(create_local_current_xxhash64_sdk058_tables
+                         if config.sdk058_admission is not None
+                         else create_local_current_xxhash64_tables)
                 targets,carrier_profile_record,_=_create_configured_xxhash64_tables(
-                    spark,config.installation,tables,create_local_current_xxhash64_tables)
+                    spark,config.installation,tables,creator)
                 carrier_profile_bytes=(encoded(carrier_profile_record)+'\n').encode()
                 _write(config.installation/'carrier-profile.json',carrier_profile_bytes)
                 carrier_profile_file=InvocationFile.read(config.installation/'carrier-profile.json',65536)
@@ -444,8 +476,13 @@ def run_configured_local_delta4_transaction1(config):
     try:
         lease = PrivateFiniteLease(config.installation, create=False)
         context = object()
-        source_manager = open_configured_local_source(
-            config.admission, stream=config.stream, context=context)
+        if config.sdk058_admission is None:
+            source_manager = open_configured_local_source(
+                config.admission, stream=config.stream, context=context)
+        else:
+            source_manager = open_configured_local_source(
+                config.admission, stream=config.stream, context=context,
+                sdk058_admission=config.sdk058_admission)
         source = source_manager.__enter__()
         _require(source.graph)
         scope = _scope(config, source)
@@ -474,8 +511,9 @@ def run_configured_local_delta4_transaction1(config):
                  and carrier_file.raw.endswith(b'\n'))
         installation_profile = json.loads(carrier_file.raw)
         _require(type(installation_profile) is dict
-                 and installation_profile.get('profile')
-                    == 'ashlar-local-current-installation-profile/0.1'
+                 and installation_profile.get('profile') in (
+                    'ashlar-local-current-installation-profile/0.1',
+                    'ashlar-local-current-installation-profile/0.2')
                  and installation_profile.get('physical_profile')
                     == config.carrier_profile)
 
@@ -508,6 +546,11 @@ def run_configured_local_delta4_transaction1(config):
         # Spark session, so apply the UMF setting here before admission checks
         # the session; admission and close only verify it and never repair drift.
         apply_local_writer_settings(spark)
+        if config.sdk058_admission is not None:
+            from .local_current_carrier_profile import verify_local_current_profile
+            verify_local_current_profile(spark, installation_profile, tuple(
+                DeltaTarget(item['table'],Path(item['path']),item['uuid'])
+                for item in registry['targets']), config.carrier_profile)
 
         policy = PrivatePolicy(context, tuple(targets))
         admission = ConfiguredLocalAdmission(
@@ -519,8 +562,11 @@ def run_configured_local_delta4_transaction1(config):
             installation_profile=installation_profile)
         policy.initializing = False
 
+        source_configuration=(source.configuration.base
+                              if config.sdk058_admission is not None
+                              else source.configuration)
         plan = plan_configured_local_delta4_transaction1(
-            source.configuration, stream=config.stream,
+            source_configuration, stream=config.stream,
             materialized_at_us=config.materialization_clock_us)
         request = source.spec(1, context).request()
         _require(plan.batch_id == 'typed-graph-1' and plan.request == request)

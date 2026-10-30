@@ -9,6 +9,7 @@ from types import MappingProxyType
 from unittest.mock import patch,MagicMock
 import test_configured_source_admission as fixtures
 from ashlar_host.configured_local_runtime import ConfiguredLocalRuntimeConfig,ConfiguredLocalAdmission,initialize_configured_local,publish_configured_local,read_configured_local,run_configured_local_delta4_transaction1,_fields
+from ashlar_host.typed_graph_sdk058_admission import TypedGraphSdk058AdmissionConfig
 from ashlar_host.delta_custody import DeltaTarget
 
 class Row(dict):
@@ -37,6 +38,20 @@ class Spark:
     def stop(self):self.closed=True
 
 class Tests(unittest.TestCase):
+    def test_sdk058_runtime_config_refuses_unqualified_reader_and_publish_routes_pre_runtime(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory).resolve();root.chmod(0o700)
+            config=self.config(root)
+            sdk=TypedGraphSdk058AdmissionConfig(
+                node=root/'node',sdk_package_root=root/'sdk',sdk_archive=root/'sdk.tgz',
+                producer_closure=root/'closure.json',producer_receipt=root/'producer.json',
+                install_custody=root/'install.json',source_admission_manifest=root/'manifest.json')
+            selected=replace(config,carrier_profile='ashlar-delta/0.4-xxhash64',
+                installation_sha256='0'*64,sdk058_admission=sdk)
+            with patch('ashlar_host.configured_local_runtime._runtime') as runtime:
+                with self.assertRaises(ValueError):publish_configured_local(selected,ordinal=1)
+            runtime.assert_not_called()
+
     def config(self,root,carrier_profile='ashlar-delta/0.3'):
         admission=fixtures.Tests().fixture(root)
         output=root/'output';admission=replace(admission,output=output/'admission')

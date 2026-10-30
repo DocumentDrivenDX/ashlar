@@ -240,7 +240,9 @@ class LocalDeltaTransport:
         self.operation_capacity = operation_capacity(capacity)
         if installation_profile is not None:
             if (type(installation_profile) is not dict or len(encoded(installation_profile).encode()) > 65536
-                    or installation_profile.get('profile') != 'ashlar-local-current-installation-profile/0.1'):
+                    or installation_profile.get('profile') not in (
+                        'ashlar-local-current-installation-profile/0.1',
+                        'ashlar-local-current-installation-profile/0.2')):
                 raise LocalDeltaError('Exact bounded local current installation profile required')
             installation_profile = json.loads(encoded(installation_profile))
         self.installation_profile = installation_profile
@@ -376,7 +378,9 @@ class LocalDeltaTransport:
         registry = {'installation': installation_id, 'targets': [{'table': t.table, 'path': str(t.path), 'uuid': t.uuid} for t in sorted(targets, key=lambda t: t.table)]}
         if installation_profile is not None:
             if (type(installation_profile) is not dict or len(encoded(installation_profile).encode()) > 65536
-                    or installation_profile.get('profile') != 'ashlar-local-current-installation-profile/0.1'):
+                    or installation_profile.get('profile') not in (
+                        'ashlar-local-current-installation-profile/0.1',
+                        'ashlar-local-current-installation-profile/0.2')):
                 raise LocalDeltaError('Exact bounded local current installation profile required')
             registry['installation_profile'] = json.loads(encoded(installation_profile))
         selected = operation_capacity(capacity)

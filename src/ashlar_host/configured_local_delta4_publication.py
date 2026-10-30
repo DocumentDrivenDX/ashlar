@@ -60,6 +60,46 @@ def _require(value, message="Configured-local Delta 0.4 publication refused"):
         raise ValueError(message)
 
 
+def _valid_installation_profile_identity(profile):
+    if type(profile) is not dict:
+        return False
+    if profile.get("profile") == "ashlar-local-current-installation-profile/0.1":
+        return True
+    if profile.get("profile") != "ashlar-local-current-installation-profile/0.2":
+        return False
+    from .typed_graph_sdk058_admission import (
+        SDK058_ARCHIVE_SHA256, SDK058_PRODUCER_REVISION, SDK058_SOURCE_COMMIT,
+        SDK058_SOURCE_TREE, SDK058_TAG_COMMIT,
+    )
+    from .local_current_delta4_umf_sdk058 import (
+        BRIDGE_SHA256, BUILD_INPUTS_SHA256, LOCAL_TARGET_PROFILE, MANIFEST_SHA256,
+        UMF_REALIZATION_PROFILE,
+    )
+    expected_keys={"profile","physical_profile","lookup_hash_profile","generated_carriers_sha256",
+        "umf_revision","local_realization","umf_realization_profile","umf_candidate_commit",
+        "umf_selected_tag_commit","umf_source_tree","umf_archive_sha256",
+        "umf_realization_manifest_sha256","umf_bridge_sha256","umf_build_inputs_sha256",
+        "source_policy_revision","writer_settings","roles"}
+    return (set(profile)==expected_keys
+            and profile.get("physical_profile") == CARRIER_PROFILE
+            and profile.get("lookup_hash_profile") == LOOKUP_HASH_PROFILE
+            and profile.get("generated_carriers_sha256") ==
+                "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa"
+            and profile.get("local_realization") == LOCAL_TARGET_PROFILE
+            and profile.get("writer_settings") == [
+                {"key":"spark.sql.parquet.compression.codec","value":"zstd"}]
+            and profile.get("source_policy_revision") == SDK058_PRODUCER_REVISION
+            and profile.get("umf_revision") == "0.5.8"
+            and profile.get("umf_candidate_commit") == SDK058_SOURCE_COMMIT
+            and profile.get("umf_selected_tag_commit") == SDK058_TAG_COMMIT
+            and profile.get("umf_source_tree") == SDK058_SOURCE_TREE
+            and profile.get("umf_archive_sha256") == SDK058_ARCHIVE_SHA256
+            and profile.get("umf_realization_profile") == UMF_REALIZATION_PROFILE
+            and profile.get("umf_realization_manifest_sha256") == MANIFEST_SHA256
+            and profile.get("umf_bridge_sha256") == BRIDGE_SHA256
+            and profile.get("umf_build_inputs_sha256") == BUILD_INPUTS_SHA256)
+
+
 def _delta4_profile_role(profile, carrier_role):
     """Resolve one local API alias through the exact retained UMF role map.
 
@@ -376,7 +416,7 @@ def observe_delta4_lookup_hashes(plan: ConfiguredLocalDelta4BatchPlan, transport
     _require(type(transport) is LocalDeltaTransport,
              "Caller-owned local Delta transport required")
     _require(type(installation_profile) is dict
-             and installation_profile.get("profile") == "ashlar-local-current-installation-profile/0.1"
+             and _valid_installation_profile_identity(installation_profile)
              and installation_profile.get("physical_profile") == CARRIER_PROFILE
              and installation_profile.get("lookup_hash_profile") == LOOKUP_HASH_PROFILE
              and type(installation_profile.get("roles")) is dict
@@ -2109,7 +2149,7 @@ def build_delta4_transaction1_effect_plan(plan: ConfiguredLocalDelta4BatchPlan, 
     _require(type(tables) is dict and set(tables) == set(INSTALLATION_ROLES),
              "Exact six-role configured local table map required")
     _require(type(installation_profile) is dict
-             and installation_profile.get("profile") == "ashlar-local-current-installation-profile/0.1"
+             and _valid_installation_profile_identity(installation_profile)
              and installation_profile.get("physical_profile") == CARRIER_PROFILE
              and installation_profile.get("lookup_hash_profile") == LOOKUP_HASH_PROFILE
              and type(installation_profile.get("roles")) is dict
@@ -2212,7 +2252,7 @@ def _require_delta4_transport(transport, installation_profile):
     _require(type(transport) is LocalDeltaTransport
              and type(installation_profile) is dict
              and transport.installation_profile == installation_profile
-             and installation_profile.get("profile") == "ashlar-local-current-installation-profile/0.1"
+             and _valid_installation_profile_identity(installation_profile)
              and installation_profile.get("physical_profile") == CARRIER_PROFILE
              and installation_profile.get("lookup_hash_profile") == LOOKUP_HASH_PROFILE
              and type(installation_profile.get("roles")) is dict
