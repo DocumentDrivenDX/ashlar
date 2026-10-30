@@ -18,6 +18,8 @@ import run_supervisor_r16 as supervisor
 HERE = Path(__file__).resolve().parent
 PACKET = HERE.parent / "truss051-r16-effectfree-candidate-20261029"
 SCOPE_PROPOSAL = HERE / "full-lifecycle-scope-proposal-r16.json"
+FAILURE_EVIDENCE = HERE / "r16-failure-evidence.json"
+APPROVAL = HERE / "approval-r16-exact-one-run.json"
 
 
 class R16SupervisorTests(unittest.TestCase):
@@ -28,11 +30,22 @@ class R16SupervisorTests(unittest.TestCase):
         self.assertEqual(scope["proposal_status"], "proposed_not_approved")
         self.assertIs(scope["approval_artifact_created"], False)
         self.assertIs(scope["native_effects_executed"], False)
-        self.assertEqual(scope["workers"], {
-            "custody_prefix_sha256": digest(HERE / "r16_pre_migration_custody_worker.py"),
-            "migration_readback_sha256": digest(HERE / "r16_post_migration_admission.py"),
-            "supervisor_sha256": digest(HERE / "run_supervisor_r16.py"),
-        })
+        # The spent R16 scope is historical and remains bound to the bytes it
+        # approved. The corrected worker is a new candidate, never a mutation
+        # of that one-run scope.
+        self.assertEqual(scope["workers"]["custody_prefix_sha256"],
+                         "ffd5ded577b0674aca19d4ffce1adf1c38ceefae31dae2b1ae4e021333107e10")
+        self.assertNotEqual(scope["workers"]["custody_prefix_sha256"],
+                            digest(HERE / "r16_pre_migration_custody_worker.py"))
+        self.assertEqual(scope["workers"]["migration_readback_sha256"],
+                         digest(HERE / "r16_post_migration_admission.py"))
+        self.assertEqual(scope["workers"]["supervisor_sha256"],
+                         digest(HERE / "run_supervisor_r16.py"))
+        failure = json.loads(FAILURE_EVIDENCE.read_bytes())
+        self.assertEqual(failure["scope_sha256"], digest(SCOPE_PROPOSAL))
+        self.assertEqual(failure["approval_sha256"], digest(APPROVAL))
+        self.assertEqual(failure["effect_boundary"]["postgres_start_intent_present"], False)
+        self.assertEqual(failure["attempt"]["status"], "failed_before_postgres_start")
         self.assertEqual(scope["source_custody"]["expected_genesis_checkpoint_sha256"],
                          "c74e4c2dd697421f26a378454ec489bcb83501a4997235b670bdb011e4e7be8e")
         prefix = __import__("r16_pre_migration_custody_worker")
@@ -53,8 +66,6 @@ class R16SupervisorTests(unittest.TestCase):
         self.assertIn("historical acceptance-origin file are absent", " ".join(scope["proposal_gates"]))
         self.assertIn("local_truss_acceptance_trial", scope["seed_custody"]["semantic_approval_proposal"])
         root = Path(scope["output_root"])
-        self.assertFalse(root.exists())
-        self.assertFalse(Path(scope["supervisor_output_directory"]).exists())
         self.assertEqual(scope["limits"]["process_group_rss_bytes_max"], 2147483648)
         self.assertEqual(scope["limits"]["attempt_entries_max"], 10000)
         self.assertTrue(Path(scope["state_custody"]["restored_pgdata_path"]).is_relative_to(root))

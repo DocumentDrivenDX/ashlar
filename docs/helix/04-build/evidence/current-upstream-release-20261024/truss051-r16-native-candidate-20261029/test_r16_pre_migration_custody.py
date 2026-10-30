@@ -86,6 +86,74 @@ def scope_for(root):
 
 
 class CustodyPrefixTests(unittest.TestCase):
+    def test_inventory_ignores_unrelated_process_mentions_of_target_path(self):
+        target = Path("/tmp/attempt/restored")
+        rows, count, matched = worker._postgres_path_owners(
+            f"42 python inspect {target}\n43 /bin/zsh -c 'find {target}\n44 helper unmatched'\n",
+            (target,),
+        )
+        self.assertEqual(rows, [])
+        self.assertEqual(count, 0)
+        self.assertEqual(matched, set())
+
+    def test_inventory_blocks_postgres_and_pg_ctl_owners(self):
+        target = Path("/tmp/attempt/restored")
+        output = (f"42 /usr/local/bin/postgres -D {target}\n"
+                  f"43 /usr/local/bin/pg_ctl --pgdata={target} status\n"
+                  f"44 postgres -D{target}\n45 postgres --pgdata={target}\n")
+        rows, count, matched = worker._postgres_path_owners(output, (target,))
+        self.assertEqual([row["executable"] for row in rows], ["postgres", "pg_ctl", "postgres", "postgres"])
+        self.assertTrue(all(row["pgdata_path"] == str(target) for row in rows))
+        self.assertEqual(count, 4)
+        self.assertEqual(matched, {str(target)})
+
+    def test_inventory_normalizes_lexical_pgdata_variants(self):
+        target = Path("/tmp/attempt/restored")
+        output = ("42 postgres -D /tmp/attempt/./restored/\n"
+                  "43 pg_ctl --pgdata=/tmp/attempt/other/../restored\n")
+        rows, count, _matched = worker._postgres_path_owners(output, (target,))
+        self.assertEqual([row["pid"] for row in rows], ["42", "43"])
+        self.assertEqual(count, 2)
+
+    def test_inventory_malformed_or_unavailable_output_refuses(self):
+        target = Path("/tmp/attempt/restored")
+        with self.assertRaisesRegex(worker.StopRun, "malformed process inventory"):
+            worker._postgres_path_owners("not-a-pid postgres -D /tmp/attempt/restored\n", (target,))
+        with self.assertRaisesRegex(worker.StopRun, "malformed PostgreSQL process command"):
+            worker._postgres_path_owners("42 postgres 'unterminated\n", (target,))
+
+    def test_unavailable_inventory_stops_before_start(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); scope = scope_for(root); calls = []
+            ops = self._ops(scope, calls)
+            ops["process_inventory"] = lambda: subprocess.CompletedProcess([], 1, "", "ps unavailable")
+            with patch.object(worker, "_verify_static_inputs", return_value=Path("/fake/pg_ctl")):
+                with self.assertRaisesRegex(worker.StopRun, "process inventory unavailable"):
+                    worker.run_prefix(scope, root, Path("/fake/helper"), operations=ops)
+            self.assertNotIn("start", calls)
+
+    def test_owned_process_receipt_is_sanitized_and_durable_before_refusal(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); scope = scope_for(root); calls = []
+            target = Path(scope["state_custody"]["selected_incomplete_pgdata_path"])
+            inventory = f"42 postgres -D {target}\n43 helper secret-token\n"
+            ops = self._ops(scope, calls)
+            ops["process_inventory"] = lambda: subprocess.CompletedProcess([], 0, inventory, "")
+            with patch.object(worker, "_verify_static_inputs", return_value=Path("/fake/pg_ctl")):
+                with self.assertRaisesRegex(worker.StopRun, "owns selected/restored PGDATA"):
+                    worker.run_prefix(scope, root, Path("/fake/helper"), operations=ops)
+            attempt = Path(scope["output_root"])
+            receipt = json.loads((attempt / "pre-start-process-inventory.json").read_bytes())
+            self.assertEqual(receipt["output_sha256"], hashlib.sha256(inventory.encode()).hexdigest())
+            self.assertEqual(receipt["output_bytes"], len(inventory.encode()))
+            self.assertEqual(receipt["owners"], [{"pid": "42", "executable": "postgres",
+                                                  "pgdata_path": str(target)}])
+            self.assertEqual(receipt["owner_count"], 1)
+            self.assertFalse(receipt["owners_truncated"])
+            self.assertFalse((attempt / "pre-start-process-inventory.txt").exists())
+            self.assertNotIn("secret-token", json.dumps(receipt))
+            self.assertNotIn("start", calls)
+
     def test_template_nulls_fail_before_creating_or_copying_anything(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()

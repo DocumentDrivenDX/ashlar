@@ -8,6 +8,7 @@ import json
 import os
 import platform
 import signal
+import shlex
 import shutil
 import subprocess
 import sys
@@ -39,10 +40,57 @@ FROZEN_SOURCE_CUSTODY = {
 }
 MAX_TREE_BYTES = 512 * 1024 * 1024
 MAX_HELPER_OUTPUT = 2 * 1024 * 1024
+MAX_PROCESS_OWNER_ROWS = 256
 
 
 class StopRun(RuntimeError):
     pass
+
+
+def _postgres_path_owners(output: str, targets: tuple[Path, ...]) -> tuple[list[dict[str, str]], int, set[str]]:
+    """Parse `ps -Ao pid=,command=` and return postgres/pg_ctl owners of targets.
+
+    Any malformed nonempty row refuses admission: incomplete inventories must
+    never be interpreted as evidence that a target is unowned.
+    """
+    owners = []
+    owner_count = 0
+    matched_targets: set[str] = set()
+    for line_number, line in enumerate(output.splitlines(), 1):
+        if not line.strip():
+            continue
+        fields = line.strip().split(None, 1)
+        if len(fields) != 2 or not fields[0].isdecimal():
+            raise StopRun(f"malformed process inventory row {line_number}")
+        command = fields[1]
+        executable_token = command.split(None, 1)[0].strip("'\"") if command.split(None, 1) else ""
+        executable = Path(executable_token).name
+        if executable not in {"postgres", "pg_ctl"}:
+            continue
+        try:
+            argv = shlex.split(command)
+        except ValueError as exc:
+            raise StopRun(f"malformed PostgreSQL process command row {line_number}") from exc
+        if not argv:
+            raise StopRun(f"malformed process command row {line_number}")
+        for target in targets:
+            target_text = str(target)
+            normalized_target = os.path.normpath(target_text)
+            data_paths = []
+            for index, arg in enumerate(argv):
+                if arg in {"-D", "--pgdata"} and index + 1 < len(argv):
+                    data_paths.append(argv[index + 1])
+                elif arg.startswith("-D") and len(arg) > 2:
+                    data_paths.append(arg[2:])
+                elif arg.startswith("--pgdata="):
+                    data_paths.append(arg.split("=", 1)[1])
+            if any(os.path.normpath(candidate) == normalized_target for candidate in data_paths):
+                owner_count += 1
+                matched_targets.add(target_text)
+                if len(owners) < MAX_PROCESS_OWNER_ROWS:
+                    owners.append({"pid": fields[0], "executable": executable,
+                                   "pgdata_path": target_text})
+    return owners, owner_count, matched_targets
 
 
 _EFFECT_STATE = {"phase": "none", "native_effects": "none", "effects_may_remain": False}
@@ -356,17 +404,22 @@ def run_prefix(scope: dict, source_root: Path, helper: Path, *, stage: Callable[
                                   )()
     if process_check.returncode:
         raise StopRun("fresh local process inventory unavailable")
-    process_bytes = process_check.stdout.encode()
+    if not isinstance(process_check.stdout, str):
+        raise StopRun("fresh process inventory output is not text")
+    process_bytes = process_check.stdout.encode("utf-8", errors="strict")
     if len(process_bytes) > 1024 * 1024:
         raise StopRun("fresh process inventory exceeds 1 MiB bound")
-    if any(str(path) in process_check.stdout for path in (selected, restored)):
-        raise StopRun("live PostgreSQL process references selected/restored PGDATA")
+    owners, owner_count, matched_targets = _postgres_path_owners(process_check.stdout, (selected, restored))
     write_new(attempt / "pre-start-process-inventory.json", {
         "profile": "ashlar-r16-process-inventory/0.1", "command": "/bin/ps -Ao pid=,command=",
         "output_sha256": hashlib.sha256(process_bytes).hexdigest(),
         "output_bytes": len(process_bytes), "returncode": process_check.returncode,
-        "selected_pgdata_reference": False, "restored_pgdata_reference": False,
-        "process_inventory_complete": True})
+        "selected_pgdata_reference": str(selected) in matched_targets,
+        "restored_pgdata_reference": str(restored) in matched_targets,
+        "owners": owners, "owner_count": owner_count,
+        "owners_truncated": owner_count > len(owners), "process_inventory_complete": True})
+    if owner_count:
+        raise StopRun("live PostgreSQL/pg_ctl process owns selected/restored PGDATA")
 
     socket_dir = Path(runtime["socket_directory"])
     socket_dir.mkdir(mode=0o700, parents=True, exist_ok=False)

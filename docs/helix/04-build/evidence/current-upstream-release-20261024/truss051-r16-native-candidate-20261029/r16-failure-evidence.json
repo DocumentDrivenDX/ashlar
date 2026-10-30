@@ -1,0 +1,89 @@
+{
+  "profile": "ashlar-truss051-r16-failure-evidence/0.1",
+  "scope_sha256": "911cdefe6d9ee68d8a55b14ceff6640dba21384d7b59c3d082c10ae069acb5a0",
+  "approval_sha256": "d2a3b206cc5fdf095f1f74499ddfe431dfadb3f9535bb3bc336efdd5d36d4b64",
+  "attempt": {
+    "attempt_root": "/private/tmp/ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca",
+    "supervisor_root": "/private/tmp/ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca-supervisor",
+    "child_launch_observed_at": "2026-10-29T21:17:59-04:00",
+    "delta4_bridge_probe_observed_at": "2026-10-29T21:20:00-04:00",
+    "prestart_refusal_observed_at": "2026-10-29T21:23:03-04:00",
+    "child_runtime_seconds": 305.595,
+    "child_returncode": 2,
+    "status": "failed_before_postgres_start"
+  },
+  "failure": {
+    "reason": "StopRun: live PostgreSQL process references selected/restored PGDATA",
+    "raw_matching_process_command_preserved": false,
+    "cause_assessment": "The inventory check searched all ps command text for either PGDATA path. A concurrent read-only find of the restored PGDATA likely placed that path in its own command line and triggered the broad match. This is an inference; the matching process row was not retained.",
+    "current_inventory_check": "No longer-live matching command was observed during the later read-only inventory check; this does not establish which row matched during the attempt."
+  },
+  "durable_receipts": [
+    {
+      "path": "supervisor-failure.json",
+      "sha256": "3e186cb798a9b3069d3d821eef4b48311e7338670afd19b1d23cde6b2a66b444",
+      "bytes": 482
+    },
+    {
+      "path": "cold-backup-restored.json",
+      "sha256": "18264888e9b0feec6cc516a1a4f373f0dcf5fd03a2ea5bbdd53b20ea753fd412",
+      "bytes": 118,
+      "restored_tree_sha256": "67f15dff3198ba6b28bbe93a35cb7b595fe0439f84bcb4c14b9ef6d1f4c9effc",
+      "restored_file_count": 1248,
+      "restored_bytes": 63997052
+    },
+    {
+      "path": "registry-pre-effect.json",
+      "sha256": "bf0065bf15d73a70e7482386473097215b4397e5fc195b080799481852cebc21",
+      "bytes": 312,
+      "registry_created": false
+    },
+    {
+      "path": "discrepancy-preserved.json",
+      "sha256": "cb0e72c4d7fe631a340d543d46e1173b7fe9cbcdce3eacd9f9dce9895e85fec7",
+      "bytes": 116,
+      "file_count": 11,
+      "bytes_preserved": 17197691
+    },
+    {
+      "path": "delta4-bridge-probe.json",
+      "sha256": "22123c555c8547d70c915a67bd748454e3fa4c3a9d28a98678c5600cef55a9df",
+      "bytes": 2049,
+      "native_effects": false
+    },
+    {
+      "path": "../ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca-supervisor/supervisor-receipt.json",
+      "sha256": "5dade2cf0bdc024d8b7a69b657f098bba7f9da8892d227bffe8ab75bd538fbe6",
+      "bytes": 1504,
+      "supervisor_sha256": "4246b22fb8cd893ea0cd02398ab0d050ed2c05c1edf90e1c28949049b41e1292"
+    },
+    {
+      "path": "../ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca-supervisor/child.stderr.log",
+      "sha256": "3e186cb798a9b3069d3d821eef4b48311e7338670afd19b1d23cde6b2a66b444",
+      "bytes": 482
+    },
+    {
+      "path": "../ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca-supervisor/child.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "effect_boundary": {
+    "postgres_start_intent_present": false,
+    "start_not_attempted_by_this_worker": true,
+    "migration_invoked": false,
+    "spark_or_seed_invoked": false,
+    "publication_or_acknowledgement_invoked": false,
+    "continuation_invoked": false,
+    "recovery_scope_or_approval_reused": false,
+    "spent_one_run_approval_state": "consumed; no retry authorized"
+  },
+  "durable_absence_observations": [
+    "postgres-start-intent.json absent",
+    "pre-start-process-inventory.json absent",
+    "pre-start-process-inventory.txt absent",
+    "one-start-migration-readback.json absent",
+    "lifecycle-stop-receipt.json absent"
+  ],
+  "follow_up": "Correct the prestart inventory parser and verify it with inert controls. Any future native attempt requires a new reviewed scope and approval; this receipt authorizes no retry."
+}
