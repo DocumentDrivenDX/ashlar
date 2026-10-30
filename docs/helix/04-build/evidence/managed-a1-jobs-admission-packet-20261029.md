@@ -75,6 +75,32 @@ escalation operating plan is recorded in the [cost-plan review](managed-a1-jobs-
 it is not a provider-enforced invoice cap. Do not launch until prior attributable
 A1 spend is checked and runtime/access and source-holder gates pass.
 
+## Minimal source-holder route
+
+The minimal candidate is a separately authenticated external owner that starts
+only after the Jobs verifier has durably succeeded. That owner must retain the
+exact request, manifest, destination receipt and complete four-role publication
+vector; open live managed-publication-read, native-pin and Truss source-custody
+handles; renew all three immediately before one protected exact-byte ACK; then
+reconcile from a fresh source transaction and independently close all three
+handles. Publisher and verifier tasks receive neither ACK credentials nor
+authority to renew or synthesize these handles. This ordering follows the
+source-holder port contract and selected Truss `.51` capability review; it does
+not require holding Truss source custody through publisher or verifier
+execution.
+
+This remains a route shape, not an admitted implementation. The selected Truss
+`.51` owner has read-only current/retained-page renewal plus ACK and reconciliation
+primitives, but no source lease. Ashlar has no live managed-read handle bound to
+an independent source-derived data witness, and `PostgresPins.hold()` has no
+renewable native-pin handle with an independently admitted retention provider.
+The existing ACK boundary therefore refuses without those live handles. See
+the [Truss `.51` capability receipt](source-holder-truss051-capability-20261029.md)
+and [A1 live port-gap review](source-holder-a1-live-port-gap-20261024.md).
+Until both missing owners and their close-time evidence exist, no task graph or
+protocol-fake choreography can qualify this route, and the A1 source-holder gate
+remains closed.
+
 ## Required admission and post-start readback
 
 Before any effectful run, attach a dated receipt for items 1–4. Items 5–6
