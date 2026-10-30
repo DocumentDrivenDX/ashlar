@@ -423,6 +423,7 @@ def run_configured_local_delta4_transaction1(config):
         plan_configured_local_delta4_transaction1,
         retain_delta4_output_completion_receipt,
     )
+    from .local_current_carrier_profile import apply_local_writer_settings
 
     _require(type(config) is ConfiguredLocalRuntimeConfig
              and config.carrier_profile == 'ashlar-delta/0.4-xxhash64'
@@ -500,6 +501,10 @@ def run_configured_local_delta4_transaction1(config):
                  and spark.conf.get('spark.jars') == ','.join(str(path) for path in jars))
         verify_loaded_delta_class(spark, jars)
         spark.sparkContext.setLogLevel('ERROR')
+        # The carrier requires ZSTD for writes. Each worker stage opens a new
+        # Spark session, so apply the UMF setting here before admission checks
+        # the session; admission and close only verify it and never repair drift.
+        apply_local_writer_settings(spark)
 
         policy = PrivatePolicy(context, tuple(targets))
         admission = ConfiguredLocalAdmission(

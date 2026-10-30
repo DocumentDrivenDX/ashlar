@@ -83,6 +83,13 @@ wrong-profile refusal, owner cleanup, and withholding the success report when
 Spark open or owner close fails. This remains inert test evidence; no native
 `.4` phase or graph commit has been made.
 
+The 2026-10-30 one-shot attempt did initialize the six-role local installation,
+then failed the transaction-1 session's ZSTD admission check before graph SQL.
+Its attempt directory is retained and is not retryable. The bridge now applies
+and verifies the UMF writer setting in each transaction Spark session before
+admission; open/close admission only verifies and does not repair drift. See
+[`transaction1-zstd-preflight-failure-20261030.md`](transaction1-zstd-preflight-failure-20261030.md).
+
 ## Original compiler artifacts and native scope
 
 `query-scope.json` defines five held reads under the same complete vector:

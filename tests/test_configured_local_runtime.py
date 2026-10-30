@@ -240,21 +240,30 @@ class Tests(unittest.TestCase):
                 def __enter__(self):return source
                 def __exit__(self,*_args):events.append('source-close')
             class Admission:
-                def __call__(self,*_args):events.append('admit-open')
+                def __call__(self,*_args):
+                    if spark.conf.get('spark.sql.parquet.compression.codec')!='zstd':
+                        raise AssertionError('writer setting must be effective before admission')
+                    events.append('admit-open')
                 def closing(self,*_args):events.append('admit-close')
             admission=Admission()
             class SparkLike:
                 version='4.2.0'
                 def __init__(self):
+                    self.conf_values={
+                        'spark.sql.session.timeZone':'UTC',
+                        'spark.sql.legacy.parameterSubstitution.constantsOnly':'true',
+                        'spark.jars':'/delta/jars',
+                        'spark.sql.parquet.compression.codec':'snappy',
+                    }
+                    def get(key):return self.conf_values.get(key,'512m')
+                    def set(key,value):
+                        events.append(('conf-set',key,value))
+                        self.conf_values[key]=value
                     system=SimpleNamespace(getProperty=lambda key:'21')
                     self.sparkContext=SimpleNamespace(master='local[1]',applicationId='inert',
                         setLogLevel=lambda _level:None,_jvm=SimpleNamespace(java=SimpleNamespace(
                             lang=SimpleNamespace(System=system))))
-                    self.conf=SimpleNamespace(get=lambda key: {
-                        'spark.sql.session.timeZone':'UTC',
-                        'spark.sql.legacy.parameterSubstitution.constantsOnly':'true',
-                        'spark.jars':'/delta/jars',
-                    }.get(key,'512m'))
+                    self.conf=SimpleNamespace(get=get,set=set)
                 def stop(self):events.append('spark-stop')
             spark=SparkLike()
             baseline={role:{'uuid':targets[index]['uuid'],'version':1}
@@ -322,6 +331,13 @@ class Tests(unittest.TestCase):
             self.assertIn('coordinator-run',events);self.assertIn('full-bag-observe',events)
             self.assertIn('admit-close',events);self.assertIn('transport-close',events)
             self.assertIn('spark-stop',events);self.assertIn('lease-close',events)
+            writer_sets=[i for i,event in enumerate(events)
+                         if event==('conf-set','spark.sql.parquet.compression.codec','zstd')]
+            admissions=[i for i,event in enumerate(events) if event=='admit-open']
+            self.assertEqual(len(writer_sets),2) # one per newly opened bridge session
+            self.assertEqual(len(admissions),2)
+            self.assertTrue(all(writer<admit for writer,admit in zip(writer_sets,admissions)))
+            self.assertEqual(spark.conf.get('spark.sql.parquet.compression.codec'),'zstd')
             self.assertFalse((failed_output/'runtime-report.json').exists())
 
     def test_closing_admission_refuses_changed_parameter_binding_setting(self):
@@ -332,3 +348,29 @@ class Tests(unittest.TestCase):
             lease=SimpleNamespace(renew=lambda:None);registry=SimpleNamespace(renew=lambda _limit:None)
             admission=ConfiguredLocalAdmission(config,lease,spark,source,(),{},registry)
             with self.assertRaises(ValueError):admission.closing(source,None,context)
+
+    def test_delta4_admission_does_not_repair_writer_setting_drift_after_open(self):
+        with tempfile.TemporaryDirectory()as directory:
+            root=Path(directory).resolve();root.chmod(0o700)
+            config=self.config(root,'ashlar-delta/0.4-xxhash64')
+            context=object();values={'spark.sql.session.timeZone':'UTC',
+                'spark.sql.legacy.parameterSubstitution.constantsOnly':'true',
+                'spark.jars':'','spark.sql.parquet.compression.codec':'zstd'};sets=[]
+            def get(key):return values.get(key,'512m')
+            def set_value(key,value):sets.append((key,value));values[key]=value
+            spark=SimpleNamespace(
+                sparkContext=SimpleNamespace(master='local[1]',applicationId='same-session',
+                    _jvm=SimpleNamespace(java=SimpleNamespace(lang=SimpleNamespace(
+                        System=SimpleNamespace(getProperty=lambda _key:'21'))))),
+                conf=SimpleNamespace(get=get,set=set_value),version='4.2.0')
+            source=SimpleNamespace(context=context,renew=lambda _context:None)
+            lease=SimpleNamespace(renew=lambda:None)
+            registry=SimpleNamespace(renew=lambda _limit:None)
+            admission=ConfiguredLocalAdmission(config,lease,spark,source,(),{},registry)
+            with patch('ashlar_host.configured_local_runtime.attest_runtime',return_value=('runtime',{},[])), \
+                    patch('ashlar_host.configured_local_runtime.verify_loaded_delta_class'):
+                admission(source,None,None,context)
+                values['spark.sql.parquet.compression.codec']='snappy'
+                with self.assertRaisesRegex(ValueError,'ZSTD Spark writer setting'):
+                    admission.closing(source,None,context)
+            self.assertEqual(sets,[]) # admission verifies changed settings, never repairs them
