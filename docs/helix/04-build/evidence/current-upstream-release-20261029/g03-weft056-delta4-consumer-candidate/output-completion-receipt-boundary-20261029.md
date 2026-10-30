@@ -25,23 +25,16 @@ ddx:
 
 # Gate 3 `.4` output-completion receipt boundary
 
-Status: **local `prepared/applying` attempt journal, metadata reservation,
-isolated native metadata-operation executor, and supplemental output receipt
-implemented and fake-tested; the executor is unreachable from the `.4`
-coordinator, and native phase integration, `applied` and manifest transitions
-remain unimplemented**. No Spark
-process or native effect ran. These local records are not a publication
-descriptor, realized vector, consumer result, source acknowledgement, or native
-Delta attempt phase.
+Status: **native `prepared`/`applying` metadata lane and graph coordinator fake-tested; native `.4` execution remains unrun**. The two phases are separately reserved and journaled before graph SQL, with exact v1→v2→v3 commit/readback and submitted recovery checks. No Spark/native effects ran. No publication descriptor, realized vector, consumer result, source acknowledgement, or native `applied` phase is claimed.
 
 ## Implemented safe boundary
 
-After the held `.4` coordinator has executed and reconciled its exact three
-original graph operations, `retain_delta4_output_completion_receipt` performs a
+The output-receipt helper is implemented for a fully reconciled fake observation. `retain_delta4_output_completion_receipt` performs a
 fresh complete effect-prefix observation. That observation verifies the
 original source scope, whole effect plan, three operation journal rows and
 receipts, named native commits, all four source-derived data-role bags, native
-Spark `xxhash64`, the two unchanged metadata-role heads, and the six-role
+Spark `xxhash64`, the verified prepared/applying rows at attempt-table v3, the
+unchanged manifest head, and the six-role
 identity/schema/protocol inventory. It then retains one bounded canonical
 receipt in a separately named local SQLite journal table. Identical replay is
 byte-exact; changed or corrupted receipt bytes refuse.
@@ -53,8 +46,9 @@ inventory and the complete coordinator observation. The implementation does
 not add rows to `local_plan` or `local_operation`; the existing observer's
 exact-three-operation invariant remains unchanged. Focused fake tests check
 receipt replay, tamper refusal, refusal of a restarted committed prefix without
-the current hold's completion witness, and that the two native metadata-role
-heads stay at their fresh versions. A subsequent hold on the same owner also
+the current hold's completion witness, and that the attempt-table v3 head is
+accepted only with both exact phase receipts while the manifest head stays fresh.
+A subsequent hold on the same owner also
 resets the prior witness and requires exact recovery before receipt replay.
 
 ## Required next boundary
@@ -74,10 +68,11 @@ manifest SQL in the same journal would break that invariant. Extending the
 observer to ignore extra records would be unsafe.
 
 The separate local metadata-lane reservation records the exact proposed
-`prepared` phase MERGE, original phase payload/digest, JSONL request/checkpoint,
-source-scope digest, graph-plan digest, installed attempt-table UUID/path and
-fresh predecessor version. It uses its own versioned reservation table and a
-distinct `ashlar-local-delta-metadata-operation/0.1` intent profile.
+`prepared` and `applying` phase MERGEs, common original phase payload/digest,
+JSONL request/checkpoint, source-scope digest, graph-plan digest, installed
+attempt-table UUID/path and successive predecessor versions. It uses its own
+versioned reservation table and a distinct
+`ashlar-local-delta-metadata-operation/0.2` intent profile.
 
 An isolated `LocalDeltaTransport` metadata executor now has its own bounded
 SQLite operation table, so graph `local_plan`/`local_operation` inventories
@@ -95,28 +90,28 @@ request/checkpoint validation. Its readback session uses the same private
 writer context and independently rechecks native table identity; data queries
 remain read-only and use the transport query port.
 
-This executor is deliberately unreachable from current configured `.4`
-publication: `PrivatePolicy` has no metadata-operation admission branch, and
-the graph coordinator's fresh-head admission/close still requires the metadata
-role at its original version. Opening that route requires a separately reviewed
-phase-aware transition that preserves the graph observer's exact-three
-operation invariant and advances metadata-head expectations only after a
-verified native phase commit. No native phase dispatch has run; fake tests
-exercise the isolated executor only. No method bypass or relaxed close check
-makes this slice publishable.
+The coordinator opens this lane through exact held-owner `PrivatePolicy`
+admissions. Before each dispatch, it checks the original request/source/plan,
+reservation bytes, writer lock, exact predecessor and graph-operation
+inventory. After dispatch, it admits only the exact named commit with the full
+phase row read back. Prepared commits at v2; applying commits at v3. Opening,
+renewal and close accept the attempt table at v3 only when both metadata
+operations have exact committed receipts whose named commits, phase-row
+snapshot, UUID/path, schema and protocol revalidate. The graph observer retains
+its exact-three graph-operation inventory and uses the validated v3 baseline
+while reconciling graph prefixes. Fake transport under the real `PrivatePolicy`
+covers v3 reopen, graph-prefix execution, and an applying submission that stays
+quarantined until its original named commit arrives; recovery does not retry
+the SQL. These remain inert checks; no native phase or graph effect has run.
 
-The next implementation must introduce native `prepared/applying/applied`
-attempt operations and explicit inventory proof that distinguishes graph
-operations from attempt and manifest operations. It must bind the complete
-validated output receipt as the original `applied` result; then retain
-`committing` before the immutable manifest mutation. The contract's recovery
+The next implementation must add native `applied` and explicit inventory proof that distinguishes graph, attempt and manifest operations. It must bind the complete validated
+output receipt as the original `applied` result; then retain `committing`
+before the immutable manifest mutation. The contract's recovery
 alternatives remain: partial graph effects without a complete receipt stay
 unpublished and are inspected without retry; a complete receipt without a
 manifest may publish once after exact authority/predecessor/version revalidation;
 a manifest without ACK reopens the same descriptor and does not replay graph
-effects. The native phase owner must strengthen the current local-only gate so
-`execute_effect_plan()` is reachable only after its exact native `applying`
-receipt, preserving the same ordering against direct graph-coordinator calls.
+effects. Production release remains blocked on native `applied` and the remaining manifest and consumer custody transitions.
 
 The existing manifest store and resolver primitives can supply their shared
 row validation, immutable merge, and readback semantics only after a `.4`

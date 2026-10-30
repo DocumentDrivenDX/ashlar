@@ -51,6 +51,7 @@ class FakeTransport:
         self.native_metadata = {role: {} for role in INSTALLATION_ROLES}
         self.native_operations = {role: {0: "CREATE TABLE", 1: "SET TBLPROPERTIES"}
                                  for role in INSTALLATION_ROLES}
+        self.phase_rows = []
         for role in ("object_current", "edge_current"):
             column = "type_id" if role == "object_current" else "rel_type_id"
             for key in plan.pending_lookup_keys[role]:
@@ -102,8 +103,13 @@ class FakeTransport:
         role = target.table.rsplit(".", 1)[1]
         carriers = load_current_managed_carriers("ashlar-delta/0.4-xxhash64")
         fields = carriers.ordered_fields(role)
-        source_rows = (self.baseline_rows[role] if version == 1 else
-                       self.expected[role] if self.expected is not None else [])
+        if version == 1:
+            source_rows = self.baseline_rows[role]
+        elif role == "publication_attempt_phase":
+            source_rows = [row for row in self.phase_rows
+                           if row["phase"] == "prepared" or version >= 3]
+        else:
+            source_rows = (self.expected or {}).get(role, [])
         rows = [{name: str(value) if type(value) is int else value for name, value in row.items()}
                 for row in source_rows]
         rows.sort(key=lambda row: json.dumps(row, sort_keys=True, separators=(",", ":"),
@@ -170,7 +176,9 @@ class FakeTransport:
             return SimpleNamespace(rows=[], columns=columns)
         if "VERSION AS OF" in sql:
             version = int(re.search(r"VERSION AS OF (\d+)", sql).group(1))
-            rows = (self.baseline_rows[role] if version == 1 else self.expected[role])
+            rows = (self.baseline_rows[role] if version == 1 else
+                    self.phase_rows if role == "publication_attempt_phase" else
+                    (self.expected or {}).get(role, []))
             rendered = [{name: str(value) if type(value) is int else value for name, value in row.items()}
                         for row in rows]
             if self.row_fault == (role, "duplicate") and rendered:

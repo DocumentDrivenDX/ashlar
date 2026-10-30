@@ -33,7 +33,7 @@ MAX_SOURCE_SCOPE_BYTES = 4 * 1024 * 1024
 DELTA4_ATTEMPT_JOURNAL_PROFILE = "ashlar-configured-local-delta4-attempt-journal/0.1"
 DELTA4_ATTEMPT_JOURNAL_TABLE = "local_delta4_attempt_phase"
 MAX_DELTA4_ATTEMPT_BYTES = 4 * 1024 * 1024
-DELTA4_METADATA_LANE_PROFILE = "ashlar-configured-local-delta4-metadata-lane/0.1"
+DELTA4_METADATA_LANE_PROFILE = "ashlar-configured-local-delta4-metadata-lane/0.2"
 DELTA4_METADATA_RESERVATION_TABLE = "local_delta4_metadata_lane_reservation"
 CARRIER_PROFILE = "ashlar-delta/0.4-xxhash64"
 LOOKUP_HASH_PROFILE = "spark-xxhash64-typed-key/0.1"
@@ -445,6 +445,9 @@ class ConfiguredLocalDelta4WriterAuthority:
         self._delta4_closing_heads = None
         self._delta4_completion_witness = False
         self._delta4_attempt_admission = None
+        self._delta4_prepared_phase_reservation = None
+        self._delta4_prepared_phase_witness = False
+        self._delta4_applying_phase_witness = False
         self._witness = (plan, effect_plan, transport, installation_profile, fresh,
                          source, current_admission, context, policy)
 
@@ -505,14 +508,98 @@ class ConfiguredLocalDelta4WriterAuthority:
 
     def _check_fresh_heads(self):
         self._require_current(held=True)
-        expected = self._delta4_closing_heads or self.fresh.heads
+        expected = self._delta4_closing_heads
+        if expected is None:
+            plan_count = self.transport.db.execute(
+                "SELECT count(*) FROM local_plan").fetchone()[0]
+            operation_count = self.transport.db.execute(
+                "SELECT count(*) FROM local_operation").fetchone()[0]
+            if plan_count and operation_count:
+                expected = self._observe_effect_prefix(allow_prepared=True)["heads"]
+            else:
+                expected = self._delta4_expected_heads()
         for role in INSTALLATION_ROLES:
             target, version, _protocol, _fields = _observe_delta4_role(
                 self.transport, role, self.installation_profile)
             _require(version == expected[role]["version"]
                      and target.uuid == expected[role]["uuid"],
-                     "Native `.4` heads differ from the retained opening/closing vector")
+                     "Native `.4` heads differ from the retained opening/closing vector: "
+                     + role + " " + str(version) + " != "
+                     + str(expected[role]["version"]))
         self._require_current(held=True)
+
+    def _delta4_expected_heads(self):
+        """Fresh heads plus the exact committed prepared/applying prefix."""
+        expected = {role: dict(head) for role, head in self.fresh.heads.items()}
+        tables = self.transport.db.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+            (DELTA4_METADATA_RESERVATION_TABLE,)).fetchall()
+        if not tables:
+            return expected
+        prepared = self._build_delta4_prepared_phase_reservation()
+        applying = self._build_delta4_prepared_phase_reservation("applying")
+        saved = self.transport.db.execute(
+            "SELECT operation,original,digest FROM local_delta4_metadata_lane_reservation").fetchall()
+        expected_reservations = sorted((
+            (item['operation'], item['original'], item['digest'])
+            for item in (prepared, applying)))
+        _require(sorted(saved) == expected_reservations,
+                 "Exact prepared/applying metadata reservations required")
+        op_table = self.transport.db.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+            ('local_delta4_metadata_operation',)).fetchall()
+        if not op_table:
+            return expected
+        op_rows = self.transport.db.execute(
+            "SELECT operation,lane,intent,intent_sha,before_version,state,receipt "
+            "FROM local_delta4_metadata_operation ORDER BY before_version").fetchall()
+        if len(op_rows) > 2:
+            raise ValueError("Bound two-phase `.4` metadata operation journal required")
+        reservations = (prepared, applying)
+        phase_role = "publication_attempt_phase"
+        before = self.fresh.heads[phase_role]['version']
+        for index, op in enumerate(op_rows):
+            reservation = reservations[index]
+            intent = json.loads(reservation['original'])['intent']
+            encoded_intent = _canonical(intent)
+            _require((op[0], op[1], op[2], op[3], op[4]) == (
+                        intent['operation'], intent['lane'], encoded_intent,
+                        _sha(encoded_intent.encode('utf-8')),
+                        before + index),
+                     "Exact original `.4` metadata phase operation custody required")
+            if index == 1:
+                _require(op_rows[0][5] == 'committed',
+                         "Native applying cannot precede committed prepared phase")
+            if op[5] == 'submitted':
+                self.transport.observe_delta4_metadata_submission(
+                    reservation, context=self.context)
+                expected[phase_role]['version'] = before + index + 1
+            elif op[5] == 'prepared':
+                _require(op[6] is None and index == len(op_rows) - 1,
+                         "Only an unsubmitted metadata phase tail is recoverable")
+                target, version, _protocol, _fields = _observe_delta4_role(
+                    self.transport, phase_role, self.installation_profile)
+                _require(target.uuid == self.fresh.heads[phase_role]['uuid']
+                         and version == before + index,
+                         "Prepared native phase must retain its exact predecessor")
+            elif op[5] == 'committed':
+                _require(type(op[6]) is str,
+                         "Committed metadata phase receipt required")
+                expected[phase_role]['version'] = before + index + 1
+            else:
+                raise ValueError("Unknown `.4` metadata phase state")
+        complete_indexes = [index for index, item in enumerate(op_rows)
+                            if item[5] in ('committed', 'submitted')]
+        if complete_indexes:
+            complete_index = complete_indexes[-1]
+            if op_rows[complete_index][5] == 'submitted':
+                self.transport.observe_delta4_metadata_submission(
+                    reservations[complete_index], context=self.context)
+            else:
+                self.transport.observe_delta4_metadata_commit(
+                    reservations[complete_index], context=self.context,
+                    allow_later=(complete_index < len(op_rows) - 1))
+        return expected
 
     def _check_opening_heads(self):
         """Accept only the original fresh head or a verified committed prefix."""
@@ -633,17 +720,18 @@ class ConfiguredLocalDelta4WriterAuthority:
         _require(len(rows) == 1, "Original durable `.4` source scope required")
         envelope = _validate_delta4_source_scope_row(*rows[0])
         scope = envelope["scope"]
-        baseline = json.loads(scope["fresh_heads_json"])
-        _require(set(baseline) == set(INSTALLATION_ROLES)
+        retained_baseline = json.loads(scope["fresh_heads_json"])
+        _require(set(retained_baseline) == set(INSTALLATION_ROLES)
                  and scope["fresh_heads_json"] == self.fresh.heads_json
                  and scope["fresh_inventory_json"] == self.fresh.inventory_json
-                 and all(type(baseline[role]) is dict
-                         and set(baseline[role]) == {"uuid", "version"}
-                         and baseline[role]["uuid"] == self.installation_profile["roles"][role]["uuid"]
-                         and type(baseline[role]["version"]) is int
-                         and 0 <= baseline[role]["version"] < 2**63
+                 and all(type(retained_baseline[role]) is dict
+                         and set(retained_baseline[role]) == {"uuid", "version"}
+                         and retained_baseline[role]["uuid"] == self.installation_profile["roles"][role]["uuid"]
+                         and type(retained_baseline[role]["version"]) is int
+                         and 0 <= retained_baseline[role]["version"] < 2**63
                          for role in INSTALLATION_ROLES),
                  "Original source scope must retain the complete six-role fresh baseline")
+        baseline = self._delta4_expected_heads()
 
         operation = "effects:" + self.effect_plan.intent_digest
         steps = self.effect_plan.steps
@@ -824,6 +912,16 @@ class ConfiguredLocalDelta4WriterAuthority:
                                 in carriers.ordered_fields(role))
                 rows_for_role = [{name: (str(value) if type(value) is int else value)
                                   for name, value in row.items()} for row in rows_for_role]
+            elif role == "publication_attempt_phase" and (
+                    baseline[role]["version"] > self.fresh.heads[role]["version"]):
+                reservations = (self._build_delta4_prepared_phase_reservation(),
+                                self._build_delta4_prepared_phase_reservation("applying"))
+                count = baseline[role]["version"] - self.fresh.heads[role]["version"]
+                _require(count in (1, 2),
+                         "Only exact prepared/applying native phase prefix is allowed")
+                rows_for_role = [item["phase_row"] for item in reservations[:count]]
+                columns = tuple((name, kind) for name, kind, _nullable
+                                in carriers.ordered_fields(role))
             else:
                 rows_for_role = []
                 columns = tuple((name, kind) for name, kind, _nullable
@@ -1094,10 +1192,12 @@ class ConfiguredLocalDelta4WriterAuthority:
         self._check_writer_lock()
         return payload_sha
 
-    def _build_delta4_prepared_phase_reservation(self):
-        """Reconstruct the exact native prepared-phase intent without writing."""
+    def _build_delta4_prepared_phase_reservation(self, phase="prepared"):
+        """Reconstruct exact native `prepared` or `applying` intent without writing."""
         from ashlar.native import quote_table_identifier
         from ashlar.attempt_store import _phase_records, verify_request_digest
+        _require(phase in ("prepared", "applying"),
+                 "Supported native `.4` phase required")
         self._require_current(held=True)
         self.current_admission(self.source, self.plan.request, None, self.context)
         self._check_writer_lock()
@@ -1147,14 +1247,18 @@ class ConfiguredLocalDelta4WriterAuthority:
         })
         phase_row = {
             "stream": request["stream"], "batch_id": request["batch_id"],
-            "phase": "prepared", "request_digest": request["request_digest"],
+            "phase": phase, "request_digest": request["request_digest"],
             "payload_json": phase_payload,
             "payload_digest": _sha(phase_payload.encode("utf-8")),
         }
-        _phase_records(request["stream"], request["batch_id"], [{
-            key: phase_row[key] for key in
-            ("phase", "request_digest", "payload_json", "payload_digest")
-        }])
+        records = [{
+            "phase": item_phase,
+            "request_digest": request["request_digest"],
+            "payload_json": phase_payload,
+            "payload_digest": _sha(phase_payload.encode("utf-8")),
+        } for item_phase in (("prepared",) if phase == "prepared"
+                             else ("prepared", "applying"))]
+        _phase_records(request["stream"], request["batch_id"], records)
         native_payload = json.dumps(phase_row, ensure_ascii=False,
                                     separators=(",", ":"), allow_nan=False)
         target_name = self.transport.targets[
@@ -1172,9 +1276,6 @@ class ConfiguredLocalDelta4WriterAuthority:
                           "'$.request.source_checkpoint_json'),'$." + key + "')="
                           "get_json_object(get_json_object(s.payload_json,"
                           "'$.request.source_checkpoint_json'),'$." + key + "')")
-        # This is a reservation-only copy of DeltaAttemptStore's prepared
-        # phase SQL.  Any later native executor must compare its actual SQL
-        # and parameters byte-for-byte with this retained intent before use.
         statement = ("MERGE INTO " + table_sql + " t USING (SELECT r.* FROM "
                      "(SELECT from_json(:payload,'" + definition + "') r)) s ON "
                      "t.stream=s.stream AND t.batch_id=s.batch_id AND t.phase=s.phase"
@@ -1182,17 +1283,18 @@ class ConfiguredLocalDelta4WriterAuthority:
                      "UPDATE SET payload_json=cast(raise_error('ATTEMPT_PHASE_CONFLICT') AS STRING) "
                      "WHEN NOT MATCHED THEN INSERT *")
         parameters = {"payload": native_payload}
-        metadata_operation = "delta4-metadata:attempts:prepared:" + _sha(
+        metadata_operation = "delta4-metadata:attempts:" + phase + ":" + _sha(
             _canonical({"statement": statement, "parameters": parameters}).encode("utf-8"))
         metadata_intent = {
-            "profile": "ashlar-local-delta-metadata-operation/0.1",
-            "lane": "publication_attempt_phase",
+            "profile": "ashlar-local-delta-metadata-operation/0.2",
+            "lane": "publication_attempt_phase", "phase": phase,
             "installation_id": self.transport.installation_id,
             "operation": metadata_operation,
             "request_digest": request["request_digest"],
             "statement": statement, "parameters": parameters,
             "table": target.table, "path": str(target.path), "uuid": target.uuid,
-            "before_version": self.fresh.heads["publication_attempt_phase"]["version"],
+            "before_version": self.fresh.heads["publication_attempt_phase"]["version"]
+                + (phase == "applying"),
             "source_scope_sha256": source_digest,
             "effect_plan_sha256": self.effect_plan.effect_plan_sha256,
             "graph_plan_sha256": graph_plan_digest,
@@ -1210,11 +1312,13 @@ class ConfiguredLocalDelta4WriterAuthority:
                 "digest": digest, "phase_row": phase_row}
 
     def reserve_delta4_prepared_phase(self):
-        """Retain the exact native prepared-phase intent before graph effects."""
+        """Retain exact native prepared/applying intents before graph effects."""
         selected_reservation = self._build_delta4_prepared_phase_reservation()
-        metadata_operation = selected_reservation["operation"]
-        original = selected_reservation["original"]
-        digest = selected_reservation["digest"]
+        applying_reservation = self._build_delta4_prepared_phase_reservation("applying")
+        selected = [selected_reservation, applying_reservation]
+        selected_rows = [(item["operation"], item["original"], item["digest"])
+                         for item in selected]
+        selected_rows.sort(key=lambda row: row[0])
         db = self.transport.db
         exists = db.execute(
             "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
@@ -1237,20 +1341,19 @@ class ConfiguredLocalDelta4WriterAuthority:
                     "operationtextprimarykey,originaltextnotnull,digesttextnotnull)",
                  "Exact `.4` metadata reservation schema required")
         count = db.execute("SELECT count(*) FROM local_delta4_metadata_lane_reservation").fetchone()[0]
-        _require(count <= 1, "One original `.4` metadata lane reservation required")
+        _require(count <= 2, "Bound two-phase `.4` metadata reservation required")
         current = db.execute(
             "SELECT operation,original,digest FROM local_delta4_metadata_lane_reservation").fetchall()
-        selected = (metadata_operation, original, digest)
-        _require(not current or current == [selected],
-                 "Changed `.4` metadata operation cannot replace its reservation")
+        _require(not current or sorted(current) == selected_rows,
+                 "Changed `.4` metadata phase reservations cannot replace originals")
         if not current:
             _require(self.transport.db.execute(
                 "SELECT count(*) FROM local_operation").fetchone() == (0,),
                 "Metadata reservation must precede graph effects")
             self.current_admission(self.source, self.plan.request, None, self.context)
             self._check_writer_lock()
-            db.execute("INSERT INTO local_delta4_metadata_lane_reservation VALUES (?,?,?)",
-                       selected)
+            db.executemany("INSERT INTO local_delta4_metadata_lane_reservation VALUES (?,?,?)",
+                           selected_rows)
             db.commit()
         self._require_current(held=True)
         self.current_admission.closing(self.source, None, self.context)
@@ -1271,38 +1374,241 @@ class ConfiguredLocalDelta4WriterAuthority:
         _require(len(table) == 1, "Original `.4` metadata lane reservation missing")
         rows = self.transport.db.execute(
             "SELECT operation,original,digest FROM local_delta4_metadata_lane_reservation").fetchall()
-        _require(len(rows) == 1,
-                 "Exact retained `.4` metadata operation reservation required")
+        _require(len(rows) == 2,
+                 "Exact retained `.4` prepared/applying reservations required")
         expected = self._build_delta4_prepared_phase_reservation()
+        applying = self._build_delta4_prepared_phase_reservation("applying")
+        expected_rows = sorted([(item["operation"], item["original"], item["digest"])
+                                for item in (expected, applying)])
         _require(reservation == expected,
                  "Supplied `.4` metadata reservation differs from reconstructed original bytes")
-        _require(rows == [(expected["operation"], expected["original"],
-                           expected["digest"])],
-                 "Retained `.4` metadata lane reservation differs from original bytes")
-        observation = self._observe_effect_prefix()
+        _require(sorted(rows) == expected_rows,
+                 "Retained `.4` metadata lane phase reservations differ from original bytes")
+        observation = self._observe_effect_prefix(allow_prepared=True)
         _require("submitted" not in observation["states"],
                  "Uncertain graph effect prevents metadata reservation admission")
-        # A reopened read-only admission may close against the fully verified
-        # committed prefix observed here.  This advances only the in-memory
-        # close expectation; it does not grant metadata or graph write authority.
-        self._delta4_closing_heads = observation["heads"]
+        # Reservation admission is read-only and never advances this hold's
+        # completion/closing witness. Fresh-head checks derive the allowed
+        # metadata transition from its native operation receipt.
+        self._delta4_closing_heads = None
         role = "publication_attempt_phase"
         target, version, _protocol, _fields = _observe_delta4_role(
             self.transport, role, self.installation_profile)
         expected_head = self.fresh.heads[role]
+        op_table = self.transport.db.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+            ("local_delta4_metadata_operation",)).fetchall()
+        committed = (self.transport.db.execute(
+            "SELECT intent,state FROM local_delta4_metadata_operation ORDER BY before_version"
+        ).fetchall() if op_table else [])
+        committed = tuple((json.loads(intent)["phase"], state)
+                          for intent, state in committed)
+        expected_states = {
+            (): 0,
+            (("prepared", "prepared"),): 0,
+            (("prepared", "committed"),): 1,
+            (("prepared", "submitted"),): 1,
+            (("prepared", "committed"), ("applying", "prepared")): 1,
+            (("prepared", "committed"), ("applying", "submitted")): 2,
+            (("prepared", "committed"), ("applying", "committed")): 2,
+        }
+        _require(committed in expected_states,
+                 "Exact ordered `.4` metadata phase states required")
+        committed_count = expected_states[committed]
+        expected_version = expected_head["version"] + committed_count
         _require(target.uuid == expected_head["uuid"]
-                 and version == expected_head["version"]
+                 and version == expected_version
                  and expected["operation"] == json.loads(expected["original"])
                     ["intent"]["operation"]
-                 and json.loads(expected["original"])["intent"]["before_version"] == version,
-                 "Metadata target must remain at its exact retained predecessor head")
+                 and json.loads(expected["original"])["intent"]["before_version"]
+                    == expected_head["version"],
+                 "Metadata target must match the exact reserved phase predecessor/commit")
+        if committed and committed[-1][1] == "submitted":
+            submitted_phase = applying if committed[-1][0] == "applying" else expected
+            self.transport.observe_delta4_metadata_submission(
+                submitted_phase, context=self.context)
+        elif committed_count:
+            last = applying if committed_count == 2 else expected
+            self.transport.observe_delta4_metadata_commit(
+                last, context=self.context,
+                allow_later=(len(committed) > committed_count))
         self._require_current(held=True)
         self.current_admission.closing(self.source, None, self.context)
         self._check_writer_lock()
-        return json.loads(rows[0][1])
+        return json.loads(expected["original"])
+
+    def _admit_delta4_metadata_operation(self, intent, reservation):
+        """Admit only the exact ordered native prepared/applying phase operation."""
+        from .delta_custody import _metadata_intent_from_reservation
+        self._require_current(held=True)
+        self._check_writer_lock()
+        self.current_admission(self.source, self.plan.request, None, self.context)
+        phase = intent.get("phase") if type(intent) is dict else None
+        _require(phase in ("prepared", "applying"),
+                 "Only native prepared/applying phase intents are admitted")
+        reservations = (self._build_delta4_prepared_phase_reservation(),
+                        self._build_delta4_prepared_phase_reservation("applying"))
+        index = 0 if phase == "prepared" else 1
+        expected_reservation = reservations[index]
+        _require(reservation == expected_reservation
+                 and intent == _metadata_intent_from_reservation(
+                     self.transport, expected_reservation),
+                 "Exact retained `.4` native phase operation required")
+        self._retain_source_scope()
+        operation = intent["operation"]
+        op_table = self.transport.db.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+            ("local_delta4_metadata_operation",)).fetchall()
+        op_rows = (self.transport.db.execute(
+            "SELECT operation,lane,intent,intent_sha,before_version,state,receipt "
+            "FROM local_delta4_metadata_operation ORDER BY before_version").fetchall()
+            if op_table else [])
+        _require(len(op_rows) <= 2,
+                 "Bound two-phase `.4` metadata journal required")
+        row = (op_rows[index] if len(op_rows) > index else None)
+        exact_intent = _canonical(intent)
+        if row is not None:
+            _require(row[:5] == (operation, intent["lane"], exact_intent,
+                                 _sha(exact_intent.encode("utf-8")),
+                                 intent["before_version"]),
+                     "Original `.4` metadata phase journal row required")
+        if index == 1:
+            _require(len(op_rows) >= 1 and op_rows[0][5] == "committed",
+                     "Native applying requires committed native prepared phase")
+            self.transport.observe_delta4_metadata_commit(
+                reservations[0], context=self.context,
+                allow_later=(row is not None and row[5] in ("submitted", "committed")))
+        _require(len(op_rows) == index or row is not None,
+                 "Native phase journal must be an exact contiguous prefix")
+        _require(self.transport.db.execute(
+            "SELECT count(*) FROM local_operation").fetchone() == (0,),
+            "Both native attempt phases must precede graph operation dispatch")
+
+        target, version, _protocol, _fields = _observe_delta4_role(
+            self.transport, "publication_attempt_phase", self.installation_profile)
+        baseline = self.fresh.heads["publication_attempt_phase"]["version"]
+        before = intent["before_version"]
+        _require(before == baseline + index,
+                 "Native phase predecessor must follow the exact prior phase")
+        history = self.transport.original_history(target)
+        commit_metadata = _canonical({
+            "profile": "ashlar-local-delta-metadata-commit/0.2",
+            "installation_id": self.transport.installation_id,
+            "lane": intent["lane"], "operation": operation,
+            "operation_sha256": _sha(exact_intent.encode("utf-8")),
+            "request_digest": intent["request_digest"],
+        })
+        named = [entry for entry in history
+                 if entry.get("userMetadata") == commit_metadata]
+        if row is None or row[5] == "prepared":
+            _require((row is None or row[6] is None)
+                     and version == before and not named,
+                     "Prepared native phase requires unchanged exact predecessor")
+            if index == 1:
+                _require(op_rows[0][5] == "committed",
+                         "Applying may be prepared only after native prepared commits")
+        elif row[5] == "submitted":
+            _require(row[6] is None and version == before + 1
+                     and len(named) == 1 and named[0].get("version") == before + 1
+                     and type(named[0].get("operation")) is str,
+                     "Submitted native phase requires exact named next-version commit")
+            phase_rows = tuple(item["phase_row"] for item in reservations[:index + 1])
+            self.transport._verify_delta4_prepared_phase_readback(
+                target, phase_rows, self.context)
+        elif row[5] == "committed":
+            self.transport.observe_delta4_metadata_commit(
+                expected_reservation, context=self.context)
+        else:
+            raise ValueError("Only exact native prepared/applying phase SQL is admitted")
+
+        for role in INSTALLATION_ROLES:
+            selected, current_version, _role_protocol, _role_fields = _observe_delta4_role(
+                self.transport, role, self.installation_profile)
+            allowed = baseline + index + int(row is not None and row[5] in
+                                               ("submitted", "committed"))
+            expected_version = (allowed if role == "publication_attempt_phase"
+                                else self.fresh.heads[role]["version"])
+            _require(current_version == expected_version
+                     and selected.uuid == self.fresh.heads[role]["uuid"],
+                     "Only the exact native phase target head may advance before graph effects")
+            if role != "publication_attempt_phase":
+                from ashlar.effect_validation import validate_effect_snapshot
+                from .managed_current_carriers import load_current_managed_carriers
+                carriers = load_current_managed_carriers(CARRIER_PROFILE)
+                columns = tuple((name, kind) for name, kind, _nullable
+                                in carriers.ordered_fields(role))
+                validate_effect_snapshot(self.transport, selected.table,
+                                         selected.uuid, current_version, columns, [])
+        self._require_current(held=True)
+        self.current_admission.closing(self.source, None, self.context)
+        self._check_writer_lock()
+
+    def prepare_delta4_native_prepared_phase(self):
+        """Retain/recover native prepared then applying before graph SQL."""
+        self._require_current(held=True)
+        self.current_admission(self.source, self.plan.request, None, self.context)
+        self._check_writer_lock()
+        prepared = self.reserve_delta4_prepared_phase()
+        applying = self._build_delta4_prepared_phase_reservation("applying")
+        self.admit_delta4_metadata_reservation(prepared)
+        _require(self.policy._delta4_metadata_owner is None,
+                 "Concurrent `.4` metadata phase admission refused")
+        results = []
+        for phase_reservation in (prepared, applying):
+            phase = phase_reservation["phase_row"]["phase"]
+            self._delta4_prepared_phase_reservation = phase_reservation
+            _require(self.policy._delta4_metadata_owner is None,
+                     "Concurrent `.4` metadata phase admission refused")
+            self.policy._activate_delta4_metadata(
+                self, phase_reservation, self.context)
+            succeeded = False
+            try:
+                op_table = self.transport.db.execute(
+                    "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+                    ("local_delta4_metadata_operation",)).fetchall()
+                state_rows = (self.transport.db.execute(
+                    "SELECT state FROM local_delta4_metadata_operation WHERE operation=?",
+                    (phase_reservation["operation"],)).fetchall() if op_table else [])
+                if state_rows == [('submitted',)]:
+                    result = self.transport.metadata_recover(
+                        phase_reservation, context=self.context)
+                elif state_rows == [('committed',)]:
+                    later = self.transport.db.execute(
+                        "SELECT state FROM local_delta4_metadata_operation "
+                        "WHERE before_version>?",
+                        (json.loads(phase_reservation["original"])["intent"][
+                            "before_version"],)).fetchall()
+                    self.transport.observe_delta4_metadata_commit(
+                        phase_reservation, context=self.context,
+                        allow_later=(phase == "prepared" and bool(later)))
+                    result = None
+                else:
+                    _require(not state_rows or state_rows == [('prepared',)],
+                             "Original native phase operation state required")
+                    result = self.transport.metadata_mutation(
+                        phase_reservation, context=self.context)
+                if state_rows != [('committed',)]:
+                    self.transport.observe_delta4_metadata_commit(
+                        phase_reservation, context=self.context)
+                if phase == "prepared":
+                    self._delta4_prepared_phase_witness = True
+                else:
+                    self._delta4_applying_phase_witness = True
+                self._check_fresh_heads()
+                self.current_admission.closing(
+                    self.source, None, self.context)
+                succeeded = True
+                results.append(result)
+            finally:
+                if not succeeded:
+                    self._delta4_prepared_phase_witness = False
+                    self._delta4_applying_phase_witness = False
+                self._delta4_prepared_phase_reservation = None
+                self.policy._deactivate_delta4_metadata(self)
+        return tuple(results)
 
     def prepare_and_execute_effect_plan(self):
-        """Durably prepare/apply phase before graph SQL dispatch or recovery."""
+        """Retain native prepared/applying phases before the graph plan runs."""
         self._require_current(held=True)
         plan_count = self.transport.db.execute(
             "SELECT count(*) FROM local_plan").fetchone()[0]
@@ -1322,6 +1628,7 @@ class ConfiguredLocalDelta4WriterAuthority:
                      "Uncertain submitted `.4` operation remains quarantined")
         self._retain_delta4_attempt_phase("prepared")
         self._retain_delta4_attempt_phase("applying")
+        self.prepare_delta4_native_prepared_phase()
         admission = object()
         _require(self._delta4_attempt_admission is None,
                  "Nested `.4` attempt admission refused")
@@ -1397,6 +1704,11 @@ class ConfiguredLocalDelta4WriterAuthority:
         _require(_phase_admission is not None
                  and _phase_admission is self._delta4_attempt_admission,
                  "Durable local `.4` applying-phase owner admission required")
+        _require(self._delta4_prepared_phase_witness
+                 and self._delta4_applying_phase_witness
+                 and self._delta4_expected_heads()["publication_attempt_phase"]["version"]
+                    == self.fresh.heads["publication_attempt_phase"]["version"] + 2,
+                 "Exact native prepared/applying receipts must precede graph dispatch")
         self._require_current(held=True)
         applying_sha = self._retain_delta4_attempt_phase("applying")
         _require(type(applying_sha) is str,
@@ -1473,7 +1785,8 @@ class ConfiguredLocalDelta4WriterAuthority:
         from .lifecycle import finish
         _require(not self.held and self._fd is None
                  and self.policy._delta4_prepare_owner is None
-                 and self.policy._delta4_execution_owner is None,
+                 and self.policy._delta4_execution_owner is None
+                 and self.policy._delta4_metadata_owner is None,
                  "Reentrant or concurrent `.4` writer authority refused")
         self._require_current()
         from .configured_local_runtime import ConfiguredLocalAdmission
@@ -1487,6 +1800,8 @@ class ConfiguredLocalDelta4WriterAuthority:
         # only. A new hold must re-establish it through execute/recover.
         self._delta4_closing_heads = None
         self._delta4_completion_witness = False
+        self._delta4_prepared_phase_witness = False
+        self._delta4_applying_phase_witness = False
         parent = self.transport.journal_path.parent.lstat()
         _require(stat.S_ISDIR(parent.st_mode) and parent.st_uid == os.getuid()
                  and not parent.st_mode & 0o022,
@@ -1519,6 +1834,8 @@ class ConfiguredLocalDelta4WriterAuthority:
             self._deactivate()
             self.held = False
             self._delta4_completion_witness = False
+            self._delta4_prepared_phase_witness = False
+            self._delta4_applying_phase_witness = False
             if locked:
                 fcntl.flock(fd, fcntl.LOCK_UN)
             os.close(fd)

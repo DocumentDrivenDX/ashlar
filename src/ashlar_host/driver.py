@@ -213,6 +213,8 @@ class PrivatePolicy:
         self._delta4_execution_owner = None
         self._delta4_execution_intent = None
         self._delta4_execution_ids = None
+        self._delta4_metadata_owner = None
+        self._delta4_metadata_reservation = None
 
     @contextmanager
     def writer(self, *args):
@@ -275,6 +277,25 @@ class PrivatePolicy:
         self._delta4_execution_intent = None
         self._delta4_execution_ids = None
 
+    def _activate_delta4_metadata(self, owner, reservation, context):
+        from .configured_local_delta4_publication import ConfiguredLocalDelta4WriterAuthority
+        if (type(owner) is not ConfiguredLocalDelta4WriterAuthority
+                or context is not self.context or self.initializing
+                or self.active is not None or self._delta4_prepare_owner is not None
+                or self._delta4_execution_owner is not None
+                or self._delta4_metadata_owner is not None
+                or type(reservation) is not dict):
+            raise PermissionError('Original held `.4` prepared-phase owner required')
+        owner._require_current(held=True)
+        self._delta4_metadata_owner = owner
+        self._delta4_metadata_reservation = reservation
+
+    def _deactivate_delta4_metadata(self, owner):
+        if self._delta4_metadata_owner is not owner:
+            raise PermissionError('Original `.4` prepared-phase owner required')
+        self._delta4_metadata_owner = None
+        self._delta4_metadata_reservation = None
+
     def admit(self, intent, context):
         if context is not self.context:
             raise PermissionError('Original private writer context required')
@@ -298,6 +319,15 @@ class PrivatePolicy:
             if (self.active is not None or intent != self._delta4_execution_intent):
                 raise PermissionError('Exact held `.4` execution plan required')
             self._delta4_execution_owner._admit_delta4_plan(intent)
+            return
+        if profile == 'ashlar-local-delta-metadata-operation/0.2':
+            owner = self._delta4_metadata_owner
+            if (owner is None or context is not self.context
+                    or self.active is not None
+                    or self._delta4_metadata_reservation is None):
+                raise PermissionError('Exact held `.4` metadata operation admission required')
+            owner._admit_delta4_metadata_operation(
+                intent, self._delta4_metadata_reservation)
             return
         if profile == 'ashlar-local-delta-operation/0.1' and self._delta4_prepare_owner is not None:
             raise PermissionError('`.4` prepare-only scope cannot admit native operations')

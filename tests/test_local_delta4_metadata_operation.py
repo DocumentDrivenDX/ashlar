@@ -80,6 +80,7 @@ class FakeTransport:
         self.policy = FakePolicy(context)
         self.history = [{"version": 1, "operation": "SET TBLPROPERTIES"},
                         {"version": 0, "operation": "CREATE TABLE"}]
+        self.native_commit_metadata = {}
         self.phase_rows = []
         self.dispatches = 0
         self.dispatch_mode = "commit"
@@ -103,12 +104,20 @@ class FakeTransport:
     def _require_delta4_metadata_reservation(self, reservation):
         return LocalDeltaTransport._require_delta4_metadata_reservation(self, reservation)
 
-    def _observe_delta4_metadata_target(self, version):
-        return LocalDeltaTransport._observe_delta4_metadata_target(self, version)
+    def delta4_metadata_reservations(self):
+        return LocalDeltaTransport.delta4_metadata_reservations(self)
+
+    def _observe_delta4_metadata_target(self, version, *, allow_later=False):
+        return LocalDeltaTransport._observe_delta4_metadata_target(
+            self, version, allow_later=allow_later)
 
     def _verify_delta4_prepared_phase_readback(self, target, row, context):
         return LocalDeltaTransport._verify_delta4_prepared_phase_readback(
             self, target, row, context)
+
+    def observe_delta4_metadata_commit(self, reservation, *, context, allow_later=False):
+        return LocalDeltaTransport.observe_delta4_metadata_commit(
+            self, reservation, context=context, allow_later=allow_later)
 
     def _profile(self):
         return None
@@ -123,15 +132,17 @@ class FakeTransport:
         return {"id": target.uuid, "location": str(target.path)}
 
     def original_history(self, _target):
-        return [dict(row, **({"userMetadata": self.current_metadata}
-                              if row["version"] == 2 and self.current_metadata else {}))
+        return [dict(row, **({"userMetadata": self.native_commit_metadata[row["version"]]}
+                              if row["version"] in self.native_commit_metadata else {}))
                 for row in self.history]
 
     def _render(self, sql):
         return sql
 
     def _snapshot(self, _target, version):
-        rows = self.phase_rows if version >= 2 else []
+        rows = ([row for row in self.phase_rows
+                 if row["phase"] == "prepared" or version >= 3]
+                if version >= 2 else [])
         original = json.dumps(rows, ensure_ascii=False, sort_keys=True,
                               separators=(",", ":"), allow_nan=False)
         return {"schema": [[key, "string"] for key in
@@ -164,7 +175,9 @@ class FakeTransport:
         if self.dispatch_mode == "commit":
             self.phase_rows.append(row)
             self.current_metadata = self.spark.conf.value
-            self.history.insert(0, {"version": 2, "operation": "MERGE"})
+            version = int(self.history[0]["version"]) + 1
+            self.native_commit_metadata[version] = self.current_metadata
+            self.history.insert(0, {"version": version, "operation": "MERGE"})
         return SimpleNamespace(collect=lambda: [])
 
 
@@ -208,9 +221,6 @@ def reservation_for(transport, request):
     verify_request_digest(verified)
     phase_payload = encoded({"request": verified, "result_json": None,
                              "descriptor_json": None, "plan_json": "{}"})
-    row = {"stream": verified["stream"], "batch_id": verified["batch_id"],
-           "phase": "prepared", "request_digest": verified["request_digest"],
-           "payload_json": phase_payload, "payload_digest": sha(phase_payload)}
     target = transport.target
     columns = ("stream", "batch_id", "phase", "request_digest",
                "payload_json", "payload_digest")
@@ -229,27 +239,34 @@ def reservation_for(transport, request):
         + scope_key + " WHEN MATCHED AND NOT (" + parity + ") THEN UPDATE SET "
         + "payload_json=cast(raise_error('ATTEMPT_PHASE_CONFLICT') AS STRING) "
         + "WHEN NOT MATCHED THEN INSERT *")
-    parameters = {"payload": json.dumps(row, ensure_ascii=False, separators=(",", ":"))}
-    operation = "delta4-metadata:attempts:prepared:" + sha(encoded({
-        "statement": statement, "parameters": parameters}))
-    intent = {"profile": "ashlar-local-delta-metadata-operation/0.1",
-        "lane": "publication_attempt_phase", "installation_id": transport.installation_id,
-        "operation": operation, "request_digest": verified["request_digest"],
-        "statement": statement, "parameters": parameters,
-        "table": target.table, "path": str(target.path), "uuid": target.uuid,
-        "before_version": 1, "source_scope_sha256": "a" * 64,
-        "effect_plan_sha256": "b" * 64, "graph_plan_sha256": "c" * 64,
-        "phase_payload_sha256": row["payload_digest"]}
-    original = encoded({"profile": "ashlar-configured-local-delta4-metadata-lane/0.1",
-                        "intent": intent})
-    result = {"profile": "ashlar-configured-local-delta4-metadata-lane/0.1",
-        "operation": operation, "original": original, "digest": sha(original),
-        "phase_row": row}
+    reservations = []
+    for phase, before in (("prepared", 1), ("applying", 2)):
+        row = {"stream": verified["stream"], "batch_id": verified["batch_id"],
+               "phase": phase, "request_digest": verified["request_digest"],
+               "payload_json": phase_payload, "payload_digest": sha(phase_payload)}
+        parameters = {"payload": json.dumps(row, ensure_ascii=False, separators=(",", ":"))}
+        operation = "delta4-metadata:attempts:" + phase + ":" + sha(encoded({
+            "statement": statement, "parameters": parameters}))
+        intent = {"profile": "ashlar-local-delta-metadata-operation/0.2",
+            "lane": "publication_attempt_phase", "phase": phase,
+            "installation_id": transport.installation_id,
+            "operation": operation, "request_digest": verified["request_digest"],
+            "statement": statement, "parameters": parameters,
+            "table": target.table, "path": str(target.path), "uuid": target.uuid,
+            "before_version": before, "source_scope_sha256": "a" * 64,
+            "effect_plan_sha256": "b" * 64, "graph_plan_sha256": "c" * 64,
+            "phase_payload_sha256": row["payload_digest"]}
+        original = encoded({"profile": "ashlar-configured-local-delta4-metadata-lane/0.2",
+                            "intent": intent})
+        reservations.append({"profile": "ashlar-configured-local-delta4-metadata-lane/0.2",
+            "operation": operation, "original": original, "digest": sha(original),
+            "phase_row": row})
     transport.db.execute("CREATE TABLE local_delta4_metadata_lane_reservation(operation TEXT PRIMARY KEY,original TEXT NOT NULL,digest TEXT NOT NULL)")
-    transport.db.execute("INSERT INTO local_delta4_metadata_lane_reservation VALUES(?,?,?)",
-                         (operation, original, result["digest"]))
-    transport.policy.expected = intent
-    return result
+    transport.db.executemany("INSERT INTO local_delta4_metadata_lane_reservation VALUES(?,?,?)",
+        [(item["operation"], item["original"], item["digest"])
+         for item in reservations])
+    transport.policy.expected = json.loads(reservations[0]["original"])["intent"]
+    return reservations[0]
 
 
 class Tests(unittest.TestCase):
@@ -277,15 +294,22 @@ class Tests(unittest.TestCase):
             proof = json.loads(b"".join(original_receipt_chunks(journal[5])).decode())
             self.assertEqual(proof["lane"], "publication_attempt_phase")
             self.assertEqual(proof["phase_row_sha256"], reservation["phase_row"]["payload_digest"])
+            observed = transport.observe_delta4_metadata_commit(reservation,
+                                                                 context=context)
+            self.assertEqual(observed, proof)
+            self.assertEqual(observed["version"], 2)
             reopened = copy.copy(transport)
             reopened.policy = FakePolicy(context)
             reopened.policy.expected = json.loads(reservation["original"])["intent"]
             replay = LocalDeltaTransport.metadata_recover(reopened, reservation,
                                                           context=context)
             self.assertEqual(replay, result)
+            reopened_proof = reopened.observe_delta4_metadata_commit(
+                reservation, context=context)
+            self.assertEqual(reopened_proof, observed)
             self.assertEqual(reopened.dispatches, 1)
             self.assertEqual(reopened.policy.calls, 2)
-            self.assertEqual(reopened.policy.writer_calls, 2)
+            self.assertEqual(reopened.policy.writer_calls, 3)
             self.assertEqual(reopened.policy.writer_depth, 0)
             self.assertEqual(reopened.db.execute(
                 "SELECT count(*) FROM local_operation").fetchone(), (0,))
@@ -307,6 +331,68 @@ class Tests(unittest.TestCase):
                 "SELECT state FROM local_delta4_metadata_operation").fetchone(),
                 ("committed",))
 
+    def test_applying_phase_is_a_separate_committed_v3_operation_and_reopens(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            context = object()
+            transport = FakeTransport(root, self.plan.request, context)
+            prepared = reservation_for(transport, self.plan.request)
+            prepared_result = LocalDeltaTransport.metadata_mutation(
+                transport, prepared, context=context)
+            applying = transport.delta4_metadata_reservations()[1]
+            transport.policy.expected = json.loads(applying["original"])["intent"]
+            applying_result = LocalDeltaTransport.metadata_mutation(
+                transport, applying, context=context)
+            self.assertEqual(prepared_result.rows[0]["version"], "2")
+            self.assertEqual(applying_result.rows[0]["version"], "3")
+            self.assertEqual([row["phase"] for row in transport.phase_rows],
+                             ["prepared", "applying"])
+            self.assertEqual(transport.db.execute(
+                "SELECT state FROM local_delta4_metadata_operation "
+                "ORDER BY before_version").fetchall(),
+                [("committed",), ("committed",)])
+            proof = LocalDeltaTransport.observe_delta4_metadata_commit(
+                transport, applying, context=context)
+            self.assertEqual(proof["version"], 3)
+            reopened = copy.copy(transport)
+            reopened.policy = FakePolicy(context)
+            reopened.policy.expected = json.loads(applying["original"])["intent"]
+            recovered = LocalDeltaTransport.metadata_recover(
+                reopened, applying, context=context)
+            self.assertEqual(recovered, applying_result)
+            self.assertEqual(reopened.dispatches, 2)
+            reopened.db.execute(
+                "UPDATE local_delta4_metadata_operation SET receipt='corrupt' "
+                "WHERE before_version=1")
+            reopened.db.commit()
+            with self.assertRaises(LocalDeltaError):
+                reopened.observe_delta4_metadata_commit(applying, context=context)
+
+    def test_allow_later_accepts_only_the_reserved_v2_v3_phase_heads(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            context = object()
+            transport = FakeTransport(root, self.plan.request, context)
+            prepared = reservation_for(transport, self.plan.request)
+            LocalDeltaTransport.metadata_mutation(transport, prepared, context=context)
+            applying = transport.delta4_metadata_reservations()[1]
+            transport.policy.expected = json.loads(applying["original"])["intent"]
+            LocalDeltaTransport.metadata_mutation(transport, applying, context=context)
+
+            # The earlier prepared receipt is valid while the exact later
+            # applying phase is also committed at v3.
+            prepared_proof = LocalDeltaTransport.observe_delta4_metadata_commit(
+                transport, prepared, context=context, allow_later=True)
+            self.assertEqual(prepared_proof["version"], 2)
+            self.assertEqual(transport.original_history(transport.target)[0]["version"], 3)
+
+            # A later, unreserved write must not be accepted as an arbitrary
+            # extension of allow_later.
+            transport.history.insert(0, {"version": 4, "operation": "UNRELATED"})
+            with self.assertRaises(LocalDeltaError):
+                LocalDeltaTransport.observe_delta4_metadata_commit(
+                    transport, prepared, context=context, allow_later=True)
+
     def test_submitted_without_commit_is_quarantined_and_later_exact_commit_recovers(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary).resolve()
@@ -325,19 +411,63 @@ class Tests(unittest.TestCase):
                                                      context=context)
             self.assertEqual(transport.dispatches, 1)
             transport.dispatch_mode = "commit"
-            transport._metadata_sql(reservation["original"],
-                json.loads(reservation["original"])["intent"]["parameters"])
             intent = json.loads(reservation["original"])["intent"]
             transport.current_metadata = encoded({
-                "profile": "ashlar-local-delta-metadata-commit/0.1",
+                "profile": "ashlar-local-delta-metadata-commit/0.2",
                 "installation_id": transport.installation_id,
                 "lane": intent["lane"], "operation": intent["operation"],
                 "operation_sha256": sha(encoded(intent)),
                 "request_digest": intent["request_digest"]})
+            transport.spark.conf.value = transport.current_metadata
+            transport._metadata_sql(reservation["original"], intent["parameters"])
             recovered = LocalDeltaTransport.metadata_recover(transport, reservation,
                                                              context=context)
             self.assertEqual(recovered.rows[0]["version"], "2")
             self.assertEqual(transport.dispatches, 2)  # the second is external delayed commit injection
+
+    def test_applying_submitted_without_commit_is_quarantined_then_exact_commit_recovers(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            context = object()
+            transport = FakeTransport(root, self.plan.request, context)
+            prepared = reservation_for(transport, self.plan.request)
+            LocalDeltaTransport.metadata_mutation(transport, prepared, context=context)
+            applying = transport.delta4_metadata_reservations()[1]
+            transport.policy.expected = json.loads(applying["original"])["intent"]
+            transport.dispatch_mode = "raise_before_commit"
+            with self.assertRaisesRegex(RuntimeError, "fake dispatch"):
+                LocalDeltaTransport.metadata_mutation(transport, applying, context=context)
+            self.assertEqual(transport.db.execute(
+                "SELECT state,receipt FROM local_delta4_metadata_operation "
+                "ORDER BY before_version").fetchall(),
+                [("committed", transport.db.execute(
+                    "SELECT receipt FROM local_delta4_metadata_operation "
+                    "WHERE before_version=1").fetchone()[0]), ("submitted", None)])
+            with self.assertRaises(LocalDeltaUncertain):
+                LocalDeltaTransport.metadata_recover(transport, applying, context=context)
+            self.assertEqual(transport.dispatches, 2)  # no retry of submitted applying
+
+            # Simulate the original named Delta commit arriving after the
+            # client lost its response; recovery reads it and persists only
+            # the local receipt, without another metadata SQL submission.
+            intent = json.loads(applying["original"])["intent"]
+            metadata = encoded({
+                "profile": "ashlar-local-delta-metadata-commit/0.2",
+                "installation_id": transport.installation_id,
+                "lane": intent["lane"], "operation": intent["operation"],
+                "operation_sha256": sha(encoded(intent)),
+                "request_digest": intent["request_digest"]})
+            transport.spark.conf.value = metadata
+            transport.dispatch_mode = "commit"
+            transport._metadata_sql(intent["statement"], intent["parameters"])
+            recovered = LocalDeltaTransport.metadata_recover(
+                transport, applying, context=context)
+            self.assertEqual(recovered.rows[0]["version"], "3")
+            self.assertEqual(transport.dispatches, 3)  # only external delayed commit injection
+            self.assertEqual(transport.db.execute(
+                "SELECT state FROM local_delta4_metadata_operation "
+                "ORDER BY before_version").fetchall(),
+                [("committed",), ("committed",)])
 
     def test_changed_reservation_and_wrong_metadata_lane_refuse(self):
         with tempfile.TemporaryDirectory() as temporary:

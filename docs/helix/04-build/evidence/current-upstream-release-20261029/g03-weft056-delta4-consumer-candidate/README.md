@@ -125,7 +125,7 @@ are not represented as completed work here:
    exact original operation IDs, supports recovery from a verified committed
    prefix, quarantines submitted/uncertain states, and checks complete bags,
    receipts and closing heads. Sol reviewed the fake-transport gate; the
-   focused `.4`/`.3` suite passed 36 tests. These checks do not exercise Spark
+   focused `.4`/`.3` suite previously passed 36 tests. These checks do not exercise Spark
    or native Delta effects. No `.4` transaction-1 effect or native snapshot
    comparison has run, and no publication or consumer success is claimed.
    A pre-effect prerequisite now retains one byte-exact source-scope record in
@@ -149,22 +149,26 @@ are not represented as completed work here:
    inventory and complete observed bags; fake tests cover exact replay and
    tamper refusal without adding plan/operation rows. It is supplemental
    custody, not a native `applied` attempt phase. A separate versioned local
-   attempt journal now binds exact source/request/checkpoint/graph-plan custody
-   and persists `prepared` then `applying` before graph dispatch; direct calls to
-   the graph executor refuse without that held-owner admission. This remains a
-   local prerequisite, not the native Delta attempt-table protocol. A separate
-   local metadata-lane reservation binds the exact prepared phase MERGE to its
-   source, graph plan, target UUID/path and predecessor. A separate bounded
-   metadata-operation journal now records `submitted` before dispatch and
-   `committed` only after the exact named commit, version and full phase-row
-   readback validate. Fake-transport tests cover restart/reopen, reservation
-   tampering, altered phase inventory and submitted-without-commit quarantine.
-   `DeltaAttemptStore` accepts the configured immutable JSONL scope with its
-   original checkpoint validation intact. The live `PrivatePolicy` has no
-   metadata-lane admission branch, and graph close still requires fresh
-   metadata heads; this executor is not connected to the `.4` coordinator and
-   has no native route. Native phase integration, manifest and consumer phases
-   remain pending. See [the phase and receipt
+   attempt journal binds exact source/request/checkpoint/graph-plan custody and
+   persists local `prepared` then `applying` phases. Before any graph submission,
+   the held coordinator commits native `publication_attempt_phase` `prepared`
+   and `applying` rows through a separate bounded metadata-operation journal.
+   Each has a stable operation ID, exact SQL/parameters and predecessor version;
+   submitted outcomes remain quarantined until the named commit is verifiable,
+   without retry. Full phase-row readback establishes attempt-table v3 before
+   graph dispatch. Graph effects remain under the exact-three graph journal
+   inventory. Fake-transport tests cover delayed named-commit recovery,
+   ambiguous-submission refusal, reopening at v3, and graph-prefix execution
+   under the real `PrivatePolicy`. `DeltaAttemptStore` accepts the configured
+   immutable JSONL scope with its original checkpoint validation intact. No
+   Spark or native `.4` effect has run; native `applied`, immutable manifest,
+   consumer and source-acknowledgement phases remain pending. Fake checks now
+   cover both committed receipts, v3 reopen, and a delayed exact applying
+   commit recovered without retry. The restored graph-coordinator cases run
+   only after verified applying readback; all nine prior fake graph cases are
+   active again. The latest focused `.4` suite has 45 tests, including
+   coordinator-level submitted-phase reopen/recovery and v2/v3 upper-bound
+   checks. See [the phase and receipt
    boundary finding](output-completion-receipt-boundary-20261029.md).
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.

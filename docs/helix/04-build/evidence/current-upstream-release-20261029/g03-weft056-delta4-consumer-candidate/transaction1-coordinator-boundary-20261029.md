@@ -21,12 +21,7 @@ ddx:
 
 # Gate 3 transaction-1 coordinator boundary
 
-Status: **fake-transport coordinator gate complete; native gate pending**. The
-`.4` transaction-1 coordinator is implemented and passed Sol review with the
-focused fake-transport `.4`/`.3` suite (36 tests). No `.4` native effect,
-publication, consumer query, or acknowledgement occurred. This note records
-the implementation boundary and its evidence; it does not approve a native run
-or change a contract.
+Status: **native `prepared`/`applying` metadata lane and graph coordinator fake-tested; native `.4` execution remains unrun**. CONTRACT-001 phase ordering is represented by two separately journaled metadata operations before graph SQL. Fake transport verifies the v1→v2→v3 attempt-table progression, exact readback, submitted quarantine/recovery, and graph-prefix execution through the coordinator. No Spark/native `.4` effect, publication, consumer query, or acknowledgement occurred.
 
 ## Evidence inspected
 
@@ -74,6 +69,21 @@ It uses the original `LocalDeltaEffects` operation IDs and its recovery
 port. A timeout or exception does not permit a replacement submission or
 continue from observed rows alone.
 
+Before graph operations, the held owner reserves both native
+`publication_attempt_phase` rows, `prepared` and `applying`, in a distinct
+bounded metadata lane. Each is a separate exact SQL operation with a stable ID
+and a predecessor at the then-current native version (v1 and v2 respectively).
+The lane journals `submitted` before SQL and records `committed` only after the
+named commit, version and complete phase-row inventory validate. A submitted
+operation without its named commit stays quarantined and is never retried; a
+later exact named commit can be read back and its original receipt completed.
+Opening, renewal and close accept attempt-table v3 only when both original
+reservations, receipts and complete native readback revalidate. The manifest
+role and all unrelated role heads remain pinned. The graph observer continues
+to enforce its exact three-operation inventory and compares prefixes against
+this validated baseline. Fake tests cover v3 reopen and refusal of unrelated
+metadata commits.
+
 Recovery reopens the exact retained source binding and whole plan, inspects all
 three ordinal states, and reconciles each named native commit, operation
 receipt, version, and snapshot against its original intent. A submitted or
@@ -85,8 +95,8 @@ named commits, changed identity, or any state outside those exact alternatives
 must refuse without retry or cleanup.
 
 Only after all three original operations are committed and their native
-receipts, role versions, four complete data-role bags, and two unchanged
-metadata-role heads agree may the coordinator issue a non-publication
+receipts, role versions, four complete data-role bags, the exact prepared and
+applying attempt rows at v3, and the unchanged manifest head agree may the coordinator issue a non-publication
 completion witness. That witness must advance the held owner’s expected closing
 heads to the observed six-role vector. It does not mint a manifest, publication
 descriptor, query vector, or source acknowledgement. Failure or uncertain
@@ -95,17 +105,20 @@ reconciliation.
 
 ## Implementation and verification status
 
-The coordinator now combines durable source-plan custody, prepared whole-plan
+The coordinator code contains durable source-plan custody, prepared whole-plan
 retention, per-operation execution admission, committed-prefix recovery, full
-source-derived bag and native receipt checks, and owner closing-head advancement
-in one `.4` lifecycle. Sol reviewed the code and passed the focused fake-
-transport `.4`/`.3` suite (36 tests), including:
+source-derived bag and native receipt checks, and owner closing-head advancement.
+The public orchestration now passes both native metadata phases before graph
+dispatch. The focused fake suite verifies:
 
 - exact source/request/profile/plan bytes retained once; changed replay refuses;
 - no SQL dispatch before source and whole-plan custody are committed;
 - only the three exact role statements and original operation IDs are admitted;
-- clean completion requires all three exact receipts, full four-role bags,
-  fresh metadata roles, and a six-role advanced closing vector;
+- source/plan-bound prepared and applying phases are retained with exact named
+  commits/readbacks, advancing the attempt head v1→v2→v3;
+- an applying submission with no named commit remains quarantined, and a later
+  exact named commit recovers without retry;
+- graph SQL dispatch occurs only after native applying readback;
 - each possible committed prefix recovers from the same plan and matches the
   corresponding source-derived role state;
 - prepared, submitted, missing, duplicate, conflicting, and lost-journal cases
@@ -133,4 +146,5 @@ The whole three-step effect plan is retained through the original
 `LocalDeltaEffects.prepare` API, then run or recovered under the coordinator's
 temporary exact per-operation grant. The coordinator verifies complete role
 bags and receipts before advancing the six-role closing vector. These paths
-have fake-transport tests only; no native effect has run.
+have fake-transport tests only; no native effect has run. Native `applied`,
+manifest, query-vector, consumer and source-acknowledgement phases remain open.
