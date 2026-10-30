@@ -1,0 +1,16 @@
+{
+  "profile": "ashlar-g03-original-weft-query-scope/0.1",
+  "compiler": {"distribution": "umf-weft", "version": "0.4.56", "sourceCommit": "2f62e1148d1b2030558550e4f6f2ffe518bac62d", "macosArm64WheelSha256": "68f9297b4b55df483b86d3041040991c4dadfb9b4d63afcff1420c43f93ae41d", "index": "must-be-built-or-retained-and-hash-bound-before-run"},
+  "publicationVectorTemplate": "publication-vector.json",
+  "realizedPublicationVectorOutput": "realized-publication-vector.json (new exclusive output; template must remain unchanged)",
+  "realizedPublicationVectorSha256": "must be recorded and checked before compiler target construction or SQL",
+  "queries": [
+    {"ordinal": 1, "name": "native-singleton", "owner": "Ashlar publication resolver", "expected": "source-oracle.json#/queryExpected/singletonPerson1", "artifact": "missing: exact original typed singleton request and result descriptor"},
+    {"ordinal": 2, "name": "backend03-original", "owner": "Weft compile_paths_keys_json", "sql": "SELECT p.person_key, COUNT(*) AS paths, COUNT_DISTINCT_PATH_TARGETS(x) AS targets FROM Person p CROSS JOIN EXPAND_PATHS(p.knows, located) AS x GROUP BY p.person_key HAVING COUNT(*) > 0 ORDER BY p.person_key", "expected": "source-oracle.json#/queryExpected/backend03OriginalHavingGreaterThanZero", "artifact": "missing: exact original request and .4-bound Weft 0.4.56 response"},
+    {"ordinal": 3, "name": "backend03-positive-multiplicity", "owner": "Weft compile_paths_keys_json", "sql": "SELECT p.person_key, COUNT(*) AS paths, COUNT_DISTINCT_PATH_TARGETS(x) AS targets FROM Person p CROSS JOIN EXPAND_PATHS(p.knows, located) AS x GROUP BY p.person_key HAVING COUNT(*) > 1 ORDER BY p.person_key", "expected": "source-oracle.json#/queryExpected/backend03PositiveHavingGreaterThanOne", "artifact": "candidate .3 request retained separately; missing exact .4-bound Weft 0.4.56 response"},
+    {"ordinal": 4, "name": "backend02-page1", "owner": "Weft compile_engine_page_json plus SDK page target", "expected": "source-oracle.json#/queryExpected/backend02Page1", "artifact": "missing: exact original page request, program response and .4-bound Weft 0.4.56 responses"},
+    {"ordinal": 5, "name": "backend02-continuation", "owner": "Weft original page continuation target", "expected": "source-oracle.json#/queryExpected/backend02Page2", "continuationFrom": "the exact token returned by successful native page 1; expected source token is in source-oracle.json", "artifact": "missing: exact original continuation request/response bound to page-1 token and same vector"}
+  ],
+  "executionOrder": ["review-pre-sql", "native-singleton", "backend03-original", "backend03-positive-multiplicity", "backend02-page1", "review-post-page1", "backend02-continuation", "closing-vector-runtime-and-oracle-checks"],
+  "requiredIdentity": "One publication ID, manifest UUID, four-role UUID/version vector and six-role installation inventory remain fixed for all five reads. No query artifact may contain ashlar-delta/0.3, a local alias with a different table identity, or an inherited publication binding."
+}
