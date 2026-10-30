@@ -25,9 +25,11 @@ ddx:
 
 # Gate 3 `.4` output-completion receipt boundary
 
-Status: **local `prepared/applying` attempt journal, metadata reservation and
-supplemental output receipt implemented and fake-tested; native phase insertion/
-recovery, `applied` and manifest transitions remain unimplemented**. No Spark
+Status: **local `prepared/applying` attempt journal, metadata reservation,
+isolated native metadata-operation executor, and supplemental output receipt
+implemented and fake-tested; the executor is unreachable from the `.4`
+coordinator, and native phase integration, `applied` and manifest transitions
+remain unimplemented**. No Spark
 process or native effect ran. These local records are not a publication
 descriptor, realized vector, consumer result, source acknowledgement, or native
 Delta attempt phase.
@@ -71,29 +73,37 @@ most three graph operations. Reusing `LocalDeltaEffects` for native attempt or
 manifest SQL in the same journal would break that invariant. Extending the
 observer to ignore extra records would be unsafe.
 
-A separate local metadata-lane reservation now records the exact proposed
+The separate local metadata-lane reservation records the exact proposed
 `prepared` phase MERGE, original phase payload/digest, JSONL request/checkpoint,
 source-scope digest, graph-plan digest, installed attempt-table UUID/path and
 fresh predecessor version. It uses its own versioned reservation table and a
-distinct `ashlar-local-delta-metadata-operation/0.1` intent profile. Fake tests
-check exact replay/refusal and verify that the graph operation table and native
-attempt-table history remain unchanged. This is reservation/admission evidence
-only; it does not insert the native phase row.
+distinct `ashlar-local-delta-metadata-operation/0.1` intent profile.
 
-The held-owner gate now prevents bypass through the public graph executor
-method: only the orchestration entrypoint can supply its current in-memory
-admission, after re-reading the exact durable `applying` row. Native metadata
-execution still needs a separate LocalDeltaTransport operation table and
-admission/recovery path. The current `.4` observer must continue to reject
-unexpected graph-journal rows, so metadata operations cannot be silently
-ignored or mixed into `local_plan`/`local_operation`.
+An isolated `LocalDeltaTransport` metadata executor now has its own bounded
+SQLite operation table, so graph `local_plan`/`local_operation` inventories
+remain exactly scoped to graph effects. It binds the operation to the retained
+reservation, lane, installation, source request, target UUID/path, predecessor,
+exact SQL/parameters and prepared payload. It records `submitted` before
+dispatch, never retries an absent/ambiguous named commit, and records a local
+receipt only after the exact named Delta commit, next version, complete native
+phase-row readback, snapshot and closing identity checks agree. Reopen/recovery
+uses the same bytes and validates an existing commit. The metadata table is
+allowed by journal preflight only as a known `.4` extension; arbitrary extra
+tables remain rejected. `DeltaAttemptStore` now accepts the configured
+`ashlar-immutable-jsonl/0.1` profile, while preserving its exact original
+request/checkpoint validation. Its readback session uses the same private
+writer context and independently rechecks native table identity; data queries
+remain read-only and use the transport query port.
 
-The existing `DeltaAttemptStore` is not a drop-in phase owner for this source:
-its source-qualified scope currently admits PostgreSQL outbox and Truss-native
-feed profiles, while this candidate is bound to the configured immutable JSONL
-checkpoint. Reusing it without a source-profile extension and an exact `.4`
-native operation authority would misstate source custody. No phase-row write is
-therefore implemented in this slice.
+This executor is deliberately unreachable from current configured `.4`
+publication: `PrivatePolicy` has no metadata-operation admission branch, and
+the graph coordinator's fresh-head admission/close still requires the metadata
+role at its original version. Opening that route requires a separately reviewed
+phase-aware transition that preserves the graph observer's exact-three
+operation invariant and advances metadata-head expectations only after a
+verified native phase commit. No native phase dispatch has run; fake tests
+exercise the isolated executor only. No method bypass or relaxed close check
+makes this slice publishable.
 
 The next implementation must introduce native `prepared/applying/applied`
 attempt operations and explicit inventory proof that distinguishes graph

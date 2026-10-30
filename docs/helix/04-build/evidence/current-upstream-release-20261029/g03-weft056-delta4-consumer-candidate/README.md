@@ -152,11 +152,19 @@ are not represented as completed work here:
    attempt journal now binds exact source/request/checkpoint/graph-plan custody
    and persists `prepared` then `applying` before graph dispatch; direct calls to
    the graph executor refuse without that held-owner admission. This remains a
-   local prerequisite, not the native Delta attempt-table protocol. Native
-   `prepared` insertion/recovery, `applying`/`applied`, manifest and consumer
-   phases remain pending. A separate local metadata-lane reservation now binds
-   the exact prepared phase MERGE to its source, graph plan, target UUID/path
-   and predecessor; it grants no native SQL. See [the phase and receipt
+   local prerequisite, not the native Delta attempt-table protocol. A separate
+   local metadata-lane reservation binds the exact prepared phase MERGE to its
+   source, graph plan, target UUID/path and predecessor. A separate bounded
+   metadata-operation journal now records `submitted` before dispatch and
+   `committed` only after the exact named commit, version and full phase-row
+   readback validate. Fake-transport tests cover restart/reopen, reservation
+   tampering, altered phase inventory and submitted-without-commit quarantine.
+   `DeltaAttemptStore` accepts the configured immutable JSONL scope with its
+   original checkpoint validation intact. The live `PrivatePolicy` has no
+   metadata-lane admission branch, and graph close still requires fresh
+   metadata heads; this executor is not connected to the `.4` coordinator and
+   has no native route. Native phase integration, manifest and consumer phases
+   remain pending. See [the phase and receipt
    boundary finding](output-completion-receipt-boundary-20261029.md).
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.

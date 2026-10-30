@@ -107,7 +107,7 @@ def validate_source_qualified_phase_inventory(stream,batch_id,rows,original_requ
     except (KeyError,TypeError,AttributeError,ValueError) as exc:
         raise AttemptStoreError('Malformed original phase source scope') from exc
     if (type(checkpoint)is not dict
-            or checkpoint.get('profile') not in ('ashlar-postgresql-outbox/0.1','truss-native-feed/0.1')
+            or checkpoint.get('profile') not in ('ashlar-postgresql-outbox/0.1','truss-native-feed/0.1','ashlar-immutable-jsonl/0.1')
             or any(type(checkpoint.get(k))is not str or not checkpoint[k] for k in ('feed','epoch'))):
         raise AttemptStoreError('Unknown original phase source scope')
     original_scope=(checkpoint['profile'],checkpoint['feed'],checkpoint['epoch'])
@@ -127,7 +127,7 @@ def validate_source_qualified_phase_inventory(stream,batch_id,rows,original_requ
             _request_digest(request)
             source_checkpoint=_json(request['source_checkpoint_json'].encode())
             if (type(source_checkpoint)is not dict
-                    or source_checkpoint.get('profile') not in ('ashlar-postgresql-outbox/0.1','truss-native-feed/0.1')
+                    or source_checkpoint.get('profile') not in ('ashlar-postgresql-outbox/0.1','truss-native-feed/0.1','ashlar-immutable-jsonl/0.1')
                     or any(type(source_checkpoint.get(k))is not str or not source_checkpoint[k]
                            for k in ('feed','epoch'))):
                 raise AttemptStoreError('Unknown original phase source scope')
@@ -161,7 +161,8 @@ class DeltaAttemptStore:
             _request_digest(original_request)
             checkpoint = _json(original_request.get('source_checkpoint_json','').encode())
             if (type(checkpoint) is not dict or checkpoint.get('profile') not in (
-                    'ashlar-postgresql-outbox/0.1', 'truss-native-feed/0.1')
+                    'ashlar-postgresql-outbox/0.1', 'truss-native-feed/0.1',
+                    'ashlar-immutable-jsonl/0.1')
                     or any(type(checkpoint.get(k)) is not str or not checkpoint[k] for k in ('feed','epoch'))):
                 raise AttemptStoreError('Supported original source feed/epoch scope required')
             self.original_request = json.dumps(original_request,sort_keys=True,separators=(',',':'))

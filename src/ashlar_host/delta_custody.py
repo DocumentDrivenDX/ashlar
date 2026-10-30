@@ -87,6 +87,118 @@ def sha(value):
 def child_operation(operation, statement, parameters):
     return operation + ':' + sha(encoded({'statement': statement, 'parameters': parameters}))
 
+def _metadata_intent_from_reservation(transport, reservation):
+    """Validate the closed `.4` prepared-phase reservation carrier."""
+    if type(reservation) is not dict or set(reservation) != {
+            'profile', 'operation', 'original', 'digest', 'phase_row'}:
+        raise LocalDeltaError('Exact original `.4` metadata reservation required')
+    if reservation['profile'] != 'ashlar-configured-local-delta4-metadata-lane/0.1':
+        raise LocalDeltaError('Original `.4` metadata lane profile required')
+    original = reservation['original']
+    if (type(original) is not str or len(original.encode()) > 4 * 1024 * 1024
+            or sha(original) != reservation['digest']):
+        raise LocalDeltaError('Exact bounded `.4` metadata reservation bytes required')
+    try:
+        envelope = json.loads(original)
+    except (TypeError, ValueError) as error:
+        raise LocalDeltaError('Malformed original `.4` metadata reservation') from error
+    if encoded(envelope) != original or type(envelope) is not dict or set(envelope) != {'profile', 'intent'}:
+        raise LocalDeltaError('Canonical original `.4` metadata reservation required')
+    intent = envelope['intent']
+    fields = {'profile', 'lane', 'installation_id', 'operation', 'request_digest',
+              'statement', 'parameters', 'table', 'path', 'uuid', 'before_version',
+              'source_scope_sha256', 'effect_plan_sha256', 'graph_plan_sha256',
+              'phase_payload_sha256'}
+    if (envelope['profile'] != 'ashlar-configured-local-delta4-metadata-lane/0.1'
+            or type(intent) is not dict or set(intent) != fields
+            or intent.get('profile') != 'ashlar-local-delta-metadata-operation/0.1'
+            or intent.get('lane') != 'publication_attempt_phase'
+            or intent.get('installation_id') != transport.installation_id
+            or intent.get('operation') != reservation['operation']
+            or type(intent.get('request_digest')) is not str
+            or re.fullmatch('[0-9a-f]{64}', intent['request_digest']) is None
+            or type(intent.get('before_version')) is not int
+            or intent['before_version'] < 0
+            or type(intent.get('parameters')) is not dict
+            or set(intent.get('parameters', {})) != {'payload'}
+            or type(intent['parameters'].get('payload')) is not str
+            or any(type(intent.get(key)) is not str
+                   or re.fullmatch('[0-9a-f]{64}', intent[key]) is None
+                   for key in ('source_scope_sha256', 'effect_plan_sha256',
+                               'graph_plan_sha256', 'phase_payload_sha256'))):
+        raise LocalDeltaError('Closed original `.4` metadata operation intent required')
+    target = transport._target(intent['statement'])
+    if (intent['table'], intent['path'], intent['uuid']) != (
+            target.table, str(target.path), target.uuid):
+        raise LocalDeltaError('Original `.4` metadata target identity differs')
+    profile = getattr(transport, 'installation_profile', None)
+    role = profile.get('roles', {}).get('publication_attempt_phase') if type(profile) is dict else None
+    if (type(role) is not dict or role.get('table') != target.table
+            or role.get('path') != str(target.path) or role.get('uuid') != target.uuid):
+        raise LocalDeltaError('Journal-pinned `.4` attempt table identity required')
+    if len(intent['parameters']['payload'].encode()) > 4 * 1024 * 1024:
+        raise LocalDeltaError('Bounded original native prepared phase payload required')
+    payload = json.loads(intent['parameters']['payload'])
+    expected_row = reservation['phase_row']
+    if (type(expected_row) is not dict or set(expected_row) != {
+            'stream', 'batch_id', 'phase', 'request_digest', 'payload_json',
+            'payload_digest'} or payload != expected_row
+            or expected_row.get('phase') != 'prepared'
+            or expected_row.get('request_digest') != intent['request_digest']
+            or expected_row.get('payload_digest') != intent['phase_payload_sha256']):
+        raise LocalDeltaError('Exact original prepared phase payload required')
+    phase_payload_text = expected_row['payload_json']
+    if (type(phase_payload_text) is not str
+            or len(phase_payload_text.encode()) > 4 * 1024 * 1024
+            or sha(phase_payload_text) != expected_row['payload_digest']):
+        raise LocalDeltaError('Bounded original prepared phase payload required')
+    phase_payload = json.loads(phase_payload_text)
+    if (encoded(phase_payload) != phase_payload_text
+            or type(phase_payload) is not dict
+            or set(phase_payload) != {'request', 'result_json', 'descriptor_json', 'plan_json'}
+            or phase_payload['result_json'] is not None
+            or phase_payload['descriptor_json'] is not None
+            or type(phase_payload['plan_json']) is not str):
+        raise LocalDeltaError('Canonical original prepared phase payload required')
+    request = phase_payload['request']
+    from ashlar.attempt_store import verify_request_digest
+    try:
+        verify_request_digest(request)
+    except ValueError as error:
+        raise LocalDeltaError('Original source-qualified phase request required') from error
+    if (request['request_digest'] != intent['request_digest']
+            or expected_row['stream'] != request['stream']
+            or expected_row['batch_id'] != request['batch_id']):
+        raise LocalDeltaError('Prepared phase request identity differs')
+    from ashlar.native import quote_table_identifier
+    columns = ('stream', 'batch_id', 'phase', 'request_digest',
+               'payload_json', 'payload_digest')
+    native_payload = json.dumps(expected_row, ensure_ascii=False,
+                                separators=(',', ':'), allow_nan=False)
+    definition = 'STRUCT<' + ','.join(column + ':STRING' for column in columns) + '>'
+    parity = ' AND '.join('t.' + column + ' IS NOT DISTINCT FROM s.' + column
+                          for column in columns)
+    scope_key = ''
+    for key in ('profile', 'feed', 'epoch'):
+        scope_key += (' AND get_json_object(get_json_object(t.payload_json,'
+                      "'$.request.source_checkpoint_json'),'$." + key + "')="
+                      'get_json_object(get_json_object(s.payload_json,'
+                      "'$.request.source_checkpoint_json'),'$." + key + "')")
+    expected_statement = ('MERGE INTO ' + quote_table_identifier(target.table)
+        + ' t USING (SELECT r.* FROM (SELECT from_json(:payload,\'' + definition
+        + "') r)) s ON t.stream=s.stream AND t.batch_id=s.batch_id AND t.phase=s.phase"
+        + scope_key + ' WHEN MATCHED AND NOT (' + parity + ") THEN UPDATE SET "
+        + "payload_json=cast(raise_error('ATTEMPT_PHASE_CONFLICT') AS STRING) "
+        + 'WHEN NOT MATCHED THEN INSERT *')
+    if intent['statement'] != expected_statement or intent['parameters'] != {
+            'payload': native_payload}:
+        raise LocalDeltaError('Reserved native prepared phase SQL/parameters differ')
+    operation_digest = sha(encoded({'statement': intent['statement'],
+                                    'parameters': intent['parameters']}))
+    if intent['operation'] != 'delta4-metadata:attempts:prepared:' + operation_digest:
+        raise LocalDeltaError('Original `.4` metadata operation ID differs')
+    return intent
+
 @dataclass(frozen=True)
 class DeltaTarget:
     table: str
@@ -265,6 +377,23 @@ class LocalDeltaTransport:
         selected = operation_capacity(capacity)
         if selected is not None: registry['operation_capacity'] = dict(selected)
         definitions = local_journal_definitions()
+        metadata_definitions = {
+            'local_delta4_attempt_phase': ('CREATE TABLE local_delta4_attempt_phase('
+                'request_digest TEXT NOT NULL,phase TEXT NOT NULL,payload_json TEXT NOT NULL,'
+                'payload_sha256 TEXT NOT NULL,PRIMARY KEY(request_digest,phase))'),
+            'local_delta4_metadata_lane_reservation': ('CREATE TABLE '
+                'local_delta4_metadata_lane_reservation(operation TEXT PRIMARY KEY,'
+                'original TEXT NOT NULL,digest TEXT NOT NULL)'),
+            'local_delta4_output_receipt': ('CREATE TABLE local_delta4_output_receipt('
+                'request_digest TEXT PRIMARY KEY,original TEXT NOT NULL,'
+                'receipt_sha256 TEXT NOT NULL)'),
+            'local_delta4_metadata_operation': ('CREATE TABLE '
+                'local_delta4_metadata_operation(operation TEXT PRIMARY KEY,lane TEXT NOT NULL,'
+                'intent TEXT NOT NULL,intent_sha TEXT NOT NULL,before_version INTEGER NOT NULL,'
+                'state TEXT NOT NULL,receipt TEXT)')}
+        delta4_profile = (type(registry.get('installation_profile')) is dict
+                          and registry['installation_profile'].get('physical_profile')
+                          == 'ashlar-delta/0.4-xxhash64')
         connection = sqlite3.connect('file:' + quote(str(path)) + '?mode=ro', uri=True)
         primary = None
         def renew():
@@ -275,7 +404,13 @@ class LocalDeltaTransport:
             connection.execute('PRAGMA query_only=ON')
             actual = dict(connection.execute("SELECT name,sql FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"))
             normalize = lambda text: re.sub(r'\s+', '', text).lower()
-            if set(actual) != set(definitions) or any(type(actual[name]) is not str or normalize(actual[name]) != normalize(sql) for name, sql in definitions.items()):
+            accepted = dict(definitions)
+            if delta4_profile:
+                accepted.update(metadata_definitions)
+            if (not set(definitions) <= set(actual) or not set(actual) <= set(accepted)
+                    or any(type(actual[name]) is not str
+                           or normalize(actual[name]) != normalize(accepted[name])
+                           for name in actual)):
                 raise LocalDeltaError('Complete unchanged original journal schema required')
             if connection.execute('SELECT original FROM local_installation WHERE id=1').fetchall() != [(encoded(registry),)]:
                 raise LocalDeltaError('Complete original journal registry differs')
@@ -334,6 +469,16 @@ class LocalDeltaTransport:
         if name not in self.targets or ';' in sql:
             raise LocalDeltaError('Admitted single native target required')
         return self.targets[name]
+
+    def _reject_delta4_metadata_operation_collision(self, operation):
+        for table in ('local_delta4_metadata_lane_reservation',
+                      'local_delta4_metadata_operation'):
+            if self.db.execute(
+                    "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
+                    (table,)).fetchone() is not None:
+                if self.db.execute('SELECT 1 FROM ' + table +
+                                   ' WHERE operation=?', (operation,)).fetchone():
+                    raise LocalDeltaError('Metadata operation ID cannot enter graph lane')
 
     def _detail(self, target, *, full=False):
         frame = self.spark.sql('DESCRIBE DETAIL delta.`' + str(target.path) + '`')
@@ -766,6 +911,7 @@ class LocalDeltaTransport:
                     if permit is not None or self.policy.admit(json.loads(intent),context)is not None:
                         raise LocalDeltaError('Current original intent preparation admission incomplete')
                     self._profile()
+                    self._reject_delta4_metadata_operation_collision(operation)
                     retained=self.db.execute('SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?',(operation,)).fetchone()
                     self._detail(target)
                     history=self.original_history(target)
@@ -801,6 +947,211 @@ class LocalDeltaTransport:
 
     def recover(self, operation, sql, parameters, *, intent_digest, context):
         return self._execute(operation, sql, parameters, intent_digest, context, recovery=True)
+
+    def metadata_mutation(self, reservation, *, context):
+        """Execute one reserved `.4` metadata intent in its isolated journal."""
+        intent = _metadata_intent_from_reservation(self, reservation)
+        self._require_delta4_metadata_reservation(reservation)
+        return self._execute_metadata(intent, reservation, context, recovery=False)
+
+    def metadata_recover(self, reservation, *, context):
+        """Reconcile the exact reserved metadata operation; submitted is never retried."""
+        intent = _metadata_intent_from_reservation(self, reservation)
+        self._require_delta4_metadata_reservation(reservation)
+        return self._execute_metadata(intent, reservation, context, recovery=True)
+
+    def _require_delta4_metadata_reservation(self, reservation):
+        table = 'local_delta4_metadata_lane_reservation'
+        schema = self.db.execute(
+            "SELECT sql FROM sqlite_master WHERE type='table' AND name=?", (table,)).fetchall()
+        normalize = lambda value: re.sub(r'\s+', '', value).lower()
+        expected_schema = ('CREATE TABLE local_delta4_metadata_lane_reservation('
+                           'operation TEXT PRIMARY KEY,original TEXT NOT NULL,digest TEXT NOT NULL)')
+        if (len(schema) != 1 or type(schema[0][0]) is not str
+                or normalize(schema[0][0]) != normalize(expected_schema)):
+            raise LocalDeltaError('Exact retained `.4` metadata reservation table required')
+        count = self.db.execute('SELECT count(*) FROM ' + table).fetchone()[0]
+        if type(count) is not int or count != 1:
+            raise LocalDeltaError('Unique retained `.4` metadata reservation required')
+        rows = self.db.execute('SELECT operation,original,digest FROM ' + table).fetchall()
+        expected = [(reservation['operation'], reservation['original'], reservation['digest'])]
+        if rows != expected:
+            raise LocalDeltaError('Metadata operation must match its byte-exact retained reservation')
+
+    def _observe_delta4_metadata_target(self, expected_version):
+        from .configured_local_delta4_publication import _observe_delta4_role
+        target, version, _protocol, _fields = _observe_delta4_role(
+            self, 'publication_attempt_phase', self.installation_profile)
+        selected = self.targets[self.installation_profile['roles'][
+            'publication_attempt_phase']['table']]
+        versions = expected_version if type(expected_version) is tuple else (expected_version,)
+        if (target.uuid != selected.uuid or target.path != selected.path
+                or version not in versions):
+            raise LocalDeltaError('Exact retained metadata target UUID/path/version required')
+        return target, version
+
+    def _execute_metadata(self, intent, reservation, context, *, recovery):
+        from .local_receipt_codec import encode_local_receipt, local_receipt_equals
+        operation = intent['operation']; lane = intent['lane']
+        sql = intent['statement']; parameters = intent['parameters']
+        target = self._target(sql)
+        body = encoded(intent); body_sha = sha(body)
+        commit_metadata = encoded({'profile': 'ashlar-local-delta-metadata-commit/0.1',
+            'installation_id': self.installation_id, 'lane': lane,
+            'operation': operation, 'operation_sha256': body_sha,
+            'request_digest': intent['request_digest']})
+        table = 'local_delta4_metadata_operation'
+        schema_sql = ('CREATE TABLE local_delta4_metadata_operation('
+                      'operation TEXT PRIMARY KEY,lane TEXT NOT NULL,intent TEXT NOT NULL,'
+                      'intent_sha TEXT NOT NULL,before_version INTEGER NOT NULL,'
+                      'state TEXT NOT NULL,receipt TEXT)')
+        result = None
+        with self.policy.writer(operation, context) as permit:
+            if permit is not None or self.policy.admit(json.loads(body), context) is not None:
+                raise LocalDeltaError('Exact current `.4` metadata operation admission required')
+            self._profile()
+            with self._lock():
+                actual = dict(self.db.execute(
+                    "SELECT name,sql FROM sqlite_master WHERE type='table' "
+                    "AND name NOT LIKE 'sqlite_%'").fetchall())
+                if table not in actual:
+                    self.db.execute(schema_sql); self.db.commit()
+                definition = self.db.execute(
+                    "SELECT sql FROM sqlite_master WHERE type='table' AND name=?",
+                    (table,)).fetchall()
+                normalize = lambda text: re.sub(r'\s+', '', text).lower()
+                if (len(definition) != 1 or type(definition[0][0]) is not str
+                        or normalize(definition[0][0]) != normalize(schema_sql)):
+                    raise LocalDeltaError('Exact separate `.4` metadata journal schema required')
+                metadata_count = self.db.execute(
+                    'SELECT count(*) FROM local_delta4_metadata_operation').fetchone()[0]
+                if type(metadata_count) is not int or metadata_count > 1:
+                    raise LocalDeltaError('Bound one-operation `.4` metadata journal required')
+                if self.db.execute('SELECT 1 FROM local_operation WHERE operation=?',
+                                   (operation,)).fetchone():
+                    raise LocalDeltaError('Graph operation ID cannot be replayed in metadata lane')
+                retained = self.db.execute(
+                    'SELECT operation,lane,intent,intent_sha,before_version,state,receipt '
+                    'FROM local_delta4_metadata_operation WHERE operation=?',
+                    (operation,)).fetchone()
+                self._observe_delta4_metadata_target(
+                    (intent['before_version'], intent['before_version'] + 1))
+                history = self.original_history(target)
+                named = [entry for entry in history
+                         if entry.get('userMetadata') == commit_metadata]
+                if retained is None:
+                    if recovery:
+                        raise LocalDeltaError('Missing retained metadata intent; no replacement')
+                    if named:
+                        raise LocalDeltaError('Named metadata commit lacks journal custody; no replacement')
+                    if self.db.execute('SELECT count(*) FROM local_operation').fetchone() != (0,):
+                        raise LocalDeltaError('Prepared metadata phase must precede graph effects')
+                    before = int(history[0]['version'])
+                    if before != intent['before_version']:
+                        raise LocalDeltaError('Reserved metadata predecessor version changed')
+                    with self.db:
+                        self.db.execute(
+                            'INSERT INTO local_delta4_metadata_operation '
+                            'VALUES(?,?,?,?,?,?,NULL)',
+                            (operation, lane, body, body_sha, before, 'prepared'))
+                    retained = (operation, lane, body, body_sha, before, 'prepared', None)
+                if retained[:4] != (operation, lane, body, body_sha):
+                    raise LocalDeltaError('Original metadata intent/lane custody differs')
+                before, state, receipt = retained[4:]
+                if (type(before) is not int or before != intent['before_version']
+                        or state not in ('prepared', 'submitted', 'committed')
+                        or ((state == 'committed') != (receipt is not None))):
+                    raise LocalDeltaError('Original metadata operation state is ambiguous')
+                self._observe_delta4_metadata_target(
+                    before if state == 'prepared' else (before, before + 1))
+                if state == 'prepared':
+                    if named or int(self.original_history(target)[0]['version']) != before:
+                        raise LocalDeltaError('Metadata predecessor changed before submission')
+                    with self.db:
+                        self.db.execute(
+                            "UPDATE local_delta4_metadata_operation SET state='submitted' "
+                            'WHERE operation=? AND state=\'prepared\'', (operation,))
+                    previous = self.spark.conf.get(
+                        'spark.databricks.delta.commitInfo.userMetadata', None)
+                    self.spark.conf.set('spark.databricks.delta.commitInfo.userMetadata',
+                                        commit_metadata)
+                    try:
+                        self.spark.sql(self._render(sql), args=parameters).collect()
+                    finally:
+                        if previous is None:
+                            self.spark.conf.unset('spark.databricks.delta.commitInfo.userMetadata')
+                        else:
+                            self.spark.conf.set(
+                                'spark.databricks.delta.commitInfo.userMetadata', previous)
+                history = self.original_history(target)
+                named = [entry for entry in history
+                         if entry.get('userMetadata') == commit_metadata]
+                if len(named) != 1:
+                    raise LocalDeltaUncertain(
+                        'Submitted metadata commit absent or ambiguous; never retry it')
+                commit = named[0]
+                version = commit.get('version')
+                if type(version) is not int or version != before + 1:
+                    raise LocalDeltaError('Exact reserved metadata commit version required')
+                self._observe_delta4_metadata_target(version)
+                proof_snapshot = self._snapshot(target, version)
+                self._verify_delta4_prepared_phase_readback(
+                    target, reservation['phase_row'], context)
+                proof = {'profile': 'ashlar-local-delta-metadata-receipt/0.1',
+                    'lane': lane, 'operation': operation, 'operation_sha256': body_sha,
+                    'request_digest': intent['request_digest'], 'table': target.table,
+                    'path': str(target.path), 'uuid': target.uuid,
+                    'before_version': before, 'version': version,
+                    'commit_metadata': commit_metadata,
+                    'native_operation': commit.get('operation'), 'snapshot': proof_snapshot,
+                    'phase_row_sha256': intent['phase_payload_sha256']}
+                proof_text = encoded(proof)
+                if receipt is not None and not local_receipt_equals(receipt, proof_text):
+                    raise LocalDeltaError('Original metadata native receipt differs')
+                self._profile()
+                if self.policy.admit(json.loads(body), context) is not None:
+                    raise LocalDeltaError('Closing exact `.4` metadata operation admission required')
+                self._observe_delta4_metadata_target(version)
+                closing_history = self.original_history(target)
+                if ([entry for entry in closing_history
+                     if entry.get('userMetadata') == commit_metadata] != named
+                        or encoded(self._snapshot(target, version)) != encoded(proof_snapshot)):
+                    raise LocalDeltaError('Closing metadata commit/snapshot changed')
+                if receipt is None:
+                    with self.db:
+                        self.db.execute(
+                            "UPDATE local_delta4_metadata_operation SET state='committed',receipt=? "
+                            'WHERE operation=? AND state=\'submitted\'',
+                            (encode_local_receipt(proof_text), operation))
+                current = self.db.execute(
+                    'SELECT operation,lane,intent,intent_sha,before_version,state,receipt '
+                    'FROM local_delta4_metadata_operation WHERE operation=?',
+                    (operation,)).fetchone()
+                if (current is None or current[:6] !=
+                        (operation, lane, body, body_sha, before, 'committed')
+                        or not local_receipt_equals(current[6], proof_text)):
+                    raise LocalDeltaError('Committed metadata operation receipt differs')
+                result = SQLResult([{'version': str(version), 'uuid': target.uuid,
+                    'operation_sha256': body_sha,
+                    'snapshot_sha256': proof_snapshot['row_sha256']}],
+                    (('version', 'STRING'), ('uuid', 'STRING'),
+                     ('operation_sha256', 'STRING'), ('snapshot_sha256', 'STRING')))
+        if result is None:
+            raise LocalDeltaUncertain('Metadata operation completion suppressed')
+        return result
+
+    def _verify_delta4_prepared_phase_readback(self, target, expected_row, context):
+        from ashlar.attempt_store import DeltaAttemptStore, PhaseRecord
+        request = json.loads(expected_row['payload_json'])['request']
+        store = DeltaAttemptStore(self, self.policy, target.table, target.uuid,
+                                  original_request=request)
+        with store.session(context) as session:
+            phases = session.read(request['stream'], request['batch_id'])
+        expected = PhaseRecord('prepared', request['request_digest'],
+            expected_row['payload_json'], expected_row['payload_digest'])
+        if phases != (expected,):
+            raise LocalDeltaError('Complete native prepared phase readback differs')
+        return expected
 
     def retain_phase_absence_witness(self,table,metadata):
         """Retain bounded interval history/keys; never create native authority."""
@@ -939,6 +1290,7 @@ class LocalDeltaTransport:
                 raise LocalDeltaError('Current original intent admission incomplete')
             self._profile()
             with self._lock():
+                self._reject_delta4_metadata_operation_collision(operation)
                 retained = self.db.execute('SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?', (operation,)).fetchone()
                 if retained is None:
                     if recovery:
