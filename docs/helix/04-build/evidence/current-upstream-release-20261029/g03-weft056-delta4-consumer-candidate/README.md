@@ -25,7 +25,7 @@ ddx:
 
 Status: **inert candidate; no `.4` publication, query SQL, or native result is
 claimed**. This packet fixes the smallest graph and oracle to use for the Gate 3
-run. It is prepared for independent Sol review. It has not been prepared for
+run. Sol reviewed the fake-transport coordinator. It has not been prepared for
 native execution and carries no execution permit.
 
 ## Frozen inputs and exact oracle
@@ -118,29 +118,32 @@ are not represented as completed work here:
    writes no tables, and cannot mint a complete manifest. A separate frozen
    transaction-1 intent now emits three parameterized `.4` INSERT proposals
    bound to the request and installation-profile digests; it also performs no
-   native writes. Read-only helpers now admit a fresh, empty six-role
-   installation and compare all four data-role bags at exact post-effect
-   versions, including native `xxhash64` checks. Their tests use an inert fake
-   transport; no `.4` transaction-1 native effect or snapshot comparison has
-   run. An owner-held `.4` source/head scope now binds the frozen request and
-   effect plan to the live local source, writer lock and current runtime
-   admission. It deliberately grants no effect intent: durable effect custody,
-   actual native snapshot evidence, and manifest commit/readback remain.
-   The required original-plan custody and partial-effect recovery boundary is
-   recorded in [the coordinator finding](transaction1-coordinator-boundary-20261029.md).
+   native writes. Read-only helpers admit a fresh, empty six-role installation
+   and compare all four data-role bags at exact post-effect versions, including
+   native `xxhash64` checks. The owner-held coordinator now binds the request,
+   source custody, whole effect plan and writer lock; it grants only the three
+   exact original operation IDs, supports recovery from a verified committed
+   prefix, quarantines submitted/uncertain states, and checks complete bags,
+   receipts and closing heads. Sol reviewed the fake-transport gate; the
+   focused `.4`/`.3` suite passed 36 tests. These checks do not exercise Spark
+   or native Delta effects. No `.4` transaction-1 effect or native snapshot
+   comparison has run, and no publication or consumer success is claimed.
    A pre-effect prerequisite now retains one byte-exact source-scope record in
    the local journal under the held owner; focused inert tests cover exact
-   replay and changed/missing/corrupt custody. It still grants no effect intent.
+   replay and changed/missing/corrupt custody. During coordinated execution,
+   the temporary policy scope admits only the three original operation IDs.
    A read-only observer can now reconcile each contiguous committed prefix of
    the three frozen effects against original journal rows, native commit
    metadata, exact receipts and six role snapshots under the held local owner.
-   Recovery-only baseline rehydration now requires the original journal record,
+   Recovery-only baseline rehydration requires the original journal record,
    version-1 installation history and six empty historical snapshots before a
-   new local owner can reconcile a committed prefix. Its restart tests are
-   inert. The held owner can now retain the exact three-step whole effect plan
-   through `LocalDeltaEffects.prepare` under a prepare-only policy grant that
-   refuses every operation intent. Effect dispatch/recovery and a completion
-   witness remain unimplemented.
+   new local owner can reconcile a committed prefix. The held owner retains the
+   exact whole effect plan through `LocalDeltaEffects.prepare`, then executes or
+   recovers it only inside the coordinator's temporary per-operation policy
+   scope. Fake-transport checks cover clean completion, committed-prefix
+   recovery, pre-dispatch recovery, post-commit mismatch and submitted-state
+   quarantine. Native execution, immutable manifest commit/readback and the
+   realized publication vector remain unproven.
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.
 3. A Weft 0.4.56 host distribution adapter for the local configured runtime.

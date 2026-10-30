@@ -21,10 +21,12 @@ ddx:
 
 # Gate 3 transaction-1 coordinator boundary
 
-Status: **design finding only**. No `.4` effect, native execution, publication,
-query, or acknowledgement occurred. This note records the smallest safe
-coordinator boundary found while preparing the next Gate 3 implementation
-slice. It does not approve a native run or change a contract.
+Status: **fake-transport coordinator gate complete; native gate pending**. The
+`.4` transaction-1 coordinator is implemented and passed Sol review with the
+focused fake-transport `.4`/`.3` suite (36 tests). No `.4` native effect,
+publication, consumer query, or acknowledgement occurred. This note records
+the implementation boundary and its evidence; it does not approve a native run
+or change a contract.
 
 ## Evidence inspected
 
@@ -32,47 +34,48 @@ The `.4` candidate packet freezes source transaction `typed-graph-1`, its
 source-derived expected bags, the six-role installation profile, and three
 parameterized insert intents. The current code has a journal-pinned fresh-empty
 admission, a source/runtime/writer-lock owner, and a post-effect validator for
-complete four-role row bags and native `xxhash64`. The owner intentionally
-admits no effect intent.
+complete four-role row bags and native `xxhash64`.
 
-`LocalDeltaEffects` already retains an exact whole ordered plan and ordinal
-operation custody, supports observation and original recovery, and returns
-native receipts. Its existing execution path is guarded by the `.3`
-`PrivatePolicy.active` publisher lifecycle. Directly enabling that path inside
-the `.4` owner would allow effects before a coordinator has made the durable
-source binding and recovery state authoritative.
+`LocalDeltaEffects` retains an exact whole ordered plan and ordinal operation
+custody, supports original recovery, and returns native receipts. The `.4`
+coordinator now calls those APIs under a separate temporary policy scope that
+admits only the exact whole plan and its three original operation IDs. The
+`.3` `PrivatePolicy.active` lifecycle remains unchanged. Each admission checks
+the held source/runtime/lock and exact next native predecessor; the in-process
+post-commit callback verifies the named commit and complete source-derived
+snapshot before the transport persists its receipt. Restarted submitted rows
+remain quarantined; recovery uses the original effect recovery port for a
+verified committed prefix or exact prepared tail.
 
-The current fresh token proves only six empty role heads. The owner’s closing
-check compares against those same heads, so a successful `.4` insert would
-currently be reported as head drift. The existing `.4` validator checks only
-the complete post-effect state; it cannot admit or reconcile a partially
-committed prefix. CONTRACT-003 requires partial role commits to remain
-unpublished and retain the prior descriptor, and its recovery table requires
-inspection of actual commits and retained input before repair. TD-009 requires
-exact original operation/effect receipts and complete native vectors before a
-publication can be accepted.
+The coordinator advances expected closing heads only after all three exact
+operations, receipts and source-derived snapshots reconcile. This was verified
+with fake transport. CONTRACT-003 still requires native partial role commits
+to remain unpublished and retain the prior descriptor, and its recovery table
+requires inspection of actual commits and retained input before repair. TD-009
+requires exact original operation/effect receipts and complete native vectors
+before a publication can be accepted.
 
-## Smallest coherent coordinator boundary
+## Implemented coordinator boundary
 
-Before any first native dispatch, one separately versioned `.4` coordinator
-must durably bind the exact `source.spec(1)` request and source custody to the
+The separately versioned `.4` coordinator durably binds the exact
+`source.spec(1)` request and source custody to the
 effect-plan digest, installation-profile digest, ordered SQL steps, and the
-original six-role fresh heads. Retention must be idempotent for byte-identical
-intent and refuse any changed or incomplete prior record. The whole effect plan
-must then be retained through `LocalDeltaEffects.prepare`; an absent or changed
+original six-role fresh heads. Retention is idempotent for byte-identical
+intent and refuses any changed or incomplete prior record. The whole effect plan
+is retained through `LocalDeltaEffects.prepare`; an absent or changed
 original plan cannot be reconstructed from native rows.
 
-The coordinator must own the existing local writer lock and current
+The coordinator owns the existing local writer lock and current
 `ConfiguredLocalAdmission` through opening, dispatch, reconciliation, and
-closing. It may grant only the three frozen transaction-1 insert statements.
-Before each step it must bind the target table/path/UUID and compare current
+closing. It grants only the three frozen transaction-1 insert statements.
+Before each step it binds the target table/path/UUID and compares current
 native heads with the retained original state plus the exact committed prefix.
-It must use the original `LocalDeltaEffects` operation IDs and its recovery
-port. A timeout or exception is not permission to submit a replacement or
+It uses the original `LocalDeltaEffects` operation IDs and its recovery
+port. A timeout or exception does not permit a replacement submission or
 continue from observed rows alone.
 
-Recovery must reopen the exact retained source binding and whole plan, inspect
-all three ordinal states, and reconcile each named native commit, operation
+Recovery reopens the exact retained source binding and whole plan, inspects all
+three ordinal states, and reconciles each named native commit, operation
 receipt, version, and snapshot against its original intent. A submitted or
 otherwise ambiguous outcome remains quarantined until the original operation
 can be resolved. A committed prefix must match the source-derived complete bag
@@ -90,13 +93,13 @@ descriptor, query vector, or source acknowledgement. Failure or uncertain
 closure withholds the witness and preserves all original custody for
 reconciliation.
 
-## Implementation and verification gate
+## Implementation and verification status
 
-This coordinator is too cross-cutting for the current authority-only slice:
-it must combine durable source-plan custody, journaled effect execution,
-partial-prefix recovery, full source-oracle comparison, and owner head
-advancement in one versioned lifecycle. The following focused inert tests are
-the minimum before the coordinator grants any effect intent:
+The coordinator now combines durable source-plan custody, prepared whole-plan
+retention, per-operation execution admission, committed-prefix recovery, full
+source-derived bag and native receipt checks, and owner closing-head advancement
+in one `.4` lifecycle. Sol reviewed the code and passed the focused fake-
+transport `.4`/`.3` suite (36 tests), including:
 
 - exact source/request/profile/plan bytes retained once; changed replay refuses;
 - no SQL dispatch before source and whole-plan custody are committed;
@@ -109,21 +112,25 @@ the minimum before the coordinator grants any effect intent:
   never create replacement intent or silently retry an uncertain operation;
 - changed source, profile, UUID, schema, protocol, history, or lock fails
   opening, renewal, or closing and releases no completion witness;
-- existing `.3` publication, recovery, and replay behavior remains unchanged.
+- existing `.3` policy admission behavior remains unchanged.
 
-Until those guards and recovery tests exist, the reviewed authority must remain
-read-only with respect to policy admission. The one-shot native permit, if any,
-must bind the exact later coordinator build and effect packet after independent
-review. No native execution is authorized by this finding.
+These tests exercise only fake transport and stubbed journal/native results.
+They do not prove Spark SQL, Delta commit behavior, native snapshots, manifest
+commit/readback, Weft execution, a realized publication vector, or consumer
+parity. Native `.4` effects remain pending an exact later execution packet and
+independent review; this finding grants no native permit.
 
-The subsequent read-only prefix observer now checks the four contiguous states
+The read-only prefix observer checks the four contiguous states
 against retained plan/operation rows, named native commits, exact receipts and
 complete six-role bags. It also checks the catalog table location against the
 original path. Recovery-only rehydration now reconstructs the original
 fresh-head token from exact retained source scope and historical empty version-1
 snapshots, including original CREATE/registration history, allowing a new local
-owner to observe a committed prefix. These are inert tests only. Native effect
-dispatch, ambiguous-operation recovery and completion witness remain open.
-The whole three-step effect plan can now be retained through the original
-`LocalDeltaEffects.prepare` API under a temporary prepare-only policy grant;
-every ordinal operation intent remains denied. No native effect has run.
+owner to observe a committed prefix. The prepared tail is checked against exact
+intent bytes, digest, baseline version, state and null receipt before the
+observer accepts it. These are inert tests only.
+The whole three-step effect plan is retained through the original
+`LocalDeltaEffects.prepare` API, then run or recovered under the coordinator's
+temporary exact per-operation grant. The coordinator verifies complete role
+bags and receipts before advancing the six-role closing vector. These paths
+have fake-transport tests only; no native effect has run.

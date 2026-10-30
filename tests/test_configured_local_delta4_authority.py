@@ -205,8 +205,13 @@ class Tests(unittest.TestCase):
         operation = "effects:" + effect.intent_digest
         original, plan_digest, identities = LocalDeltaEffects(transport).original_plan(
             operation, effect.intent_digest, effect.steps)
-        transport.db.execute("INSERT INTO local_plan VALUES(?,?,?)",
-                             (operation, original, plan_digest))
+        retained_plan = transport.db.execute(
+            "SELECT original,digest FROM local_plan WHERE operation=?", (operation,)).fetchone()
+        if retained_plan is None:
+            transport.db.execute("INSERT INTO local_plan VALUES(?,?,?)",
+                                 (operation, original, plan_digest))
+        else:
+            self.assertEqual(retained_plan, (original, plan_digest))
         full_rows = materialize_delta4_expected_rows(self.plan, fake.lookup_hashes)
         fake.expected = {role: (full_rows[role] if role in
                        ["object_current", "edge_current", "whole_source_history"][:prefix]
@@ -243,6 +248,47 @@ class Tests(unittest.TestCase):
                                                  separators=(",", ":"), ensure_ascii=False,
                                                  allow_nan=False))))
         transport.db.commit()
+
+    def _seed_submitted_step(self, fake, transport, effect, index):
+        """Fake one native commit after SQL dispatch but before receipt storage."""
+        from ashlar_host.delta_custody import original_operation_intent
+        operation = "effects:" + effect.intent_digest
+        original, _digest, identities = LocalDeltaEffects(transport).original_plan(
+            operation, effect.intent_digest, effect.steps)
+        full_rows = materialize_delta4_expected_rows(self.plan, fake.lookup_hashes)
+        prefix = index + 1
+        roles = ["object_current", "edge_current", "whole_source_history"]
+        fake.expected = {role: (full_rows[role] if role in roles[:prefix] else [])
+                         for role in INSTALLATION_ROLES}
+        step = effect.steps[index]
+        target = transport._target(step["statement"])
+        key = identities[index]
+        intent = original_operation_intent(
+            transport.installation_id, key, effect.intent_digest,
+            step["statement"], step["parameters"], target,
+            transport.operation_capacity)
+        body_sha = custody_sha(intent)
+        metadata = json.dumps({"profile": "ashlar-local-delta-commit/0.1",
+            "installation_id": transport.installation_id, "operation": key,
+            "operation_sha256": body_sha, "request_digest": effect.intent_digest},
+            sort_keys=True, separators=(",", ":"))
+        role = target.table.rsplit(".", 1)[-1]
+        fake.histories[role] = [2, 1, 0]
+        fake.native_metadata[role][2] = metadata
+        fake.native_operations[role][2] = "WRITE"
+        snapshot = transport._snapshot(target, 2)
+        receipt = {"profile": "ashlar-local-delta-receipt/0.1",
+            "operation": key, "operation_sha256": body_sha,
+            "request_digest": effect.intent_digest, "table": target.table,
+            "uuid": target.uuid, "before_version": 1, "version": 2,
+            "commit_metadata": metadata, "native_operation": "WRITE",
+            "snapshot": snapshot}
+        encoded = json.dumps(receipt, sort_keys=True, separators=(",", ":"),
+                             ensure_ascii=False, allow_nan=False)
+        return (key, intent, body_sha, encoded, {
+            "version": "2", "uuid": target.uuid,
+            "operation_sha256": body_sha,
+            "snapshot_sha256": snapshot["row_sha256"]})
 
     def test_readonly_reconciliation_accepts_each_exact_committed_prefix(self):
         for prefix in range(4):
@@ -553,6 +599,211 @@ class Tests(unittest.TestCase):
                     self.assertIsNone(transport.policy._delta4_prepare_owner)
                     self.assertIsNone(transport.policy._delta4_prepare_intent)
             self.assertIsNone(transport.policy._delta4_prepare_owner)
+
+    def test_prepared_tail_observer_rejects_tampered_intent_before_dispatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            _fake, transport, effect, _source, _admission, authority = self.build(root)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    authority.prepare_effect_plan()
+                    operation = "effects:" + effect.intent_digest
+                    _original, _digest, identities = LocalDeltaEffects(transport).original_plan(
+                        operation, effect.intent_digest, effect.steps)
+                    step = effect.steps[0]
+                    target = transport._target(step["statement"])
+                    key = identities[0]
+                    intent = original_operation_intent(
+                        transport.installation_id, key, effect.intent_digest,
+                        step["statement"], step["parameters"], target,
+                        transport.operation_capacity)
+                    transport.db.execute(
+                        "INSERT INTO local_operation VALUES(?,?,?,?,?,NULL)",
+                        (key, intent + " ", custody_sha(intent), 1, "prepared"))
+                    transport.db.commit()
+                    with self.assertRaisesRegex(ValueError, "operation custody"):
+                        authority._observe_effect_prefix(allow_prepared=True)
+
+    def _simulate_delta4_effects(self, effects, operation, intent_digest, steps, *, context,
+                                 failure=None):
+        from ashlar_host.delta_custody import original_operation_intent
+        original, _digest, ids = effects.original_plan(operation, intent_digest, steps)
+        effects.transport.policy.admit(json.loads(original), context)
+        receipts = []
+        for index, step in enumerate(steps):
+            key = ids[index]
+            target = effects.transport._target(step["statement"])
+            intent = json.loads(original_operation_intent(
+                effects.transport.installation_id, key, intent_digest,
+                step["statement"], step["parameters"], target,
+                effects.transport.operation_capacity))
+            effects.transport.policy.admit(intent, context)
+            row = effects.transport.db.execute(
+                "SELECT intent,intent_sha,state,receipt FROM local_operation WHERE operation=?",
+                (key,)).fetchone()
+            if failure == ("before_dispatch", index) and row is None:
+                effects.transport.db.execute(
+                    "INSERT INTO local_operation VALUES(?,?,?,?,?,NULL)",
+                    (key, original_operation_intent(
+                        effects.transport.installation_id, key, intent_digest,
+                        step["statement"], step["parameters"], target,
+                        effects.transport.operation_capacity),
+                     custody_sha(original_operation_intent(
+                        effects.transport.installation_id, key, intent_digest,
+                        step["statement"], step["parameters"], target,
+                        effects.transport.operation_capacity)), 1, "prepared"))
+                effects.transport.db.commit()
+                raise RuntimeError("simulated pre-dispatch stop")
+            if row is None or row[2] == "prepared":
+                key, raw, body_sha, receipt, result = self._seed_submitted_step(
+                    self._active_fake, effects.transport, self._active_effect, index)
+                if row is None:
+                    effects.transport.db.execute(
+                        "INSERT INTO local_operation VALUES(?,?,?,?,?,NULL)",
+                        (key, raw, body_sha, 1, "submitted"))
+                else:
+                    effects.transport.db.execute(
+                        "UPDATE local_operation SET state='submitted' WHERE operation=?",
+                        (key,))
+                effects.transport.db.commit()
+                if failure == ("wrong_native_metadata", index):
+                    role = target.table.rsplit(".", 1)[-1]
+                    fake = self._active_fake
+                    fake.native_metadata[role][2] = json.dumps({
+                        "profile": "ashlar-local-delta-commit/0.1",
+                        "installation_id": effects.transport.installation_id,
+                        "operation": key + ":forged",
+                        "operation_sha256": body_sha,
+                        "request_digest": intent_digest,
+                    }, sort_keys=True, separators=(",", ":"))
+                effects.transport.policy.admit(intent, context)
+                if failure == ("after_native_commit", index):
+                    raise RuntimeError("simulated uncertain completion after native commit")
+                from ashlar_host.local_receipt_codec import encode_local_receipt
+                effects.transport.db.execute(
+                    "UPDATE local_operation SET state='committed',receipt=? WHERE operation=?",
+                    (encode_local_receipt(receipt), key))
+                effects.transport.db.commit()
+                receipts.append([result])
+            elif row[2] == "committed":
+                effects.transport.policy.admit(intent, context)
+                proof = json.loads(b"".join(original_receipt_chunks(row[3])).decode())
+                receipts.append([{"version": str(proof["version"]),
+                                  "uuid": proof["uuid"],
+                                  "operation_sha256": proof["operation_sha256"],
+                                  "snapshot_sha256": proof["snapshot"]["row_sha256"]}])
+                effects.transport.policy.admit(intent, context)
+        effects.transport.policy.admit(json.loads(original), context)
+        return {"plan_sha256": _digest, "intent_digest": intent_digest,
+                "original_native_receipts": receipts}
+
+    def test_delta4_execution_commits_and_advances_closing_vector(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            fake, transport, effect, _source, _admission, authority = self.build(root)
+            self._active_fake, self._active_effect = fake, effect
+            def run_stub(effects, operation, intent_digest, steps, *, context):
+                return self._simulate_delta4_effects(
+                    effects, operation, intent_digest, steps, context=context,
+                    failure=getattr(self, "_active_failure", None))
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    authority.prepare_effect_plan()
+                    with patch.object(LocalDeltaEffects, "run", run_stub):
+                        answer = authority.execute_effect_plan()
+                    self.assertEqual(answer["observation"]["committed_prefix"], 3)
+                    self.assertIsNone(transport.policy._delta4_execution_owner)
+                    self.assertEqual(transport.db.execute(
+                        "SELECT count(*) FROM local_operation").fetchone(), (3,))
+                self.assertEqual(authority._delta4_closing_heads["publication_manifest"]["version"], 1)
+            self.assertIsNone(transport.policy._delta4_execution_owner)
+
+    def test_delta4_post_commit_mismatch_quarantines_and_revokes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            fake, transport, effect, _source, _admission, authority = self.build(root)
+            self._active_fake, self._active_effect = fake, effect
+            self._active_failure = ("wrong_native_metadata", 0)
+            def run_stub(effects, operation, intent_digest, steps, *, context):
+                return self._simulate_delta4_effects(
+                    effects, operation, intent_digest, steps, context=context,
+                    failure=self._active_failure)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with self.assertRaises(ValueError):
+                    with authority.hold():
+                        authority.prepare_effect_plan()
+                        with patch.object(LocalDeltaEffects, "run", run_stub):
+                            authority.execute_effect_plan()
+            self.assertIsNone(transport.policy._delta4_execution_owner)
+            self.assertIsNone(transport.policy._delta4_execution_intent)
+            self.assertIsNone(transport.policy._delta4_execution_ids)
+            self.assertEqual(transport.db.execute(
+                "SELECT state,receipt FROM local_operation").fetchone(),
+                ("submitted", None))
+            self.assertIsNone(authority._delta4_inflight_index)
+            self.assertIsNone(authority._delta4_inflight_state)
+
+    def test_delta4_pre_dispatch_failure_clears_inflight_for_same_owner_recovery(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            fake, transport, effect, _source, _admission, authority = self.build(root)
+            self._active_fake, self._active_effect = fake, effect
+            self._active_failure = ("before_dispatch", 0)
+            def run_stub(effects, operation, intent_digest, steps, *, context):
+                return self._simulate_delta4_effects(
+                    effects, operation, intent_digest, steps, context=context,
+                    failure=getattr(self, "_active_failure", None))
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    authority.prepare_effect_plan()
+                    with patch.object(LocalDeltaEffects, "run", run_stub), \
+                         patch.object(LocalDeltaEffects, "recover", run_stub):
+                        with self.assertRaisesRegex(RuntimeError, "pre-dispatch"):
+                            authority.execute_effect_plan()
+                        self.assertIsNone(authority._delta4_inflight_index)
+                        self.assertIsNone(authority._delta4_inflight_state)
+                        self._active_failure = None
+                        result = authority.execute_effect_plan()
+                        self.assertEqual(result["observation"]["committed_prefix"], 3)
+            self.assertIsNone(transport.policy._delta4_execution_owner)
+
+    def test_delta4_execution_recovers_committed_prefix_and_quarantines_uncertain(self):
+        for fault in (None, "uncertain"):
+            with self.subTest(fault=fault), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory).resolve(); root.chmod(0o700)
+                fake, transport, effect, source, _admission, authority = self.build(root)
+                self._active_fake, self._active_effect = fake, effect
+                def recover_stub(effects, operation, intent_digest, steps, *, context):
+                    return self._simulate_delta4_effects(
+                        effects, operation, intent_digest, steps, context=context)
+                with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                    with authority.hold():
+                        authority.prepare_effect_plan()
+                    self._seed_committed_prefix(fake, transport, effect, 1)
+                    reopened, _source2, _fresh2, authority2 = self.reopen_authority(
+                        transport, effect, source)
+                    self._active_fake = fake
+                    if fault == "uncertain":
+                        # Retain the exact ordinal intent in submitted state with
+                        # no native commit. Recovery must refuse and not retry it.
+                        key, raw, body_sha, _receipt, _result = self._seed_submitted_step(
+                            fake, reopened, effect, 1)
+                        fake.histories["edge_current"] = [1, 0]
+                        fake.native_metadata["edge_current"].pop(2, None)
+                        reopened.db.execute(
+                            "INSERT INTO local_operation VALUES(?,?,?,?,?,NULL)",
+                            (key, raw, body_sha, 1, "submitted"))
+                        reopened.db.commit()
+                        with self.assertRaises(ValueError):
+                            with authority2.hold():
+                                authority2.execute_effect_plan()
+                        self.assertIsNone(reopened.policy._delta4_execution_owner)
+                        continue
+                    with patch.object(LocalDeltaEffects, "recover", recover_stub):
+                        with authority2.hold():
+                            result = authority2.execute_effect_plan()
+                    self.assertEqual(result["observation"]["committed_prefix"], 3)
+                    self.assertIsNone(reopened.policy._delta4_execution_owner)
 
 
 if __name__ == "__main__":

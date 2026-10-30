@@ -210,6 +210,9 @@ class PrivatePolicy:
         self.initializing = True
         self._delta4_prepare_owner = None
         self._delta4_prepare_intent = None
+        self._delta4_execution_owner = None
+        self._delta4_execution_intent = None
+        self._delta4_execution_ids = None
 
     @contextmanager
     def writer(self, *args):
@@ -250,6 +253,28 @@ class PrivatePolicy:
         self._delta4_prepare_owner = None
         self._delta4_prepare_intent = None
 
+    def _activate_delta4_execution(self, owner, intent, operation_ids, context):
+        from .configured_local_delta4_publication import ConfiguredLocalDelta4WriterAuthority
+        if (type(owner) is not ConfiguredLocalDelta4WriterAuthority
+                or context is not self.context or self.initializing
+                or self.active is not None or self._delta4_prepare_owner is not None
+                or self._delta4_execution_owner is not None
+                or type(intent) is not dict
+                or intent.get('profile') != 'ashlar-local-delta-effects/0.1'
+                or type(operation_ids) is not list or len(operation_ids) != 3):
+            raise PermissionError('Original held `.4` execution coordinator required')
+        owner._require_current(held=True)
+        self._delta4_execution_owner = owner
+        self._delta4_execution_intent = intent
+        self._delta4_execution_ids = tuple(operation_ids)
+
+    def _deactivate_delta4_execution(self, owner):
+        if self._delta4_execution_owner is not owner:
+            raise PermissionError('Original `.4` execution coordinator required')
+        self._delta4_execution_owner = None
+        self._delta4_execution_intent = None
+        self._delta4_execution_ids = None
+
     def admit(self, intent, context):
         if context is not self.context:
             raise PermissionError('Original private writer context required')
@@ -269,8 +294,19 @@ class PrivatePolicy:
             owner._check_fresh_heads()
             owner._retain_source_scope()
             return
+        if profile == 'ashlar-local-delta-effects/0.1' and self._delta4_execution_owner is not None:
+            if (self.active is not None or intent != self._delta4_execution_intent):
+                raise PermissionError('Exact held `.4` execution plan required')
+            self._delta4_execution_owner._admit_delta4_plan(intent)
+            return
         if profile == 'ashlar-local-delta-operation/0.1' and self._delta4_prepare_owner is not None:
             raise PermissionError('`.4` prepare-only scope cannot admit native operations')
+        if profile == 'ashlar-local-delta-operation/0.1' and self._delta4_execution_owner is not None:
+            if self.active is not None:
+                raise PermissionError('Concurrent native policy scope refused')
+            self._delta4_execution_owner._admit_delta4_operation(
+                intent, self._delta4_execution_ids)
+            return
         active = self.active
         if active is None:
             raise PermissionError('Original native request admission missing')

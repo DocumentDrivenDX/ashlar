@@ -435,6 +435,9 @@ class ConfiguredLocalDelta4WriterAuthority:
         self._parent_identity = None
         self._file_identity = None
         self.source_scope_sha256 = None
+        self._delta4_inflight_index = None
+        self._delta4_inflight_state = None
+        self._delta4_closing_heads = None
         self._witness = (plan, effect_plan, transport, installation_profile, fresh,
                          source, current_admission, context, policy)
 
@@ -495,13 +498,25 @@ class ConfiguredLocalDelta4WriterAuthority:
 
     def _check_fresh_heads(self):
         self._require_current(held=True)
-        baseline = self.fresh.heads
+        expected = self._delta4_closing_heads or self.fresh.heads
         for role in INSTALLATION_ROLES:
             target, version, _protocol, _fields = _observe_delta4_role(
                 self.transport, role, self.installation_profile)
-            _require(version == baseline[role]["version"]
-                     and target.uuid == baseline[role]["uuid"],
-                     "Native `.4` heads changed since fresh-empty admission")
+            _require(version == expected[role]["version"]
+                     and target.uuid == expected[role]["uuid"],
+                     "Native `.4` heads differ from the retained opening/closing vector")
+        self._require_current(held=True)
+
+    def _check_opening_heads(self):
+        """Accept only the original fresh head or a verified committed prefix."""
+        plan_count = self.transport.db.execute("SELECT count(*) FROM local_plan").fetchone()[0]
+        operation_count = self.transport.db.execute("SELECT count(*) FROM local_operation").fetchone()[0]
+        if plan_count == 0 and operation_count == 0:
+            self._check_fresh_heads()
+            return
+        observation = self._observe_effect_prefix(allow_prepared=True)
+        _require("submitted" not in observation["states"],
+                 "Submitted `.4` operation remains quarantined at scope opening")
         self._require_current(held=True)
 
     def _retain_source_scope(self):
@@ -599,7 +614,7 @@ class ConfiguredLocalDelta4WriterAuthority:
                  "Exact unique durable `.4` source-scope replay required")
         self.source_scope_sha256 = _sha(original.encode("utf-8"))
 
-    def _observe_effect_prefix(self):
+    def _observe_effect_prefix(self, *, allow_prepared=False, submitted_index=None):
         """Read-only exact journal/native reconciliation; never grants dispatch."""
         from .delta_custody import (LocalDeltaEffects, original_operation_intent,
                                     sha as custody_sha)
@@ -667,10 +682,17 @@ class ConfiguredLocalDelta4WriterAuthority:
                 operation_rows.append(None)
                 continue
             _op, _intent_bytes, _receipt_bytes, _intent_sha, _before, state = small
-            _require(state == "committed",
-                     "Prepared/submitted `.4` operation state is ambiguous and must recover")
-            _require(type(_receipt_bytes) is int and 0 < _receipt_bytes <= 4 * 1024 * 1024,
-                     "Exact bounded committed `.4` receipt required")
+            _require(state == "committed"
+                     or (allow_prepared and state == "prepared")
+                     or (submitted_index is not None and state == "submitted"
+                         and key == operation_ids[submitted_index]),
+                     "Prepared/submitted `.4` operation state is ambiguous")
+            if state == "committed":
+                _require(type(_receipt_bytes) is int and 0 < _receipt_bytes <= 4 * 1024 * 1024,
+                         "Exact bounded committed `.4` receipt required")
+            else:
+                _require(_receipt_bytes is None,
+                         "Noncommitted `.4` operation must not retain a receipt")
             operation_rows.append(self.transport.db.execute(
                 "SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?",
                 (key,)).fetchone())
@@ -678,10 +700,19 @@ class ConfiguredLocalDelta4WriterAuthority:
         prefix = 0
         while prefix < len(states) and states[prefix] == "committed":
             prefix += 1
-        _require(states == ["committed"] * prefix + ["missing"] * (len(states) - prefix),
-                 "Only an exact contiguous committed operation prefix is admissible")
+        prepared_tail = (allow_prepared and prefix < len(states)
+                         and states[prefix] == "prepared")
+        submitted_tail = (submitted_index == prefix and prefix < len(states)
+                          and states[prefix] == "submitted")
+        _require(states == ["committed"] * prefix
+                 + (["prepared"] if prepared_tail else
+                    ["submitted"] if submitted_tail else [])
+                 + ["missing"] * (len(states) - prefix - int(prepared_tail)
+                                    - int(submitted_tail)),
+                 "Only an exact committed prefix and one explicitly admitted tail are allowed")
         _require(self.transport.db.execute("SELECT count(*) FROM local_operation").fetchone()
-                 == (prefix,), "Extra original local operation journal rows refuse reconciliation")
+                 == (prefix + int(prepared_tail) + int(submitted_tail),),
+                 "Extra original local operation journal rows refuse reconciliation")
 
         expected_native_metadata = []
         for index, (key, step, target, row) in enumerate(
@@ -698,13 +729,17 @@ class ConfiguredLocalDelta4WriterAuthority:
                 "request_digest": self.effect_plan.intent_digest,
             })
             expected_native_metadata.append(metadata_text)
-            if index >= prefix:
+            if index >= prefix + int(submitted_tail) + int(prepared_tail):
                 continue
             baseline_version = baseline[target.table.rsplit(".", 1)[-1]]["version"]
             _require(type(row[2]) is int and row[2] == baseline_version
                      and row[0] == intent and row[1] == body_sha
-                     and row[3] == "committed" and type(row[4]) is str,
-                     "Exact committed `.4` operation custody required")
+                     and ((row[3] == "committed" and type(row[4]) is str)
+                          or (prepared_tail and index == prefix
+                              and row[3] == "prepared" and row[4] is None)
+                          or (submitted_tail and index == prefix
+                              and row[3] == "submitted" and row[4] is None)),
+                     "Exact original `.4` operation custody required")
 
         lookup_hashes = observe_delta4_lookup_hashes(
             self.plan, self.transport, self.installation_profile)
@@ -715,8 +750,9 @@ class ConfiguredLocalDelta4WriterAuthority:
         for role in INSTALLATION_ROLES:
             target, version, _protocol, _fields = _observe_delta4_role(
                 self.transport, role, self.installation_profile)
+            expected_native_prefix = prefix + int(submitted_tail)
             expected_version = baseline[role]["version"] + int(
-                role in step_roles[:prefix])
+                role in step_roles[:expected_native_prefix])
             _require(version == expected_version,
                      "Native `.4` role head includes a changed baseline or extra commit")
             history = self.transport.original_history(target)
@@ -733,7 +769,7 @@ class ConfiguredLocalDelta4WriterAuthority:
                     if type(metadata) is dict and metadata.get("operation") == key:
                         named.append((role, record, _canonical(metadata)))
             expected_role = step_roles[index]
-            if index < prefix:
+            if index < prefix + int(submitted_tail):
                 _require(len(named) == 1 and named[0][0] == expected_role
                          and named[0][2] == expected_native_metadata[index],
                          "Exact unique original named native commit required")
@@ -760,8 +796,14 @@ class ConfiguredLocalDelta4WriterAuthority:
                     "commit_metadata": expected_native_metadata[index],
                     "native_operation": record["operation"], "snapshot": snapshot,
                 }
-                _require(local_receipt_equals(operation_rows[index][4], _canonical(proof)),
-                         "Exact retained original native receipt required")
+                if index < prefix:
+                    _require(local_receipt_equals(operation_rows[index][4], _canonical(proof)),
+                             "Exact retained original native receipt required")
+                else:
+                    _require(submitted_tail and index == prefix
+                             and operation_rows[index][3] == "submitted"
+                             and operation_rows[index][4] is None,
+                             "Only the active in-process submitted ordinal may lack its receipt")
             else:
                 _require(not named,
                          "Named native commit exists without committed journal custody")
@@ -770,7 +812,7 @@ class ConfiguredLocalDelta4WriterAuthority:
             target = self.transport.targets["local.configured." + role]
             if role in DATA_ROLES:
                 step_index = step_roles.index(role) if role in step_roles else len(step_roles)
-                rows_for_role = expected_rows[role] if step_index < prefix else []
+                rows_for_role = expected_rows[role] if step_index < prefix + int(submitted_tail) else []
                 columns = tuple((name, kind) for name, kind, _nullable
                                 in carriers.ordered_fields(role))
                 rows_for_role = [{name: (str(value) if type(value) is int else value)
@@ -800,7 +842,9 @@ class ConfiguredLocalDelta4WriterAuthority:
         """
         from .lifecycle import finish
         _require(not self.held and self._fd is None and not self._active
-                 and self.policy.active is None,
+                 and self.policy.active is None
+                 and self.policy._delta4_prepare_owner is None
+                 and self.policy._delta4_execution_owner is None,
                  "Inactive original `.4` owner required for read-only prefix reconciliation")
         self._require_current()
         parent = self.transport.journal_path.parent.lstat()
@@ -902,13 +946,159 @@ class ConfiguredLocalDelta4WriterAuthority:
             raise primary
         return result
 
+    def _admit_delta4_plan(self, intent):
+        """Policy callback for the one whole-plan execution and its close."""
+        self._require_current(held=True)
+        self._check_writer_lock()
+        self.current_admission(self.source, self.plan.request, None, self.context)
+        self._retain_source_scope()
+        observation = self._observe_effect_prefix(allow_prepared=True)
+        _require("submitted" not in observation["states"],
+                 "Submitted `.4` operation remains quarantined")
+        if self._delta4_inflight_state == "post_commit":
+            _require(observation["committed_prefix"] == self._delta4_inflight_index + 1,
+                     "Post-commit `.4` ordinal was not durably receipted")
+            self._delta4_inflight_index = None
+            self._delta4_inflight_state = None
+        _require(0 <= observation["committed_prefix"] <= 3,
+                 "Exact `.4` operation prefix required")
+        self._check_writer_lock()
+        self.current_admission.closing(self.source, None, self.context)
+
+    def _admit_delta4_operation(self, intent, operation_ids):
+        """Policy callback for one original ordinal, before or after SQL."""
+        from .delta_custody import original_operation_intent
+        _require(type(intent) is dict and type(operation_ids) is tuple
+                 and len(operation_ids) == 3,
+                 "Exact original `.4` operation inventory required")
+        key = intent.get("operation")
+        _require(key in operation_ids, "Original `.4` operation ID required")
+        index = operation_ids.index(key)
+        step = self.effect_plan.steps[index]
+        target = self.transport._target(step["statement"])
+        expected = original_operation_intent(
+            self.transport.installation_id, key, self.effect_plan.intent_digest,
+            step["statement"], step["parameters"], target,
+            self.transport.operation_capacity)
+        _require(_canonical(intent) == expected,
+                 "Exact retained `.4` operation intent required")
+        self._require_current(held=True)
+        self._check_writer_lock()
+        self.current_admission(self.source, self.plan.request, None, self.context)
+        self._retain_source_scope()
+        if self._delta4_inflight_state == "post_commit":
+            prior = self._observe_effect_prefix()
+            _require(prior["committed_prefix"] == self._delta4_inflight_index + 1,
+                     "Prior `.4` ordinal receipt was not retained before advancing")
+            self._delta4_inflight_index = None
+            self._delta4_inflight_state = None
+        row = self.transport.db.execute(
+            "SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?",
+            (key,)).fetchone()
+        if self._delta4_inflight_index == index and self._delta4_inflight_state == "dispatching":
+            observed = self._observe_effect_prefix(submitted_index=index)
+            _require(observed["states"][index] == "submitted"
+                     and observed["committed_prefix"] == index,
+                     "Exact in-process submitted `.4` commit required")
+            self._delta4_inflight_state = "post_commit"
+        else:
+            observed = self._observe_effect_prefix(allow_prepared=True)
+            prefix = observed["committed_prefix"]
+            _require("submitted" not in observed["states"],
+                     "Restarted submitted `.4` operation remains quarantined")
+            if prefix > index:
+                _require(observed["states"][index] == "committed",
+                         "Earlier `.4` ordinal must have exact committed custody")
+            else:
+                _require(prefix == index and self._delta4_inflight_index is None,
+                         "`.4` operations must execute as the exact next contiguous ordinal")
+                baseline = self.fresh.heads
+                role = target.table.rsplit(".", 1)[-1]
+                _require(row is None or (row[0] == expected
+                         and row[1] == _sha(expected.encode("utf-8"))
+                         and row[2] == baseline[role]["version"]
+                         and row[3] == "prepared" and row[4] is None),
+                         "Only the exact unsubmitted prepared `.4` ordinal may dispatch")
+                self._delta4_inflight_index = index
+                self._delta4_inflight_state = "dispatching"
+        self._check_writer_lock()
+        self.current_admission.closing(self.source, None, self.context)
+
+    def execute_effect_plan(self):
+        """Run or recover the exact plan through journal-owned effects only."""
+        from .delta_custody import LocalDeltaEffects
+        self._require_current(held=True)
+        self._check_writer_lock()
+        self.current_admission(self.source, self.plan.request, None, self.context)
+        self._retain_source_scope()
+        effects = LocalDeltaEffects(self.transport)
+        operation = "effects:" + self.effect_plan.intent_digest
+        original, plan_digest, operation_ids = effects.original_plan(
+            operation, self.effect_plan.intent_digest, self.effect_plan.steps)
+        intent = json.loads(original)
+        preflight = self._observe_effect_prefix(allow_prepared=True)
+        _require("submitted" not in preflight["states"],
+                 "Uncertain submitted `.4` operation is quarantined")
+        _require(self.transport.db.execute(
+            "SELECT operation,original,digest FROM local_plan").fetchall()
+            == [(operation, original, plan_digest)],
+            "Exact prepared `.4` LocalDeltaEffects plan required")
+        prefix = preflight["committed_prefix"]
+        prepared_tail = (prefix < len(preflight["states"])
+                         and preflight["states"][prefix] == "prepared")
+        recovery = prefix > 0 or prepared_tail
+        self.policy._activate_delta4_execution(
+            self, intent, operation_ids, self.context)
+        result = None
+        primary = None
+        try:
+            result = (effects.recover if recovery else effects.run)(
+                operation, self.effect_plan.intent_digest,
+                self.effect_plan.steps, context=self.context)
+            observed = self._observe_effect_prefix()
+            _require(observed["committed_prefix"] == 3
+                     and observed["states"] == ["committed"] * 3
+                     and len(result.get("original_native_receipts", ())) == 3,
+                     "Complete exact three-role `.4` effect proof required")
+            from .local_receipt_codec import original_receipt_chunks
+            expected_receipts = []
+            for key in operation_ids:
+                (retained_receipt,) = self.transport.db.execute(
+                    "SELECT receipt FROM local_operation WHERE operation=?", (key,)).fetchone()
+                proof = json.loads(b"".join(original_receipt_chunks(retained_receipt)).decode("utf-8"))
+                expected_receipts.append([{
+                    "version": str(proof["version"]), "uuid": proof["uuid"],
+                    "operation_sha256": proof["operation_sha256"],
+                    "snapshot_sha256": proof["snapshot"]["row_sha256"],
+                }])
+            _require(result["original_native_receipts"] == expected_receipts,
+                     "Returned `.4` native receipts differ from retained journal proof")
+            self._delta4_closing_heads = observed["heads"]
+            self._check_fresh_heads()
+            self.current_admission.closing(self.source, None, self.context)
+        except BaseException as error:
+            primary = error
+        try:
+            self.policy._deactivate_delta4_execution(self)
+        except BaseException as error:
+            if primary is None:
+                primary = error
+        self._delta4_inflight_index = None
+        self._delta4_inflight_state = None
+        if primary is not None:
+            self._delta4_closing_heads = None
+            raise primary
+        return {"result": result, "observation": observed}
+
     def _deactivate(self):
         self._active = False
 
     @contextmanager
     def hold(self):
         from .lifecycle import finish
-        _require(not self.held and self._fd is None,
+        _require(not self.held and self._fd is None
+                 and self.policy._delta4_prepare_owner is None
+                 and self.policy._delta4_execution_owner is None,
                  "Reentrant or concurrent `.4` writer authority refused")
         self._require_current()
         from .configured_local_runtime import ConfiguredLocalAdmission
@@ -940,7 +1130,7 @@ class ConfiguredLocalDelta4WriterAuthority:
             self._check_writer_lock()
             request = self.plan.request
             self.current_admission(self.source, request, None, self.context)
-            self._check_fresh_heads()
+            self._check_opening_heads()
             self._retain_source_scope()
             self._active = True
             yield self
