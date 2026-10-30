@@ -17,7 +17,8 @@ ddx:
 
 # R05 one-shot 1B/5B local run packet — 2026-10-29
 
-**Status: held for owner review; no run authorization.** This packet narrows
+**Owner decision (2026-10-29): “Hold and redesign first.” No 1B/5B run is
+authorized.** This packet narrows
 the existing R05 proposal to one local synthetic workload: materialize
 1,000,000,000 `.4-xxhash64` nodes and 5,000,000,000 edges in two Delta tables,
 perform exactly two point lookups and two persisted-table scans, then construct
@@ -47,24 +48,42 @@ sample's measured throughput, target seconds are `sample_seconds × 22.2222 / .8
 | --- | ---: | ---: |
 | Sequential writes | 35.227 s | 978.528 s / 16.309 min |
 | Concurrent node/edge writes | 30.620 s | 850.556 s / 14.176 min |
-| Sequential setup + writes + compact validation | 66.278 s | 1,841.056 s / 30.684 min |
-| Concurrent setup + writes + compact validation | 60.924 s | 1,692.333 s / 28.206 min |
+| Sequential setup + writes + one combined row/value and endpoint-formula scan | 66.278 s | 1,841.056 s / 30.684 min |
+| Concurrent setup + writes + one combined row/value and endpoint-formula scan | 60.924 s | 1,692.333 s / 28.206 min |
 
 Use the concurrent write sample as the planning baseline for the one-run
 candidate, while retaining its second-in-JVM bias. The **80% throughput target**
 is writes completed within 850.556 seconds. A result beyond that value fails
 the performance target even if it is inside the hard write cap. The proposed
 20-minute cumulative write cap is fail-fast containment, not a pass threshold.
-The prior sample's 28.206-minute setup/write/compact-validation projection
-already leaves only 1.794 minutes inside a 30-minute whole-run cap for the
-additional point reads, second scan, graph action, full final checks, and
-cleanup. Their durations are unmeasured, so the total cannot be predicted
-precisely; current evidence makes completion within 30 minutes unlikely.
+The paired worker's timed 60.924 s mode total includes setup, concurrent writes,
+and one combined persisted row/value plus endpoint-formula scan:
+`r05_paired_writer_packet.py` calls `_row_value_scan(...,
+include_endpoint_formula=True)` before recording `modeTotalSeconds`. The
+28.206-minute projection therefore already includes one pass that checks both
+row/value and endpoint-formula witnesses. The requested two separately timed
+scans need one additional full scan beyond this measured baseline; its target
+cost is unknown. Do not count the measured combined pass again as an additional
+scan. The 30.304 s sample residual after writes also includes table setup and
+metadata, so it does not isolate scan time. Scaling that entire residual at 80%
+gives a 14.03-minute planning anchor, not an endpoint-scan measurement.
+
+The measured setup/write/combined-scan projection is 28.206 minutes before the
+remaining point lookups, second scan, graph action, startup, final checks and
+cleanup. Their target-scale costs are unmeasured, so the total remains unknown.
+At a 15-minute total, the measured portion alone needs at least 1.88× speedup
+(46.8% elapsed-time reduction); at five minutes it needs at least 5.64×
+(82.3% reduction), before remaining phases. A 30-minute envelope leaves 1.79
+minutes for them; a 45-minute envelope leaves 16.79 minutes. Treat 45 minutes
+only as a provisional planning envelope for redesign, not an acceptance target
+or evidence that the remaining phases fit. The “few minutes” goal has no
+numeric threshold and cannot be marked passed from this packet.
 Treat 30 minutes as a fail-fast stop bound, not a credible predicted completion
-time. Owner review is required before any run because setup, writes and compact
-validation project to 28.206 minutes, with the requested lookups, second scan,
-graph action, final checks and cleanup still to add. The owner’s “few minutes”
-goal has no numeric threshold and cannot be marked passed from this packet.
+time. The owner chose **“Hold and redesign first”** after review of the
+28.206-minute setup/write/combined-scan projection and the at-least-5.64×
+speedup needed to fit that measured portion into a five-minute total, before the
+remaining workload. The full run stays held; this packet grants no run
+authorization.
 
 Technical pass requires exactly 1B object rows and 5B edge rows; zero invalid
 endpoint type/range/formula witnesses; both complete point rows matching their
@@ -138,10 +157,10 @@ threshold. The supervisor samples RSS for the isolated worker process group
 and stops above 96 GiB. The held worker packet digest includes this packet,
 and the source digest includes the worker, supervisor, generator, focused
 conformance test, and this packet. These source changes make the entry point
-eligible for fresh review; they do not authorize a run. The packet remains
-held for owner review because the measured setup/write/compact-validation
-projection is 28.206 minutes and the requested reads, scans, graph action,
-final checks and cleanup add unmeasured work.
+eligible for fresh review; they do not authorize a run. The owner decision is
+to hold and redesign first: the measured setup/write/combined-scan projection
+is 28.206 minutes, while the remaining point reads, second scan, graph action,
+startup, final checks and cleanup add unmeasured work.
 
 ## Bounds and stop rules
 

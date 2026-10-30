@@ -1,11 +1,13 @@
 """Effect-free checks for the held R05 paired writer packet."""
 import unittest
+import ast
 import hashlib
 import os
 from pathlib import Path
 import subprocess
 import sys
 import threading
+import inspect
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 from unittest import mock
@@ -15,7 +17,7 @@ from r05_paired_writer_packet import (
     _closed_approval, _execute_parallel_role, _source_select,
 )
 import r05_paired_writer_supervisor as supervisor
-from full_delta4_trial import _parallel_roles
+from full_delta4_trial import _parallel_roles, _row_value_scan
 
 
 class PairedWriterPacketChecks(unittest.TestCase):
@@ -65,6 +67,19 @@ class PairedWriterPacketChecks(unittest.TestCase):
             self.assertTrue(source.startswith("SELECT"))
             self.assertIn(f"range({rows})", source)
         self.assertEqual(225_000_000, NODE_ROWS * 5)
+
+    def test_historical_paired_scan_call_shape_remains_supported(self):
+        self.assertFalse(inspect.signature(_row_value_scan).parameters[
+            "include_endpoint_formula"].default)
+        runner = Path(__file__).with_name("r05_paired_writer_packet.py")
+        tree = ast.parse(runner.read_text(encoding="utf-8"))
+        calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)
+                 and isinstance(node.func, ast.Name)
+                 and node.func.id == "_row_value_scan"]
+        self.assertEqual(1, len(calls))
+        keywords = {item.arg: item.value for item in calls[0].keywords}
+        self.assertIsInstance(keywords.get("include_endpoint_formula"), ast.Constant)
+        self.assertIs(keywords["include_endpoint_formula"].value, True)
 
     def test_non_generator_sql_is_refused(self):
         class Invalid:

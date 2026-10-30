@@ -464,7 +464,8 @@ def _point_lookup(spark, frame, role: str) -> dict:
     return {"row": _json_safe_row(result), "plan": plan}
 
 
-def _row_value_scan(spark, frames, *, node_rows=NODE_ROWS, edge_rows=EDGE_ROWS) -> dict:
+def _row_value_scan(spark, frames, *, node_rows=NODE_ROWS, edge_rows=EDGE_ROWS,
+                    include_endpoint_formula=False) -> dict:
     from pyspark.sql import functions as F
     checks = []
     for role in ROLES:
@@ -498,6 +499,16 @@ def _row_value_scan(spark, frames, *, node_rows=NODE_ROWS, edge_rows=EDGE_ROWS) 
                    | F.col("order_key").isNotNull()
                    | (F.col("published_at") != F.to_timestamp(
                        F.lit("2026-10-23T00:00:00.000Z"))))
+            if include_endpoint_formula:
+                expected_source = F.floor(F.col("id") / F.lit(5)).cast("long")
+                expected_target = F.pmod(
+                    expected_source + F.floor(F.pmod(F.col("id"), F.lit(5)) / F.lit(2)),
+                    F.lit(node_rows),
+                ).cast("long")
+                bad = (bad | (F.col("source_id") != expected_source)
+                       | (F.col("target_id") != expected_target)
+                       | (F.col("source_id") < 0) | (F.col("source_id") >= node_rows)
+                       | (F.col("target_id") < 0) | (F.col("target_id") >= node_rows))
         bad = F.coalesce(bad, F.lit(True))
         aggregates = [
             F.count(F.lit(1)).alias("rows"),
@@ -509,6 +520,33 @@ def _row_value_scan(spark, frames, *, node_rows=NODE_ROWS, edge_rows=EDGE_ROWS) 
             F.lit(role).alias("role"), F.col("id"),
             F.when(bad, 1).otherwise(0).alias("bad_row"),
         ]
+        if include_endpoint_formula:
+            if role == "edge_current":
+                invalid_source = F.coalesce(
+                    (F.col("source_type") != 1) | (F.col("source_id") != expected_source), F.lit(True))
+                invalid_target = F.coalesce(
+                    (F.col("target_type") != 1) | (F.col("target_id") != expected_target), F.lit(True))
+                source_out = F.coalesce((F.col("source_id") < 0)
+                                        | (F.col("source_id") >= node_rows), F.lit(True))
+                target_out = F.coalesce((F.col("target_id") < 0)
+                                        | (F.col("target_id") >= node_rows), F.lit(True))
+                selected_columns.extend([
+                    F.when(invalid_source, 1).otherwise(0).alias("invalid_source"),
+                    F.when(invalid_target, 1).otherwise(0).alias("invalid_target"),
+                    F.when(source_out, 1).otherwise(0).alias("source_out_of_range"),
+                    F.when(target_out, 1).otherwise(0).alias("target_out_of_range"),
+                ])
+            else:
+                selected_columns.extend([
+                    F.lit(0).alias("invalid_source"), F.lit(0).alias("invalid_target"),
+                    F.lit(0).alias("source_out_of_range"), F.lit(0).alias("target_out_of_range"),
+                ])
+            aggregates.extend([
+                F.sum("invalid_source").alias("invalid_source"),
+                F.sum("invalid_target").alias("invalid_target"),
+                F.sum("source_out_of_range").alias("source_out_of_range"),
+                F.sum("target_out_of_range").alias("target_out_of_range"),
+            ])
         selected = frame.select(*selected_columns)
         checks.append(selected.groupBy("role").agg(*aggregates)
                       .withColumn("expected_rows", F.lit(expected_count)))
@@ -529,6 +567,13 @@ def _row_value_scan(spark, frames, *, node_rows=NODE_ROWS, edge_rows=EDGE_ROWS) 
                 or int(witness["sum_id"]) != expected_sum
                 or witness["bad_rows"] != 0):
             raise TrialRefused(f"persisted {role} row/value/range/sum witness failed")
+    if include_endpoint_formula:
+        endpoint = result["edge_current"]
+        if (endpoint["rows"] != edge_rows
+                or any(endpoint[name] != 0 for name in (
+                    "invalid_source", "invalid_target", "source_out_of_range",
+                    "target_out_of_range"))):
+            raise TrialRefused("persisted edge endpoints differ from independent formula")
     return {"roles": result, "plan": plan,
             "identityMultiplicityWitness": "count+range+exact-decimal-sum",
             "exactUniquenessProved": False,
