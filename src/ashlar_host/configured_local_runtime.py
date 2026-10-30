@@ -450,7 +450,10 @@ def run_configured_local_delta4_transaction1(config):
         _require(source.graph)
         scope = _scope(config, source)
         columns = _columns(config.carrier_profile)
-        tables = {role: 'local.configured.' + role for role in columns}
+        local_tables = {role: 'local.configured.' + role for role in columns}
+        from .schema_rows import LOCAL_CURRENT_ROLE_TO_UMF
+        tables = {carrier_role: local_tables[local_role]
+                  for local_role, carrier_role in LOCAL_CURRENT_ROLE_TO_UMF.items()}
         registry = json.loads(registry_file.raw)
         runtime_profile, runtime_identity, _runtime_jars = attest_runtime(config)
         _require(set(registry) == {'profile', 'scope', 'targets', 'columns',

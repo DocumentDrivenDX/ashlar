@@ -40,6 +40,16 @@ LOOKUP_HASH_PROFILE = "spark-xxhash64-typed-key/0.1"
 DATA_ROLES = ("edge_current", "object_current", "tombstone", "whole_source_history")
 INSTALLATION_ROLES = ("object_current", "edge_current", "tombstone", "whole_source_history",
                       "publication_attempt_phase", "publication_manifest")
+from .schema_rows import LOCAL_CURRENT_ROLE_TO_UMF
+
+_CARRIER_TO_LOCAL = {carrier: local for local, carrier in LOCAL_CURRENT_ROLE_TO_UMF.items()}
+if (len(_CARRIER_TO_LOCAL) != len(LOCAL_CURRENT_ROLE_TO_UMF)
+        or set(_CARRIER_TO_LOCAL) != set(INSTALLATION_ROLES)
+        or set(LOCAL_CURRENT_ROLE_TO_UMF) != {
+            "object_current", "edge_current", "tombstone", "whole_source_history",
+            "attempts", "manifest"}):
+    raise RuntimeError("Configured-local `.4` role alias map must be a closed six-role bijection")
+LOCAL_ROLE_BY_CARRIER = _CARRIER_TO_LOCAL
 _MINT = object()
 _EFFECT_MINT = object()
 _AUTHORITY_MINT = object()
@@ -48,6 +58,50 @@ _AUTHORITY_MINT = object()
 def _require(value, message="Configured-local Delta 0.4 publication refused"):
     if not value:
         raise ValueError(message)
+
+
+def _delta4_profile_role(profile, carrier_role):
+    """Resolve one local API alias through the exact retained UMF role map.
+
+    Configured-local installations intentionally keep the historical
+    ``attempts``/``manifest`` table names consumed by Truss and Weft. G03 uses
+    carrier-role names internally and accepts that translation only when the
+    complete journal-pinned profile proves a one-to-one mapping.
+    """
+    local_role = LOCAL_ROLE_BY_CARRIER.get(carrier_role)
+    _require(local_role is not None and type(profile) is dict
+             and type(profile.get("roles")) is dict,
+             "Exact configured-local `.4` role map required")
+    roles = profile["roles"]
+    _require(set(roles) == set(LOCAL_ROLE_BY_CARRIER.values())
+             and len(LOCAL_ROLE_BY_CARRIER) == len(set(LOCAL_ROLE_BY_CARRIER.values()))
+             and all(type(roles.get(alias)) is dict
+                     and roles[alias].get("carrier_role") == mapped_carrier
+                     and roles[alias].get("table") == "local.configured." + alias
+                     and type(roles[alias].get("path")) is str
+                     and type(roles[alias].get("uuid")) is str
+                     for mapped_carrier, alias in LOCAL_ROLE_BY_CARRIER.items())
+             and len({roles[alias].get("table")
+                      for alias in LOCAL_ROLE_BY_CARRIER.values()}) == len(roles)
+             and len({roles[alias].get("uuid")
+                      for alias in LOCAL_ROLE_BY_CARRIER.values()}) == len(roles)
+             and len({roles[alias].get("path")
+                      for alias in LOCAL_ROLE_BY_CARRIER.values()}) == len(roles),
+             "Configured-local `.4` role aliases must bind a unique complete carrier inventory")
+    selected = roles.get(local_role)
+    _require(type(selected) is dict and selected.get("carrier_role") == carrier_role,
+             "Local role alias must bind its exact `.4` carrier role")
+    return selected
+
+
+def _delta4_target(transport, carrier_role, installation_profile=None):
+    profile = installation_profile or getattr(transport, "installation_profile", None)
+    selected = _delta4_profile_role(profile, carrier_role)
+    target = transport.targets.get(selected.get("table"))
+    _require(target is not None and selected.get("path") == str(target.path)
+             and selected.get("uuid") == target.uuid,
+             "Exact alias-bound configured-local `.4` target required")
+    return target
 
 
 def _canonical(value):
@@ -326,16 +380,17 @@ def observe_delta4_lookup_hashes(plan: ConfiguredLocalDelta4BatchPlan, transport
              and installation_profile.get("physical_profile") == CARRIER_PROFILE
              and installation_profile.get("lookup_hash_profile") == LOOKUP_HASH_PROFILE
              and type(installation_profile.get("roles")) is dict
-             and set(installation_profile["roles"]) == set(INSTALLATION_ROLES),
+             and set(installation_profile["roles"]) == set(LOCAL_ROLE_BY_CARRIER.values()),
              "Retained six-role `.4` installation profile required")
     _require(getattr(transport, "installation_profile", None) == installation_profile,
              "`.4` installation profile must be pinned by the native operation journal")
-    _require(set(transport.targets) == {"local.configured." + role for role in INSTALLATION_ROLES},
-             "Exact six-role initialized local Delta registry required")
+    _require(set(transport.targets) == {"local.configured." + local_role
+                                        for local_role in LOCAL_ROLE_BY_CARRIER.values()},
+             "Exact six-role initialized local Delta alias registry required")
     for role in INSTALLATION_ROLES:
-        observed = installation_profile["roles"][role]
-        target = transport.targets["local.configured." + role]
-        _require(type(observed) is dict and observed.get("table") == target.table
+        observed = _delta4_profile_role(installation_profile, role)
+        target = _delta4_target(transport, role, installation_profile)
+        _require(observed.get("table") == target.table
                  and observed.get("path") == str(target.path) and observed.get("uuid") == target.uuid,
                  "Initialized `.4` role identity differs from its retained profile")
     keys = []
@@ -726,7 +781,8 @@ class ConfiguredLocalDelta4WriterAuthority:
                  and scope["fresh_inventory_json"] == self.fresh.inventory_json
                  and all(type(retained_baseline[role]) is dict
                          and set(retained_baseline[role]) == {"uuid", "version"}
-                         and retained_baseline[role]["uuid"] == self.installation_profile["roles"][role]["uuid"]
+                         and retained_baseline[role]["uuid"] == _delta4_profile_role(
+                             self.installation_profile, role)["uuid"]
                          and type(retained_baseline[role]["version"]) is int
                          and 0 <= retained_baseline[role]["version"] < 2**63
                          for role in INSTALLATION_ROLES),
@@ -904,7 +960,7 @@ class ConfiguredLocalDelta4WriterAuthority:
                          "Named native commit exists without committed journal custody")
 
         for role in INSTALLATION_ROLES:
-            target = self.transport.targets["local.configured." + role]
+            target = _delta4_target(self.transport, role, self.installation_profile)
             if role in DATA_ROLES:
                 step_index = step_roles.index(role) if role in step_roles else len(step_roles)
                 rows_for_role = expected_rows[role] if step_index < prefix + int(submitted_tail) else []
@@ -1261,8 +1317,8 @@ class ConfiguredLocalDelta4WriterAuthority:
         _phase_records(request["stream"], request["batch_id"], records)
         native_payload = json.dumps(phase_row, ensure_ascii=False,
                                     separators=(",", ":"), allow_nan=False)
-        target_name = self.transport.targets[
-            self.installation_profile["roles"]["publication_attempt_phase"]["table"]].table
+        target_name = _delta4_target(
+            self.transport, "publication_attempt_phase", self.installation_profile).table
         target = self.transport.targets[target_name]
         table_sql = quote_table_identifier(target.table)
         columns = ("stream", "batch_id", "phase", "request_digest",
@@ -1950,8 +2006,8 @@ def _make_delta4_output_receipt(authority):
     versions = {}
     for role in INSTALLATION_ROLES:
         head = observation["heads"][role]
-        profile_role = authority.installation_profile["roles"][role]
-        name = "local.configured." + role
+        profile_role = _delta4_profile_role(authority.installation_profile, role)
+        name = profile_role["table"]
         fields = tuple((column, kind, nullable)
                        for column, kind, nullable in profile_role["fields"])
         _require(type(head) is dict and set(head) == {"uuid", "version"}
@@ -2057,14 +2113,13 @@ def build_delta4_transaction1_effect_plan(plan: ConfiguredLocalDelta4BatchPlan, 
              and installation_profile.get("physical_profile") == CARRIER_PROFILE
              and installation_profile.get("lookup_hash_profile") == LOOKUP_HASH_PROFILE
              and type(installation_profile.get("roles")) is dict
-             and set(installation_profile["roles"]) == set(INSTALLATION_ROLES),
+             and set(installation_profile["roles"]) == set(LOCAL_ROLE_BY_CARRIER.values()),
              "Exact retained six-role `.4` installation profile required")
     for role in INSTALLATION_ROLES:
         table = tables[role]
         quote_table_identifier(table)
-        role_profile = installation_profile["roles"][role]
-        _require(type(role_profile) is dict and table == "local.configured." + role
-                 and role_profile.get("table") == table,
+        role_profile = _delta4_profile_role(installation_profile, role)
+        _require(role_profile.get("table") == table,
                  "`.4` native effect target differs from retained installation role")
         _uuid(role_profile.get("uuid"))
     source_rows = plan.expected_rows
@@ -2161,14 +2216,15 @@ def _require_delta4_transport(transport, installation_profile):
              and installation_profile.get("physical_profile") == CARRIER_PROFILE
              and installation_profile.get("lookup_hash_profile") == LOOKUP_HASH_PROFILE
              and type(installation_profile.get("roles")) is dict
-             and set(installation_profile["roles"]) == set(INSTALLATION_ROLES)
-             and set(transport.targets) == {"local.configured." + role for role in INSTALLATION_ROLES},
-             "Journal-pinned exact six-role `.4` local installation required")
+             and set(installation_profile["roles"]) == set(LOCAL_ROLE_BY_CARRIER.values())
+             and set(transport.targets) == {"local.configured." + local_role
+                                             for local_role in LOCAL_ROLE_BY_CARRIER.values()},
+             "Journal-pinned exact six-role `.4` local alias installation required")
     seen_uuids = set()
     for role in INSTALLATION_ROLES:
-        target = transport.targets["local.configured." + role]
-        profile_role = installation_profile["roles"][role]
-        _require(type(profile_role) is dict and profile_role.get("table") == target.table
+        target = _delta4_target(transport, role, installation_profile)
+        profile_role = _delta4_profile_role(installation_profile, role)
+        _require(profile_role.get("table") == target.table
                  and profile_role.get("path") == str(target.path)
                  and profile_role.get("uuid") == target.uuid,
                  "Native target UUID/path differs from exact retained `.4` role profile")
@@ -2183,8 +2239,8 @@ def _observe_delta4_role(transport, role, installation_profile):
     from ashlar.native import quote_table_identifier
     from ashlar.protocol import validate_protocol_detail
     from .configured_local_runtime import PROFILE as READER_PROTOCOL
-    target = transport.targets["local.configured." + role]
-    selected = installation_profile["roles"][role]
+    target = _delta4_target(transport, role, installation_profile)
+    selected = _delta4_profile_role(installation_profile, role)
     # The path-based proof and table-name proof must resolve to the same Delta
     # object.  A catalog alias can otherwise point somewhere else while the
     # path reader still sees the initialized installation.
@@ -2378,15 +2434,16 @@ def rehydrate_delta4_fresh_head_admission(plan, effect_plan, transport,
         target, current_version, protocol, fields = _observe_delta4_role(
             transport, role, installation_profile)
         baseline = heads[role]
-        expected_fields = tuple((name, kind, nullable) for name, kind, nullable
-                                in installation_profile["roles"][role]["fields"])
+        role_profile = _delta4_profile_role(installation_profile, role)
+        expected_fields = tuple((name, kind, nullable)
+                                for name, kind, nullable in role_profile["fields"])
         _require(type(baseline) is dict and set(baseline) == {"uuid", "version"}
                  and baseline["uuid"] == target.uuid
                  and type(baseline["version"]) is int
                  and baseline["version"] == 1
                  and baseline["version"] <= current_version < 2**63
                  and fields == expected_fields
-                 and protocol == installation_profile["roles"][role]["protocol"],
+                 and protocol == role_profile["protocol"],
                  "Retained `.4` version-1 baseline identity/schema/protocol differs from its role")
         history = transport.original_history(target)
         history_by_version = {item["version"]: item for item in history}
@@ -2509,7 +2566,7 @@ def build_delta4_realized_vector(manifest_row: dict, installation: dict):
         _require(type(observed) is dict and set(observed) == {
             "name", "uuid", "version", "schema_sha256", "protocol_sha256"},
             "Closed six-role native identity observation required")
-        name = "local.configured." + role
+        name = "local.configured." + LOCAL_ROLE_BY_CARRIER[role]
         _require(observed["name"] == name and type(observed["version"]) is int
                  and 0 <= observed["version"] < 2**63,
                  "Exact named Delta head observation required")

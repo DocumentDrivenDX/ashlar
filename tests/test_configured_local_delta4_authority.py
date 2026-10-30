@@ -10,7 +10,7 @@ from unittest.mock import patch
 
 from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration
 from ashlar_host.configured_local_delta4_publication import (
-    INSTALLATION_ROLES, admit_delta4_fresh_empty_installation,
+    INSTALLATION_ROLES, LOCAL_ROLE_BY_CARRIER, admit_delta4_fresh_empty_installation,
     build_delta4_transaction1_effect_plan,
     open_configured_local_delta4_authority,
     plan_configured_local_delta4_transaction1,
@@ -42,7 +42,7 @@ class Tests(unittest.TestCase):
         transport.installation_id = "delta4-inert-installation"
         transport.registry_sha = "a" * 64
         transport.journal_sha = "b" * 64
-        for role, target in ((role, transport.targets["local.configured." + role])
+        for role, target in ((role, transport.targets["local.configured." + LOCAL_ROLE_BY_CARRIER[role]])
                              for role in INSTALLATION_ROLES):
             fake.native_metadata[role][1] = json.dumps({
                 "profile": "ashlar-local-delta-installation-commit/0.1",
@@ -63,7 +63,7 @@ class Tests(unittest.TestCase):
         transport.policy = PrivatePolicy(self.context, tuple(transport.targets.values()))
         transport.policy.initializing = False
         effect = build_delta4_transaction1_effect_plan(
-            self.plan, tables={role: "local.configured." + role
+            self.plan, tables={role: "local.configured." + LOCAL_ROLE_BY_CARRIER[role]
                                for role in INSTALLATION_ROLES},
             installation_profile=fake.profile)
         fresh = admit_delta4_fresh_empty_installation(transport, fake.profile)
@@ -101,7 +101,7 @@ class Tests(unittest.TestCase):
             self.assertIs(context, transport.policy.context)
             self.assertEqual(target.uuid,
                              transport.installation_profile["roles"][
-                                 "publication_attempt_phase"]["uuid"])
+                                 LOCAL_ROLE_BY_CARRIER["publication_attempt_phase"]]["uuid"])
             expected_rows = tuple(expected_rows) if type(expected_rows) is tuple else (expected_rows,)
             if (fake.phase_rows != list(expected_rows)
                     or [row["phase"] for row in fake.phase_rows]
@@ -371,7 +371,7 @@ class Tests(unittest.TestCase):
         steps = effect.steps
         for index in range(prefix):
             target = transport._target(steps[index]["statement"])
-            role = target.table.rsplit(".", 1)[-1]
+            role = {local: carrier for carrier, local in LOCAL_ROLE_BY_CARRIER.items()}[target.table.rsplit(".", 1)[-1]]
             key = identities[index]
             intent = original_operation_intent(
                 transport.installation_id, key, effect.intent_digest,
@@ -424,7 +424,7 @@ class Tests(unittest.TestCase):
             "installation_id": transport.installation_id, "operation": key,
             "operation_sha256": body_sha, "request_digest": effect.intent_digest},
             sort_keys=True, separators=(",", ":"))
-        role = target.table.rsplit(".", 1)[-1]
+        role = {local: carrier for carrier, local in LOCAL_ROLE_BY_CARRIER.items()}[target.table.rsplit(".", 1)[-1]]
         fake.histories[role] = [2, 1, 0]
         fake.native_metadata[role][2] = metadata
         fake.native_operations[role][2] = "WRITE"
@@ -819,7 +819,7 @@ class Tests(unittest.TestCase):
                         (key,))
                 effects.transport.db.commit()
                 if failure == ("wrong_native_metadata", index):
-                    role = target.table.rsplit(".", 1)[-1]
+                    role = {local: carrier for carrier, local in LOCAL_ROLE_BY_CARRIER.items()}[target.table.rsplit(".", 1)[-1]]
                     fake = self._active_fake
                     fake.native_metadata[role][2] = json.dumps({
                         "profile": "ashlar-local-delta-commit/0.1",

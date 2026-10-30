@@ -90,6 +90,23 @@ and verifies the UMF writer setting in each transaction Spark session before
 admission; open/close admission only verifies and does not repair drift. See
 [`transaction1-zstd-preflight-failure-20261030.md`](transaction1-zstd-preflight-failure-20261030.md).
 
+The separately frozen r2 packet also stopped before effects: the local profile
+retains `attempts`/`manifest` aliases while the G03 coordinator expected
+carrier-role table names. The coordinator now derives the one-to-one mapping
+from `LOCAL_CURRENT_ROLE_TO_UMF`, validates the full journal-pinned alias and
+carrier inventory, and resolves each target by its exact table/path/UUID. This
+preserves the existing local names used by Truss and Weft; the realized-vector
+binder uses the same map for inventory names while four manifest data-role
+keys remain unchanged. It does not rename `.3` tables. See
+[`transaction1-role-alias-preflight-failure-20261030.md`](transaction1-role-alias-preflight-failure-20261030.md).
+The alias correction has 60 focused inert `.4` tests; it has not been run
+against Spark or native Delta.
+
+The historical G03 producer/bridge has not been qualified against the selected
+UMF SDK 0.5.8 / Core 0.10.3 cohort. Its latest-upstream status is
+FAIL_OR_UNKNOWN. Do not prepare another native packet until the exact frozen
+G03 source and six-role realization are effect-free bound to that cohort.
+
 ## Original compiler artifacts and native scope
 
 `query-scope.json` defines five held reads under the same complete vector:

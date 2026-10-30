@@ -8,7 +8,7 @@ from types import MappingProxyType, SimpleNamespace
 
 from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration
 from ashlar_host.configured_local_delta4_publication import (
-    DATA_ROLES, INSTALLATION_ROLES,
+    DATA_ROLES, INSTALLATION_ROLES, LOCAL_ROLE_BY_CARRIER,
     build_delta4_realized_vector, build_delta4_transaction1_effect_plan,
     materialize_delta4_expected_rows,
     observe_delta4_lookup_hashes,
@@ -69,7 +69,7 @@ class Tests(unittest.TestCase):
     def test_transaction1_effect_plan_is_three_closed_parameterized_typed_inserts(self):
         plan = self.plan()
         _owner, profile, _calls = self.native_fixture(plan)
-        tables = {role: "local.configured." + role for role in INSTALLATION_ROLES}
+        tables = {role: "local.configured." + LOCAL_ROLE_BY_CARRIER[role] for role in INSTALLATION_ROLES}
         effect = build_delta4_transaction1_effect_plan(plan, tables=tables,
                                                        installation_profile=profile)
         steps = effect.steps
@@ -119,11 +119,34 @@ class Tests(unittest.TestCase):
     def test_transaction1_effect_plan_refuses_wrong_role_binding(self):
         plan = self.plan()
         _owner, profile, _calls = self.native_fixture(plan)
-        tables = {role: "local.configured." + role for role in INSTALLATION_ROLES}
+        tables = {role: "local.configured." + LOCAL_ROLE_BY_CARRIER[role] for role in INSTALLATION_ROLES}
         tables["object_current"] = "local.other.object_current"
         with self.assertRaises(ValueError):
             build_delta4_transaction1_effect_plan(plan, tables=tables,
                                                   installation_profile=profile)
+
+    def test_transaction1_alias_map_is_complete_unique_and_carrier_bound(self):
+        plan = self.plan()
+        _owner, profile, _calls = self.native_fixture(plan)
+        tables = {role: "local.configured." + LOCAL_ROLE_BY_CARRIER[role]
+                  for role in INSTALLATION_ROLES}
+        canonical_fake = json.loads(json.dumps(profile))
+        canonical_fake["roles"] = {
+            role: canonical_fake["roles"][LOCAL_ROLE_BY_CARRIER[role]]
+            for role in INSTALLATION_ROLES}
+        with self.assertRaises(ValueError):
+            build_delta4_transaction1_effect_plan(
+                plan, tables=tables, installation_profile=canonical_fake)
+        changed = json.loads(json.dumps(profile))
+        changed["roles"]["attempts"]["carrier_role"] = "publication_manifest"
+        with self.assertRaisesRegex(ValueError, "alias|carrier|role map"):
+            build_delta4_transaction1_effect_plan(
+                plan, tables=tables, installation_profile=changed)
+        duplicate = json.loads(json.dumps(profile))
+        duplicate["roles"]["manifest"]["uuid"] = duplicate["roles"]["attempts"]["uuid"]
+        with self.assertRaisesRegex(ValueError, "alias|carrier|inventory"):
+            build_delta4_transaction1_effect_plan(
+                plan, tables=tables, installation_profile=duplicate)
 
     def test_native_hash_map_must_cover_exact_keys_and_signed_bigints(self):
         plan = self.plan()
@@ -155,10 +178,11 @@ class Tests(unittest.TestCase):
         targets = {}
         roles = {}
         for role in INSTALLATION_ROLES:
-            table = "local.configured." + role
-            target = SimpleNamespace(table=table, path=Path("/tmp") / role, uuid=str(uuid.uuid5(uuid.NAMESPACE_URL, role)))
+            local_role = LOCAL_ROLE_BY_CARRIER[role]
+            table = "local.configured." + local_role
+            target = SimpleNamespace(table=table, path=Path("/tmp") / local_role, uuid=str(uuid.uuid5(uuid.NAMESPACE_URL, role)))
             targets[table] = target
-            roles[role] = {"table": table, "path": str(target.path), "uuid": target.uuid}
+            roles[local_role] = {"carrier_role": role, "table": table, "path": str(target.path), "uuid": target.uuid}
         owner.targets = MappingProxyType(targets)
         profile = {
             "profile": "ashlar-local-current-installation-profile/0.1",
@@ -231,7 +255,7 @@ class Tests(unittest.TestCase):
         installation = {}
         for index, role in enumerate(INSTALLATION_ROLES, 1):
             installation[role] = {
-                "name": "local.configured." + role,
+                "name": "local.configured." + LOCAL_ROLE_BY_CARRIER[role],
                 "uuid": str(uuid.uuid5(uuid.NAMESPACE_URL, role)),
                 "version": versions["local.configured." + role] if role in DATA_ROLES else 0,
                 "schema_sha256": "c" * 64,

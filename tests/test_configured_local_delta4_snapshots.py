@@ -13,6 +13,7 @@ from unittest.mock import patch
 from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration
 from ashlar_host.configured_local_delta4_publication import (
     DATA_ROLES, INSTALLATION_ROLES, admit_delta4_fresh_empty_installation,
+    LOCAL_ROLE_BY_CARRIER,
     materialize_delta4_expected_rows, plan_configured_local_delta4_transaction1,
     rehydrate_delta4_fresh_head_admission, validate_delta4_transaction1_snapshots,
 )
@@ -23,6 +24,7 @@ from ashlar_host.managed_current_carriers import load_current_managed_carriers
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "examples/end-to-end/configured-typed-graph-source.json"
 PROTOCOL_PROFILE = "ashlar-configured-local-delta/0.1"
+LOCAL_ROLE_TO_CARRIER = {local: carrier for carrier, local in LOCAL_ROLE_BY_CARRIER.items()}
 
 
 class FakeTransport:
@@ -58,13 +60,15 @@ class FakeTransport:
                 identity = (role, key["source_system"], key[column], key["id"])
                 self.lookup_hashes[identity] = -(len(self.lookup_hashes) + 1)
         for role in INSTALLATION_ROLES:
-            table = "local.configured." + role
-            path = Path("/tmp") / role
+            local_role = LOCAL_ROLE_BY_CARRIER[role]
+            table = "local.configured." + local_role
+            path = Path("/tmp") / local_role
             target_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, role))
             target = SimpleNamespace(table=table, path=path, uuid=target_uuid)
             targets[table] = target
             kind_fields = carriers.ordered_fields(role)
-            self.profile["roles"][role] = {
+            self.profile["roles"][local_role] = {
+                "carrier_role": role,
                 "table": table, "path": str(path), "uuid": target_uuid,
                 "fields": [list(item) for item in kind_fields],
                 "protocol": {"uuid": target_uuid, "profile": PROTOCOL_PROFILE,
@@ -82,7 +86,8 @@ class FakeTransport:
             owner.db.execute("CREATE TABLE " + table + " (id INTEGER)")
         owner.db.execute("CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)")
         if changed_uuid:
-            self.profile["roles"][changed_uuid]["uuid"] = str(uuid.uuid5(uuid.NAMESPACE_URL, "wrong-uuid"))
+            local_role = LOCAL_ROLE_BY_CARRIER[changed_uuid]
+            self.profile["roles"][local_role]["uuid"] = str(uuid.uuid5(uuid.NAMESPACE_URL, "wrong-uuid"))
         if changed_version:
             self.histories[changed_version] = [3, 2, 1, 0]
         self.owner = owner
@@ -92,7 +97,7 @@ class FakeTransport:
         return self.owner.targets
 
     def original_history(self, target):
-        role = target.table.rsplit(".", 1)[1]
+        role = LOCAL_ROLE_TO_CARRIER[target.table.rsplit(".", 1)[1]]
         return [{"version": value,
                  "operation": self.native_operations[role].get(value),
                  **({"userMetadata": self.native_metadata[role][value]}
@@ -100,7 +105,7 @@ class FakeTransport:
                 for value in self.histories[role]]
 
     def snapshot(self, target, version):
-        role = target.table.rsplit(".", 1)[1]
+        role = LOCAL_ROLE_TO_CARRIER[target.table.rsplit(".", 1)[1]]
         carriers = load_current_managed_carriers("ashlar-delta/0.4-xxhash64")
         fields = carriers.ordered_fields(role)
         if version == 1:
@@ -122,7 +127,7 @@ class FakeTransport:
                 "row_sha256": hashlib.sha256(payload.encode()).hexdigest()}
 
     def path_detail(self, target, *, full=False):
-        role = target.table.rsplit(".", 1)[1]
+        role = LOCAL_ROLE_TO_CARRIER[target.table.rsplit(".", 1)[1]]
         identity = "wrong-path-uuid" if role == self.path_detail_mismatch else target.uuid
         return {"id": identity, "location": str(target.path)}
 
@@ -136,8 +141,8 @@ class FakeTransport:
             def format(self, _value): return self
             def option(self, _key, _value): return self
             def load(self, path):
-                role = Path(path).name
-                fields = self.outer.profile["roles"][role]["fields"]
+                local_role = Path(path).name
+                fields = self.outer.profile["roles"][local_role]["fields"]
                 names = {"STRING": "string", "BIGINT": "long", "TIMESTAMP": "timestamp"}
                 schema = SimpleNamespace(fields=[SimpleNamespace(
                     name=name, dataType=SimpleNamespace(typeName=lambda kind=names[kind]: kind),
@@ -157,9 +162,10 @@ class FakeTransport:
                 ("role", "STRING"), ("source_system", "STRING"),
                 ("type_id", "BIGINT"), ("id", "BIGINT"),
                 ("lookup_hash", "BIGINT")))
-        role = sql.replace("`", "").split("local.configured.")[-1].split()[0].split(".")[0]
+        local_role = sql.replace("`", "").split("local.configured.")[-1].split()[0].split(".")[0]
+        role = LOCAL_ROLE_TO_CARRIER[local_role]
         if sql.startswith("DESCRIBE DETAIL"):
-            selected = self.profile["roles"][role]
+            selected = self.profile["roles"][local_role]
             location = str(selected["path"])
             if role == self.table_location_mismatch:
                 location = "file:/tmp/cloned-delta-log/" + role

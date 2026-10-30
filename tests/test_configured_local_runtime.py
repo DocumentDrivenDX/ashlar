@@ -110,7 +110,7 @@ class Tests(unittest.TestCase):
                     'local_realization':'spark-delta4/0.1','umf_realization_profile':'ashlar-local-current-delta4-umf-realization/0.1',
                     'umf_candidate_commit':'c'*40,'umf_realization_manifest_sha256':'d'*64,'umf_bridge_sha256':'e'*64,
                     'umf_build_inputs_sha256':'f'*64,'writer_settings':[{'key':'spark.sql.parquet.compression.codec','value':'zstd'}],
-                    'roles':{role:{'carrier_role':role,'table':target.table,'path':str(target.path),'uuid':target.uuid,
+                    'roles':{role:{'carrier_role':{'attempts':'publication_attempt_phase','manifest':'publication_manifest'}.get(role,role),'table':target.table,'path':str(target.path),'uuid':target.uuid,
                         'fields':[],'field_metadata':[],'protocol':{},'clustering_columns':[],'partition_columns':[],
                         'layout_properties':{},'umf_source_bytes_sha256':'1'*64,'umf_source_sha256':'2'*64,
                         'umf_schema_sha256':'3'*64,'umf_target_sha256':'4'*64,'umf_proposal_sha256':'5'*64,
@@ -152,8 +152,7 @@ class Tests(unittest.TestCase):
         with tempfile.TemporaryDirectory()as directory:
             root=Path(directory).resolve();root.chmod(0o700)
             config=self.config(root,'ashlar-delta/0.4-xxhash64')
-            roles=('object_current','edge_current','tombstone','whole_source_history',
-                   'publication_attempt_phase','publication_manifest')
+            roles=('object_current','edge_current','tombstone','whole_source_history','attempts','manifest')
             config.installation.mkdir(mode=0o700)
             for role in roles:(config.installation/role).mkdir(mode=0o700)
             columns={role:() for role in roles}
@@ -162,7 +161,8 @@ class Tests(unittest.TestCase):
                       'uuid':str(uuid.uuid5(uuid.NAMESPACE_URL,role))}for role in roles]
             carrier={'profile':'ashlar-local-current-installation-profile/0.1',
                      'physical_profile':'ashlar-delta/0.4-xxhash64',
-                     'roles':{role:{'uuid':targets[index]['uuid']}for index,role in enumerate(roles)}}
+                     'roles':{role:{'carrier_role':{'attempts':'publication_attempt_phase','manifest':'publication_manifest'}.get(role,role),
+                                 'uuid':targets[index]['uuid']}for index,role in enumerate(roles)}}
             carrier_raw=(json.dumps(carrier,separators=(',',':'))+'\n').encode()
             registry={'profile':'ashlar-configured-local-installation/0.3','scope':scope,
                 'targets':targets,'columns':{role:[] for role in roles},
@@ -200,8 +200,7 @@ class Tests(unittest.TestCase):
         with tempfile.TemporaryDirectory()as directory:
             root=Path(directory).resolve();root.chmod(0o700)
             config=self.config(root,'ashlar-delta/0.4-xxhash64')
-            roles=('object_current','edge_current','tombstone','whole_source_history',
-                   'publication_attempt_phase','publication_manifest')
+            roles=('object_current','edge_current','tombstone','whole_source_history','attempts','manifest')
             config.installation.mkdir(mode=0o700)
             for role in roles:(config.installation/role).mkdir(mode=0o700)
             columns={role:(('id','BIGINT'),)for role in roles}
@@ -211,7 +210,8 @@ class Tests(unittest.TestCase):
             carrier={'profile':'ashlar-local-current-installation-profile/0.1',
                      'physical_profile':'ashlar-delta/0.4-xxhash64',
                      'lookup_hash_profile':'spark-xxhash64-typed-key/0.1',
-                     'roles':{role:{'uuid':targets[index]['uuid']}for index,role in enumerate(roles)}}
+                     'roles':{role:{'carrier_role':{'attempts':'publication_attempt_phase','manifest':'publication_manifest'}.get(role,role),
+                                 'uuid':targets[index]['uuid']}for index,role in enumerate(roles)}}
             carrier_raw=(json.dumps(carrier,separators=(',',':'))+'\n').encode()
             registry={'profile':'ashlar-configured-local-installation/0.3','scope':scope,
                 'targets':targets,'columns':{role:[['id','BIGINT']]for role in roles},
@@ -266,10 +266,12 @@ class Tests(unittest.TestCase):
                     self.conf=SimpleNamespace(get=get,set=set)
                 def stop(self):events.append('spark-stop')
             spark=SparkLike()
-            baseline={role:{'uuid':targets[index]['uuid'],'version':1}
+            carrier_by_local={role:{'attempts':'publication_attempt_phase','manifest':'publication_manifest'}.get(role,role)
+                             for role in roles}
+            baseline={carrier_by_local[role]:{'uuid':targets[index]['uuid'],'version':1}
                       for index,role in enumerate(roles)}
-            heads={role:{'uuid':targets[index]['uuid'],
-                         'version':3 if role=='publication_attempt_phase' else
+            heads={carrier_by_local[role]:{'uuid':targets[index]['uuid'],
+                         'version':3 if role=='attempts' else
                                    2 if role in ('object_current','edge_current','whole_source_history') else 1}
                    for index,role in enumerate(roles)}
             observation={'heads':heads,'lookup_hashes':[],'committed_prefix':3}

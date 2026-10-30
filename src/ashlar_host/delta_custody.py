@@ -133,7 +133,11 @@ def _metadata_intent_from_reservation(transport, reservation):
             target.table, str(target.path), target.uuid):
         raise LocalDeltaError('Original `.4` metadata target identity differs')
     profile = getattr(transport, 'installation_profile', None)
-    role = profile.get('roles', {}).get('publication_attempt_phase') if type(profile) is dict else None
+    from .configured_local_delta4_publication import _delta4_profile_role
+    try:
+        role = _delta4_profile_role(profile, 'publication_attempt_phase')
+    except ValueError:
+        role = None
     if (type(role) is not dict or role.get('table') != target.table
             or role.get('path') != str(target.path) or role.get('uuid') != target.uuid):
         raise LocalDeltaError('Journal-pinned `.4` attempt table identity required')
@@ -1141,11 +1145,12 @@ class LocalDeltaTransport:
             'snapshot': self._snapshot(target, version)}
 
     def _observe_delta4_metadata_target(self, expected_version, *, allow_later=False):
-        from .configured_local_delta4_publication import _observe_delta4_role
+        from .configured_local_delta4_publication import (
+            _delta4_profile_role, _observe_delta4_role)
         target, version, _protocol, _fields = _observe_delta4_role(
             self, 'publication_attempt_phase', self.installation_profile)
-        selected = self.targets[self.installation_profile['roles'][
-            'publication_attempt_phase']['table']]
+        selected = self.targets[_delta4_profile_role(
+            self.installation_profile, 'publication_attempt_phase')['table']]
         versions = expected_version if type(expected_version) is tuple else (expected_version,)
         if (target.uuid != selected.uuid or target.path != selected.path
                 or (version not in versions if not allow_later
