@@ -1,0 +1,77 @@
+{
+  "profile": "ashlar-authored-typed-graph-source/0.1",
+  "document_revision": "1",
+  "source_system": "typed-graph-source",
+  "records": {
+    "17": {
+      "record": [
+        "m",
+        "Person"
+      ],
+      "fields": {
+        "21": [
+          "m",
+          "person_key",
+          "string"
+        ],
+        "22": [
+          "m",
+          "person_name",
+          "string"
+        ],
+        "23": [
+          "m",
+          "quantity",
+          "integer"
+        ]
+      }
+    },
+    "18": {
+      "record": [
+        "m",
+        "Place"
+      ],
+      "fields": {
+        "24": [
+          "m",
+          "place_key",
+          "string"
+        ],
+        "25": [
+          "m",
+          "place_name",
+          "string"
+        ]
+      }
+    }
+  },
+  "relationships": {
+    "31": {
+      "identity": [
+        "m",
+        "knows"
+      ],
+      "source_type_id": 17,
+      "target_type_id": 17,
+      "target_key": [
+        "m",
+        "Person",
+        "identity"
+      ]
+    },
+    "32": {
+      "identity": [
+        "m",
+        "located"
+      ],
+      "source_type_id": 17,
+      "target_type_id": 18,
+      "target_key": [
+        "m",
+        "Place",
+        "identity"
+      ]
+    }
+  },
+  "qualification": "Explicit development mapping; independent directed monomorphic relationships, empty edge properties, supplied-dataset closure only. Not Truss IDs, query bindings, or a model migration."
+}

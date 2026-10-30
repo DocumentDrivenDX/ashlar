@@ -1,0 +1,182 @@
+{
+  "profile": "ashlar-g03-local-delta4-transaction1-sdk058-packet/0.1",
+  "status": "effect-free candidate; r1/r2 attempts consumed; no native execution permit; not executed",
+  "sourceCommit": "144812a27c0bc4fcc25825ecb983262c48e6ef9a",
+  "ashlarSource": {
+    "root": "/Users/erik/Projects/ashlar",
+    "directories": {
+      "src/ashlar": {
+        "fileCount": 91,
+        "sha256": "d41abedee4f18f508737befd201b8e8dce55c60122b69c8c62be25913b09f3f7"
+      },
+      "src/ashlar_host": {
+        "fileCount": 490,
+        "sha256": "cdbd8d5cc06e8cfd82573e2b2704031b19df7f1bacfda43ec258c78ccc49d4d1"
+      }
+    }
+  },
+  "inputs": {
+    "configured-typed-graph-source.json": "040545b8cc96701a158b8936750c89f97ce991df9652ceeacf6c66fb9d9fc168",
+    "typed-graph-model.umf.json": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "typed-graph-source.jsonl": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+    "typed-graph-binding.json": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863",
+    "source-oracle.json": "6a0bfb29131c210b68ce7644b93bac484f845526ef87c23482ac1d6d70f344c1"
+  },
+  "runtime": {
+    "python": "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/bin/python",
+    "pythonVersion": "3.12.14",
+    "pyspark": "4.2.0",
+    "deltaSpark": "4.4.1",
+    "miniRacer": "0.14.1",
+    "py4j": "0.10.9.9",
+    "javaHome": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
+    "javaExecutableSha256": "382e51393d712cf7e228a606142d3c079f5fe12e4b599c62fdd1470e40fe7916",
+    "pythonRealExecutableSha256": "0048df8bc66cbf4cc964f31eb89321e762902aeecf95dfbde306a36601d27034",
+    "pyvenvCfgSha256": "96ee580cade101eee28abd6c7dbaae2e70dfca4202d1d5aaeab24ec3cd3b751d",
+    "distributionRecordSha256": {
+      "pyspark": "19ef20ba73ca7d6d487d34e969c057d4b9eafa5639defadfecb54ebcf66a096e",
+      "delta-spark": "c7b4af46a003aaa0158d0626a1b2de88c21aee45e3b513916d0010f5225e0509",
+      "mini-racer": "9d4697a67222b1dcb62388aa22324d0b196cf70ca3c1efc12ac15640a0881caa",
+      "py4j": "1031a588ee9620c1c560b695d82fd9bac27760b70d7f6f3c2a5048922e315b2d"
+    },
+    "jars": {
+      "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+      "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+    },
+    "localWheels": {
+      "pyspark-4.2.0.tar.gz": "5ad689d53570ee1674193fd4f9bda065f0db3be9363a27d2a3406cc457b70b61",
+      "delta_spark-4.4.1-py3-none-any.whl": "224814c76071236dd98c23e8d01da9f43bec21af4129cae92822ca25e5becec7",
+      "mini_racer-0.14.1-py3-none-macosx_11_0_arm64.whl": "56cc6965a1665a50d8d613bc43aa83b4cec6b1f09acc69dc4c2845dacb201463",
+      "py4j-0.10.9.9-py2.py3-none-any.whl": "c7c26e4158defb37b0bb124933163641a2ff6e3a3913f7811b0ddbe07ed61533"
+    },
+    "runtimeProvenance": {
+      "cohortRoot": "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029",
+      "pipFreezeSha256": "62649920bfe673acc2ab1bf012795f97f635358812cf51e80176abd0a837c301",
+      "pipCheckSha256": "d0b0f783aafb6b8554cd928f14f27df0d4c6c31ee5fd80fd5ac48b05cba5cf2d",
+      "pysparkPypiReceiptSha256": "fd7af31252d0cb32991aa1a4a2212a4e819724c229a38eb3993ee026f1e93ef8",
+      "pysparkSourceTarSha256": "5ad689d53570ee1674193fd4f9bda065f0db3be9363a27d2a3406cc457b70b61",
+      "artifactInventorySha256": "82a46ce44a9a4f26e49942da82ac1bd572327f11b8f883a35ae04d98acd43555",
+      "sparkJarInventorySha256": "0dde0bc25c6d2183615440789e14ebe9f89bc8a12e60b3f8b42b43da4743ca4a",
+      "startupProbeReceiptSha256": "ec22885d95247f9e213a5e0a81034c610dcd09cbc88af137063646cfeda953a0"
+    }
+  },
+  "runtimePaths": {
+    "jars": "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars",
+    "wheelhouse": "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/network-wheelhouse"
+  },
+  "umfProducer": {
+    "source": "/private/tmp/ashlar-g03-pinned-umf-producer",
+    "head": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+    "tree": "61eebfbe6dcd63c0768b20e514c250a526113d17",
+    "bun": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+    "bunSha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
+    "git": "/opt/homebrew/Cellar/git/2.56.0_1/bin/git",
+    "gitSha256": "40163333061f7223ecb604ed0f12988cfc8096d57ca8b1db006d410d4aeb700e",
+    "timeoutSeconds": 30,
+    "maximumOutputBytes": 1048576,
+    "maximumReceiptBytes": 1048576
+  },
+  "umfDelta4Bridge": {
+    "profile": "ashlar-local-current-delta4-umf-source-sdk058/0.1",
+    "bridgeSha256": "8ca2c7ec908c80b78d4bac66144511330f56ad722b9149175c6d5fb0495bcb93",
+    "realizationManifestSha256": "10b76f0359c62f0ff33734ba58ac5a8878ccbbf8d2fa2eba83413783c3f9fab1",
+    "buildInputsSha256": "3c021d364d43a9b7c6bfbf95f4ede74d97eac49d79085131c140b06c19ae2677",
+    "entrySha256": "b06f90574e25bae2a774900b3024eb8882f7b3cc8746138e209d9cb0fb894fd7",
+    "roleSemanticsSha256": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d",
+    "noticesSha256": "8177eaded1ef5e38152c2ab4d88df6029b90d032ca8a7cddedee61def508bca9",
+    "releaseProposalsSha256": "d00c4a9d0c6c1fd0946007a5ae2495ee95960ba094d1a46dbed0dc6d966e68ea",
+    "sourceCorrespondenceSha256": "1513d0b58774bcf1861f75f71595a5f3dc8d2ff20ac8821fa63a02cb2aa77da0"
+  },
+  "scope": {
+    "carrierProfile": "ashlar-delta/0.4-xxhash64",
+    "roles": [
+      "object_current",
+      "edge_current",
+      "tombstone",
+      "whole_source_history",
+      "attempts",
+      "manifest"
+    ],
+    "sourceSystem": "typed-graph-source",
+    "stream": "typed-graph-jsonl",
+    "sourceTransaction": "typed-graph-1",
+    "sourceEventCount": 8,
+    "initialization": "fresh six-role local Delta installation; v1 registration heads",
+    "effect": "native publication_attempt_phase prepared/applying then three original graph INSERT effects",
+    "expectedTerminalHeads": {
+      "object_current": 2,
+      "edge_current": 2,
+      "tombstone": 1,
+      "whole_source_history": 2,
+      "publication_attempt_phase": 3,
+      "publication_manifest": 1
+    },
+    "expectedNativeRows": {
+      "object_current": 4,
+      "edge_current": 4,
+      "tombstone": 0,
+      "whole_source_history": 8,
+      "publication_attempt_phase": 2,
+      "publication_manifest": 0
+    },
+    "oracle": "inputs/source-oracle.json",
+    "publication": false,
+    "manifest": false,
+    "ack": false,
+    "consumer": false,
+    "cloud": false,
+    "scale": false,
+    "trussClaim": false,
+    "sourcePolicy": "UMF SDK 0.5.8 admitted source policy; versioned Delta 4 bridge profile /0.2"
+  },
+  "limits": {
+    "wallSeconds": 450,
+    "processTreeRssBytes": 2147483648,
+    "attemptBytes": 536870912,
+    "combinedStdoutStderrBytes": 1048576,
+    "resultBytes": 1048576,
+    "invocationBytes": 262144,
+    "admissionReceiptBytes": 1048576,
+    "noRetry": true,
+    "sparkSessionsAtOnce": 1,
+    "sparkMaster": "local[1]",
+    "driverMemory": "512m"
+  },
+  "inputSha256": {
+    "configured-typed-graph-source.json": "040545b8cc96701a158b8936750c89f97ce991df9652ceeacf6c66fb9d9fc168",
+    "typed-graph-model.umf.json": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "typed-graph-source.jsonl": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+    "typed-graph-binding.json": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863"
+  },
+  "sdk058Admission": {
+    "node": "/opt/homebrew/Cellar/node/26.12.1/bin/node",
+    "sdkPackageRoot": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-install/node_modules/@umf/core",
+    "sdkArchive": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-distribution/umf-sdk.tgz",
+    "producerClosure": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-producer-closure.json",
+    "producerReceipt": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-producer-receipt.json",
+    "installCustody": "/private/tmp/g03-sdk058-local-producer-actual-002/sdk-install/g03-sdk-install-custody.json",
+    "sourceAdmissionManifest": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-source-correspondence-20261030/inputs/typed-graph/sdk058-source-admission.json",
+    "sourceAdmissionManifestSha256": "d8b00a1819937beb68dc8442a88176e5a19ffaf6b61afc00e36082ae84828970",
+    "version": "0.5.8",
+    "sourceCommit": "855f6c48649496fc60b3303798790d0ddb55d38f",
+    "sourceTree": "53f2bfffbc0c5780e79d76d8fd3d202239d088b2",
+    "selectedTagCommit": "efb4042719866888ad80c01cb2da694972eb2738",
+    "archiveSha256": "2aaf24741aee1c135fade5b7631db90d710e6211977fb9ca7fcc080ea7fdf58d",
+    "entrySha256": "071544fcc83c5abcf1e280890e1516613f679a58cf245b31a7bf16f0b6dd24fd",
+    "packageSha256": "4533bf7e5ed7bb0aba4e3bdf395818423281ae464b96a73fe492c57291e81500",
+    "installedTreeSha256": "7227738ae23966239b67d3e9df72f848c101761719ef4b39477fe86de6ef519c"
+  },
+  "attemptHistory": {
+    "r1": {
+      "attemptRoot": "/private/tmp/ashlar-g03-delta4-txn1-attempts/ashlar-g03-txn1-19c69741b58c4e46a15d4f3645ba7e23",
+      "result": "initialized six roles; failed ZSTD admission before graph effects; consumed and retained"
+    },
+    "r2": {
+      "attemptRoot": "/private/tmp/ashlar-g03-delta4-txn1-attempts-r2/ashlar-g03-txn1-b7ad716baf2943f1baab0caeddf5ee17",
+      "result": "initialized six roles; alias preflight refusal before graph or metadata effects; consumed and retained"
+    },
+    "newAttemptParent": "/private/tmp/ashlar-g03-sdk058-delta4-txn1-attempts-20261030",
+    "reusePriorAttempts": false,
+    "freshParentObservedAbsent": true
+  }
+}
