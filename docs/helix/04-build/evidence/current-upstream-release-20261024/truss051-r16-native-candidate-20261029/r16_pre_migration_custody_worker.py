@@ -297,8 +297,9 @@ def verify_custody(observed: dict, expected: dict) -> None:
 
 
 def run_prefix(scope: dict, source_root: Path, helper: Path, *, stage: Callable[[str], None] | None = None,
-               operations: dict[str, Callable] | None = None) -> dict:
-    """Run only preserve → restore → start → .48 custody/page → stop; never migrate."""
+               operations: dict[str, Callable] | None = None,
+               live_lifecycle: Callable[[dict, str], dict] | None = None) -> dict:
+    """Run preserve → restore → start → .48 custody/page, optional live lifecycle, then stop."""
     _EFFECT_STATE.update(phase="none", native_effects="none", effects_may_remain=False)
     verify_scope(scope)
     ops = operations or {}
@@ -375,6 +376,8 @@ def run_prefix(scope: dict, source_root: Path, helper: Path, *, stage: Callable[
     log = attempt / "postgres.log"
     started = False
     result = None
+    lifecycle_result = None
+    lifecycle_error = None
     deadline = time.monotonic() + scope["limits"]["child_deadline_seconds"]
     try:
         _mark_effect("postgres-start-attempted", native="possible", may_remain=True)
@@ -424,41 +427,88 @@ def run_prefix(scope: dict, source_root: Path, helper: Path, *, stage: Callable[
                   "publication_invoked": False, "acknowledgement_invoked": False,
                   "seed_invoked": False, "continuation_invoked": False}
         if stage: stage("custody-prefix-complete")
+        if live_lifecycle is not None:
+            # This callback is the one-start continuation point. It receives the
+            # actual observed .48 custody/page result before the owned stop.
+            # Its caller must durably write a pre-effect receipt before migration.
+            try:
+                lifecycle_result = live_lifecycle(json.loads(json.dumps(result, sort_keys=True)), conninfo)
+                if type(lifecycle_result) is not dict:
+                    raise StopRun("live lifecycle callback must return its exact stage receipt map")
+                required = ("migration_invoked", "publication_invoked", "genesis_acknowledged",
+                            "seed_invoked", "continuation_invoked", "continuation_acknowledged")
+                if any(type(lifecycle_result.get(key)) is not bool for key in required):
+                    raise StopRun("live lifecycle callback receipt must state every stage outcome")
+                result.update({key: lifecycle_result[key] for key in required})
+                result["lifecycle_stage_receipts"] = lifecycle_result.get("stage_receipts", {})
+                result["lifecycle_callback_status"] = "completed"
+                result["status"] = "custody_prefix_and_live_lifecycle_completed"
+            except BaseException as error:
+                lifecycle_error = error
+                result.update({"migration_invoked": "unknown", "publication_invoked": "unknown",
+                               "genesis_acknowledged": "unknown", "seed_invoked": "unknown",
+                               "continuation_invoked": "unknown", "continuation_acknowledged": "unknown",
+                               "lifecycle_callback_status": "failed_or_unknown"})
+                result["status"] = "custody_prefix_lifecycle_callback_failed_outcome_unknown"
     finally:
         if started:
-            prior_stage_error = sys.exc_info()[1]
+            prior_stage_error = sys.exc_info()[1] or lifecycle_error
+            def record_unstopped(reason: str) -> None:
+                if result is None:
+                    return
+                failed = dict(result)
+                failed.update(status="custody_prefix_stop_unverified",
+                              pg_stopped=False, stop_failure=reason[:1200],
+                              effect_state=dict(_EFFECT_STATE))
+                try:
+                    write_new(attempt / "lifecycle-stop-receipt.json", failed)
+                except FileExistsError:
+                    pass
             pid_file = restored / "postmaster.pid"
             if not pid_file.is_file() or pid_file.is_symlink():
                 suffix = f"; prior failure: {prior_stage_error}" if prior_stage_error else ""
                 _mark_effect("postgres-stop-unverified-pid-file-missing", native="server_may_be_running", may_remain=True)
+                record_unstopped("owned postmaster PID file missing" + suffix)
                 raise StopRun("owned postmaster PID file is missing; refusing cleanup" + suffix)
             lines = pid_file.read_text().splitlines()
             if len(lines) < 2 or Path(lines[1]).resolve() != restored:
                 suffix = f"; prior failure: {prior_stage_error}" if prior_stage_error else ""
                 _mark_effect("postgres-stop-unverified-pid-file-mismatch", native="server_may_be_running", may_remain=True)
+                record_unstopped("postmaster PID file does not bind exact restored PGDATA" + suffix)
                 raise StopRun("postmaster PID file does not bind exact restored PGDATA" + suffix)
             try:
                 stopped = ops.get("stop", lambda: subprocess.run([str(pg_ctl), "-D", str(restored), "-m", "fast", "-w", "-t", "20", "stop"],
                                          stdin=subprocess.DEVNULL, text=True, capture_output=True, timeout=25, check=False))()
             except Exception as error:
                 _mark_effect("postgres-stop-threw", native="server_may_be_running", may_remain=True)
+                record_unstopped(f"owned PostgreSQL stop raised {type(error).__name__}: {str(error)[:700]}; "
+                                 f"prior stage failure: {prior_stage_error or 'none'}")
                 raise StopRun(f"owned PostgreSQL stop raised {type(error).__name__}: {str(error)[:700]}; "
                               f"inspect retained attempt {attempt}; prior stage failure: {prior_stage_error or 'none'}") from error
             if stopped.returncode or pid_file.exists():
                 primary_note = f"; prior failure: {prior_stage_error}" if prior_stage_error else ""
                 stop_output = (stopped.stderr or stopped.stdout or "").strip()[-1000:]
                 _mark_effect("postgres-stop-failed", native="server_may_be_running", may_remain=True)
+                record_unstopped(f"stop returncode={stopped.returncode}, pid_file_remains={pid_file.exists()}; "
+                                 f"pg_ctl: {stop_output}{primary_note}")
                 raise StopRun(f"owned PostgreSQL stop failed (returncode={stopped.returncode}, pid_file_remains={pid_file.exists()}); "
                               f"inspect retained attempt {attempt}; pg_ctl: {stop_output}{primary_note}")
             _mark_effect("postgres-stopped", native="stopped", may_remain=True)
     if result is None:
         raise StopRun("pre-migration custody result missing")
     retained_logs = sum(path.stat().st_size for path in (log,) if path.exists())
-    if retained_logs > scope["limits"]["combined_log_bytes_max"]:
-        raise StopRun("retained PostgreSQL log exceeds 16 MiB combined-log cap")
+    log_cap_exceeded = retained_logs > scope["limits"]["combined_log_bytes_max"]
     result["pg_stopped"] = True
     result["effect_state"] = dict(_EFFECT_STATE)
-    write_new(attempt / "pre-migration-custody.json", result)
+    if log_cap_exceeded:
+        result["status"] = "custody_prefix_stopped_but_log_cap_exceeded"
+        result["log_cap_exceeded"] = True
+    final_name = "lifecycle-stop-receipt.json" if live_lifecycle is not None else "pre-migration-custody.json"
+    write_new(attempt / final_name, result)
+    if lifecycle_error is not None:
+        raise StopRun(f"one-start lifecycle callback failed or is ambiguous after owned stop: {str(lifecycle_error)[:1200]}") from lifecycle_error
+    if log_cap_exceeded:
+        raise StopRun("retained PostgreSQL log exceeds 16 MiB combined-log cap after verified stop")
     return result
 
 

@@ -200,6 +200,50 @@ class CustodyPrefixTests(unittest.TestCase):
             self.assertLess(calls.index("source-custody-verified"), calls.index("page"))
             self.assertEqual(calls[-1], "stop")
 
+    def test_live_lifecycle_receipt_is_durable_before_callback_and_final_stop_receipt_is_truthful(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); scope = scope_for(root); calls = []
+            def lifecycle(prefix, conninfo):
+                calls.append("lifecycle")
+                self.assertIn("dbname=postgres", conninfo)
+                pre_effect = {**prefix, "profile": "ashlar-r16-pre-effect-custody/0.1",
+                              "migration_invoked": False, "publication_invoked": False,
+                              "acknowledgement_invoked": False}
+                worker.write_new(Path(scope["output_root"]) / "pre-migration-custody-live.json", pre_effect)
+                self.assertTrue((Path(scope["output_root"]) / "pre-migration-custody-live.json").is_file())
+                return {"migration_invoked": True, "publication_invoked": True,
+                        "genesis_acknowledged": True, "seed_invoked": True,
+                        "continuation_invoked": True, "continuation_acknowledged": True,
+                        "stage_receipts": {"complete": "a" * 64}}
+            with patch.object(worker, "_verify_static_inputs", return_value=Path("/fake/pg_ctl")):
+                result = worker.run_prefix(scope, root, Path("/fake/helper"),
+                    operations=self._ops(scope, calls), live_lifecycle=lifecycle)
+            self.assertEqual(calls[-2:], ["lifecycle", "stop"])
+            self.assertEqual(result["status"], "custody_prefix_and_live_lifecycle_completed")
+            self.assertTrue(result["migration_invoked"])
+            self.assertTrue(result["continuation_acknowledged"])
+            final_path = Path(scope["output_root"]) / "lifecycle-stop-receipt.json"
+            final = json.loads(final_path.read_bytes())
+            self.assertTrue(final["pg_stopped"])
+            self.assertTrue(final["migration_invoked"])
+            self.assertFalse((Path(scope["output_root"]) / "pre-migration-custody.json").exists())
+
+    def test_failed_live_callback_stops_once_and_records_unknown_outcomes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); scope = scope_for(root); calls = []
+            def fail_after_possible_effect(_prefix, _conninfo):
+                calls.append("lifecycle")
+                raise RuntimeError("simulated uncertain lifecycle effect")
+            with patch.object(worker, "_verify_static_inputs", return_value=Path("/fake/pg_ctl")):
+                with self.assertRaisesRegex(worker.StopRun, "failed or is ambiguous after owned stop"):
+                    worker.run_prefix(scope, root, Path("/fake/helper"),
+                        operations=self._ops(scope, calls), live_lifecycle=fail_after_possible_effect)
+            self.assertEqual(calls[-1], "stop")
+            final = json.loads((Path(scope["output_root"]) / "lifecycle-stop-receipt.json").read_bytes())
+            self.assertEqual(final["status"], "custody_prefix_lifecycle_callback_failed_outcome_unknown")
+            self.assertEqual(final["migration_invoked"], "unknown")
+            self.assertTrue(final["pg_stopped"])
+
     def test_source_mismatch_stops_before_page_read_and_stops_owned_server(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve(); scope = scope_for(root); calls = []
@@ -222,6 +266,22 @@ class CustodyPrefixTests(unittest.TestCase):
                     worker.run_prefix(scope, root, Path("/fake/helper"), operations=ops)
             self.assertEqual(worker._EFFECT_STATE["native_effects"], "server_may_be_running")
             self.assertTrue(worker._EFFECT_STATE["effects_may_remain"])
+
+    def test_callback_and_stop_failure_receipt_preserves_unknown_stage_outcomes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); scope = scope_for(root); calls = []
+            ops = self._ops(scope, calls)
+            ops["stop"] = lambda: subprocess.CompletedProcess([], 1, "", "stop not verified")
+            def uncertain(_prefix, _conninfo):
+                raise RuntimeError("migration outcome uncertain")
+            with patch.object(worker, "_verify_static_inputs", return_value=Path("/fake/pg_ctl")):
+                with self.assertRaisesRegex(worker.StopRun, "prior failure: migration outcome uncertain"):
+                    worker.run_prefix(scope, root, Path("/fake/helper"), operations=ops,
+                                      live_lifecycle=uncertain)
+            final = json.loads((Path(scope["output_root"]) / "lifecycle-stop-receipt.json").read_bytes())
+            self.assertFalse(final["pg_stopped"])
+            self.assertEqual(final["migration_invoked"], "unknown")
+            self.assertIn("server_may_be_running", json.dumps(final["effect_state"]))
 
     def test_nonzero_start_with_owned_pid_still_enters_cleanup(self):
         with tempfile.TemporaryDirectory() as directory:
