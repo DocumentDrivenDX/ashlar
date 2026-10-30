@@ -1,0 +1,20 @@
+{
+  "profile": "ashlar-g03-delta4-txn1-sol-packet-review/0.2",
+  "packetTreeSha256": "f7f7ffc8a880c5e7b24469d9cd818888d8bf9719a72e3d186089f63ac30266aa",
+  "sourceCommit": "cd74a5d0157047e909ffce2079254e8ee1b588bc",
+  "review": "accepted-for-one-new-fresh-local-effects-attempt",
+  "priorAttempt": "r1 initialized six roles then failed ZSTD admission before coordinator or transaction effects; its dispatch is consumed and remains retained",
+  "deltaFromR1": "only packet, prepared, permit, dispatch and result profile versions, source commit and exact ashlar_host source-tree digest changed; source/oracle, selected runtime, effect scope, limits and supervisor cleanup remain bound",
+  "limits": {
+    "wallSeconds": 450,
+    "processTreeRssBytes": 2147483648,
+    "attemptBytes": 536870912,
+    "combinedStdoutStderrBytes": 1048576,
+    "sparkSessionsAtOnce": 1,
+    "cloud": false,
+    "scale": false,
+    "retry": false
+  },
+  "checks": "Sol reviewed r1-to-r2 code and manifest diffs and independently reran all 7 effect-free packet checks under the pinned R16 Python; source/runtime preflight passed",
+  "claimLimit": "historical-UMF local effects only; no selected UMF SDK 0.5.8 / Core 0.10.3, Weft 0.4.56 native consumer, Truss, managed production, publication or ACK claim"
+}
