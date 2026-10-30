@@ -25,7 +25,7 @@ weft-validation = ["jsonschema==4.26.0", "referencing==0.37.0", "rpds-py==2026.9
 typed-sdk = [
     "umf-core @ https://github.com/DocumentDrivenDX/umf/releases/download/python-v0.10.3/umf_core-0.10.3-cp311-abi3-macosx_11_0_arm64.whl#sha256=dc2586793e1492d1f825bd9e12f27d5db9f9330ae2343d9e7773c7052f1f6ea6 ; sys_platform == 'darwin' and platform_machine == 'arm64'",
     "umf-core @ https://github.com/DocumentDrivenDX/umf/releases/download/python-v0.10.3/umf_core-0.10.3-cp311-abi3-manylinux_2_34_x86_64.whl#sha256=cd35f255900ec122e5e2d47d1fbac658cc127d3f16ba82e643e199b7d8cebd75 ; sys_platform == 'linux' and platform_machine == 'x86_64'",
-    "umf_access @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.7/umf_access-0.1.0.dev8-py3-none-any.whl#sha256=1a21c1ddd59f6b23e9f0b33228280564af0e96bb4d13699b89616d5143e4fd23",
+    "umf_access @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.8/umf_access-0.1.0.dev8-py3-none-any.whl#sha256=1a21c1ddd59f6b23e9f0b33228280564af0e96bb4d13699b89616d5143e4fd23",
     "umf-weft @ https://github.com/DocumentDrivenDX/weft/releases/download/v0.4.56/umf_weft-0.4.56-cp39-abi3-macosx_11_0_arm64.whl#sha256=68f9297b4b55df483b86d3041040991c4dadfb9b4d63afcff1420c43f93ae41d ; sys_platform == 'darwin' and platform_machine == 'arm64'",
     "umf-weft @ https://github.com/DocumentDrivenDX/weft/releases/download/v0.4.56/umf_weft-0.4.56-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=32f4c38d9a614dd4c3a367f8b24d5cd4ba41ec80c2a4a2e3423e2082a294dbdd ; sys_platform == 'linux' and platform_machine == 'x86_64'",
     "mini-racer==0.12.2; python_version < '3.10'",

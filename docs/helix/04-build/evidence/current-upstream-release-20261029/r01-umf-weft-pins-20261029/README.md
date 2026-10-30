@@ -30,7 +30,7 @@ SHA-256 as the public release metadata.
 | --- | --- | --- | ---: | --- |
 | UMF Core 0.10.3 | [`python-v0.10.3`](https://github.com/DocumentDrivenDX/umf/releases/tag/python-v0.10.3), `7d334dec45948953718bfacd3ed6dd199cadba79` | macOS arm64, `umf_core-0.10.3-cp311-abi3-macosx_11_0_arm64.whl` | 3,331,547 | `dc2586793e1492d1f825bd9e12f27d5db9f9330ae2343d9e7773c7052f1f6ea6` |
 | UMF Core 0.10.3 | same | Linux x86_64, `umf_core-0.10.3-cp311-abi3-manylinux_2_34_x86_64.whl` | 3,612,043 | `cd35f255900ec122e5e2d47d1fbac658cc127d3f16ba82e643e199b7d8cebd75` |
-| UMF Access 0.1.0.dev8 | [`umf-v0.5.7`](https://github.com/DocumentDrivenDX/umf/releases/tag/umf-v0.5.7), `dce9b430422242edd135e69a7a64620d0244784e` | Python wheel, `umf_access-0.1.0.dev8-py3-none-any.whl` | 580,062 | `1a21c1ddd59f6b23e9f0b33228280564af0e96bb4d13699b89616d5143e4fd23` |
+| UMF Access 0.1.0.dev8 | [`umf-v0.5.8`](https://github.com/DocumentDrivenDX/umf/releases/tag/umf-v0.5.8), `efb4042719866888ad80c01cb2da694972eb2738` | Python wheel, `umf_access-0.1.0.dev8-py3-none-any.whl` | 580,062 | `1a21c1ddd59f6b23e9f0b33228280564af0e96bb4d13699b89616d5143e4fd23` |
 | Weft 0.4.56 (`umf-weft`) | [`v0.4.56`](https://github.com/DocumentDrivenDX/weft/releases/tag/v0.4.56), `2f62e1148d1b2030558550e4f6f2ffe518bac62d` | macOS arm64, `umf_weft-0.4.56-cp39-abi3-macosx_11_0_arm64.whl` | 11,190,603 | `68f9297b4b55df483b86d3041040991c4dadfb9b4d63afcff1420c43f93ae41d` |
 | Weft 0.4.56 (`umf-weft`) | same | Linux x86_64, `umf_weft-0.4.56-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl` | 14,358,901 | `32f4c38d9a614dd4c3a367f8b24d5cd4ba41ec80c2a4a2e3423e2082a294dbdd` |
 
@@ -39,6 +39,24 @@ selected as a published prerelease, not represented here as a fully qualified
 runtime. Core's Linux wheel requires the `manylinux_2_34` platform baseline.
 Only macOS arm64 and Linux x86_64 are selected for the native Core and Weft
 distributions. Windows and Intel macOS are not selected.
+
+## Current SDK release metadata — 2026-10-30
+
+GitHub's immutable [`UMF SDK 0.5.8` release](https://github.com/DocumentDrivenDX/umf/releases/tag/umf-v0.5.8)
+was published at `2026-10-30T00:15:07Z` from target
+`efb4042719866888ad80c01cb2da694972eb2738`. Its release body identifies the
+SDK dependency tuple as Access 0.1.0.dev8, Codegen 0.1.0a5, Core distribution
+0.10.3 with semantic Core 0.10.0, and Weft 0.4.56. The Access wheel asset is
+580,062 bytes with SHA-256
+`1a21c1ddd59f6b23e9f0b33228280564af0e96bb4d13699b89616d5143e4fd23`, matching
+the `umf-v0.5.7` asset exactly. Accordingly, `typed-sdk` now resolves Access
+through the current SDK release URL while retaining the already checked bytes.
+This updates the release coordinate; the prior installed Access checks remain
+scoped to those identical bytes and were not repeated from the new URL. Ashlar
+does not select the Codegen distribution, and SDK 0.5.8 is not an Access or Core
+package version. The Core, Access and Weft package versions and the recorded
+focused-check scope are unchanged; none of this adds native or managed-runtime
+qualification.
 
 ## Focused check
 
