@@ -23,8 +23,10 @@ ddx:
 
 ## Decision and scope
 
-This is an inert candidate scope for one local 45M-node/225M-edge diagnostic
-pilot. It does not authorize execution and contains no Spark invocation. Keep
+This is a draft candidate scope for one local 45M-node/225M-edge diagnostic
+pilot. It does not authorize execution and contains no Spark invocation. The
+future worker must generate a fresh fixture from the existing deterministic
+R05 range generator; it must not consume or mutate a retained paired-sample table. Keep
 the `.4-xxhash64` UMF-generated schemas, Delta protocol, ZSTD settings,
 `local[18]` runtime, 18 shuffle partitions, deterministic range generator,
 source/value oracle and endpoint formula from the existing paired R05 packet.
@@ -32,16 +34,15 @@ Use one pair of fresh tables and the concurrent node/edge write schedule. Do
 not run the sequential comparison mode, change layout or codec, or add a
 concurrency matrix.
 
-After writes, the pilot must open the existing
-`PinnedCanonicalGraphFramesActionFixture` against the frozen synthetic
-generator/source/oracle descriptor and the two owned table paths. The holder
-must acquire its exclusive private-root lock, observe each Delta UUID, head
-version, schema and protocol twice, pin those exact versions, and prove the
-active-file inventory is retained and available before returning frames. Every
-scan, point read and engine frame must use those versions. Renew the same lease
-and recheck both table identities, runtime/JAR identity, lock and retained-file
-inventory immediately before and after the GraphFrames action, then close the
-lease with its closing renewal. This pilot has no source progress, ACK,
+After writes, the pilot requires a separately reviewed R05 action holder against
+the frozen compact generator/source/oracle descriptor and the two owned table
+paths. The holder must acquire its exclusive private-root lock, observe each
+Delta UUID, head version, schema and protocol twice, pin those exact versions,
+and prove the active-file inventory is retained and available before returning
+frames. Every scan, point read and engine frame must use those versions. Renew
+the same lease and recheck both table identities, runtime/JAR identity, lock and
+retained-file inventory immediately before and after the GraphFrames action,
+then close the lease with its closing renewal. This pilot has no source progress, ACK,
 publication manifest, managed Unity Catalog or production authority. Its
 diagnostic purpose is to separate setup,
 each role write, point reads, persisted scans, GraphFrames construction/action,
@@ -67,15 +68,19 @@ approved. Predictive optimization remains enabled.
 | Active Parquet across both tables | 16 GiB maximum |
 | End-to-end attempt | 900 seconds from supervised child start through cleanup and receipt close |
 | Worker execution | 780 seconds maximum |
-| Admission, DDL and setup | 60 seconds cumulative |
+| Admission, DDL and setup | 55 seconds cumulative |
 | Concurrent node and edge writes | 300 seconds cumulative; diagnostic only, not a throughput pass threshold |
-| Two exact point reads | 60 seconds cumulative |
-| Distinct row/value scan | 120 seconds |
-| Distinct endpoint-formula scan | 120 seconds |
+| Exact node point read | 20 seconds |
+| Exact edge point read | 20 seconds |
+| Compact schema/protocol/file validation | 25 seconds |
+| Distinct row/value scan | 90 seconds |
+| Distinct endpoint-formula scan | 90 seconds |
 | Pinned-frame GraphFrames construction and one-hop action | 120 seconds; at most 10,000 complete occurrences |
-| Final reconciliation and owned cleanup | 120 seconds cumulative |
+| Final reconciliation | 60 seconds |
 
-The phase ceilings sum to 900 seconds. A parent deadline also stops the
+The planned worker phase ceilings sum to 780 seconds, leaving up to 120 seconds within
+the 900-second outer attempt for supervised startup, process quiescence,
+ownership checks, cleanup and receipt close. A parent deadline also stops the
 attempt. Any overrun, unexpected write/job/retry, semantic mismatch, graph
 result overflow, changed table identity, failed renewal, unavailable retained
 file, or uncertain cleanup fails closed. Stop the workload and close the holder
@@ -123,24 +128,36 @@ occurrences per node and `source_id = floor(id/5)`,
 0, the independently frozen result has five distinct edge IDs, including the
 parallel pair at IDs 0 and 1.
 
+## Graph-action admission
+
+The existing `PinnedCanonicalGraphFramesActionFixture` verifies a tiny,
+enumerated source with bidirectional `exceptAll`; it cannot qualify the
+45M/225M range source without repeating full-table work. The adjacent
+[`action-45m225m-candidate`](action-45m225m-candidate/README.md) freezes a
+compact range formula and seed occurrence bag as draft evidence. It has no
+independent review anchor or holder compatibility. A dedicated TD-008 R05
+holder must consume the two distinct persisted-scan receipts, bind exact
+UUID/version/schema/protocol and retained-file inventories, hold an exclusive
+lease, and renew before and after one bounded action. No graph action or pilot
+is admitted until that holder and descriptor are independently reviewed.
+
 ## Open implementation gaps
 
-This is a reviewed execution scope, not an executable runner. The existing
+This remains a draft execution scope, not an execution authorization or
+supervised runner. The existing
 paired worker runs sequential and concurrent output pairs and combines row,
 value and endpoint witnesses into one action. The full-scale worker has fixed
 1B/5B assumptions and the full-scale supervisor's packet digest binds its own
 source closure. Neither can be called as-is for this pilot.
 
-A future implementation must add a separately named one-shot worker and
-supervisor packet, bind the exact source/runtime/oracle digests and these phase
-limits, reuse the paired supervisor's local admission/slot/scratch/RSS/cleanup
-controls, and test its gates without starting Spark. It must add explicit
-parent/child phase accounting so concurrent write-role times do not inflate
-wall time and nested Spark stages are not double-counted. The two existing
-point-read helper and GraphFrames helper currently encode the full-scale row
-domain; the implementation must parameterize them for 45M/225M without
-changing their current callers. No approval file, runtime pins, slot lock or
-attempt directory is supplied here.
+First implement and test a separate R05 reviewed-action descriptor and adapter
+contract using immutable scan-receipt digests/results; retain the tiny-fixture
+verifier unchanged. After independent review of that binding, implement a
+one-shot worker and supervisor packet with exact source/runtime/oracle digests,
+these phase limits, local admission/slot/scratch/RSS/cleanup controls and
+parent/child timing that does not double-count concurrent roles or nested Spark
+stages. No owner authorization, complete runtime-pin document, exclusive slot
+lock, external review anchor, or attempt directory is supplied here.
 
 The pilot outcome must remain diagnostic. It cannot qualify accepted-source
 entropy, managed publication, Unity Catalog, production authority, full-scale
