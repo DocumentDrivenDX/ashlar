@@ -27,9 +27,12 @@ Keep the 1B-node/5B-edge attempt held. The current 28.206-minute projection is
 for setup, concurrent writes and one combined persisted row/value plus endpoint
 formula pass. It is already longer than the 15-minute review trigger and the
 provisional five-minute design target before the second distinct scan, point
-lookups, graph action, startup and cleanup. No current codec or layout evidence
-supports an optimization likely to close that gap while preserving the selected
-`.4-xxhash64` Delta carrier and complete test semantics.
+lookups, graph action, startup and cleanup. The measured sample disproves five
+minutes as a supported projection for the current design; it does not establish
+an approved revised SLO or prove that every future design must miss it. No
+current codec or layout evidence supports an optimization likely to close that
+gap while preserving the selected `.4-xxhash64` Delta carrier and complete test
+semantics.
 
 The PRD treats scale as an operational qualification target, not an architecture
 gate, and requires an explicit budget for scale trials. The owner chose “Hold
@@ -60,18 +63,24 @@ work is the requested second distinct scan, point reads, GraphFrames action,
 startup and cleanup. One paired sample, with the concurrent mode second in the
 same JVM, cannot establish a reliable best-case full-run duration.
 
-The paired sample wrote 3.041 GB of active Parquet. Linear scaling gives about
-67.585 GB at target, while a five-minute total requires at least 225.3 MB/s of
-aggregate active-data throughput before setup, scans or GraphFrames work. The
-80%-discounted write-rate arithmetic is about 79.5 MB/s. This is an arithmetic
-gap, not evidence that storage bandwidth is the limiting resource: no phase
-profile or target-scale read/graph measurement establishes that diagnosis.
-Five minutes would require at least 2.84 times that planning write throughput
-before assigning any time to the other phases. A separate [edge-only CPU
-sample](r05-storage-throughput-reassessment-20261023/README.md)
-implies about 6,904 CPU-seconds at 5B edges, or 8.0 minutes at 18 fully utilized
-cores and 80% throughput; this is a diagnostic cross-check that excludes nodes
-and reads, not an additive wall-time estimate.
+The paired sample wrote 3,041,334,560 active Parquet bytes. Linear scaling gives
+67,585,212,444 bytes (67.585 decimal GB) at target. At the 80%-throughput
+planning rate, writes alone take 14.176 minutes, about 79.5 MB/s aggregate.
+Writing that output inside 300 seconds requires at least 225.3 MB/s, before
+setup, scans or GraphFrames work: 2.84 times the planning rate. This arithmetic
+does not identify storage bandwidth as the bottleneck; the sample has no
+phase-resolved write profile or target-scale read/graph measurement.
+
+A separate [edge-only CPU sample](r05-storage-throughput-reassessment-20261023/README.md)
+measured 310.684 executor CPU-seconds for 225M edges. Linear scaling gives
+about 6,904 executor CPU-seconds for 5B edges. At 18 cores continuously busy,
+that is 6.4 minutes; at 80% utilization (14.4 effective cores), it is about
+8.0 minutes. This cross-check covers edge writing alone, excludes nodes and
+reads, and is not additive to the concurrent wall-time projection. It further
+shows that the five-minute goal is not supported by the current measured work
+profile, even if the local host has more than 96 GiB of physical RAM. Memory
+adequacy at target remains unknown; active Delta bytes are disk use, not a
+requirement to hold the whole dataset in RAM.
 
 ## Candidate changes assessed
 
@@ -82,6 +91,7 @@ and reads, not an additive wall-time estimate.
 | Change row order/layout | Existing hash-range and identity-range sorting samples were slower and larger than the baseline; probe-file results did not establish useful pruning ([physical limits](r05-materialization-physical-limits-20261024.md)). | Rejected by current comparison. |
 | Add more writer concurrency | The paired concurrent node/edge mode improved write-only time from 35.227 s to 30.620 s (about 1.15x) and the combined setup/write/validation interval from 66.278 s to 60.924 s (about 1.09x) in one same-JVM sample ([paired writer result](r05-paired-writer-second-20261024/README.md)). | Already included in the current baseline; the measured gains are insufficient and must not be counted again. |
 | Remove a second persisted graph copy | TD-008's direct pinned-frame mapping avoids duplicate materialization while retaining graph-engine execution. | Already the selected path; it does not speed the measured Delta writes, and graph action cost is still unknown. |
+| Disable regular Parquet statistics only for `source_delivery_id` | JFR stacks include `BinaryStatistics.updateStats`, but do not identify the active field. A prior single pair's byte effect was only 238,615 bytes (0.0093%) for the edge output; see the [offline write-path review](parquet-field-statistics-offline-review-20261023/README.md). | Weak falsification hypothesis only, not a recommendation or scale gate. Test first on a bounded 5M-edge baseline/candidate micro-pair; reject if the option is ignored, selected Delta statistics change, or relevant writer CPU/time does not improve. A small pair tests the mechanism, not target performance. |
 
 These findings do not prove that the target cannot be met. They show that the
 currently evidenced changes do not support a plausible timing claim. A larger
@@ -90,25 +100,38 @@ and cost envelope and a semantics-preserving comparison before adoption.
 
 ## Next low-cost discriminator
 
-Use one phase-resolved local pilot at the existing 45M/225M row shape, with the
-same admitted schema, Delta protocol, carrier, ZSTD writer profile and 18-core
-runtime. Do not change layout or codec in this pilot. Add separately timed
-phases for DDL/setup, each role write, the two exact point reads, the distinct
-row/value and endpoint-formula scans, GraphFrames construction/action, final
-checks and owned cleanup. Reuse an independently frozen oracle and report
-active bytes, file geometry, plans, task CPU/GC, spill, scan input bytes and
-overlapping Spark job/stage attribution without double-counting nested work.
-Cap it as a single bounded local attempt using existing R05 temporary-storage
-and runtime controls; no retries, concurrency matrix or full-scale data.
+Before any 45M/225M phase pilot, use a bounded 5M-edge baseline/candidate
+micro-pair to test the weak `source_delivery_id` statistics hypothesis. Keep
+the admitted runtime, schema, Delta protocol, ZSTD writer profile and SQL
+identical; change only the per-column setting. Separately time setup/DDL, edge
+INSERT, and footer/Delta-log validation; record task CPU/GC and output bytes.
+Prove the option's footer effect, unchanged selected Delta statistics, and
+exact row/value equality. If it passes those checks and shows a meaningful
+writer CPU/time improvement, return for review before a larger phase-resolved
+pilot. The micro-pair is only a mechanism falsification test, not a throughput
+or scale gate. Do not run it as part of this note or infer that it closes the
+five-minute gap.
 
-This pilot's decision is diagnostic: identify which measured phases dominate
-and whether a linearly scaled estimate can approach the owner-reviewed budget.
-If CPU, spill, file geometry or graph-action evidence identifies a specific
-bottleneck, prepare exactly one changed-variable follow-up with a separate
-review. If the measured path cannot fit the design target by arithmetic even
-before scale uncertainty, return the target, hardware envelope and full-run
-decision to the owner before proposing a scale attempt. Any complete projection
-above 15 minutes requires owner review, consistent with the R05 packet.
+If no smaller test identifies a credible bottleneck, do not repeat the
+45M/225M sample solely for phase timing. A later phase-resolved pilot at that
+shape would need a specific reviewable question, the same admitted schema,
+Delta protocol, carrier, ZSTD writer profile and 18-core runtime, and separate
+timers for DDL/setup, each role write, both point reads, each persisted scan,
+GraphFrames construction/action, final checks and cleanup. It would record
+active bytes, file geometry, plans, task CPU/GC, spill, scan input bytes and
+Spark job/stage attribution without double-counting nested work. Keep any
+attempt bounded by existing R05 runtime and temporary-storage controls, with
+no retries, tuning matrix or full-scale data.
+
+Any future phase pilot's decision is diagnostic: identify which measured
+phases dominate and whether a linearly scaled estimate can approach an
+owner-reviewed budget. If CPU, spill, file geometry or graph-action evidence
+identifies a specific bottleneck, prepare exactly one changed-variable
+follow-up with separate review. If the measured path cannot fit the design
+target by arithmetic even before scale uncertainty, return the target, hardware
+envelope and full-run decision to the owner before proposing a scale attempt.
+Any complete projection above 15 minutes requires owner review, consistent
+with the R05 packet.
 
 ## Limits
 
