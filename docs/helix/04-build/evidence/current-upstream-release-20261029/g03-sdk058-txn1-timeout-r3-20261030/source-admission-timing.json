@@ -1,0 +1,25 @@
+{
+  "profile": "ashlar-g03-sdk058-source-admission-effect-free-timing/0.1",
+  "purpose": "Three current full source-admission timing observations; no Spark or Delta operation.",
+  "runtime": {
+    "python": "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/bin/python",
+    "pythonVersion": "3.12.14",
+    "packetCommon": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-local-cutover-candidate-20261030/one-shot-sdk058-native-attempt/packet_common.py",
+    "packetCommonSha256": "61a5fd83718d4e90833f9f70a617a3b44a7abdc4f81b60762c546622396d238b",
+    "sdk058AdmissionSourceSha256": "6d1521912e038d04324fb3f4ff5c1c380344f053a99a47b21e20e6c78fcad607",
+    "node": "/opt/homebrew/Cellar/node/26.12.1/bin/node",
+    "nodeSha256": "9af7e24478e538455cf4af53a2607f1b79304bd5e25458b041fb855c3c167991"
+  },
+  "inputs": {
+    "configurationSha256": "040545b8cc96701a158b8936750c89f97ce991df9652ceeacf6c66fb9d9fc168",
+    "modelSha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "sourceSha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+    "sourceAdmissionManifestSha256": "d8b00a1819937beb68dc8442a88176e5a19ffaf6b61afc00e36082ae84828970"
+  },
+  "results": [
+    {"seconds": 2.871, "receiptBytes": 86527, "receiptSha256": "8898ecbf39149fb92a92066535b25140818d3d0e2967ccaed0ff59f0b98745b2", "sparkStarted": false},
+    {"seconds": 2.474, "receiptBytes": 86527, "receiptSha256": "8898ecbf39149fb92a92066535b25140818d3d0e2967ccaed0ff59f0b98745b2", "sparkStarted": false},
+    {"seconds": 2.517, "receiptBytes": 86527, "receiptSha256": "8898ecbf39149fb92a92066535b25140818d3d0e2967ccaed0ff59f0b98745b2", "sparkStarted": false}
+  ],
+  "status": "effect-free; result digests identical; timing is current measurement, not retrospective r3 telemetry"
+}

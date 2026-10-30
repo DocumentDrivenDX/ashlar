@@ -34,23 +34,26 @@ runtime bytes without opening Spark. The worker adds the same explicit
 initialization and transaction 1, and records the `/0.2` carrier profile and
 policy identity before reporting initialization success.
 
-The packet is not executed or authorized for execution. Its 450-second bound,
-`local[1]` Spark setting, 512 MiB retained attempt limit, 2 GiB process-tree
-RSS cap, no-retry rule and output bounds are inherited into its versioned
-manifest. The proposed one-shot scope ends after the original graph INSERT
-effects with the expected six-role head vector; it does not publish a manifest,
-perform protected ACK, run consumer queries, or claim cloud or production
-authority. The proposal remains subject to Sol review before any attempt is
-prepared or dispatched.
+The packet's one-shot r3 dispatch consumed its execution permit and reached the
+450-second supervisor deadline after initialization and source admission, before
+the first metadata operation. No transaction completed. The exact durable
+boundary and current diagnosis are in the [r3 failure evidence](../../g03-sdk058-txn1-timeout-r3-20261030/README.md).
+No retry is authorized by the spent permit. Its `local[1]` Spark setting,
+512 MiB retained attempt limit, 2 GiB process-tree RSS cap, no-retry rule and
+output bounds are inherited into its versioned manifest. The scoped transaction
+would end after the original graph INSERT effects with the expected six-role
+head vector; it does not publish a manifest, perform protected ACK, run
+consumer queries, or claim cloud or production authority.
 
 R1 initialized six roles and stopped at the separate-session ZSTD writer-setting
 admission before graph effects; r2 initialized six roles and stopped at the
-local alias preflight before graph or metadata operations. Both dispatches are
-consumed and their retained roots must not be reused. The packet manifest records
+local alias preflight before graph or metadata operations; r3 reached the
+supervisor deadline after reservation and before its first operation. All three
+dispatches are consumed and their retained roots must not be reused. The packet manifest records
 their exact roots and fixes a distinct fresh parent at
 `/private/tmp/ashlar-g03-sdk058-delta4-txn1-attempts-20261030`; the parent was
-observed absent during packet preparation. No directory was created for this
-candidate.
+observed absent during packet preparation. The r3 dispatch later created its
+consumed attempt root under that parent; see the linked failure receipt.
 
 Run only these effect-free checks when reviewing the packet, using its pinned
 Python interpreter:
