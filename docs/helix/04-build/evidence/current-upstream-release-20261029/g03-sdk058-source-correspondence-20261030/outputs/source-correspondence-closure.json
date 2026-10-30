@@ -1,0 +1,105 @@
+{
+  "addendumFilePins": [
+    {
+      "base": "repo",
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-source-correspondence-20261030/inputs/typed-graph/sdk058-source-admission.json",
+      "sha256": "d8b00a1819937beb68dc8442a88176e5a19ffaf6b61afc00e36082ae84828970",
+      "sizeBytes": 948
+    },
+    {
+      "base": "repo",
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-source-correspondence-20261030/README.md",
+      "sha256": "3910de2c4a143e6de1a8e44a92e67ae628b41c31a3abbb39daf7ab4cecaa00ff",
+      "sizeBytes": 2325
+    },
+    {
+      "base": "repo",
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-source-correspondence-20261030/qualify_source_correspondence.py",
+      "sha256": "eab7af49fdff7ca846d4be8b4097f5a7d25e7007aaa4b959c0a1c706071d1e37",
+      "sizeBytes": 8251
+    },
+    {
+      "base": "repo",
+      "path": "src/ashlar_host/typed_graph_sdk058_admission.py",
+      "sha256": "6d1521912e038d04324fb3f4ff5c1c380344f053a99a47b21e20e6c78fcad607",
+      "sizeBytes": 11908
+    },
+    {
+      "base": "repo",
+      "path": "src/ashlar_host/resources/typed_graph_values_sdk058.mjs",
+      "sha256": "4c73b838d48ea7738b43f74622438a31dcf3156dbe51b8eb53fccf60247186f0",
+      "sizeBytes": 10548
+    },
+    {
+      "base": "repo",
+      "path": "src/ashlar/typed_graph_source.py",
+      "sha256": "b85cf7ed29afff3c7f8935a6b22fbca69b401a7daab7375fbb9a12546fc513ec",
+      "sizeBytes": 16270
+    },
+    {
+      "base": "output",
+      "path": "typed-graph-release-receipt.json",
+      "sha256": "8898ecbf39149fb92a92066535b25140818d3d0e2967ccaed0ff59f0b98745b2",
+      "sizeBytes": 86527
+    },
+    {
+      "base": "output",
+      "path": "source-correspondence-qualification.json",
+      "sha256": "1513d0b58774bcf1861f75f71595a5f3dc8d2ff20ac8821fa63a02cb2aa77da0",
+      "sizeBytes": 2424
+    }
+  ],
+  "priorPacketReferences": [
+    {
+      "base": "repo",
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/typed-graph/configured-typed-graph-source.json",
+      "sha256": "040545b8cc96701a158b8936750c89f97ce991df9652ceeacf6c66fb9d9fc168",
+      "sizeBytes": 703
+    },
+    {
+      "base": "repo",
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/typed-graph/typed-graph-source.jsonl",
+      "sha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+      "sizeBytes": 5724
+    },
+    {
+      "base": "repo",
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/typed-graph/typed-graph-binding.json",
+      "sha256": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863",
+      "sizeBytes": 1430
+    },
+    {
+      "base": "repo",
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/typed-graph/typed-graph-model.umf.json",
+      "sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+      "sizeBytes": 4082
+    },
+    {
+      "base": "repo",
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/outputs/typed-graph-request.json",
+      "sha256": "cd1bd2654c8fcd2ecd1246e0be44b8f94026faa2ef58cf75d7293f8652c990e7",
+      "sizeBytes": 19769
+    },
+    {
+      "base": "repo",
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/outputs/old-2ede-receipt.json",
+      "sha256": "cee1a4df50dd6103cea7ac59884a498019387f3607eed300ca79140c9fc502e9",
+      "sizeBytes": 86463
+    },
+    {
+      "base": "repo",
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/outputs/carrier-proposals.json",
+      "sha256": "d00c4a9d0c6c1fd0946007a5ae2495ee95960ba094d1a46dbed0dc6d966e68ea",
+      "sizeBytes": 48912
+    },
+    {
+      "base": "repo",
+      "path": "src/ashlar_host/resources/local-current-delta4/umf-spark-delta4.iife.js",
+      "sha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5",
+      "sizeBytes": 508540
+    }
+  ],
+  "profile": "ashlar.g03-sdk058-source-correspondence-closure/1",
+  "selfPin": "omitted by design",
+  "status": "passed"
+}

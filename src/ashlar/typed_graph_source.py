@@ -78,7 +78,7 @@ def _record_validation(value,record,source):
     if any(m.get('relationships')for m in source['modules']):
         diagnostics.append({'code':'RECORD_RELATIONSHIP_CONTEXT_REQUIRED','path':'/identity','message':'Relationship/endpoint constraints need a separately qualified dataset check','severity':'warning'})
     return type(value)is dict and set(value)=={'valid','complete','diagnostics'}and value['valid']is True and value['complete']is (not diagnostics)and value['diagnostics']==diagnostics
-def verify_typed_graph_receipt(model,request,receipt):
+def verify_typed_graph_receipt(model,request,receipt,*,producer_revision=GRAPH_CHECK_PIN):
     """Original envelope/result correspondence, not producer authentication.
 
     The host owns actual public core0.10 execution and verifyCoreDatasetValuesCompact.
@@ -88,7 +88,8 @@ def verify_typed_graph_receipt(model,request,receipt):
     source=decode_retained_json(model);wanted=decode_retained_json(request);report=decode_retained_json(receipt)
     require(source.get('umf')=='0.10.0')
     require(type(report)is dict and set(report)=={'format','producerRevision','sourceBase64','sourceSha256','requestBase64','requestSha256','groups','qualification'}
-        and report['format']=='ashlar-typed-graph-check/0.1'and report['producerRevision']==GRAPH_CHECK_PIN and type(report['qualification'])is str)
+        and report['format']=='ashlar-typed-graph-check/0.1'and type(producer_revision)is str
+        and report['producerRevision']==producer_revision and type(report['qualification'])is str)
     require(report['sourceBase64']==b64(model)and report['sourceSha256']==sha(model)and report['requestBase64']==b64(request)and report['requestSha256']==sha(request)
         and wanted['profile']==PROFILE and wanted['modelSha256']==sha(model)and type(report['groups'])is list and len(report['groups'])==len(wanted['groups']))
     elements={(m['id'],e['id']):e for m in source['modules']for e in m['elements']}
@@ -157,8 +158,9 @@ def verify_typed_graph_receipt(model,request,receipt):
 
 class TypedGraphSourcePolicy:
     """Exact carried-event policy minted only against complete original receipts."""
-    def __init__(self,configuration,receipt):
-        request,batches=_build(configuration);verify_typed_graph_receipt(configuration.model_source,request,receipt)
+    def __init__(self,configuration,receipt,*,producer_revision=GRAPH_CHECK_PIN):
+        request,batches=_build(configuration);verify_typed_graph_receipt(configuration.model_source,request,receipt,producer_revision=producer_revision)
+        self.producer_revision=producer_revision
         self.request_bytes=request;self.receipt=receipt;self.source=configuration.model_source
         self.bindings=configuration.bindings;self.relationships=configuration.relationships
         self.source_system=configuration.source_system;self.schema_revision=configuration.document_revision

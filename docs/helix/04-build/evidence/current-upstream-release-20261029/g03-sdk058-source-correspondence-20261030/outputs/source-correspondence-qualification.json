@@ -1,0 +1,41 @@
+{
+  "additiveTo": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030",
+  "admissionProfile": "ashlar-typed-graph-sdk058-source-admission/0.1",
+  "authorityBoundary": "Effect-free local release qualification only. It does not authenticate the producer, establish native Spark/Delta execution, production source authority, catalog/publication authority, or ACK custody.",
+  "carrier": {
+    "allSixExistingBridgeProposalObjectsEqualReleaseSdk": true,
+    "existingBridgeSha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5",
+    "roles": 6
+  },
+  "implementation": {
+    "src/ashlar/typed_graph_source.py": "b85cf7ed29afff3c7f8935a6b22fbca69b401a7daab7375fbb9a12546fc513ec",
+    "src/ashlar_host/resources/typed_graph_values_sdk058.mjs": "4c73b838d48ea7738b43f74622438a31dcf3156dbe51b8eb53fccf60247186f0",
+    "src/ashlar_host/typed_graph_sdk058_admission.py": "6d1521912e038d04324fb3f4ff5c1c380344f053a99a47b21e20e6c78fcad607"
+  },
+  "profile": "ashlar.g03-sdk058-source-correspondence-qualification/1",
+  "runtime": {
+    "nodeSha256": "9af7e24478e538455cf4af53a2607f1b79304bd5e25458b041fb855c3c167991",
+    "nodeVersion": "v26.12.1"
+  },
+  "selectedSdk": {
+    "archiveProducerCommit": "855f6c48649496fc60b3303798790d0ddb55d38f",
+    "archiveProducerCommitDistinctFromTag": true,
+    "archiveProducerTree": "53f2bfffbc0c5780e79d76d8fd3d202239d088b2",
+    "archiveSha256": "2aaf24741aee1c135fade5b7631db90d710e6211977fb9ca7fcc080ea7fdf58d",
+    "distribution": "@umf/core 0.5.8",
+    "installedEntrySha256": "071544fcc83c5abcf1e280890e1516613f679a58cf245b31a7bf16f0b6dd24fd",
+    "semanticCore": "0.10.0",
+    "tagCommit": "efb4042719866888ad80c01cb2da694972eb2738"
+  },
+  "status": "passed",
+  "typedGraph": {
+    "allFullGroupResultsExactlyEqualToHistoricalReceipt": true,
+    "checks": "Raw event bytes and digests, source digest, batch cursors, record/entity and endpoint structure, request identity, SDK Core record results, complete compact dataset results, keys and relationships.",
+    "events": 13,
+    "groups": 3,
+    "receiptBytes": 86527,
+    "receiptSha256": "8898ecbf39149fb92a92066535b25140818d3d0e2967ccaed0ff59f0b98745b2",
+    "releaseReceiptProducerRevision": "umf-sdk-0.5.8/071544fcc83c5abcf1e280890e1516613f679a58cf245b31a7bf16f0b6dd24fd",
+    "sourceProducerRevision": "2ede4c879bea5db13794a6fa30e67c821306c17f"
+  }
+}
