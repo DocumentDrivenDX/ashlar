@@ -1,0 +1,121 @@
+{
+  "bridge": {
+    "asset": "umf-spark-delta4.iife.js",
+    "assetBytes": 521802,
+    "assetSha256": "8ca2c7ec908c80b78d4bac66144511330f56ad722b9149175c6d5fb0495bcb93",
+    "buildInputsSha256": "3c021d364d43a9b7c6bfbf95f4ede74d97eac49d79085131c140b06c19ae2677",
+    "builder": "Bun 1.4.3",
+    "builderBinary": {
+      "bytes": 68491536,
+      "path": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+      "sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2"
+    },
+    "command": "bun build --target=browser --format=iife --minify --outfile=umf-spark-delta4.iife.js --metafile=bridge.meta.json bridge-entry.ts",
+    "dependencyCustody": "Observed installed package versions and package.json hashes match the selected bun.lock versions; every imported installed dependency input is byte-hashed. Lock integrity is recorded, but installed bytes are not independently reconstructed from npm tarballs.",
+    "dependencyLockSha256": "5fb58795dfe9ef5df89597c44372cf2a0739e1855f322f7622ae0c9d0ac71ce4",
+    "entry": "bridge-entry.ts",
+    "entryBytes": 676,
+    "entrySha256": "b06f90574e25bae2a774900b3024eb8882f7b3cc8746138e209d9cb0fb894fd7",
+    "executionModel": "Synchronous browser IIFE loaded by the existing MiniRacer runtime; no Node runtime dependency.",
+    "inputCount": 195,
+    "lockedDependencies": [
+      {
+        "installedPackageJsonSha256": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989",
+        "lockIntegrity": "sha512-Thbli+OlOj+iMPYFBfJ3OmCAnaSyNn4M1vz9T6Gka5Jt9ba/HIR56joy65tY6kx/FCF5VXNB819Y7/GUrBGA==",
+        "name": "ajv",
+        "version": "8.20.0"
+      },
+      {
+        "installedPackageJsonSha256": "a5c63940db0260739be9e2ac67f3aac268df4db5770420ee4e34e493152f97d2",
+        "lockIntegrity": "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==",
+        "name": "fast-deep-equal",
+        "version": "3.1.3"
+      },
+      {
+        "installedPackageJsonSha256": "30cad05aad3d3596513706451dbfc7e0422f9c1d00f2903ecc34580327d54bc7",
+        "lockIntegrity": "sha512-GZMtZUTNRpOVIECoXwLNZS5xUGE+mVNbTB8h/7Rwh2TFWcBQiPzTgyZi05BF9UMZKkLJv8XBRJTlU7zg8+ZfMg==",
+        "name": "fast-uri",
+        "version": "3.1.8"
+      },
+      {
+        "installedPackageJsonSha256": "156fb24af02845c190701360d06dfda35ef04282e34a734289ea9535ad9819ae",
+        "lockIntegrity": "sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==",
+        "name": "json-schema-traverse",
+        "version": "1.0.0"
+      },
+      {
+        "installedPackageJsonSha256": "1c6441703d8204a23ded0d37ddf57c3b69d821dc392f20852d1f605bb9b8861c",
+        "lockIntegrity": "sha512-3NxN8+78OdzbT7C/WjGsyfPAtJaN3FNDsWxv7Y7mcDsT/oOmgW8BpyQQFFBnvZE3j9Y2Sdz1ULFLezL7Eb2yFw==",
+        "name": "yaml",
+        "version": "2.9.1"
+      }
+    ],
+    "metafileSha256": "fa8ac30f812b424b35342dfab780c9a0c12283e5dedbfbb78721abb26158af80",
+    "sourceBinding": "Built from `src/model/document.ts` and `src/adapters/delta/ddl.ts` at producer source commit 855f6c; not built from the public package-root entry."
+  },
+  "carrierProfile": "ashlar-delta/0.4-xxhash64",
+  "producerSource": {
+    "commit": "855f6c48649496fc60b3303798790d0ddb55d38f",
+    "npmArchiveBytes": 30834843,
+    "npmArchiveSha256": "2aaf24741aee1c135fade5b7631db90d710e6211977fb9ca7fcc080ea7fdf58d",
+    "sourceModules": {
+      "src/adapters/delta/ddl.ts": "8e4f694b7e3ecbdc0548f06b4db0a67339ea9319d3b70939003d4a0d18856051",
+      "src/model/document.ts": "6ea8f43e4bcd3b5d7259329e6768dd563e066d7169a23bee75e88f054f348ddb"
+    },
+    "tagLineage": "Producer commit is an ancestor of selected tag; selected src/ and bindings/ APIs are unchanged across this lineage.",
+    "tree": "53f2bfffbc0c5780e79d76d8fd3d202239d088b2"
+  },
+  "profile": "ashlar-local-current-delta4-umf-source-sdk058/0.1",
+  "qualificationBaselines": {
+    "sixRoleReleaseEquality": {
+      "claim": "All six selected SDK 0.5.8 proposals exactly equal the existing .4 bridge proposal objects.",
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/outputs/carrier-proposals.json",
+      "revision": "db91104ad029887754dde5327e96d53a0fc885bd",
+      "sha256": "d00c4a9d0c6c1fd0946007a5ae2495ee95960ba094d1a46dbed0dc6d966e68ea"
+    },
+    "sourceCorrespondence": {
+      "claim": "Source/event correspondence qualification for the selected release; retained separately from this Delta carrier bridge.",
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-source-correspondence-20261030/outputs/source-correspondence-qualification.json",
+      "revision": "7b5a5aa3fc6a9dd5754ccc41d35ff7d2f51d8dec",
+      "sha256": "1513d0b58774bcf1861f75f71595a5f3dc8d2ff20ac8821fa63a02cb2aa77da0"
+    }
+  },
+  "roleSemanticsSha256": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d",
+  "roles": [
+    "object_current",
+    "edge_current",
+    "tombstone",
+    "whole_source_history",
+    "publication_manifest",
+    "publication_attempt_phase"
+  ],
+  "selectedPackageArtifact": {
+    "installedTreeSha256": "7227738ae23966239b67d3e9df72f848c101761719ef4b39477fe86de6ef519c",
+    "manifest": {
+      "bytes": 229540,
+      "path": "@umf/core/manifest.json",
+      "sha256": "0683f83ffef546c7c48d0b267528fafe83c16006a2cef5fdb299260ebb444309"
+    },
+    "name": "@umf/core",
+    "packageJson": {
+      "bytes": 1286,
+      "path": "@umf/core/package.json",
+      "sha256": "4533bf7e5ed7bb0aba4e3bdf395818423281ae464b96a73fe492c57291e81500"
+    },
+    "publicEntryUse": "Pinned as selected package identity, not used to build the IIFE; source entry is the release-lineage source API.",
+    "publicPackageEntry": {
+      "bytes": 13864963,
+      "path": "@umf/core/dist/umf.js",
+      "sha256": "071544fcc83c5abcf1e280890e1516613f679a58cf245b31a7bf16f0b6dd24fd"
+    },
+    "version": "0.5.8"
+  },
+  "selectedRelease": {
+    "semanticCore": "0.10.0",
+    "tag": "umf-v0.5.8",
+    "tagCommit": "efb4042719866888ad80c01cb2da694972eb2738",
+    "version": "0.5.8"
+  },
+  "thirdPartyNoticesSha256": "8177eaded1ef5e38152c2ab4d88df6029b90d032ca8a7cddedee61def508bca9",
+  "validationBoundary": "Local proposal generation against frozen source fixtures only; no Spark/native/Delta protocol/UC behavior or production runtime admission established."
+}
