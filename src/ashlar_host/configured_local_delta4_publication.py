@@ -27,6 +27,9 @@ from .managed_source_oracle import _original_inventory
 
 PROFILE = "ashlar-configured-local-delta4-publication-core/0.1"
 EFFECT_PLAN_PROFILE = "ashlar-configured-local-delta4-effect-plan/0.1"
+SOURCE_SCOPE_PROFILE = "ashlar-configured-local-delta4-source-scope/0.1"
+SOURCE_SCOPE_JOURNAL_VERSION = 4001
+MAX_SOURCE_SCOPE_BYTES = 4 * 1024 * 1024
 CARRIER_PROFILE = "ashlar-delta/0.4-xxhash64"
 LOOKUP_HASH_PROFILE = "spark-xxhash64-typed-key/0.1"
 DATA_ROLES = ("edge_current", "object_current", "tombstone", "whole_source_history")
@@ -49,6 +52,45 @@ def _canonical(value):
 
 def _sha(raw: bytes) -> str:
     return hashlib.sha256(raw).hexdigest()
+
+
+def _validate_delta4_source_scope_row(request_digest, original):
+    """Validate the separately versioned pre-effect custody row envelope."""
+    _require(type(original) is str, "Retained `.4` source scope must be exact text")
+    try:
+        value = json.loads(original)
+    except (TypeError, ValueError):
+        raise ValueError("Retained `.4` source scope JSON required") from None
+    _require(type(value) is dict and set(value) == {
+        "profile", "request_digest", "scope", "scope_sha256"}
+        and value["profile"] == SOURCE_SCOPE_PROFILE
+        and value["request_digest"] == request_digest
+        and type(value["scope"]) is dict
+        and _canonical(value) == original
+        and value["scope_sha256"] == _sha(_canonical(value["scope"]).encode("utf-8")),
+        "Exact canonical `.4` source scope record required")
+    scope = value["scope"]
+    _require(type(scope.get("request")) is dict
+             and scope["request"].get("request_digest") == request_digest
+             and type(scope["request"].get("json")) is str
+             and scope["request"].get("sha256") == _sha(
+                 scope["request"]["json"].encode("utf-8")),
+             "Exact retained `.4` transaction request required")
+    return value
+
+
+def _read_delta4_source_scope_rows(db):
+    """Bound retained scope text before SQLite returns its contents."""
+    count = db.execute("SELECT count(*) FROM local_source_plan").fetchone()[0]
+    _require(type(count) is int and count <= 1,
+             "At most one durable `.4` source-scope record is allowed")
+    if count == 0:
+        return []
+    key, size = db.execute(
+        "SELECT request_digest,length(CAST(original AS BLOB)) FROM local_source_plan").fetchone()
+    _require(type(key) is str and type(size) is int and 0 <= size <= MAX_SOURCE_SCOPE_BYTES,
+             "Durable `.4` source-scope record exceeds its byte bound")
+    return db.execute("SELECT request_digest,original FROM local_source_plan").fetchall()
 
 
 def _uuid(value):
@@ -387,6 +429,7 @@ class ConfiguredLocalDelta4WriterAuthority:
         self._path = None
         self._parent_identity = None
         self._file_identity = None
+        self.source_scope_sha256 = None
         self._witness = (plan, effect_plan, transport, installation_profile, fresh,
                          source, current_admission, context, policy)
 
@@ -456,6 +499,99 @@ class ConfiguredLocalDelta4WriterAuthority:
                      "Native `.4` heads changed since fresh-empty admission")
         self._require_current(held=True)
 
+    def _retain_source_scope(self):
+        """Create once or byte-verify the durable pre-effect `.4` source scope."""
+        self._require_current(held=True)
+        spec = self.source.spec(1, self.context)
+        _require(type(spec.request_json) is str
+                 and spec.request_json.encode("utf-8") == self.plan.request_json.encode("utf-8")
+                 and spec.request() == self.plan.request,
+                 "Exact original transaction-1 request bytes required")
+        request_raw = spec.request_json.encode("utf-8")
+        metadata = self.source.metadata(self.context)
+        _require(type(metadata) is dict
+                 and metadata.get("configuration_sha256") == self.plan.configuration_sha256
+                 and metadata.get("source_sha256") == self.plan.source_sha256
+                 and metadata.get("model_sha256") == self.plan.model_sha256,
+                 "Current source custody digests must match the frozen `.4` source plan")
+        metadata_json = _canonical(metadata)
+        source_plan = {
+            "stream": self.plan.stream, "batch_id": self.plan.batch_id,
+            "publication_id": self.plan.publication_id,
+            "source_sha256": self.plan.source_sha256,
+            "configuration_sha256": self.plan.configuration_sha256,
+            "model_sha256": self.plan.model_sha256,
+            "binding_sha256": self.plan.binding_sha256,
+            "batch_sha256": self.plan.batch_sha256,
+            "materialized_at_us": self.plan.materialized_at_us,
+            "source_oracle_sha256": self.plan.source_oracle_sha256,
+        }
+        profile_raw = _canonical(self.installation_profile).encode("utf-8")
+        heads_raw = self.fresh.heads_json.encode("utf-8")
+        inventory_raw = self.fresh.inventory_json.encode("utf-8")
+        journal_path_object = self.transport.journal_path
+        journal_stat = journal_path_object.lstat()
+        _require(stat.S_ISREG(journal_stat.st_mode)
+                 and journal_stat.st_uid == os.getuid()
+                 and not journal_stat.st_mode & 0o022,
+                 "Private original local journal file identity required")
+        journal_path = str(journal_path_object.resolve())
+        scope = {
+            "request": {"json": spec.request_json, "sha256": _sha(request_raw),
+                        "request_digest": self.plan.request["request_digest"]},
+            "source_metadata": {"json": metadata_json,
+                                "sha256": _sha(metadata_json.encode("utf-8"))},
+            "source_plan": source_plan,
+            "effect_plan": {"profile": self.effect_plan.profile,
+                            "request_digest": self.effect_plan.request_digest,
+                            "installation_profile_sha256": self.effect_plan.installation_profile_sha256,
+                            "intent_digest": self.effect_plan.intent_digest,
+                            "effect_plan_sha256": self.effect_plan.effect_plan_sha256,
+                            "steps_json": self.effect_plan.steps_json},
+            "installation_profile_sha256": _sha(profile_raw),
+            "fresh_heads_sha256": _sha(heads_raw),
+            "fresh_inventory_sha256": _sha(inventory_raw),
+            "installation_id": self.transport.installation_id,
+            "journal": {"path": journal_path,
+                        "registry_sha256": self.transport.registry_sha,
+                        "journal_identity_sha256": self.transport.journal_sha,
+                        "file_device": journal_stat.st_dev,
+                        "file_inode": journal_stat.st_ino},
+        }
+        scope_raw = _canonical(scope)
+        original = _canonical({"profile": SOURCE_SCOPE_PROFILE,
+                               "request_digest": self.plan.request["request_digest"],
+                               "scope": scope,
+                               "scope_sha256": _sha(scope_raw.encode("utf-8"))})
+        original_raw = original.encode("utf-8")
+        _require(len(original_raw) <= MAX_SOURCE_SCOPE_BYTES,
+                 "Durable `.4` source-scope record exceeds its byte bound")
+        db = self.transport.db
+        definition = db.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='local_source_plan'").fetchall()
+        _require(len(definition) == 1 and type(definition[0][0]) is str
+                 and re.sub(r"\s+", "", definition[0][0]).lower()
+                 == "createtablelocal_source_plan(request_digesttextprimarykey,originaltextnotnull)",
+                 "Original durable local source-plan journal schema required")
+        rows = _read_delta4_source_scope_rows(db)
+        digest = self.plan.request["request_digest"]
+        journal_version = db.execute("PRAGMA user_version").fetchone()[0]
+        if journal_version == 0 and not rows:
+            # This is the sole first-write boundary. A previously used journal
+            # cannot be repurposed as the initial `.4` transaction scope.
+            for table in ("local_operation", "local_plan", "local_publication_artifact"):
+                _require(db.execute("SELECT count(*) FROM " + table).fetchone() == (0,),
+                         "Fresh `.4` journal required to create its first source scope")
+            with db:
+                db.execute("INSERT INTO local_source_plan(request_digest,original) VALUES (?,?)",
+                           (digest, original))
+                db.execute("PRAGMA user_version=" + str(SOURCE_SCOPE_JOURNAL_VERSION))
+            rows = _read_delta4_source_scope_rows(db)
+            journal_version = db.execute("PRAGMA user_version").fetchone()[0]
+        _require(journal_version == SOURCE_SCOPE_JOURNAL_VERSION
+                 and len(rows) == 1 and rows == [(digest, original)],
+                 "Exact unique durable `.4` source-scope replay required")
+        self.source_scope_sha256 = _sha(original.encode("utf-8"))
+
     def _deactivate(self):
         self._active = False
 
@@ -495,6 +631,7 @@ class ConfiguredLocalDelta4WriterAuthority:
             request = self.plan.request
             self.current_admission(self.source, request, None, self.context)
             self._check_fresh_heads()
+            self._retain_source_scope()
             self._active = True
             yield self
         except BaseException as error:
@@ -510,7 +647,8 @@ class ConfiguredLocalDelta4WriterAuthority:
         if locked and self._active:
             closing = [self._check_writer_lock, self._check_fresh_heads,
                        lambda: self.current_admission.closing(self.source, None,
-                                                              self.context)]
+                                                              self.context),
+                       self._retain_source_scope]
         finish(primary, [*closing, close_lock])
 
 
@@ -759,10 +897,19 @@ def admit_delta4_fresh_empty_installation(transport, installation_profile):
         inventory[role] = {"name": target.table, "uuid": target.uuid, "version": version,
                            "schemaSha256": _sha(_canonical(fields).encode("utf-8")),
                            "protocolSha256": _sha(_canonical(protocol).encode("utf-8"))}
-    for table_name in ("local_operation", "local_plan", "local_publication_artifact",
-                       "local_source_plan"):
+    for table_name in ("local_operation", "local_plan", "local_publication_artifact"):
         row = transport.db.execute("SELECT count(*) FROM " + table_name).fetchone()
         _require(row == (0,), "Fresh `.4` operation journal must contain no prior publication intent")
+    source_rows = _read_delta4_source_scope_rows(transport.db)
+    scope_version = transport.db.execute("PRAGMA user_version").fetchone()[0]
+    _require(scope_version in (0, SOURCE_SCOPE_JOURNAL_VERSION)
+             and (scope_version != 0 or not source_rows)
+             and (scope_version != SOURCE_SCOPE_JOURNAL_VERSION or len(source_rows) == 1),
+             "Durable `.4` source-scope journal marker and record must agree")
+    _require(len(source_rows) <= 1,
+             "Fresh `.4` journal may retain only its single original source-scope record")
+    if source_rows:
+        _validate_delta4_source_scope_row(*source_rows[0])
     return ConfiguredLocalDelta4FreshHeadAdmission(profile_sha, _canonical(heads),
                                                     _canonical(inventory), _mint=_FRESH_HEAD_MINT)
 

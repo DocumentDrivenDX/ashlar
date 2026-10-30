@@ -62,8 +62,9 @@ class FakeTransport:
         owner.query = self.query
         owner.spark = self.spark_port()
         owner.db = sqlite3.connect(":memory:")
-        for table in ("local_operation", "local_plan", "local_publication_artifact", "local_source_plan"):
+        for table in ("local_operation", "local_plan", "local_publication_artifact"):
             owner.db.execute("CREATE TABLE " + table + " (id INTEGER)")
+        owner.db.execute("CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)")
         if changed_uuid:
             self.profile["roles"][changed_uuid]["uuid"] = str(uuid.uuid5(uuid.NAMESPACE_URL, "wrong-uuid"))
         if changed_version:

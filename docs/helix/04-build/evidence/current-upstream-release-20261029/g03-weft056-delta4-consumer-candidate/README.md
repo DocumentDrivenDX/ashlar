@@ -128,6 +128,9 @@ are not represented as completed work here:
    actual native snapshot evidence, and manifest commit/readback remain.
    The required original-plan custody and partial-effect recovery boundary is
    recorded in [the coordinator finding](transaction1-coordinator-boundary-20261029.md).
+   A pre-effect prerequisite now retains one byte-exact source-scope record in
+   the local journal under the held owner; focused inert tests cover exact
+   replay and changed/missing/corrupt custody. It still grants no effect intent.
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.
 3. A Weft 0.4.56 host distribution adapter for the local configured runtime.
