@@ -1,0 +1,44 @@
+{
+  "bridge": {
+    "bridge_sha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5",
+    "build_inputs_sha256": "b314d067d88ede4117f37c0b25604f53fac5753b5c5c2d05500762530950a26a",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "profile": "ashlar-local-current-delta4-umf-realization/0.1",
+    "resource_sha256": "da7d4b2a50ca949632520e64a616674646ecc3f829c3b9574dadced42ee84089",
+    "role_semantics_sha256": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d"
+  },
+  "destination_id": "ashlar-r16-local-edcce822-5ea2-4b63-9367-09bdf09caaca",
+  "profile": "ashlar-truss-r16-full-native-lifecycle-approval/0.1",
+  "runtime": {
+    "bun_sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "connection_factory_sha256": "0d7edf6e4d1ee74c06df3efaa77e2b3d60207a9627161cdc647ed9b169c71782",
+    "delta_spark_version": "4.4.1",
+    "embedded_050_index_sha256": "4c6baf0282e3d0b5492f070c9c07d89ff0c9a819e748f3820f60b11c1f51c7aa",
+    "jar_sha256": {
+      "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+      "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+    },
+    "outer_migration_index_sha256": "d1672e85ae0e89137986fc57669186af47e5826366bd430284aba9b7cf52c37d",
+    "pyspark_version": "4.2.0",
+    "runtime_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "truss_version": "0.0.51",
+    "weft_version": "0.4.56",
+    "weft_wheel_sha256": "68f9297b4b55df483b86d3041040991c4dadfb9b4d63afcff1420c43f93ae41d",
+    "wheel_sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57"
+  },
+  "scope": "one owned PostgreSQL start; preserve/restore and .48 custody; one exact .48-to-.51 migration; public source/view/page recheck; one no-change genesis Delta publication with independent verification and protected ACK; one approved seven-operation seed; one independently verified actual continuation with protected ACK; stop",
+  "scope_sha256": "911cdefe6d9ee68d8a55b14ceff6640dba21384d7b59c3d082c10ae069acb5a0",
+  "seed": {
+    "origin_gate_code_sha256": "abb5895a1ad15f092b66355832c8c99b185856afd6ca2bab446710d819615aa3",
+    "origin_map_sha256": "c19540a4c1cc3561365cc4ec38a71da44fdc4648b8f27a6540c81eb5233badc5",
+    "request_sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771"
+  },
+  "source_archive_sha256": "cb57fdb7d338f345cfad157463fdbe94a2be7dcf69e728c474954c2939c14a0b",
+  "source_manifest_sha256": "fb79cebc5b1388b49d0687c9f77c61187125299758ee7388fd64ba2c9d533348",
+  "workers": {
+    "custody_prefix_sha256": "ffd5ded577b0674aca19d4ffce1adf1c38ceefae31dae2b1ae4e021333107e10",
+    "migration_readback_sha256": "0124aef28ee2924a02a0b8c6a65775d48a71943ca08cd933a8bd7457010ebfba",
+    "supervisor_sha256": "4246b22fb8cd893ea0cd02398ab0d050ed2c05c1edf90e1c28949049b41e1292"
+  }
+}
