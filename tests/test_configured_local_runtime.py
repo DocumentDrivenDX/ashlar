@@ -117,7 +117,7 @@ class Tests(unittest.TestCase):
                         for role,target in zip(tables,targets)}}
                 return targets,profile,{}
             transport=SimpleNamespace(close=lambda:None)
-            with patch('ashlar_host.configured_source_admission.admit_managed_records',return_value=(b'{}',)),patch('ashlar_host.configured_local_runtime._runtime',return_value=[]),patch('ashlar_host.configured_local_runtime.attest_runtime',return_value=('runtime',{'python':'3.12'},[])),patch('ashlar_host.configured_local_runtime.verify_loaded_delta_class'),patch('ashlar_host.configured_local_runtime.open_finite_spark',return_value=spark),patch('ashlar_host.configured_local_runtime.LocalDeltaTransport.initialize',return_value=transport),patch('ashlar_host.local_current_carrier_profile.create_local_current_xxhash64_tables',side_effect=realize):
+            with patch('ashlar_host.configured_source_admission.admit_managed_records',return_value=(b'{}',)),patch('ashlar_host.configured_local_runtime._runtime',return_value=[]),patch('ashlar_host.configured_local_runtime.attest_runtime',return_value=('runtime',{'python':'3.12'},[])),patch('ashlar_host.configured_local_runtime.verify_loaded_delta_class'),patch('ashlar_host.configured_local_runtime.open_finite_spark',return_value=spark),patch('ashlar_host.configured_local_runtime.LocalDeltaTransport.initialize',return_value=transport)as initialize_transport,patch('ashlar_host.local_current_carrier_profile.create_local_current_xxhash64_tables',side_effect=realize):
                 result=initialize_configured_local(config)
             self.assertEqual(result['profile'],'ashlar-configured-local-initialized/0.3')
             self.assertFalse(result['published']);self.assertFalse(result['protected_ack'])
@@ -128,6 +128,7 @@ class Tests(unittest.TestCase):
             profile_raw=(config.installation/'carrier-profile.json').read_bytes()
             self.assertEqual(hashlib.sha256(profile_raw).hexdigest(),registry['carrier_profile_sha256'])
             self.assertEqual(json.loads(profile_raw)['lookup_hash_profile'],'spark-xxhash64-typed-key/0.1')
+            self.assertEqual(initialize_transport.call_args.kwargs['installation_profile'],json.loads(profile_raw))
             self.assertTrue(spark.closed)
 
     def test_xxhash64_continuation_is_refused_before_output_creation(self):

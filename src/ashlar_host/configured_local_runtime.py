@@ -275,7 +275,7 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
         original_registry=InvocationFile.read(config.installation/'installation.json',65536)
         _require(hashlib.sha256(original_registry.raw).hexdigest()==config.installation_sha256)
     config.output.mkdir(mode=0o700)
-    lease=None;spark=None;transport=None;source=None;primary=None;result=None;source_manager=None;admission=None;final_manifest=None;export_capture=None;carrier_profile_file=None
+    lease=None;spark=None;transport=None;source=None;primary=None;result=None;source_manager=None;admission=None;final_manifest=None;export_capture=None;carrier_profile_file=None;installation_profile=None
     try:
         if initialize:config.installation.mkdir(mode=0o700)
         lease=PrivateFiniteLease(config.installation,create=initialize)
@@ -305,6 +305,7 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
                 _write(config.installation/'carrier-profile.json',carrier_profile_bytes)
                 carrier_profile_file=InvocationFile.read(config.installation/'carrier-profile.json',65536)
                 _require(carrier_profile_file.raw==carrier_profile_bytes)
+                installation_profile=carrier_profile_record
             else:
                 for role,schema in columns.items():
                     path=config.installation/role
@@ -327,7 +328,9 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
             _require(len({t.table for t in targets})==6)
         targets=tuple(targets);policy=PrivatePolicy(context,targets)
         admission=ConfiguredLocalAdmission(config,lease,spark,source,targets,columns,original_registry);admission(source,None,None,context)
-        transport=(LocalDeltaTransport.initialize(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,context=context,capacity=config.operation_capacity)if initialize else LocalDeltaTransport(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,capacity=config.operation_capacity));policy.initializing=False
+        transport_options={'capacity':config.operation_capacity}
+        if installation_profile is not None:transport_options['installation_profile']=installation_profile
+        transport=(LocalDeltaTransport.initialize(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,context=context,**transport_options)if initialize else LocalDeltaTransport(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,**transport_options));policy.initializing=False
         if initialize:result={'profile':'ashlar-configured-local-initialized/0.3' if config.carrier_profile=='ashlar-delta/0.4-xxhash64' else 'ashlar-configured-local-initialized/0.2','installation_id':config.installation_id,'operation':'initialize','installation_sha256':hashlib.sha256(original_registry.raw).hexdigest(),'installation':registry,'published':False,'protected_ack':False}
         elif selector is not None or query is not None or export or r02 is not None:
             from .file_progress import JournaledJsonlProgress
