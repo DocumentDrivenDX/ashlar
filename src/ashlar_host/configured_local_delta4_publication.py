@@ -9,9 +9,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import datetime
+from contextlib import contextmanager
+import fcntl
 import hashlib
 import json
+import os
 import re
+import stat
 from uuid import UUID
 
 from ashlar.source import jsonl_batches
@@ -30,6 +34,7 @@ INSTALLATION_ROLES = ("object_current", "edge_current", "tombstone", "whole_sour
                       "publication_attempt_phase", "publication_manifest")
 _MINT = object()
 _EFFECT_MINT = object()
+_AUTHORITY_MINT = object()
 
 
 def _require(value, message="Configured-local Delta 0.4 publication refused"):
@@ -360,6 +365,182 @@ class ConfiguredLocalDelta4EffectPlan:
             "effect_plan_sha256": self.effect_plan_sha256,
         }).encode("utf-8")), "Exact bound `.4` native effect intent digest required")
         return steps
+
+
+class ConfiguredLocalDelta4WriterAuthority:
+    """Owner-held `.4` source/head scope; native effects remain unauthorized."""
+    def __init__(self, plan, effect_plan, transport, installation_profile, fresh,
+                 source, current_admission, context, policy, *, _mint=None):
+        _require(_mint is _AUTHORITY_MINT, "Factory-owned `.4` writer authority required")
+        self.plan = plan
+        self.effect_plan = effect_plan
+        self.transport = transport
+        self.installation_profile = installation_profile
+        self.fresh = fresh
+        self.source = source
+        self.current_admission = current_admission
+        self.context = context
+        self.policy = policy
+        self.held = False
+        self._active = False
+        self._fd = None
+        self._path = None
+        self._parent_identity = None
+        self._file_identity = None
+        self._witness = (plan, effect_plan, transport, installation_profile, fresh,
+                         source, current_admission, context, policy)
+
+    def _require_current(self, *, held=False):
+        from .delta_custody import LocalDeltaTransport
+        _require((self.plan, self.effect_plan, self.transport, self.installation_profile,
+                  self.fresh, self.source, self.current_admission, self.context,
+                  self.policy) == self._witness,
+                 "Original `.4` authority inputs changed")
+        self.plan.require_current()
+        steps = self.effect_plan.steps
+        _require(type(self.transport) is LocalDeltaTransport
+                 and self.transport.policy is self.policy
+                 and self.policy.context is self.context
+                 and {target.table: target for target in self.policy.targets}
+                 == dict(self.transport.targets)
+                 and not self.policy.initializing
+                 and self.source.context is self.context
+                 and self.source.graph is True
+                 and self.current_admission.source is self.source
+                 and self.current_admission.context is self.context
+                 and callable(self.current_admission)
+                 and self.policy.active is None,
+                 "Original configured-local source and private writer owner required")
+        _require(self.plan.batch_id == "typed-graph-1"
+                 and self.source.spec(1, self.context).request() == self.plan.request,
+                 "Exact original source transaction-1 request required")
+        _require(self.effect_plan.request_digest == self.plan.request["request_digest"]
+                 and self.effect_plan.installation_profile_sha256
+                 == _sha(_canonical(self.installation_profile).encode("utf-8"))
+                 and len(steps) == 3,
+                 "Exact frozen `.4` effect plan/profile binding required")
+        self.fresh.require_current()
+        _require(self.fresh.installation_profile_sha256
+                 == self.effect_plan.installation_profile_sha256,
+                 "Fresh native heads bind the exact effect installation profile")
+        _require(getattr(self.transport, "installation_profile", None)
+                 == self.installation_profile,
+                 "Journal-pinned `.4` installation profile required")
+        if held:
+            _require(self.held and self._fd is not None,
+                     "Active original `.4` writer authority required")
+            self._check_writer_lock()
+
+    def _check_writer_lock(self):
+        path = self._path
+        parent = path.parent.lstat()
+        named = path.lstat()
+        opened = os.fstat(self._fd)
+        _require(stat.S_ISDIR(parent.st_mode) and parent.st_uid == os.getuid()
+                 and not parent.st_mode & 0o022
+                 and (parent.st_dev, parent.st_ino) == self._parent_identity
+                 and stat.S_ISREG(named.st_mode) and named.st_uid == os.getuid()
+                 and not named.st_mode & 0o022
+                 and (named.st_dev, named.st_ino) == (opened.st_dev, opened.st_ino)
+                 == self._file_identity,
+                 "Original private configured-local writer lock changed")
+
+    def _check_fresh_heads(self):
+        self._require_current(held=True)
+        baseline = self.fresh.heads
+        for role in INSTALLATION_ROLES:
+            target, version, _protocol, _fields = _observe_delta4_role(
+                self.transport, role, self.installation_profile)
+            _require(version == baseline[role]["version"]
+                     and target.uuid == baseline[role]["uuid"],
+                     "Native `.4` heads changed since fresh-empty admission")
+        self._require_current(held=True)
+
+    def _deactivate(self):
+        self._active = False
+
+    @contextmanager
+    def hold(self):
+        from .lifecycle import finish
+        _require(not self.held and self._fd is None,
+                 "Reentrant or concurrent `.4` writer authority refused")
+        self._require_current()
+        from .configured_local_runtime import ConfiguredLocalAdmission
+        from .configured_source_local import ConfiguredLocalSource
+        from .delta_custody import LocalDeltaTransport
+        _require(type(self.transport) is LocalDeltaTransport
+                 and type(self.source) is ConfiguredLocalSource
+                 and type(self.current_admission) is ConfiguredLocalAdmission,
+                 "Nominal current configured-local owners required")
+        parent = self.transport.journal_path.parent.lstat()
+        _require(stat.S_ISDIR(parent.st_mode) and parent.st_uid == os.getuid()
+                 and not parent.st_mode & 0o022,
+                 "Private original local journal directory required")
+        path = self.transport.journal_path.parent / ".configured-source-writer.lock"
+        fd = os.open(path, os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW | os.O_NONBLOCK, 0o600)
+        primary = None
+        locked = False
+        self._fd, self._path = fd, path
+        self._parent_identity = (parent.st_dev, parent.st_ino)
+        try:
+            opened = os.fstat(fd)
+            _require(stat.S_ISREG(opened.st_mode) and opened.st_uid == os.getuid()
+                     and not opened.st_mode & 0o022,
+                     "Private original local writer lock required")
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            locked = True
+            self._file_identity = (opened.st_dev, opened.st_ino)
+            self.held = True
+            self._check_writer_lock()
+            request = self.plan.request
+            self.current_admission(self.source, request, None, self.context)
+            self._check_fresh_heads()
+            self._active = True
+            yield self
+        except BaseException as error:
+            primary = error
+        def close_lock():
+            self._deactivate()
+            self.held = False
+            if locked:
+                fcntl.flock(fd, fcntl.LOCK_UN)
+            os.close(fd)
+            self._fd = None
+        closing = []
+        if locked and self._active:
+            closing = [self._check_writer_lock, self._check_fresh_heads,
+                       lambda: self.current_admission.closing(self.source, None,
+                                                              self.context)]
+        finish(primary, [*closing, close_lock])
+
+
+def open_configured_local_delta4_authority(plan, effect_plan, transport,
+                                            installation_profile, fresh, source,
+                                            current_admission, context, policy):
+    """Create a source/head scope without admitting native effect intents."""
+    from .configured_local_runtime import ConfiguredLocalAdmission
+    from .configured_source_local import ConfiguredLocalSource
+    from .delta_custody import LocalDeltaTransport
+    from .driver import PrivatePolicy
+    _require(type(plan) is ConfiguredLocalDelta4BatchPlan
+             and type(effect_plan) is ConfiguredLocalDelta4EffectPlan
+             and type(transport) is LocalDeltaTransport
+             and type(source) is ConfiguredLocalSource
+             and type(current_admission) is ConfiguredLocalAdmission
+             and type(policy) is PrivatePolicy and policy is transport.policy
+             and source.context is context and policy.context is context
+             and not policy.initializing,
+             "Exact configured-local `.4` runtime owners required")
+    profile_sha = _require_delta4_transport(transport, installation_profile)
+    plan.require_current(); effect_plan.steps; fresh.require_current()
+    _require(effect_plan.request_digest == plan.request["request_digest"]
+             and effect_plan.installation_profile_sha256 == profile_sha
+             and fresh.installation_profile_sha256 == profile_sha
+             and source.spec(1, context).request() == plan.request,
+             "Original source request, effect plan and fresh installation must bind")
+    return ConfiguredLocalDelta4WriterAuthority(
+        plan, effect_plan, transport, installation_profile, fresh, source,
+        current_admission, context, policy, _mint=_AUTHORITY_MINT)
 
 
 def build_delta4_transaction1_effect_plan(plan: ConfiguredLocalDelta4BatchPlan, *, tables: dict,

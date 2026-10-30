@@ -122,8 +122,10 @@ are not represented as completed work here:
    installation and compare all four data-role bags at exact post-effect
    versions, including native `xxhash64` checks. Their tests use an inert fake
    transport; no `.4` transaction-1 native effect or snapshot comparison has
-   run. Durable effect custody, actual native snapshot evidence, and manifest
-   commit/readback remain.
+   run. An owner-held `.4` source/head scope now binds the frozen request and
+   effect plan to the live local source, writer lock and current runtime
+   admission. It deliberately grants no effect intent: durable effect custody,
+   actual native snapshot evidence, and manifest commit/readback remain.
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.
 3. A Weft 0.4.56 host distribution adapter for the local configured runtime.
