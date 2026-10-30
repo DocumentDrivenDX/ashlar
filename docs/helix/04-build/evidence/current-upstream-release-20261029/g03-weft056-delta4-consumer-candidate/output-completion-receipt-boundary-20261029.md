@@ -25,11 +25,12 @@ ddx:
 
 # Gate 3 `.4` output-completion receipt boundary
 
-Status: **local `prepared/applying` attempt journal and supplemental output
-receipt implemented and fake-tested; native `applied` and manifest transitions
-remain unimplemented**. No Spark process or native effect ran. These local
-records are not a publication descriptor, realized vector, consumer result,
-source acknowledgement, or native Delta attempt phase.
+Status: **local `prepared/applying` attempt journal, metadata reservation and
+supplemental output receipt implemented and fake-tested; native phase insertion/
+recovery, `applied` and manifest transitions remain unimplemented**. No Spark
+process or native effect ran. These local records are not a publication
+descriptor, realized vector, consumer result, source acknowledgement, or native
+Delta attempt phase.
 
 ## Implemented safe boundary
 
@@ -70,13 +71,22 @@ most three graph operations. Reusing `LocalDeltaEffects` for native attempt or
 manifest SQL in the same journal would break that invariant. Extending the
 observer to ignore extra records would be unsafe.
 
-The held-owner gate now prevents bypass through the public executor method: only
-the orchestration entrypoint can supply its current in-memory admission, after
-re-reading the exact durable `applying` row. The native publication phase still
-needs a separately versioned native attempt-operation journal/inventory; the
-current `.4` observer must continue to reject unexpected graph-journal rows, so
-attempt rows cannot be silently ignored or mixed into `local_plan`/
-`local_operation`.
+A separate local metadata-lane reservation now records the exact proposed
+`prepared` phase MERGE, original phase payload/digest, JSONL request/checkpoint,
+source-scope digest, graph-plan digest, installed attempt-table UUID/path and
+fresh predecessor version. It uses its own versioned reservation table and a
+distinct `ashlar-local-delta-metadata-operation/0.1` intent profile. Fake tests
+check exact replay/refusal and verify that the graph operation table and native
+attempt-table history remain unchanged. This is reservation/admission evidence
+only; it does not insert the native phase row.
+
+The held-owner gate now prevents bypass through the public graph executor
+method: only the orchestration entrypoint can supply its current in-memory
+admission, after re-reading the exact durable `applying` row. Native metadata
+execution still needs a separate LocalDeltaTransport operation table and
+admission/recovery path. The current `.4` observer must continue to reject
+unexpected graph-journal rows, so metadata operations cannot be silently
+ignored or mixed into `local_plan`/`local_operation`.
 
 The existing `DeltaAttemptStore` is not a drop-in phase owner for this source:
 its source-qualified scope currently admits PostgreSQL outbox and Truss-native

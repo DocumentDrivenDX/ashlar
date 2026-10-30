@@ -788,6 +788,113 @@ class Tests(unittest.TestCase):
                 "SELECT count(*) FROM local_operation WHERE state='committed'").fetchone(),
                 (1,))
 
+    def test_delta4_metadata_phase_reservation_is_separate_exact_and_observe_only(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            fake, transport, _effect, _source, _admission, authority = self.build(root)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    authority.prepare_effect_plan()
+                    reservation = authority.reserve_delta4_prepared_phase()
+                    self.assertEqual(authority.admit_delta4_metadata_reservation(
+                        reservation), json.loads(reservation["original"]))
+                    replay = authority.reserve_delta4_prepared_phase()
+                    self.assertEqual(replay, reservation)
+                    intent = json.loads(reservation["original"])["intent"]
+                    self.assertEqual(intent["profile"],
+                                     "ashlar-local-delta-metadata-operation/0.1")
+                    self.assertEqual(intent["lane"], "publication_attempt_phase")
+                    self.assertEqual(intent["phase_payload_sha256"],
+                                     reservation["phase_row"]["payload_digest"])
+                    self.assertEqual(transport.db.execute(
+                        "SELECT count(*) FROM local_operation").fetchone(), (0,))
+                    self.assertEqual(fake.histories["publication_attempt_phase"], [1, 0])
+                    altered = dict(reservation, digest="0" * 64)
+                    with self.assertRaises(ValueError):
+                        authority.admit_delta4_metadata_reservation(altered)
+
+    def test_delta4_metadata_reservation_reopens_after_graph_prefix_without_rewriting(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            fake, transport, effect, source, _admission, authority = self.build(root)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    authority.prepare_effect_plan()
+                    reservation = authority.reserve_delta4_prepared_phase()
+            self._seed_committed_prefix(fake, transport, effect, 1)
+            reopened, _source2, _fresh2, authority2 = self.reopen_authority(
+                transport, effect, source)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority2.hold():
+                    admitted = authority2.admit_delta4_metadata_reservation(reservation)
+                    self.assertEqual(admitted, json.loads(reservation["original"]))
+                    altered = dict(reservation, original=reservation["original"] + " ")
+                    with self.assertRaisesRegex(ValueError, "reconstructed original"):
+                        authority2.admit_delta4_metadata_reservation(altered)
+                    reopened.db.execute(
+                        "UPDATE local_delta4_metadata_lane_reservation "
+                        "SET original=original || ' '")
+                    with self.assertRaisesRegex(ValueError, "original bytes"):
+                        authority2.admit_delta4_metadata_reservation(reservation)
+                    self.assertEqual(reopened.db.execute(
+                        "SELECT operation,original,digest "
+                        "FROM local_delta4_metadata_lane_reservation").fetchone(),
+                        (reservation["operation"], reservation["original"] + " ",
+                         reservation["digest"]))
+                    self.assertEqual(fake.histories["publication_attempt_phase"], [1, 0])
+
+    def test_delta4_reservation_admission_cannot_mint_completion_receipt_without_recovery(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            fake, transport, effect, source, _admission, authority = self.build(root)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    authority.prepare_effect_plan()
+                    authority._retain_delta4_attempt_phase("prepared")
+                    authority._retain_delta4_attempt_phase("applying")
+                    reservation = authority.reserve_delta4_prepared_phase()
+            self._seed_committed_prefix(fake, transport, effect, 3)
+            reopened, _source2, _fresh2, authority2 = self.reopen_authority(
+                transport, effect, source)
+            self._active_fake, self._active_effect = fake, effect
+            def recover_stub(effects, operation, intent_digest, steps, *, context):
+                return self._simulate_delta4_effects(
+                    effects, operation, intent_digest, steps, context=context)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority2.hold():
+                    authority2.admit_delta4_metadata_reservation(reservation)
+                    self.assertEqual(authority2._delta4_closing_heads[
+                        "object_current"]["version"], 2)
+                    with self.assertRaisesRegex(ValueError, "completion witness"):
+                        retain_delta4_output_completion_receipt(authority2)
+                    with patch.object(LocalDeltaEffects, "recover", recover_stub):
+                        result = authority2.prepare_and_execute_effect_plan()
+                    self.assertEqual(result["observation"]["committed_prefix"], 3)
+                    receipt = retain_delta4_output_completion_receipt(authority2)
+                    self.assertEqual(receipt["request_digest"],
+                                     self.plan.request["request_digest"])
+            self.assertEqual(reopened.db.execute(
+                "SELECT count(*) FROM local_delta4_output_receipt").fetchone(), (1,))
+
+    def test_delta4_first_metadata_reservation_refuses_after_graph_effect(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            fake, transport, effect, source, _admission, authority = self.build(root)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    authority.prepare_effect_plan()
+            self._seed_committed_prefix(fake, transport, effect, 1)
+            reopened, _source2, _fresh2, authority2 = self.reopen_authority(
+                transport, effect, source)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with self.assertRaisesRegex(ValueError, "before graph operations|precede graph"):
+                    with authority2.hold():
+                        authority2.reserve_delta4_prepared_phase()
+            table = reopened.db.execute(
+                "SELECT name FROM sqlite_master WHERE type='table' AND "
+                "name='local_delta4_metadata_lane_reservation'").fetchall()
+            self.assertEqual(table, [])
+
     def test_delta4_output_receipt_is_durable_exact_and_does_not_publish_manifest(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve(); root.chmod(0o700)

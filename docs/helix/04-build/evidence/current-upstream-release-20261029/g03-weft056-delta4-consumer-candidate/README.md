@@ -153,8 +153,11 @@ are not represented as completed work here:
    and persists `prepared` then `applying` before graph dispatch; direct calls to
    the graph executor refuse without that held-owner admission. This remains a
    local prerequisite, not the native Delta attempt-table protocol. Native
-   `applied`, manifest and consumer phases remain pending; see [the phase and
-   receipt boundary finding](output-completion-receipt-boundary-20261029.md).
+   `prepared` insertion/recovery, `applying`/`applied`, manifest and consumer
+   phases remain pending. A separate local metadata-lane reservation now binds
+   the exact prepared phase MERGE to its source, graph plan, target UUID/path
+   and predecessor; it grants no native SQL. See [the phase and receipt
+   boundary finding](output-completion-receipt-boundary-20261029.md).
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.
 3. A Weft 0.4.56 host distribution adapter for the local configured runtime.
