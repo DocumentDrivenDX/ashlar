@@ -47,12 +47,31 @@ under 15 minutes, or 5.64x to fit a provisional 300-second total. The five-minut
 case would require that measured interval to fall from 60.924 seconds to at most
 10.8 seconds on the existing sample, before assigning any time to omitted work.
 
+The 30.304-second difference between that interval and the concurrent write
+contains DDL/setup, metadata work and the combined witness. Those phases were
+not timed separately, so treating all 30.304 seconds as variable scan time is a
+planning case, not a measured scaling law. The write-only projection of 14.176
+minutes is the minimum allocated time in this 80%-throughput planning case, not
+a physical lower bound: throughput could change at scale. The concurrent measured
+bundle projects to 28.206 minutes plus unmeasured work; the sequential bundle
+projects to 30.684 minutes plus unmeasured work at the same planning rate. The
+combined witness already checks row/value and endpoint formulas. The additional
+work is the requested second distinct scan, point reads, GraphFrames action,
+startup and cleanup. One paired sample, with the concurrent mode second in the
+same JVM, cannot establish a reliable best-case full-run duration.
+
 The paired sample wrote 3.041 GB of active Parquet. Linear scaling gives about
 67.585 GB at target, while a five-minute total requires at least 225.3 MB/s of
 aggregate active-data throughput before setup, scans or GraphFrames work. The
 80%-discounted write-rate arithmetic is about 79.5 MB/s. This is an arithmetic
 gap, not evidence that storage bandwidth is the limiting resource: no phase
 profile or target-scale read/graph measurement establishes that diagnosis.
+Five minutes would require at least 2.84 times that planning write throughput
+before assigning any time to the other phases. A separate [edge-only CPU
+sample](r05-storage-throughput-reassessment-20261023/README.md)
+implies about 6,904 CPU-seconds at 5B edges, or 8.0 minutes at 18 fully utilized
+cores and 80% throughput; this is a diagnostic cross-check that excludes nodes
+and reads, not an additive wall-time estimate.
 
 ## Candidate changes assessed
 
