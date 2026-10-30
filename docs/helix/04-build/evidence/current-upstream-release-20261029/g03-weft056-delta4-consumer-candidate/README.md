@@ -126,6 +126,8 @@ are not represented as completed work here:
    effect plan to the live local source, writer lock and current runtime
    admission. It deliberately grants no effect intent: durable effect custody,
    actual native snapshot evidence, and manifest commit/readback remain.
+   The required original-plan custody and partial-effect recovery boundary is
+   recorded in [the coordinator finding](transaction1-coordinator-boundary-20261029.md).
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.
 3. A Weft 0.4.56 host distribution adapter for the local configured runtime.
