@@ -50,7 +50,7 @@ class SupervisorGateTests(unittest.TestCase):
                          supervisor._phase_reason(
                              state, started + 120_000_000_001, started))
 
-    def test_worker_uses_one_combined_full_table_scan_for_values_and_endpoints(self):
+    def test_worker_executes_two_separately_timed_persisted_scans(self):
         import ast
         worker = Path(__file__).with_name("full_delta4_trial.py")
         tree = ast.parse(worker.read_text(encoding="utf-8"))
@@ -59,17 +59,17 @@ class SupervisorGateTests(unittest.TestCase):
         calls = [node for node in ast.walk(run) if isinstance(node, ast.Call)]
         row_scans = [node for node in calls if isinstance(node.func, ast.Name)
                      and node.func.id == "_row_value_scan"]
-        endpoint_witnesses = [node for node in calls if isinstance(node.func, ast.Name)
-                              and node.func.id == "_endpoint_scan_witness"]
-        endpoint_full_scans = [node for node in calls if isinstance(node.func, ast.Name)
-                               and node.func.id == "_endpoint_scan"]
+        endpoint_scans = [node for node in calls if isinstance(node.func, ast.Name)
+                          and node.func.id == "_endpoint_scan"]
+        scan_phases = {node.args[2].value for node in calls
+                       if isinstance(node.func, ast.Name) and node.func.id == "_phase"
+                       and len(node.args) >= 3 and isinstance(node.args[2], ast.Constant)}
         self.assertEqual(1, len(row_scans))
-        self.assertIn("include_endpoint_formula", {kw.arg for kw in row_scans[0].keywords})
-        self.assertTrue(any(kw.arg == "include_endpoint_formula"
-                            and isinstance(kw.value, ast.Constant) and kw.value.value is True
-                            for kw in row_scans[0].keywords))
-        self.assertEqual(1, len(endpoint_witnesses))
-        self.assertFalse(endpoint_full_scans)
+        self.assertEqual(1, len(endpoint_scans))
+        self.assertTrue({"row_value_scan", "endpoint_scan"}.issubset(scan_phases))
+        self.assertNotIn("include_endpoint_formula", {kw.arg for kw in row_scans[0].keywords})
+        self.assertEqual(1200, supervisor.PHASE_SECONDS["concurrent_writes"])
+        self.assertEqual(120, supervisor.PHASE_SECONDS["endpoint_scan"])
 
     def test_full_worker_uses_spark_420_supported_job_group_clear(self):
         import ast
@@ -93,24 +93,25 @@ class SupervisorGateTests(unittest.TestCase):
                              and node.func.attr == "clearJobGroup"
                              for node in ast.walk(tree)))
 
-    def test_endpoint_witness_must_share_combined_edge_scan(self):
-        row_scan = {"plan": "two-role union scan", "roles": {
-            "edge_current": {"rows": 5_000_000_000, "invalid_source": 0,
-                "invalid_target": 0, "source_out_of_range": 0, "target_out_of_range": 0}}}
-        import full_delta4_trial as trial
-        endpoint = trial._endpoint_scan_witness(row_scan)
-        digest = supervisor._sha(row_scan["plan"].encode("utf-8"))
-        self.assertEqual(digest, endpoint["planSha256"])
-        supervisor._verify_endpoint_scan_witness(row_scan, endpoint, 5_000_000_000)
+    def test_endpoint_scan_is_independent_and_complete(self):
+        endpoint = {"logicalScan": "endpointScan", "plan": "edge Delta aggregate",
+                    "rows": 5_000_000_000, "invalid_source": 0,
+                    "invalid_target": 0, "source_out_of_range": 0,
+                    "target_out_of_range": 0}
+        supervisor._verify_endpoint_scan_witness(endpoint, 5_000_000_000)
         with self.assertRaises(supervisor.SupervisorRefused):
             supervisor._verify_endpoint_scan_witness(
-                row_scan, {**endpoint, "planSha256": "0" * 64}, 5_000_000_000)
+                {**endpoint, "logicalScan": "rowValueScan"}, 5_000_000_000)
         with self.assertRaises(supervisor.SupervisorRefused):
             supervisor._verify_endpoint_scan_witness(
-                row_scan, {**endpoint, "sharedScan": "endpointScan"}, 5_000_000_000)
-        with self.assertRaises(trial.TrialRefused):
-            trial._endpoint_scan_witness({"plan": row_scan["plan"], "roles": {
-                "edge_current": {**row_scan["roles"]["edge_current"], "invalid_target": 1}}})
+                {**endpoint, "invalid_target": 1}, 5_000_000_000)
+
+    def test_process_group_rss_parser_sums_only_owned_group(self):
+        observed = b"  41 1024\n  42 4096\n  99 8192\n"
+        self.assertEqual(1024 * 1024,
+                         supervisor._parse_process_group_rss(observed, 41))
+        with self.assertRaises(supervisor.SupervisorRefused):
+            supervisor._parse_process_group_rss(b"  99 8192\n", 41)
 
     def test_disappearing_spark_scratch_entry_is_tolerated_only_in_scratch(self):
         root = Path("/private/tmp/r05-capacity-race")

@@ -125,19 +125,23 @@ The single attempt sequence is:
    receipt-owned table paths after verifying filesystem identity and Delta
    UUIDs. Preserve the attempt evidence and verify cleanup.
 
-**Runner conformance is an open precondition.** The checked-in full-scale worker
-currently exposes `endpointScan` as a witness derived from `rowValueScan`
-(`sharedScan: rowValueScan`), so it performs one persisted-table scan, not the
-two distinct reads specified above. Its GraphFrames path maps the pinned Delta
-frames and runs an action; it does not write a graph-engine export. The
-supervisor and worker currently cap concurrent writes at 840 s, 10.556 s below
-the 850.556 s 80%-rate target; the prior proposal's 1,200 s write ceiling is
-needed to measure that target without prematurely stopping. Do not invoke the
-command until the worker, supervisor gates, source digest, and packet are
-reconciled to these three requested semantics. A second scan must not be
-claimed from a second witness over one scan. If a durable engine export is
-intended, that is outside this packet and needs a separately bounded
-output/storage plan.
+**Runner conformance is implemented in the held worker and supervisor.** The
+row/value scan and endpoint formula scan are separate timed actions over the
+exact pinned persisted Delta frames; the supervisor requires both phase
+records and the endpoint scan's independent plan and complete zero-invalid
+witness. The graph path directly maps the same pinned Delta frames into
+transient GraphFrames keys and performs one bounded action, which is the
+requested transient export for this trial. No durable graph-engine export is
+included. The concurrent write ceiling is 1,200 s, allowing the 850.556 s
+80%-rate target to be measured while preserving the distinct performance
+threshold. The supervisor samples RSS for the isolated worker process group
+and stops above 96 GiB. The held worker packet digest includes this packet,
+and the source digest includes the worker, supervisor, generator, focused
+conformance test, and this packet. These source changes make the entry point
+eligible for fresh review; they do not authorize a run. The packet remains
+held for owner review because the measured setup/write/compact-validation
+projection is 28.206 minutes and the requested reads, scans, graph action,
+final checks and cleanup add unmeasured work.
 
 ## Bounds and stop rules
 
@@ -147,13 +151,13 @@ recorded capacity.
 
 | Resource or phase | Bound / stop rule |
 | --- | --- |
-| Host | Dedicated local host; 18 Spark workers, 24 GiB JVM maximum, 128 GiB physical-RAM eligibility. The paired sample observed 128 GiB, but fresh host admission is required. Peak RSS was not measured and the existing supervisor does not enforce an RSS limit; add a monitored 96 GiB RSS stop before claiming that bound. |
+| Host | Dedicated local host; 18 Spark workers, 24 GiB JVM maximum, 128 GiB physical-RAM eligibility. The paired sample observed 128 GiB, but fresh host admission is required. The supervisor samples total RSS for the isolated worker process group and terminates above 96 GiB; the sampling interval is one second, so the ceiling is enforced at observed samples. |
 | Disk admission | At least 512 GiB free and 1,000 free inodes on the exact attempt filesystem. This exceeds estimated active bytes by design; require fresh measurement. |
 | Attempt root | 256 GiB maximum, including tables, logs, scratch, events, and result. Stop/cancel at the enforced cap; preserve partial evidence on uncertainty. |
 | Active Parquet | 128 GiB maximum across the two tables, versus 62.944 GiB row-linear estimate. |
 | Total time | One attempt; 1,800 s from child start through owned-table cleanup and receipt close. No retry. |
 | Admission and DDL | 60 s cumulative. Stop before inserts if exceeded. |
-| Writes | Node ≤360 s; edge ≤840 s; concurrent writes together ≤1,200 s in the proposed revised authorization. The checked-in supervisor's 840 s concurrent-write cap is currently too short to measure the 850.556 s target. |
+| Writes | Node ≤360 s; edge ≤840 s; concurrent writes together ≤1,200 s. The 850.556 s 80%-rate threshold remains the performance target; 1,200 s is the containment cap. |
 | Point lookups | Two total, ≤60 s cumulative. |
 | Persisted scans | Two distinct logical scans, each ≤120 s; nested Spark jobs/stages are charged to the parent scan. |
 | GraphFrames | One direct pinned-frame mapping/action ≤120 s; seed result ≤10,000 complete occurrences. Overflow refuses. No full-frame collection, GraphX conversion, cache, or second persisted graph copy. |
@@ -161,12 +165,11 @@ recorded capacity.
 
 Stop before launch if the required owner review has not occurred, runtime/source
 digests differ, the selected volume or free space fails admission, the local
-Spark slot is occupied, the current worker still has the one-scan mismatch, or
-the action plan contains an unexpected cartesian/cross join. During the single
-run stop on any phase or byte cap, RSS above the proposed 96 GiB ceiling once
-that ceiling is enforceable, failed semantic witness, graph result overflow,
-unexpected extra write/job/retry, or 30-minute deadline. Preserve failed or
-partial receipts; never retry an uncertain write or delete an unverified path.
+Spark slot is occupied, or the action plan contains an unexpected cartesian/cross
+join. During the single run stop on any phase or byte cap, a sampled RSS above
+96 GiB, failed semantic witness, graph result overflow, unexpected extra
+write/job/retry, or 30-minute deadline. Preserve failed or partial receipts;
+never retry an uncertain write or delete an unverified path.
 
 ## Scaling claim and limits
 

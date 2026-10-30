@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import json
-from ashlar_host.local_current_delta4_umf import LocalUmfDelta4Bridge, _pinned_resources
+from ashlar_host.local_current_delta4_umf import LocalUmfDelta4Bridge, pinned_resources
 from ashlar_host.managed_current_xxhash64_carriers import (
     load_current_managed_xxhash64_carriers,
 )
@@ -166,7 +166,7 @@ def build_generation_plan(
         _path_relation(path)
 
     carriers = load_current_managed_xxhash64_carriers()
-    _manifest, _bundle, sources, _semantics = _pinned_resources()
+    _manifest, _bundle, sources, _semantics = pinned_resources()
     generated = json.loads(carriers.generated_bytes)
     if generated.get("profile") != "ashlar-managed-current-carriers/0.4-xxhash64":
         raise ValueError("Pinned generated `.4-xxhash64` carrier required")

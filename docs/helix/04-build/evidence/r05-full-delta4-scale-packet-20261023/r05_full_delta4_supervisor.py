@@ -38,8 +38,8 @@ MIN_FREE_BYTES = 512 * 1024**3
 MIN_FREE_INODES = 1000
 PHASE_SECONDS = {
     "admission_and_ddl": 60, "node_write": 360, "edge_write": 840,
-    "concurrent_writes": 840,
-    "point_reads": 60, "row_value_scan": 120,
+    "concurrent_writes": 1200,
+    "point_reads": 60, "row_value_scan": 120, "endpoint_scan": 120,
     "graphframes": 120, "validation_and_cleanup": 120,
 }
 ROLES = ("object_current", "edge_current")
@@ -56,6 +56,7 @@ CLEANUP_DIAGNOSTICS = "r05-full-cleanup-diagnostics.log"
 SPARK_EVENT_DIR = "spark-events"
 DIAGNOSTICS_BYTES = 32 * 1024 * 1024
 EVENT_LOG_BYTES = 512 * 1024 * 1024
+RSS_BYTES = 96 * 1024**3
 MAX_EVENT_LINE_BYTES = 256 * 1024
 MAX_EVENT_RECORDS = 1_000_000
 MAX_SQL_EXECUTIONS = 2048
@@ -89,6 +90,11 @@ def _sha(raw: bytes) -> str:
 def source_pins_sha256() -> str:
     """Hash the packet and implementation files used by this child."""
     names = [
+        "docs/helix/04-build/evidence/r05-full-delta4-scale-packet-20261023/full_delta4_generator.py",
+        "docs/helix/04-build/evidence/r05-full-delta4-scale-packet-20261023/full_delta4_trial.py",
+        "docs/helix/04-build/evidence/r05-full-delta4-scale-packet-20261023/r05_full_delta4_supervisor.py",
+        "docs/helix/04-build/evidence/r05-full-delta4-scale-packet-20261023/test_r05_full_delta4_supervisor.py",
+        "docs/helix/04-build/evidence/r05-one-shot-full-scale-run-packet-20261029.md",
         "src/ashlar_host/local_current_delta4_umf.py",
         "src/ashlar_host/canonical_graphframes_materializer.py",
         "src/ashlar_host/pinned_delta_graphframes.py",
@@ -325,6 +331,10 @@ def _validate_approval(document: Any, *, packet_digest: str,
                        source_digest: str, runtime_digest: str) -> None:
     if type(document) is not dict:
         raise SupervisorRefused("owner authorization object required")
+    if (document.get("profile") != AUTH_PROFILE or document.get("status") != "approved"
+            or type(document.get("ownerDecision")) is not str
+            or not document["ownerDecision"].strip()):
+        raise SupervisorRefused("explicit closed owner authorization required")
     from full_delta4_trial import (EDGE_ROWS, NODE_ROWS, PHASE_SECONDS as WORKER_PHASES,
                                    ROOT_BYTES as WORKER_ROOT, ACTIVE_PARQUET_BYTES,
                                    MIN_FREE_BYTES, TOTAL_SECONDS)
@@ -403,6 +413,35 @@ def _spark_process_count() -> int:
         if any(pattern.lower() in line.lower() for pattern in patterns):
             candidates += 1
     return candidates
+
+
+def _parse_process_group_rss(output: bytes, pgid: int) -> int:
+    """Sum RSS in KiB for the isolated child process group reported by ps."""
+    total_kib = 0
+    for line in output.decode("ascii", "strict").splitlines():
+        fields = line.split()
+        if len(fields) != 2:
+            raise SupervisorRefused("process RSS observation malformed")
+        try:
+            observed_pgid, rss_kib = (int(fields[0]), int(fields[1]))
+        except ValueError as error:
+            raise SupervisorRefused("process RSS observation malformed") from error
+        if observed_pgid == pgid:
+            if rss_kib < 0:
+                raise SupervisorRefused("process RSS observation negative")
+            total_kib += rss_kib
+    if total_kib <= 0:
+        raise SupervisorRefused("isolated child process group RSS unavailable")
+    return total_kib * 1024
+
+
+def _process_group_rss_bytes(pgid: int) -> int:
+    result = subprocess.run(("ps", "-axo", "pgid=,rss="),
+                            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+                            stderr=subprocess.DEVNULL, check=False, timeout=10)
+    if result.returncode != 0:
+        raise SupervisorRefused("process-group RSS surveillance unavailable")
+    return _parse_process_group_rss(result.stdout, pgid)
 
 
 def _lock_existing(path: str | Path) -> int:
@@ -854,20 +893,16 @@ def _validate_removable_tree(path: Path) -> None:
                 raise SupervisorRefused("owned path contains symlink or special file")
 
 
-def _verify_endpoint_scan_witness(row_scan: Any, endpoint_scan: Any,
-                                  expected_rows: int) -> None:
-    """Require endpoint checks to be the same edge action as the row-value scan."""
-    roles = row_scan.get("roles", {}) if type(row_scan) is dict else {}
-    edge = roles.get("edge_current", {}) if type(roles) is dict else {}
-    plan = row_scan.get("plan") if type(row_scan) is dict else None
+def _verify_endpoint_scan_witness(endpoint_scan: Any, expected_rows: int) -> None:
+    """Require an independently planned endpoint scan over persisted edges."""
     names = ("invalid_source", "invalid_target", "source_out_of_range", "target_out_of_range")
-    if (type(plan) is not str or type(endpoint_scan) is not dict
-            or endpoint_scan.get("sharedScan") != "rowValueScan"
-            or endpoint_scan.get("planSha256") != _sha(plan.encode("utf-8"))
-            or edge.get("rows") != expected_rows or endpoint_scan.get("rows") != expected_rows
-            or any(type(edge.get(name)) is not int or edge[name] != 0
-                   or endpoint_scan.get(name) != edge[name] for name in names)):
-        raise SupervisorRefused("endpoint formula witness must share the full edge role scan")
+    plan = endpoint_scan.get("plan") if type(endpoint_scan) is dict else None
+    if (type(plan) is not str or not plan.strip()
+            or endpoint_scan.get("logicalScan") != "endpointScan"
+            or endpoint_scan.get("rows") != expected_rows
+            or any(type(endpoint_scan.get(name)) is not int or endpoint_scan[name] != 0
+                   for name in names)):
+        raise SupervisorRefused("independent persisted edge endpoint scan witness required")
 
 
 def _verify_and_cleanup(root: Path, created: dict, worker: dict,
@@ -893,12 +928,19 @@ def _verify_and_cleanup(root: Path, created: dict, worker: dict,
                 or witness.get("min_id") != 0 or witness.get("max_id") != count - 1
                 or int(witness.get("sum_id")) != expected_sum):
             raise SupervisorRefused("persisted row/value/range witness failed")
-    _verify_endpoint_scan_witness(
-        row_scan, worker.get("endpointScan"), expected_rows["edge_current"])
+    _verify_endpoint_scan_witness(worker.get("endpointScan"), expected_rows["edge_current"])
+    phase_records = worker.get("phases", {})
+    for phase in ("row_value_scan", "endpoint_scan"):
+        record = phase_records.get(phase, {}) if type(phase_records) is dict else {}
+        if (type(record) is not dict or type(record.get("seconds")) not in (int, float)
+                or record["seconds"] < 0 or record["seconds"] > 120):
+            raise SupervisorRefused("both separately timed persisted scans are required")
     if set(worker.get("pointLookups", {})) != set(ROLES):
         raise SupervisorRefused("exactly two point lookup receipts required")
     graph = worker.get("graphframes", {})
-    if graph.get("resultRows") != 5 or len(graph.get("result", [])) != 5:
+    if (graph.get("resultRows") != 5 or len(graph.get("result", [])) != 5
+            or graph.get("input") != "transient-pinned-delta-dataframes"
+            or graph.get("persistence") != "none"):
         raise SupervisorRefused("complete bounded GraphFrames occurrence bag required")
     if str(SRC) not in sys.path:
         sys.path.insert(0, str(SRC))
@@ -997,7 +1039,7 @@ def _child_environment(runtime: dict, root: Path) -> dict[str, str]:
 
 
 def _run_child(root: Path, runtime: dict, packet_digest: str,
-               started: float, started_ns: int) -> tuple[int, dict, bool, str | None]:
+               started: float, started_ns: int) -> tuple[int, dict, bool, str | None, int]:
     deadline = started + TOTAL_SECONDS
     argv = _worker_argv(runtime, root, started, packet_digest)
     diagnostic_fd = os.open(root / WORKER_DIAGNOSTICS,
@@ -1013,6 +1055,7 @@ def _run_child(root: Path, runtime: dict, packet_digest: str,
     killed = False
     reason = None
     last_state = {}
+    peak_rss_bytes = 0
     next_source_check = time.monotonic()
     try:
         while process.poll() is None:
@@ -1021,9 +1064,13 @@ def _run_child(root: Path, runtime: dict, packet_digest: str,
                 reason = "aggregate-deadline-exceeded"
             if reason is None:
                 try:
+                    rss_bytes = _process_group_rss_bytes(process.pid)
+                    peak_rss_bytes = max(peak_rss_bytes, rss_bytes)
+                    if rss_bytes > RSS_BYTES:
+                        reason = "process-group-rss-cap-exceeded"
                     root_size = _tree_bytes(root)
                     parquet_size = _parquet_bytes(root)
-                    reason = _capacity_reason(root_size, parquet_size)
+                    reason = reason or _capacity_reason(root_size, parquet_size)
                     if reason is None:
                         reason = _diagnostic_reason(root)
                     phase_path = root / PHASE_FILE
@@ -1074,7 +1121,8 @@ def _run_child(root: Path, runtime: dict, packet_digest: str,
         reason = "unexpected-descendant-after-worker-exit"
         _kill_reap(process)
         quiescent = not _group_exists(process.pid)
-    return int(status if status is not None else -signal.SIGKILL), worker, quiescent, reason
+    return (int(status if status is not None else -signal.SIGKILL), worker,
+            quiescent, reason, peak_rss_bytes)
 
 
 def _cleanup_child(root: Path) -> int:
@@ -1198,11 +1246,12 @@ def run_supervised_attempt(*, authorization_path: str | Path,
         # The root path and local runtime paths remain private to this directory;
         # they are not copied into any checked-in receipt.
         try:
-            status, worker, quiescent, reason = _run_child(
+            status, worker, quiescent, reason, peak_rss_bytes = _run_child(
                 root, runtime, packet_digest, started, started_ns)
             result["childExitStatus"] = status
             result["childGroupQuiescent"] = quiescent
             result["reason"] = reason
+            result["peakProcessGroupRssBytes"] = peak_rss_bytes
             result["elapsedSeconds"] = round(time.monotonic() - started, 6)
             result["workerStatus"] = worker.get("status")
             result["sparkStageSummary"] = _spark_event_summary(root)
