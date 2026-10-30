@@ -1,0 +1,68 @@
+{
+  "ack": false,
+  "attemptRoot": "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6",
+  "bridgeSha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5",
+  "carrierProfile": "ashlar-delta/0.4-xxhash64",
+  "cloud": false,
+  "deltaJarSha256": {
+    "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+    "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+  },
+  "deltaSpark": "4.4.1",
+  "edgeTypedKey": {
+    "id": "44",
+    "lookup_hash": "8656680201443444023",
+    "rel_type_id": "33",
+    "source_system": "smoke-source"
+  },
+  "elapsedSeconds": 19.291,
+  "java": "21",
+  "limitations": [
+    "Ashlar UMF Delta 4 six-role native table creator was exercised; two tiny identity rows were inserted with Spark Delta SQL because the configured-local .4 lifecycle adapter intentionally only allows initialization.",
+    "No Truss source/feed, publication manifest, singleton resolver, Weft query, protected ACK, Unity Catalog, or scale claim.",
+    "The R16 cohort Delta Spark JAR was copied byte-identically under the filename admitted by the existing local runtime. The hash records both the copied artifact and its cohort source."
+  ],
+  "lookupHashProfile": "spark-xxhash64-typed-key/0.1",
+  "master": "local[1]",
+  "nodeTypedKey": {
+    "id": "22",
+    "lookup_hash": "1437292216916987980",
+    "source_system": "smoke-source",
+    "type_id": "11"
+  },
+  "profile": "ashlar-delta4-r16-runtime-smoke/0.1",
+  "publication": false,
+  "python": "3.12.14",
+  "query": false,
+  "roles": {
+    "attempts": {
+      "rows": 0,
+      "uuid": "c580f12f-a16c-4ca5-b381-320d67c35a1f"
+    },
+    "edge_current": {
+      "rows": 1,
+      "uuid": "43543e6e-ef35-4f60-94aa-5529d7442b28"
+    },
+    "manifest": {
+      "rows": 0,
+      "uuid": "7d1802e8-6671-47f9-97bb-ebcbbd296004"
+    },
+    "object_current": {
+      "rows": 1,
+      "uuid": "bb6a704c-2889-42ec-af67-0213d95f12f0"
+    },
+    "tombstone": {
+      "rows": 0,
+      "uuid": "00f50087-1a35-4ca8-a5a3-ef79b60d5339"
+    },
+    "whole_source_history": {
+      "rows": 0,
+      "uuid": "52a1dc8c-aeef-49a5-91b3-00873ad960d0"
+    }
+  },
+  "sourceMutation": false,
+  "spark": "4.2.0",
+  "status": "passed-bounded-local-table-smoke",
+  "umfCandidateCommit": "259bf1ed91466ff7e9782d7517c14f2112282026",
+  "umfRevision": "2ede4c879bea5db13794a6fa30e67c821306c17f"
+}
