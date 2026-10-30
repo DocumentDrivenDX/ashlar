@@ -4,8 +4,9 @@
 PostgreSQL start. `run_one_start_prefix_and_migration` composes that stage with
 custody, publication, ACK, seed, continuation, and the prefix-owned stop; both
 are effectful entrypoints and require a populated exact owner-approved scope.
-No CLI is provided. Repository tests inspect pinned metadata and exercise only
-a fully mocked orchestration path; they do not invoke native effects.
+`run_supervisor_r16.py` provides the bounded one-shot CLI. Repository tests
+inspect pinned metadata and exercise only mocked orchestration; they do not
+invoke native effects.
 """
 from __future__ import annotations
 
@@ -19,6 +20,7 @@ import os
 import re
 import signal
 import subprocess
+import sys
 import time
 import uuid
 from pathlib import Path
@@ -27,6 +29,7 @@ PROFILE = "ashlar-truss051-r16-migration-readback/0.1"
 FULL_LIFECYCLE_SCOPE = "ashlar-truss-r16-full-native-lifecycle/0.1"
 SOURCE_ARCHIVE_SHA256 = "cb57fdb7d338f345cfad157463fdbe94a2be7dcf69e728c474954c2939c14a0b"
 SOURCE_MANIFEST_SHA256 = "fb79cebc5b1388b49d0687c9f77c61187125299758ee7388fd64ba2c9d533348"
+SOURCE_HELPER_SHA256 = "62707a3febf1f67b7a06edc1cc7ccba1a843c1dc3540fae2ac8b4406e09ea13d"
 TRUSS_WHEEL_SHA256 = "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57"
 TRUSS_051_OUTER_INDEX_SHA256 = "d1672e85ae0e89137986fc57669186af47e5826366bd430284aba9b7cf52c37d"
 TRUSS_050_EMBEDDED_INDEX_SHA256 = "4c6baf0282e3d0b5492f070c9c07d89ff0c9a819e748f3820f60b11c1f51c7aa"
@@ -43,6 +46,7 @@ PG_CTL_VERSION = "pg_ctl (PostgreSQL) 18.6 (Homebrew)"
 CARRIER_PROFILE = "ashlar-delta/0.4-xxhash64"
 SEED_REQUEST_SHA256 = "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771"
 ORIGIN_MAP_SHA256 = "c19540a4c1cc3561365cc4ec38a71da44fdc4648b8f27a6540c81eb5233badc5"
+ORIGIN_GATE_SHA256 = "abb5895a1ad15f092b66355832c8c99b185856afd6ca2bab446710d819615aa3"
 
 FROZEN_CUSTODY = {
     "expected_accepted_source_document_id": "ashlar-current-045-lifecycle-20261021",
@@ -184,7 +188,8 @@ def verify_installed_runtime() -> dict:
 
 
 def _validate_scope_approval(scope_path: Path, approval_path: Path, worker_path: Path,
-                             prefix_worker_path: Path) -> tuple[dict, bytes]:
+                             prefix_worker_path: Path,
+                             supervisor_path: Path | None = None) -> tuple[dict, bytes]:
     scope_raw = read_regular(scope_path, 256 * 1024)
     approval_raw = read_regular(approval_path, 64 * 1024)
     scope = json.loads(scope_raw)
@@ -210,6 +215,13 @@ def _validate_scope_approval(scope_path: Path, approval_path: Path, worker_path:
     _need(source_manifest.get("archive_sha256") == SOURCE_ARCHIVE_SHA256
           and source_manifest.get("profile") == "ashlar-r16-selected-source-inputs/0.1",
           "source manifest does not bind the frozen source archive")
+    source_root_path = Path(source.get("source_root_path", ""))
+    helper_path = Path(source.get("helper_path", ""))
+    _need(source_root_path.is_absolute() and source_root_path.resolve() == source_root_path
+          and source_root_path.is_dir()
+          and helper_path.is_absolute() and helper_path.resolve() == helper_path
+          and sha(read_regular(helper_path, 2 * 1024 * 1024)) == SOURCE_HELPER_SHA256,
+          "canonical frozen Ashlar source root and exact public .48 helper required")
     seed = scope.get("seed_custody", {})
     request_path = Path(seed.get("request_path", ""))
     origin_path = Path(seed.get("origin_map_path", ""))
@@ -228,8 +240,7 @@ def _validate_scope_approval(scope_path: Path, approval_path: Path, worker_path:
               "profile": "ashlar-r16-seed-origin/0.1",
               "purpose": "Truss 0.0.51 local lifecycle qualification; not production source authority"},
           "exact newly proposed R16 local-trial origin map required")
-    _need(seed.get("origin_gate_code_sha256") ==
-          "80d937e7c8ec9fff51d04cb08ecea27c6c32dd05df6b87d2bb0a87fc62347ebf"
+    _need(seed.get("origin_gate_code_sha256") == ORIGIN_GATE_SHA256
           and sha(origin_gate_raw) == seed.get("origin_gate_code_sha256"),
           "exact frozen R16 origin admission gate required")
     from ashlar_host.local_current_delta4_umf import (
@@ -248,6 +259,8 @@ def _validate_scope_approval(scope_path: Path, approval_path: Path, worker_path:
           and scope.get("publication", {}).get("carrier_profile") == CARRIER_PROFILE,
           "fresh explicitly approved local `.4` destination identity required")
     runtime = scope.get("runtime", {})
+    connection_factory_sha256 = sha(inspect.getsource(_role_connection_factory).encode())
+    python_path = Path(runtime.get("python_path", ""))
     _need(runtime.get("truss_version") == "0.0.51"
           and runtime.get("wheel_sha256") == TRUSS_WHEEL_SHA256
           and runtime.get("outer_migration_index_sha256") == TRUSS_051_OUTER_INDEX_SHA256
@@ -259,7 +272,10 @@ def _validate_scope_approval(scope_path: Path, approval_path: Path, worker_path:
           and runtime.get("delta_spark_version") == DELTA_VERSION
           and runtime.get("carrier_profile") == CARRIER_PROFILE
           and runtime.get("external_pg_ctl_sha256") == PG_CTL_SHA256
-          and runtime.get("external_pg_ctl_version") == PG_CTL_VERSION,
+          and runtime.get("external_pg_ctl_version") == PG_CTL_VERSION
+          and runtime.get("connection_factory_sha256") == connection_factory_sha256
+          and python_path.is_absolute() and python_path.is_file()
+          and Path(sys.executable).resolve() == python_path.resolve(),
           "exact pinned Truss .51 / Weft .4 / Spark / Delta profile and migration index hashes required")
     java_home = Path(runtime.get("java_home", ""))
     jars_dir = Path(runtime.get("jars_directory", ""))
@@ -295,9 +311,15 @@ def _validate_scope_approval(scope_path: Path, approval_path: Path, worker_path:
     workers = scope.get("workers", {})
     migration_worker_sha = sha(read_regular(worker_path, 2 * 1024 * 1024))
     custody_worker_sha = sha(read_regular(prefix_worker_path, 2 * 1024 * 1024))
+    supervisor_path = supervisor_path or Path(scope.get("supervisor_path", ""))
+    _need(supervisor_path.is_absolute() and supervisor_path.resolve() == supervisor_path
+          and scope.get("supervisor_path") == str(supervisor_path),
+          "canonical full-lifecycle supervisor path required")
+    supervisor_sha = sha(read_regular(supervisor_path, 2 * 1024 * 1024))
     _need(workers == {"custody_prefix_sha256": custody_worker_sha,
-                      "migration_readback_sha256": migration_worker_sha},
-          "full-lifecycle scope must bind exact custody-prefix and migration workers")
+                      "migration_readback_sha256": migration_worker_sha,
+                      "supervisor_sha256": supervisor_sha},
+          "full-lifecycle scope must bind exact custody, migration, and supervisor code")
     state = scope.get("state_custody", {})
     _need(type(scope.get("output_root")) is str and Path(scope["output_root"]).is_absolute(),
           "scope output_root path required")
@@ -355,6 +377,7 @@ def _validate_scope_approval(scope_path: Path, approval_path: Path, worker_path:
             "runtime_manifest_sha256": TRUSS_051_RUNTIME_MANIFEST_SHA256,
             "jar_sha256": expected_jar_hashes,
             "bun_sha256": runtime["bun_sha256"],
+            "connection_factory_sha256": connection_factory_sha256,
         },
         "seed": {"request_sha256": SEED_REQUEST_SHA256,
                  "origin_map_sha256": ORIGIN_MAP_SHA256,
@@ -1058,11 +1081,13 @@ def _run_post_migration_graph_lifecycle(scope: dict, conn_uri: str,
 def run_one_start_prefix_and_migration(prefix_worker, scope_path: Path,
                                        approval_path: Path, migration_worker_path: Path,
                                        prefix_worker_path: Path, source_root: Path,
-                                       helper_path: Path) -> dict:
+                                       helper_path: Path,
+                                       supervisor_path: Path | None = None) -> dict:
     """Run the complete frozen lifecycle under one prefix-owned PG start."""
     import copy
     scope, scope_raw = _validate_scope_approval(
-        scope_path, approval_path, migration_worker_path, prefix_worker_path)
+        scope_path, approval_path, migration_worker_path, prefix_worker_path,
+        supervisor_path)
     runtime_evidence = verify_installed_runtime()
     prefix_scope = copy.deepcopy(scope)
     prefix_scope["profile"] = "ashlar-truss-r16-custody-prefix-scope/0.1"

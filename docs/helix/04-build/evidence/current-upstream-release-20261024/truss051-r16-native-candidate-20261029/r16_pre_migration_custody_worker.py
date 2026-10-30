@@ -380,6 +380,13 @@ def run_prefix(scope: dict, source_root: Path, helper: Path, *, stage: Callable[
     lifecycle_error = None
     deadline = time.monotonic() + scope["limits"]["child_deadline_seconds"]
     try:
+        # This durable marker lets an external watchdog distinguish a worker
+        # killed before startup from one killed while PostgreSQL may be live.
+        write_new(attempt / "postgres-start-intent.json", {
+            "profile": "ashlar-r16-postgres-start-intent/0.1",
+            "pgdata_path": str(restored), "pg_ctl_path": str(pg_ctl),
+            "port": port, "socket_directory": str(socket_dir),
+            "status": "start_may_be_attempted"})
         _mark_effect("postgres-start-attempted", native="possible", may_remain=True)
         # A timed-out or non-zero pg_ctl start may still have spawned the
         # postmaster. Enter the owned-target cleanup path before invoking it.

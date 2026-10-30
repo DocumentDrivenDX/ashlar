@@ -163,6 +163,9 @@ class CustodyPrefixTests(unittest.TestCase):
 
         def start():
             calls.append("start")
+            intent = Path(scope["output_root"]) / "postgres-start-intent.json"
+            self.assertTrue(intent.is_file(), "durable start intent must precede pg_ctl")
+            self.assertEqual(json.loads(intent.read_bytes())["pgdata_path"], str(restored))
             (restored / "postmaster.pid").write_text("1234\n" + str(restored) + "\n")
             return subprocess.CompletedProcess([], 0, "started\n", "")
 
