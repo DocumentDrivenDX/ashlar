@@ -1108,6 +1108,9 @@ class ConfiguredLocalDelta4WriterAuthority:
                  and type(self.source) is ConfiguredLocalSource
                  and type(self.current_admission) is ConfiguredLocalAdmission,
                  "Nominal current configured-local owners required")
+        # The closing vector is a transient witness from one successful hold
+        # only. A new hold must re-establish it through execute/recover.
+        self._delta4_closing_heads = None
         parent = self.transport.journal_path.parent.lstat()
         _require(stat.S_ISDIR(parent.st_mode) and parent.st_uid == os.getuid()
                  and not parent.st_mode & 0o022,
@@ -1179,6 +1182,166 @@ def open_configured_local_delta4_authority(plan, effect_plan, transport,
     return ConfiguredLocalDelta4WriterAuthority(
         plan, effect_plan, transport, installation_profile, fresh, source,
         current_admission, context, policy, _mint=_AUTHORITY_MINT)
+
+
+OUTPUT_RECEIPT_TABLE = "local_delta4_output_receipt"
+OUTPUT_RECEIPT_PROFILE = "ashlar-configured-local-delta4-output-completion/0.1"
+MAX_OUTPUT_RECEIPT_BYTES = 4 * 1024 * 1024
+
+
+def _delta4_output_receipt_rows(db):
+    count = db.execute(f"SELECT count(*) FROM {OUTPUT_RECEIPT_TABLE}").fetchone()[0]
+    _require(type(count) is int and count <= 1,
+             "At most one original `.4` output-completion receipt is allowed")
+    if count == 0:
+        return []
+    key, size = db.execute(
+        f"SELECT request_digest,length(CAST(original AS BLOB)) FROM {OUTPUT_RECEIPT_TABLE}"
+    ).fetchone()
+    _require(type(key) is str and type(size) is int
+             and 0 < size <= MAX_OUTPUT_RECEIPT_BYTES,
+             "Bounded original `.4` output receipt required")
+    return db.execute(
+        f"SELECT request_digest,original,receipt_sha256 FROM {OUTPUT_RECEIPT_TABLE}"
+    ).fetchall()
+
+
+def _make_delta4_output_receipt(authority):
+    """Build a completion receipt only from a fresh full coordinator observation."""
+    _require(type(authority) is ConfiguredLocalDelta4WriterAuthority
+             and authority.held and authority._active and authority._fd is not None,
+             "Held original `.4` publication owner required")
+    authority._require_current(held=True)
+    authority._check_writer_lock()
+    authority.current_admission(authority.source, authority.plan.request, None,
+                                authority.context)
+    authority._retain_source_scope()
+    observation = authority._observe_effect_prefix()
+    _require(observation["committed_prefix"] == 3
+             and observation["states"] == ["committed"] * 3,
+             "Complete validated `.4` source/effect state required")
+    _require(authority._delta4_closing_heads == observation["heads"]
+             and authority._delta4_inflight_index is None
+             and authority._delta4_inflight_state is None
+             and authority.policy.active is None
+             and authority.policy._delta4_execution_owner is None
+             and authority.policy._delta4_execution_intent is None
+             and authority.policy._delta4_execution_ids is None,
+             "Successful current-hold `.4` coordinator completion witness required")
+    from .delta_custody import LocalDeltaEffects
+    from .local_receipt_codec import original_receipt_chunks
+    operation = "effects:" + authority.effect_plan.intent_digest
+    original, plan_digest, operation_ids = LocalDeltaEffects(
+        authority.transport).original_plan(operation,
+            authority.effect_plan.intent_digest, authority.effect_plan.steps)
+    _require(observation["effect_plan_sha256"] == plan_digest
+             and observation["operation_ids"] == operation_ids,
+             "Original `.4` effect plan and operation identity required")
+    receipts = []
+    for operation_id in operation_ids:
+        row = authority.transport.db.execute(
+            "SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?",
+            (operation_id,)).fetchone()
+        _require(row is not None and row[3] == "committed" and type(row[4]) is str,
+                 "Complete exact native operation receipt required")
+        receipt_json = b"".join(original_receipt_chunks(row[4])).decode("utf-8")
+        receipt_value = decode_retained_json(receipt_json.encode("utf-8"))
+        _require(type(receipt_value) is dict and _canonical(receipt_value) == receipt_json,
+                 "Canonical original native operation receipt required")
+        receipts.append({"operation_id": operation_id,
+                         "receipt_json": receipt_json,
+                         "receipt_sha256": _sha(receipt_json.encode("utf-8"))})
+    inventory = {}
+    versions = {}
+    for role in INSTALLATION_ROLES:
+        head = observation["heads"][role]
+        profile_role = authority.installation_profile["roles"][role]
+        name = "local.configured." + role
+        fields = tuple((column, kind, nullable)
+                       for column, kind, nullable in profile_role["fields"])
+        _require(type(head) is dict and set(head) == {"uuid", "version"}
+                 and head["uuid"] == profile_role["uuid"]
+                 and type(head["version"]) is int and 0 <= head["version"] < 2**63,
+                 "Exact six-role `.4` identity/version vector required")
+        inventory[role] = {
+            "name": name, "uuid": head["uuid"], "version": head["version"],
+            "schemaSha256": _sha(_canonical(fields).encode("utf-8")),
+            "protocolSha256": _sha(_canonical(profile_role["protocol"]).encode("utf-8")),
+        }
+        if role in DATA_ROLES:
+            versions[name] = head["version"]
+    body = {
+        "profile": OUTPUT_RECEIPT_PROFILE,
+        "request": {"json": authority.plan.request_json,
+                     "sha256": _sha(authority.plan.request_json.encode("utf-8")),
+                     "request_digest": authority.plan.request["request_digest"]},
+        "publication_id": authority.plan.publication_id,
+        "source_scope_sha256": authority.source_scope_sha256,
+        "source_oracle_sha256": authority.plan.source_oracle_sha256,
+        "installation_id": authority.transport.installation_id,
+        "installation_profile_sha256": authority.effect_plan.installation_profile_sha256,
+        "effect_intent_digest": authority.effect_plan.intent_digest,
+        "effect_plan_sha256": plan_digest,
+        "effect_plan_json": original,
+        "operation_receipts": receipts,
+        "table_versions_json": _canonical(versions),
+        "installation_inventory_json": _canonical(inventory),
+        "snapshot_observation_json": _canonical(observation),
+    }
+    body_json = _canonical(body)
+    _require(len(body_json.encode("utf-8")) <= MAX_OUTPUT_RECEIPT_BYTES,
+             "Original `.4` output-completion receipt exceeds its byte limit")
+    envelope = {"profile": OUTPUT_RECEIPT_PROFILE, "receipt": body,
+                "receipt_sha256": _sha(body_json.encode("utf-8"))}
+    original_envelope = _canonical(envelope)
+    _require(len(original_envelope.encode("utf-8")) <= MAX_OUTPUT_RECEIPT_BYTES,
+             "Original `.4` output-completion envelope exceeds its byte limit")
+    return authority.plan.request["request_digest"], original_envelope, envelope["receipt_sha256"]
+
+
+def retain_delta4_output_completion_receipt(authority):
+    """Retain an exact local-journal receipt before any manifest attempt.
+
+    This establishes durable applied-output custody only; it does not write a
+    native manifest, construct a realized vector, or authorize source ACK.
+    """
+    digest, original, receipt_sha256 = _make_delta4_output_receipt(authority)
+    db = authority.transport.db
+    exists = db.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
+        (OUTPUT_RECEIPT_TABLE,)).fetchone()
+    if not exists:
+        with db:
+            db.execute(f"CREATE TABLE {OUTPUT_RECEIPT_TABLE} ("
+                       "request_digest TEXT PRIMARY KEY,original TEXT NOT NULL,"
+                       "receipt_sha256 TEXT NOT NULL)")
+    else:
+        schema = db.execute(f"PRAGMA table_info({OUTPUT_RECEIPT_TABLE})").fetchall()
+        _require([(row[1], row[2], row[3], row[5]) for row in schema]
+                 == [("request_digest", "TEXT", 0, 1),
+                     ("original", "TEXT", 1, 0),
+                     ("receipt_sha256", "TEXT", 1, 0)],
+                 "Exact `.4` output-receipt journal schema required")
+    rows = _delta4_output_receipt_rows(db)
+    expected = [(digest, original, receipt_sha256)]
+    if not rows:
+        with db:
+            db.execute(f"INSERT INTO {OUTPUT_RECEIPT_TABLE} VALUES (?,?,?)", expected[0])
+        rows = _delta4_output_receipt_rows(db)
+    _require(rows == expected,
+             "Changed, missing or duplicate `.4` output receipt refuses manifest readiness")
+    value = decode_retained_json(original.encode("utf-8"))
+    _require(type(value) is dict and value.get("profile") == OUTPUT_RECEIPT_PROFILE
+             and type(value.get("receipt")) is dict
+             and _sha(_canonical(value["receipt"]).encode("utf-8")) == receipt_sha256,
+             "Exact original `.4` output-completion receipt required")
+    authority._check_writer_lock()
+    authority.current_admission(authority.source, authority.plan.request, None,
+                                authority.context)
+    authority._observe_effect_prefix()
+    return {"profile": "ashlar-configured-local-delta4-output-receipt-ref/0.1",
+            "request_digest": digest, "receipt_sha256": receipt_sha256,
+            "original": original}
 
 
 def build_delta4_transaction1_effect_plan(plan: ConfiguredLocalDelta4BatchPlan, *, tables: dict,

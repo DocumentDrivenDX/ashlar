@@ -15,6 +15,7 @@ from ashlar_host.configured_local_delta4_publication import (
     open_configured_local_delta4_authority,
     plan_configured_local_delta4_transaction1,
     rehydrate_delta4_fresh_head_admission,
+    retain_delta4_output_completion_receipt,
 )
 from ashlar_host.configured_local_runtime import ConfiguredLocalAdmission
 from ashlar_host.configured_source_local import ConfiguredLocalBatchSpec, ConfiguredLocalSource
@@ -717,6 +718,94 @@ class Tests(unittest.TestCase):
                         "SELECT count(*) FROM local_operation").fetchone(), (3,))
                 self.assertEqual(authority._delta4_closing_heads["publication_manifest"]["version"], 1)
             self.assertIsNone(transport.policy._delta4_execution_owner)
+
+    def test_delta4_output_receipt_is_durable_exact_and_does_not_publish_manifest(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            fake, transport, effect, _source, _admission, authority = self.build(root)
+            self._active_fake, self._active_effect = fake, effect
+            def run_stub(effects, operation, intent_digest, steps, *, context):
+                return self._simulate_delta4_effects(
+                    effects, operation, intent_digest, steps, context=context)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    authority.prepare_effect_plan()
+                    with patch.object(LocalDeltaEffects, "run", run_stub):
+                        authority.execute_effect_plan()
+                    retained = retain_delta4_output_completion_receipt(authority)
+                    replay = retain_delta4_output_completion_receipt(authority)
+                    self.assertEqual(replay, retained)
+                    original = json.loads(retained["original"])
+                    body = original["receipt"]
+                    self.assertEqual(body["profile"],
+                                     "ashlar-configured-local-delta4-output-completion/0.1")
+                    self.assertEqual(len(json.loads(body["installation_inventory_json"])), 6)
+                    self.assertEqual(len(body["operation_receipts"]), 3)
+                    self.assertEqual(fake.histories["publication_manifest"], [1, 0])
+                    self.assertEqual(fake.histories["publication_attempt_phase"], [1, 0])
+                    transport.db.execute(
+                        "UPDATE local_delta4_output_receipt SET original=original || ' '")
+                    transport.db.commit()
+                    with self.assertRaises(ValueError):
+                        retain_delta4_output_completion_receipt(authority)
+
+    def test_delta4_output_receipt_requires_current_hold_completion_witness(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            fake, transport, effect, source, _admission, authority = self.build(root)
+            self._active_fake, self._active_effect = fake, effect
+            def run_stub(effects, operation, intent_digest, steps, *, context):
+                return self._simulate_delta4_effects(
+                    effects, operation, intent_digest, steps, context=context)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    authority.prepare_effect_plan()
+                    with patch.object(LocalDeltaEffects, "run", run_stub):
+                        authority.execute_effect_plan()
+
+                reopened, _source2, _fresh2, reopened_authority = self.reopen_authority(
+                    transport, effect, source)
+                with self.assertRaisesRegex(ValueError, "heads differ"):
+                    with reopened_authority.hold():
+                        with self.assertRaisesRegex(ValueError, "completion witness"):
+                            retain_delta4_output_completion_receipt(reopened_authority)
+                self.assertIsNone(reopened.db.execute(
+                    "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
+                    ("local_delta4_output_receipt",)).fetchone())
+
+    def test_delta4_same_authority_reentry_resets_witness_until_recovery(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            fake, transport, effect, _source, _admission, authority = self.build(root)
+            self._active_fake, self._active_effect = fake, effect
+            def run_stub(effects, operation, intent_digest, steps, *, context):
+                return self._simulate_delta4_effects(
+                    effects, operation, intent_digest, steps, context=context)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    authority.prepare_effect_plan()
+                    with patch.object(LocalDeltaEffects, "run", run_stub):
+                        authority.execute_effect_plan()
+                # The prior hold's vector must not authorize receipt creation
+                # in a later hold, even though all three effects remain committed.
+                with self.assertRaisesRegex(ValueError, "heads differ"):
+                    with authority.hold():
+                        self.assertIsNone(authority._delta4_closing_heads)
+                        with self.assertRaisesRegex(ValueError, "completion witness"):
+                            retain_delta4_output_completion_receipt(authority)
+                self.assertIsNone(transport.db.execute(
+                    "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
+                    ("local_delta4_output_receipt",)).fetchone())
+
+                # Exact reconciliation in this new hold re-establishes the
+                # witness without resubmitting committed graph operations.
+                with authority.hold():
+                    with patch.object(LocalDeltaEffects, "recover", run_stub):
+                        observed = authority.execute_effect_plan()
+                    self.assertEqual(observed["observation"]["committed_prefix"], 3)
+                    retained = retain_delta4_output_completion_receipt(authority)
+                    self.assertEqual(retained["request_digest"],
+                                     self.plan.request["request_digest"])
 
     def test_delta4_post_commit_mismatch_quarantines_and_revokes(self):
         with tempfile.TemporaryDirectory() as directory:
