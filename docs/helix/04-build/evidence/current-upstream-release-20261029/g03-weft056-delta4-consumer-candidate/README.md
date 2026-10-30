@@ -25,8 +25,10 @@ ddx:
 
 Status: **inert candidate; no `.4` publication, query SQL, or native result is
 claimed**. This packet fixes the smallest graph and oracle to use for the Gate 3
-run. Sol reviewed the fake-transport coordinator. It has not been prepared for
-native execution and carries no execution permit.
+run. Sol reviewed the fake-transport coordinator and the separate local
+transaction-1 runtime composition. The composition and owner cleanup are
+inert-tested only; no Spark or native SQL ran, and this packet carries no
+execution permit.
 
 ## Frozen inputs and exact oracle
 
@@ -58,6 +60,28 @@ query must bind that digest. It must not synthesize a vector from table heads or
 borrow the `.3` R02 vector. Because there is no existing `.4` publication, this
 candidate packet cannot truthfully supply concrete UUID/version values before
 native publication.
+
+## Transaction-1 local composition boundary
+
+`run_configured_local_delta4_transaction1()` is a separately named,
+one-fresh-attempt entrypoint for an already initialized six-role `.4`
+installation. It reopens the pinned source, runtime, carrier profile and
+journal together, requires fresh-empty heads, accepts only source batch
+`typed-graph-1`, and executes the exact prepared/applying metadata phases and
+three graph effects through the held coordinator. The coordinator's complete
+four-role bag and native `xxhash64` observation is checked before the local
+output-completion receipt is retained. Expected terminal heads are attempt v3,
+object/edge/history v2, tombstone v1, and manifest v1. It writes a bounded local
+runtime report only after every owner closes successfully. The result describes
+validated effects; it is not a manifest or publication.
+
+The route only admits a fresh installation. A partial or completed attempt
+does not satisfy its opening check and cannot be retried through this function;
+reconciliation is separate. A dispatched or uncertain attempt must retain its
+journal and all Delta logs for reconciliation. Fake tests cover composition,
+wrong-profile refusal, owner cleanup, and withholding the success report when
+Spark open or owner close fails. This remains inert test evidence; no native
+`.4` phase or graph commit has been made.
 
 ## Original compiler artifacts and native scope
 
@@ -107,10 +131,10 @@ to this gate.
 The following remain prerequisites to a Sol-reviewable execution packet and
 are not represented as completed work here:
 
-1. A reviewed one-shot native initializer/publisher that applies only
-   `typed-graph-1` under `ashlar-delta/0.4-xxhash64`, creates one immutable
-   publication, and retains the native four-role vector plus independent
-   six-role inventory. `configured_local_delta4_publication.py` now supplies a
+1. A reviewed one-shot native attempt using the new transaction-1 composition,
+   followed by a separate manifest/retention authority that can create one
+   immutable publication and retain the native four-role vector plus
+   independent six-role inventory. `configured_local_delta4_publication.py` now supplies a
    pure transaction-1 source plan, role-qualified hash input validation and
    vector shape binder. It also has a bounded native Spark hash-observation
    adapter for a journal-pinned six-role installation; that adapter has only
@@ -170,6 +194,15 @@ are not represented as completed work here:
    coordinator-level submitted-phase reopen/recovery and v2/v3 upper-bound
    checks. See [the phase and receipt
    boundary finding](output-completion-receipt-boundary-20261029.md).
+   The separate runtime composition in `configured_local_runtime.py` is now
+   inert-tested against the existing coordinator: it opens an already
+   initialized `.4` installation, accepts one fresh transaction-1 attempt,
+   consumes the coordinator's complete bag/hash proof, checks attempt v3/data
+   v2/tombstone and manifest v1 heads, retains the local completion receipt,
+   and writes a success report only after clean owner close. Its focused runtime
+   module has 9 tests, including no report on Spark-open and owner-close
+   failures. No Spark/native run occurred; partial attempts require separate
+   reconciliation and cannot be rerun through this entrypoint.
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.
 3. A Weft 0.4.56 host distribution adapter for the local configured runtime.

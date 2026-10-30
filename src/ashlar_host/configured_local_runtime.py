@@ -403,6 +403,182 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
 def initialize_configured_local(config):return _run(config,None)
 def publish_configured_local(config,*,ordinal):return _run(config,ordinal)
 
+
+def run_configured_local_delta4_transaction1(config):
+    """Run only the frozen typed-graph transaction 1 on an existing `.4` install.
+
+    This separately versioned local composition owns the source, lease, Spark
+    runtime, initialized role profile, Delta journal and coordinator together.
+    It retains a local output-completion receipt but does not write a manifest,
+    acknowledge a source, or claim a consumer/publication result.
+
+    This is a one-fresh-attempt entrypoint. A partial or completed attempt no
+    longer satisfies fresh-empty admission and must be reconciled separately;
+    this function is not a retry or recovery route.
+    """
+    from .configured_local_delta4_publication import (
+        admit_delta4_fresh_empty_installation,
+        build_delta4_transaction1_effect_plan,
+        open_configured_local_delta4_authority,
+        plan_configured_local_delta4_transaction1,
+        retain_delta4_output_completion_receipt,
+    )
+
+    _require(type(config) is ConfiguredLocalRuntimeConfig
+             and config.carrier_profile == 'ashlar-delta/0.4-xxhash64'
+             and config.installation_sha256 is not None)
+    config.__post_init__()
+    jars = _runtime(config)
+    parent = config.output.parent.lstat()
+    _require(stat.S_ISDIR(parent.st_mode) and parent.st_uid == os.getuid()
+             and not parent.st_mode & 0o022)
+    registry_file = InvocationFile.read(config.installation / 'installation.json', 65536)
+    _require(hashlib.sha256(registry_file.raw).hexdigest() == config.installation_sha256)
+    config.output.mkdir(mode=0o700)
+
+    lease = spark = transport = source = admission = carrier_file = None
+    source_manager = None
+    primary = None
+    result = None
+    try:
+        lease = PrivateFiniteLease(config.installation, create=False)
+        context = object()
+        source_manager = open_configured_local_source(
+            config.admission, stream=config.stream, context=context)
+        source = source_manager.__enter__()
+        _require(source.graph)
+        scope = _scope(config, source)
+        columns = _columns(config.carrier_profile)
+        tables = {role: 'local.configured.' + role for role in columns}
+        registry = json.loads(registry_file.raw)
+        runtime_profile, runtime_identity, _runtime_jars = attest_runtime(config)
+        _require(set(registry) == {'profile', 'scope', 'targets', 'columns',
+                                   'runtime_identity', 'physical_profile',
+                                   'carrier_profile_sha256'}
+                 and registry.get('profile') == 'ashlar-configured-local-installation/0.3'
+                 and registry.get('physical_profile') == config.carrier_profile
+                 and registry.get('scope') == scope
+                 and registry.get('columns') == {
+                     role: [list(column) for column in selected]
+                     for role, selected in columns.items()}
+                 and registry.get('runtime_identity') == {
+                     'profile': runtime_profile, **runtime_identity})
+        carrier_file = InvocationFile.read(
+            config.installation / 'carrier-profile.json', 65536)
+        _require(hashlib.sha256(carrier_file.raw).hexdigest()
+                 == registry.get('carrier_profile_sha256')
+                 and carrier_file.raw.endswith(b'\n'))
+        installation_profile = json.loads(carrier_file.raw)
+        _require(type(installation_profile) is dict
+                 and installation_profile.get('profile')
+                    == 'ashlar-local-current-installation-profile/0.1'
+                 and installation_profile.get('physical_profile')
+                    == config.carrier_profile)
+
+        targets = []
+        roles = set(columns)
+        _require(type(registry.get('targets')) is list
+                 and len(registry['targets']) == len(roles))
+        for item in registry['targets']:
+            _require(type(item) is dict and set(item) == {'table', 'path', 'uuid'}
+                     and type(item['table']) is str
+                     and item['table'].startswith('local.configured.'))
+            role = item['table'].rsplit('.', 1)[1]
+            _require(role in roles and item['path'] == str(config.installation / role)
+                     and installation_profile['roles'][role].get('uuid') == item['uuid'])
+            targets.append(DeltaTarget(item['table'], Path(item['path']), item['uuid']))
+        _require({target.table for target in targets} == set(tables.values()))
+
+        spark = open_finite_spark(config, jars)
+        _require(spark.sparkContext.master == 'local[1]'
+                 and spark.conf.get('spark.sql.session.timeZone') == 'UTC'
+                 and spark.conf.get(PARAMETER_SUBSTITUTION_SETTING) == 'true')
+        verify_driver_memory(spark, r02=False)
+        _require(spark.version == '4.2.0'
+                 and spark.sparkContext._jvm.java.lang.System.getProperty(
+                     'java.specification.version') == '21'
+                 and spark.conf.get('spark.jars') == ','.join(str(path) for path in jars))
+        verify_loaded_delta_class(spark, jars)
+        spark.sparkContext.setLogLevel('ERROR')
+
+        policy = PrivatePolicy(context, tuple(targets))
+        admission = ConfiguredLocalAdmission(
+            config, lease, spark, source, tuple(targets), columns, registry_file)
+        admission(source, None, None, context)
+        transport = LocalDeltaTransport(
+            spark, config.installation / 'operations.sqlite', config.installation_id,
+            tuple(targets), policy, capacity=config.operation_capacity,
+            installation_profile=installation_profile)
+        policy.initializing = False
+
+        plan = plan_configured_local_delta4_transaction1(
+            source.configuration, stream=config.stream,
+            materialized_at_us=config.materialization_clock_us)
+        request = source.spec(1, context).request()
+        _require(plan.batch_id == 'typed-graph-1' and plan.request == request)
+        fresh = admit_delta4_fresh_empty_installation(transport, installation_profile)
+        effect_plan = build_delta4_transaction1_effect_plan(
+            plan, tables=tables, installation_profile=installation_profile)
+        authority = open_configured_local_delta4_authority(
+            plan, effect_plan, transport, installation_profile, fresh, source,
+            admission, context, policy)
+        with authority.hold() as held:
+            held.prepare_and_execute_effect_plan()
+            observation = held._observe_effect_prefix()
+            versions = {role: observation['heads'][role]['version']
+                        for role in ('edge_current', 'object_current', 'tombstone',
+                                     'whole_source_history')}
+            phase_head = observation['heads']['publication_attempt_phase']
+            _require(phase_head['version'] == fresh.heads['publication_attempt_phase']['version'] + 2
+                     and versions == {
+                         'edge_current': fresh.heads['edge_current']['version'] + 1,
+                         'object_current': fresh.heads['object_current']['version'] + 1,
+                         'tombstone': fresh.heads['tombstone']['version'],
+                         'whole_source_history': fresh.heads['whole_source_history']['version'] + 1}
+                     and observation['heads']['publication_manifest']['version']
+                        == fresh.heads['publication_manifest']['version'])
+            receipt = retain_delta4_output_completion_receipt(held)
+            receipt_reference = {
+                'profile': receipt['profile'],
+                'request_digest': receipt['request_digest'],
+                'receipt_sha256': receipt['receipt_sha256'],
+            }
+            result = {
+                'profile': 'ashlar-configured-local-delta4-transaction1-result/0.1',
+                'installation_id': config.installation_id,
+                'operation': 'transaction1-effects-validated',
+                'batch_id': 'typed-graph-1',
+                'publication': False,
+                'protected_ack': False,
+                'completion_receipt': receipt_reference,
+                'native_observation': observation,
+            }
+    except BaseException as error:
+        primary = error
+    callbacks = []
+    if source is not None:
+        callbacks.append(lambda: source.renew(source.context))
+    if registry_file is not None:
+        callbacks.append(lambda: registry_file.renew(65536))
+    if carrier_file is not None:
+        callbacks.append(lambda: carrier_file.renew(65536))
+    if admission is not None:
+        callbacks.append(lambda: admission.closing(source, None, source.context))
+    if transport is not None:
+        callbacks.append(transport.close)
+    if spark is not None:
+        callbacks.append(spark.stop)
+    if source is not None:
+        callbacks.append(lambda: source_manager.__exit__(None, None, None))
+    callbacks.append(lambda: _runtime(config))
+    if lease is not None:
+        callbacks.extend((lease.renew, lease.close))
+    finish(primary, callbacks)
+    raw = (encoded(result) + '\n').encode()
+    _require(len(raw) <= 1_048_576)
+    _write(config.output / 'runtime-report.json', raw)
+    return result
+
 def export_configured_local(config,*,ordinal):return _run(config,ordinal,export=True)
 
 def read_configured_local(config,*,ordinal,type_id,entity_id):
