@@ -30,6 +30,9 @@ EFFECT_PLAN_PROFILE = "ashlar-configured-local-delta4-effect-plan/0.1"
 SOURCE_SCOPE_PROFILE = "ashlar-configured-local-delta4-source-scope/0.1"
 SOURCE_SCOPE_JOURNAL_VERSION = 4001
 MAX_SOURCE_SCOPE_BYTES = 4 * 1024 * 1024
+DELTA4_ATTEMPT_JOURNAL_PROFILE = "ashlar-configured-local-delta4-attempt-journal/0.1"
+DELTA4_ATTEMPT_JOURNAL_TABLE = "local_delta4_attempt_phase"
+MAX_DELTA4_ATTEMPT_BYTES = 4 * 1024 * 1024
 CARRIER_PROFILE = "ashlar-delta/0.4-xxhash64"
 LOOKUP_HASH_PROFILE = "spark-xxhash64-typed-key/0.1"
 DATA_ROLES = ("edge_current", "object_current", "tombstone", "whole_source_history")
@@ -438,6 +441,7 @@ class ConfiguredLocalDelta4WriterAuthority:
         self._delta4_inflight_index = None
         self._delta4_inflight_state = None
         self._delta4_closing_heads = None
+        self._delta4_attempt_admission = None
         self._witness = (plan, effect_plan, transport, installation_profile, fresh,
                          source, current_admission, context, policy)
 
@@ -965,6 +969,158 @@ class ConfiguredLocalDelta4WriterAuthority:
         self._check_writer_lock()
         self.current_admission.closing(self.source, None, self.context)
 
+    def _retain_delta4_attempt_phase(self, phase):
+        """Append/verify a source- and plan-bound local phase record."""
+        _require(phase in ("prepared", "applying"),
+                 "Supported local `.4` attempt phase required")
+        self._require_current(held=True)
+        self.current_admission(self.source, self.plan.request, None, self.context)
+        self._check_writer_lock()
+        self._retain_source_scope()
+        source_rows = _read_delta4_source_scope_rows(self.transport.db)
+        _require(len(source_rows) == 1, "Original `.4` source scope required")
+        request_digest, source_original = source_rows[0]
+        source_scope = _validate_delta4_source_scope_row(request_digest,
+                                                          source_original)
+        effects = self.transport.db.execute(
+            "SELECT operation,original,digest FROM local_plan").fetchall()
+        _require(len(effects) == 1 and type(effects[0][1]) is str
+                 and len(effects[0][1].encode("utf-8")) <= MAX_DELTA4_ATTEMPT_BYTES,
+                 "Exact retained graph plan required before attempt phase")
+        operation, graph_plan_original, graph_plan_sha = effects[0]
+        _require(type(graph_plan_sha) is str
+                 and graph_plan_sha == _sha(graph_plan_original.encode("utf-8")),
+                 "Exact retained graph plan digest required")
+        graph_plan = json.loads(graph_plan_original)
+        _require(graph_plan.get("profile") == "ashlar-local-delta-effects/0.1"
+                 and graph_plan.get("operation") == operation
+                 and graph_plan.get("intent_digest") == self.effect_plan.intent_digest
+                 and graph_plan.get("steps") == self.effect_plan.steps,
+                 "Graph plan must match frozen `.4` effect plan")
+        scope = source_scope["scope"]
+        request_json = scope["request"]["json"]
+        request = json.loads(request_json)
+        checkpoint_json = request.get("source_checkpoint_json")
+        _require(type(checkpoint_json) is str
+                 and scope["request"]["request_digest"] == self.plan.request["request_digest"],
+                 "Exact configured JSONL checkpoint binding required")
+        payload = {
+            "profile": DELTA4_ATTEMPT_JOURNAL_PROFILE,
+            "phase": phase,
+            "request_digest": self.plan.request["request_digest"],
+            "request_json": request_json,
+            "checkpoint_profile": "ashlar-immutable-jsonl/0.1",
+            "checkpoint_json": checkpoint_json,
+            "source_scope_sha256": _sha(source_original.encode("utf-8")),
+            "installation_id": scope["installation_id"],
+            "journal_identity": scope["journal"],
+            "effect_plan_sha256": self.effect_plan.effect_plan_sha256,
+            "effect_intent_digest": self.effect_plan.intent_digest,
+            "graph_plan_operation": operation,
+            "graph_plan_original": graph_plan_original,
+            "graph_plan_sha256": graph_plan_sha,
+        }
+        payload_json = _canonical(payload)
+        _require(len(payload_json.encode("utf-8")) <= MAX_DELTA4_ATTEMPT_BYTES,
+                 "Local `.4` attempt payload exceeds its byte bound")
+        payload_sha = _sha(payload_json.encode("utf-8"))
+        db = self.transport.db
+        tables = db.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+            (DELTA4_ATTEMPT_JOURNAL_TABLE,)).fetchall()
+        if not tables:
+            db.execute("CREATE TABLE local_delta4_attempt_phase ("
+                       "request_digest TEXT NOT NULL, phase TEXT NOT NULL, "
+                       "payload_json TEXT NOT NULL, payload_sha256 TEXT NOT NULL, "
+                       "PRIMARY KEY(request_digest,phase))")
+            db.commit()
+        definition = db.execute(
+            "SELECT sql FROM sqlite_master WHERE type='table' AND name=?",
+            (DELTA4_ATTEMPT_JOURNAL_TABLE,)).fetchall()
+        _require(len(definition) == 1 and type(definition[0][0]) is str
+                 and re.sub(r"\s+", "", definition[0][0]).lower()
+                 == "createtablelocal_delta4_attempt_phase("
+                    "request_digesttextnotnull,phasetextnotnull,"
+                    "payload_jsontextnotnull,payload_sha256textnotnull,"
+                    "primarykey(request_digest,phase))",
+                 "Exact versioned local `.4` attempt-journal schema required")
+        rows_meta = db.execute(
+            "SELECT count(*),coalesce(max(length(CAST(payload_json AS BLOB))),0) "
+            "FROM local_delta4_attempt_phase").fetchone()
+        _require(rows_meta[0] <= 2 and rows_meta[1] <= MAX_DELTA4_ATTEMPT_BYTES,
+                 "Bound local `.4` attempt phase inventory required")
+        rows = db.execute(
+            "SELECT request_digest,phase,payload_json,payload_sha256 "
+            "FROM local_delta4_attempt_phase ORDER BY "
+            "CASE phase WHEN 'prepared' THEN 0 WHEN 'applying' THEN 1 ELSE 2 END").fetchall()
+        expected_rows = []
+        for expected_phase in ("prepared", "applying"):
+            expected_payload = dict(payload, phase=expected_phase)
+            expected_json = _canonical(expected_payload)
+            expected_rows.append((self.plan.request["request_digest"], expected_phase,
+                                  expected_json, _sha(expected_json.encode("utf-8"))))
+        phase_index = 0 if phase == "prepared" else 1
+        target_row = expected_rows[phase_index]
+        _require(any(rows == expected_rows[:length]
+                     for length in range(len(expected_rows) + 1)),
+                 "Local `.4` attempt replay/order/custody mismatch")
+        no_dispatch_yet = (not rows or
+                           (phase == "applying" and rows == expected_rows[:1]))
+        if no_dispatch_yet:
+            _require(db.execute("SELECT count(*) FROM local_operation").fetchone()
+                     == (0,),
+                     "Attempt phases cannot be added retroactively after graph effects")
+            self._check_fresh_heads()
+        if len(rows) <= phase_index:
+            _require(rows == expected_rows[:phase_index],
+                     "Local `.4` attempt phase predecessor required")
+            self._require_current(held=True)
+            self.current_admission(self.source, self.plan.request, None, self.context)
+            self._check_writer_lock()
+            db.execute("INSERT INTO local_delta4_attempt_phase VALUES (?,?,?,?)",
+                       target_row)
+            db.commit()
+        _require(db.execute(
+            "SELECT request_digest,phase,payload_json,payload_sha256 "
+            "FROM local_delta4_attempt_phase ORDER BY "
+            "CASE phase WHEN 'prepared' THEN 0 WHEN 'applying' THEN 1 ELSE 2 END"
+        ).fetchall() == expected_rows[:max(len(rows), phase_index + 1)],
+            "Durable local `.4` attempt phase differs from exact original bytes")
+        self._require_current(held=True)
+        self.current_admission.closing(self.source, None, self.context)
+        self._check_writer_lock()
+        return payload_sha
+
+    def prepare_and_execute_effect_plan(self):
+        """Durably prepare/apply phase before graph SQL dispatch or recovery."""
+        self._require_current(held=True)
+        plan_count = self.transport.db.execute(
+            "SELECT count(*) FROM local_plan").fetchone()[0]
+        attempt_table = self.transport.db.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+            (DELTA4_ATTEMPT_JOURNAL_TABLE,)).fetchall()
+        if attempt_table:
+            attempt_count = self.transport.db.execute(
+                "SELECT count(*) FROM local_delta4_attempt_phase").fetchone()[0]
+            _require(plan_count > 0 or attempt_count == 0,
+                     "Retained `.4` attempt phases require the original graph plan")
+        if plan_count == 0:
+            self.prepare_effect_plan()
+        else:
+            existing = self._observe_effect_prefix(allow_prepared=True)
+            _require("submitted" not in existing["states"],
+                     "Uncertain submitted `.4` operation remains quarantined")
+        self._retain_delta4_attempt_phase("prepared")
+        self._retain_delta4_attempt_phase("applying")
+        admission = object()
+        _require(self._delta4_attempt_admission is None,
+                 "Nested `.4` attempt admission refused")
+        self._delta4_attempt_admission = admission
+        try:
+            return self.execute_effect_plan(_phase_admission=admission)
+        finally:
+            self._delta4_attempt_admission = None
+
     def _admit_delta4_operation(self, intent, operation_ids):
         """Policy callback for one original ordinal, before or after SQL."""
         from .delta_custody import original_operation_intent
@@ -1024,10 +1180,16 @@ class ConfiguredLocalDelta4WriterAuthority:
         self._check_writer_lock()
         self.current_admission.closing(self.source, None, self.context)
 
-    def execute_effect_plan(self):
+    def execute_effect_plan(self, *, _phase_admission=None):
         """Run or recover the exact plan through journal-owned effects only."""
         from .delta_custody import LocalDeltaEffects
+        _require(_phase_admission is not None
+                 and _phase_admission is self._delta4_attempt_admission,
+                 "Durable local `.4` applying-phase owner admission required")
         self._require_current(held=True)
+        applying_sha = self._retain_delta4_attempt_phase("applying")
+        _require(type(applying_sha) is str,
+                 "Exact durable local `.4` applying phase required")
         self._check_writer_lock()
         self.current_admission(self.source, self.plan.request, None, self.context)
         self._retain_source_scope()

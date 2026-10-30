@@ -25,10 +25,11 @@ ddx:
 
 # Gate 3 `.4` output-completion receipt boundary
 
-Status: **supplemental output receipt implemented and fake-tested; native phase
-and manifest transitions remain unimplemented**. No Spark process or native
-effect ran. This receipt is not a publication descriptor, realized vector,
-consumer result, source acknowledgement, or native `applied` attempt phase.
+Status: **local `prepared/applying` attempt journal and supplemental output
+receipt implemented and fake-tested; native `applied` and manifest transitions
+remain unimplemented**. No Spark process or native effect ran. These local
+records are not a publication descriptor, realized vector, consumer result,
+source acknowledgement, or native Delta attempt phase.
 
 ## Implemented safe boundary
 
@@ -55,26 +56,47 @@ resets the prior witness and requires exact recovery before receipt replay.
 
 ## Required next boundary
 
-This supplemental journal receipt is not the native `publication_attempt_phase`
-store required by the contracts. The present `.4` coordinator persists the
-whole graph plan and three graph operation receipts, but it does not persist
-native `prepared` and `applying` attempt phases before graph dispatch or a native
-`applied` phase after validation. The current `.4` prefix observer also requires
-exactly one graph plan and at most the three graph operations. Reusing
-`LocalDeltaEffects` for phase or manifest SQL in the same journal would break
-that invariant. Extending the observer to ignore extra records would be unsafe.
+The new local journal adds source/request/checkpoint/installation/journal/graph
+plan-bound `prepared` and `applying` rows in its own versioned SQLite table.
+`prepare_and_execute_effect_plan()` retains both rows before dispatch, and
+`execute_effect_plan()` refuses without its ephemeral held-owner admission. The
+fake suite covers missing direct admission, byte-exact replay and tampered
+custody refusal before dispatch. These rows establish local ordering only; they
+are not native `publication_attempt_phase` rows and do not establish native
+Spark/Delta effects or an `applied` phase.
 
-The next implementation must introduce a separately versioned phase coordinator
-and explicit inventory proof that distinguishes graph operations from attempt
-and manifest operations. It must retain exact source-qualified phase payloads,
-including the configured JSONL checkpoint, before any graph effect; bind the
-complete validated output receipt as the original `applied` result; then retain
+The current `.4` prefix observer still requires exactly one graph plan and at
+most three graph operations. Reusing `LocalDeltaEffects` for native attempt or
+manifest SQL in the same journal would break that invariant. Extending the
+observer to ignore extra records would be unsafe.
+
+The held-owner gate now prevents bypass through the public executor method: only
+the orchestration entrypoint can supply its current in-memory admission, after
+re-reading the exact durable `applying` row. The native publication phase still
+needs a separately versioned native attempt-operation journal/inventory; the
+current `.4` observer must continue to reject unexpected graph-journal rows, so
+attempt rows cannot be silently ignored or mixed into `local_plan`/
+`local_operation`.
+
+The existing `DeltaAttemptStore` is not a drop-in phase owner for this source:
+its source-qualified scope currently admits PostgreSQL outbox and Truss-native
+feed profiles, while this candidate is bound to the configured immutable JSONL
+checkpoint. Reusing it without a source-profile extension and an exact `.4`
+native operation authority would misstate source custody. No phase-row write is
+therefore implemented in this slice.
+
+The next implementation must introduce native `prepared/applying/applied`
+attempt operations and explicit inventory proof that distinguishes graph
+operations from attempt and manifest operations. It must bind the complete
+validated output receipt as the original `applied` result; then retain
 `committing` before the immutable manifest mutation. The contract's recovery
 alternatives remain: partial graph effects without a complete receipt stay
 unpublished and are inspected without retry; a complete receipt without a
 manifest may publish once after exact authority/predecessor/version revalidation;
 a manifest without ACK reopens the same descriptor and does not replay graph
-effects.
+effects. The native phase owner must strengthen the current local-only gate so
+`execute_effect_plan()` is reachable only after its exact native `applying`
+receipt, preserving the same ordering against direct graph-coordinator calls.
 
 The existing manifest store and resolver primitives can supply their shared
 row validation, immutable merge, and readback semantics only after a `.4`

@@ -148,9 +148,13 @@ are not represented as completed work here:
    exact source scope, effect plan and receipts, four-role versions, six-role
    inventory and complete observed bags; fake tests cover exact replay and
    tamper refusal without adding plan/operation rows. It is supplemental
-   custody, not the native `applied` attempt phase. A versioned native phase
-   and manifest coordinator remains necessary before a `.4` manifest or vector
-   can exist; see [the receipt boundary finding](output-completion-receipt-boundary-20261029.md).
+   custody, not a native `applied` attempt phase. A separate versioned local
+   attempt journal now binds exact source/request/checkpoint/graph-plan custody
+   and persists `prepared` then `applying` before graph dispatch; direct calls to
+   the graph executor refuse without that held-owner admission. This remains a
+   local prerequisite, not the native Delta attempt-table protocol. Native
+   `applied`, manifest and consumer phases remain pending; see [the phase and
+   receipt boundary finding](output-completion-receipt-boundary-20261029.md).
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.
 3. A Weft 0.4.56 host distribution adapter for the local configured runtime.

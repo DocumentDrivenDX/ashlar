@@ -709,15 +709,84 @@ class Tests(unittest.TestCase):
                     failure=getattr(self, "_active_failure", None))
             with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
                 with authority.hold():
-                    authority.prepare_effect_plan()
+                    with self.assertRaisesRegex(ValueError, "applying-phase"):
+                        authority.execute_effect_plan()
+                    self.assertEqual(transport.db.execute(
+                        "SELECT count(*) FROM local_operation").fetchone(), (0,))
                     with patch.object(LocalDeltaEffects, "run", run_stub):
-                        answer = authority.execute_effect_plan()
+                        answer = authority.prepare_and_execute_effect_plan()
                     self.assertEqual(answer["observation"]["committed_prefix"], 3)
+                    phases = transport.db.execute(
+                        "SELECT phase FROM local_delta4_attempt_phase ORDER BY "
+                        "CASE phase WHEN 'prepared' THEN 0 ELSE 1 END").fetchall()
+                    self.assertEqual(phases, [("prepared",), ("applying",)])
                     self.assertIsNone(transport.policy._delta4_execution_owner)
                     self.assertEqual(transport.db.execute(
                         "SELECT count(*) FROM local_operation").fetchone(), (3,))
                 self.assertEqual(authority._delta4_closing_heads["publication_manifest"]["version"], 1)
             self.assertIsNone(transport.policy._delta4_execution_owner)
+
+    def test_delta4_attempt_phase_tamper_refuses_before_graph_dispatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            _fake, transport, _effect, _source, _admission, authority = self.build(root)
+            dispatched = []
+
+            def run_stub(*args, **kwargs):
+                dispatched.append(True)
+                raise AssertionError("graph dispatch must remain unopened")
+
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    authority.prepare_effect_plan()
+                    authority._retain_delta4_attempt_phase("prepared")
+                    transport.db.execute(
+                        "UPDATE local_delta4_attempt_phase "
+                        "SET payload_json=payload_json || ' ' WHERE phase='prepared'")
+                    transport.db.commit()
+                    with patch.object(LocalDeltaEffects, "run", run_stub):
+                        with self.assertRaisesRegex(ValueError, "replay/order/custody"):
+                            authority.prepare_and_execute_effect_plan()
+                    self.assertEqual(dispatched, [])
+                    self.assertEqual(transport.db.execute(
+                        "SELECT count(*) FROM local_operation").fetchone(), (0,))
+
+    def test_delta4_attempt_phase_replay_is_byte_exact_and_ordered(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            _fake, transport, _effect, _source, _admission, authority = self.build(root)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    authority.prepare_effect_plan()
+                    prepared_sha = authority._retain_delta4_attempt_phase("prepared")
+                    self.assertEqual(prepared_sha,
+                                     authority._retain_delta4_attempt_phase("prepared"))
+                    applying_sha = authority._retain_delta4_attempt_phase("applying")
+                    self.assertEqual(applying_sha,
+                                     authority._retain_delta4_attempt_phase("applying"))
+                    rows = transport.db.execute(
+                        "SELECT phase,payload_sha256 FROM local_delta4_attempt_phase "
+                        "ORDER BY CASE phase WHEN 'prepared' THEN 0 ELSE 1 END").fetchall()
+                    self.assertEqual(rows, [("prepared", prepared_sha),
+                                            ("applying", applying_sha)])
+
+    def test_delta4_legacy_committed_prefix_cannot_gain_retroactive_attempt_phases(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            fake, transport, effect, _source, _admission, authority = self.build(root)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    pass
+            self._seed_committed_prefix(fake, transport, effect, 1)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with self.assertRaisesRegex(ValueError, "retroactively"):
+                    with authority.hold():
+                        authority.prepare_and_execute_effect_plan()
+            self.assertEqual(transport.db.execute(
+                "SELECT count(*) FROM local_delta4_attempt_phase").fetchone(), (0,))
+            self.assertEqual(transport.db.execute(
+                "SELECT count(*) FROM local_operation WHERE state='committed'").fetchone(),
+                (1,))
 
     def test_delta4_output_receipt_is_durable_exact_and_does_not_publish_manifest(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -729,9 +798,8 @@ class Tests(unittest.TestCase):
                     effects, operation, intent_digest, steps, context=context)
             with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
                 with authority.hold():
-                    authority.prepare_effect_plan()
                     with patch.object(LocalDeltaEffects, "run", run_stub):
-                        authority.execute_effect_plan()
+                        authority.prepare_and_execute_effect_plan()
                     retained = retain_delta4_output_completion_receipt(authority)
                     replay = retain_delta4_output_completion_receipt(authority)
                     self.assertEqual(replay, retained)
@@ -759,9 +827,8 @@ class Tests(unittest.TestCase):
                     effects, operation, intent_digest, steps, context=context)
             with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
                 with authority.hold():
-                    authority.prepare_effect_plan()
                     with patch.object(LocalDeltaEffects, "run", run_stub):
-                        authority.execute_effect_plan()
+                        authority.prepare_and_execute_effect_plan()
 
                 reopened, _source2, _fresh2, reopened_authority = self.reopen_authority(
                     transport, effect, source)
@@ -783,9 +850,8 @@ class Tests(unittest.TestCase):
                     effects, operation, intent_digest, steps, context=context)
             with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
                 with authority.hold():
-                    authority.prepare_effect_plan()
                     with patch.object(LocalDeltaEffects, "run", run_stub):
-                        authority.execute_effect_plan()
+                        authority.prepare_and_execute_effect_plan()
                 # The prior hold's vector must not authorize receipt creation
                 # in a later hold, even though all three effects remain committed.
                 with self.assertRaisesRegex(ValueError, "heads differ"):
@@ -801,7 +867,7 @@ class Tests(unittest.TestCase):
                 # witness without resubmitting committed graph operations.
                 with authority.hold():
                     with patch.object(LocalDeltaEffects, "recover", run_stub):
-                        observed = authority.execute_effect_plan()
+                        observed = authority.prepare_and_execute_effect_plan()
                     self.assertEqual(observed["observation"]["committed_prefix"], 3)
                     retained = retain_delta4_output_completion_receipt(authority)
                     self.assertEqual(retained["request_digest"],
@@ -820,9 +886,8 @@ class Tests(unittest.TestCase):
             with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
                 with self.assertRaises(ValueError):
                     with authority.hold():
-                        authority.prepare_effect_plan()
                         with patch.object(LocalDeltaEffects, "run", run_stub):
-                            authority.execute_effect_plan()
+                            authority.prepare_and_execute_effect_plan()
             self.assertIsNone(transport.policy._delta4_execution_owner)
             self.assertIsNone(transport.policy._delta4_execution_intent)
             self.assertIsNone(transport.policy._delta4_execution_ids)
@@ -844,15 +909,14 @@ class Tests(unittest.TestCase):
                     failure=getattr(self, "_active_failure", None))
             with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
                 with authority.hold():
-                    authority.prepare_effect_plan()
                     with patch.object(LocalDeltaEffects, "run", run_stub), \
                          patch.object(LocalDeltaEffects, "recover", run_stub):
                         with self.assertRaisesRegex(RuntimeError, "pre-dispatch"):
-                            authority.execute_effect_plan()
+                            authority.prepare_and_execute_effect_plan()
                         self.assertIsNone(authority._delta4_inflight_index)
                         self.assertIsNone(authority._delta4_inflight_state)
                         self._active_failure = None
-                        result = authority.execute_effect_plan()
+                        result = authority.prepare_and_execute_effect_plan()
                         self.assertEqual(result["observation"]["committed_prefix"], 3)
             self.assertIsNone(transport.policy._delta4_execution_owner)
 
@@ -868,6 +932,8 @@ class Tests(unittest.TestCase):
                 with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
                     with authority.hold():
                         authority.prepare_effect_plan()
+                        authority._retain_delta4_attempt_phase("prepared")
+                        authority._retain_delta4_attempt_phase("applying")
                     self._seed_committed_prefix(fake, transport, effect, 1)
                     reopened, _source2, _fresh2, authority2 = self.reopen_authority(
                         transport, effect, source)
@@ -885,12 +951,12 @@ class Tests(unittest.TestCase):
                         reopened.db.commit()
                         with self.assertRaises(ValueError):
                             with authority2.hold():
-                                authority2.execute_effect_plan()
+                                authority2.prepare_and_execute_effect_plan()
                         self.assertIsNone(reopened.policy._delta4_execution_owner)
                         continue
                     with patch.object(LocalDeltaEffects, "recover", recover_stub):
                         with authority2.hold():
-                            result = authority2.execute_effect_plan()
+                            result = authority2.prepare_and_execute_effect_plan()
                     self.assertEqual(result["observation"]["committed_prefix"], 3)
                     self.assertIsNone(reopened.policy._delta4_execution_owner)
 
