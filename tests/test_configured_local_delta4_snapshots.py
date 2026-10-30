@@ -2,6 +2,8 @@
 """Inert six-role `.4` fresh-head and post-effect snapshot admission checks."""
 from pathlib import Path
 import sqlite3
+import hashlib
+import json
 from types import MappingProxyType, SimpleNamespace
 import unittest
 import uuid
@@ -24,7 +26,7 @@ PROTOCOL_PROFILE = "ashlar-configured-local-delta/0.1"
 
 class FakeTransport:
     def __init__(self, plan, *, changed_uuid=None, changed_version=None, row_fault=None,
-                 path_detail_mismatch=None):
+                 path_detail_mismatch=None, table_location_mismatch=None):
         owner = object.__new__(LocalDeltaTransport)
         self.owner = owner
         carriers = load_current_managed_carriers("ashlar-delta/0.4-xxhash64")
@@ -40,8 +42,16 @@ class FakeTransport:
         self.counts = {role: 0 for role in INSTALLATION_ROLES}
         self.row_fault = row_fault
         self.path_detail_mismatch = path_detail_mismatch
+        self.table_location_mismatch = table_location_mismatch
         self.expected = None
         self.plan = plan
+        self.lookup_hashes = {}
+        self.native_metadata = {role: {} for role in INSTALLATION_ROLES}
+        for role in ("object_current", "edge_current"):
+            column = "type_id" if role == "object_current" else "rel_type_id"
+            for key in plan.pending_lookup_keys[role]:
+                identity = (role, key["source_system"], key[column], key["id"])
+                self.lookup_hashes[identity] = -(len(self.lookup_hashes) + 1)
         for role in INSTALLATION_ROLES:
             table = "local.configured." + role
             path = Path("/tmp") / role
@@ -58,6 +68,7 @@ class FakeTransport:
         owner.targets = MappingProxyType(targets)
         owner.installation_profile = self.profile
         owner.original_history = self.original_history
+        owner._snapshot = self.snapshot
         owner._detail = self.path_detail
         owner.query = self.query
         owner.spark = self.spark_port()
@@ -77,7 +88,25 @@ class FakeTransport:
 
     def original_history(self, target):
         role = target.table.rsplit(".", 1)[1]
-        return [{"version": value} for value in self.histories[role]]
+        return [{"version": value, **({"userMetadata": self.native_metadata[role][value],
+                                       "operation": "WRITE"}
+                                      if value in self.native_metadata[role] else {})}
+                for value in self.histories[role]]
+
+    def snapshot(self, target, version):
+        role = target.table.rsplit(".", 1)[1]
+        carriers = load_current_managed_carriers("ashlar-delta/0.4-xxhash64")
+        fields = carriers.ordered_fields(role)
+        rows = [{name: str(value) if type(value) is int else value for name, value in row.items()}
+                for row in (self.expected[role] if self.expected is not None else [])]
+        rows.sort(key=lambda row: json.dumps(row, sort_keys=True, separators=(",", ":"),
+                                             ensure_ascii=False, allow_nan=False))
+        schema = [[name, {"STRING": "string", "BIGINT": "bigint", "TIMESTAMP": "timestamp"}[kind]]
+                  for name, kind, _nullable in fields]
+        payload = json.dumps(rows, sort_keys=True, separators=(",", ":"),
+                             ensure_ascii=False, allow_nan=False)
+        return {"schema": schema, "rows": rows,
+                "row_sha256": hashlib.sha256(payload.encode()).hexdigest()}
 
     def path_detail(self, target, *, full=False):
         role = target.table.rsplit(".", 1)[1]
@@ -100,11 +129,26 @@ class FakeTransport:
         return SimpleNamespace(read=Reader(self))
 
     def query(self, sql, _parameters):
+        if "xxhash64(" in sql:
+            keys = json.loads(_parameters["keys"])
+            rows = []
+            for item in keys:
+                role = item["role"]
+                identity = (role, item["source_system"], item["type_id"], item["id"])
+                rows.append({**item, "lookup_hash": self.lookup_hashes[identity]})
+            return SimpleNamespace(rows=rows, columns=(
+                ("role", "STRING"), ("source_system", "STRING"),
+                ("type_id", "BIGINT"), ("id", "BIGINT"),
+                ("lookup_hash", "BIGINT")))
         role = sql.replace("`", "").split("local.configured.")[-1].split()[0].split(".")[0]
         if sql.startswith("DESCRIBE DETAIL"):
             selected = self.profile["roles"][role]
+            location = str(selected["path"])
+            if role == self.table_location_mismatch:
+                location = "file:/tmp/cloned-delta-log/" + role
             return SimpleNamespace(rows=[{"id": selected["uuid"], "format": "delta",
-                "minReaderVersion": 1, "minWriterVersion": 2, "tableFeatures": []}], columns=())
+                "location": location, "minReaderVersion": 1, "minWriterVersion": 2,
+                "tableFeatures": []}], columns=())
         if "SELECT count(*) AS row_count" in sql:
             return SimpleNamespace(rows=[{"row_count": self.counts[role]}],
                                    columns=(("row_count", "BIGINT"),))
@@ -173,6 +217,9 @@ class Tests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.fresh(fake)
         fake = FakeTransport(self.plan, path_detail_mismatch="object_current")
+        with self.assertRaises(ValueError):
+            self.fresh(fake)
+        fake = FakeTransport(self.plan, table_location_mismatch="object_current")
         with self.assertRaises(ValueError):
             self.fresh(fake)
         for history in ([1, 0, 0], [2, 0]):

@@ -131,6 +131,11 @@ are not represented as completed work here:
    A pre-effect prerequisite now retains one byte-exact source-scope record in
    the local journal under the held owner; focused inert tests cover exact
    replay and changed/missing/corrupt custody. It still grants no effect intent.
+   A read-only observer can now reconcile each contiguous committed prefix of
+   the three frozen effects against original journal rows, native commit
+   metadata, exact receipts and six role snapshots under the held local owner.
+   Its tests are inert; restart rehydration of the original fresh baseline,
+   effect dispatch/recovery, and a completion witness remain unimplemented.
 2. An independent `.4` vector reader and native source-oracle comparison that
    reopens those exact Delta versions and proves complete object/edge bags.
 3. A Weft 0.4.56 host distribution adapter for the local configured runtime.

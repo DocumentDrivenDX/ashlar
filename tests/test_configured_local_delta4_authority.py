@@ -17,7 +17,10 @@ from ashlar_host.configured_local_delta4_publication import (
 )
 from ashlar_host.configured_local_runtime import ConfiguredLocalAdmission
 from ashlar_host.configured_source_local import ConfiguredLocalBatchSpec, ConfiguredLocalSource
-from ashlar_host.delta_custody import LocalDeltaEffects
+from ashlar_host.delta_custody import (LocalDeltaEffects, original_operation_intent,
+                                       sha as custody_sha)
+from ashlar_host.local_receipt_codec import encode_local_receipt, original_receipt_chunks
+from ashlar_host.configured_local_delta4_publication import materialize_delta4_expected_rows
 from ashlar_host.driver import PrivatePolicy
 from test_configured_local_delta4_snapshots import CONFIG, FakeTransport
 
@@ -38,6 +41,10 @@ class Tests(unittest.TestCase):
         transport.operation_capacity = None
         transport.journal_path = root / "operations.sqlite"
         transport.journal_path.touch(mode=0o600)
+        transport.db.execute("DROP TABLE local_operation")
+        transport.db.execute("CREATE TABLE local_operation(operation TEXT PRIMARY KEY,intent TEXT NOT NULL,intent_sha TEXT NOT NULL,before_version INTEGER NOT NULL,state TEXT NOT NULL,receipt TEXT)")
+        transport.db.execute("DROP TABLE local_plan")
+        transport.db.execute("CREATE TABLE local_plan(operation TEXT PRIMARY KEY,original TEXT NOT NULL,digest TEXT NOT NULL)")
         transport.db.execute("DROP TABLE local_source_plan")
         transport.db.execute("CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)")
         transport.policy = PrivatePolicy(self.context, tuple(transport.targets.values()))
@@ -161,6 +168,135 @@ class Tests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     with authority.hold():
                         self.fail("source custody must match the frozen plan")
+
+    def _seed_committed_prefix(self, fake, transport, effect, prefix):
+        operation = "effects:" + effect.intent_digest
+        original, plan_digest, identities = LocalDeltaEffects(transport).original_plan(
+            operation, effect.intent_digest, effect.steps)
+        transport.db.execute("INSERT INTO local_plan VALUES(?,?,?)",
+                             (operation, original, plan_digest))
+        full_rows = materialize_delta4_expected_rows(self.plan, fake.lookup_hashes)
+        fake.expected = {role: (full_rows[role] if role in
+                       ["object_current", "edge_current", "whole_source_history"][:prefix]
+                       else []) for role in INSTALLATION_ROLES}
+        steps = effect.steps
+        for index in range(prefix):
+            target = transport._target(steps[index]["statement"])
+            role = target.table.rsplit(".", 1)[-1]
+            key = identities[index]
+            intent = original_operation_intent(
+                transport.installation_id, key, effect.intent_digest,
+                steps[index]["statement"], steps[index]["parameters"], target,
+                transport.operation_capacity)
+            body_sha = custody_sha(intent)
+            before = 1
+            version = before + 1
+            metadata = json.dumps({"profile": "ashlar-local-delta-commit/0.1",
+                "installation_id": transport.installation_id, "operation": key,
+                "operation_sha256": body_sha, "request_digest": effect.intent_digest},
+                sort_keys=True, separators=(",", ":"))
+            fake.histories[role] = [version, before, 0]
+            fake.native_metadata[role][version] = metadata
+            snapshot = transport._snapshot(target, version)
+            receipt = {"profile": "ashlar-local-delta-receipt/0.1",
+                "operation": key, "operation_sha256": body_sha,
+                "request_digest": effect.intent_digest, "table": target.table,
+                "uuid": target.uuid, "before_version": before, "version": version,
+                "commit_metadata": metadata, "native_operation": "WRITE",
+                "snapshot": snapshot}
+            transport.db.execute("INSERT INTO local_operation VALUES(?,?,?,?,?,?)",
+                (key, intent, body_sha, before, "committed",
+                 encode_local_receipt(json.dumps(receipt, sort_keys=True,
+                                                 separators=(",", ":"), ensure_ascii=False,
+                                                 allow_nan=False))))
+        transport.db.commit()
+
+    def test_readonly_reconciliation_accepts_each_exact_committed_prefix(self):
+        for prefix in range(4):
+            with self.subTest(prefix=prefix), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory).resolve(); root.chmod(0o700)
+                fake, transport, effect, _source, _admission, authority = self.build(root)
+                with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                    with authority.hold():
+                        pass
+                    self._seed_committed_prefix(fake, transport, effect, prefix)
+                    result = authority.reconcile_effect_prefix()
+                self.assertEqual(result["committed_prefix"], prefix)
+                self.assertEqual(result["states"], ["committed"] * prefix
+                                 + ["missing"] * (3 - prefix))
+                self.assertIsNone(transport.policy.active)
+
+    def test_readonly_reconciliation_refuses_ambiguous_or_changed_prefix(self):
+        for fault in ("prepared", "submitted", "missing_plan", "changed_plan", "extra_native",
+                      "altered_receipt", "wrong_native_metadata", "noncontiguous",
+                      "oversized_plan", "oversized_intent", "oversized_receipt"):
+            with self.subTest(fault=fault), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory).resolve(); root.chmod(0o700)
+                fake, transport, effect, _source, _admission, authority = self.build(root)
+                with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                    with authority.hold():
+                        pass
+                    seeded_prefix = (2 if fault == "noncontiguous" else
+                                     1 if fault in ("altered_receipt", "wrong_native_metadata",
+                                                    "oversized_intent", "oversized_receipt") else 0)
+                    self._seed_committed_prefix(fake, transport, effect, seeded_prefix)
+                    if fault in ("prepared", "submitted"):
+                        # Prefix zero has no operation rows; add exact first
+                        # handle bytes but retain its uncertain state.
+                        step = effect.steps[0]; target = transport._target(step["statement"])
+                        operation = "effects:" + effect.intent_digest
+                        _original, _digest, ids = LocalDeltaEffects(transport).original_plan(
+                            operation, effect.intent_digest, effect.steps)
+                        key = ids[0]
+                        intent = original_operation_intent(
+                            transport.installation_id, key, effect.intent_digest,
+                            step["statement"], step["parameters"], target,
+                            transport.operation_capacity)
+                        transport.db.execute("INSERT INTO local_operation VALUES(?,?,?,?,?,NULL)",
+                            (key, intent, custody_sha(intent), 1, fault))
+                    elif fault == "missing_plan":
+                        transport.db.execute("DELETE FROM local_plan")
+                    elif fault == "changed_plan":
+                        transport.db.execute("UPDATE local_plan SET original=original || ' '")
+                    elif fault == "extra_native":
+                        role = "object_current"
+                        fake.histories[role] = [2, 1, 0]
+                    elif fault == "altered_receipt":
+                        stored, = transport.db.execute(
+                            "SELECT receipt FROM local_operation").fetchone()
+                        proof = json.loads(b"".join(original_receipt_chunks(stored)).decode())
+                        proof["snapshot"]["row_sha256"] = "0" * 64
+                        changed = json.dumps(proof, sort_keys=True, separators=(",", ":"),
+                                             ensure_ascii=False, allow_nan=False)
+                        transport.db.execute("UPDATE local_operation SET receipt=?",
+                                             (encode_local_receipt(changed),))
+                    elif fault == "wrong_native_metadata":
+                        fake.native_metadata["object_current"][2] = json.dumps({
+                            "profile": "ashlar-local-delta-commit/0.1",
+                            "installation_id": transport.installation_id,
+                            "operation": "effects:" + effect.intent_digest + ":wrong",
+                            "operation_sha256": "0" * 64,
+                            "request_digest": effect.intent_digest,
+                        }, sort_keys=True, separators=(",", ":"))
+                    elif fault == "oversized_plan":
+                        transport.db.execute(
+                            "UPDATE local_plan SET original=CAST(zeroblob(4194305) AS TEXT)")
+                    elif fault == "oversized_intent":
+                        transport.db.execute(
+                            "UPDATE local_operation SET intent=CAST(zeroblob(4194305) AS TEXT)")
+                    elif fault == "oversized_receipt":
+                        transport.db.execute(
+                            "UPDATE local_operation SET receipt=CAST(zeroblob(4194305) AS TEXT)")
+                    else:
+                        _original, _digest, ids = LocalDeltaEffects(transport).original_plan(
+                            "effects:" + effect.intent_digest, effect.intent_digest,
+                            effect.steps)
+                        transport.db.execute("DELETE FROM local_operation WHERE operation=?",
+                                             (ids[0],))
+                    transport.db.commit()
+                    with self.assertRaises(Exception):
+                        authority.reconcile_effect_prefix()
+                self.assertIsNone(transport.policy.active)
 
     def test_source_scope_refuses_duplicate_rows_and_unmarked_record(self):
         with tempfile.TemporaryDirectory() as directory:

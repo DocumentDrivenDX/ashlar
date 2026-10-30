@@ -76,6 +76,11 @@ def _validate_delta4_source_scope_row(request_digest, original):
              and scope["request"].get("sha256") == _sha(
                  scope["request"]["json"].encode("utf-8")),
              "Exact retained `.4` transaction request required")
+    for field, digest_field in (("fresh_heads_json", "fresh_heads_sha256"),
+                                ("fresh_inventory_json", "fresh_inventory_sha256")):
+        _require(type(scope.get(field)) is str
+                 and scope.get(digest_field) == _sha(scope[field].encode("utf-8")),
+                 "Exact retained `.4` fresh-head and inventory vector required")
     return value
 
 
@@ -549,6 +554,8 @@ class ConfiguredLocalDelta4WriterAuthority:
                             "effect_plan_sha256": self.effect_plan.effect_plan_sha256,
                             "steps_json": self.effect_plan.steps_json},
             "installation_profile_sha256": _sha(profile_raw),
+            "fresh_heads_json": self.fresh.heads_json,
+            "fresh_inventory_json": self.fresh.inventory_json,
             "fresh_heads_sha256": _sha(heads_raw),
             "fresh_inventory_sha256": _sha(inventory_raw),
             "installation_id": self.transport.installation_id,
@@ -591,6 +598,258 @@ class ConfiguredLocalDelta4WriterAuthority:
                  and len(rows) == 1 and rows == [(digest, original)],
                  "Exact unique durable `.4` source-scope replay required")
         self.source_scope_sha256 = _sha(original.encode("utf-8"))
+
+    def _observe_effect_prefix(self):
+        """Read-only exact journal/native reconciliation; never grants dispatch."""
+        from .delta_custody import (LocalDeltaEffects, original_operation_intent,
+                                    sha as custody_sha)
+        from .local_receipt_codec import local_receipt_equals
+        from ashlar.effect_validation import validate_effect_snapshot
+        self._require_current(held=True)
+        self._retain_source_scope()
+        rows = _read_delta4_source_scope_rows(self.transport.db)
+        _require(len(rows) == 1, "Original durable `.4` source scope required")
+        envelope = _validate_delta4_source_scope_row(*rows[0])
+        scope = envelope["scope"]
+        baseline = json.loads(scope["fresh_heads_json"])
+        _require(set(baseline) == set(INSTALLATION_ROLES)
+                 and scope["fresh_heads_json"] == self.fresh.heads_json
+                 and scope["fresh_inventory_json"] == self.fresh.inventory_json
+                 and all(type(baseline[role]) is dict
+                         and set(baseline[role]) == {"uuid", "version"}
+                         and baseline[role]["uuid"] == self.installation_profile["roles"][role]["uuid"]
+                         and type(baseline[role]["version"]) is int
+                         and 0 <= baseline[role]["version"] < 2**63
+                         for role in INSTALLATION_ROLES),
+                 "Original source scope must retain the complete six-role fresh baseline")
+
+        operation = "effects:" + self.effect_plan.intent_digest
+        steps = self.effect_plan.steps
+        original, plan_digest, operation_ids = LocalDeltaEffects(self.transport).original_plan(
+            operation, self.effect_plan.intent_digest, steps)
+        _require(len(steps) == 3 and len(operation_ids) == 3,
+                 "Exact three-step `.4` transaction-one plan required")
+        targets = [self.transport._target(step["statement"]) for step in steps]
+        step_roles = [target.table.rsplit(".", 1)[-1] for target in targets]
+        _require(step_roles == ["object_current", "edge_current", "whole_source_history"],
+                 "Exact ordered `.4` transaction-one target roles required")
+        plan_count = self.transport.db.execute("SELECT count(*) FROM local_plan").fetchone()[0]
+        _require(type(plan_count) is int and plan_count == 1,
+                 "One durable original `.4` effect plan required")
+        plan_key, plan_bytes, plan_digest_record = self.transport.db.execute(
+            "SELECT operation,length(CAST(original AS BLOB)),digest FROM local_plan").fetchone()
+        _require(plan_key == operation and plan_digest_record == plan_digest
+                 and type(plan_bytes) is int and 0 < plan_bytes <= 4 * 1024 * 1024,
+                 "Original `.4` effect plan exceeds its byte bound")
+        plan_rows = self.transport.db.execute(
+            "SELECT operation,original,digest FROM local_plan").fetchall()
+        _require(plan_rows == [(operation, original, plan_digest)],
+                 "Exact durable original `.4` effect plan required")
+
+        operation_count = self.transport.db.execute("SELECT count(*) FROM local_operation").fetchone()[0]
+        _require(type(operation_count) is int and operation_count <= len(operation_ids),
+                 "Bounded exact `.4` operation row inventory required")
+        small_rows = self.transport.db.execute(
+            "SELECT operation,length(CAST(intent AS BLOB)),length(CAST(receipt AS BLOB)),"
+            "intent_sha,before_version,state FROM local_operation ORDER BY operation").fetchall()
+        _require(len(small_rows) == operation_count
+                 and all(row[0] in operation_ids
+                         and type(row[1]) is int and 0 < row[1] <= 4 * 1024 * 1024
+                         and (row[2] is None or (type(row[2]) is int
+                             and 0 <= row[2] <= 4 * 1024 * 1024))
+                         for row in small_rows),
+                 "Exact bounded original `.4` operation intent/receipt inventory required")
+        small_by_operation = {row[0]: row for row in small_rows}
+        operation_rows = []
+        for key in operation_ids:
+            small = small_by_operation.get(key)
+            if small is None:
+                operation_rows.append(None)
+                continue
+            _op, _intent_bytes, _receipt_bytes, _intent_sha, _before, state = small
+            _require(state == "committed",
+                     "Prepared/submitted `.4` operation state is ambiguous and must recover")
+            _require(type(_receipt_bytes) is int and 0 < _receipt_bytes <= 4 * 1024 * 1024,
+                     "Exact bounded committed `.4` receipt required")
+            operation_rows.append(self.transport.db.execute(
+                "SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?",
+                (key,)).fetchone())
+        states = ["missing" if row is None else row[3] for row in operation_rows]
+        prefix = 0
+        while prefix < len(states) and states[prefix] == "committed":
+            prefix += 1
+        _require(states == ["committed"] * prefix + ["missing"] * (len(states) - prefix),
+                 "Only an exact contiguous committed operation prefix is admissible")
+        _require(self.transport.db.execute("SELECT count(*) FROM local_operation").fetchone()
+                 == (prefix,), "Extra original local operation journal rows refuse reconciliation")
+
+        expected_native_metadata = []
+        for index, (key, step, target, row) in enumerate(
+                zip(operation_ids, steps, targets, operation_rows)):
+            intent = original_operation_intent(
+                self.transport.installation_id, key, self.effect_plan.intent_digest,
+                step["statement"], step["parameters"], target,
+                self.transport.operation_capacity)
+            body_sha = custody_sha(intent)
+            metadata_text = _canonical({
+                "profile": "ashlar-local-delta-commit/0.1",
+                "installation_id": self.transport.installation_id,
+                "operation": key, "operation_sha256": body_sha,
+                "request_digest": self.effect_plan.intent_digest,
+            })
+            expected_native_metadata.append(metadata_text)
+            if index >= prefix:
+                continue
+            baseline_version = baseline[target.table.rsplit(".", 1)[-1]]["version"]
+            _require(type(row[2]) is int and row[2] == baseline_version
+                     and row[0] == intent and row[1] == body_sha
+                     and row[3] == "committed" and type(row[4]) is str,
+                     "Exact committed `.4` operation custody required")
+
+        lookup_hashes = observe_delta4_lookup_hashes(
+            self.plan, self.transport, self.installation_profile)
+        expected_rows = materialize_delta4_expected_rows(self.plan, lookup_hashes)
+        carriers = load_current_managed_carriers(CARRIER_PROFILE)
+        all_history = {}
+        observed_heads = {}
+        for role in INSTALLATION_ROLES:
+            target, version, _protocol, _fields = _observe_delta4_role(
+                self.transport, role, self.installation_profile)
+            expected_version = baseline[role]["version"] + int(
+                role in step_roles[:prefix])
+            _require(version == expected_version,
+                     "Native `.4` role head includes a changed baseline or extra commit")
+            history = self.transport.original_history(target)
+            all_history[role] = history
+            observed_heads[role] = {"uuid": target.uuid, "version": version}
+        for index, key in enumerate(operation_ids):
+            named = []
+            for role, history in all_history.items():
+                for record in history:
+                    try:
+                        metadata = json.loads(record.get("userMetadata") or "{}")
+                    except (TypeError, ValueError):
+                        metadata = {}
+                    if type(metadata) is dict and metadata.get("operation") == key:
+                        named.append((role, record, _canonical(metadata)))
+            expected_role = step_roles[index]
+            if index < prefix:
+                _require(len(named) == 1 and named[0][0] == expected_role
+                         and named[0][2] == expected_native_metadata[index],
+                         "Exact unique original named native commit required")
+                target = targets[index]
+                record = named[0][1]
+                before = baseline[expected_role]["version"]
+                version = before + 1
+                _require(type(record.get("version")) is int
+                         and record["version"] == version
+                         and type(record.get("operation")) is str,
+                         "Exact committed native version/operation required")
+                snapshot = self.transport._snapshot(target, version)
+                proof = {
+                    "profile": "ashlar-local-delta-receipt/0.1",
+                    "operation": key,
+                    "operation_sha256": custody_sha(
+                        original_operation_intent(self.transport.installation_id, key,
+                            self.effect_plan.intent_digest, steps[index]["statement"],
+                            steps[index]["parameters"], target,
+                            self.transport.operation_capacity)),
+                    "request_digest": self.effect_plan.intent_digest,
+                    "table": target.table, "uuid": target.uuid,
+                    "before_version": before, "version": version,
+                    "commit_metadata": expected_native_metadata[index],
+                    "native_operation": record["operation"], "snapshot": snapshot,
+                }
+                _require(local_receipt_equals(operation_rows[index][4], _canonical(proof)),
+                         "Exact retained original native receipt required")
+            else:
+                _require(not named,
+                         "Named native commit exists without committed journal custody")
+
+        for role in INSTALLATION_ROLES:
+            target = self.transport.targets["local.configured." + role]
+            if role in DATA_ROLES:
+                step_index = step_roles.index(role) if role in step_roles else len(step_roles)
+                rows_for_role = expected_rows[role] if step_index < prefix else []
+                columns = tuple((name, kind) for name, kind, _nullable
+                                in carriers.ordered_fields(role))
+                rows_for_role = [{name: (str(value) if type(value) is int else value)
+                                  for name, value in row.items()} for row in rows_for_role]
+            else:
+                rows_for_role = []
+                columns = tuple((name, kind) for name, kind, _nullable
+                                in carriers.ordered_fields(role))
+            validate_effect_snapshot(self.transport, target.table, target.uuid,
+                                     observed_heads[role]["version"], columns,
+                                     rows_for_role)
+        return {"profile": "ashlar-configured-local-delta4-prefix-observation/0.1",
+                "source_scope_sha256": self.source_scope_sha256,
+                "effect_plan_sha256": plan_digest,
+                "operation_ids": operation_ids, "states": states,
+                "committed_prefix": prefix, "heads": observed_heads,
+                "lookup_hashes": [{"role": key[0], "source_system": key[1],
+                                    "type_id": key[2], "id": key[3], "lookup_hash": value}
+                                   for key, value in sorted(lookup_hashes.items())]}
+
+    def reconcile_effect_prefix(self):
+        """Hold the original writer lock and read-only verify a committed prefix.
+
+        This is a separate reconciliation scope from ``hold``: it admits no
+        ``PrivatePolicy`` intents and never dispatches SQL. It exists for
+        exact observation of already retained `.4` effect custody.
+        """
+        from .lifecycle import finish
+        _require(not self.held and self._fd is None and not self._active
+                 and self.policy.active is None,
+                 "Inactive original `.4` owner required for read-only prefix reconciliation")
+        self._require_current()
+        parent = self.transport.journal_path.parent.lstat()
+        _require(stat.S_ISDIR(parent.st_mode) and parent.st_uid == os.getuid()
+                 and not parent.st_mode & 0o022,
+                 "Private original local journal directory required")
+        path = self.transport.journal_path.parent / ".configured-source-writer.lock"
+        fd = os.open(path, os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW | os.O_NONBLOCK, 0o600)
+        locked = False
+        primary = None
+        result = None
+        self._fd, self._path = fd, path
+        self._parent_identity = (parent.st_dev, parent.st_ino)
+        try:
+            opened = os.fstat(fd)
+            _require(stat.S_ISREG(opened.st_mode) and opened.st_uid == os.getuid()
+                     and not opened.st_mode & 0o022,
+                     "Private original local writer lock required")
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            locked = True
+            self._file_identity = (opened.st_dev, opened.st_ino)
+            self.held = True
+            self._check_writer_lock()
+            self.current_admission(self.source, self.plan.request, None, self.context)
+            self._retain_source_scope()
+            result = self._observe_effect_prefix()
+        except BaseException as error:
+            primary = error
+
+        def close_lock():
+            self._deactivate()
+            self.held = False
+            if locked:
+                fcntl.flock(fd, fcntl.LOCK_UN)
+            os.close(fd)
+            self._fd = None
+
+        closing = []
+        if locked and result is not None:
+            def repeat_observation():
+                current = self._observe_effect_prefix()
+                _require(_canonical(current) == _canonical(result),
+                         "Closing original `.4` journal/native prefix changed")
+            closing = [self._check_writer_lock,
+                       lambda: self.current_admission.closing(self.source, None,
+                                                              self.context),
+                       self._retain_source_scope, repeat_observation]
+        finish(primary, [*closing, close_lock])
+        return result
 
     def _deactivate(self):
         self._active = False
@@ -838,8 +1097,11 @@ def _observe_delta4_role(transport, role, installation_profile):
              "Unique native Delta detail required")
     detail = detail_result.rows[0]
     _require(type(detail) is dict and detail.get("id") == target.uuid
-             and detail.get("format") == "delta",
-             "Exact native Delta UUID and format required")
+             and detail.get("format") == "delta"
+             and type(detail.get("location")) is str
+             and detail["location"].removeprefix("file:").rstrip("/")
+             == str(target.path).rstrip("/"),
+             "Exact native Delta UUID, format and retained table location required")
     normalized = dict(detail)
     normalized["minReaderVersion"] = str(normalized.get("minReaderVersion"))
     normalized["minWriterVersion"] = str(normalized.get("minWriterVersion"))

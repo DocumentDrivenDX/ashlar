@@ -115,3 +115,10 @@ Until those guards and recovery tests exist, the reviewed authority must remain
 read-only with respect to policy admission. The one-shot native permit, if any,
 must bind the exact later coordinator build and effect packet after independent
 review. No native execution is authorized by this finding.
+
+The subsequent read-only prefix observer now checks the four contiguous states
+against retained plan/operation rows, named native commits, exact receipts and
+complete six-role bags. It also checks the catalog table location against the
+original path. These are inert tests only. The observer still requires a live
+fresh-head token from before any effect; a restarted owner cannot reconstruct
+that token from a nonempty table, so restart recovery and dispatch remain open.
