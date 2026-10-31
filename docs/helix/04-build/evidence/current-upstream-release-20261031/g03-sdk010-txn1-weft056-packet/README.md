@@ -157,6 +157,18 @@ six-role registry, runtime report, and initialization timing receipt can only
 exist after the permitted native init. Without those runtime receipts, the
 transaction-one and Weft consumer packet cannot be finalized or run.
 
+The effect-free `prepare` step created the private attempt
+`/private/tmp/ashlar-g03-sdk010-delta4-init-r4-attempts-20261031/ashlar-g03-sdk010-init-5b8b61df4b044481afb9f6fc157720a2`.
+Its exact [prepared receipt](r4-init-prepared-receipt.json) has SHA-256
+`a9b2481b6a8d7ec73fe3a9875bc429345d1eb6c7c3dfffd7b10b8207bceb7303`,
+and its reviewed [empty process-slot receipt](r4-init-process-slot-receipt.json)
+has SHA-256 `c8d6f22b8175921caf39029b0e0060d28e5849f310f9ca2683fb2adcb43e9a90`.
+The selected packet tree digest is
+`a6e18fb93b2f69d4ed305b4c5be93f9c5966758f26fadf49f5c912da272c2b43`.
+No `dispatch.json`, Spark session, installation, transaction or query exists.
+The separate `execute` step will take another process inventory immediately
+before dispatch if the exact permit is granted.
+
 ## r3 disposition and timeout finding
 
 The consumed r3 attempt is
