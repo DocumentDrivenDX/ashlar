@@ -19,10 +19,13 @@ ddx:
 
 # G03 SDK 0.10 typed-graph source-admission candidate — 2026-10-31
 
-The isolated candidate checkout is
+The original isolated candidate checkout is
 `/private/tmp/ashlar-g03-sdk010-source-admission-candidate-20261031`, based on
 Ashlar commit `d0c2791fa0478784cb6cf6d6509f743c021ef362`. The reviewed candidate
-is preserved as local branch commit `90df684f`; it has not been pushed or merged.
+is preserved as local branch commit `90df684f`. It was cherry-picked onto the
+release lineage as `fe0ae9e0` after R20's one-run approval was consumed. The
+same 27 focused tests passed in 8.355 seconds in the main checkout after the
+cherry-pick. Publication to `origin/main` remains a separate step.
 Its changed files are
 `src/ashlar_host/configured_local_runtime.py`,
 `src/ashlar_host/configured_source_local.py`,
@@ -30,8 +33,7 @@ Its changed files are
 `src/ashlar_host/resources/typed_graph_sdk010_source_admission.json`,
 `src/ashlar_host/resources/typed_graph_values_sdk010.mjs`,
 `tests/test_configured_local_runtime.py`, and
-`tests/test_typed_graph_sdk010_admission.py`. The main checkout has no source
-changes from it.
+`tests/test_typed_graph_sdk010_admission.py`.
 
 The separate opt-in binds the official SDK 0.10.0 archive SHA-256
 `2fb63dea5ca85b32c6bad823703de526875ac79490234dbfea4a8863c7d5fe6c` and public
@@ -68,7 +70,7 @@ Sol independently reran the real SDK correspondence, final-close refusal, and
 transaction-1 source-selection tests (3 tests passed in 10.708 seconds).
 
 No Spark session, native Delta operation, cloud resource, publication, manifest,
-source ACK or Weft query ran. The candidate is not on main and reports no
+source ACK or Weft query ran. The source change on the release lineage reports no
 transaction-1 or consumer result. Its admission manifest is pinned to the frozen
 G03 typed-graph configuration, source, binding and model; it does not qualify
 other source profiles or repair the historical producer's authority. The
