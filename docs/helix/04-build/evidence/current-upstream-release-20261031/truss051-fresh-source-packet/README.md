@@ -81,6 +81,19 @@ answers, any future source created this way must be labeled
 `local_development_authority`; it must not be represented as production source,
 production acceptance, or source-owner custody.
 
+The historical A source of record was
+`/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json`
+with SHA-256 `498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b`,
+but that file and its acceptance-origin file are no longer present at their
+retained paths. The repository's `truss-current-catalog-0.10-20261021/accepted-source.umf.json`
+has a different SHA-256,
+`19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b`,
+and the [source-byte review](../../current-upstream-release-20261022/r04-b-source-installation-draft-20261023/source-byte-reuse-candidate-20261023.md)
+explicitly excludes it as a substitute. A new authoritative source handoff is
+therefore required for a claim tied to that historical A source. A separately
+declared local development source may use new bytes with its own identity and
+scope, but cannot inherit A's acceptance or origin.
+
 The prior seven-operation seed request is retained at
 `docs/helix/04-build/evidence/current-upstream-release-20261022/truss-049-lifecycle-ready/seed-request.json`
 (SHA-256 `56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771`).
