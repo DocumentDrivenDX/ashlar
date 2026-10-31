@@ -1,8 +1,6 @@
 name: Publish immutable release to PyPI
 
 on:
-  release:
-    types: [published]
   workflow_dispatch:
     inputs:
       tag:
@@ -14,7 +12,6 @@ permissions:
 
 jobs:
   publish:
-    if: github.event_name == 'workflow_dispatch' || github.event.release.draft == false
     runs-on: ubuntu-latest
     environment:
       name: pypi
@@ -29,9 +26,8 @@ jobs:
         id: tag
         env:
           INPUT_TAG: ${{ inputs.tag }}
-          RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
-          if [ "$GITHUB_EVENT_NAME" = release ]; then tag="$RELEASE_TAG"; else tag="$INPUT_TAG"; fi
+          tag="$INPUT_TAG"
           test -n "$tag"
           [[ "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
           echo "tag=$tag" >> "$GITHUB_OUTPUT"

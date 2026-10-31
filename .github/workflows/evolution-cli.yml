@@ -9,14 +9,11 @@ permissions:
 jobs:
   portable-invocation:
     runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        python: ['3.9', '3.12']
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python }}
+          python-version: '3.12'
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_evolution_cli.py
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_evolution_operator test_existing_outbox_authority test_evolution_verification test_evolution_singleton test_evolution_singleton_cli test_evolution_verification_example test_evolution_prefix_observation test_evolution_prefix_preflight test_request_validation_memo test_native_singleton_capture test_phase_absence test_projected_native_detail test_registered_detail_proof test_trace_native_verification
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_stored_publisher

@@ -1,13 +1,17 @@
 name: Stage PyPI release candidate
 
 on:
-  push:
-    tags: ["v*.*.*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing immutable Git tag to stage as a draft release
+        required: true
+        type: string
 permissions:
   contents: write
 
 concurrency:
-  group: pypi-candidate-${{ github.ref }}
+  group: pypi-candidate-${{ inputs.tag }}
   cancel-in-progress: false
 
 jobs:
@@ -16,19 +20,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ inputs.tag }}
           fetch-depth: 0
       - uses: astral-sh/setup-uv@v7
       - name: Require a stable package version matching the tag
-        run: uv build
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          test "$(git describe --tags --exact-match HEAD)" = "$TAG"
+          uv build
       - name: Bind artifacts to tag and source
+        env:
+          TAG: ${{ inputs.tag }}
         run: >-
           python scripts/verify_release_artifacts.py create-manifest --dist-dir dist
-          --output dist/release-manifest.json --tag "$GITHUB_REF_NAME"
-          --repository "$GITHUB_REPOSITORY" --source-commit "$GITHUB_SHA"
+          --output dist/release-manifest.json --tag "$TAG"
+          --repository "$GITHUB_REPOSITORY" --source-commit "$(git rev-parse HEAD)"
           --package umf-ashlar
       - name: Create draft GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
         run: >-
-          gh release create "$GITHUB_REF_NAME" --verify-tag --draft
-          --title "Ashlar $GITHUB_REF_NAME" --generate-notes dist/*
+          gh release create "$TAG" --verify-tag --draft
+          --title "Ashlar $TAG" --generate-notes dist/*

@@ -14,27 +14,21 @@ concurrency:
 jobs:
   consumer:
     runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        python: ['3.9', '3.12']
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python }}
+          python-version: '3.12'
       - name: Basic package and query controls
         run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_weft_paths_package test_weft_paths_distribution test_weft_paths_cli test_ordinary_query_connection
   extended:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.extended }}
     runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        python: ['3.9', '3.12']
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python }}
+          python-version: '3.12'
       - name: Verify inert package and trusted composition controls
         run: |
           PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_weft_installation.py

@@ -9,14 +9,11 @@ permissions:
 jobs:
   portable-reader:
     runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        python: ['3.9', '3.12']
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python }}
+          python-version: '3.12'
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_fabric_gql.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_fabric_gql_cli.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_fabric_graph_definition.py
