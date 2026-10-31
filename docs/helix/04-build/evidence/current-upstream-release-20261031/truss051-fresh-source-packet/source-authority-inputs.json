@@ -1,0 +1,75 @@
+{
+  "profile": "ashlar-truss048-fresh-local-source-authority-intake/0.1",
+  "status": "open_inputs_required",
+  "authority_class": {
+    "required": true,
+    "allowed_values": ["local_development_authority", "production_source_authority"],
+    "selected": null,
+    "evidence": null,
+    "rule": "Local Truss acceptance proves local acceptance only. Production authority requires source-owner evidence and explicit owner approval."
+  },
+  "source_owner": {
+    "required": true,
+    "identity": null,
+    "approval_or_evidence_reference": null
+  },
+  "accepted_model": {
+    "required": true,
+    "document_id": null,
+    "document_revision": null,
+    "artifact_identity": null,
+    "original_content_sha256": null,
+    "content_path_or_custody_reference": null,
+    "declared_umf_version": null,
+    "unknown_extensions_preserved": null,
+    "source_configuration_sha256": null
+  },
+  "catalog_acceptance": {
+    "required": true,
+    "request_key": null,
+    "origin_bytes_sha256": null,
+    "expected_initial_revision": 0,
+    "expected_documents": [],
+    "generated_registration_id": null,
+    "acceptance_receipt_sha256": null
+  },
+  "feed_consumer": {
+    "required": true,
+    "consumer_id": null,
+    "ordinary_reader_role": null,
+    "registration_id": null,
+    "genesis_checkpoint_sha256": null,
+    "genesis_semantics_approved_by_source_owner": null
+  },
+  "seed": {
+    "required": true,
+    "request_path": null,
+    "request_sha256": null,
+    "maximum_operations": 7,
+    "operation_semantics_approved_by_source_owner": null,
+    "expected_feed_page_sha256": null,
+    "historical_reference": {
+      "retained_seed_request_path": "docs/helix/04-build/evidence/current-upstream-release-20261022/truss-049-lifecycle-ready/seed-request.json",
+      "r15_seed_request_sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+      "approval_transfer": false,
+      "availability_reverified": false
+    }
+  },
+  "runtime": {
+    "required": true,
+    "python_version": "3.12.14",
+    "truss_toolkit": "0.0.48",
+    "truss_wheel_sha256": "1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3",
+    "postgresql_server": "18.6",
+    "pgserver_pg18": "18.6.1",
+    "runtime_extra_dependencies_verified": false,
+    "fresh_data_directory": null,
+    "one_shot_resource_limits": null
+  },
+  "migration": {
+    "target": "0.0.51",
+    "separate_scope_required": true,
+    "new_one_shot_approval_required": true,
+    "approval_transfer_from_r15_or_r20": false
+  }
+}

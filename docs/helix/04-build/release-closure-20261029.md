@@ -29,6 +29,8 @@ ddx:
       kind: informed_by
     - id: ashlar.evidence.truss051-r21-local-restore-candidate-20261031
       kind: informed_by
+    - id: ashlar.evidence.truss051-fresh-source-packet-20261031
+      kind: informed_by
     - id: ashlar.evidence.managed-a1-operational-interval-candidate-20261031
       kind: informed_by
     - id: ashlar.evidence.managed-a1-readonly-refresh-20261031
@@ -89,7 +91,10 @@ finds 13 missing PostgreSQL 18 initdb directories in the inherited cold
 backup, seven of which are not proven empty by PostgreSQL's backup protocol.
 It refuses the source before a fresh attempt; a complete stopped source with
 Truss `.48` source/consumer/checkpoint custody or a separately reviewed fresh
-source setup is required. The [managed interval review](evidence/managed-a1-operational-interval-candidate-20261031.md)
+source setup is required. The [fresh-source API packet](evidence/current-upstream-release-20261031/truss051-fresh-source-packet/README.md)
+confirms that pinned Truss `.48` has public local initialization, catalog
+acceptance, consumer enrollment and mutation entrypoints, but exact model,
+source and checkpoint authority remain open. The [managed interval review](evidence/managed-a1-operational-interval-candidate-20261031.md)
 confirms that existing offline choreography supplies no renewable live
 source, publication, or pin handle. No managed trial is admitted by it.
 
