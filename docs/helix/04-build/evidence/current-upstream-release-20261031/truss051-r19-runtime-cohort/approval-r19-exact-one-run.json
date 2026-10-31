@@ -1,0 +1,49 @@
+{
+  "bridge": {
+    "bridge_sha256": "4d0ce3902368d0d1a73312626ec153125992327ee812cd579282445514067735",
+    "build_inputs_sha256": "17413832f404509bec4ff3ccbe52e52bf3ea96cb4db9f69ba15ea359de94ab93",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "profile": "ashlar-local-current-delta4-umf-source-sdk010/0.1",
+    "resource_sha256": "59ea8c9ac104c7ecc328699b8f752c5ae42a2c33bee49eace5616be050df8356",
+    "role_semantics_sha256": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d",
+    "sdk_archive_sha256": "2fb63dea5ca85b32c6bad823703de526875ac79490234dbfea4a8863c7d5fe6c",
+    "sdk_version": "0.10.0",
+    "source_policy_sha256": "ebdaa3c27e917fc2ed91459fbd4eb3f36e2d57489e75921cb03c9b67490d017f"
+  },
+  "destination_id": "ashlar-r19-local-ff99fac9-8ed5-4d64-94aa-5a2352ba5871",
+  "profile": "ashlar-truss-r19-full-native-lifecycle-approval/0.1",
+  "runtime": {
+    "bun_sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "connection_factory_sha256": "0d7edf6e4d1ee74c06df3efaa77e2b3d60207a9627161cdc647ed9b169c71782",
+    "core_version": "0.10.4",
+    "core_wheel_sha256": "a3a4a68fcc4dfb637d7e9229ac7f6cbf029e464442304e6e49f8fc0c2467845e",
+    "delta_spark_version": "4.4.1",
+    "embedded_050_index_sha256": "4c6baf0282e3d0b5492f070c9c07d89ff0c9a819e748f3820f60b11c1f51c7aa",
+    "jar_sha256": {
+      "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+      "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+    },
+    "outer_migration_index_sha256": "d1672e85ae0e89137986fc57669186af47e5826366bd430284aba9b7cf52c37d",
+    "pyspark_version": "4.2.0",
+    "runtime_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "truss_version": "0.0.51",
+    "weft_version": "0.4.56",
+    "weft_wheel_sha256": "68f9297b4b55df483b86d3041040991c4dadfb9b4d63afcff1420c43f93ae41d",
+    "wheel_sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57"
+  },
+  "scope": "one owned PostgreSQL start; preserve/restore and .48 custody; one exact .48-to-.51 migration; public source/view/page recheck; one no-change genesis Delta publication with independent verification and protected ACK; one approved seven-operation seed; one independently verified actual continuation with protected ACK; stop",
+  "scope_sha256": "bfe4f9623efc3abe130b05f9f6188e95b681b3d446c44ce418d4591898c59c62",
+  "seed": {
+    "origin_gate_code_sha256": "abb5895a1ad15f092b66355832c8c99b185856afd6ca2bab446710d819615aa3",
+    "origin_map_sha256": "c19540a4c1cc3561365cc4ec38a71da44fdc4648b8f27a6540c81eb5233badc5",
+    "request_sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771"
+  },
+  "source_archive_sha256": "cb57fdb7d338f345cfad157463fdbe94a2be7dcf69e728c474954c2939c14a0b",
+  "source_manifest_sha256": "fb79cebc5b1388b49d0687c9f77c61187125299758ee7388fd64ba2c9d533348",
+  "workers": {
+    "custody_prefix_sha256": "6ba8526a1ecb0c32e906e08652e54ed940a27d859400f4fb7e034a1d776d0f1a",
+    "migration_readback_sha256": "385a761893f533c5efb952b05393edd2431d4063c235e7b0ce4f2d47c910a4ac",
+    "supervisor_sha256": "25d1519e2fee2c8802b0f3a3ee5c544160726cf90f2a4f60979c97a181f0b147"
+  }
+}

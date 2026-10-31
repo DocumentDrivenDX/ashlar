@@ -42,12 +42,18 @@ preparation, with its approval spent. R17 consumed its separate approval but
 refused at the frozen selected-tree check before any native effect; its approval
 is also spent. The original selected and cold-backup paths are now empty, while
 the exact R16 retained copies and their preservation receipts remain available
-as candidate inputs. R19 binds those copies and the SDK 0.10.0/Core 0.10.4
-runtime to actual `.4` Delta DDL in a fresh full-lifecycle proposal. Focused
-effect-free checks pass, but it has not run. The Truss lifecycle remains unqualified; selected-source acceptance and
-feed/ACK evidence remain open ([R16 failure](04-build/evidence/current-upstream-release-20261024/truss051-r16-native-candidate-20261029/r16-failure-evidence.json),
+as candidate inputs. R19 bound those copies and the SDK 0.10.0/Core 0.10.4 runtime
+to actual `.4` Delta DDL, but its approved one-shot failed before native effects
+because the isolated child could not import the current SDK bridge. The failure
+receipt and logs are preserved. R20 is a fresh unapproved candidate with a pinned
+clean Ashlar source archive and pre-effect isolated import/runtime check; its
+focused effect-free tests pass. No R20 approval or native run exists. The Truss
+lifecycle remains unqualified; selected-source acceptance and feed/ACK evidence
+remain open ([R16 failure](04-build/evidence/current-upstream-release-20261024/truss051-r16-native-candidate-20261029/r16-failure-evidence.json),
 [R17 failure](04-build/evidence/current-upstream-release-20261024/truss051-r17-native-candidate-20261029/r17-pre-effect-failure-20261031.md),
-[R19 candidate](04-build/evidence/current-upstream-release-20261031/truss051-r19-runtime-cohort/README.md)).
+[R19 failure](04-build/evidence/current-upstream-release-20261031/truss051-r19-failure-evidence-20261031/README.md),
+[R19 candidate](04-build/evidence/current-upstream-release-20261031/truss051-r19-runtime-cohort/README.md),
+[R20 candidate](04-build/evidence/current-upstream-release-20261031/truss051-r20-runtime-cohort/README.md)).
 
 Local Spark 4.2.0/Delta 4.4.1 candidate checks include bounded Weft query and
 SDK paging; a separate native one-table Delta check accepted a candidate DDL

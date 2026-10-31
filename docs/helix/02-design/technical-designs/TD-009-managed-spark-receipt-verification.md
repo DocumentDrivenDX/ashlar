@@ -262,20 +262,59 @@ only, not the injected adapters.
 
 Production use stops at the concrete host-port seam. The existing
 `ManagedCurrentSparkReceiptReader` is an injected-session offline reopen owner;
-it has no host-owned session factory, live interval handle, retention-setting or
-PO/maintenance-inventory observer, and its observation deliberately exposes no
-ACK ports. `acknowledge_post_verifier_source_interval` currently refuses because
-the live managed-read and native-pin owner handles do not exist. The selected
+it has no host-owned session factory or policy observer. `SparkSession.newSession()`
+would provide separate SQL state while sharing the same SparkContext, whereas
+`SparkSession.stop()` stops the shared context; the repository has no Databricks
+task-context adapter that establishes which session handle is injected into a
+Python Jobs task, how a child session is uniquely identified and closed without
+stopping the cluster context, or what cancellation state survives between
+stages. This must be settled against the actual task/runtime contract before an
+adapter can claim an owned fresh session. There is no approved session lifecycle
+or identity evidence in the repository from which to implement it safely.
+The [Azure Databricks task-session guidance](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/databricks-connect/notebooks)
+and [Spark 4.2.0 `newSession` API](https://spark.apache.org/docs/4.2.0/api/python/reference/pyspark.sql/api/pyspark.sql.SparkSession.newSession.html)
+support these API distinctions; neither establishes this trial's runtime custody.
+
+The existing `observe_retention_configuration` can read Delta properties only
+when a host supplies qualified native defaults and a trusted executor. That
+does not observe actual four-table identity/owner/version pins, schema-level PO
+state, or all maintenance activity. The repository contains no approved UC API
+or SQL result contract for reading PO `ENABLE` and a bounded maintenance
+inventory at each interval stage. Do not infer PO from a policy default, a
+table property, or a successful read; do not invent maintenance inventory from
+Delta history because history does not enumerate all actors or future work.
+The exact platform facts still required are: admitted task run-as principal and
+effective grants; task-injected Spark access and per-session lifecycle; actual
+cluster ID, runtime/build, UC access mode and application identity from that
+session; a read-only supported source for effective PO state at the selected
+catalog/schema; supported retention/default reporting for each UUID-bound table;
+and an authoritative, bounded source for scheduled/running maintenance that
+could remove files/logs during the 900-second interval. These facts must be
+captured from the one-node candidate after policy eligibility is confirmed,
+without changing PO or launching the candidate as part of this design work.
+
+Before implementing these two adapters, read-only admission must record the
+exact workspace and selected Personal Compute policy identity/version; successful
+eligibility readbacks for D4ds_v5, zero workers, single-node mode, runtime and UC
+access mode; the principal and effective grants for cluster/task/table/policy
+reads; the task's documented Spark entrypoint and lifecycle semantics; and the
+native commands/API responses for PO, retention defaults/properties and the
+maintenance inventory. A focused fake must then exercise create/use/close for
+each stage without stopping shared SparkContext, and verify policy readback
+against exact UUID pins while PO remains enabled. A later explicitly authorized
+candidate trial must confirm these same readbacks on the actual dedicated
+cluster before any publication effects. Until then, no truthful real factory or
+policy observer can be supplied from current code and evidence.
+
+Separately, `acknowledge_post_verifier_source_interval` currently refuses
+because live managed-read and native-pin owner handles do not exist. The selected
 Truss `.51` session can perform read-only current/retained-page renewal, but no
 admitted external owner binds its exact registrations, cursor, destination
 registration and ACK scope to this managed four-role vector and retained source
-prefix. This design does not wire interval observations to ACK. The next
-deployment slice needs (1) an admitted host-owned fresh-session factory and
-bounded native policy-observation port for exact pins, retention settings, PO
-and maintenance identities, and (2) an independently authenticated source
-custody owner that admits those exact retained source registrations/cursors and
-provides one-shot commit, fresh reconciliation and close/recovery. Fakes alone
-cannot supply either authority.
+prefix. This design does not wire interval observations to ACK. The next source
+slice still needs an independently authenticated source-custody owner that
+admits those exact registrations/cursors and provides one-shot commit, fresh
+reconciliation and close/recovery. Fakes cannot supply that authority.
 
 ## Cost admission, rollback and open questions
 
