@@ -127,6 +127,7 @@ class ManagedCurrentSparkReceiptReopenObservation:
     attempt_custody: object = field(default=None, repr=False, compare=False)
     source_prefix_sha256: str | None = None
     bag_comparison_sha256: str | None = None
+    bag_comparison_summary: dict | None = field(default=None, repr=False)
 
 
 @dataclass(frozen=True)
@@ -641,8 +642,24 @@ class ManagedCurrentSparkReceiptReader:
                  and sum(len(_canonical(actual[r]).encode("utf-8")) for r in DATA_ROLES)
                  <= 4 * 1024 * 1024,
                  "Native four-role capture exceeds complete bounds")
-        return compare_complete_managed_current_bags(
+        comparison_sha256 = compare_complete_managed_current_bags(
             expected, actual, carrier_profile=self.config.carrier_profile)
+        summary = {
+            "roles": {
+                role: {
+                    "row_count": len(actual[role]),
+                    "normalized_bytes": len(_canonical(actual[role]).encode("utf-8")),
+                    "comparison_sha256": hashlib.sha256(
+                        _canonical(actual[role]).encode("utf-8")).hexdigest(),
+                }
+                for role in DATA_ROLES
+            },
+            "row_count": sum(len(actual[role]) for role in DATA_ROLES),
+            "normalized_bytes": sum(len(_canonical(actual[role]).encode("utf-8"))
+                                    for role in DATA_ROLES),
+            "comparison_sha256": comparison_sha256,
+        }
+        return comparison_sha256, summary
 
     def _renew(self):
         self._check_deadline()
@@ -754,7 +771,7 @@ class ManagedCurrentSparkReceiptReader:
                  and all(s.uuid == uuids[t] and s.version == versions[t]
                          for t, s in resolved.snapshots.items()),
                  "Independent native resolver differs from exact four-role publication")
-        bag_comparison_sha256 = None
+        bag_comparison_sha256 = bag_comparison_summary = None
         if frozen_prefix is not None:
             lookup_hashes = self._probe_source_lookup_hashes(source_keys)
             source_oracle = build_managed_current_prefix_oracle(source_prefix_bytes,
@@ -768,7 +785,7 @@ class ManagedCurrentSparkReceiptReader:
                                                         "schema": self.config.schema},
                      "Rebuilt native-hash oracle differs from reopened source/manifest anchors")
         if source_oracle is not None:
-            bag_comparison_sha256 = self._read_and_compare_source_bags(
+            bag_comparison_sha256, bag_comparison_summary = self._read_and_compare_source_bags(
                 source_oracle, request, manifest, versions, role_tables)
         from .truss_feed_sessions import encode_truss_destination_receipt
         source_receipt = encode_truss_destination_receipt(request_bytes, manifest_bytes, vector)
@@ -779,7 +796,7 @@ class ManagedCurrentSparkReceiptReader:
             hashlib.sha256(source_receipt).hexdigest(), vector, installation, {},
             {"opening": self.opening_runtime, "closing": None}, attempt_custody,
             source_oracle.prefix_sha256 if source_oracle is not None else None,
-            bag_comparison_sha256)
+            bag_comparison_sha256, bag_comparison_summary)
         self._observation = observation
         return observation
 

@@ -22,6 +22,11 @@ from ashlar_host.managed_current_spark_source_oracle import (
     compare_complete_managed_current_bags, derive_managed_current_prefix_lookup_keys,
     _source_prefix_lookup_tokens,
 )
+from ashlar_host.managed_operational_retention_interval import (
+    ManagedOperationalRetentionSelection, OperationalRetentionInterval,
+    OperationalRetentionIntervalError, SOURCE_CUSTODY_FIELDS,
+)
+from ashlar.manifest import manifest_pin_vector
 from ashlar_host.truss_note_publication import graph_expected_rows
 from test_managed_current_receipt_read import _fixture, _canonical
 
@@ -808,6 +813,124 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Exact task receipt"):
             reader.reopen(request_bytes=_canonical(request).encode(),
                 manifest_bytes=_canonical(manifest).encode(), expected_receipt=bad)
+
+
+class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
+    def setUp(self):
+        (self.core_config, self.prefix, self.prefix_bytes, self.request,
+         self.manifest, self.receipt, self.uuids, self.config, _spark) = _xxhash_spark_case()
+        self.events = []
+        self.sessions = []
+        self.custody = {key: hashlib.sha256(key.encode()).hexdigest()
+                        for key in SOURCE_CUSTODY_FIELDS}
+        self.selection = ManagedOperationalRetentionSelection(
+            reader_config=self.config,
+            request_bytes=_canonical(self.request).encode(),
+            manifest_bytes=_canonical(self.manifest).encode(),
+            expected_receipt=self.receipt,
+            vector=manifest_pin_vector(self.manifest, {
+                f"{self.config.catalog}.{self.config.schema}.{role}": self.uuids[role]
+                for role in ("object_current", "edge_current", "tombstone", "whole_source_history")
+            }, authority=f"managed-current-spark:{self.config.expected_principal}"),
+            expected_source_custody=self.custody,
+            source_prefix_bytes=self.prefix_bytes,
+            source_prefix_sha256=hashlib.sha256(self.prefix_bytes).hexdigest(),
+            source_core_config=self.core_config,
+        )
+        test_case = self
+
+        class Session:
+            def __init__(self, stage, session_id):
+                self.stage, self.session_id = stage, session_id
+                self.spark = _Spark(test_case.manifest, test_case.receipt, test_case.uuids,
+                                    request=test_case.request)
+                self.closed = False
+
+            def close(self):
+                self.closed = True
+                test_case.events.append(("session-close", self.stage))
+
+        class SessionFactory:
+            def open(self, *, stage, deadline_monotonic):
+                test_case.events.append(("session-open", stage))
+                session = Session(stage, f"session-{len(test_case.sessions) + 1}")
+                test_case.sessions.append(session)
+                return session
+
+        class SourceObserver:
+            def observe(self, *, stage, selection, vector):
+                test_case.events.append(("source", stage))
+                return dict(test_case.custody)
+
+        class PolicyObserver:
+            def observe(self, *, stage, session, vector):
+                reads = sum("LIMIT 1025" in sql for sql in session.spark.calls)
+                test_case.events.append(("policy", stage, reads))
+                return test_case._policy()
+
+        self.session_factory = SessionFactory()
+        self.source_observer = SourceObserver()
+        self.policy_observer = PolicyObserver()
+
+    @staticmethod
+    def _policy():
+        return {
+            "retention_settings": {
+                role: {"data_retention_seconds": 604800, "log_retention_seconds": 604800}
+                for role in ("object_current", "edge_current", "tombstone", "whole_source_history")
+            },
+            "predictive_optimization": "ENABLE",
+            "maintenance_inventory_sha256": "b" * 64,
+        }
+
+    def test_open_pre_ack_close_each_own_fresh_session_and_read_all_four_roles(self):
+        interval = OperationalRetentionInterval.open(
+            self.selection, self.session_factory, self.source_observer, self.policy_observer)
+        interval.renew_pre_ack()
+        receipt = interval.close()
+
+        self.assertEqual(receipt.outcome, "observed_available_at_checks")
+        self.assertEqual(receipt.authority, "read_observation_only_no_source_ack")
+        self.assertEqual([item.stage for item in receipt.observations],
+                         ["open", "pre_ack", "close"])
+        self.assertEqual([item.stage for item in self.sessions],
+                         ["open", "pre_ack", "close"])
+        self.assertTrue(all(item.closed for item in self.sessions))
+        self.assertTrue(all(sum("LIMIT 1025" in sql for sql in item.spark.calls) == 4
+                            for item in self.sessions))
+        self.assertEqual([event for event in self.events if event[0] == "policy"],
+                         [("policy", stage, 4) for stage in ("open", "pre_ack", "close")])
+        for stage in ("open", "pre_ack", "close"):
+            self.assertEqual(
+                [event[0] for event in self.events if len(event) > 1 and event[1] == stage],
+                ["session-open", "policy", "session-close", "source"],
+            )
+        self.assertFalse(hasattr(interval, "acknowledge"))
+
+    def test_changed_policy_at_pre_ack_invalidates_interval(self):
+        with self.assertRaisesRegex(OperationalRetentionIntervalError, "matching frozen prefix bytes"):
+            ManagedOperationalRetentionSelection(
+                reader_config=self.config,
+                request_bytes=_canonical(self.request).encode(),
+                manifest_bytes=_canonical(self.manifest).encode(),
+                expected_receipt=self.receipt, vector=self.selection.vector,
+                expected_source_custody=dict(self.custody))
+
+        class DriftingPolicy:
+            def observe(inner_self, *, stage, session, vector):
+                value = self._policy()
+                if stage == "pre_ack":
+                    value["maintenance_inventory_sha256"] = "c" * 64
+                return value
+
+        interval = OperationalRetentionInterval.open(
+            self.selection, self.session_factory, self.source_observer, DriftingPolicy())
+        with self.assertRaisesRegex(OperationalRetentionIntervalError, "inventory changed"):
+            interval.renew_pre_ack()
+        self.assertTrue(all(item.closed for item in self.sessions))
+        with self.assertRaisesRegex(OperationalRetentionIntervalError, "did not complete"):
+            interval.close()
+        self.assertFalse(hasattr(interval, "acknowledge"))
 
 
 if __name__ == "__main__":

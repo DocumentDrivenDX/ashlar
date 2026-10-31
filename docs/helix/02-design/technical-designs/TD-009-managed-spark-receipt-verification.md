@@ -237,18 +237,30 @@ observed data/log retention settings, and PO `ENABLE`. The profile records
 administrator, storage and out-of-band removal between checks. Other profiles
 and physical `.4` schema semantics remain unchanged.
 
-The smallest host owner remains an implementation boundary, not yet an available
-port. Its required shape is `OperationalRetentionInterval.open(selection)`,
-`renew_pre_ack()`, and `close()`. Each operation creates a fresh selected
-managed Spark reader, independently reopens the original request/manifest and
-source oracle, compares all four exact `VERSION AS OF` bags, captures the
-policy/PO/maintenance observations, and compares the result to frozen
-vector/runtime/source custody. It enforces the monotonic 900-second limit and
-invalidates the interval on any refusal. It returns no ACK method or ACK
-capability. The external holder remains responsible for one exact-byte ACK,
-fresh reconciliation and recovery custody after the pre-ACK observation.
+The read-only host coordinator is implemented in
+`src/ashlar_host/managed_operational_retention_interval.py`. Its required shape
+is `OperationalRetentionInterval.open(selection)`, `renew_pre_ack()`, and
+`close()`. Each stage invokes a fresh owned Spark-session factory, independently
+reopens the original request/manifest and source oracle through
+`ManagedCurrentSparkReceiptReader`, compares all four exact `VERSION AS OF`
+bags, captures policy/PO/maintenance and source-custody observations, and
+compares them to frozen vector/runtime/source selections. `.4` admission
+requires frozen prefix bytes, digest and matching native-probe config, so the
+reader cannot return success with no complete bag-comparison digest. The
+coordinator enforces the monotonic 900-second bound on return from its
+adapters, invalidates the interval on any refusal, and returns no ACK method or
+capability. Its receipt is tagged `read_observation_only_no_source_ack` and
+cannot authorize or stand in for a source ACK. The external holder remains responsible for one exact-byte ACK,
+fresh reconciliation and recovery custody after the pre-ACK observation. Two
+focused fake-port tests cover all three stage reads/session closes and refusal
+when maintenance inventory drifts. The interval success fixture uses an empty
+`.4` prefix, so it exercises native-prefix rebuilding and exact four-role reads
+but derives no lookup keys and issues no `xxhash64` probe. Existing reader tests
+cover typed fake native probes separately; the interval seam has no integrated
+nonempty-prefix probe qualification. These tests qualify coordinator ordering
+only, not the injected adapters.
 
-Implementation stops at the concrete host-port seam. The existing
+Production use stops at the concrete host-port seam. The existing
 `ManagedCurrentSparkReceiptReader` is an injected-session offline reopen owner;
 it has no host-owned session factory, live interval handle, retention-setting or
 PO/maintenance-inventory observer, and its observation deliberately exposes no
@@ -258,7 +270,7 @@ Truss `.51` session can perform read-only current/retained-page renewal, but no
 admitted external owner binds its exact registrations, cursor, destination
 registration and ACK scope to this managed four-role vector and retained source
 prefix. This design does not wire interval observations to ACK. The next
-implementation slice needs (1) a host-owned fresh-session factory plus a
+deployment slice needs (1) an admitted host-owned fresh-session factory and
 bounded native policy-observation port for exact pins, retention settings, PO
 and maintenance identities, and (2) an independently authenticated source
 custody owner that admits those exact retained source registrations/cursors and
