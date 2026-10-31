@@ -1,0 +1,16 @@
+{
+  "profile": "ashlar-local-current-delta4-sdk010-source-policy/0.1",
+  "qualification": "Source bytes are admitted only by exact role SHA-256 pins in Ashlar managed carrier registry; output is a pure local DDL proposal.",
+  "roleSemanticsSha256": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d",
+  "sdkArchiveSha256": "2fb63dea5ca85b32c6bad823703de526875ac79490234dbfea4a8863c7d5fe6c",
+  "sdkRelease": "umf-v0.10.0",
+  "selectedSourceProfile": "ashlar-delta/0.4-xxhash64",
+  "sourceRoles": [
+    "object_current",
+    "edge_current",
+    "tombstone",
+    "whole_source_history",
+    "publication_manifest",
+    "publication_attempt_phase"
+  ]
+}

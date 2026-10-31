@@ -1,0 +1,52 @@
+{
+  "bridge": {
+    "asset": "umf-spark-delta4.iife.js",
+    "assetBytes": 521802,
+    "assetSha256": "4d0ce3902368d0d1a73312626ec153125992327ee812cd579282445514067735",
+    "buildInputsSha256": "17413832f404509bec4ff3ccbe52e52bf3ea96cb4db9f69ba15ea359de94ab93",
+    "builder": "Bun 1.4.3",
+    "dependencyCustody": "All 195 Bun metafile input paths and bytes were recorded. Installed node_modules versions used for this build matched the selected commit bun.lock; installed bytes were not independently reconstructed from npm tarballs.",
+    "dependencyLockSha256": "5fb58795dfe9ef5df89597c44372cf2a0739e1855f322f7622ae0c9d0ac71ce4",
+    "entry": "bridge-entry.ts",
+    "entrySha256": "739c9579cb4662fbb48123e828ea9b7125eeed085b14f26019880a2d46b1462e",
+    "inputCount": 195,
+    "metafileSha256": "e598f2f1a191391a9cbc654e7238ea826a34e2a1039dc1f2f4b1610dcabad59c"
+  },
+  "carrierProfile": "ashlar-delta/0.4-xxhash64",
+  "producerSource": {
+    "commit": "96230e0eef44b255d33575ba496402555b76800e",
+    "repository": "DocumentDrivenDX/umf",
+    "sourceModules": {
+      "src/adapters/delta/ddl.ts": "8e4f694b7e3ecbdc0548f06b4db0a67339ea9319d3b70939003d4a0d18856051",
+      "src/model/document.ts": "6ea8f43e4bcd3b5d7259329e6768dd563e066d7169a23bee75e88f054f348ddb"
+    },
+    "tree": "96230e0eef44b255d33575ba496402555b76800e"
+  },
+  "profile": "ashlar-local-current-delta4-umf-source-sdk010/0.1",
+  "qualificationBaselines": {
+    "sdkSourceBridgeSixRoleParity": {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261031/sdk010-delta4-bridge-candidate/outputs/qualification.json",
+      "scope": "Pure local proposal parity against frozen 0.5.8 release outputs; no native Delta behavior.",
+      "sha256": "171b0cf293d007d1773b7ddcd60bf78b293f0d6c1a7912742e0151a3498ead2d"
+    }
+  },
+  "roleSemanticsSha256": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d",
+  "roles": [
+    "object_current",
+    "edge_current",
+    "tombstone",
+    "whole_source_history",
+    "publication_manifest",
+    "publication_attempt_phase"
+  ],
+  "selectedRelease": {
+    "pythonDistribution": "0.10.4",
+    "sdkArchiveSha256": "2fb63dea5ca85b32c6bad823703de526875ac79490234dbfea4a8863c7d5fe6c",
+    "sdkPublicEntrySha256": "b32bce2fdcf928bc5b9fd8376b4c7cab9beb1b63d90cb1d20b9ad0ec94595951",
+    "semanticCore": "0.10.0",
+    "tag": "umf-v0.10.0",
+    "tagCommit": "96230e0eef44b255d33575ba496402555b76800e",
+    "version": "0.10.0"
+  },
+  "thirdPartyNoticesSha256": "8177eaded1ef5e38152c2ab4d88df6029b90d032ca8a7cddedee61def508bca9"
+}
