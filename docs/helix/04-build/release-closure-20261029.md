@@ -43,6 +43,8 @@ ddx:
       kind: informed_by
     - id: ashlar.evidence.g03-sdk010-source-admission-candidate-20261031
       kind: informed_by
+    - id: ashlar.evidence.g03-sdk010-txn1-weft056-packet-20261031
+      kind: informed_by
 ---
 
 # Release closure sequence — 2026-10-29
@@ -97,6 +99,10 @@ acceptance, consumer enrollment and mutation entrypoints, but exact model,
 source and checkpoint authority remain open. The [managed interval review](evidence/managed-a1-operational-interval-candidate-20261031.md)
 confirms that existing offline choreography supplies no renewable live
 source, publication, or pin handle. No managed trial is admitted by it.
+The [G03 SDK010 init-only packet](evidence/current-upstream-release-20261031/g03-sdk010-txn1-weft056-packet/README.md)
+is a separate bounded candidate for a fresh six-role local installation; its
+focused inert checks pass, but it has not created an attempt or run Spark.
+Transaction 1 and Weft 0.4.56 native consumer reads remain later gates.
 
 Gate 6 now has a [local GitHub release publisher](pypi-publishing.md) with five
 focused passing tests. It enforces exact reviewed `origin/main`, a clean stable
