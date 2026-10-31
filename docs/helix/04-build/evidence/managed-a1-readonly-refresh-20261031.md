@@ -32,6 +32,12 @@ type `Standard_D4ds_v5`. This does not establish that a dedicated Jobs cluster
 can be created or that its selected Spark/Delta runtime, Unity Catalog access,
 retention holder, and total cost satisfy the release gate.
 
+A later read-only `clusters spark-versions` call listed
+`19.x-scala2.13` (DBR 19, Spark 4.2.0) and `clusters list-node-types` listed
+`Standard_D4ds_v5` as a nondeprecated 4-core, 16,384 MiB node. These are
+workspace catalogs, not a policy eligibility or cluster-create admission.
+
 No schema, cluster, job, table, or paid compute was created or started. The
-production-target trial remains held pending the separately admitted source,
-retention, runtime and bounded Jobs-compute plan.
+production-target trial remains held pending the separately admitted source/ACK
+holder, operational-profile adapters, runtime/access mode, task attachment and
+whole-trial cost bound for one dedicated all-purpose cluster.
