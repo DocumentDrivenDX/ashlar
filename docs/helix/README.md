@@ -42,12 +42,12 @@ preparation, with its approval spent. R17 consumed its separate approval but
 refused at the frozen selected-tree check before any native effect; its approval
 is also spent. The original selected and cold-backup paths are now empty, while
 the exact R16 retained copies and their preservation receipts remain available
-as candidate inputs. R18 binds those copies in a fresh full-lifecycle proposal
-with passing focused effect-free checks, but has no owner approval and has not
-run. The Truss lifecycle remains unqualified; selected-source acceptance and
+as candidate inputs. R19 binds those copies and the SDK 0.10.0/Core 0.10.4
+runtime to actual `.4` Delta DDL in a fresh full-lifecycle proposal. Focused
+effect-free checks pass, but it has not run. The Truss lifecycle remains unqualified; selected-source acceptance and
 feed/ACK evidence remain open ([R16 failure](04-build/evidence/current-upstream-release-20261024/truss051-r16-native-candidate-20261029/r16-failure-evidence.json),
 [R17 failure](04-build/evidence/current-upstream-release-20261024/truss051-r17-native-candidate-20261029/r17-pre-effect-failure-20261031.md),
-[R18 candidate](04-build/evidence/current-upstream-release-20261024/truss051-r18-native-candidate-20261031/README.md)).
+[R19 candidate](04-build/evidence/current-upstream-release-20261031/truss051-r19-runtime-cohort/README.md)).
 
 Local Spark 4.2.0/Delta 4.4.1 candidate checks include bounded Weft query and
 SDK paging; a separate native one-table Delta check accepted a candidate DDL
@@ -68,10 +68,13 @@ publication, query, or ACK was exercised ([initialization evidence](04-build/evi
 Managed Unity Catalog and the full Truss lifecycle remain unqualified.
 A bounded probe confirmed create/read/delete authority for one empty owned
 schema under `client_dev`; that schema was deleted and verified absent. Managed
-A1 remains held: Jobs creation and execution authority, exact runtime/access
+A1 remains held: dedicated compute creation and task authority, exact runtime/access
 mode, live source/ACK custody, prior spend and a bounded total cost remain
-unproven. The two-node shape and cost figures are candidates, not admission;
+unproven. The owner selected a 15-minute operational-retention profile with
+exact reads at open, pre-ACK and close and explicit administrator/storage
+exclusions. A one-driver, zero-worker all-purpose shape is a candidate, not admission;
 no paid compute was created or started ([A1 admission packet](04-build/evidence/managed-a1-jobs-admission-packet-20261029.md),
+[selected operational profile](04-build/evidence/managed-a1-operational-retention-profile-proposal-20261031.md),
 [schema probe](04-build/evidence/current-upstream-release-20261023/managed-a1-schema-authority-probe-20261024.md),
 [A1 trial constraints](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
 The owner decision for the synthetic 1B-node/assumed-5B-edge trial is
