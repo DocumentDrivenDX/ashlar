@@ -8,8 +8,9 @@ import hashlib,json,tempfile,unittest,uuid
 from types import MappingProxyType
 from unittest.mock import patch,MagicMock
 import test_configured_source_admission as fixtures
-from ashlar_host.configured_local_runtime import ConfiguredLocalRuntimeConfig,ConfiguredLocalAdmission,initialize_configured_local,publish_configured_local,read_configured_local,run_configured_local_delta4_transaction1,_fields
+from ashlar_host.configured_local_runtime import ConfiguredLocalRuntimeConfig,ConfiguredLocalAdmission,initialize_configured_local,publish_configured_local,read_configured_local,run_configured_local_delta4_transaction1,_delta4_source_configuration,_fields
 from ashlar_host.typed_graph_sdk058_admission import TypedGraphSdk058AdmissionConfig
+from ashlar_host.typed_graph_sdk010_admission import TypedGraphSdk010AdmissionConfig
 from ashlar_host.delta_custody import DeltaTarget
 
 class Row(dict):
@@ -162,6 +163,75 @@ class Tests(unittest.TestCase):
             config=replace(config,installation_sha256='a'*64)
             with self.assertRaises(ValueError):run_configured_local_delta4_transaction1(config)
             self.assertFalse(config.output.exists())
+
+    def _sdk010_transaction1_registry(self,root,*,admission=True):
+        config=self.config(root,'ashlar-delta/0.4-xxhash64')
+        sdk=TypedGraphSdk010AdmissionConfig(root/'node',root/'sdk',root/'sdk.tgz') if admission else None
+        config=replace(config,sdk010_admission=sdk)
+        roles=('object_current','edge_current','tombstone','whole_source_history','attempts','manifest')
+        config.installation.mkdir(mode=0o700)
+        for role in roles:(config.installation/role).mkdir(mode=0o700)
+        columns={role:() for role in roles};scope={'pinned':'sdk010-source-scope'}
+        targets=[{'table':'local.configured.'+role,'path':str(config.installation/role),
+                  'uuid':str(uuid.uuid5(uuid.NAMESPACE_URL,'sdk010-'+role))}for role in roles]
+        carrier={'profile':'ashlar-local-current-installation-profile/0.3',
+            'physical_profile':'ashlar-delta/0.4-xxhash64',
+            'roles':{role:{'carrier_role':{'attempts':'publication_attempt_phase','manifest':'publication_manifest'}.get(role,role),
+                'uuid':targets[index]['uuid']}for index,role in enumerate(roles)}}
+        carrier_raw=(json.dumps(carrier,separators=(',',':'))+'\n').encode()
+        registry={'profile':'ashlar-configured-local-installation/0.3','scope':scope,'targets':targets,
+            'columns':{role:[] for role in roles},'runtime_identity':{'profile':'runtime','python':'3.12'},
+            'physical_profile':'ashlar-delta/0.4-xxhash64',
+            'carrier_profile_sha256':hashlib.sha256(carrier_raw).hexdigest()}
+        registry_raw=json.dumps(registry,separators=(',',':')).encode()
+        registry_file=SimpleNamespace(raw=registry_raw,renew=lambda _limit:None)
+        carrier_file=SimpleNamespace(raw=carrier_raw,renew=lambda _limit:None)
+        return replace(config,installation_sha256=hashlib.sha256(registry_raw).hexdigest()),registry_file,carrier_file
+
+    def test_delta4_transaction1_selects_sdk010_source_before_spark(self):
+        with tempfile.TemporaryDirectory()as directory:
+            root=Path(directory).resolve();root.chmod(0o700)
+            config,registry_file,carrier_file=self._sdk010_transaction1_registry(root)
+            columns={role:()for role in ('object_current','edge_current','tombstone','whole_source_history','attempts','manifest')}
+            events=[];source=SimpleNamespace(graph=True,configuration=SimpleNamespace(base=object()))
+            class SourceManager:
+                def __enter__(self):events.append('source-open');return source
+                def __exit__(self,*_args):events.append('source-close')
+            def source_open(_admission,*,stream,context,sdk010_admission=None):
+                self.assertIs(sdk010_admission,config.sdk010_admission);events.append('sdk010-selected')
+                return SourceManager()
+            def spark_open(*_args,**_kwargs):events.append('spark-open');raise RuntimeError('stop-before-spark-work')
+            with (patch('ashlar_host.configured_local_runtime._runtime',return_value=[]),
+                  patch('ashlar_host.configured_local_runtime.InvocationFile.read',side_effect=[registry_file,carrier_file]),
+                  patch('ashlar_host.configured_local_runtime._scope',return_value={'pinned':'sdk010-source-scope'}),
+                  patch('ashlar_host.configured_local_runtime._columns',return_value=columns),
+                  patch('ashlar_host.configured_local_runtime.attest_runtime',return_value=('runtime',{'python':'3.12'},[])),
+                  patch('ashlar_host.configured_local_runtime.open_configured_local_source',side_effect=source_open),
+                  patch('ashlar_host.configured_local_runtime.open_finite_spark',side_effect=spark_open),
+                  patch('ashlar_host.configured_local_runtime.PrivateFiniteLease',return_value=SimpleNamespace(renew=lambda:events.append('lease-renew'),close=lambda:events.append('lease-close')))):
+                with self.assertRaisesRegex(RuntimeError,'stop-before-spark-work'):
+                    run_configured_local_delta4_transaction1(config)
+            self.assertLess(events.index('sdk010-selected'),events.index('spark-open'))
+            self.assertIn('source-close',events);self.assertIn('lease-close',events)
+
+    def test_delta4_transaction1_sdk010_profile_refuses_missing_source_admission_before_source_or_spark(self):
+        with tempfile.TemporaryDirectory()as directory:
+            root=Path(directory).resolve();root.chmod(0o700)
+            config,registry_file,carrier_file=self._sdk010_transaction1_registry(root,admission=False)
+            with (patch('ashlar_host.configured_local_runtime._runtime',return_value=[]),
+                  patch('ashlar_host.configured_local_runtime.InvocationFile.read',side_effect=[registry_file,carrier_file]),
+                  patch('ashlar_host.configured_local_runtime.open_configured_local_source')as source_open,
+                  patch('ashlar_host.configured_local_runtime.open_finite_spark')as spark_open):
+                with self.assertRaisesRegex(ValueError,'Configured local runtime refused'):
+                    run_configured_local_delta4_transaction1(config)
+            source_open.assert_not_called();spark_open.assert_not_called();self.assertFalse(config.output.exists())
+
+    def test_delta4_source_unwraps_sdk010_view_only_for_coordinator_planning(self):
+        base=object();view=SimpleNamespace(base=base)
+        sdk=SimpleNamespace(sdk058_admission=None,sdk010_admission=object())
+        self.assertIs(_delta4_source_configuration(sdk,SimpleNamespace(configuration=view)),base)
+        historical=SimpleNamespace(sdk058_admission=None,sdk010_admission=None)
+        original=object();self.assertIs(_delta4_source_configuration(historical,SimpleNamespace(configuration=original)),original)
 
     def test_delta4_transaction1_composition_closes_owners_if_spark_open_fails(self):
         with tempfile.TemporaryDirectory()as directory:
