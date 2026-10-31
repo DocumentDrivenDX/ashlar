@@ -27,6 +27,10 @@ ddx:
       kind: informed_by
     - id: ashlar.evidence.truss051-r20-start-failure-20261031
       kind: informed_by
+    - id: ashlar.evidence.truss051-r21-local-restore-candidate-20261031
+      kind: informed_by
+    - id: ashlar.evidence.managed-a1-operational-interval-candidate-20261031
+      kind: informed_by
     - id: ashlar.evidence.managed-a1-readonly-refresh-20261031
       kind: informed_by
     - id: ashlar.evidence.source-holder-a1-live-port-gap-20261024
@@ -79,6 +83,15 @@ managed run has started. [Read-only refresh](evidence/managed-a1-readonly-refres
 The R05 production-hardware napkin is only a conditional planning sensitivity;
 it does not qualify production capacity or authorize a scale trial
 ([hardware napkin](evidence/r05-production-hardware-napkin-20261031.md)).
+
+The [R21 read-only layout check](evidence/current-upstream-release-20261031/truss051-r21-local-restore-candidate/README.md)
+finds 13 missing PostgreSQL 18 initdb directories in the inherited cold
+backup, seven of which are not proven empty by PostgreSQL's backup protocol.
+It refuses the source before a fresh attempt; a complete stopped source with
+Truss `.48` source/consumer/checkpoint custody or a separately reviewed fresh
+source setup is required. The [managed interval review](evidence/managed-a1-operational-interval-candidate-20261031.md)
+confirms that existing offline choreography supplies no renewable live
+source, publication, or pin handle. No managed trial is admitted by it.
 
 Gate 6 now has a [local GitHub release publisher](pypi-publishing.md) with five
 focused passing tests. It enforces exact reviewed `origin/main`, a clean stable

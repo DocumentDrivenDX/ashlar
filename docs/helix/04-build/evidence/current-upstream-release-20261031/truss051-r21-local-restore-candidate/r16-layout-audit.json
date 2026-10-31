@@ -1,0 +1,34 @@
+{
+  "profile": "ashlar-truss051-r21-pg18-layout-preflight/0.1",
+  "input": {
+    "path": "/private/tmp/ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca/restored-pgdata",
+    "tree_sha256_from_retained_receipt": "67f15dff3198ba6b28bbe93a35cb7b595fe0439f84bcb4c14b9ef6d1f4c9effc",
+    "bytes_from_retained_receipt": 63997052,
+    "file_count_from_retained_receipt": 1248
+  },
+  "result": {
+    "admitted": false,
+    "postgres_major": "18",
+    "required_directory_count": 23,
+    "missing_directories": [
+      "pg_wal/archive_status",
+      "pg_wal/summaries",
+      "pg_commit_ts",
+      "pg_dynshmem",
+      "pg_notify",
+      "pg_serial",
+      "pg_snapshots",
+      "pg_twophase",
+      "pg_replslot",
+      "pg_tblspc",
+      "pg_stat_tmp",
+      "pg_logical/snapshots",
+      "pg_logical/mappings"
+    ],
+    "invalid_directories": [],
+    "postmaster_pid_present": false,
+    "process_inventory_performed": false,
+    "native_effects": false
+  },
+  "interpretation": "A missing postmaster.pid marker does not prove no process owns PGDATA. The directory layout is incomplete; this audit does not establish startup validity or Truss .48 source/consumer custody."
+}
