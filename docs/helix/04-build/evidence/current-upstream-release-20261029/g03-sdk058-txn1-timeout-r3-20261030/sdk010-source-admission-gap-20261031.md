@@ -51,18 +51,13 @@ shape, not an SDK 0.10.0 source owner. Consequently the r3 timeout is historical
 SDK 0.5.8 evidence and cannot qualify the current SDK 0.10.0 source/native
 consumer path.
 
-The smallest current-cohort implementation slice is a separately versioned,
-opt-in SDK 0.10.0 typed-graph source-admission owner, with exact selected SDK
-source/archive/package pins and request/source custody. It should retain the
-full public correspondence result at opening, use only deterministic retained
-receipt/source/request checks during renewals, and rerun full correspondence
-plus exact custody comparison at close. Keep `sdk058_admission` behavior and
-historical receipts unchanged. Its focused effect-free gate should cover the
-selected public API/source pins, exact source and request receipt, open–renew–
-close call counts, changed-source/custody refusal, close failure withholding,
-and `ConfiguredLocalRuntimeConfig` opt-in selection with no Spark construction.
-Only after that gate passes should a separately reviewed native packet bind
-the current source owner, publication and Weft 0.4.56 consumer.
+An opt-in SDK 0.10.0 typed-graph source-admission candidate now exists in an
+isolated checkout; see the [candidate evidence](sdk010-source-admission-candidate-20261031.md) for exact files and its
+effect-free checks. It binds the frozen G03 source/model/request and leaves
+SDK058 behavior separate. The candidate has not landed on main, so SDK010
+configured-local source admission remains unwired in the release checkout. A
+separate native packet must still bind the selected source owner, publication
+and Weft 0.4.56 consumer after the candidate is reviewed and lands.
 
 This note records a wiring gap and a bounded candidate boundary. It makes no
 SDK 0.10.0 source-validation claim, does not explain r3's timeout, and authorizes
