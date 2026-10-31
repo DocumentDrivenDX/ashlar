@@ -17,7 +17,7 @@ ddx:
 
 **Contract ID**: CONTRACT-001
 **Type**: boundary
-**Version**: proposed ashlar-publication/0.1
+**Version**: proposed ashlar-publication/0.1 with profile-specific `ashlar-managed-operational-retention/0.1` amendment
 **Status**: Draft
 **Related**: FR-4; PUB-01–PUB-10; US-004
 
@@ -1663,3 +1663,65 @@ resubmit.
 Only successful exact ACK readback and all three independent closes complete the
 slot. Jobs publisher/verifier tasks receive neither the source ACK credential
 nor an authority to renew or synthesize these handles.
+
+#### `ashlar-managed-operational-retention/0.1` bounded A1 profile
+
+This profile is selected only when explicitly named by the original request,
+destination receipt, verifier observation and source-holder operation. It
+applies to one source slot, one exact original four-role `(name, UUID, version)`
+vector, and one ACK interval of at most 900 seconds. It does not alter the
+stronger retention-backed profiles or their admission rules. It is an
+operational availability profile, not a retention lease or a claim that files
+are continuously reserved.
+
+The source holder MUST independently retain and select the exact original
+request, accepted source-prefix bytes and digest, manifest bytes and digest,
+destination receipt bytes, complete four-role vector, source-derived expected
+bags, and source registration/cursor/ACK-scope custody before publication. A
+verifier observation or digest alone MUST NOT select these anchors. The holder
+MUST require the verifier task to have terminated and its own read interval to
+begin only after that terminal state.
+
+At open, immediately before ACK, and at close, the holder MUST independently
+observe the four exact pinned versions with native reads and compare complete
+bounded row bags to its independently rebuilt source oracle. Each observation
+MUST include pre/post native UUID and version identity, complete ordered
+carrier projection, runtime/principal/namespace identity, UTC session timezone,
+the selected data/log retention settings, effective PO setting, maintenance
+identity inventory, source current/retained page and checkpoint custody, and a
+bounded digest of the complete comparison result. Require at least seven days
+for both `delta.deletedFileRetentionDuration` and `delta.logRetentionDuration`
+on every role, and effective PO `ENABLE`; these are observations, not a hold.
+Every stage MUST match the frozen original vector, source selection and
+observation identity. No latest-version fallback, count-only comparison,
+truncated read, or cached verifier result is admitted.
+
+The interval MUST expire at 900 seconds measured by a monotonic host clock.
+Before ACK the holder MUST complete a fresh full four-role comparison and source
+custody reread, then submit the exact original destination receipt once, reconcile
+from a fresh source transaction, and perform the close observation. No later
+slot may mutate source before exact ACK reconciliation and all closing checks
+pass. A missing or changed observation, expiry, changed pin/source identity,
+insufficient bounds, close failure, or unknown ACK result returns a non-success
+outcome and preserves original recovery custody. An uncertain ACK MUST be
+reconciled; it MUST NOT be blindly resubmitted.
+
+This profile covers visible UUID/version replacement, failed exact-version
+reads, changed observed retention/PO settings or maintenance inventory, source
+page/checkpoint drift, runtime/principal drift and elapsed-time expiry. It
+assumes that admitted application operators do not intentionally run destructive
+maintenance during the short interval. It explicitly excludes a malicious or
+mistaken workspace/metastore administrator, cloud/storage administrator,
+undocumented service-side removal, and out-of-band deletion between observations.
+It MUST describe the outcome as `observed_available_at_checks` (or equivalent),
+never as held, retained, protected or guaranteed. Removal after the last read
+and before/during ACK remains possible; if it occurs, the ACK outcome must be
+reconciled before recovery or retry. Selection of this profile is an explicit
+owner acceptance of these exclusions and MUST NOT weaken any other profile.
+
+For this profile only, `NativePinPort` establishes and rechecks exact complete
+vector identity/custody; it does not claim that a pin row or renewal reserves
+files or supplies a retention admission. The independent managed read observer
+must prove exact-version readability at each required stage. Implementations of
+the stronger provider-backed port retain their existing retention-admission
+requirements without change.

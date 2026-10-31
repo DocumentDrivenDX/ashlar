@@ -1956,3 +1956,74 @@ It preserves unknown cursor extensions and the original bytes. It does not
 construct progress, establish genesis position, authenticate a registration,
 prove Truss acceptance, or confer source/ACK authority. Registration semantics
 and the complete initial progress remain open external-owner obligations.
+
+## `ashlar-managed-operational-retention/0.1` observation carrier
+
+This profile adds a receipt-side observation carrier only. It does not change
+the `ashlar-delta/0.4-xxhash64` physical schema, table properties, identity,
+publication vector or the stronger retention-backed contracts. A profile receipt
+MUST bind the exact four original data-role table names, native Delta UUIDs and
+literal versions; original request, source-prefix and manifest digests; source
+oracle comparison digest; verifier run/task and runtime identity; and source
+registration, cursor, destination-registration and ACK-scope selection digests.
+Digests establish byte correspondence only; the source owner independently
+selects and retains the originals.
+
+The closed receipt extension is `operationalRetention` with exactly these
+members: `profile` (the version string); `intervalId` (opaque nonempty ID);
+`requestSha256`, `sourcePrefixSha256`, `manifestSha256`, `destinationReceiptSha256`,
+`sourceOracleSha256` (lowercase SHA-256 text); `vector` (exactly the four data
+roles, each carrying three-part `name`, native `uuid`, and nonnegative signed64
+`version`); `sourceCustodyDigests` (selected source-registration,
+consumer-registration, cursor, destination-registration, ACK-scope and checkpoint
+SHA-256 values); `runtimeSelection` (the original run/task, cluster/build,
+principal, catalog/schema and protocol identities); `startedAtUtc`;
+`maximumElapsedSeconds` (exactly 900); and `observations` (exactly three ordered
+entries with stages `open`, `pre_ack`, `close`). Unknown members, duplicate JSON
+members, malformed hashes and Boolean/float/string versions MUST refuse.
+
+Each observation has exactly `stage`, `observedAtUtc`, `elapsedSeconds`, `vector`,
+`roles`, `runtimeIdentity`, `sessionTimezone`, `retentionSettings`,
+`predictiveOptimization`, `maintenanceInventorySha256`, `sourceCustodyDigests`,
+`rowCount`, `normalizedBytes`, `comparisonSha256`, and `outcome`. `roles` has
+exactly the four data roles; each entry records pre/post UUID and version,
+ordered `(fieldName, nativeType)` pairs, exact pinned read version, complete row
+count and role comparison digest. `outcome` is exactly
+`observed_available_at_checks`. `elapsedSeconds` is checked against a live
+monotonic clock by the owner; the serialized UTC time is audit context and cannot
+replace that monotonic check. Each witness and the aggregate receipt are bounded
+to 4 MiB. The source owner compares every immutable identity and digest against
+its separately selected custody before accepting the extension.
+
+Each open, pre-ACK and close witness MUST record a UTC observation time, exact
+four-role vector, native UUID/version bookends, complete ordered carrier field
+names/types, explicit `VERSION AS OF` read versions, complete row count and
+bounded complete-row comparison digest, plus observed runtime, principal,
+namespace and `UTC`/`Etc/UTC` session timezone. A comparison MUST preserve exact
+strings and JSON text, signed64 decimal tokens, timestamp microseconds, null
+versus absence, duplicate rows and parallel-edge multiplicity. It MUST refuse
+on overflow, truncation, incomplete projection, unexpected field/type, more than
+1,024 cumulative actual rows or more than 4 MiB normalized actual bytes across
+the four roles. Read a 1,025-row sentinel per exercised role to detect overflow;
+the sentinel is rejected before comparison and never counts as an admitted row.
+The packet may set tighter actual-row bounds but MUST preserve that sentinel
+check.
+
+The witness MUST include the effective per-role `delta.deletedFileRetentionDuration`
+and `delta.logRetentionDuration` observations, effective PO state, and bounded
+maintenance principal/privilege inventory. Each retention duration MUST be at
+least seven days; PO MUST be `ENABLE` at open, pre-ACK and close. These values and
+successful reads are point-in-time observations and MUST NOT be serialized or
+interpreted as a hold, lease or future availability guarantee. No profile action
+may disable PO. Missing, malformed or unsupported configuration refuses the
+profile; no retention setting is changed by this carrier.
+
+The complete interval is at most 900 monotonic seconds. Its three required
+observation stages are `open`, `pre_ack` and `close`. Each stage rebuilds or
+reopens a fresh native reader and repeats complete comparison against the same
+independently retained source oracle. The witness records comparison result
+`observed_available_at_checks` only after all checks pass. It contains no
+acknowledgement capability and cannot be reused to admit another publication,
+source slot or interval. The profile excludes privileged administrator,
+storage-level and out-of-band deletion between checks, as recorded in
+CONTRACT-001.

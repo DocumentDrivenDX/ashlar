@@ -82,6 +82,28 @@ Simulated backend checks cannot qualify live authentication, retention, data-fil
 custody, native execution or concurrency. UMF schema meaning requires its pinned
 shared producer and independent target admission.
 
+## `ashlar-managed-operational-retention/0.1` A1 read admission
+
+The operational A1 profile is an explicit source-holder interval layered over
+the exact publication resolved here. It does not amend `ashlar-retention-window/0.1`,
+the native pin registry, or any stronger provider-backed profile. The resolver
+MUST still admit the exact descriptor, trusted four-role UUIDs, schema and
+protocol, and literal versions. The interval owner MUST then perform complete
+native row reads at those exact versions and compare them to the independent
+source-derived bags at open, immediately before ACK, and close. Metadata-only
+inspection, `LIMIT 0`, counts, hashes without complete-row comparison, a prior
+resolver result, or a verifier report MUST NOT authorize this profile.
+
+Each observation MUST recheck the complete vector and source custody and record
+that the exact rows were `observed_available_at_checks`. It MUST require at
+least seven days of observed data and log retention and effective PO `ENABLE`,
+while treating both as observations without a hold. The profile permits no
+latest-version fallback and has a 900-second monotonic interval limit. It
+explicitly accepts the administrator, storage and out-of-band deletion risks
+between observations defined in CONTRACT-001. No observation authorizes a
+second publication or a later interval; ordinary consumer reads continue to
+follow their independently selected profile and policy.
+
 ## Arras authored-read integration boundary
 
 The first Arras bridge may call `read_singleton` only for an explicit original

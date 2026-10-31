@@ -49,38 +49,44 @@ recorded baseline until this amendment is reviewed and adopted.
 
 ## Technical approach
 
-Propose one explicitly dedicated, single-node Jobs cluster for a bounded pilot
-run: a publisher task followed by a distinct verifier task/process with its own
-Spark session on the same cluster. Sharing compute reduces a second endpoint's
-startup and billing surface; it does not establish process isolation, authority
-or independence. Confirm that the selected cloud/workspace policy, UC access
-mode and exact runtime support this arrangement before launch. If they do not,
-stop this candidate; do not silently introduce a platform matrix or new endpoint.
+The current A1 candidate is one explicitly dedicated all-purpose cluster owned
+for the trial, with publisher and verifier submitted as sequential Jobs tasks
+attached to that cluster. The tasks use distinct processes and Spark sessions;
+their shared cluster does not establish principal isolation, authority or
+independence. This selection follows the 2026-10-31 read-only inventory, which
+exposed only the Personal Compute all-purpose policy to the principal. It does
+not qualify cluster creation, task attachment, runtime, Unity Catalog mode or
+execution. The historical serverless and Jobs-native profiles retain their
+existing selectors and admission rules.
 
-### Unadopted all-purpose A1 compute variant
+### Candidate all-purpose A1 compute variant
 
-The authenticated Personal Compute policy discovery records a fixed
-all-purpose, Standard-engine, zero-worker policy that permits D4ds_v5 and does
-not pin `spark_version`. This is policy metadata only. It does not establish
-that a Clusters API create request using that policy is admitted, that DBR 19
-is admitted, or that the selected Unity Catalog access mode, task identity and
-grants work together. The policy's 4,320-minute auto-termination default is
-too long to serve as the trial's lifecycle bound.
+The authenticated Personal Compute policy discovery records an all-purpose,
+Standard-engine policy that permits D4ds_v5 and does not pin `spark_version`.
+The 2026-10-31 inventory exposes no Jobs cluster policy to this principal. This
+is policy metadata only. It does not establish that a Clusters API create request
+using this policy is admitted, that DBR 19 is admitted, or that the selected
+Unity Catalog access mode, task identity and grants work together. The policy's
+4,320-minute auto-termination default is too long to serve as the trial's
+lifecycle bound.
 
-If the Jobs-only/serverless candidate remains unavailable, evaluate one
-separately dedicated all-purpose cluster for A1 only. Keep it distinct from the
-current `ManagedCurrentTrialConfig` and notebook path: those require
+Use one separately dedicated all-purpose cluster for A1 only. Keep it distinct
+from the current `ManagedCurrentTrialConfig` and notebook path: those require
 `runtimeName=databricks-serverless` and `dedicated_serverless=true`; relaxing
 either check would route an all-purpose task into publication and four query
 cases without a qualified verifier, source-holder interval, or cost admission.
-The SQL receipt-reader remains serverless-warehouse-only. No all-purpose
-profile or campaign entrypoint is adopted by this proposal.
+The SQL receipt-reader remains serverless-warehouse-only. This design adds no
+all-purpose selection to those historical paths and creates no general campaign
+entrypoint.
 
 Candidate shape for a later effectful A1 trial, after read-only admission: one
-D4ds_v5 driver, zero workers, Standard engine, no autoscaling or Photon, one
-A1 slot, a 10-minute inactivity auto-termination setting, one concurrent run
-and zero retries. The proposed control plane would create the dedicated cluster through
-the Clusters API with the selected policy, then attach a Jobs task using
+D4ds_v5 driver, zero workers, Standard engine, single-node mode, no autoscaling
+or Photon, one A1 slot, a 10-minute inactivity auto-termination setting, one
+concurrent run and zero retries. This matches the observed Personal Compute
+policy's fixed `num_workers=0`; the API create response and effective cluster
+configuration must still establish that single-node Spark execution and the
+selected UC access mode are admitted. The proposed control plane would create the dedicated cluster through
+the Clusters API with the selected policy, then attach sequential Jobs tasks using
 `existing_cluster_id`. Microsoft documents notebook and Python tasks on
 classic all-purpose compute and shows a Jobs SDK task attached to an existing
 cluster ([Jobs compute](https://learn.microsoft.com/en-us/azure/databricks/jobs/compute),
@@ -104,17 +110,20 @@ it does not authorize retry or erase ambiguous effects. The supervisor must
 not claim an invoice cap from elapsed time alone.
 
 Current public retail inputs imply about $1.355 per running D4ds_v5 node-hour
-on the recorded Premium all-purpose basis. A 40-minute interval is therefore
-about $0.90 for compute before startup/idle billing, ancillary usage, storage,
-networking, predictive-optimization activity and cleanup. This is not a
-conservative total bound: actual workspace billing increments, effective DBU
-rate/consumption and ancillary meters are unresolved. Before A1, obtain a
-reliable whole-trial bound including already incurred usage and cleanup under
-the $100 hard ceiling; otherwise do not launch. The $10 figure remains a
-preference. Predictive optimization stays enabled.
+on the recorded Premium all-purpose basis. The one-node candidate is therefore
+about $0.90 for 40 running minutes before startup/idle billing, ancillary usage,
+storage, networking, PO activity and cleanup. This is not a conservative total
+bound: actual workspace billing increments, effective DBU rate/consumption and
+ancillary meters are unresolved. Before A1, obtain a reliable whole-trial bound
+including already incurred usage and cleanup under the $100 total ceiling, with
+a target below $10; otherwise do not launch. An external supervisor must apply
+a finite caller deadline, independently cancel/terminate and read back terminal
+state, retain evidence, then clean up only verified trial-owned objects.
+Auto-termination and elapsed time do not cap cost. Predictive optimization
+stays enabled.
 
 Open admission facts are whether this policy can back an explicitly owned
-all-purpose cluster attached to a Jobs task, the exact admitted runtime and
+all-purpose cluster attached to separate Jobs tasks, the exact admitted runtime and
 access mode, run-as/entitlement and
 create/cancel/terminate/drop privileges, cluster and Jobs quotas, actual billing
 rates/increments/meters, termination behavior under cancellation, stale-state
@@ -186,15 +195,16 @@ The offline Spark receipt owner is implemented in
 recorded in [build evidence](../../04-build/evidence/managed-current-spark-receipt-owner-20261023.md).
 This does not adopt the proposed managed Spark profile or qualify a live runtime.
 
-### Proposed source-holder live interval
+### Source-holder live interval
 
-Draft only: the original external source holder keeps the managed publication
-read, native pin and Truss source-custody handles live through protected ACK
-commit, exact reconciliation and independent closing. CONTRACT-001 defines the
-proposed ports and fail-closed outcomes; CONTRACT-003/004 retain the complete A/B
-prefix and resolver boundaries. The offline Spark observation supplies receipt
-evidence only and remains unavailable to campaign ACK orchestration until these
-contracts are reviewed and the live authority path is implemented.
+For the selected bounded profile, the original external source holder must keep
+the managed publication read and source-custody checks active through protected
+ACK commit, exact reconciliation and independent closing. CONTRACT-001/003/004
+define the selected profile's required observations and fail-closed outcomes;
+they do not establish that an implementation or live authority path exists. The
+offline Spark observation supplies receipt evidence only and remains unavailable
+to campaign ACK orchestration until the named host and external source ports are
+implemented and independently admitted.
 The [proposal-only interval helper evidence](../../04-build/evidence/source-holder-interval-proposal-20261023.md)
 records fake-port open/renew/close choreography; it grants no ACK authority and
 does not adopt this draft boundary.
@@ -215,10 +225,51 @@ or payload dumps; telemetry cannot establish commit. Formal review maps the
 publication-before-ACK and ACK-before-next-slot transitions to these tests;
 no new model-check result is claimed by this draft.
 
+### Adopted A1 operational-retention candidate
+
+The publication owner selected the bounded operational profile for the managed
+`client_dev` trial. CONTRACT-001/003/004 define the proposed
+`ashlar-managed-operational-retention/0.1` profile: one source slot and one
+original four-role vector, at most 900 monotonic seconds, full source-oracle
+row-bag comparison at open, immediately before ACK and at close, seven-day
+observed data/log retention settings, and PO `ENABLE`. The profile records
+`observed_available_at_checks`; it does not claim a hold. It explicitly excludes
+administrator, storage and out-of-band removal between checks. Other profiles
+and physical `.4` schema semantics remain unchanged.
+
+The smallest host owner remains an implementation boundary, not yet an available
+port. Its required shape is `OperationalRetentionInterval.open(selection)`,
+`renew_pre_ack()`, and `close()`. Each operation creates a fresh selected
+managed Spark reader, independently reopens the original request/manifest and
+source oracle, compares all four exact `VERSION AS OF` bags, captures the
+policy/PO/maintenance observations, and compares the result to frozen
+vector/runtime/source custody. It enforces the monotonic 900-second limit and
+invalidates the interval on any refusal. It returns no ACK method or ACK
+capability. The external holder remains responsible for one exact-byte ACK,
+fresh reconciliation and recovery custody after the pre-ACK observation.
+
+Implementation stops at the concrete host-port seam. The existing
+`ManagedCurrentSparkReceiptReader` is an injected-session offline reopen owner;
+it has no host-owned session factory, live interval handle, retention-setting or
+PO/maintenance-inventory observer, and its observation deliberately exposes no
+ACK ports. `acknowledge_post_verifier_source_interval` currently refuses because
+the live managed-read and native-pin owner handles do not exist. The selected
+Truss `.51` session can perform read-only current/retained-page renewal, but no
+admitted external owner binds its exact registrations, cursor, destination
+registration and ACK scope to this managed four-role vector and retained source
+prefix. This design does not wire interval observations to ACK. The next
+implementation slice needs (1) a host-owned fresh-session factory plus a
+bounded native policy-observation port for exact pins, retention settings, PO
+and maintenance identities, and (2) an independently authenticated source
+custody owner that admits those exact retained source registrations/cursors and
+provides one-shot commit, fresh reconciliation and close/recovery. Fakes alone
+cannot supply either authority.
+
 ## Cost admission, rollback and open questions
 
-Prefer total spend below $10; retain the hard $100 total trial ceiling. Neither
-single-node selection, a timeout nor a cost estimate enforces an invoice cap.
+Prefer total spend below $10; retain the hard $100 total trial ceiling. The
+selected all-purpose candidate uses one D4ds_v5 node; neither its shape, a
+timeout nor a cost estimate enforces an invoice cap.
 Before launch record the actual admissible node SKU/region, runtime/access mode,
 Jobs DBU and VM rates, disk/storage/network meters, startup and idle billing,
 two task maxima, finite caller wall/cancellation deadline, concurrency one,
@@ -231,14 +282,13 @@ and assumed 120 DBU/hour cannot price this proposed cluster.
 The [2026-10-23 retail observation](../../04-build/evidence/current-upstream-release-20261023/managed-fixed-jobs-retail-observation.json)
 verifies this exact workspace as Central US/Premium and records public USD rates
 of $0.255 per Linux on-demand D4ds_v5 VM-hour and $0.30 per Premium Jobs DBU-hour.
-Actual node DBU consumption remains unobserved. Conditional on at most 2 DBU/hour,
-one node costs $0.855/hour before ancillary charges. An assumed 35-minute whole
-slot gives $0.50 A1 compute or $3.99 for eight slots; adding an assumed $5 or $20
-campaign ancillary/cleanup reserve gives $8.99 or $23.99 for eight slots. These
-thresholds, durations and reserves are assumptions, not measured consumption,
-provider termination guarantees, account invoice rates, cost admission or launch
-approval. Include the live ACK interval and preserve predictive optimization;
-its background meter and all residual charges must fit the selected reserve.
+Actual all-purpose node DBU consumption and billing increments remain unobserved.
+The current all-purpose candidate estimate is about $0.90 per 40 running minutes
+before ancillary charges. Historical eight-slot projections do not price this
+A1 candidate. Include the live ACK
+interval, prior spend, cleanup and PO background meter in a fresh whole-trial
+estimate; these estimates are not a provider cap, cost admission or launch
+approval. Preserve predictive optimization.
 
 After A1, retain terminal receipts, actual elapsed times and fresh usage where
 available; conservatively cover delayed billing and seven remaining slots before
