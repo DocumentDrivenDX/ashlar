@@ -42,6 +42,20 @@ class Tests(unittest.TestCase):
         transport._snapshot=lambda t,v:{'schema':[['id','bigint'],['props','string']],'rows':[PARAMS],'row_sha256':'a'*64}
         return root,spark,transport
     def mutate(self,t):return t.mutation('operation',SQL,PARAMS,intent_digest='b'*64,context='host')
+    def test_sdk010_installation_profile_is_admitted_and_retained_by_journal(self):
+        temporary=tempfile.TemporaryDirectory();self.addCleanup(temporary.cleanup)
+        root=Path(temporary.name).resolve();table=root/'table';table.mkdir()
+        spark=FakeSpark();target=DeltaTarget(TABLE,table,'original-uuid')
+        profile={'profile':'ashlar-local-current-installation-profile/0.3',
+                 'physical_profile':'ashlar-delta/0.4-xxhash64'}
+        from ashlar_host.delta_custody import LocalDeltaTransport as AshlarDeltaTransport
+        transport=AshlarDeltaTransport.initialize(spark,root/'journal.sqlite','installation',
+            (target,),Policy(),context='host',installation_profile=profile)
+        self.addCleanup(transport.close)
+        self.assertEqual(transport.installation_profile,profile)
+        AshlarDeltaTransport.require_existing_journal(root/'journal.sqlite','installation',
+            (target,),installation_profile=profile)
+
     def test_actual_snapshot_schema_roundtrip_preserves_strict_original_evidence(self):
         import sys
         from unittest.mock import patch

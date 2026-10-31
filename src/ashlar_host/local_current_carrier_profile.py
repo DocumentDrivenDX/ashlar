@@ -17,6 +17,7 @@ from .local_current_delta4_umf import (
 
 PROFILE = 'ashlar-local-current-installation-profile/0.1'
 SDK058_PROFILE = 'ashlar-local-current-installation-profile/0.2'
+SDK010_PROFILE = 'ashlar-local-current-installation-profile/0.3'
 XXHASH64_PROFILE = 'ashlar-delta/0.4-xxhash64'
 _TYPE_NAMES = {'STRING': 'string', 'BIGINT': 'long', 'TIMESTAMP': 'timestamp'}
 
@@ -89,7 +90,7 @@ def _observed_role(spark, carrier_role, table, path, fields, layout, field_metad
     }
 
 
-def _create_local_current_xxhash64_tables(spark, output, tables, *, table_prefix, sdk058):
+def _create_local_current_xxhash64_tables(spark, output, tables, *, table_prefix, sdk_version=None):
     """Create one fresh six-role `.4` carrier set under one explicit UMF bridge."""
     output = Path(output)
     _require(output.is_absolute() and output.resolve() == output,
@@ -107,6 +108,8 @@ def _create_local_current_xxhash64_tables(spark, output, tables, *, table_prefix
     proposals = {}
     # Preflight every source, typed target and complete UMF result before the
     # first native DDL. No managed SQL is rewritten in the Ashlar adapter.
+    sdk058 = sdk_version == '0.5.8'
+    sdk010 = sdk_version == '0.10.0'
     if sdk058:
         from .local_current_delta4_umf_sdk058 import (
             BRIDGE_SHA256 as bridge_sha256, BUILD_INPUTS_SHA256 as build_inputs_sha256,
@@ -122,7 +125,20 @@ def _create_local_current_xxhash64_tables(spark, output, tables, *, table_prefix
         local_target_profile, realization_profile = sdk_local_target_profile, sdk_realization_profile
         umf_revision = '0.5.8'
         candidate_commit = SDK058_SOURCE_COMMIT
+        manifest_sha256 = MANIFEST_SHA256
+    elif sdk010:
+        from .local_current_delta4_umf_sdk010 import (
+            BRIDGE_SHA256 as bridge_sha256, BUILD_INPUTS_SHA256 as build_inputs_sha256,
+            LOCAL_TARGET_PROFILE as sdk_local_target_profile,
+            UMF_REALIZATION_PROFILE as sdk_realization_profile, MANIFEST_SHA256,
+            LocalUmfDelta4Sdk010Bridge, SOURCE_POLICY_SHA256)
+        bridge_type = LocalUmfDelta4Sdk010Bridge
+        local_target_profile, realization_profile = sdk_local_target_profile, sdk_realization_profile
+        umf_revision = '0.10.0'
+        candidate_commit = '96230e0eef44b255d33575ba496402555b76800e'
+        manifest_sha256 = MANIFEST_SHA256
     else:
+        _require(sdk_version is None, 'Explicit supported UMF SDK bridge version required')
         bridge_type = LocalUmfDelta4Bridge
         bridge_sha256, build_inputs_sha256 = BRIDGE_SHA256, BUILD_INPUTS_SHA256
         manifest_sha256 = REALIZATION_MANIFEST_SHA256
@@ -168,7 +184,7 @@ def _create_local_current_xxhash64_tables(spark, output, tables, *, table_prefix
         targets.append(target)
         role_bindings[local_role] = observed
     profile = {
-        'profile': SDK058_PROFILE if sdk058 else PROFILE,
+        'profile': SDK058_PROFILE if sdk058 else SDK010_PROFILE if sdk010 else PROFILE,
         'physical_profile': XXHASH64_PROFILE,
         'lookup_hash_profile': carriers.lookup_hash_profile,
         'generated_carriers_sha256': 'cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa',
@@ -176,7 +192,7 @@ def _create_local_current_xxhash64_tables(spark, output, tables, *, table_prefix
         'local_realization': local_target_profile,
         'umf_realization_profile': realization_profile,
         'umf_candidate_commit': candidate_commit,
-        'umf_realization_manifest_sha256': MANIFEST_SHA256 if sdk058 else manifest_sha256,
+        'umf_realization_manifest_sha256': manifest_sha256,
         'umf_bridge_sha256': bridge_sha256,
         'umf_build_inputs_sha256': build_inputs_sha256,
         'writer_settings': [{'key': 'spark.sql.parquet.compression.codec', 'value': 'zstd'}],
@@ -193,6 +209,17 @@ def _create_local_current_xxhash64_tables(spark, output, tables, *, table_prefix
                  and profile['umf_candidate_commit'] == SDK058_SOURCE_COMMIT
                  and profile['umf_selected_tag_commit'] == SDK058_TAG_COMMIT,
                  'Exact selected SDK 0.5.8 bridge profile required')
+    elif sdk010:
+        from .local_current_delta4_umf_sdk010 import SOURCE_POLICY_SHA256
+        profile.update(source_policy_revision='ashlar-local-current-delta4-sdk010-source-policy/0.1',
+                       umf_selected_tag_commit='96230e0eef44b255d33575ba496402555b76800e',
+                       umf_archive_sha256='2fb63dea5ca85b32c6bad823703de526875ac79490234dbfea4a8863c7d5fe6c',
+                       umf_source_policy_sha256=SOURCE_POLICY_SHA256)
+        _require(profile['local_realization'] == 'spark-delta4/0.1'
+                 and profile['umf_realization_profile'] == 'ashlar-local-current-delta4-umf-source-sdk010/0.1'
+                 and profile['umf_candidate_commit'] == '96230e0eef44b255d33575ba496402555b76800e'
+                 and profile['umf_selected_tag_commit'] == '96230e0eef44b255d33575ba496402555b76800e',
+                 'Exact selected SDK 0.10.0 bridge profile required')
     _require(len(encoded(profile).encode()) <= 65536)
     return targets, profile, {role: tuple((name, kind) for name, kind, _ in fields)
                               for role, fields in ((local, carriers.ordered_fields(umf))
@@ -202,18 +229,25 @@ def _create_local_current_xxhash64_tables(spark, output, tables, *, table_prefix
 def create_local_current_xxhash64_tables(spark, output, tables, *, table_prefix='local.trussgraph'):
     """Historical 0.5.6/2ede `.4` realization; retained as the default."""
     return _create_local_current_xxhash64_tables(
-        spark, output, tables, table_prefix=table_prefix, sdk058=False)
+        spark, output, tables, table_prefix=table_prefix, sdk_version=None)
 
 
 def create_local_current_xxhash64_sdk058_tables(spark, output, tables, *, table_prefix='local.trussgraph'):
     """Explicit source-backed SDK 0.5.8 `.4` realization candidate."""
     return _create_local_current_xxhash64_tables(
-        spark, output, tables, table_prefix=table_prefix, sdk058=True)
+        spark, output, tables, table_prefix=table_prefix, sdk_version='0.5.8')
+
+
+def create_local_current_xxhash64_sdk010_tables(spark, output, tables, *, table_prefix='local.trussgraph'):
+    """Explicit source-backed UMF SDK 0.10.0 `.4` realization."""
+    return _create_local_current_xxhash64_tables(
+        spark, output, tables, table_prefix=table_prefix, sdk_version='0.10.0')
 
 
 def verify_local_current_profile(spark, profile, targets, carrier_profile):
     """Refuse any profile, UUID, schema, protocol or layout drift before work."""
     sdk058 = type(profile) is dict and profile.get('profile') == SDK058_PROFILE
+    sdk010 = type(profile) is dict and profile.get('profile') == SDK010_PROFILE
     if sdk058:
         from .typed_graph_sdk058_admission import (
             SDK058_ARCHIVE_SHA256, SDK058_SOURCE_COMMIT, SDK058_SOURCE_TREE, SDK058_TAG_COMMIT,
@@ -221,18 +255,22 @@ def verify_local_current_profile(spark, profile, targets, carrier_profile):
         from .local_current_delta4_umf_sdk058 import LOCAL_TARGET_PROFILE as sdk_local_target_profile
         expected_revision, expected_commit = '0.5.8', SDK058_SOURCE_COMMIT
         expected_local_target = sdk_local_target_profile
+    elif sdk010:
+        from .local_current_delta4_umf_sdk010 import LOCAL_TARGET_PROFILE as sdk_local_target_profile
+        expected_revision, expected_commit = '0.10.0', '96230e0eef44b255d33575ba496402555b76800e'
+        expected_local_target = sdk_local_target_profile
     else:
         expected_revision, expected_commit = '2ede4c879bea5db13794a6fa30e67c821306c17f', UMF_CANDIDATE_COMMIT
         expected_local_target = LOCAL_TARGET_PROFILE
     _require(carrier_profile == XXHASH64_PROFILE
-             and type(profile) is dict and profile.get('profile') in (PROFILE, SDK058_PROFILE)
+             and type(profile) is dict and profile.get('profile') in (PROFILE, SDK058_PROFILE, SDK010_PROFILE)
              and profile.get('physical_profile') == XXHASH64_PROFILE
              and profile.get('lookup_hash_profile') == 'spark-xxhash64-typed-key/0.1'
              and profile.get('generated_carriers_sha256') ==
                  'cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa'
              and profile.get('umf_revision') == expected_revision
              and profile.get('local_realization') == expected_local_target
-             and profile.get('umf_realization_profile') == ( 'ashlar-local-current-delta4-umf-source-sdk058/0.1' if sdk058 else UMF_REALIZATION_PROFILE)
+             and profile.get('umf_realization_profile') == ('ashlar-local-current-delta4-umf-source-sdk058/0.1' if sdk058 else 'ashlar-local-current-delta4-umf-source-sdk010/0.1' if sdk010 else UMF_REALIZATION_PROFILE)
              and profile.get('umf_candidate_commit') == expected_commit
              and profile.get('writer_settings') ==
                  [{'key': 'spark.sql.parquet.compression.codec', 'value': 'zstd'}]
@@ -249,6 +287,12 @@ def verify_local_current_profile(spark, profile, targets, carrier_profile):
             MANIFEST_SHA256 as manifest_sha256, LocalUmfDelta4Sdk058Bridge,
         )
         bridge_type = LocalUmfDelta4Sdk058Bridge
+    elif sdk010:
+        from .local_current_delta4_umf_sdk010 import (
+            BRIDGE_SHA256 as bridge_sha256, BUILD_INPUTS_SHA256 as build_inputs_sha256,
+            MANIFEST_SHA256 as manifest_sha256, LocalUmfDelta4Sdk010Bridge,
+            SOURCE_POLICY_SHA256)
+        bridge_type = LocalUmfDelta4Sdk010Bridge
     else:
         bridge_type = LocalUmfDelta4Bridge
         bridge_sha256, build_inputs_sha256 = BRIDGE_SHA256, BUILD_INPUTS_SHA256
@@ -265,6 +309,13 @@ def verify_local_current_profile(spark, profile, targets, carrier_profile):
                  and profile.get('umf_source_tree') == SDK058_SOURCE_TREE
                  and profile.get('umf_archive_sha256') == SDK058_ARCHIVE_SHA256,
                  'Selected SDK 0.5.8 release lineage required')
+    if sdk010:
+        _require(profile.get('source_policy_revision') == 'ashlar-local-current-delta4-sdk010-source-policy/0.1'
+                 and profile.get('umf_selected_tag_commit') == '96230e0eef44b255d33575ba496402555b76800e'
+                 and profile.get('umf_archive_sha256') ==
+                    '2fb63dea5ca85b32c6bad823703de526875ac79490234dbfea4a8863c7d5fe6c'
+                 and profile.get('umf_source_policy_sha256') == SOURCE_POLICY_SHA256,
+                 'Selected SDK 0.10.0 source-policy and release lineage required')
     with bridge_type.open() as bridge:
         for local_role, carrier_role in LOCAL_CURRENT_ROLE_TO_UMF.items():
             binding = profile['roles'][local_role]

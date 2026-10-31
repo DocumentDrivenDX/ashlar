@@ -65,6 +65,35 @@ def _valid_installation_profile_identity(profile):
         return False
     if profile.get("profile") == "ashlar-local-current-installation-profile/0.1":
         return True
+    if profile.get("profile") == "ashlar-local-current-installation-profile/0.3":
+        from .local_current_delta4_umf_sdk010 import (
+            BRIDGE_SHA256, BUILD_INPUTS_SHA256, LOCAL_TARGET_PROFILE,
+            MANIFEST_SHA256, SOURCE_POLICY_SHA256, UMF_REALIZATION_PROFILE)
+        expected_keys={"profile","physical_profile","lookup_hash_profile","generated_carriers_sha256",
+            "umf_revision","local_realization","umf_realization_profile","umf_candidate_commit",
+            "umf_selected_tag_commit","umf_archive_sha256","umf_source_policy_sha256",
+            "umf_realization_manifest_sha256","umf_bridge_sha256","umf_build_inputs_sha256",
+            "source_policy_revision","writer_settings","roles"}
+        return (set(profile)==expected_keys
+                and profile.get("physical_profile") == CARRIER_PROFILE
+                and profile.get("lookup_hash_profile") == LOOKUP_HASH_PROFILE
+                and profile.get("generated_carriers_sha256") ==
+                    "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa"
+                and profile.get("local_realization") == LOCAL_TARGET_PROFILE
+                and profile.get("writer_settings") == [
+                    {"key":"spark.sql.parquet.compression.codec","value":"zstd"}]
+                and profile.get("source_policy_revision") ==
+                    "ashlar-local-current-delta4-sdk010-source-policy/0.1"
+                and profile.get("umf_revision") == "0.10.0"
+                and profile.get("umf_candidate_commit") == "96230e0eef44b255d33575ba496402555b76800e"
+                and profile.get("umf_selected_tag_commit") == "96230e0eef44b255d33575ba496402555b76800e"
+                and profile.get("umf_archive_sha256") ==
+                    "2fb63dea5ca85b32c6bad823703de526875ac79490234dbfea4a8863c7d5fe6c"
+                and profile.get("umf_source_policy_sha256") == SOURCE_POLICY_SHA256
+                and profile.get("umf_realization_profile") == UMF_REALIZATION_PROFILE
+                and profile.get("umf_realization_manifest_sha256") == MANIFEST_SHA256
+                and profile.get("umf_bridge_sha256") == BRIDGE_SHA256
+                and profile.get("umf_build_inputs_sha256") == BUILD_INPUTS_SHA256)
     if profile.get("profile") != "ashlar-local-current-installation-profile/0.2":
         return False
     from .typed_graph_sdk058_admission import (

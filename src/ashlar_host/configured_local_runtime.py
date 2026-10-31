@@ -163,13 +163,18 @@ def _create_configured_xxhash64_tables(spark,installation,tables,creator):
         'local_realization','umf_realization_profile','umf_candidate_commit','umf_realization_manifest_sha256',
         'umf_bridge_sha256','umf_build_inputs_sha256','writer_settings','roles'}
     sdk058=type(profile)is dict and profile.get('profile')=='ashlar-local-current-installation-profile/0.2'
-    expected_keys=(base_profile_keys|{'source_policy_revision','umf_selected_tag_commit','umf_source_tree','umf_archive_sha256'}
-                   if sdk058 else base_profile_keys)
+    sdk010=type(profile)is dict and profile.get('profile')=='ashlar-local-current-installation-profile/0.3'
+    sdk058_keys={'source_policy_revision','umf_selected_tag_commit','umf_source_tree','umf_archive_sha256'}
+    sdk010_keys={'source_policy_revision','umf_selected_tag_commit','umf_archive_sha256','umf_source_policy_sha256'}
+    expected_keys=(base_profile_keys|sdk058_keys if sdk058 else base_profile_keys|sdk010_keys if sdk010 else base_profile_keys)
     _require(type(profile)is dict and set(profile)==expected_keys
-        and profile.get('profile')==('ashlar-local-current-installation-profile/0.2' if sdk058 else 'ashlar-local-current-installation-profile/0.1')
+        and profile.get('profile')==('ashlar-local-current-installation-profile/0.2' if sdk058 else 'ashlar-local-current-installation-profile/0.3' if sdk010 else 'ashlar-local-current-installation-profile/0.1')
         and profile.get('physical_profile')=='ashlar-delta/0.4-xxhash64'
         and profile.get('lookup_hash_profile')=='spark-xxhash64-typed-key/0.1'
         and type(profile.get('roles'))is dict and set(profile['roles'])==set(tables))
+    if sdk058 or sdk010:
+        from .configured_local_delta4_publication import _valid_installation_profile_identity
+        _require(_valid_installation_profile_identity(profile))
     _require(type(created)is list and len(created)==6
         and {target.table for target in created}==set(tables.values())
         and len({target.uuid for target in created})==6)
@@ -513,7 +518,8 @@ def run_configured_local_delta4_transaction1(config):
         _require(type(installation_profile) is dict
                  and installation_profile.get('profile') in (
                     'ashlar-local-current-installation-profile/0.1',
-                    'ashlar-local-current-installation-profile/0.2')
+                    'ashlar-local-current-installation-profile/0.2',
+                    'ashlar-local-current-installation-profile/0.3')
                  and installation_profile.get('physical_profile')
                     == config.carrier_profile)
 
@@ -546,7 +552,9 @@ def run_configured_local_delta4_transaction1(config):
         # Spark session, so apply the UMF setting here before admission checks
         # the session; admission and close only verify it and never repair drift.
         apply_local_writer_settings(spark)
-        if config.sdk058_admission is not None:
+        if installation_profile.get('profile') in (
+                'ashlar-local-current-installation-profile/0.2',
+                'ashlar-local-current-installation-profile/0.3'):
             from .local_current_carrier_profile import verify_local_current_profile
             verify_local_current_profile(spark, installation_profile, tuple(
                 DeltaTarget(item['table'],Path(item['path']),item['uuid'])

@@ -208,12 +208,29 @@ def native_xxhash64(spark,changes,state):
     return result
 
 
-def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3'):
+def _create_current_graph_tables(spark, output, tables, carrier_profile, umf_sdk_version):
+    """Select a versioned `.4` realization only when explicitly requested."""
+    if carrier_profile != 'ashlar-delta/0.4-xxhash64':
+        if umf_sdk_version is not None:
+            raise ValueError('UMF SDK realization selection applies only to local `.4` graph tables')
+        return None
+    if umf_sdk_version not in (None, '0.5.8', '0.10.0'):
+        raise ValueError('Explicit supported local `.4` UMF SDK version required')
+    from . import local_current_carrier_profile as carrier
+    creators = {
+        None: carrier.create_local_current_xxhash64_tables,
+        '0.5.8': carrier.create_local_current_xxhash64_sdk058_tables,
+        '0.10.0': carrier.create_local_current_xxhash64_sdk010_tables,
+    }
+    return creators[umf_sdk_version](spark, output, tables)
+
+
+def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None):
     """Publish accepted scalar objects/edges with real historical catalog admission."""
-    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,maximum_page_bytes=maximum_page_bytes,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id,carrier_profile=carrier_profile)
+    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,maximum_page_bytes=maximum_page_bytes,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id,carrier_profile=carrier_profile,umf_sdk_version=umf_sdk_version)
 
 
-def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3'):
+def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None):
     """Read, publish and ACK up to eight pages in a fresh owned local destination.
 
     Registration must already exist at genesis. Partial effects remain on failure;
@@ -230,6 +247,8 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
     if type(graph)is not bool:raise ValueError('Explicit scalar graph selection required')
     if carrier_profile not in ('ashlar-delta/0.3','ashlar-delta/0.4-xxhash64') or (carrier_profile!='ashlar-delta/0.3' and not graph):
         raise ValueError('Explicit supported local graph carrier profile required')
+    if umf_sdk_version is not None and (not graph or carrier_profile!='ashlar-delta/0.4-xxhash64'):
+        raise ValueError('UMF SDK version selection requires local `.4` graph publication')
     if not output.is_absolute()or output.parent.resolve()!=output.parent or output.exists()or any(character in str(output)for character in ('`',"'",'\\','\0','\n','\r'))or type(maximum_pages)is not int or not 1<=maximum_pages<=8 or not callable(connection_factory):raise ValueError('Fresh canonical local output and finite ordinary source selection required')
     if any(type(value)is not str or not value for value in (consumer_id,feed)):raise ValueError('Explicit original consumer/feed required')
     # Source is observed before creating destination resources.
@@ -243,8 +262,8 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
         namespace='trussgraph'if graph else'trussnote'
         tables={role:'local.'+namespace+'.'+role for role in columns};targets=[];installation_profile=None
         if graph and carrier_profile=='ashlar-delta/0.4-xxhash64':
-            from .local_current_carrier_profile import create_local_current_xxhash64_tables
-            targets,installation_profile,profile_columns=create_local_current_xxhash64_tables(spark,output,tables)
+            targets,installation_profile,profile_columns=_create_current_graph_tables(
+                spark,output,tables,carrier_profile,umf_sdk_version)
             if profile_columns!=columns:raise ValueError('UMF-generated local `.4` role fields differ')
         else:
             for role,schema in columns.items():

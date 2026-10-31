@@ -17,8 +17,9 @@ from ashlar_host.truss_graph_admission import TrussGraphAdmission
 from ashlar_host.driver import NativeDriver
 from ashlar_host.delta_custody import DeltaTarget
 from ashlar_host.local_current_carrier_profile import (
-    _observed_role, _protocol, SDK058_PROFILE, apply_local_writer_settings,
+    _observed_role, _protocol, SDK058_PROFILE, SDK010_PROFILE, apply_local_writer_settings,
     create_local_current_xxhash64_tables, create_local_current_xxhash64_sdk058_tables,
+    create_local_current_xxhash64_sdk010_tables, verify_local_current_profile,
     verify_local_writer_settings,
 )
 from ashlar_host.truss_note_publication import native_xxhash64,graph_expected_rows
@@ -250,6 +251,82 @@ class LocalCurrentXxhash64ProfileTests(unittest.TestCase):
             self.assertEqual(set(profile['roles']),set(roles))
             self.assertEqual(len({target.uuid for target in targets}),6)
             self.assertEqual(set(columns),set(roles))
+
+    def test_sdk010_creator_is_explicit_and_profile_reopens_against_same_bridge(self):
+        from ashlar_host.configured_local_delta4_publication import _valid_installation_profile_identity
+        from ashlar_host.local_current_delta4_umf_sdk010 import (
+            BRIDGE_SHA256, BUILD_INPUTS_SHA256, MANIFEST_SHA256, SOURCE_POLICY_SHA256)
+
+        class Conf:
+            value=None
+            def set(self,key,value):self.value=(key,value)
+            def get(self,key):return self.value[1] if self.value and self.value[0]==key else None
+        class Spark:
+            def __init__(self):self.statements=[];self.conf=Conf()
+            def sql(self,statement):self.statements.append(statement)
+        with tempfile.TemporaryDirectory() as temporary:
+            output=Path(temporary).resolve()/'sdk010';output.mkdir()
+            roles=('object_current','edge_current','tombstone','whole_source_history','attempts','manifest')
+            tables={role:'local.trussgraph.'+role for role in roles}
+            spark=Spark()
+            def inert_observation(spark,carrier_role,table,path,fields,layout,field_metadata=None):
+                path.mkdir()
+                return DeltaTarget(table,path,'uuid-'+carrier_role),{
+                    'carrier_role':carrier_role,'table':table,'path':str(path),
+                    'uuid':'uuid-'+carrier_role,'fields':[list(field) for field in fields],
+                    'field_metadata':[dict(item) for item in field_metadata],
+                    'protocol':{},'clustering_columns':layout.get('clusterBy',[]),
+                    'partition_columns':layout.get('partitionBy',[]),
+                    'layout_properties':layout.get('properties',{})}
+            with patch('ashlar_host.local_current_carrier_profile._observed_role',side_effect=inert_observation):
+                targets,profile,columns=create_local_current_xxhash64_sdk010_tables(spark,output,tables)
+            self.assertEqual(profile['profile'],SDK010_PROFILE)
+            self.assertEqual(profile['umf_revision'],'0.10.0')
+            self.assertEqual(profile['umf_realization_profile'],
+                             'ashlar-local-current-delta4-umf-source-sdk010/0.1')
+            self.assertEqual(profile['umf_realization_manifest_sha256'],MANIFEST_SHA256)
+            self.assertEqual(profile['umf_bridge_sha256'],BRIDGE_SHA256)
+            self.assertEqual(profile['umf_build_inputs_sha256'],BUILD_INPUTS_SHA256)
+            self.assertEqual(profile['umf_source_policy_sha256'],SOURCE_POLICY_SHA256)
+            self.assertTrue(_valid_installation_profile_identity(profile))
+            self.assertEqual(set(columns),set(roles));self.assertEqual(len(targets),6)
+            self.assertEqual(len(spark.statements),6)
+
+            base_role_keys={'field_metadata','umf_source_bytes_sha256','umf_source_sha256',
+                'umf_schema_sha256','umf_target_sha256','umf_proposal_sha256','umf_ddl_sha256',
+                'umf_dispositions','umf_writer_settings','umf_proposal'}
+            def retained_observation(spark,carrier_role,table,path,fields,layout,field_metadata=None):
+                role=next(name for name,binding in profile['roles'].items()
+                          if binding['carrier_role']==carrier_role)
+                binding=profile['roles'][role]
+                observed={key:value for key,value in binding.items() if key not in base_role_keys}
+                return DeltaTarget(table,path,binding['uuid']),observed
+            with patch('ashlar_host.local_current_carrier_profile._observed_role',side_effect=retained_observation):
+                verify_local_current_profile(spark,profile,targets,'ashlar-delta/0.4-xxhash64')
+
+    def test_umf_sdk_selection_dispatch_preserves_default_and_selects_sdk010(self):
+        from ashlar_host.truss_note_publication import _create_current_graph_tables
+        sentinel=object();legacy_candidate=object()
+        with patch('ashlar_host.local_current_carrier_profile.create_local_current_xxhash64_tables',return_value='historical') as old, \
+             patch('ashlar_host.local_current_carrier_profile.create_local_current_xxhash64_sdk058_tables',return_value=legacy_candidate) as sdk058, \
+             patch('ashlar_host.local_current_carrier_profile.create_local_current_xxhash64_sdk010_tables',return_value=sentinel) as latest:
+            self.assertEqual(_create_current_graph_tables('spark','out',{},'ashlar-delta/0.4-xxhash64',None),'historical')
+            self.assertIs(_create_current_graph_tables('spark','out',{},'ashlar-delta/0.4-xxhash64','0.5.8'),legacy_candidate)
+            self.assertIs(_create_current_graph_tables('spark','out',{},'ashlar-delta/0.4-xxhash64','0.10.0'),sentinel)
+        old.assert_called_once_with('spark','out',{})
+        sdk058.assert_called_once_with('spark','out',{})
+        latest.assert_called_once_with('spark','out',{})
+        with self.assertRaises(ValueError):
+            _create_current_graph_tables('spark','out',{},'ashlar-delta/0.4-xxhash64','0.9.0')
+        with self.assertRaises(ValueError):
+            _create_current_graph_tables('spark','out',{},'ashlar-delta/0.3','0.10.0')
+        from ashlar_host.truss_note_publication import publish_graph_pages
+        with patch('ashlar_host.truss_note_publication.publish_note_pages',return_value={'ok':True}) as publish:
+            result=publish_graph_pages('spark','output',connection_factory=lambda:None,
+                consumer_id='consumer',feed='feed',carrier_profile='ashlar-delta/0.4-xxhash64',
+                umf_sdk_version='0.10.0')
+        self.assertEqual(result,{'ok':True})
+        self.assertEqual(publish.call_args.kwargs['umf_sdk_version'],'0.10.0')
 
     def test_writer_settings_apply_before_work_and_reopen_verification_never_repairs(self):
         class Conf:
