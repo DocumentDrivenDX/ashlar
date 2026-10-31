@@ -25,7 +25,7 @@ ddx:
 
 # Truss 0.0.51 R20 runtime cohort candidate
 
-**Status: proposed, not approved; no native action.** R20 is a fresh local
+**Status: approved and attempted once; approval consumed.** R20 was a fresh local
 full-lifecycle candidate derived from the reviewed R19 cohort. R19's one-shot
 failed before native effects because its isolated child could not import the
 current SDK 0.10.0 Ashlar bridge. The exact supervisor receipt and child logs
@@ -54,19 +54,24 @@ R20 removes exactly the `sys.path[0]` insertion made by that verifier after it
 returns, preserving all prior path entries; the custody prefix applies the same
 rule. This prevents the older package from shadowing current Ashlar modules.
 
-The scope keeps R19's 900-second ceiling, 2 GiB process-group RSS cap, 2 GiB
+The scope kept R19's 900-second ceiling, 2 GiB process-group RSS cap, 2 GiB
 retained-plus-attempt cap, 512 MiB attempt-root cap, sequential local execution,
 zero retries and no cloud resources. It reuses only the retained R16 custody
 inputs and the pinned R19 Python runtime. It has a new attempt UUID, destination,
-output root and supervisor directory. `approval_artifact_created` is false; no
-R20 approval file, output root or supervisor directory exists. No PostgreSQL,
-Spark, Delta, publication, ACK, seed, continuation or cloud action was run.
+output root and supervisor directory. Its proposal originally had
+`approval_artifact_created: false`; the owner later approved the exact scope and
+the [one-run approval artifact](approval-r20-exact-one-run.json) was created.
+The attempt passed source/runtime preflight but failed at PostgreSQL startup.
+No migration, Spark, Delta, publication, ACK, seed, continuation or cloud action
+ran. The [failure receipt and logs](../truss051-r20-failure-evidence-20261031/README.md)
+are preserved separately; do not reuse this approval.
 
 Current proposal SHA-256: `8365c414a5ca8f4b50bda8b67b6d047d563bc0c8d7d2f618e7277b879989f7e0`. Worker SHA-256 pins: custody prefix `45a78785bd1aca95e27b41de328e5e096533821b2972778ef161bd75e746c81f`, migration/readback `34fb13a52ff8e00feeb04a20729fa4ec3990f61f075e849702dc9aa45058034d`, supervisor `2d3b5258ce71385e03b7937f9f7686acf0da1ed7e339b1bf3aefa7a56634c84e`.
 
-Focused checks are effect-free: 37 focused tests passed; isolated child source import/runtime preflight,
+Pre-run focused checks were effect-free: 37 focused tests passed; isolated child source import/runtime preflight,
 frozen R16 import-path restoration, R20 scope/source/runtime admission, and the
 R20 supervisor/custody/migration admission tests. Before any separate approval,
 the repository commit, `/private/tmp` source archive and extraction, R16 retained
 inputs, Python runtime, wheel/source pins, worker hashes and immediate pre-start
-process inventory must be revalidated.
+process inventory was revalidated. The copied cold-backup directory lacks
+`pg_notify`; a fresh reviewed scope must use a complete stopped source.
