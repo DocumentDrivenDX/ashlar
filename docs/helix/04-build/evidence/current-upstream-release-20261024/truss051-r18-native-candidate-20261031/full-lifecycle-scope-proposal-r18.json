@@ -1,0 +1,272 @@
+{
+  "approval_artifact_created": false,
+  "authorization": "one_run_local_native_lifecycle",
+  "bridge": {
+    "bridge_sha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5",
+    "build_inputs_sha256": "b314d067d88ede4117f37c0b25604f53fac5753b5c5c2d05500762530950a26a",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "profile": "ashlar-local-current-delta4-umf-realization/0.1",
+    "resource_sha256": "da7d4b2a50ca949632520e64a616674646ecc3f829c3b9574dadced42ee84089",
+    "role_semantics_sha256": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d"
+  },
+  "limits": {
+    "aggregate_retained_plus_attempt_bytes_max": 2147483648,
+    "attempt_entries_max": 10000,
+    "attempt_root_bytes_max": 536870912,
+    "attempts": 1,
+    "automatic_retries": 0,
+    "child_deadline_seconds": 900,
+    "cloud_resources": false,
+    "combined_log_bytes_max": 16777216,
+    "continuation_maximum_pages": 1,
+    "helper_output_bytes_max": 2097152,
+    "live_monitor_sample_interval_seconds": 1,
+    "migration_preservation_bytes_max": 268435456,
+    "parallelism": "sequential local only",
+    "process_group_rss_bytes_max": 2147483648,
+    "process_inventory_required_immediately_before_start": true,
+    "publication_maximum_pages": 8,
+    "seed_maximum_operations": 7,
+    "startup_timeout_seconds": 30
+  },
+  "migration": {
+    "attempt_id": "20a34aee-21b3-4516-9973-24e1b5cf82a4",
+    "route": [
+      {
+        "artifact": "edge-c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0-35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f.json",
+        "source": "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+        "target": "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f"
+      },
+      {
+        "artifact": "edge-35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f-288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4.json",
+        "source": "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f",
+        "target": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4"
+      }
+    ]
+  },
+  "native_effects_executed": false,
+  "output_root": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4",
+  "planning_estimate": {
+    "basis": "R16 child spent 305.595 seconds in preparation before refusing at pre-start inventory; no native stage ran.",
+    "cap_interpretation": "One-shot wall-clock ceiling of 15 minutes including preparation; a guardrail, not a performance acceptance target.",
+    "cap_seconds": 900,
+    "estimate": "Retain the 305.595-second preparation as a measured floor, then reserve approximately 300–450 seconds for one PostgreSQL start, migration/readback, publication/ACK, seed, continuation/ACK and clean stop.",
+    "rationale": "A 600-second total cap leaves only 294.405 seconds after the measured prestart preparation, insufficient planning reserve for the complete native sequence. A 900-second ceiling leaves 594.405 seconds."
+  },
+  "process_custody": {
+    "failure_receipt": "after attempt phase begins, retain effect_state, whether native effects may remain, reason and hash of any durable lifecycle-stop-receipt.json; pre-effect admission can fail without output receipt",
+    "pid_data_directory_binding": "require live PostgreSQL SHOW data_directory to equal the exact restored_pgdata_path; on uncertain start/stop preserve PID and diagnostics in stop receipt",
+    "pre_start_inventory": "fresh /bin/ps -Ao pid=,command= immediately before start; require successful output and no postgres/pg_ctl owner of selected or restored PGDATA via -D/--pgdata; unrelated command-line path mentions are allowed",
+    "single_owner": "prefix worker owns exactly one pg_ctl start and one stop around all lifecycle stages",
+    "watchdog": "Parent starts the exact pinned Python plus this exact supervisor file in a new process group; poll group RSS, logs and attempt bytes; at the 900-second or resource limit send SIGTERM, then SIGKILL, wait/reap and verify group membership. Samples occur about once per second; byte and RSS limits are observed-only between samples, with a final post-exit check. Very short-lived spikes or files may not be observed."
+  },
+  "profile": "ashlar-truss-r18-full-native-lifecycle/0.1",
+  "proposal_gates": [
+    "Fresh /bin/ps inventory must succeed immediately before start and find no postgres/pg_ctl process owning selected or restored PGDATA through -D/--pgdata; unrelated command-line path mentions are allowed.",
+    "historical accepted source content and historical acceptance-origin file are absent; source bytes must be captured from public .48 read and hash-checked before seed, and origin semantics are explicitly new approval material",
+    "all /private/tmp runtime paths/artifacts are ephemeral and must be revalidated against this packet immediately before approval/run",
+    "full lifecycle owner approval must bind exact serialized scope hash plus all worker/runtime/source/bridge/origin fields; this file itself is not an approval",
+    "stale future-template origin-gate digest 80d937e7c8ec9fff51d04cb08ecea27c6c32dd05df6b87d2bb0a87fc62347ebf was reconciled to the current exact gate bytes abb5895a1ad15f092b66355832c8c99b185856afd6ca2bab446710d819615aa3",
+    "the selected source root path is the retained extraction that passed all 569 selected source-file hashes against the frozen manifest; revalidate at invocation because /private/tmp contents are mutable",
+    "Fresh R18 paths and identities; exact scope hash and all current source/runtime pins must be rechecked immediately before any future approval or run."
+  ],
+  "proposal_profile": "ashlar-truss-r18-full-native-lifecycle-scope-proposal/0.1",
+  "proposal_status": "proposed_not_approved",
+  "publication": {
+    "ack_receipts": "The genesis-publication-committed.json and continuation-committed.json receipts assert protected destination ACK evidence returned by the shared publisher; the full report artifacts remain under the attempt output directories.",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "continuation": "one approved seven-operation seed, actual-page admission, one actual continuation from genesis and protect ACK",
+    "destination_id": "ashlar-r18-local-20a34aee-21b3-4516-9973-24e1b5cf82a4",
+    "genesis": "one no-change genesis Delta publication; independently read back exact archive and protect ACK"
+  },
+  "receipt_paths": {
+    "continuation-committed.json": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/continuation-committed.json",
+    "genesis-page.json": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/genesis-page.json",
+    "genesis-publication-committed.json": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/genesis-publication-committed.json",
+    "lifecycle-stop-receipt.json": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/lifecycle-stop-receipt.json",
+    "migration-readback/migration-readback-verified.json": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/migration-readback/migration-readback-verified.json",
+    "page-admitted.json": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/page-admitted.json",
+    "postgres_start_intent": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/postgres-start-intent.json",
+    "pre-migration-custody-live.json": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/pre-migration-custody-live.json",
+    "registry-pre-effect.json": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/registry-pre-effect.json",
+    "seed-committed.json": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/seed-committed.json",
+    "supervisor-failure.json": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/supervisor-failure.json",
+    "supervisor_child_stderr": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4-supervisor/child.stderr.log",
+    "supervisor_child_stdout": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4-supervisor/child.stdout.log",
+    "supervisor_watchdog_receipt": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4-supervisor/supervisor-receipt.json"
+  },
+  "recovery_source_custody": {
+    "cold_backup_copy": {
+      "bytes": 63997052,
+      "file_count": 1248,
+      "path": "/private/tmp/ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca/restored-pgdata",
+      "receipt_path": "/private/tmp/ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca/cold-backup-restored.json",
+      "receipt_sha256": "18264888e9b0feec6cc516a1a4f373f0dcf5fd03a2ea5bbdd53b20ea753fd412",
+      "tree_sha256": "67f15dff3198ba6b28bbe93a35cb7b595fe0439f84bcb4c14b9ef6d1f4c9effc"
+    },
+    "profile": "ashlar-truss-r18-recovered-pgdata-inputs/0.1",
+    "r16_scope_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261024/truss051-r16-native-candidate-20261029/full-lifecycle-scope-proposal-r16.json",
+    "r16_scope_sha256": "911cdefe6d9ee68d8a55b14ceff6640dba21384d7b59c3d082c10ae069acb5a0",
+    "r16_supervisor_failure_receipt_path": "/private/tmp/ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca/supervisor-failure.json",
+    "r16_supervisor_failure_receipt_sha256": "3e186cb798a9b3069d3d821eef4b48311e7338670afd19b1d23cde6b2a66b444",
+    "selected_discrepancy": {
+      "bytes": 17197691,
+      "file_count": 11,
+      "path": "/private/tmp/ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca/selected-discrepancy",
+      "receipt_path": "/private/tmp/ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca/discrepancy-preserved.json",
+      "receipt_sha256": "cb0e72c4d7fe631a340d543d46e1173b7fe9cbcdce3eacd9f9dce9895e85fec7",
+      "tree_sha256": "b979795a32e5b6c9f0d9bbda7849f130e20aa2846af96220cbbcbdfce6937c75"
+    }
+  },
+  "runtime": {
+    "bootstrap_user": "postgres",
+    "bun_path": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+    "bun_sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "connection_factory_sha256": "0d7edf6e4d1ee74c06df3efaa77e2b3d60207a9627161cdc647ed9b169c71782",
+    "database": "postgres",
+    "delta_spark_version": "4.4.1",
+    "embedded_050_index_sha256": "4c6baf0282e3d0b5492f070c9c07d89ff0c9a819e748f3820f60b11c1f51c7aa",
+    "external_pg_ctl_sha256": "3021087af95fd33bfd83106c85de47c4756e44aa7edde78446e7593604d1b451",
+    "external_pg_ctl_version": "pg_ctl (PostgreSQL) 18.6 (Homebrew)",
+    "jar_sha256": {
+      "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+      "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+    },
+    "jars_directory": "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars",
+    "java_home": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
+    "outer_migration_index_sha256": "d1672e85ae0e89137986fc57669186af47e5826366bd430284aba9b7cf52c37d",
+    "pg_ctl_path": "/opt/homebrew/Cellar/postgresql@18/18.6_1/bin/pg_ctl",
+    "port": 55441,
+    "pyspark_version": "4.2.0",
+    "python_path": "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/bin/python",
+    "runtime_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "socket_directory": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/socket",
+    "truss048_python": "/private/tmp/ashlar-r16-truss048-readonly-compat-312/bin/python",
+    "truss048_runtime_receipt_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261024/truss051-r16-effectfree-candidate-20261029/truss048-readonly-runtime-receipt-r16.json",
+    "truss048_runtime_receipt_sha256": "1ae2d48fcda993c5841f99d1f9f45a689f1f778007d39826224206a474f8bb74",
+    "truss_version": "0.0.51",
+    "weft_version": "0.4.56",
+    "weft_wheel_sha256": "68f9297b4b55df483b86d3041040991c4dadfb9b4d63afcff1420c43f93ae41d",
+    "wheel_sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57"
+  },
+  "seed_custody": {
+    "origin_gate_code_sha256": "abb5895a1ad15f092b66355832c8c99b185856afd6ca2bab446710d819615aa3",
+    "origin_gate_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261024/truss051-r16-effectfree-candidate-20261029/r16_native_origin_gate.py",
+    "origin_map_expected_sha256": "c19540a4c1cc3561365cc4ec38a71da44fdc4648b8f27a6540c81eb5233badc5",
+    "origin_map_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261024/truss051-r16-effectfree-candidate-20261029/origin-map-r16-proposed.json",
+    "request_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261022/truss-049-lifecycle-ready/seed-request.json",
+    "request_sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+    "semantic_approval_proposal": "Approve this explicit local_truss_acceptance_trial origin meaning for the seven accepted seed operations. It is not historical acceptance-origin evidence and grants no production authority."
+  },
+  "source": {
+    "archive_path": "/private/tmp/ashlar-r16-source-48fb9cb0.tar",
+    "archive_sha256": "cb57fdb7d338f345cfad157463fdbe94a2be7dcf69e728c474954c2939c14a0b",
+    "helper_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261024/truss051-r16-effectfree-candidate-20261029/r16_pre_migration_source_helper.py",
+    "helper_sha256": "62707a3febf1f67b7a06edc1cc7ccba1a843c1dc3540fae2ac8b4406e09ea13d",
+    "manifest_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261024/truss051-r16-effectfree-candidate-20261029/source-inputs-manifest-r16.json",
+    "manifest_sha256": "fb79cebc5b1388b49d0687c9f77c61187125299758ee7388fd64ba2c9d533348",
+    "source_root_path": "/private/tmp/ashlar-r16-source-48fb9cb0-check/src"
+  },
+  "source_custody": {
+    "expected_accepted_source_document_id": "ashlar-current-045-lifecycle-20261021",
+    "expected_catalog_revision": 1,
+    "expected_complete_view_sha256": "cc36fe489326f73c2eaf153ba2e025feeb76eaa88ffa0d6b675a1f4772264dc7",
+    "expected_consumer_id": "ashlar-current-048-lifecycle-20261022",
+    "expected_consumer_registration_id": "9f03eb5d-ce72-437f-8b32-0112c130e724",
+    "expected_feed_id": "ashlar-current-045-lifecycle",
+    "expected_genesis_checkpoint_sha256": "c74e4c2dd697421f26a378454ec489bcb83501a4997235b670bdb011e4e7be8e",
+    "expected_source_registration_id": "ccfcd423-5893-4df9-8f88-6504e086bd4d",
+    "expected_source_report_sha256": "c797191c90c516b0997801a63605d297e5e429b50e922cd7da2d39640d570c9a",
+    "expected_source_revision": "ashlar-current-045-lifecycle-r1",
+    "expected_source_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b"
+  },
+  "stage_limits": {
+    "continuation": {
+      "maximum_page_bytes": 1048576,
+      "maximum_pages": 1,
+      "wait_seconds": 0
+    },
+    "migration": {
+      "attempts": 1,
+      "automatic_retries": 0,
+      "reconcile_on_ambiguous_outcome": true,
+      "registry_preservation_bytes_max": 268435456,
+      "route": "exact .48 → .49 → .51"
+    },
+    "postgres_logs": {
+      "check": "post-stop; not continuous throttling",
+      "combined_bytes_max": 16777216
+    },
+    "preflight": {
+      "helper_output_bytes_max": 2097152,
+      "manifest_bytes_max": 2097152,
+      "source_archive_bytes_max": 16777216,
+      "timeout_seconds": 30
+    },
+    "preserve_restore_start": {
+      "aggregate_retained_plus_attempt_bytes_max": 2147483648,
+      "attempt_entries_max": 10000,
+      "attempt_root_bytes_max": 536870912,
+      "deadline_seconds": 900,
+      "live_monitor_interval_seconds": 1,
+      "parallelism": "sequential local only",
+      "postgres_fast_stop_timeout_seconds": 25,
+      "process_group_rss_bytes_max": 2147483648,
+      "resource_cap_semantics": "Observed-only during approximately one-second live samples, plus final post-exit check; short-lived spikes may not be observed.",
+      "sigkill_reap_seconds": 3,
+      "sigterm_grace_seconds": 2,
+      "startup_timeout_seconds": 30,
+      "watchdog_cleanup_seconds_max": 40
+    },
+    "publication": {
+      "carrier_profile": "ashlar-delta/0.4-xxhash64",
+      "maximum_page_bytes": 1048576,
+      "maximum_pages": 8,
+      "wait_seconds": 0
+    },
+    "seed": {
+      "approved_operations": 7,
+      "bun_timeout_seconds": 5,
+      "maximum_child_output_bytes": 2097152
+    }
+  },
+  "stage_plan": [
+    "input/hash admission",
+    "fresh process/resource preflight",
+    "preserve selected discrepancy tree",
+    "restore cold backup to fresh PGDATA",
+    "single PostgreSQL start",
+    "public .48 source/view/feed/consumer/checkpoint read and hash-bound durable custody receipt",
+    "exact .48-to-.49-to-.51 RuntimeMigrations prepare/apply/reconcile/readback",
+    "public .51 accepted source/view/page recheck with exact source bytes capture",
+    "one no-change .4 genesis Delta publication",
+    "independent exact archive readback and protected ACK",
+    "approved seven-operation seed using captured accepted source bytes and proposed origin semantics",
+    "independent actual-page verification and one continuation",
+    "protected continuation ACK",
+    "one owned PostgreSQL stop and truthful final/failure receipts"
+  ],
+  "state_custody": {
+    "cold_backup_path": "/private/tmp/ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca/restored-pgdata",
+    "cold_backup_tree_sha256": "67f15dff3198ba6b28bbe93a35cb7b595fe0439f84bcb4c14b9ef6d1f4c9effc",
+    "discrepancy_preservation_path": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/selected-discrepancy",
+    "fresh_process_inventory_rule": "fresh /bin/ps -Ao pid=,command= immediately before start; require successful output and no postgres/pg_ctl owner of selected or restored PGDATA via -D/--pgdata; unrelated command-line path mentions are allowed",
+    "genesis_page_path": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/genesis-page.json",
+    "new_registry_pre_effect_backup_sha256": "40f2c39e0f5e57aa59be725f35b848b0ef82f8fe3dead6c6b424352f4ed9d44c",
+    "new_registry_pre_effect_backup_sha256_or_exact_creation_rule": "registry remains absent until the separately gated migration stage",
+    "output_root": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4",
+    "registry_backup_receipt_path": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/registry-pre-effect.json",
+    "registry_path": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/truss-migration-recovery.sqlite3",
+    "restored_pgdata_path": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4/restored-pgdata",
+    "selected_incomplete_pgdata_path": "/private/tmp/ashlar-truss-r16-full-lifecycle-edcce822-5ea2-4b63-9367-09bdf09caaca/selected-discrepancy",
+    "selected_incomplete_pgdata_tree_sha256": "b979795a32e5b6c9f0d9bbda7849f130e20aa2846af96220cbbcbdfce6937c75"
+  },
+  "supervisor_output_directory": "/private/tmp/ashlar-truss-r18-full-lifecycle-20a34aee-21b3-4516-9973-24e1b5cf82a4-supervisor",
+  "supervisor_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261024/truss051-r18-native-candidate-20261031/run_supervisor_r18.py",
+  "workers": {
+    "custody_prefix_sha256": "c826059ea2f089f9383c121aa4b73c6828a25bf3a440236b32b9f5500657be85",
+    "migration_readback_sha256": "2e90c433fb9bef53e3230a50cfbddb72cc8b497d9c29a1b3c07f2b74c593bdb7",
+    "supervisor_sha256": "b54e382aea78758de6b510d85eb678e93572a05167c43aee60c939f5fb34eb3d"
+  }
+}

@@ -28,21 +28,26 @@ source, model, engine versions and authority; they do not establish selected Tru
 production authority ([configured publication](04-build/evidence/native-configured-publication-complete-20261008.json),
 [Truss 0.0.22 lifecycle](04-build/evidence/truss22-commerce-lifecycle-20261013/README.md)).
 
-The candidate pins Weft 0.4.56, UMF core 0.10.3 and access 0.1.0.dev8.
-Focused installed macOS checks passed for compiler responses and the managed
-page-target admission; Linux assets were byte-verified but not run. These
-checks do not qualify emitted-SQL execution or native/managed publication
-([current adoption](04-build/evidence/current-upstream-release-20261029/r01-umf-weft-pins-20261029/README.md)).
+The candidate pins Weft 0.4.56, UMF SDK 0.10.0, Python Core 0.10.4
+(semantic Core 0.10.0) and Access 0.1.0.dev8. Focused installed macOS checks
+passed for compiler responses, managed page-target admission, and the SDK
+Delta 4 bridge's six-role MiniRacer parity. The local wheel and sdist contain
+the pinned bridge resources. Linux native execution and managed publication
+remain open ([upstream adoption](04-build/evidence/current-upstream-release-20261031/README.md),
+[runtime integration](04-build/evidence/current-upstream-release-20261031/sdk010-delta4-runtime-integration/README.md)).
 
 The candidate `truss-local` extra selects Truss 0.0.51 with its `[native]`
-dependencies. The latest R16 one-shot attempt restored its cold backup, then
-refused before PostgreSQL start after 305.595 seconds of preparation; its
-approval is spent and no migration, publication, ACK, seed or continuation
-occurred. R17 now has a bounded 900-second local scope and passing effect-free
-checks, but remains a review proposal without owner approval or native execution.
-Neither result qualifies the Truss lifecycle; selected-source acceptance and
+dependencies. R16 stopped during cold-backup restore after 305.595 seconds of
+preparation, with its approval spent. R17 consumed its separate approval but
+refused at the frozen selected-tree check before any native effect; its approval
+is also spent. The original selected and cold-backup paths are now empty, while
+the exact R16 retained copies and their preservation receipts remain available
+as candidate inputs. R18 binds those copies in a fresh full-lifecycle proposal
+with passing focused effect-free checks, but has no owner approval and has not
+run. The Truss lifecycle remains unqualified; selected-source acceptance and
 feed/ACK evidence remain open ([R16 failure](04-build/evidence/current-upstream-release-20261024/truss051-r16-native-candidate-20261029/r16-failure-evidence.json),
-[R17 proposal](04-build/evidence/current-upstream-release-20261024/truss051-r17-native-candidate-20261029/README.md)).
+[R17 failure](04-build/evidence/current-upstream-release-20261024/truss051-r17-native-candidate-20261029/r17-pre-effect-failure-20261031.md),
+[R18 candidate](04-build/evidence/current-upstream-release-20261024/truss051-r18-native-candidate-20261031/README.md)).
 
 Local Spark 4.2.0/Delta 4.4.1 candidate checks include bounded Weft query and
 SDK paging; a separate native one-table Delta check accepted a candidate DDL

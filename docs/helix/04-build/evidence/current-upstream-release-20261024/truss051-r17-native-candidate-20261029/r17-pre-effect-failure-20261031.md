@@ -38,6 +38,9 @@ is empty. The attempt root is
 `/private/tmp/ashlar-truss-r17-full-lifecycle-a2fe02b9-e33a-4b73-9a13-96fbdd9100ab`.
 The approved scope SHA-256 was
 `923f19c42617ed3d7053ba09d1125d698f07110f085c34eb78e2fd6d7ca2b798`.
+The one-run approval artifact consumed for this attempt is
+`approval-r17-exact-one-run.json` (SHA-256
+`64cc935fcee28919aaf60f57452e6e8504f235efdedcc0a3f829e250051287e0`).
 
 Read-only inspection found the original selected PGDATA path and original cold
 backup path still present as empty directory shells: both currently inventory
@@ -56,7 +59,7 @@ selected-state tree SHA-256
 The retained `restored-pgdata` independently inventories to
 `67f15dff3198ba6b28bbe93a35cb7b595fe0439f84bcb4c14b9ef6d1f4c9effc` (1,248
 files, 63,997,052 bytes), exactly matching `cold-backup-restored.json` receipt
-(SHA-256 `18264888e9b0feec6cc64a1a4f373f0dcf5fd03a2ea5bbdd53b20ea753fd412`).
+(SHA-256 `18264888e9b0feec6cc516a1a4f373f0dcf5fd03a2ea5bbdd53b20ea753fd412`).
 These are valid observed input candidates for a newly reviewed packet; this
 receipt does not authorize copying, restoring, starting PostgreSQL, or reusing
 R17 approval. A new packet must bind both paths and receipt bytes, re-inventory
