@@ -126,24 +126,43 @@ actual scan bytes remain open.
 
 ## One reversible next experiment
 
-After the owner selects and admits a dedicated compute shape, run one
-1M-node/5M-edge full-path screen on the proposed 256-executor-core candidate,
-using 256 node partitions and 1,024 edge partitions. Keep the schema, carrier,
-values, ZSTD, point predicates, both independent persisted scans, pinned-frame
-GraphFrames action and all semantic witnesses unchanged. Capture per-phase
-wall time and bytes, stage task counts and duration spread, executor CPU/GC,
-spill, peak memory, output files/bytes and verified owned cleanup. Use one
-attempt, no retry, a 900-second wall cap and 32 GiB attempt-root cap; clean the
-private output only after the existing ownership and process-quiescence checks.
-This changes only runtime task geometry and is reversible by discarding the
-private run.
+Do not run another local 45M/225M candidate: its observed 80%-rate bundle
+already projects above 15 minutes on the measured 18-core shape. The next
+meaningful discriminator is one 200M-node/1B-edge full-path candidate on a
+dedicated, owner-admitted 256-executor-core shape, with 256 node partitions and
+1,024 edge partitions. This is 20% of target volume and five times the retained
+45M/225M sample. It is large enough to measure substantial writes, both
+independent persisted scans, point lookups and the pinned-frame GraphFrames
+action with less scheduler dominance than a 1M/5M screen. It reuses no baseline
+run and introduces no schema or carrier change.
 
-The screen is 1/1,000 of the target row volume. A linear five-minute budget
-allows at most 0.300 seconds per 1M/5M workload unit before fixed overhead; at
-the 80%-rate planning factor, the measured variable work would need to fit in
-0.240 seconds per unit. Treat exceeding that arithmetic as an early rejection
-of this compute candidate. Passing only makes it eligible for a larger
-reviewed pilot: it cannot prove 1B/5B scaling, 40–55 MiB target partition
-geometry, memory sufficiency, Unity Catalog behavior or GraphFrames throughput.
-The 256-core shape, storage path and cost limit have not been admitted, so this
-screen is a recommendation, not an authorization to provision or run compute.
+Keep the `.4-xxhash64` schema, values, ZSTD, source/endpoint formulas, exact
+point predicates, two separate persisted scans, bounded GraphFrames witness
+and all semantic checks unchanged. Measure each phase and its scan/input bytes,
+stage task counts and duration spread, executor CPU/GC, spill, peak memory,
+output bytes/files, full wall time and owned cleanup. Run one attempt with no
+retry and a 900-second hard stop; a 32 GiB attempt-root cap is a candidate bound
+only if fresh admission confirms it covers the chosen runtime's scratch and
+output. Record the compute/runtime identity and actual metered use. The required
+compute shape, supported access mode and spend ceiling must be admitted before
+launch; no platform cost is estimated here.
+
+Using the same 80%-rate planning factor, project the complete observed path by
+`5 / 0.8 = 6.25` to the 1B/5B target. A 200M/1B full-path screen at 144 seconds
+projects to the 15-minute review trigger; at 48 seconds it projects to the
+provisional five-minute target. These limits include startup, writes, both
+scans, lookups, graph action, final checks and cleanup; scaling fixed overhead
+with workload is conservative. A forecast above 900 seconds fails the review
+gate. A forecast between 300 and 900 seconds may inform another design review,
+but it does not support the few-minute target or authorize a target-scale run.
+Only a forecast at or below 300 seconds supports the five-minute trajectory,
+and still requires separate scale and resource review before 1B/5B execution.
+
+This screen would write about 13.85 GB of active data and exercise roughly
+53.29 GB under the four-pass sensitivity. With 256/1,024 partitions its
+estimated outputs average about 8/11 MiB per task, one fifth of the target
+40/55 MiB geometry. It can evaluate phase throughput and task scaling at a
+meaningful fraction of the target, but it still cannot prove target-scale
+skew, file geometry, memory, Unity Catalog behavior or GraphFrames throughput.
+The experiment is a recommendation only: no compute has been provisioned and
+no Spark run is authorized by this note.
