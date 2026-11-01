@@ -1,0 +1,94 @@
+{
+  "command": [
+    "/private/tmp/ashlar-r19-truss051-runtime-cohort-20261031/bin/python",
+    "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28_truss052_supervisor.py",
+    "--scope",
+    "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r30-host-scope.json",
+    "--worker",
+    "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-local-worker.py",
+    "--preflight-only"
+  ],
+  "effect_absence": {
+    "cloud": false,
+    "database_opened": false,
+    "delta_written": false,
+    "output_root_exists": false,
+    "pgdata_exists": false,
+    "source_acknowledgement": false,
+    "spark_started": false,
+    "supervisor_root_exists": false
+  },
+  "implementation_commit": "31370a041190eb0aa607d7731f5669ad77733973",
+  "implementation_tree": "37a0df30ecb0aca8bf170b966a988f49c5bd0eee",
+  "profile": "ashlar-r30-truss052-source-owner-fix-preflight/0.1",
+  "scope_path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r30-host-scope.json",
+  "scope_sha256": "f46a22ee4127e36ee150758314b0a0a6f415d03489341e5b872893fdd7558321",
+  "source_code_bindings": {
+    "src/ashlar_host/driver.py": "0c3c79f98039afae74c0f0f40b38c888b53a3e6c6d8084e237eb24b1e5f5f30f",
+    "src/ashlar_host/truss_graph_admission.py": "98279c6564e9f45460bdf29192a5459e2a47aaa6fa18a966086f726aa57c4af4"
+  },
+  "source_selection": {
+    "acceptance_replayed": false,
+    "consumer_enrollment_replayed": false,
+    "genesis_group_replayed": false,
+    "profile": "ashlar-truss052-resume-committed-genesis/0.1",
+    "r29_delta_root_reused": false,
+    "r29_source_ack_attempted": false,
+    "source_pgdata": "/private/tmp/ashlar-r24-truss052-fresh-source-20261101/pgdata",
+    "source_pgdata_sha256": "dd122a2d01bce3e99c0d6d824cf33c07a57a5c38358f2a081d2e47d47941cbdd"
+  },
+  "status": "passed_effect_free",
+  "supervisor_preflight": {
+    "attempt_root": "/private/tmp/ashlar-r30-truss052-page-sequence-20261101",
+    "native_effects": "none",
+    "native_structural_preflight": {
+      "bun_sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
+      "cloud": false,
+      "continuation_sha256": "52066d42c59c889d6b487cf42627c7cef6751c151a104b0b1a3a42430adf64e1",
+      "database_opened": false,
+      "delta_written": false,
+      "model_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
+      "native_effects": false,
+      "path_keys": [
+        "data_directory",
+        "output_root",
+        "supervisor_root"
+      ],
+      "prior_r25_pgdata_sha256": "df8ffb0e83b55938afd7cff910952c8f6eda2317f58006262a995f370474b701",
+      "prior_r26_pgdata_sha256": "fcb02461ab8316d4fa80dabc23d96eb88e9261143237a5fa8159a09144cef564",
+      "seed_sha256": "fb74cf6fb22b1f44b7dd8bb0a8d75d0bda982e14abb466d22afecd2017f4444a",
+      "source_acknowledgement": false,
+      "source_role_names": {
+        "module_reader_role": "ashlar_local_dev_modread_r21_20261101",
+        "ordinary_reader_role": "ashlar_local_dev_reader_r21_20261101",
+        "registrar_login_role": "ashlar_local_dev_registrar_r21_20261101",
+        "registrar_no_login_role": "ashlar_local_dev_catalog_registrar_r23_20261101",
+        "writer_login_role": "ashlar_local_dev_writer_r21_20261101",
+        "writer_module_role": "ashlar_local_dev_modwrite_r21_20261101"
+      },
+      "spark_jars": {
+        "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+        "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+      },
+      "spark_network": {
+        "driver_bind_address": "127.0.0.1",
+        "driver_host": "127.0.0.1",
+        "local_ip": "127.0.0.1",
+        "profile": "ashlar-local-spark-loopback-bind/0.1",
+        "ui_bind_address": "127.0.0.1"
+      },
+      "spark_started": false,
+      "status": "passed_effect_free_native_structural_preflight"
+    },
+    "profile": "ashlar-r28-truss052-supervisor/0.1",
+    "python": "/private/tmp/ashlar-r19-truss051-runtime-cohort-20261031/bin/python",
+    "scope_sha256": "f46a22ee4127e36ee150758314b0a0a6f415d03489341e5b872893fdd7558321",
+    "status": "preflight_ok",
+    "supervisor_root": "/private/tmp/ashlar-r30-truss052-page-sequence-20261101-supervisor",
+    "supervisor_sha256": "b79fb3676ff6436bd85b5207fa04633c3efd7c6d60ecbc5c86bc2761a7c9c10d",
+    "worker": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-local-worker.py",
+    "worker_sha256": "b91640e28362b06eb8bfb20157ccf1ff7aa0c99337b2e784b3050dbcc9846ab5"
+  },
+  "supervisor_sha256": "b79fb3676ff6436bd85b5207fa04633c3efd7c6d60ecbc5c86bc2761a7c9c10d",
+  "worker_sha256": "b91640e28362b06eb8bfb20157ccf1ff7aa0c99337b2e784b3050dbcc9846ab5"
+}
