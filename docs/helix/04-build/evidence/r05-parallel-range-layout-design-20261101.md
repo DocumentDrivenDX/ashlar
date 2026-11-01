@@ -27,14 +27,13 @@ ddx:
 
 ## Decision
 
-Keep the 1B-node/assumed-5B-edge full workload held. The current full-size
-packet fixes `local[18]`, 18 shuffle partitions and SQL `range(N)` sources with
-no explicit partition count. The measured 45M/225M calibration emitted 18
-files per table. The packet therefore hard-caps each role at 18 input tasks;
-moving that same packet to a larger host would not use its extra cores. A
-larger production candidate must change both its runtime parallelism and its
-range partition plan. This is a concrete parallelism and file-geometry limit,
-though current measurements do not prove that it is the dominant elapsed-time
+Keep the 1B-node/assumed-5B-edge full workload held. The measured 45M/225M
+calibration emitted 18 files per table on `local[18]`. Before this generator
+change, the packet used 18 shuffle partitions and SQL `range(N)` sources with
+no explicit count, so Spark inherited the 18-way default parallelism. A larger
+production candidate must select both its runtime parallelism and per-role
+range counts. This is a concrete parallelism and file-geometry limit, though
+current measurements do not prove that it is the dominant elapsed-time
 bottleneck.
 
 The production design candidate is explicit per-role `range` partitioning
@@ -126,12 +125,28 @@ result remains a goal, not an acceptance claim.
 
 ## Limits
 
-The 18-task ceiling follows directly from the pinned SQL `range` source and
-observed 18 output files. It establishes available parallelism, not the cause
-of current under-throughput. No evidence here shows whether added task
-granularity helps local elapsed time, whether 256-vCPU scale-out approaches
+The observed 18-file calibration establishes the local plan's task granularity,
+not the cause of current under-throughput. No evidence here shows whether added
+task granularity helps local elapsed time, whether 256-vCPU scale-out approaches
 ideal linear division, or whether disk, shuffle, serialization or GraphFrames
 limits dominate. Keep the six-role publication vector, native Delta types,
 source identity and multiplicity intact. This synthetic calculation does not
 qualify real source payload entropy, managed Unity Catalog, publication/ACK,
 production authority or memory sufficiency.
+
+## Offline generator candidate
+
+The `.4` scale generator now emits an explicit Spark SQL range partition count
+per role. Its `object_range_partitions` and `edge_range_partitions` inputs are
+independent of the Spark master's core count. Existing local callers retain an
+explicit 18/18 plan to preserve the measured local setup; an offline production
+geometry hypothesis can request 256 object and 1,024 edge partitions. The
+held local supervisor remains `local[18]`; no production runtime or compute
+capacity is selected or exercised here.
+
+The focused effect-free plan check confirms those counts appear in the two
+generated range sources while the `.4` xxhash expression, edge formulas,
+parallel-edge oracle and row counts remain unchanged. It does not measure Delta
+file geometry, task balance, throughput, spill or scale-out. The full 1B/5B
+workload remains held pending production runtime/resource admission and a
+measured full-path estimate.

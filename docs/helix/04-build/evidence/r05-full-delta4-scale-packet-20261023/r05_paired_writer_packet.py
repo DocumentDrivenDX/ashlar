@@ -171,6 +171,7 @@ def run_pair(*, spark, root: Path, started: float, packet_digest: str) -> dict:
             select_digests[role] = digest
             result["logicalInputPlans"][role] = {
                 "sha256": digest, "source": "pinned UMF `.4-xxhash64` range projection",
+                "rangePartitions": role_plans[role].range_partitions,
             }
         mode_started = time.monotonic()
         for role in ROLES:

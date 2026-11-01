@@ -70,7 +70,8 @@ def selected_packet_sha256() -> str:
     """Bind approval to the reviewed proposal, oracle and executable sources."""
     names = ("README.md", "oracle.json", "full_delta4_generator.py",
              "full_delta4_trial.py", "r05_full_delta4_supervisor.py",
-             "test_r05_full_delta4_supervisor.py", "test_r05_parallel_writes.py")
+             "test_r05_full_delta4_supervisor.py", "test_r05_parallel_writes.py",
+             "test_r05_range_partition_plan.py")
     h = hashlib.sha256()
     for name in names:
         raw = (HERE / name).read_bytes()
@@ -722,6 +723,9 @@ def run_full_delta4_trial(*, spark, attempt_root: str | Path,
             plan = build_generation_plan(str(root / ROLES[0]), str(root / ROLES[1]))
             result["generator"] = {"profile": plan.profile,
                                     "nodeRows": plan.node_rows, "edgeRows": plan.edge_rows,
+                                    "rangePartitions": {
+                                        role.role: role.range_partitions for role in plan.roles
+                                    },
                                     "endpointOracle": plan.endpoint_oracle,
                                     "bridge":"LocalUmfDelta4Bridge"}
             for role_plan in plan.roles:

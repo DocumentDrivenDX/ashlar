@@ -94,6 +94,7 @@ def source_pins_sha256() -> str:
         "docs/helix/04-build/evidence/r05-full-delta4-scale-packet-20261023/full_delta4_trial.py",
         "docs/helix/04-build/evidence/r05-full-delta4-scale-packet-20261023/r05_full_delta4_supervisor.py",
         "docs/helix/04-build/evidence/r05-full-delta4-scale-packet-20261023/test_r05_full_delta4_supervisor.py",
+        "docs/helix/04-build/evidence/r05-full-delta4-scale-packet-20261023/test_r05_range_partition_plan.py",
         "docs/helix/04-build/evidence/r05-one-shot-full-scale-run-packet-20261029.md",
         "src/ashlar_host/local_current_delta4_umf.py",
         "src/ashlar_host/canonical_graphframes_materializer.py",

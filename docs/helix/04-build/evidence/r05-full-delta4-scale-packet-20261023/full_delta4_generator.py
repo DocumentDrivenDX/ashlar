@@ -20,6 +20,8 @@ PUBLISHED_AT = "2026-10-23T00:00:00.000Z"
 NODE_ROWS = 1_000_000_000
 EDGE_ROWS = 5_000_000_000
 ROLES = ("object_current", "edge_current")
+DEFAULT_RANGE_PARTITIONS = 18
+MAX_RANGE_PARTITIONS = 1_000_000
 
 
 @dataclass(frozen=True)
@@ -31,6 +33,7 @@ class RolePlan:
     schema_sha256: str
     layout: dict
     writer_settings: tuple
+    range_partitions: int
 
 
 @dataclass(frozen=True)
@@ -105,14 +108,26 @@ def _expressions(role: str, edge_rows: int) -> dict[str, str]:
     return common
 
 
-def _insert_sql(role: str, path: str, fields: tuple, node_rows: int, edge_rows: int) -> str:
+def _range_partition_count(value: int, rows: int) -> int:
+    if (type(value) is not int or not 1 <= value <= MAX_RANGE_PARTITIONS
+            or value > rows):
+        raise ValueError("Positive bounded range partition count no greater than role rows required")
+    return value
+
+
+def _insert_sql(role: str, path: str, fields: tuple, node_rows: int, edge_rows: int,
+                range_partitions: int) -> str:
     expected = _expressions(role, edge_rows)
     names = tuple(item[0] for item in fields)
     if len(names) != len(set(names)) or set(names) != set(expected):
         raise ValueError(f"UMF `.4` {role} schema differs from the frozen row-value oracle")
     projection = ",\n  ".join(f"{expected[name]} AS `{name}`" for name in names)
     count = node_rows if role == "object_current" else edge_rows
-    return f"INSERT INTO {_path_relation(path)}\nSELECT\n  {projection}\nFROM range({count})"
+    range_partitions = _range_partition_count(range_partitions, count)
+    # Spark SQL range(start, end, step, numPartitions) makes task/file geometry an
+    # explicit plan input instead of inheriting defaultParallelism from cores.
+    return (f"INSERT INTO {_path_relation(path)}\nSELECT\n  {projection}\n"
+            f"FROM range(0, {count}, 1, {range_partitions})")
 
 
 def validate_offline_oracle(node_rows: int = NODE_ROWS, edge_rows: int = EDGE_ROWS) -> None:
@@ -156,9 +171,17 @@ def build_generation_plan(
     *,
     node_rows: int = NODE_ROWS,
     edge_rows: int = EDGE_ROWS,
+    object_range_partitions: int = DEFAULT_RANGE_PARTITIONS,
+    edge_range_partitions: int = DEFAULT_RANGE_PARTITIONS,
 ) -> GenerationPlan:
-    """Realize UMF DDL and deterministic insert SQL without executing either."""
+    """Realize UMF DDL and deterministic INSERT plans without execution.
+
+    Per-role range partition counts are explicit plan inputs, independent of
+    the Spark master's cores. Defaults retain the measured 18/18 local profile.
+    """
     validate_offline_oracle(node_rows, edge_rows)
+    object_range_partitions = _range_partition_count(object_range_partitions, node_rows)
+    edge_range_partitions = _range_partition_count(edge_range_partitions, edge_rows)
     paths = {"object_current": node_path, "edge_current": edge_path}
     if node_path == edge_path:
         raise ValueError("Distinct exact Delta paths required")
@@ -184,10 +207,15 @@ def build_generation_plan(
                 role=role,
                 path=paths[role],
                 ddl=proposal["sql"],
-                insert_sql=_insert_sql(role, paths[role], fields, node_rows, edge_rows),
+                insert_sql=_insert_sql(
+                    role, paths[role], fields, node_rows, edge_rows,
+                    object_range_partitions if role == "object_current"
+                    else edge_range_partitions),
                 schema_sha256=proposal["schemaSha256"],
                 layout=admitted["layout"],
                 writer_settings=tuple(proposal["writerSettings"]),
+                range_partitions=(object_range_partitions if role == "object_current"
+                                  else edge_range_partitions),
             ))
 
     boundaries = {
@@ -211,7 +239,8 @@ def main() -> int:
     assert plan.endpoint_oracle["parallelEdgePair"] == ((0, 0), (0, 0))
     assert plan.endpoint_oracle["last"] == (NODE_ROWS - 1, 1)
     assert all("CREATE TABLE delta.`" in role.ddl for role in plan.roles)
-    assert all(f"FROM range({plan.node_rows if role.role == 'object_current' else plan.edge_rows})"
+    assert all(f"FROM range(0, {plan.node_rows if role.role == 'object_current' else plan.edge_rows}, 1, "
+               f"{role.range_partitions})"
                in role.insert_sql for role in plan.roles)
     print(f"profile={plan.profile}; roles=2; node_rows={plan.node_rows}; edge_rows={plan.edge_rows}")
     print("ddl=UMF bridge proposals admitted; SQL plans built only; Spark execution=none")

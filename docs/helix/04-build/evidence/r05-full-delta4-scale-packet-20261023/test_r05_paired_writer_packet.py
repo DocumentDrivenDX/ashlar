@@ -62,10 +62,10 @@ class PairedWriterPacketChecks(unittest.TestCase):
         self.assertEqual((45_000_000, 225_000_000), (NODE_ROWS, EDGE_ROWS))
         for rows in (NODE_ROWS, EDGE_ROWS):
             role = SimpleNamespace(insert_sql=(
-                f"INSERT INTO delta.`/tmp/r05-pair/output`\nSELECT id FROM range({rows})"))
+                f"INSERT INTO delta.`/tmp/r05-pair/output`\nSELECT id FROM range(0, {rows}, 1, 18)"))
             source = _source_select(role)
             self.assertTrue(source.startswith("SELECT"))
-            self.assertIn(f"range({rows})", source)
+            self.assertIn(f"range(0, {rows}, 1, 18)", source)
         self.assertEqual(225_000_000, NODE_ROWS * 5)
 
     def test_historical_paired_scan_call_shape_remains_supported(self):
