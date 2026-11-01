@@ -1,18 +1,113 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Fail-closed checks for managed A1 pure trial-plan composition."""
 import unittest
+import base64
+import hashlib
+import json
 
 from types import SimpleNamespace
+from unittest.mock import patch
 
+from ashlar.truss_native_feed import native_feed_batch
 from ashlar_host.managed_current_a1_trial_plan import (
     prepare_managed_current_a1_trial,
 )
+from ashlar_host.managed_current_genesis import ManagedCurrentGenesisPredecessor
+from ashlar_host.managed_current_prefix_delivery import ManagedCurrentPrefixPage
 from ashlar_host.managed_current_truss052_genesis_owner import (
     ManagedCurrentTruss052GenesisSelection,
 )
+from ashlar_host.r04_schedule import R04Schedule, PROFILE, SLOT_ORDER, STAGES
 
 
 class TestManagedCurrentA1TrialPlan(unittest.TestCase):
+    @staticmethod
+    def _schedule():
+        slots = []
+        for n, (name, stage) in enumerate(zip(SLOT_ORDER, STAGES)):
+            source = name[0]
+            slots.append({'ordinal': n, 'slot': name, 'source': source,
+                'stage': stage, 'entity_ref': f'entity:{source}',
+                'predecessor_slot': n - 2 if stage in ('update', 'delete') else None,
+                'mutation': {'stage': stage}, 'expected_transition': {'prefix': n + 1}})
+        return R04Schedule.from_document({'profile': PROFILE,
+            'source_bindings': {source: {'feed': f'feed-{source}', 'epoch': f'epoch-{source}',
+                'consumer_id': f'consumer-{source}', 'registration_id': f'consumer-reg-{source}',
+                'installation_id': f'install-{source}'} for source in ('A', 'B')},
+            'accepted_model_pins': {source: {'documentRevision': f'model-{source}',
+                'modelSha256': hashlib.sha256(f'model-{source}'.encode()).hexdigest()}
+                for source in ('A', 'B')},
+            'slots': slots, 'prefix_oracle': [{'prefix': n} for n in range(9)]})
+
+    @staticmethod
+    def _truss_batch():
+        prior = json.dumps({'profile': 'truss-caller-asserted-feed/0.1',
+            'nextXid': '0', 'installationId': 'install-A', 'sourceEpoch': 'epoch-A',
+            'consumerId': 'consumer-A', 'registrationId': 'consumer-reg-A'},
+            separators=(',', ':')).encode()
+        after = json.dumps({'profile': 'truss-caller-asserted-feed/0.1',
+            'nextXid': '2', 'installationId': 'install-A', 'sourceEpoch': 'epoch-A',
+            'consumerId': 'consumer-A', 'registrationId': 'consumer-reg-A'},
+            separators=(',', ':')).encode()
+        payload = {'interfaceVersion': 'truss-native-feed/0.1',
+            'prior': json.loads(prior), 'next': json.loads(after), 'writerXid': '1',
+            'catalogPrerequisites': [], 'revisions': [], 'changes': [], 'sources': [],
+            'reservations': [], 'configuration': {}}
+        content = json.dumps(payload, separators=(',', ':')).encode()
+        return native_feed_batch(content, sha256=hashlib.sha256(content).hexdigest(),
+            prior=prior, next=after, feed='feed-A')
+
+    def test_composes_real_native_feed_batch_and_original_public_page(self):
+        schedule = self._schedule()
+        batch = self._truss_batch()
+        page = SimpleNamespace(content=batch.begin,
+            prior=SimpleNamespace(content=base64.b64decode(batch.cursor_before)),
+            next=SimpleNamespace(content=base64.b64decode(batch.cursor_after)))
+        source_a = SimpleNamespace(batch=batch, page=page)
+        source_b = SimpleNamespace(batch=None, page=None)
+        admission = SimpleNamespace(batch=batch)
+        selection = ManagedCurrentTruss052GenesisSelection(
+            schedule.sha256, schedule.raw, {}, {}, {}, {'install-A': '1', 'install-B': '1'},
+            {'A': source_a, 'B': source_b}, admission, batch)
+        manifest = {'publication_id': 'genesis-manifest'}
+        predecessor = ManagedCurrentGenesisPredecessor(manifest, {}, {})
+        with patch('ashlar_host.managed_current_genesis.verify_managed_current_genesis_predecessor',
+                   return_value=predecessor):
+            plan = prepare_managed_current_a1_trial(selection, manifest,
+                stream='source-stream', materialized_at='1762000000000000', context=object())
+        self.assertEqual(plan.delivery_page.page_bytes, batch.begin)
+        self.assertEqual(plan.delivery_page.prior_cursor_bytes,
+                         base64.b64decode(batch.cursor_before))
+        self.assertEqual(plan.delivery_page.next_cursor_bytes,
+                         base64.b64decode(batch.cursor_after))
+        self.assertIs(plan.driver_inputs['source_owner_admitted_batch'], batch)
+        self.assertEqual(plan.request['batch_id'], batch.batch_id)
+        self.assertEqual(plan.request['predecessor'], manifest['publication_id'])
+        self.assertIs(plan.selection, selection)
+
+    def test_delivery_requires_retained_page_object_identity(self):
+        schedule = self._schedule()
+        batch = self._truss_batch()
+        page = SimpleNamespace(content=batch.begin,
+            prior=SimpleNamespace(content=base64.b64decode(batch.cursor_before)),
+            next=SimpleNamespace(content=base64.b64decode(batch.cursor_after)))
+        selection = ManagedCurrentTruss052GenesisSelection(
+            schedule.sha256, schedule.raw, {}, {}, {}, {},
+            {'A': SimpleNamespace(batch=batch, page=page),
+             'B': SimpleNamespace(batch=None)}, SimpleNamespace(batch=batch), batch)
+        manifest = {'publication_id': 'genesis-manifest'}
+        predecessor = ManagedCurrentGenesisPredecessor(manifest, {}, {})
+        with patch('ashlar_host.managed_current_genesis.verify_managed_current_genesis_predecessor',
+                   return_value=predecessor):
+            plan = prepare_managed_current_a1_trial(selection, manifest,
+                stream='source-stream', materialized_at='1', context=object())
+        clone = ManagedCurrentPrefixPage(**plan.delivery_page.__dict__)
+        with patch('ashlar_host.managed_current_prefix_delivery.validate_managed_current_prefix_delivery') as validate:
+            with self.assertRaisesRegex(ValueError, 'selected original A page'):
+                plan.verify_delivery(b'prefix', prefix_sha256='0' * 64, selected={},
+                                     schedule_bytes=schedule.raw, pages=(clone,))
+            validate.assert_not_called()
+
     def test_requires_same_owner_admitted_batch_before_manifest_or_request(self):
         batch = object()
         selection = ManagedCurrentTruss052GenesisSelection(

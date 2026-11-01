@@ -8,6 +8,7 @@ create-once genesis manifest owner; callers still own each effectful boundary.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import base64
 import hashlib
 
 
@@ -30,9 +31,9 @@ class ManagedCurrentA1TrialPlan:
         from .managed_current_prefix_delivery import (
             validate_managed_current_prefix_delivery,
         )
-        if schedule_bytes is not self.selection.schedule_bytes:
+        if schedule_bytes != self.selection.schedule_bytes:
             raise ValueError("Original selected R04 schedule bytes must be retained")
-        if type(pages) is not tuple or not pages or pages[0] != self.delivery_page:
+        if type(pages) is not tuple or not pages or pages[0] is not self.delivery_page:
             raise ValueError("First retained /0.2 page must be the selected original A page")
         return validate_managed_current_prefix_delivery(
             prefix_bytes, prefix_sha256=prefix_sha256, selected=selected,
@@ -99,9 +100,16 @@ def prepare_managed_current_a1_trial(selection, genesis_manifest, *,
             next_cursor_bytes=page.next.content)
     except AttributeError as error:
         raise ValueError("Original public Truss .52 A page and cursors required") from error
-    if (delivery_page.page_bytes != batch.original
-            or delivery_page.prior_cursor_bytes != batch.prior
-            or delivery_page.next_cursor_bytes != batch.next):
+    try:
+        original_prior = base64.b64decode(batch.cursor_before, validate=True)
+        original_next = base64.b64decode(batch.cursor_after, validate=True)
+    except (ValueError, TypeError) as error:
+        raise ValueError("Admitted source batch must retain canonical base64 cursors") from error
+    if (base64.b64encode(original_prior).decode("ascii") != batch.cursor_before
+            or base64.b64encode(original_next).decode("ascii") != batch.cursor_after
+            or delivery_page.page_bytes != batch.begin
+            or delivery_page.prior_cursor_bytes != original_prior
+            or delivery_page.next_cursor_bytes != original_next):
         raise ValueError("Retained A page bytes differ from admitted native-feed batch")
     driver_inputs = {
         "admission": selection.admission,
