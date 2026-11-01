@@ -1,7 +1,9 @@
 """Effect-free checks for the single R05 72-partition candidate packet."""
 from pathlib import Path
 from types import SimpleNamespace
+import ast
 import hashlib
+import importlib
 import json
 import tempfile
 import unittest
@@ -12,6 +14,50 @@ import r05_72_runtime as runtime
 
 
 class WriterDiscriminatorChecks(unittest.TestCase):
+    def test_delta_detail_uses_current_path_quoting_api(self):
+        class Query:
+            def limit(self, count):
+                self.limit_count = count
+                return self
+
+            def collect(self):
+                return [SimpleNamespace(asDict=lambda recursive: {
+                    "format": "delta", "id": "table-uuid"})]
+
+        class Spark:
+            def sql(self, statement):
+                self.statement = statement
+                return Query()
+
+        spark = Spark()
+        detail = __import__("full_delta4_trial")._table_detail(
+            spark, Path("/private/tmp/r05 compatibility table"))
+        self.assertEqual("table-uuid", detail["id"])
+        self.assertEqual(
+            "DESCRIBE DETAIL delta.`/private/tmp/r05 compatibility table`",
+            spark.statement)
+
+    def test_executed_writer_and_cleanup_lazy_imports_resolve(self):
+        packet = Path(worker.__file__).parent
+        targets = {
+            packet / "full_delta4_trial.py": {"_table_detail", "_validate_table"},
+            packet / "r05_72_partition_supervisor.py": {"_verify_and_cleanup"},
+        }
+        for source_path, function_names in targets.items():
+            tree = ast.parse(source_path.read_text(encoding="utf-8"))
+            functions = {node.name: node for node in tree.body
+                         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))}
+            for function_name in function_names:
+                with self.subTest(function=function_name):
+                    self.assertIn(function_name, functions)
+                    for node in ast.walk(functions[function_name]):
+                        if (isinstance(node, ast.ImportFrom)
+                                and node.module and node.module.startswith("ashlar_host.")):
+                            module = importlib.import_module(node.module)
+                            for alias in node.names:
+                                self.assertTrue(hasattr(module, alias.name),
+                                                f"{node.module}.{alias.name}")
+
     def test_exact_range_rewrite_preserves_projection_and_ddl(self):
         for role, count in (("object_current", worker.NODE_ROWS),
                             ("edge_current", worker.EDGE_ROWS)):

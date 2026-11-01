@@ -301,7 +301,7 @@ def _json_safe_row(row: dict) -> dict:
 
 
 def _table_detail(spark, path: Path) -> dict:
-    from ashlar_host.pinned_delta_graphframes import _quote_path
+    from ashlar_host.pinned_delta_graphframes import quote_path as _quote_path
     rows = spark.sql(f"DESCRIBE DETAIL {_quote_path(path)}").limit(2).collect()
     if len(rows) != 1:
         raise TrialRefused("one Delta detail row required")
