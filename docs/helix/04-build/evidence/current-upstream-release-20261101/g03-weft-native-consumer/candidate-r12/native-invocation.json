@@ -1,0 +1,23 @@
+{
+  "argv": [
+    "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/bin/python3.12",
+    "/private/tmp/ashlar-g03-weft-native-source-20261101/docs/helix/04-build/evidence/current-upstream-release-20261101/g03-weft-native-consumer/prepare.py",
+    "run"
+  ],
+  "cwd": "/private/tmp/ashlar-g03-weft-native-source-20261101",
+  "dispatchStatus": "prepared for Sol review; no r12 native authorization or dispatch is recorded in this packet",
+  "effectBoundary": "read-only local Spark/Delta observation; no publication writes, ACK, cloud, or graph writes",
+  "env": {
+    "ASHLAR_WORKER_SRC": "/private/tmp/ashlar-g03-weft-native-source-20261101/src",
+    "JAVA_HOME": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
+    "PATH": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home/bin:/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/bin:/usr/bin:/bin",
+    "PYSPARK_DRIVER_PYTHON": "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/bin/python3.12",
+    "PYSPARK_PYTHON": "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/bin/python3.12",
+    "PYTHONPATH": "/private/tmp/ashlar-g03-weft-native-source-20261101/src",
+    "SPARK_HOME": "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/lib/python3.12/site-packages/pyspark",
+    "SPARK_LOCAL_IP": "127.0.0.1"
+  },
+  "oneShotAttemptNamespace": "/private/tmp/ashlar-g03-weft-native-attempt-r12-20261101",
+  "profile": "ashlar-g03-weft-native-invocation/0.1",
+  "timeoutSeconds": 360
+}

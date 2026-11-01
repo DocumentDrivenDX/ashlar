@@ -1,0 +1,59 @@
+{
+  "ack": false,
+  "cleanup": [
+    {
+      "op": "release-lock",
+      "status": "ok"
+    },
+    {
+      "op": "release-lock",
+      "status": "ok"
+    },
+    {
+      "op": "release-lock",
+      "status": "ok"
+    }
+  ],
+  "cloud": false,
+  "exceptionMessage": "[JAVA_GATEWAY_EXITED] Java gateway process exited before sending its port number.",
+  "exceptionType": "PySparkRuntimeError",
+  "failureSha256": "265cf4837030f1d0d29cd337716a1eda95e9e58cf6be843f5e9bfb1c2617d413",
+  "nativeResultPresent": false,
+  "nativeSqlReached": false,
+  "profile": "ashlar-g03-weft-r6-failure-reconciliation/0.1",
+  "reconciliationMethod": "read-only static Delta commit-log head/UUID inspection matched all six installation roles and expected versions; failure occurred at local Spark getOrCreate before subsequent code could read any Delta table or issue SQL.",
+  "sixRoleHeads": {
+    "attempts": {
+      "logHeadSha256": "4412e11ba85ca9a7561d1c1eb704cb49481cec6e71594689756490e5d4773dd0",
+      "uuid": "54846b0f-2633-47c6-9984-958fcc51c523",
+      "version": 3
+    },
+    "edge_current": {
+      "logHeadSha256": "2243c77556478cbc346e1f5d058f8dfd22aef46a50a46b42b60c8e462156d6f2",
+      "uuid": "4db27b56-a042-442e-923c-c70a3734a308",
+      "version": 2
+    },
+    "manifest": {
+      "logHeadSha256": "68e90a93ecef7b4a1d5e84b8281c4fbeba490c4fa62cd5988466d41a74e37874",
+      "uuid": "0796e532-30e7-4531-afed-93540b549458",
+      "version": 2
+    },
+    "object_current": {
+      "logHeadSha256": "2f2e427cc9b35e422d0e6ce5f54060117493443d963faaab8251116a378bf1ca",
+      "uuid": "fae99e2d-2510-4c66-a463-c1b7111ea36f",
+      "version": 2
+    },
+    "tombstone": {
+      "logHeadSha256": "435a10f46416f9ba7b1be2bebc35e0e0f6752d5309faa2dbb34a527cb0375a80",
+      "uuid": "796a23fc-5030-4341-8115-1c5dd69daec7",
+      "version": 1
+    },
+    "whole_source_history": {
+      "logHeadSha256": "cfc56b92dc30e3af4100c041dedf7bb1d5bacef459feb9c9df084cab41807d78",
+      "uuid": "ac1749e9-2fe1-4e4f-bc6c-771c7e534ac3",
+      "version": 2
+    }
+  },
+  "sparkSessionCreated": false,
+  "status": "reconciled-read-only-pre-spark-failure"
+}

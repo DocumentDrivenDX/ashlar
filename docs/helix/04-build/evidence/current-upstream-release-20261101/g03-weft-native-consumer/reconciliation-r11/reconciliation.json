@@ -1,0 +1,93 @@
+{
+  "allCleanupActionsSucceeded": true,
+  "cleanup": [
+    {
+      "op": "drop-alias",
+      "status": "ok"
+    },
+    {
+      "op": "drop-alias",
+      "status": "ok"
+    },
+    {
+      "op": "drop-alias",
+      "status": "ok"
+    },
+    {
+      "op": "drop-alias",
+      "status": "ok"
+    },
+    {
+      "op": "drop-database",
+      "status": "ok"
+    },
+    {
+      "op": "spark-stop",
+      "status": "ok"
+    },
+    {
+      "op": "release-lock",
+      "status": "ok"
+    },
+    {
+      "op": "release-lock",
+      "status": "ok"
+    },
+    {
+      "op": "release-lock",
+      "status": "ok"
+    }
+  ],
+  "cloud": false,
+  "completedChecks": [
+    "native singleton exact source oracle",
+    "both grouped query exact source oracles",
+    "Backend02 page one exact rows and full-row lookahead",
+    "Backend02 continuation exact page two"
+  ],
+  "exceptionMessage": "opening/closing six-role Delta heads differ",
+  "exceptionType": "RuntimeError",
+  "failedCheck": "The closing dictionary contains only the six role heads. The comparison accidentally included opening metadata entries database/applicationId on the right side, so it could never pass even when role heads matched. R12 compares only the six role entries and retains the separate Spark database/application identity check.",
+  "failureSha256": "89f46ce194f9c968e6c4e7c148c662278389e31b125271a1eccf2cbab138c78e",
+  "nativeResult": "withheld",
+  "nativeResultPresent": false,
+  "packetCommit": "7cb7d604821ddbda809a17c22c2e44a848b7ac1b",
+  "profile": "ashlar-g03-weft-r11-failure-reconciliation/0.1",
+  "protectedAck": false,
+  "publicationMutation": false,
+  "sixRoleHeads": {
+    "attempts": {
+      "logHeadSha256": "4412e11ba85ca9a7561d1c1eb704cb49481cec6e71594689756490e5d4773dd0",
+      "uuid": "54846b0f-2633-47c6-9984-958fcc51c523",
+      "version": 3
+    },
+    "edge_current": {
+      "logHeadSha256": "2243c77556478cbc346e1f5d058f8dfd22aef46a50a46b42b60c8e462156d6f2",
+      "uuid": "4db27b56-a042-442e-923c-c70a3734a308",
+      "version": 2
+    },
+    "manifest": {
+      "logHeadSha256": "68e90a93ecef7b4a1d5e84b8281c4fbeba490c4fa62cd5988466d41a74e37874",
+      "uuid": "0796e532-30e7-4531-afed-93540b549458",
+      "version": 2
+    },
+    "object_current": {
+      "logHeadSha256": "2f2e427cc9b35e422d0e6ce5f54060117493443d963faaab8251116a378bf1ca",
+      "uuid": "fae99e2d-2510-4c66-a463-c1b7111ea36f",
+      "version": 2
+    },
+    "tombstone": {
+      "logHeadSha256": "435a10f46416f9ba7b1be2bebc35e0e0f6752d5309faa2dbb34a527cb0375a80",
+      "uuid": "796a23fc-5030-4341-8115-1c5dd69daec7",
+      "version": 1
+    },
+    "whole_source_history": {
+      "logHeadSha256": "cfc56b92dc30e3af4100c041dedf7bb1d5bacef459feb9c9df084cab41807d78",
+      "uuid": "ac1749e9-2fe1-4e4f-bc6c-771c7e534ac3",
+      "version": 2
+    }
+  },
+  "sixRoleHeadsUnchangedFromR8": true,
+  "sourceCommit": "4c92be7fdbade0d58a8eb18d83965af0c79c8c6d",
+  "status": "reconciled-unconditional-six-role-comparison-shape-bug"
+}

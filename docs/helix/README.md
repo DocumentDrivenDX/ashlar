@@ -33,10 +33,12 @@ The candidate pins Weft 0.4.56, UMF SDK 0.10.1, Python Core 0.10.5
 proposal passed exact equality for the six `.4-xxhash64` carrier roles; the
 versioned bridge and latest-source typed-graph profile are recorded under the
 [0.10.1 adoption evidence](04-build/evidence/current-upstream-release-20261101/umf0101-adoption/README.md).
-The generic producer profile has not yet been executed against the sparse source
-checkout; neither local proposal parity nor profile definition is native Delta
-evidence. Linux
-native execution and managed publication remain open.
+The local SDK 0.10.1 transaction-one graph effects and retained manifest have
+now completed on the six-role `.4-xxhash64` carrier. The manifest-only R5
+continuation replayed no graph or metadata operations and bound the exact
+four-role data vector. This qualifies the recorded local source and runtime;
+Linux native execution and managed publication remain open
+([R5 completion](04-build/evidence/current-upstream-release-20261101/g03-sdk0101-r3-manifest-continuation/r5-completion.md)).
 
 The candidate `truss-local` extra selects Truss 0.0.51 with its `[native]`
 dependencies. R16 stopped during cold-backup restore; R17 refused at its
@@ -44,9 +46,10 @@ selected-tree check; R19 refused at an isolated SDK-bridge import. The approved
 R20 run then stopped before migration or publication because its retained PG18
 backup lacked required cluster directories. Each one-shot approval is spent.
 R21's effect-free check rejects that incomplete backup; no directory repair is
-assumed. Pinned Truss 0.0.48 public APIs can create a fresh local development
-source, but the earlier accepted source bytes are absent at the retained paths;
-production source authority remains open. The selected Truss lifecycle and feed/ACK remain
+assumed. A fresh local development source has since been established through
+Truss public APIs and migrated to 0.0.51, but its R12 accepted-document read
+stopped at a missing principal grant before consumer enrollment or the seed.
+The selected Truss feed/ACK lifecycle and production source authority remain
 unqualified ([R20 failure](04-build/evidence/current-upstream-release-20261031/truss051-r20-failure-evidence-20261031/README.md),
 [R21 backup check](04-build/evidence/current-upstream-release-20261031/truss051-r21-local-restore-candidate/README.md),
 [fresh-source packet](04-build/evidence/current-upstream-release-20261031/truss051-fresh-source-packet/README.md)).
@@ -65,10 +68,13 @@ local `.3` evidence only: it does not qualify `.4-xxhash64`, protected ACK,
 cloud execution, or production source custody
 ([prepublication result](04-build/evidence/current-upstream-release-20261024/r02-native-prepublication-20261024/README.md),
 [continuation result](04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024/native-continuation-result-427287c7f6564985b1a947bea049158a.json)).
-A separate local `.4-xxhash64` run completed six-role initialization only; no
-publication, query, or ACK was exercised ([initialization evidence](04-build/evidence/current-upstream-release-20261024/configured-local-delta4-init-20261024/README.md)).
-The SDK 0.10 six-role initializer has an effect-free preflight and prepared
-one-shot packet; it has not run ([SDK 0.10 packet](04-build/evidence/current-upstream-release-20261031/g03-sdk010-txn1-weft056-packet/README.md)).
+A separate local `.4-xxhash64` installation completed six-role initialization,
+transaction-one effects and its manifest. Weft 0.4.56 then passed one bounded
+Spark 4.2.0 / Delta 4.4.1 native read of the exact singleton, both grouped
+queries, page and continuation against the frozen source oracle, with unchanged
+six-role heads and complete cleanup. This is local read qualification only; it
+does not establish Truss source/ACK or managed UC behavior
+([native consumer result](04-build/evidence/current-upstream-release-20261101/g03-weft-native-consumer/README.md)).
 Managed Unity Catalog and the full Truss lifecycle remain unqualified.
 A bounded probe confirmed create/read/delete authority for one empty owned
 schema under `client_dev`; that schema was deleted and verified absent. Managed

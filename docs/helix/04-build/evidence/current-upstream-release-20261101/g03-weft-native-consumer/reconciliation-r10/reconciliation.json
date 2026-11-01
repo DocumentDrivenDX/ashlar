@@ -1,0 +1,80 @@
+{
+  "cleanup": [
+    {
+      "op": "release-lock",
+      "status": "ok"
+    },
+    {
+      "op": "release-lock",
+      "status": "ok"
+    },
+    {
+      "op": "release-lock",
+      "status": "ok"
+    }
+  ],
+  "cloud": false,
+  "deltaAccessed": false,
+  "effectFreeGateRefusal": {
+    "attemptRemainsUnused": true,
+    "deltaAccessed": false,
+    "exceptionMessage": "PATH java differs from pinned JAVA_HOME",
+    "exceptionType": "RuntimeError",
+    "locksAcquired": false,
+    "nativeFailurePresent": false,
+    "nativeResultPresent": false,
+    "phase": "effect-free run gate",
+    "profile": "ashlar-g03-weft-r10-pre-dispatch-refusal/0.1",
+    "sparkStarted": false,
+    "status": "refused-before-native-effects",
+    "tracebackSha256": "1bbb097ebf7c654141f52d3fc66996650c1d9fcb1ebfd1ea06f7b44dd5909037"
+  },
+  "exceptionMessage": "[JAVA_GATEWAY_EXITED] Java gateway process exited before sending its port number.",
+  "exceptionType": "PySparkRuntimeError",
+  "failureSha256": "ee3a4d7302a38d83772f3447b7bac978fdcac20c1d3cd23f12ee8232b940cd9a",
+  "nativeResult": "withheld",
+  "nativeResultPresent": false,
+  "packetCommit": "f4bab9360f165f0753287e741e9b96373d758660",
+  "processEnumeration": "OS denied ps/pgrep process-list access in this sandbox; the Java gateway exited, and all three exclusive installation/journal locks were released.",
+  "profile": "ashlar-g03-weft-r10-failure-reconciliation/0.1",
+  "protectedAck": false,
+  "publicationMutation": false,
+  "sixRoleHeads": {
+    "attempts": {
+      "logHeadSha256": "4412e11ba85ca9a7561d1c1eb704cb49481cec6e71594689756490e5d4773dd0",
+      "uuid": "54846b0f-2633-47c6-9984-958fcc51c523",
+      "version": 3
+    },
+    "edge_current": {
+      "logHeadSha256": "2243c77556478cbc346e1f5d058f8dfd22aef46a50a46b42b60c8e462156d6f2",
+      "uuid": "4db27b56-a042-442e-923c-c70a3734a308",
+      "version": 2
+    },
+    "manifest": {
+      "logHeadSha256": "68e90a93ecef7b4a1d5e84b8281c4fbeba490c4fa62cd5988466d41a74e37874",
+      "uuid": "0796e532-30e7-4531-afed-93540b549458",
+      "version": 2
+    },
+    "object_current": {
+      "logHeadSha256": "2f2e427cc9b35e422d0e6ce5f54060117493443d963faaab8251116a378bf1ca",
+      "uuid": "fae99e2d-2510-4c66-a463-c1b7111ea36f",
+      "version": 2
+    },
+    "tombstone": {
+      "logHeadSha256": "435a10f46416f9ba7b1be2bebc35e0e0f6752d5309faa2dbb34a527cb0375a80",
+      "uuid": "796a23fc-5030-4341-8115-1c5dd69daec7",
+      "version": 1
+    },
+    "whole_source_history": {
+      "logHeadSha256": "cfc56b92dc30e3af4100c041dedf7bb1d5bacef459feb9c9df084cab41807d78",
+      "uuid": "ac1749e9-2fe1-4e4f-bc6c-771c7e534ac3",
+      "version": 2
+    }
+  },
+  "sixRoleHeadsUnchangedFromR8": true,
+  "sourceCommit": "4c92be7fdbade0d58a8eb18d83965af0c79c8c6d",
+  "sparkSessionCreated": false,
+  "status": "reconciled-java-gateway-loopback-bind-denied",
+  "stderrSha256": "4afcd9e8c998b0c911f6424cf492fef55caaa6ca0b24efc4d75a0a75a544457f",
+  "underlyingCause": "Py4J GatewayServer could not bind 127.0.0.1:0; Java stderr retains java.net.SocketException: Operation not permitted."
+}

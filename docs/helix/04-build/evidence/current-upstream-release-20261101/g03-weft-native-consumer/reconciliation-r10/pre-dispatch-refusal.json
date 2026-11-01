@@ -1,0 +1,14 @@
+{
+  "attemptRemainsUnused": true,
+  "deltaAccessed": false,
+  "exceptionMessage": "PATH java differs from pinned JAVA_HOME",
+  "exceptionType": "RuntimeError",
+  "locksAcquired": false,
+  "nativeFailurePresent": false,
+  "nativeResultPresent": false,
+  "phase": "effect-free run gate",
+  "profile": "ashlar-g03-weft-r10-pre-dispatch-refusal/0.1",
+  "sparkStarted": false,
+  "status": "refused-before-native-effects",
+  "tracebackSha256": "1bbb097ebf7c654141f52d3fc66996650c1d9fcb1ebfd1ea06f7b44dd5909037"
+}
