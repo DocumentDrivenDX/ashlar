@@ -104,6 +104,11 @@ is a separate bounded candidate for a fresh six-role local installation; its
 focused inert checks pass and an effect-free attempt and empty process slot are
 prepared, but it has not run Spark.
 Transaction 1 and Weft 0.4.56 native consumer reads remain later gates.
+The [effect-free transaction-one gate](evidence/current-upstream-release-20261031/g03-sdk010-txn1-weft056-packet/r4-transaction1-gate/README.md)
+binds the current source and Weft wheel, keeps dispatch disabled pending the
+fresh R4 initialization and supervisor-closure receipts, and retains a null
+publication vector. It does not provide a native transaction worker or consumer
+execution.
 
 Gate 6 now has a [local GitHub release publisher](pypi-publishing.md) with five
 focused passing tests. It enforces exact reviewed `origin/main`, a clean stable
