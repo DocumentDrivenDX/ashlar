@@ -690,6 +690,9 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
         current = self.targets.observe()
         heads = {self.names[role]: current[role].version for role in self.table_roles}
         if not rows:
+            _require(self.managed_genesis_predecessor is None
+                     and self.source_owner_admitted_batch is None,
+                     'Selected genesis anchors require their exact durable genesis manifest predecessor')
             cursor = json.loads(b64decode(self.admission.batch.cursor_before, validate=True))
             _require(cursor.get('nextXid') == '0' and request['predecessor'] == self.GENESIS,
                      'Incremental genesis requires the exact initial Truss cursor and profile predecessor')
@@ -709,6 +712,10 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
         report = json.loads(latest['validation_report_json'])
         _require(type(report) is dict and report.get('complete') is True,
                  'Incremental predecessor must carry complete prior publication validation')
+        _require(self.managed_genesis_predecessor is None
+                 or report.get('publication_plan_profile') ==
+                    'ashlar-managed-current-genesis-manifest/0.1',
+                 'Selected genesis anchors cannot advance a non-genesis latest manifest')
         _require(json.loads(latest['table_versions_json']) == heads,
                  'Predecessor manifest four-role vector must equal current native heads')
         if report.get('publication_plan_profile') == 'ashlar-managed-current-genesis-manifest/0.1':

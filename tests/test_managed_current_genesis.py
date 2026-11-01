@@ -258,7 +258,8 @@ class TestManagedCurrentGenesis(unittest.TestCase):
         checkpoint = truss_checkpoint(batch)
 
         class _ManifestTransport:
-            def query(self, _sql, _parameters): return SimpleNamespace(rows=[row])
+            def __init__(self): self.rows = [row]
+            def query(self, _sql, _parameters): return SimpleNamespace(rows=self.rows)
 
         heads = {name: SimpleNamespace(version=0) for name in (
             'object_current', 'edge_current', 'tombstone', 'whole_source_history')}
@@ -279,6 +280,19 @@ class TestManagedCurrentGenesis(unittest.TestCase):
 
         driver.source_owner_admitted_batch = None
         with self.assertRaisesRegex(ValueError, 'separately admitted source owner batch'):
+            driver._previous_progress(request)
+
+        driver.source_owner_admitted_batch = batch
+        driver.transport.rows = []
+        with self.assertRaisesRegex(ValueError, 'exact durable genesis manifest predecessor'):
+            driver._previous_progress(request)
+
+        other = dict(row)
+        other_report = json.loads(other['validation_report_json'])
+        other_report['publication_plan_profile'] = 'ashlar-managed-current-incremental-plan/0.1'
+        other['validation_report_json'] = json.dumps(other_report, sort_keys=True, separators=(',', ':'))
+        driver.transport.rows = [other]
+        with self.assertRaisesRegex(ValueError, 'cannot advance a non-genesis latest manifest'):
             driver._previous_progress(request)
 
     def test_genesis_transition_refuses_unbound_predecessor_or_noncontiguous_a_page(self):
