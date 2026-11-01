@@ -28,6 +28,12 @@ def _require(value, reason='Exact local current carrier installation required'):
         raise ValueError(reason)
 
 
+def _sdk0101_bridge_type():
+    """Resolve the versioned SDK0101 bridge class without opening a runtime."""
+    from .local_current_delta4_umf_sdk0101 import LocalUmfDelta4Sdk010Bridge
+    return LocalUmfDelta4Sdk010Bridge
+
+
 def _detail(spark, path):
     rows = spark.sql('DESCRIBE DETAIL delta.`' + str(path) + '`').limit(2).collect()
     _require(len(rows) == 1, 'Unique local Delta detail required')
@@ -136,7 +142,7 @@ def _create_local_current_xxhash64_tables(spark, output, tables, *, table_prefix
             LocalUmfDelta4Sdk010Bridge, SOURCE_POLICY_SHA256)
         bridge_type = LocalUmfDelta4Sdk010Bridge
         local_target_profile, realization_profile = sdk_local_target_profile, sdk_realization_profile
-        umf_revision = '0.10.1'
+        umf_revision = '0.10.0'
         candidate_commit = '96230e0eef44b255d33575ba496402555b76800e'
         manifest_sha256 = MANIFEST_SHA256
     elif sdk0101:
@@ -144,8 +150,8 @@ def _create_local_current_xxhash64_tables(spark, output, tables, *, table_prefix
             BRIDGE_SHA256 as bridge_sha256, BUILD_INPUTS_SHA256 as build_inputs_sha256,
             LOCAL_TARGET_PROFILE as sdk_local_target_profile,
             UMF_REALIZATION_PROFILE as sdk_realization_profile, MANIFEST_SHA256,
-            LocalUmfDelta4Sdk0101Bridge, SOURCE_POLICY_SHA256)
-        bridge_type = LocalUmfDelta4Sdk0101Bridge
+            SOURCE_POLICY_SHA256)
+        bridge_type = _sdk0101_bridge_type()
         local_target_profile, realization_profile = sdk_local_target_profile, sdk_realization_profile
         umf_revision = '0.10.1'
         candidate_commit = '90cb61eb63aec3f5a77b5991a56e3dfc3d10bd27'
@@ -333,8 +339,8 @@ def verify_local_current_profile(spark, profile, targets, carrier_profile):
     elif sdk0101:
         from .local_current_delta4_umf_sdk0101 import (
             BRIDGE_SHA256 as bridge_sha256, BUILD_INPUTS_SHA256 as build_inputs_sha256,
-            MANIFEST_SHA256 as manifest_sha256, LocalUmfDelta4Sdk0101Bridge, SOURCE_POLICY_SHA256)
-        bridge_type = LocalUmfDelta4Sdk0101Bridge
+            MANIFEST_SHA256 as manifest_sha256, SOURCE_POLICY_SHA256)
+        bridge_type = _sdk0101_bridge_type()
     else:
         bridge_type = LocalUmfDelta4Bridge
         bridge_sha256, build_inputs_sha256 = BRIDGE_SHA256, BUILD_INPUTS_SHA256
