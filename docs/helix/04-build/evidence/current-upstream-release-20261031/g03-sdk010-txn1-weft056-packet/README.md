@@ -196,9 +196,22 @@ Its packet tree digest is
 
 The [R6 init-only candidate](r6-sdk010-initialize-only/README.md) maps the
 producer fields explicitly and passes an isolated-child parse of its generated
-invocation through the installed parser. Its distinct attempt parent is absent;
-R6 has not run `prepare`, `slot`, or `execute` and has no permit. Its packet tree
-digest is `7b448c887f1ecb581fb9c944f398bd35f43ae21ae021ec271e6a6d39aa326b66`.
+invocation through the installed parser. The effect-free `prepare` and `slot`
+steps created the fresh attempt
+`/private/tmp/ashlar-g03-sdk010-delta4-init-r6-attempts-20261101/ashlar-g03-sdk010-init-af3d0ceee7724957b3f697a205456804`.
+Its [prepared receipt](r6-init-prepared-receipt.json) has SHA-256
+`86dfdcd41c5abafdf309ef6c8524c71a65e00c8409b0d3289379b329f5e50e4b`;
+the [empty process-slot receipt](r6-init-process-slot-receipt.json) has SHA-256
+`4b8fcba3bd2ab856e0a5791f815a4bc3390fa8af4e35f7feda9b6ad053f472d9`.
+The prepared invocation SHA-256 is
+`473981de2ad8d663e64bb7f10a926ab694a96c14f9279a613b11318d9159234a`;
+an isolated-child parse of those actual bytes passed. R6 has no approved permit or
+dispatch and has not initialized Spark. Its packet tree digest is
+`7b448c887f1ecb581fb9c944f398bd35f43ae21ae021ec271e6a6d39aa326b66`.
+A [proposed one-shot permit](r6-init-permit-proposal.json) with SHA-256
+`e420a613691248a861fd67181293f355fae7ad45453e996b6b160cb0348ca48f`
+binds only this prepared attempt, process slot, packet and main commit. It is
+not an execution approval.
 
 The effect-free [R4 transaction-one release gate](r4-transaction1-gate/README.md)
 binds the consumed R4 initializer and Weft 0.4.56 wheel, so it cannot admit an
