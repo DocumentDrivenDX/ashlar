@@ -1473,6 +1473,78 @@ class Tests(unittest.TestCase):
                     self.assertEqual(retained["request_digest"],
                                      self.plan.request["request_digest"])
 
+    def test_committed_prefix_manifest_continuation_never_enters_graph_effect_lane(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            _fake, transport, effect, source, _admission, authority = self.build(root)
+            self._active_fake, self._active_effect = _fake, effect
+
+            def run_stub(effects, operation, intent_digest, steps, *, context):
+                return self._simulate_delta4_effects(
+                    effects, operation, intent_digest, steps, context=context)
+
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with authority.hold():
+                    with patch.object(LocalDeltaEffects, "run", run_stub):
+                        authority.prepare_and_execute_effect_plan()
+                    retained = retain_delta4_output_completion_receipt(authority)
+                reopened, _source2, _fresh2, authority2 = self.reopen_authority(
+                    transport, effect, source)
+                with authority2.hold():
+                    with patch.object(LocalDeltaEffects, "prepare",
+                                      side_effect=AssertionError("graph prepare called")), \
+                            patch.object(LocalDeltaEffects, "run",
+                                         side_effect=AssertionError("graph apply called")), \
+                            patch.object(LocalDeltaEffects, "recover",
+                                         side_effect=AssertionError("graph recovery lane called")):
+                        observation = authority2.reconcile_committed_effect_prefix_for_manifest()
+                    replay = retain_delta4_output_completion_receipt(authority2)
+                    self.assertEqual(replay, retained)
+                    self.assertEqual(observation["committed_prefix"], 3)
+                    self.assertEqual(observation["states"], ["committed"] * 3)
+                self.assertEqual(reopened.db.execute(
+                    "SELECT count(*) FROM local_operation").fetchone(), (3,))
+                self.assertEqual(reopened.db.execute(
+                    "SELECT count(*) FROM local_delta4_metadata_operation").fetchone(), (2,))
+
+    def test_committed_prefix_manifest_continuation_refuses_incomplete_or_augmented_journal(self):
+        for mutation in ("missing", "extra", "noncommitted"):
+            with self.subTest(mutation=mutation), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory).resolve(); root.chmod(0o700)
+                fake, transport, effect, source, _admission, authority = self.build(root)
+                self._active_fake, self._active_effect = fake, effect
+
+                def run_stub(effects, operation, intent_digest, steps, *, context):
+                    return self._simulate_delta4_effects(
+                        effects, operation, intent_digest, steps, context=context)
+
+                with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                    with authority.hold():
+                        with patch.object(LocalDeltaEffects, "run", run_stub):
+                            authority.prepare_and_execute_effect_plan()
+                        retain_delta4_output_completion_receipt(authority)
+                    if mutation == "missing":
+                        transport.db.execute(
+                            "DELETE FROM local_operation WHERE operation=("
+                            "SELECT operation FROM local_operation ORDER BY operation LIMIT 1)")
+                    elif mutation == "extra":
+                        transport.db.execute(
+                            "INSERT INTO local_operation VALUES(?,?,?,?,?,NULL)",
+                            ("unowned-extra", "{}", "0" * 64, 1, "prepared"))
+                    else:
+                        transport.db.execute(
+                            "UPDATE local_operation SET state='prepared',receipt=NULL "
+                            "WHERE operation=(SELECT operation FROM local_operation "
+                            "ORDER BY operation LIMIT 1)")
+                    transport.db.commit()
+                    _reopened, _source2, _fresh2, authority2 = self.reopen_authority(
+                        transport, effect, source)
+                    with self.assertRaisesRegex(
+                            ValueError,
+                            "Only an exact committed prefix|Bounded exact `.4` operation"):
+                        with authority2.hold():
+                            authority2.reconcile_committed_effect_prefix_for_manifest()
+
     def test_delta4_post_commit_mismatch_quarantines_and_revokes(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve(); root.chmod(0o700)

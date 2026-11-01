@@ -1954,6 +1954,52 @@ class ConfiguredLocalDelta4WriterAuthority:
         finally:
             self._delta4_attempt_admission = None
 
+    def reconcile_committed_effect_prefix_for_manifest(self):
+        """Reopen a complete retained graph prefix without entering its effect lane.
+
+        This path is for a fresh source hold over an already completed
+        transaction-one prefix whose exact output receipt is durable. It admits
+        no LocalDeltaEffects prepare/run/recover call and refuses every partial,
+        ambiguous or augmented operation journal.
+        """
+        self._require_current(held=True)
+        _require(self._delta4_manifest_row is None,
+                 "A retained manifest intent must use its exact manifest recovery path")
+        plan_rows = self.transport.db.execute(
+            "SELECT operation,original,digest FROM local_plan").fetchall()
+        expected_operation = "effects:" + self.effect_plan.intent_digest
+        _require(len(plan_rows) == 1 and plan_rows[0][0] == expected_operation,
+                 "Exact original `.4` graph plan required for manifest-only continuation")
+        operation_rows = self.transport.db.execute(
+            "SELECT operation,intent_sha,before_version,state,receipt "
+            "FROM local_operation ORDER BY operation").fetchall()
+        _require(len(operation_rows) == 3
+                 and all(row[3] == "committed" and type(row[4]) is str
+                         for row in operation_rows),
+                 "Manifest-only continuation requires exactly three committed graph operations")
+        receipt_table = self.transport.db.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+            (OUTPUT_RECEIPT_TABLE,)).fetchall()
+        _require(len(receipt_table) == 1,
+                 "Retained `.4` transaction-one output receipt required")
+        receipt_rows = _delta4_output_receipt_rows(self.transport.db)
+        _require(len(receipt_rows) == 1
+                 and receipt_rows[0][0] == self.plan.request["request_digest"],
+                 "Exact original `.4` output receipt required before manifest-only continuation")
+        observation = self._observe_effect_prefix()
+        _require(observation["committed_prefix"] == 3
+                 and observation["states"] == ["committed"] * 3
+                 and observation["manifest_state"] == "missing",
+                 "Exact fully committed `.4` graph prefix with no manifest operation required")
+        _require(observation["heads"]["publication_attempt_phase"]["version"]
+                 == self.fresh.heads["publication_attempt_phase"]["version"] + 2
+                 and observation["heads"]["publication_manifest"]
+                    == self.fresh.heads["publication_manifest"],
+                 "Exact prepared/applying phase and pre-manifest head vector required")
+        self._delta4_closing_heads = observation["heads"]
+        self._delta4_completion_witness = True
+        return observation
+
     def _admit_delta4_operation(self, intent, operation_ids):
         """Policy callback for one original ordinal, before or after SQL."""
         from .delta_custody import original_operation_intent

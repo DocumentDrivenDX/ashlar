@@ -672,6 +672,17 @@ def run_configured_local_delta4_transaction1(config):
                            "request_digest": plan.request["request_digest"],
                            "receipt_sha256": receipt_rows[0][0]}
                 finalized = recover_configured_local_delta4_manifest(held)
+            elif (held.transport.db.execute(
+                    "SELECT count(*) FROM local_plan").fetchone()[0]
+                  or held.transport.db.execute(
+                    "SELECT count(*) FROM local_operation").fetchone()[0]):
+                # A reopened, already-applied graph prefix must not re-enter
+                # prepare/apply, even through LocalDeltaEffects.recover. The
+                # dedicated path revalidates its exact committed receipts and
+                # existing output receipt, then writes only the manifest.
+                observation = held.reconcile_committed_effect_prefix_for_manifest()
+                receipt = retain_delta4_output_completion_receipt(held)
+                finalized = finalize_configured_local_delta4_manifest(held)
             else:
                 held.prepare_and_execute_effect_plan()
                 observation = held._observe_effect_prefix()
