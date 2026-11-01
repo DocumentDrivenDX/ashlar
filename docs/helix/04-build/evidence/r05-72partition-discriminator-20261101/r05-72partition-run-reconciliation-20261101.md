@@ -44,9 +44,17 @@ while retaining global attribution status for review.
 
 The run itself remains **held**, not retroactively passed: the supervisor did
 not finish its post-run table cleanup because the false-negative guard fired.
-The receipt-owned root remains untouched for Sol review at
+At the time of initial reconciliation, the receipt-owned root remained
+untouched for Sol review at
 `/private/tmp/ashlar-r05-72partition-attempts-0a7a473c/ashlar-r05-72partition-fdde904eff007b3039fe615e`.
 No additional Spark run or cleanup was performed for this reconciliation.
+
+On 2026-11-01, after the retained receipts and table-size witnesses were
+reviewed, the generated `candidate-72` Delta table directory was removed to
+recover 2.9 GiB when the local disk fell below 120 MiB free. The supervisor,
+worker, event-summary and ownership receipts, Spark event log, and this
+reconciliation remain retained. This cleanup does not retroactively pass the
+held run; independent rereads of its raw Delta tables are no longer possible.
 
 ## Reconciled evidence
 
