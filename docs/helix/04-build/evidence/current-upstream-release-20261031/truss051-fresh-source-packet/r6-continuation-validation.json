@@ -1,0 +1,30 @@
+{
+  "status": "passed_effect_free_continuation_input_validation",
+  "validator": "check_r6_continuation.py",
+  "database_started": false,
+  "database_connected": false,
+  "acceptance_replayed": false,
+  "source_sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+  "derived_model_sha256": "2c9b295a8232cae4770255650bf634941ab223e582b79ae2bb78f6acf0b8a880",
+  "pure_prepare_acceptance": "passed",
+  "scope_duplicate_key": "ordinary_reader_role; later descriptive value overwrites the 35-byte role name with a 64-byte prose string",
+  "reader_role_postgresql_truncated_candidate": "dedicated local safe LOGIN role enrolled as feed consumer reade",
+  "reader_role_candidate_bytes": 63,
+  "reader_role_validator": "passed Truss bounded-role validator",
+  "consumer_id": "ashlar-local-dev-typed-graph-consumer-r6-20261031",
+  "module_access_grant": {
+    "document_id": "ashlar-local-dev-typed-graph-r6-20261031",
+    "module_id": "m",
+    "reader_role": "ashlar_ld_reader_r6_20261031",
+    "writer_role": "ashlar_ld_writer_r6_20261031"
+  },
+  "seed_operation_count": 7,
+  "seed_object_count": 4,
+  "seed_edge_count": 3,
+  "seed_request_sha256": "550768ec3f90d929e5e60c719f31e708183a3cc41b3f558b2da932633c18281d",
+  "public_api_shapes": "passed installed-signature checks for consumer registration, module access configuration, group preparation, atomic group application, and feed read",
+  "feed_read_limits": {"maximum_facts": 4096, "maximum_bytes": 8388608},
+  "acknowledgement": false,
+  "native_continuation": false,
+  "review_gate": "Send continuation design and evidence to Sol before any further native call."
+}

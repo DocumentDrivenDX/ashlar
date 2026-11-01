@@ -1,0 +1,49 @@
+{
+  "profile": "ashlar-truss048-fresh-local-development-trial/0.1",
+  "attempt_path": "/private/tmp/ashlar-truss048-fresh-local-20261031-r6",
+  "failure_receipt_path": "/private/tmp/ashlar-truss048-fresh-local-20261031-r6/trial-failure.json",
+  "postgres_log_path": "/private/tmp/ashlar-truss048-fresh-local-20261031-r6/pgdata/log",
+  "status": "catalog_accepted_stopped_before_consumer_registration",
+  "elapsed_seconds": 37.919,
+  "postgresql_version": "18.6",
+  "postgresql_started": true,
+  "postgresql_stopped_cleanly": true,
+  "truss_version": "0.0.48",
+  "release_id": "truss-catalog-runtime/0.74-candidate",
+  "installation_id": "dae9604a-bc84-4c39-b1c1-128466358ff1",
+  "registrar_role": "truss_registrar_1855719b1a134ce0",
+  "registrar_login_role": "ashlar_local_dev_registrar_r6_20261031",
+  "registrar_preflight": {
+    "status": "passed",
+    "session_user": "ashlar_local_dev_registrar_r6_20261031",
+    "current_user": "ashlar_local_dev_registrar_r6_20261031",
+    "role_setting": "none",
+    "rolcanlogin": true,
+    "can_register": true,
+    "transaction_read_only": true,
+    "membership_options": "INHERIT TRUE, SET FALSE"
+  },
+  "catalog_acceptance": {
+    "status": "succeeded",
+    "document_id": "ashlar-local-dev-typed-graph-r6-20261031",
+    "document_revision": "1",
+    "document_sha256": "2c9b295a8232cae4770255650bf634941ab223e582b79ae2bb78f6acf0b8a880",
+    "catalog_revision": 1,
+    "registration_id": "bc6e5004-b07f-4a25-9c35-19a08c4b5f39",
+    "local_authority_only": true
+  },
+  "consumer_registration": {
+    "status": "not_reached",
+    "public_api_error": "Bounded consumer and role required",
+    "cause": "The scope JSON contains duplicate ordinary_reader_role keys. Python JSON parsing retained the later descriptive string instead of the role name, so Truss's public argument validation refused before any consumer write."
+  },
+  "seed": false,
+  "feed_read": false,
+  "truss_catalog_mutation": true,
+  "migration": false,
+  "publication": false,
+  "acknowledgement": false,
+  "cloud": false,
+  "cleanup": false,
+  "decision": "The r6 one-attempt scope is consumed. The local catalog acceptance succeeded; no consumer, seed, feed page, publication or ACK was produced. A further attempt needs a separately bounded scope."
+}

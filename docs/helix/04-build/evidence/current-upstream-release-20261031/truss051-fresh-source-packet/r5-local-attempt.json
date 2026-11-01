@@ -1,0 +1,43 @@
+{
+  "profile": "ashlar-truss048-fresh-local-development-trial/0.1",
+  "attempt_path": "/private/tmp/ashlar-truss048-fresh-local-20261031-r5",
+  "failure_receipt_path": "/private/tmp/ashlar-truss048-fresh-local-20261031-r5/trial-failure.json",
+  "postgres_log_path": "/private/tmp/ashlar-truss048-fresh-local-20261031-r5/pgdata/log",
+  "status": "stopped_at_read_only_registrar_status_preflight",
+  "elapsed_seconds": 29.035,
+  "postgresql_version": "18.6",
+  "postgresql_started": true,
+  "postgresql_stopped_cleanly": true,
+  "truss_version": "0.0.48",
+  "release_id": "truss-catalog-runtime/0.74-candidate",
+  "truss_installation_id": "dec22b3a-ff68-4a22-8135-2ea4c1741998",
+  "generated_registrar_role": "truss_registrar_53107aece2984c1b",
+  "registrar_login_role": "ashlar_local_dev_registrar_r5_20261031",
+  "principal_preconditions": {
+    "session_user": "ashlar_local_dev_registrar_r5_20261031",
+    "current_user": "ashlar_local_dev_registrar_r5_20261031",
+    "role_setting": "none",
+    "rolcanlogin": true,
+    "registrar_membership": true,
+    "login_role_inherit": false
+  },
+  "failed_operation": "public read-only registrar_status_in_transaction preflight",
+  "error": {
+    "postgres_log_message": "original invocation EXECUTE grant required",
+    "raised_by": "truss.require_person_invocation; truss/_catalog_runtime/person-entrypoints.sql:31-36",
+    "sqlstate": "42501",
+    "truss_error_code": "execution_obligation",
+    "catalog_code": null
+  },
+  "attempt_tree_bytes": 46567859,
+  "catalog_acceptance": false,
+  "consumer_registration": false,
+  "seed": false,
+  "feed_read": false,
+  "migration": false,
+  "publication": false,
+  "acknowledgement": false,
+  "cloud": false,
+  "cleanup": false,
+  "decision": "The r5 one-attempt scope is consumed. No retry or cleanup was performed."
+}

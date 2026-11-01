@@ -1,0 +1,19 @@
+{
+  "profile": "ashlar-r6-truss051-standing-local-authorization/0.1",
+  "status": "sol_reviewed_one_shot_local_dispatch_candidate",
+  "authorization_source": "user standing authorization conveyed in task instructions",
+  "authorization_quote": "User authorized fresh Truss source creation, local seed, and a tested release; this is one bounded local-development attempt only.",
+  "review": {
+    "reviewer": "Sol",
+    "result": "accepted subject to exact scope/worker/supervisor hash binding and no new user approval request"
+  },
+  "scope_sha256": "fe765fc37bf6a1210197f1d851d8d899200ce7ab488624727f756d2b74a66d32",
+  "worker_sha256": "9f16610011c8d75aac0e36af71f7b758f53029ac63d8c21c14f25c60b49b48e1",
+  "supervisor_sha256": "bda8814dc5d882740a1e4a0198d9e58d14fbdb6070b367eccb6cac9aa3f2e2d9",
+  "attempts": 1,
+  "cloud": false,
+  "production_authority": false,
+  "publication": false,
+  "acknowledgement": false,
+  "cleanup": false
+}

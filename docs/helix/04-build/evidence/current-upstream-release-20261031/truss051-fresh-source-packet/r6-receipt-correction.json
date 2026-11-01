@@ -1,0 +1,12 @@
+{
+  "attempt": "r6",
+  "raw_failure_receipt": "/private/tmp/ashlar-truss048-fresh-local-20261031-r6/trial-failure.json",
+  "correction": "The raw worker receipt initialized truss_catalog_mutation=false and did not update it after a successful catalog acceptance. The receipt contains catalog_revision=1, a generated catalog_registration_id, and the accepted document identity and SHA. These fields prove the public acceptance committed, so truss_catalog_mutation is true.",
+  "catalog_mutation": true,
+  "catalog_acceptance": true,
+  "registration_id": "bc6e5004-b07f-4a25-9c35-19a08c4b5f39",
+  "catalog_revision": 1,
+  "consumer_registration": false,
+  "seed": false,
+  "feed_read": false
+}

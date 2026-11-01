@@ -1,0 +1,19 @@
+{
+  "profile": "ashlar-truss048-fresh-local-development-trial/0.1",
+  "status": "stopped_before_native_runtime",
+  "model_source_sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+  "document_id_attempted": "ashlar-local-dev-typed-graph-20261031",
+  "document_revision_attempted": "ashlar-local-dev-typed-graph-r1",
+  "public_preparation_outcome": "PreparationRejected(reason=invalid_input, diagnostics=())",
+  "finding": "Truss requires the catalog document ID to match the UMF document's own id. The frozen G03 bytes use typed-graph-example, so they were not admissible under the proposed distinct document identity without changing that one source token.",
+  "postgres_started": false,
+  "database_connected": false,
+  "catalog_accepted": false,
+  "consumer_registered": false,
+  "seed_submitted": false,
+  "migration": false,
+  "publication": false,
+  "acknowledgement": false,
+  "retained_partial_attempt_path": "/private/tmp/ashlar-truss048-fresh-local-20261031",
+  "retained_empty_pgdata_path": "/private/tmp/ashlar-truss048-fresh-local-20261031/pgdata"
+}

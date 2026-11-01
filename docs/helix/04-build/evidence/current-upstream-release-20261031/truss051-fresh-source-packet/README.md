@@ -19,12 +19,27 @@ ddx:
 
 # Fresh Truss 0.0.48 source capability packet
 
-**Status: draft; effect-free API inspection only.** The pinned Truss 0.0.48
-wheel contains public entrypoints for a fresh local PostgreSQL 18 runtime,
-accepted catalog registration, genesis feed-consumer registration, and Truss
-data mutation. The focused check imports and inspects those entrypoints only.
-It does not start PostgreSQL, connect to a database, accept a document, register
-a consumer, seed data, migrate, publish, or acknowledge a feed.
+**Status: draft; r6 successfully accepted a fresh local development model,
+then stopped before consumer enrollment.** The accepted registration is
+revision 1, registration `bc6e5004-b07f-4a25-9c35-19a08c4b5f39`, for document
+`ashlar-local-dev-typed-graph-r6-20261031` with SHA-256
+`2c9b295a8232cae4770255650bf634941ab223e582b79ae2bb78f6acf0b8a880`. This is
+local-development authority only. Truss requires an ordinary LOGIN session
+principal with registrar membership and `role=none`. R4 used `SET ROLE` under
+the PostgreSQL superuser, while the generated registrar itself is NOLOGIN. R5
+used `NOINHERIT` and could not see the registrar's EXECUTE grant. R6 used
+`INHERIT TRUE, SET FALSE`, passed the public read-only registrar status check,
+and accepted the model through Truss's public API. R4's receipt is at
+[`r4-local-attempt.json`](r4-local-attempt.json); r5's is at
+[`r5-local-attempt.json`](r5-local-attempt.json).
+
+The complete r6 outcome is in [`r6-local-attempt.json`](r6-local-attempt.json).
+Its raw failure receipt has one stale mutation flag, corrected in
+[`r6-receipt-correction.json`](r6-receipt-correction.json). Consumer enrollment
+stopped before mutation because the scope JSON contains a duplicate
+`ordinary_reader_role` key; the later 64-byte prose value replaced the intended
+35-byte role name and failed Truss's public bound check. No feed consumer, seed,
+or feed read was created.
 
 ## Exact package and API evidence
 
@@ -33,11 +48,9 @@ The retained wheel is
 SHA-256 `1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3`.
 The inspected environment is
 `/private/tmp/ashlar-r16-truss048-readonly-compat-312/bin/python`, Python
-3.12.14, with `truss-toolkit==0.0.48` and psycopg 3.3.6. Its installed
-distribution metadata does not include the `[local]` extra. The wheel declares
-that extra as `pgserver-pg18==18.6.1` (bundled PostgreSQL server 18.6), `fasteners==0.20`,
-`platformdirs==4.12.4`, and `psutil==7.2.2`; a future fresh-cluster packet must
-pin and verify these runtime distributions separately.
+3.12.14, with `truss-toolkit==0.0.48` and psycopg 3.3.6. The separate fresh
+trial environment verified the local runtime pins `pgserver-pg18==18.6.1`,
+`fasteners==0.20`, `platformdirs==4.12.4`, and `psutil==7.2.2`.
 
 Public symbols and implementation locations in the pinned wheel:
 
@@ -76,10 +89,10 @@ shape only; it does not prove runtime behavior.
 
 The APIs can produce a real Truss acceptance and mutation in a local development
 cluster. They cannot turn operator-authored input into an authoritative business
-source. Until the questions in `source-authority-inputs.json` have evidence and
-answers, any future source created this way must be labeled
-`local_development_authority`; it must not be represented as production source,
-production acceptance, or source-owner custody.
+source. This packet is expressly labeled `local_development_authority`; it must
+not be represented as production source, production acceptance, or source-owner
+custody. The stale r3 intake in `source-authority-inputs.json` does not govern the
+r6 local-development continuation or supply its source bytes.
 
 The historical A source of record was
 `/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json`
@@ -102,16 +115,89 @@ operations, separate from historical acceptance-origin evidence and production
 authority. The R20 attempt approval was for its exact scope and is consumed;
 although it failed before seed execution, that approval does not transfer to a
 new cluster, source identity, catalog registration, consumer, seed execution, or
-`.48`→`.51` migration. The seed request may be reused only after the new source
-owner confirms its semantics and a new scope receives its own approval.
+`.48`→`.51` migration. That retained historical seed request is not reused. The new seven-operation
+local seed has independent bytes and identity, and is covered by the standing
+local-development authorization bound to the r6 migration scope.
 
 R21 rejected the retained R16/R20 PostgreSQL data copy because 13 required
 PostgreSQL 18 directories are missing, including paths whose contents may be
 non-empty; the copy is not an input to this fresh-source proposal. The clean
 fresh-cluster route avoids relying on those bytes, but it does not resolve source
-authority or qualify the `.48`→`.51` migration. Migration must be proposed as a
-separate reviewed one-shot scope after a new `.48` source, acceptance, consumer,
-checkpoint, and seed are captured and independently verified.
+authority or qualify the `.48`→`.51` migration. The follow-on packet now
+proposes migrating a clone of the accepted r6 `.48` source before creating a
+consumer, checkpoint, or seed under `.51`.
 
 No PostgreSQL process, source mutation, feed read, migration, Spark/Delta,
 publication, ACK, or cloud action was performed while preparing this packet.
+
+## Fresh local-development trial candidate
+
+The owner selected a fresh source through Truss public APIs. The prepared
+candidate uses the frozen G03 typed-graph model as its starting point, with one
+exact byte substitution to give the model and Truss catalog document the same
+new local-development identity. The remaining model bytes and declared UMF
+0.10.0 semantics are preserved. The source document ID and revision, catalog
+request, source-system/epoch labels, consumer and ordinary reader role are all
+new. The seven-operation seed is newly authored with local values; no historical
+A seed request bytes or acceptance are reused. See
+[`fresh-local-trial-scope.json`](fresh-local-trial-scope.json),
+[`fresh-local-seed-request.json`](fresh-local-seed-request.json), and the
+[effect-free preparation result](effect-free-preparation-failure.json).
+
+The first candidate stopped before PostgreSQL startup because Truss rejected a
+document ID that did not match the UMF `id`. The derived model changes exactly
+that one JSON token; it matches the new document ID and passed Truss's public
+pure preparation call. The second local attempt stopped at `initdb` because the
+restricted sandbox denied POSIX shared memory. The authorized escalated r3
+attempt started PostgreSQL 18.6, then stopped before Truss installation when
+`host.adopt_transaction()` returned an error. A focused read-only preflight
+against that retained cluster passed after setting a 5-second transaction
+timeout; see [`r3-host-transaction-preflight.json`](r3-host-transaction-preflight.json).
+The single r4 attempt used the corrected timeout and successfully installed the
+Truss runtime. Public catalog acceptance then returned `P1403` with
+`catalog_code="unauthorized"`; see [`r4-local-attempt.json`](r4-local-attempt.json).
+The exact failure is retained in the attempt tree. Read-only inspection found
+that the generated registrar has `rolcanlogin=false`; Truss's `runtime_person`
+guard requires `rolcanlogin=true`, a safe actor, no active `SET ROLE`, and
+registrar membership. The public status API returned unauthorized for the
+NOLOGIN registrar. R5 then confirmed that `NOINHERIT` blocked the original
+EXECUTE grant (`42501`, `original invocation EXECUTE grant required`) in its
+read-only status preflight; see [`r5-local-attempt.json`](r5-local-attempt.json).
+R6's `INHERIT TRUE, SET FALSE` membership passed public status and acceptance.
+The consumer call exposed the duplicate scope key described above. Its initial
+`.48`-only continuation design remains as superseded review evidence in
+[`r6-continuation-inputs.json`](r6-continuation-inputs.json),
+[`check_r6_continuation.py`](check_r6_continuation.py), and
+[`r6-continuation-validation.json`](r6-continuation-validation.json). It is
+superseded by the `.51` migration packet below. All attempt directories remain
+under `/private/tmp`; none has been cleaned up.
+
+Truss installation and public catalog acceptance succeeded locally, but feed
+consumer enrollment, seed submission, and feed read did not. This is not
+`.48`→`.51` migration evidence. The Sol-reviewed one-shot packet migrates a **clone** of
+accepted r6 to `.51` before consumer enrollment or seed, preserving the original
+`.48` PGDATA unchanged. It gates on complete PG18 layout and exact source-tree
+hashes, creates separate cold rollback and migration copies, follows the pinned
+route `.48` `c4339ac7…` → `.49` `35fd797b…` → `.51` `288801f7…`, and requires
+public migration receipt plus accepted-document, registration, report and
+complete-view readback before later mutations. It then configures safe roles
+and module access, enrolls a genesis consumer, applies one seven-operation seed,
+and reads one feed page without ACK. Exact paths, role strings, API arguments,
+and limits are in [`r6-truss051-migration-scope.json`](r6-truss051-migration-scope.json).
+The effect-free result is recorded in
+[`r6-truss051-effectfree-validation.json`](r6-truss051-effectfree-validation.json),
+with its checker at [`check_r6_truss051_packet.py`](check_r6_truss051_packet.py).
+The
+review-gated worker and resource supervisor are
+[`r6_truss051_local_worker.py`](r6_truss051_local_worker.py) and
+[`r6_truss051_supervisor.py`](r6_truss051_supervisor.py). The OS process
+inventory is required immediately before dispatch; this sandbox cannot run
+`/bin/ps`, so no ownership conclusion is recorded here. The one-shot candidate is bound to the user’s standing local authorization in
+`r6-truss051-native-approval.json`; the authorization does not extend to cloud
+operations, production authority, publication, ACK, or cleanup. No `.51` migration
+or continuation action has yet been performed on r6.
+
+
+## Dispatch candidate status
+
+Sol reviewed and accepted the bounded local `.48`→`.51` clone, consumer, seven-operation seed, and first-page read scope, subject to this exact authorization binding. The user’s standing authorization covers fresh Truss source creation, a local seed, and a tested release; no additional user approval is requested for this one-shot local-development attempt. The scope uses `approved_one_shot_native` / `one_run_local_native_lifecycle` and is bound by [`r6-truss051-native-approval.json`](r6-truss051-native-approval.json) to the exact scope, worker, and supervisor hashes. The earlier r3 source-authority intake is stale and is not authority or an input for this continuation. The retained r6 `.48` PGDATA remains the sole source; it is copied only to bounded cold-backup and migration-clone destinations, and is not modified. Cloud, production authority, publication, ACK, and cleanup remain excluded. This packet update does not itself dispatch native work.
