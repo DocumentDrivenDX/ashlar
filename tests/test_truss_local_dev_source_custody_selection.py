@@ -82,7 +82,8 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
     def setUp(self):
         self.native_tmp = tempfile.TemporaryDirectory()
         targets = {}
-        for role in ("object_current", "edge_current", "tombstone", "whole_source_history"):
+        for role in ("object_current", "edge_current", "tombstone", "whole_source_history",
+                     "attempts", "manifest"):
             table = f"local.trussgraph.{role}"
             path = Path(self.native_tmp.name) / role
             path.mkdir()
@@ -207,6 +208,29 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
             with self.assertRaisesRegex(TrussSourceSelectionError, "correspondence"):
                 self.anchor(consumer=foreign)
 
+    def test_selector_requires_exact_six_role_installation_but_binds_four_data_roles(self):
+        selected = self.transport.targets
+        with patch.dict(sys.modules, self._modules()):
+            self.transport.targets = MappingProxyType({
+                table: target for table, target in selected.items()
+                if table.rsplit(".", 1)[-1] in {
+                    "object_current", "edge_current", "tombstone", "whole_source_history"}})
+            with self.assertRaisesRegex(TrussSourceSelectionError, "six-role"):
+                self.anchor()
+            extra_path = Path(self.native_tmp.name) / "unexpected"
+            extra_path.mkdir()
+            extra = dict(selected)
+            extra["local.trussgraph.unexpected"] = DeltaTarget(
+                "local.trussgraph.unexpected", extra_path, "uuid-unexpected")
+            self.transport.targets = MappingProxyType(extra)
+            with self.assertRaisesRegex(TrussSourceSelectionError, "six-role"):
+                self.anchor()
+            self.transport.targets = selected
+            anchor = self.anchor()
+        self.assertEqual(set(anchor.destination_target_bindings), {
+            "local.trussgraph.object_current", "local.trussgraph.edge_current",
+            "local.trussgraph.tombstone", "local.trussgraph.whole_source_history"})
+
     def test_refuses_publication_id_not_derived_from_request(self):
         with patch.dict(sys.modules, self._modules()):
             with self.assertRaisesRegex(TrussSourceSelectionError, "local-development source registration"):
@@ -271,7 +295,8 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
             manifest_bytes=manifest, vector=vector,
             receipt_bytes=receipt, expected_post_state=expected)
         self.assertEqual(set(spark.read_versions), {
-            (str(target.path), 0) for target in self.transport.targets.values()})
+            (str(self.transport.targets[f"local.trussgraph.{role}"].path), 0)
+            for role in ("object_current", "edge_current", "tombstone", "whole_source_history")})
         selection = anchor.bind_local_native_publication(manifest_bytes=manifest,
             vector=vector, receipt_bytes=receipt, expected_post_state=expected,
             observation=observation)
@@ -329,7 +354,24 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
         changed[table] = DeltaTarget(table, rogue_path, old_targets[table].uuid)
         self.transport.targets = MappingProxyType(changed)
         try:
-            with self.assertRaisesRegex(TrussSourceSelectionError, "target differs"):
+            with self.assertRaisesRegex(TrussSourceSelectionError, "registry differs"):
+                read_local_native_delta_publication_observation(anchor=anchor, spark=spark,
+                    destination_transport=self.transport, manifest_bytes=manifest,
+                    vector=vector, receipt_bytes=receipt, expected_post_state=expected)
+        finally:
+            self.transport.targets = old_targets
+
+    def test_local_native_factory_refuses_replaced_auxiliary_installation_target(self):
+        with patch.dict(sys.modules, self._modules()):
+            anchor = self.anchor()
+        manifest, vector, receipt, expected, _, spark = self._local_publication_evidence()
+        old_targets = self.transport.targets
+        changed = dict(old_targets)
+        table = "local.trussgraph.manifest"
+        changed[table] = DeltaTarget(table, old_targets[table].path, "replaced-manifest-uuid")
+        self.transport.targets = MappingProxyType(changed)
+        try:
+            with self.assertRaisesRegex(TrussSourceSelectionError, "installation registry differs"):
                 read_local_native_delta_publication_observation(anchor=anchor, spark=spark,
                     destination_transport=self.transport, manifest_bytes=manifest,
                     vector=vector, receipt_bytes=receipt, expected_post_state=expected)

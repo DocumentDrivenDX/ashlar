@@ -45,6 +45,10 @@ LOCAL_ROW_BAG_CANONICALIZATION = "ashlar-local-native-row-bag/0.1"
 LOCAL_EXPECTED_POST_STATE_PROFILE = "ashlar-local-native-expected-post-state/0.1"
 LOCAL_NATIVE_OBSERVATION_PROFILE = "ashlar-local-native-delta-publication-observation/0.1"
 _LOCAL_DATA_ROLES = ("object_current", "edge_current", "tombstone", "whole_source_history")
+# LocalDeltaTransport is the complete installed six-role Delta registry. Source
+# and publication vectors cover the four data roles only; attempts and manifest
+# remain registered installation roles and must still be present exactly.
+_LOCAL_INSTALLATION_ROLES = (*_LOCAL_DATA_ROLES, "attempts", "manifest")
 _MAX_NATIVE_ROWS = 100_000
 _MAX_NATIVE_CELL_BYTES = 1 * 1024 * 1024
 _MAX_NATIVE_ROW_BAG_BYTES = 64 * 1024 * 1024
@@ -382,11 +386,24 @@ def read_local_native_delta_publication_observation(*, anchor, spark, destinatio
           "Destination receipt differs from exact request, manifest and vector")
     versions = decode_retained_json(manifest["table_versions_json"].encode("utf-8"))
     targets = destination_transport.targets
+    installation_tables = {
+        "local.trussgraph." + role for role in _LOCAL_INSTALLATION_ROLES}
+    data_tables = {"local.trussgraph." + role for role in _LOCAL_DATA_ROLES}
     _need(type(versions) is dict and set(versions) == set(vector.targets)
-          and type(targets) is MappingProxyType and set(targets) == set(vector.targets)
+          and type(targets) is MappingProxyType and set(targets) == installation_tables
+          and set(vector.targets) == data_tables
           and type(anchor.destination_target_bindings) is MappingProxyType
-          and set(anchor.destination_target_bindings) == set(targets),
+          and set(anchor.destination_target_bindings) == data_tables,
           "Preselected destination transport, vector and manifest versions required")
+    _need(type(anchor.destination_installation_bindings) is MappingProxyType
+          and set(anchor.destination_installation_bindings) == installation_tables,
+          "Exact selected six-role installation binding required")
+    for table in installation_tables:
+        target = targets[table]
+        _need(type(target) is DeltaTarget and target.table == table
+              and anchor.destination_installation_bindings[table]
+                  == (str(target.path), target.uuid),
+              "Selected local Delta installation registry differs from source selection")
     role_entries = {}
     for table, target in vector.targets.items():
         role = table.rsplit(".", 1)[-1]
@@ -460,6 +477,7 @@ class TrussSourceCustodyAnchor:
     preselected_publication_id: str | None = None
     destination_transport: object = field(default=None, repr=False, compare=False)
     destination_target_bindings: object = field(default=None, repr=False, compare=False)
+    destination_installation_bindings: object = field(default=None, repr=False, compare=False)
 
     def bind_publication(self, *, manifest_bytes: bytes, vector: PinVector,
                          receipt_bytes: bytes, observation: object
@@ -835,15 +853,22 @@ def select_truss_local_dev_source_custody_anchor(
     _need(type(destination_transport) is LocalDeltaTransport
           and type(destination_transport.targets) is MappingProxyType
           and set(destination_transport.targets) == {
-              "local.trussgraph." + role for role in _LOCAL_DATA_ROLES},
-          "Exact selected four-role local Delta transport required")
+              "local.trussgraph." + role for role in _LOCAL_INSTALLATION_ROLES},
+          "Exact selected six-role local Delta transport required")
     for table, target in destination_transport.targets.items():
         _need(type(target) is DeltaTarget and target.table == table
+              and table == "local.trussgraph." + table.rsplit(".", 1)[-1]
+              and table.rsplit(".", 1)[-1] in _LOCAL_INSTALLATION_ROLES
               and type(target.uuid) is str and target.uuid
               and target.path.is_absolute() and target.path.is_dir()
-              and not target.path.is_symlink(),
+              and all(not ancestor.is_symlink() for ancestor in
+                      (target.path, *target.path.parents)),
               "Exact existing local Delta transport target required")
     destination_target_bindings = MappingProxyType({
+        table: (str(target.path), target.uuid)
+        for table, target in destination_transport.targets.items()
+        if table.rsplit(".", 1)[-1] in _LOCAL_DATA_ROLES})
+    destination_installation_bindings = MappingProxyType({
         table: (str(target.path), target.uuid)
         for table, target in destination_transport.targets.items()})
     for value, label, maximum in (
@@ -998,4 +1023,5 @@ def select_truss_local_dev_source_custody_anchor(
         ack_scope_bytes=scope_bytes, authority_profile="local-development",
         preselected_publication_id=publication_id,
         destination_transport=destination_transport,
-        destination_target_bindings=destination_target_bindings))
+        destination_target_bindings=destination_target_bindings,
+        destination_installation_bindings=destination_installation_bindings))
