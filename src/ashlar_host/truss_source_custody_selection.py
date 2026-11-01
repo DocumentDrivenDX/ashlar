@@ -826,7 +826,8 @@ def select_truss_source_custody_anchor(*, schedule: R04Schedule, source: str,
 
 def select_truss_local_dev_source_custody_anchor(
         *, registration: object, consumer: object, runtime_status: object,
-        page: object, feed: str, source_holder_id: str, document_id: str,
+        accepted_document: object, page: object, feed: str,
+        source_holder_id: str, document_id: str,
         destination_id: str,
         ack_registration_id: str, ack_scope_id: str, publication_id: str,
         request_bytes: bytes, predecessor_id: str,
@@ -842,13 +843,16 @@ def select_truss_local_dev_source_custody_anchor(
         from truss import CatalogRuntimeStatus
         from truss.catalog_results import CatalogRegistration
         from truss.feed import FeedConsumer, FeedPage
+        from truss.reader_catalog import AcceptedDocument
     except ImportError as error:
         raise TrussSourceSelectionError("Public Truss .52 source result types required") from error
     if (type(registration) is not CatalogRegistration
             or type(consumer) is not FeedConsumer
             or type(runtime_status) is not CatalogRuntimeStatus
+            or type(accepted_document) is not AcceptedDocument
             or type(page) is not FeedPage):
-        raise TrussSourceSelectionError("Exact public Truss acceptance, consumer, status and page required")
+        raise TrussSourceSelectionError(
+            "Exact public Truss acceptance, accepted document, consumer, status and page required")
     from .delta_custody import DeltaTarget, LocalDeltaTransport
     _need(type(destination_transport) is LocalDeltaTransport
           and type(destination_transport.targets) is MappingProxyType
@@ -916,13 +920,22 @@ def select_truss_local_dev_source_custody_anchor(
         if (type(document_revision) is not str or not document_revision
                 or type(model_sha256) is not str
                 or re.fullmatch(r"[0-9a-f]{64}", model_sha256) is None
-                or type(artifact.get("identity")) is not str or not artifact.get("identity")
-                or type(artifact.get("bytesBase64")) is not str):
-            raise ValueError("Source-holder document identity, revision and digest required")
-        import base64
-        document_bytes = base64.b64decode(artifact["bytesBase64"], validate=True)
-        if hashlib.sha256(document_bytes).hexdigest() != model_sha256:
-            raise ValueError("Accepted source-holder document bytes differ from report digest")
+                or type(artifact.get("identity")) is not str or not artifact.get("identity")):
+            raise ValueError("Source-holder report document identity, revision and digest required")
+        document_bytes = accepted_document.content
+        if (type(document_bytes) is not bytes
+                or hashlib.sha256(document_bytes).hexdigest() != model_sha256
+                or accepted_document.document_id != document_id
+                or accepted_document.document_revision != document_revision
+                or accepted_document.artifact_identity != artifact["identity"]
+                or accepted_document.sha256 != model_sha256
+                or accepted_document.registration_id != registration.registration_id
+                or type(accepted_document.catalog_revision) is not int
+                or accepted_document.catalog_revision != registration.revision
+                or type(accepted_document.source_catalog_revision) is not int
+                or accepted_document.source_catalog_revision < 1
+                or accepted_document.source_catalog_revision > accepted_document.catalog_revision):
+            raise ValueError("Public accepted document differs from acceptance report or registration")
         identity = {
             "feed": feed,
             "consumer_id": consumer.consumer_id,

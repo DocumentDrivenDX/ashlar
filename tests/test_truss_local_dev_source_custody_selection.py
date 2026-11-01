@@ -1,13 +1,12 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Local-development selection tests; no Truss install or source ACK occurs."""
-import base64
 import hashlib
 import json
 import tempfile
 import sys
 import types
 import unittest
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from types import SimpleNamespace
 from pathlib import Path
 from types import MappingProxyType
@@ -123,16 +122,27 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
             "explicit-truss-genesis", {"source": "r21"})
         self.request_bytes = canonical(request).encode()
         self.publication_id = "truss-graph-" + request["request_digest"]
-        # The public report preserves revision as canonical decimal text while
-        # CatalogRegistration.revision is the typed integer field.
-        report = {"registrationId": "acceptance-registration-r21", "revision": "3",
-            "acceptedInput": {"documents": [{"documentId": "typed-graph-r21",
-                "documentRevision": "1.0.0", "artifact": {
-                    "identity": "model-graph-r21",
-                    "sha256": hashlib.sha256(b"model bytes").hexdigest(),
-                    "bytesBase64": base64.b64encode(b"model bytes").decode()}}]}}
+        # This compact fixture is projected from the exact public Truss 0.0.52
+        # report retained in the R24/R33 reconciliation, with source hash kept.
+        fixture_path = Path(__file__).parent / "fixtures/truss_052_r24_public_report_document.json"
+        fixture = json.loads(fixture_path.read_bytes())
+        self.document_id = fixture["document"]["documentId"]
+        model_path = (Path(__file__).parents[1] / "docs/helix/04-build/evidence/"
+            "current-upstream-release-20261101/r21-truss052-fresh-source-custody/"
+            "r28-page-sequence/r28-model.umf.json")
+        model_bytes = model_path.read_bytes()
+        report = {"registrationId": fixture["registrationId"], "revision": fixture["revision"],
+            "acceptedInput": {"documents": [fixture["document"]]}}
         self.registration = self.types.CatalogRegistration(
-            3, "acceptance-registration-r21", canonical(report).encode(), False)
+            int(fixture["revision"]), fixture["registrationId"], canonical(report).encode(), False)
+        self.accepted_document = self.types.AcceptedDocument(
+            document_id=fixture["document"]["documentId"],
+            document_revision=fixture["document"]["documentRevision"],
+            artifact_identity=fixture["document"]["artifact"]["identity"], content=model_bytes,
+            sha256=hashlib.sha256(model_bytes).hexdigest(),
+            catalog_revision=int(fixture["revision"]), registration_id=fixture["registrationId"],
+            source_catalog_revision=int(fixture["revision"]),
+            validation_bytes=None, ddd_profile_bytes=None, ddd_validation_bytes=None)
         self.consumer = self.types.FeedConsumer(self.consumer_id,
             self.consumer_registration, SimpleNamespace(content=self.prior))
         self.status = self.types.CatalogRuntimeStatus()
@@ -158,6 +168,20 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
                                      checkpoint=checkpoint)})
         t.FeedPage = type("FeedPage", (), {
             "__init__": lambda self, **kwargs: self.__dict__.update(kwargs)})
+        @dataclass(frozen=True)
+        class AcceptedDocument:
+            document_id: str
+            document_revision: str
+            artifact_identity: str
+            content: bytes
+            sha256: str
+            catalog_revision: int
+            registration_id: str
+            source_catalog_revision: int
+            validation_bytes: bytes | None = None
+            ddd_profile_bytes: bytes | None = None
+            ddd_validation_bytes: bytes | None = None
+        t.AcceptedDocument = AcceptedDocument
         return t
 
     def _modules(self):
@@ -168,16 +192,20 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
         feed = types.ModuleType("truss.feed")
         feed.FeedConsumer = self.types.FeedConsumer
         feed.FeedPage = self.types.FeedPage
-        return {"truss": root, "truss.catalog_results": catalog, "truss.feed": feed}
+        reader = types.ModuleType("truss.reader_catalog")
+        reader.AcceptedDocument = self.types.AcceptedDocument
+        return {"truss": root, "truss.catalog_results": catalog,
+                "truss.feed": feed, "truss.reader_catalog": reader}
 
     def anchor(self, *, page=None, consumer=None, publication_id=None):
         return select_truss_local_dev_source_custody_anchor(
             registration=self.registration,
+            accepted_document=self.accepted_document,
             consumer=self.consumer if consumer is None else consumer,
             runtime_status=self.status, page=self.page if page is None else page,
             feed=self.feed,
             source_holder_id="ashlar-local-dev-source-holder-r21-20261101",
-            document_id="typed-graph-r21",
+            document_id=self.document_id,
             destination_id="ashlar-local-dev-delta-r21-20261101",
             ack_registration_id="ashlar-local-dev-ack-registration-r21",
             ack_scope_id="ashlar-local-dev-ack-scope-r21",
@@ -240,12 +268,49 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
 
     def test_refuses_duplicate_members_in_public_acceptance_report(self):
         self.registration.report_bytes = (
-            b'{"registrationId":"acceptance-registration-r21",'
+            b'{"registrationId":"4356b0ee-2d21-4a39-9182-b82c66dffd97",'
             b'"registrationId":"forged-registration","revision":"3",'
             b'"acceptedInput":{"documents":[]}}')
         with patch.dict(sys.modules, self._modules()):
             with self.assertRaisesRegex(TrussSourceSelectionError, "correspondence"):
                 self.anchor()
+
+    def test_binds_report_to_typed_public_accepted_document_without_embedded_bytes(self):
+        with patch.dict(sys.modules, self._modules()):
+            anchor = self.anchor()
+        registration = json.loads(self.registration.report_bytes)
+        selected = registration["acceptedInput"]["documents"][0]
+        self.assertNotIn("bytesBase64", selected["artifact"])
+        self.assertEqual(anchor.identity["artifact_identity"], self.accepted_document.artifact_identity)
+        self.assertEqual(anchor.identity["model_sha256"], self.accepted_document.sha256)
+
+    def test_refuses_mismatched_public_accepted_document_fields(self):
+        mismatches = (
+            replace(self.accepted_document, document_id="other"),
+            replace(self.accepted_document, document_revision="2"),
+            replace(self.accepted_document, artifact_identity="other"),
+            replace(self.accepted_document, content=b"other bytes"),
+            replace(self.accepted_document, sha256="0" * 64),
+            replace(self.accepted_document, catalog_revision=2),
+            replace(self.accepted_document, registration_id="other"),
+            replace(self.accepted_document, source_catalog_revision=4),
+        )
+        for accepted_document in mismatches:
+            with self.subTest(accepted_document=accepted_document):
+                self.accepted_document = accepted_document
+                with patch.dict(sys.modules, self._modules()):
+                    with self.assertRaisesRegex(TrussSourceSelectionError,
+                            "local-development source registration/page/request correspondence"):
+                        self.anchor()
+        self.accepted_document = replace(
+            self.accepted_document, document_id=self.document_id,
+            document_revision="1", artifact_identity=self.document_id,
+            content=(Path(__file__).parents[1] / "docs/helix/04-build/evidence/"
+                "current-upstream-release-20261101/r21-truss052-fresh-source-custody/"
+                "r28-page-sequence/r28-model.umf.json").read_bytes(),
+            sha256="b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
+            catalog_revision=1, registration_id=self.registration.registration_id,
+            source_catalog_revision=1)
 
     def test_refuses_forged_registration_or_ack_scope_bytes(self):
         with patch.dict(sys.modules, self._modules()):

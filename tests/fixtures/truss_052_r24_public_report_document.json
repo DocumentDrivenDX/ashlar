@@ -1,0 +1,22 @@
+{
+  "document": {
+    "artifact": {
+      "identity": "ashlar-local-dev-typed-graph-r21-20261101",
+      "sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2"
+    },
+    "documentId": "ashlar-local-dev-typed-graph-r21-20261101",
+    "documentRevision": "1",
+    "ingress": {
+      "kind": "native"
+    },
+    "umfProfile": {
+      "identity": "umf-core-document-validation",
+      "sha256": "0335643fd700df1eafedb88e6104d532096aa74c6081f8d96372d2779a4d34fd",
+      "version": "b24e07abae445414c41d2f122deae596915c6bd5"
+    }
+  },
+  "profile": "truss-0.0.52-public-report-document-shape-fixture/0.1",
+  "registrationId": "4356b0ee-2d21-4a39-9182-b82c66dffd97",
+  "revision": "1",
+  "source_report_sha256": "466a3c0f4f0223499f9f1ba2e9c4bf6a73d74ddcbbc3b9275c89276e6efd502c"
+}
