@@ -505,6 +505,8 @@ def run_configured_local_delta4_transaction1(config):
         finalize_configured_local_delta4_manifest,
         open_configured_local_delta4_authority,
         plan_configured_local_delta4_transaction1,
+        rehydrate_delta4_fresh_head_admission,
+        recover_configured_local_delta4_manifest,
         retain_delta4_output_completion_receipt,
     )
     from .local_current_carrier_profile import apply_local_writer_settings
@@ -639,29 +641,54 @@ def run_configured_local_delta4_transaction1(config):
             materialized_at_us=config.materialization_clock_us)
         request = source.spec(1, context).request()
         _require(plan.batch_id == 'typed-graph-1' and plan.request == request)
-        fresh = admit_delta4_fresh_empty_installation(transport, installation_profile)
         effect_plan = build_delta4_transaction1_effect_plan(
             plan, tables=tables, installation_profile=installation_profile)
+        scope_table = transport.db.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='local_source_plan'").fetchone()
+        retained_scope_count = (transport.db.execute(
+            "SELECT count(*) FROM local_source_plan").fetchone()[0]
+            if scope_table else 0)
+        if retained_scope_count:
+            fresh = rehydrate_delta4_fresh_head_admission(
+                plan, effect_plan, transport, installation_profile, source, context)
+        else:
+            _require(transport.db.execute("SELECT count(*) FROM local_plan").fetchone()[0] == 0
+                     and transport.db.execute("SELECT count(*) FROM local_operation").fetchone()[0] == 0,
+                     "Nonfresh `.4` journal without its exact source scope is quarantined")
+            fresh = admit_delta4_fresh_empty_installation(transport, installation_profile)
         authority = open_configured_local_delta4_authority(
             plan, effect_plan, transport, installation_profile, fresh, source,
             admission, context, policy)
         with authority.hold() as held:
-            held.prepare_and_execute_effect_plan()
-            observation = held._observe_effect_prefix()
-            versions = {role: observation['heads'][role]['version']
-                        for role in ('edge_current', 'object_current', 'tombstone',
-                                     'whole_source_history')}
-            phase_head = observation['heads']['publication_attempt_phase']
-            _require(phase_head['version'] == fresh.heads['publication_attempt_phase']['version'] + 2
-                     and versions == {
-                         'edge_current': fresh.heads['edge_current']['version'] + 1,
-                         'object_current': fresh.heads['object_current']['version'] + 1,
-                         'tombstone': fresh.heads['tombstone']['version'],
-                         'whole_source_history': fresh.heads['whole_source_history']['version'] + 1}
-                     and observation['heads']['publication_manifest']['version']
-                        == fresh.heads['publication_manifest']['version'])
-            receipt = retain_delta4_output_completion_receipt(held)
-            finalized = finalize_configured_local_delta4_manifest(held)
+            if held._delta4_manifest_row is not None:
+                observation = held._observe_effect_prefix(
+                    manifest_row=held._delta4_manifest_row)
+                receipt_rows = held.transport.db.execute(
+                    "SELECT receipt_sha256 FROM local_delta4_output_receipt WHERE request_digest=?",
+                    (plan.request["request_digest"],)).fetchall()
+                _require(len(receipt_rows) == 1,
+                         "Exact original `.4` output receipt required for manifest recovery")
+                receipt = {"profile": "ashlar-configured-local-delta4-output-receipt-ref/0.1",
+                           "request_digest": plan.request["request_digest"],
+                           "receipt_sha256": receipt_rows[0][0]}
+                finalized = recover_configured_local_delta4_manifest(held)
+            else:
+                held.prepare_and_execute_effect_plan()
+                observation = held._observe_effect_prefix()
+                versions = {role: observation['heads'][role]['version']
+                            for role in ('edge_current', 'object_current', 'tombstone',
+                                         'whole_source_history')}
+                phase_head = observation['heads']['publication_attempt_phase']
+                _require(phase_head['version'] == fresh.heads['publication_attempt_phase']['version'] + 2
+                         and versions == {
+                             'edge_current': fresh.heads['edge_current']['version'] + 1,
+                             'object_current': fresh.heads['object_current']['version'] + 1,
+                             'tombstone': fresh.heads['tombstone']['version'],
+                             'whole_source_history': fresh.heads['whole_source_history']['version'] + 1}
+                         and observation['heads']['publication_manifest']['version']
+                            == fresh.heads['publication_manifest']['version'])
+                receipt = retain_delta4_output_completion_receipt(held)
+                finalized = finalize_configured_local_delta4_manifest(held)
             receipt_reference = {
                 'profile': receipt['profile'],
                 'request_digest': receipt['request_digest'],

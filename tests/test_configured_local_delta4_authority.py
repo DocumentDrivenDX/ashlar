@@ -87,6 +87,7 @@ class Tests(unittest.TestCase):
         from ashlar.native import SQLResult
         from ashlar_host.configured_local_delta4_publication import (
             finalize_configured_local_delta4_manifest,
+            recover_configured_local_delta4_manifest,
         )
         from ashlar_host.delta_custody import child_operation, original_operation_intent
         from ashlar_host.local_receipt_codec import encode_local_receipt
@@ -176,6 +177,37 @@ class Tests(unittest.TestCase):
                                     held.prepare_and_execute_effect_plan()
                                     retain_delta4_output_completion_receipt(held)
                                     result = finalize_configured_local_delta4_manifest(held)
+                                # A new owner must rehydrate the version-1
+                                # baseline, identify the exact retained row,
+                                # and recover by rereading its named commit.
+                                context2 = object()
+                                reopened = copy.copy(transport)
+                                reopened.policy = PrivatePolicy(
+                                    context2, tuple(reopened.targets.values()))
+                                reopened.policy.initializing = False
+                                transport.policy = reopened.policy
+                                source2 = copy.copy(_source)
+                                source2.context = context2
+                                source2.renew = lambda selected: self.assertIs(
+                                    selected, context2)
+                                admission2 = copy.copy(_admission)
+                                admission2.source = source2
+                                admission2.context = context2
+                                fresh2 = rehydrate_delta4_fresh_head_admission(
+                                    self.plan, effect, reopened, fake.profile,
+                                    source2, context2)
+                                authority2 = open_configured_local_delta4_authority(
+                                    self.plan, effect, reopened, fake.profile, fresh2,
+                                    source2, admission2, context2, reopened.policy)
+                                with authority2.hold() as recovered_owner:
+                                    self.assertIsNotNone(
+                                        recovered_owner._delta4_manifest_row)
+                                    recovered = recover_configured_local_delta4_manifest(
+                                        recovered_owner)
+                                    self.assertEqual(recovered["row"], result["row"])
+                                    self.assertEqual(
+                                        recovered["realized_vector"],
+                                        result["realized_vector"])
             self.assertTrue(result["row"]["publication_id"] == self.plan.publication_id)
             self.assertEqual(fake.versions["publication_manifest"], 2)
             self.assertEqual(len(fake.manifest_rows), 1)

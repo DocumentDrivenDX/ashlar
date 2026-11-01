@@ -767,9 +767,33 @@ class ConfiguredLocalDelta4WriterAuthority:
         if plan_count == 0 and operation_count == 0:
             self._check_fresh_heads()
             return
-        observation = self._observe_effect_prefix(allow_prepared=True)
+        manifest_rows = self.transport.db.execute(
+            "SELECT operation,intent FROM local_operation WHERE operation LIKE ? ORDER BY operation LIMIT 2",
+            ("manifest:" + self.plan.request["request_digest"] + ":%",)).fetchall()
+        _require(len(manifest_rows) <= 1,
+                 "Unique original `.4` manifest intent required at scope opening")
+        retained_manifest = None
+        if manifest_rows:
+            operation, original = manifest_rows[0]
+            intent = decode_retained_json(original.encode("utf-8"))
+            _require(type(intent) is dict and intent.get("operation") == operation
+                     and type(intent.get("parameters")) is dict
+                     and set(intent["parameters"]) == {"row"}
+                     and type(intent["parameters"]["row"]) is str,
+                     "Exact retained `.4` manifest row parameters required")
+            retained_manifest = decode_retained_json(
+                intent["parameters"]["row"].encode("utf-8"))
+            self._delta4_manifest_row = retained_manifest
+        observation = self._observe_effect_prefix(
+            allow_prepared=True, manifest_row=retained_manifest)
         _require("submitted" not in observation["states"],
                  "Submitted `.4` operation remains quarantined at scope opening")
+        if retained_manifest is not None:
+            _require(observation["committed_prefix"] == 3
+                     and observation["states"] == ["committed"] * 3,
+                     "Manifest recovery requires the complete original graph prefix")
+            self._delta4_completion_witness = True
+            self._delta4_closing_heads = observation["heads"]
         self._require_current(held=True)
 
     def _retain_source_scope(self):
@@ -2651,6 +2675,21 @@ def finalize_configured_local_delta4_manifest(authority):
     return {"row": result,
             "realized_vector": build_delta4_realized_vector(
                 row, authority._delta4_manifest_installation_observation)}
+
+
+def recover_configured_local_delta4_manifest(authority):
+    """Recover one exact retained manifest intent under a renewed source hold."""
+    _require(type(authority) is ConfiguredLocalDelta4WriterAuthority
+             and authority.held and authority._active
+             and authority._delta4_manifest_row is not None,
+             "Reopened held `.4` manifest authority required")
+    port = ConfiguredLocalDelta4ManifestPort(
+        authority, authority._delta4_manifest_row)
+    result = port.recover(context=authority.context)
+    authority._validate_delta4_manifest_row(authority._delta4_manifest_row)
+    return {"row": result,
+            "realized_vector": build_delta4_realized_vector(
+                result, authority._delta4_manifest_installation_observation)}
 
 
 def build_delta4_transaction1_effect_plan(plan: ConfiguredLocalDelta4BatchPlan, *, tables: dict,
