@@ -6,7 +6,8 @@ from types import SimpleNamespace
 from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64, ROLES
 from ashlar_host.managed_current_genesis import (
     MANIFEST_PROFILE, PROGRESS_PROFILE, ManagedCurrentGenesisManifestOwner,
-    admit_truss_source_genesis_progress,
+    admit_truss_source_genesis_progress, verify_managed_current_genesis_predecessor,
+    transition_managed_current_first_a_page,
 )
 from ashlar_host.r04_schedule import R04Schedule, PROFILE, SLOT_ORDER, STAGES
 
@@ -195,6 +196,84 @@ class TestManagedCurrentGenesis(unittest.TestCase):
             'install-B': hashlib.sha256(b'model evidence B').hexdigest()}
         with self.assertRaises(ValueError):
             ManagedCurrentGenesisManifestOwner(targets, store).initialize(**args)
+
+    def test_verified_genesis_predecessor_transitions_only_a_to_actual_page_checkpoint(self):
+        from ashlar.source_checkpoint import truss_checkpoint
+        from ashlar.truss_native_feed import native_feed_batch
+
+        args = _initialize_args()
+        row = ManagedCurrentGenesisManifestOwner(_Targets(), _Store(_Executor())).initialize(**args)
+        predecessor = verify_managed_current_genesis_predecessor(
+            row, selected_sources=args['source_progress'])
+        source_a = args['source_progress']['A']
+        prior = source_a.cursor_bytes
+        following_doc = json.loads(prior)
+        following_doc['nextXid'] = '2'
+        following = json.dumps(following_doc, separators=(',', ':')).encode()
+        page = json.dumps({
+            'interfaceVersion': 'truss-native-feed/0.1',
+            'prior': json.loads(prior), 'next': json.loads(following),
+            'catalogPrerequisites': [], 'revisions': [], 'changes': [],
+            'sources': [], 'reservations': [], 'configuration': {}, 'writerXid': '1',
+        }, separators=(',', ':')).encode()
+        batch = native_feed_batch(page, sha256=hashlib.sha256(page).hexdigest(),
+                                  prior=prior, next=following, feed=source_a.feed)
+
+        updated = transition_managed_current_first_a_page(predecessor, batch)
+        self.assertEqual(set(updated), {args['source_progress']['A'].feed,
+                                        args['source_progress']['B'].feed})
+        self.assertEqual(updated[source_a.feed], json.loads(truss_checkpoint(batch)))
+        self.assertEqual(updated[args['source_progress']['B'].feed],
+                         args['source_progress']['B'].document())
+        self.assertNotIn('position_sha256', updated[source_a.feed])
+        self.assertNotIn('batch_id', args['source_progress']['A'].document())
+
+    def test_genesis_transition_refuses_unbound_predecessor_or_noncontiguous_a_page(self):
+        from ashlar.truss_native_feed import native_feed_batch
+
+        args = _initialize_args()
+        row = ManagedCurrentGenesisManifestOwner(_Targets(), _Store(_Executor())).initialize(**args)
+        with self.assertRaisesRegex(ValueError, 'publication ID'):
+            verify_managed_current_genesis_predecessor(
+                {**row, 'publication_id': 'unbound'}, selected_sources=args['source_progress'])
+        with self.assertRaisesRegex(ValueError, 'two-feed'):
+            verify_managed_current_genesis_predecessor(
+                row, selected_sources={'A': args['source_progress']['A'],
+                                       'B': args['source_progress']['A']})
+
+        predecessor = verify_managed_current_genesis_predecessor(
+            row, selected_sources=args['source_progress'])
+        source_a = args['source_progress']['A']
+        wrong_prior_doc = json.loads(source_a.cursor_bytes)
+        wrong_prior_doc['x-other'] = 'different cursor bytes'
+        wrong_prior = json.dumps(wrong_prior_doc, separators=(',', ':')).encode()
+        following_doc = json.loads(wrong_prior)
+        following_doc['nextXid'] = '2'
+        following = json.dumps(following_doc, separators=(',', ':')).encode()
+        page = json.dumps({
+            'interfaceVersion': 'truss-native-feed/0.1',
+            'prior': json.loads(wrong_prior), 'next': json.loads(following),
+            'catalogPrerequisites': [], 'revisions': [], 'changes': [],
+            'sources': [], 'reservations': [], 'configuration': {}, 'writerXid': '1',
+        }, separators=(',', ':')).encode()
+        batch = native_feed_batch(page, sha256=hashlib.sha256(page).hexdigest(),
+                                  prior=wrong_prior, next=following, feed=source_a.feed)
+        with self.assertRaisesRegex(ValueError, 'genesis cursor'):
+            transition_managed_current_first_a_page(predecessor, batch)
+        selected_next_doc = json.loads(source_a.cursor_bytes)
+        selected_next_doc['nextXid'] = '2'
+        selected_next = json.dumps(selected_next_doc, separators=(',', ':')).encode()
+        selected_page = json.dumps({
+            'interfaceVersion': 'truss-native-feed/0.1',
+            'prior': json.loads(source_a.cursor_bytes), 'next': json.loads(selected_next),
+            'catalogPrerequisites': [], 'revisions': [], 'changes': [],
+            'sources': [], 'reservations': [], 'configuration': {}, 'writerXid': '1',
+        }, separators=(',', ':')).encode()
+        wrong_feed = native_feed_batch(selected_page, sha256=hashlib.sha256(selected_page).hexdigest(),
+                                       prior=source_a.cursor_bytes, next=selected_next,
+                                       feed='unselected-feed')
+        with self.assertRaisesRegex(ValueError, 'selected genesis cursor'):
+            transition_managed_current_first_a_page(predecessor, wrong_feed)
 
 
 if __name__ == '__main__': unittest.main()

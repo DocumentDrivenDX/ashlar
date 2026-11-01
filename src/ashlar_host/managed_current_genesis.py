@@ -329,3 +329,174 @@ class ManagedCurrentGenesisManifestOwner:
         _require(len(actual) == 1 and dict(actual[0]) == row,
                  "Exact create-once genesis manifest readback required")
         return row
+
+
+@dataclass(frozen=True)
+class ManagedCurrentGenesisPredecessor:
+    """Correspondence-checked genesis row and its two separately selected markers.
+
+    This value does not authenticate Truss or grant source/ACK authority. The
+    selected ``TrussSourceGenesisProgress`` instances and later page batch must
+    already come from their respective source-owner admission boundaries.
+    """
+    manifest: dict
+    source_progress: dict
+    selected_sources: dict
+
+
+def verify_managed_current_genesis_predecessor(manifest, *, selected_sources):
+    """Verify a deterministic genesis manifest against independently selected A/B markers.
+
+    This is a pure correspondence primitive for the next incremental seam. It
+    checks the create-once row's stable identity, complete initial vector,
+    report discriminator and marker digest. It cannot supply missing source
+    owner admission or make the incremental driver eligible to execute.
+    """
+    from .managed_current_core import ROLES
+
+    _require(type(manifest) is dict, "Exact selected genesis manifest row required")
+    validate_manifest_row(manifest)
+    _require(manifest.get("profile_version") == CARRIER_PROFILE_XXHASH64,
+             "Genesis predecessor must retain the selected `.4` carrier")
+    _require(type(selected_sources) is dict and set(selected_sources) == {"A", "B"}
+             and all(type(item) is TrussSourceGenesisProgress
+                     for item in selected_sources.values()),
+             "Independently selected typed A/B genesis progress required")
+
+    progress = _decode_json_bytes(manifest["source_progress_json"].encode("utf-8"),
+                                  "Canonical genesis source progress required")
+    _require(_canonical(progress) == manifest["source_progress_json"]
+             and len(progress) == 2 and len({item.feed for item in selected_sources.values()}) == 2,
+             "Exact two-feed genesis progress map required")
+    for item in selected_sources.values():
+        checked = admit_truss_source_genesis_progress(
+            feed=item.feed, epoch=item.epoch, cursor_bytes=item.cursor_bytes,
+            cursor_sha256=item.position_sha256,
+            catalog_registration_id=item.catalog_registration_id,
+            catalog_registration_bytes=item.catalog_registration_bytes,
+            consumer_id=item.consumer_id,
+            consumer_registration_id=item.consumer_registration_id,
+            installation_id=item.installation_id)
+        _require(checked.document() == item.document()
+                 and progress.get(item.feed) == item.document(),
+                 "Genesis manifest marker differs from selected registration/cursor bytes")
+
+    report = _decode_json_bytes(manifest["validation_report_json"].encode("utf-8"),
+                                "Genesis predecessor validation report required")
+    revisions = _decode_json_bytes(manifest["schema_revisions_json"].encode("utf-8"),
+                                   "Canonical genesis schema revisions required")
+    versions = _decode_json_bytes(manifest["table_versions_json"].encode("utf-8"),
+                                  "Canonical genesis four-role vector required")
+    _require(_canonical(report) == manifest["validation_report_json"]
+             and _canonical(revisions) == manifest["schema_revisions_json"]
+             and _canonical(versions) == manifest["table_versions_json"],
+             "Canonical immutable genesis manifest columns required")
+    _require(report.get("complete") is True
+             and report.get("publication_plan_profile") == MANIFEST_PROFILE
+             and report.get("carrier_profile") == CARRIER_PROFILE_XXHASH64
+             and report.get("source_page_accepted") is False
+             and report.get("source_acknowledged") is False
+             and report.get("source_progress_sha256")
+                 == hashlib.sha256(_canonical(progress).encode()).hexdigest(),
+             "Exact no-page/no-ACK genesis report required")
+    _require(type(report.get("sources")) is dict and set(report["sources"]) == {"A", "B"}
+             and type(report.get("six_role_inventory")) is dict
+             and set(report["six_role_inventory"]) == set(ROLES),
+             "Complete selected A/B and six-role genesis inventory required")
+    expected_sources = {}
+    for source, item in selected_sources.items():
+        expected_sources[source] = {
+            "feed": item.feed, "epoch": item.epoch,
+            "catalog_registration_id": item.catalog_registration_id,
+            "catalog_registration_sha256": item.catalog_registration_sha256,
+            "consumer_id": item.consumer_id,
+            "consumer_registration_id": item.consumer_registration_id,
+            "installation_id": item.installation_id,
+            "genesis_cursor_sha256": item.position_sha256,
+        }
+    _require(report["sources"] == expected_sources,
+             "Genesis report source identities differ from selected markers")
+    initial_heads = report.get("fresh_target_creation", {}).get("initial_role_heads")
+    fresh = report.get("fresh_target_creation")
+    _require(type(fresh) is dict
+             and fresh.get("profile") == "ashlar-managed-current-fresh-target/0.1"
+             and fresh.get("created_by_owner") is True
+             and type(initial_heads) is dict and set(initial_heads) == set(ROLES)
+             and all(initial_heads[role] == 0 for role in ROLES),
+             "Genesis manifest must bind the original six zero heads")
+    inventory = report["six_role_inventory"]
+    _require(all(type(inventory[role]) is dict and inventory[role].get("version") == 0
+                 for role in ROLES),
+             "Genesis predecessor must retain all six initial zero heads")
+    expected_versions = {inventory[role]["name"]: 0 for role in DATA_ROLES}
+    _require(versions == expected_versions,
+             "Genesis predecessor must retain the exact initial four-role vector")
+    witnesses = report.get("empty_data_role_witnesses")
+    _require(type(witnesses) is dict and set(witnesses) == set(DATA_ROLES)
+             and all(witnesses[role] == {"row_count": 0,
+                    "rows_sha256": hashlib.sha256(b"[]").hexdigest()}
+                     for role in DATA_ROLES),
+             "Genesis predecessor must retain exact empty data-role witnesses")
+    identity = {"profile": MANIFEST_PROFILE, "table_versions": versions,
+                "source_progress": progress, "schema_revisions": revisions,
+                "validation_report": report}
+    expected_id = "managed-genesis-" + hashlib.sha256(_canonical(identity).encode()).hexdigest()
+    _require(manifest.get("publication_id") == expected_id,
+             "Genesis predecessor publication ID must bind its exact immutable row")
+    return ManagedCurrentGenesisPredecessor(dict(manifest), progress,
+                                             dict(selected_sources))
+
+
+def transition_managed_current_first_a_page(predecessor, batch):
+    """Replace A's typed genesis marker with its exact first native page checkpoint.
+
+    ``batch`` must be the original, already source-admitted native feed batch.
+    The helper verifies byte/cursor correspondence only; it does not establish
+    Truss acceptance, source freshness, publication effects or ACK authority.
+    B's selected marker is copied byte-for-byte at the decoded JSON-value level.
+    """
+    import base64
+    from ashlar.source import SourceBatch
+    from ashlar.source_checkpoint import truss_checkpoint
+
+    _require(type(predecessor) is ManagedCurrentGenesisPredecessor,
+             "Verified managed genesis predecessor required")
+    _require(type(batch) is SourceBatch
+             and getattr(batch, "profile", None) == "truss-native-feed/0.1",
+             "Original native Truss page batch required")
+    source = predecessor.selected_sources["A"]
+    _require(batch.feed == source.feed and batch.epoch == source.epoch
+             and batch.cursor_before == source.position,
+             "First A page must continue its exact selected genesis cursor")
+    identity = {"installation_id": source.installation_id, "epoch": source.epoch,
+                "consumer_id": source.consumer_id,
+                "registration_id": source.consumer_registration_id}
+    _require(base64.b64encode(base64.b64decode(batch.cursor_before, validate=True)).decode("ascii")
+             == batch.cursor_before,
+             "Canonical original A prior cursor encoding required")
+    prior_bytes = base64.b64decode(batch.cursor_before, validate=True)
+    _require(prior_bytes == source.cursor_bytes,
+             "Original first A page prior cursor bytes must equal the selected genesis cursor")
+    after_bytes = base64.b64decode(batch.cursor_after, validate=True)
+    _require(base64.b64encode(after_bytes).decode("ascii") == batch.cursor_after,
+             "Canonical original A next cursor encoding required")
+    validate_selected_truss_cursor(prior_bytes, cursor_sha256=source.position_sha256,
+                                   selected_identity=identity)
+    validate_selected_truss_cursor(after_bytes, cursor_sha256=hashlib.sha256(after_bytes).hexdigest(),
+                                   selected_identity=identity)
+    checkpoint_text = truss_checkpoint(batch)
+    checkpoint = _decode_json_bytes(checkpoint_text.encode("utf-8"),
+                                    "Actual first A native page checkpoint required")
+    _require(_canonical(checkpoint) == checkpoint_text
+             and set(checkpoint) == {"profile", "feed", "epoch", "previous",
+                                     "position", "payload_digest", "batch_id"}
+             and checkpoint["profile"] == "truss-native-feed/0.1"
+             and checkpoint["feed"] == source.feed and checkpoint["epoch"] == source.epoch
+             and checkpoint["previous"] == source.position,
+             "First A page checkpoint must continue the exact selected genesis marker")
+    result = dict(predecessor.source_progress)
+    result[source.feed] = checkpoint
+    _require(result[predecessor.selected_sources["B"].feed]
+             == predecessor.selected_sources["B"].document(),
+             "First A transition must preserve B's exact genesis marker")
+    return result
