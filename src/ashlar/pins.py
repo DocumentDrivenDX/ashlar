@@ -117,3 +117,98 @@ class PostgresPins:
             if not entered and getattr(error,'sqlstate',None)in('P0001','42501'):
                 raise PinError('Original native page pin admission unavailable')from error
             raise
+
+    def open_live(self,vector,source_selection,*,context):
+        """Open an explicitly source-bound transaction-scoped pin handle.
+
+        The policy must implement ``authorize_source_bound_read(vector,
+        source_selection, context)`` and independently admit that exact source
+        selection. This API checks pin identity/custody only; it does not prove
+        retention duration or Delta-file readability.
+        """
+        if source_selection is None:
+            raise PinError('Exact source selection required')
+        authorize=getattr(self.policy,'authorize_source_bound_read',None)
+        if not callable(authorize):
+            raise PinError('Source-bound pin authorization unavailable')
+        manager=self.executor.transaction(context)
+        session=manager.__enter__()
+        handle=_LivePinHandle(self,manager,session,vector,source_selection,context,authorize)
+        try:
+            handle._check()
+        except BaseException as error:
+            handle._active=False
+            _exit_preserving(manager,error,'Native pin open cleanup failed: ')
+            raise
+        return handle
+
+
+def _exit_preserving(manager,error,note_prefix):
+    try:manager.__exit__(type(error),error,error.__traceback__)
+    except BaseException as cleanup:
+        if cleanup is not error:
+            add_note=getattr(error,'add_note',None)
+            if callable(add_note):add_note(note_prefix+type(cleanup).__name__)
+
+
+class _LivePinHandle:
+    """Renewable checks on one original vector inside one held transaction."""
+    def __init__(self,pins,manager,session,vector,source_selection,context,authorize_source):
+        self._pins=pins;self._manager=manager;self._session=session
+        self._vector=vector;self._source_selection=source_selection;self._context=context
+        self._authorize_source=authorize_source;self._active=True
+
+    def _require_active(self):
+        if not self._active:raise PinError('Live native pin handle is closed')
+
+    def _check(self):
+        self._require_active()
+        if self._pins.policy.authorize_read(self._vector,self._context) is not None:
+            raise PinError('Pin read authorization incomplete')
+        if self._authorize_source(self._vector,self._source_selection,self._context) is not None:
+            raise PinError('Source-bound pin authorization incomplete')
+        self._pins._available(self._session,self._vector)
+        for table in sorted(self._vector.targets):
+            self._pins._call(self._session,'assert_active',self._vector,table)
+        self._pins._inventory(self._session,self._vector)
+
+    def renew(self):
+        """Recheck source authority and every exact pin on the held session."""
+        try:self._check()
+        except BaseException as error:
+            self._active=False
+            _exit_preserving(self._manager,error,'Native pin transaction exit failed: ')
+            raise error
+
+    def close(self):
+        """Perform an independent final check, then end the transaction."""
+        self._require_active()
+        error=None
+        try:self._check()
+        except BaseException as caught:error=caught
+        self._active=False
+        if error is not None:
+            _exit_preserving(self._manager,error,'Native pin transaction close failed: ')
+            raise error
+        self._manager.__exit__(None,None,None)
+
+    def __enter__(self):
+        self._require_active();return self
+
+    def __exit__(self,exc_type,exc,tb):
+        if not self._active:return False
+        check_error=None
+        try:self._check()
+        except BaseException as error:check_error=error
+        self._active=False
+        if exc is not None:
+            if check_error is not None:
+                add_note=getattr(exc,'add_note',None)
+                if callable(add_note):add_note('Native pin close check failed: '+type(check_error).__name__)
+            _exit_preserving(self._manager,exc,'Native pin transaction close failed: ')
+            return False
+        if check_error is not None:
+            _exit_preserving(self._manager,check_error,'Native pin transaction close failed: ')
+            raise check_error
+        self._manager.__exit__(None,None,None)
+        return False

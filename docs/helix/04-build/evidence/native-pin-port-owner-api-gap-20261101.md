@@ -23,26 +23,32 @@ ddx:
 
 ## Finding
 
-No production `NativePinPort` was added. The existing PostgreSQL owner supports
-`PostgresPins.hold(vector, context=...)`: it authorizes the vector, enters one
-transaction, checks UUID availability, asserts every exact registered pin,
-checks the complete inventory, yields the vector, then repeats authorization,
-availability and inventory checks before transaction close. Its transaction
-adapter keeps locks for the context lifetime.
+The original `PostgresPins.hold(vector, context=...)` remains unchanged. It
+authorizes the vector, enters one transaction, checks UUID availability,
+asserts every exact registered pin, checks the complete inventory, yields the
+vector, then repeats authorization, availability and inventory checks before
+transaction close. Its transaction adapter keeps locks for the context
+lifetime.
 
-That surface does not implement the proposed renewable handle. During the
-yield, callers cannot request an explicit renewal against the original vector;
-the final check occurs only while exiting the context. `PinPolicy.authorize_read`
-also accepts only `(vector, context)`, so the `source_selection` required by
-`NativePinPort.open(vector, source_selection, context)` is not checked by the
-pin authority or bound to the held transaction. A wrapper around `hold()` would
-therefore report `renew()` success without rechecking and would silently ignore
-one of the port's admitted inputs.
+The candidate adds `PostgresPins.open_live(vector, source_selection,
+context=...)` and a transaction-scoped handle. Its `renew()` and final `close()`
+recheck read authorization, every exact active pin, UUID availability and
+complete inventory on the same held session. It requires a separate
+`authorize_source_bound_read(vector, source_selection, context)` policy method;
+missing policy authority refuses before transaction acquisition. The handle
+claims pin identity/custody only, not file readability or retention duration.
+
+No production policy currently implements the source-bound method, so this is
+an owner-side API seam, not a connected production `NativePinPort`. Until an
+accountable policy binds the exact source selection to original source and
+publication custody, the proposed port must refuse. The API cannot assert the
+validity of a source-selection object merely because it retains the same Python
+object reference.
 
 ## Exact missing owner capability
 
-Before Ashlar can expose this port, the PostgreSQL pin owner needs one
-source-bound, transaction-scoped live-handle API that:
+Before Ashlar can expose this port to a source holder, a concrete policy owner
+must implement source-bound admission for the live-handle API that:
 
 1. admits the complete `PinVector`, exact source selection and caller context
    together before opening the transaction;
@@ -65,8 +71,7 @@ or ACK was performed for this finding.
 
 ## Disposition
 
-The existing transaction proves a held lock and entry/exit checks, but cannot
-truthfully be adapted to the requested renewable, source-bound port without
-the owner API above. Native-pin production integration remains open. No code or
-tests were added because an Ashlar-only adapter would invent the missing owner
-authority.
+Focused fake-owner tests verify the source-policy gate, full-vector renewal,
+drift refusal and final close checks. They do not qualify PostgreSQL locks or a
+production source policy. Native-pin production integration remains open.
+No database, cloud, source or ACK action was performed.
