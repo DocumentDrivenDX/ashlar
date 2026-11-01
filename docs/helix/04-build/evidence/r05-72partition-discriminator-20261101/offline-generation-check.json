@@ -1,0 +1,61 @@
+{
+  "UMFCarrier": "ashlar-managed-current-carriers/0.4-xxhash64",
+  "endpointOracle": {
+    "first": [
+      0,
+      0
+    ],
+    "invalidEndpointsByFormula": 0,
+    "last": [
+      44999999,
+      1
+    ],
+    "parallelEdgePair": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  "partitionCount": 72,
+  "profile": "ashlar-r05-72-partition-offline-generation/0.1",
+  "roles": {
+    "edge_current": {
+      "ddlSha256": "570f171e03fc93eb16c89ecc8a61ab69931ce86c726f525906167db8f9c6b539",
+      "fieldOrder": [],
+      "schemaSha256": "eb17bbf49525de56c8faac2f9005541f711119949db30441ccb087c715eede00",
+      "sourceInsertSha256": "f42d721d82672b96e77befbf0f4ab060622674d89d9fcf0c25d463982cac1bcc",
+      "sourceRange": "range(0,225000000,1,72)",
+      "writerSettings": [
+        {
+          "key": "spark.sql.parquet.compression.codec",
+          "value": "zstd"
+        }
+      ]
+    },
+    "object_current": {
+      "ddlSha256": "4f8519c11b3d0e7905922b57f7137060822d744aacabf1c181ea1078b8040d18",
+      "fieldOrder": [],
+      "schemaSha256": "ae42872387493d3dd1d6393950ef177fbb513418b5935c1eba1f348f4bef25dc",
+      "sourceInsertSha256": "64c3de12be45c2d7ea8f8f635b2d6231acdd072deb3fe12eaa336ee322fa4c2d",
+      "sourceRange": "range(0,45000000,1,72)",
+      "writerSettings": [
+        {
+          "key": "spark.sql.parquet.compression.codec",
+          "value": "zstd"
+        }
+      ]
+    }
+  },
+  "rows": {
+    "edge_current": 225000000,
+    "object_current": 45000000
+  },
+  "runtimeClaim": "none",
+  "sparkStarted": false,
+  "status": "offline-plan-generated-no-spark"
+}

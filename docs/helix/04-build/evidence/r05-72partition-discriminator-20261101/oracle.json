@@ -1,0 +1,30 @@
+{
+  "baseline": "retained 18-partition evidence only; never rerun as part of this candidate",
+  "edgeOccurrencesPerNode": 5,
+  "edgeRows": 225000000,
+  "graphframes": "not executed or required",
+  "identities": {
+    "edge": "(source_system, rel_type_id=7, id=edge ordinal)",
+    "node": "(source_system, type_id=1, id=ordinal)"
+  },
+  "nodeRows": 45000000,
+  "profile": "ashlar-r05-72-partition-source-witness/0.1",
+  "schemaRevision": "r05-full-delta4-v1",
+  "sourceSystem": "r05-full-scale-source",
+  "status": "frozen-synthetic-source-formula",
+  "values": {
+    "lookup_hash": "xxhash64 of exact source_system/type/id tuple",
+    "nullableFields": "preserve the UMF .4 contract",
+    "source_delivery_id": "CAST(id AS STRING)",
+    "source_id": "floor(id/5)",
+    "source_position": "id",
+    "target_id": "pmod(floor(id/5)+floor(pmod(id,5)/2),45000000)"
+  },
+  "witnesses": {
+    "endpoint": "each edge source and target matches the independent ordinal formula; invalid and out-of-range counts zero",
+    "idSum": "n*(n-1)/2 for each role",
+    "perRowValuePredicate": "all prescribed constants and formulas match each persisted row",
+    "rowCountAndIdRange": "expected count, min id 0 and max id count-1 for each role",
+    "uniqueness": "not independently proved by aggregate scan; generation is deterministic Spark range and retained proof is scoped to this source plan"
+  }
+}
