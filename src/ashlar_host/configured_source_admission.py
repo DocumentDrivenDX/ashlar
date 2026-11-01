@@ -26,7 +26,7 @@ def _write(path,raw):
     finish(primary,[lambda:os.close(fd)])
 
 
-def validate_configured_source(config):
+def validate_configured_source(config, *, sdk0101_admission=None):
     """Retain original receipts and a closed report after complete input closing.
 
     Output is a fresh private directory. A failed invocation may retain partial
@@ -39,8 +39,12 @@ def validate_configured_source(config):
     original=InvocationFile.read(config.configuration,262144)
     document=decode_retained_json(original.raw);references=[]
     if document.get('profile')=='ashlar-jsonl-typed-graph-source/0.1':
-        from .configured_typed_graph_source_admission import validate_configured_typed_graph_source
-        return validate_configured_typed_graph_source(config)
+        if document.get('producerRevision')=='90cb61eb63aec3f5a77b5991a56e3dfc3d10bd27':
+            from .configured_typed_graph_source_admission_sdk0101 import validate_configured_typed_graph_source
+            return validate_configured_typed_graph_source(config, sdk0101_admission=sdk0101_admission)
+        else:
+            from .configured_typed_graph_source_admission import validate_configured_typed_graph_source
+            return validate_configured_typed_graph_source(config)
     if document.get('profile')=='ashlar-jsonl-typed-source/0.1':
         from .configured_typed_source_admission import validate_configured_typed_source
         return validate_configured_typed_source(config)

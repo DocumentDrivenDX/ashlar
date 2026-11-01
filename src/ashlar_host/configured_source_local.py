@@ -70,6 +70,30 @@ class _Sdk010TypedGraphConfiguration:
         _require(vars(expected)==vars(self.policy))
 
 @dataclass(frozen=True)
+class _Sdk0101TypedGraphConfiguration:
+    """Explicit SDK 0.10.1 latest-source receipt view; original config stays intact."""
+    base:object
+    receipt:bytes
+    policy:object
+    policy_revision:str
+    @classmethod
+    def admitted(cls,base,receipt):
+        from ashlar.typed_graph_source_sdk0101 import GRAPH_CHECK_PIN, verify_typed_graph_receipt
+        from ashlar.typed_graph_source_sdk0101 import build_typed_graph_request
+        from ashlar.typed_graph_source_sdk0101 import TypedGraphSourcePolicy
+        request=build_typed_graph_request(base)
+        verify_typed_graph_receipt(base.model_source,request,receipt,producer_revision=GRAPH_CHECK_PIN)
+        return cls(base,receipt,TypedGraphSourcePolicy(base,receipt,producer_revision=GRAPH_CHECK_PIN),GRAPH_CHECK_PIN)
+    def __getattr__(self,name):return getattr(self.base,name)
+    def verify(self):
+        from ashlar.typed_graph_source_sdk0101 import GRAPH_CHECK_PIN, verify_typed_graph_receipt, build_typed_graph_request
+        self.base.verify()
+        request=build_typed_graph_request(self.base)
+        verify_typed_graph_receipt(self.base.model_source,request,self.receipt,producer_revision=GRAPH_CHECK_PIN)
+        expected=type(self.policy)(self.base,self.receipt,producer_revision=self.policy_revision)
+        _require(vars(expected)==vars(self.policy))
+
+@dataclass(frozen=True)
 class ConfiguredLocalBatchSpec:
     ordinal:int
     request_json:str
@@ -82,9 +106,9 @@ class ConfiguredLocalSource:
     def __setattr__(self,name,value):
         if getattr(self,'_sealed',False):raise AttributeError('Configured local source is immutable')
         object.__setattr__(self,name,value)
-    def __init__(self,admission,stream,context,*,sdk058_admission=None,sdk010_admission=None,_mint=None):
+    def __init__(self,admission,stream,context,*,sdk058_admission=None,sdk010_admission=None,sdk0101_admission=None,_mint=None):
         _require(_mint is _MINT and type(admission)is ConfiguredSourceAdmissionConfig)
-        _require(sdk058_admission is None or sdk010_admission is None)
+        _require(sum(x is not None for x in (sdk058_admission,sdk010_admission,sdk0101_admission)) <= 1)
         _require(type(stream)is str and 0<len(stream.encode())<=1024 and '\0'not in stream and context is not None)
         admission.__post_init__();self.context=context;self.stream=stream;self._active=True
         self.configuration_file=InvocationFile.read(admission.configuration,262144)
@@ -97,7 +121,13 @@ class ConfiguredLocalSource:
             _require(hashlib.sha256(file.raw).hexdigest()==ref['sha256']);files.append(file)
         self.files=tuple(files)
         if self.graph:
-            from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration
+            if sdk0101_admission is not None:
+                from ashlar.typed_graph_source_config_sdk0101 import load_typed_graph_jsonl_configuration
+                from .typed_graph_admission_sdk0101 import TypedGraphSdk0101AdmissionConfig
+                _require(type(sdk0101_admission) is TypedGraphSdk0101AdmissionConfig
+                         and sdk0101_admission.producer == admission.producer)
+            else:
+                from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration
             self.configuration=load_typed_graph_jsonl_configuration(self.configuration_file.path)
         elif self.typed:
             from ashlar.typed_source_config import load_typed_jsonl_configuration
@@ -108,6 +138,9 @@ class ConfiguredLocalSource:
         self.original_source=self.files[0].raw
         self.sdk058_admission=sdk058_admission
         self.sdk010_admission=sdk010_admission
+        self.sdk0101_admission=sdk0101_admission
+        self.sdk0101_receipt=None
+        self.sdk0101_custody=None
         self.sdk058_receipt=None
         self.sdk058_custody=None
         self.sdk010_receipt=None
@@ -128,18 +161,38 @@ class ConfiguredLocalSource:
                 sdk010_admission,self.configuration,self.configuration.model_source)
             _require(_custody(sdk010_admission)[0]==opening_custody)
             self.sdk010_custody=opening_custody
+        if sdk0101_admission is not None:
+            _require(self.graph)
+            from .typed_graph_admission_sdk0101 import _custody
+            opening_custody=_custody(sdk0101_admission)[0]
+            self.sdk0101_custody=opening_custody
         self.batches=tuple(jsonl_batches(self.original_source.splitlines(keepends=True),feed=self.configuration.feed,epoch=self.configuration.epoch))
         _require(1<=len(self.batches)<=4)
         if not self.typed:self._specs=self._prepare()
-        report=validate_configured_source(admission);self.admission_json=_encoded(report)
+        report=(validate_configured_source(admission,sdk0101_admission=sdk0101_admission)
+                if sdk0101_admission is not None else validate_configured_source(admission))
+        self.admission_json=_encoded(report)
         self.receipt_files=tuple((admission.output/item['file'],snapshot(admission.output/item['file'],admission.maximum_receipt_bytes))for item in report['receipts'])
         _require(all(hashlib.sha256(file[1]).hexdigest()==item['sha256']and len(file[1])==item['bytes']for file,item in zip(self.receipt_files,report['receipts'])))
+        if self.sdk0101_admission is not None:
+            from .typed_graph_admission_sdk0101 import _custody
+            _require(_custody(self.sdk0101_admission)[0]==self.sdk0101_custody
+                     and report.get('producer_revision')=='90cb61eb63aec3f5a77b5991a56e3dfc3d10bd27'
+                     and len(self.receipt_files)==1
+                     and report['receipts'][0]['file']=='graph-1.json')
+            self.sdk0101_receipt=self.receipt_files[0][1]
         self.maximum_receipt_bytes=admission.maximum_receipt_bytes
         if self.typed:
             _require(len(self.receipt_files)==1)
             if self.graph:
                 if self.sdk058_admission is None:
-                    if self.sdk010_admission is None:
+                    if self.sdk0101_admission is not None:
+                        from ashlar.typed_graph_source_config_sdk0101 import load_typed_graph_jsonl_configuration
+                        base=load_typed_graph_jsonl_configuration(self.configuration_file.path)
+                        _require(self.receipt_files[0][1]==self.sdk0101_receipt)
+                        self.configuration=_Sdk0101TypedGraphConfiguration.admitted(base,self.sdk0101_receipt)
+                    elif self.sdk010_admission is None:
+                        from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration
                         self.configuration=load_typed_graph_jsonl_configuration(self.configuration_file.path,receipt=self.receipt_files[0][1])
                     else:
                         base=load_typed_graph_jsonl_configuration(self.configuration_file.path)
@@ -172,9 +225,19 @@ class ConfiguredLocalSource:
         _require(self._active and context is self.context)
         finish(None,[lambda:self.configuration_file.renew(262144),*(lambda f=f:f.renew(262144)for f in self.files),self.configuration.verify,*(lambda f=f:_require(snapshot(f[0],self.maximum_receipt_bytes)==f[1])for f in self.receipt_files)])
         if self.graph:
-            from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration
-            if self.sdk058_admission is None and self.sdk010_admission is None:
+            if self.sdk0101_admission is not None:
+                from ashlar.typed_graph_source_config_sdk0101 import load_typed_graph_jsonl_configuration
+            else:
+                from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration
+            if self.sdk058_admission is None and self.sdk010_admission is None and self.sdk0101_admission is None:
                 fresh=load_typed_graph_jsonl_configuration(self.configuration_file.path,receipt=self.receipt_files[0][1])
+            elif self.sdk0101_admission is not None:
+                from .typed_graph_admission_sdk0101 import _custody
+                _require(_custody(self.sdk0101_admission)[0]==self.sdk0101_custody)
+                unadmitted=load_typed_graph_jsonl_configuration(self.configuration_file.path)
+                fresh=_Sdk0101TypedGraphConfiguration.admitted(unadmitted,self.sdk0101_receipt)
+                _require(fresh.policy.request_bytes==self.configuration.policy.request_bytes)
+                _require(_custody(self.sdk0101_admission)[0]==self.sdk0101_custody)
             elif self.sdk058_admission is not None:
                 from .typed_graph_sdk058_admission import _custody
                 _require(_custody(self.sdk058_admission)[0]==self.sdk058_custody)
@@ -215,6 +278,10 @@ class ConfiguredLocalSource:
             result['typed_graph_policy_revision']=self.configuration.policy_revision
             result['typed_graph_sdk010_receipt_sha256']=hashlib.sha256(self.sdk010_receipt).hexdigest()
             result['qualification']=('Pinned UMF SDK 0.10.0 Core Record and complete supplied-dataset checks after exact typed-graph source/event correspondence; local immutable-file progress only, with no native publication, protected ACK or query authority.')
+        if self.sdk0101_admission is not None:
+            result['typed_graph_policy_revision']=self.configuration.policy_revision
+            result['typed_graph_sdk0101_receipt_sha256']=hashlib.sha256(self.sdk0101_receipt).hexdigest()
+            result['qualification']=('UMF SDK 0.10.1 source commit 90cb61e typed-graph producer receipt and strict local apply/replay; local immutable-file progress only, with no native publication, protected ACK or query authority.')
         return result
     def spec(self,ordinal,context):
         self.renew(context);_require(type(ordinal)is int and 1<=ordinal<=len(self.batches));return self._specs[ordinal-1]
@@ -248,13 +315,20 @@ class ConfiguredLocalSource:
                     self.configuration.policy.request_bytes)
                 _require(receipt==self.sdk010_receipt)
                 _require(_custody(self.sdk010_admission)[0]==self.sdk010_custody)
+            if self.sdk0101_admission is not None:
+                from .typed_graph_admission_sdk0101 import _custody,admit_typed_graph
+                _require(_custody(self.sdk0101_admission)[0]==self.sdk0101_custody)
+                receipt=admit_typed_graph(self.sdk0101_admission,self.configuration.model_source,
+                                          self.configuration.policy.request_bytes)
+                _require(receipt==self.sdk0101_receipt)
+                _require(_custody(self.sdk0101_admission)[0]==self.sdk0101_custody)
         finally:object.__setattr__(self,'_active',False)
 
 _MINT=object()
 
 @contextmanager
-def open_configured_local_source(admission,*,stream,context,sdk058_admission=None,sdk010_admission=None):
-    owner=ConfiguredLocalSource(admission,stream,context,sdk058_admission=sdk058_admission,sdk010_admission=sdk010_admission,_mint=_MINT);primary=None
+def open_configured_local_source(admission,*,stream,context,sdk058_admission=None,sdk010_admission=None,sdk0101_admission=None):
+    owner=ConfiguredLocalSource(admission,stream,context,sdk058_admission=sdk058_admission,sdk010_admission=sdk010_admission,sdk0101_admission=sdk0101_admission,_mint=_MINT);primary=None
     try:yield owner
     except BaseException as exc:primary=exc
     finish(primary,[owner.close])

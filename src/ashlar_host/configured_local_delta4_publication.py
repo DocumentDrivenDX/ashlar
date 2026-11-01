@@ -94,6 +94,36 @@ def _valid_installation_profile_identity(profile):
                 and profile.get("umf_realization_manifest_sha256") == MANIFEST_SHA256
                 and profile.get("umf_bridge_sha256") == BRIDGE_SHA256
                 and profile.get("umf_build_inputs_sha256") == BUILD_INPUTS_SHA256)
+    if profile.get("profile") == "ashlar-local-current-installation-profile/0.4":
+        from .local_current_delta4_umf_sdk0101 import (
+            BRIDGE_SHA256, BUILD_INPUTS_SHA256, LOCAL_TARGET_PROFILE,
+            MANIFEST_SHA256, SOURCE_POLICY_SHA256, UMF_REALIZATION_PROFILE)
+        from ashlar.typed_graph_source_sdk0101 import GRAPH_CHECK_PIN
+        expected_keys={"profile","physical_profile","lookup_hash_profile","generated_carriers_sha256",
+            "umf_revision","local_realization","umf_realization_profile","umf_candidate_commit",
+            "umf_selected_tag_commit","umf_archive_sha256","umf_source_policy_sha256",
+            "umf_realization_manifest_sha256","umf_bridge_sha256","umf_build_inputs_sha256",
+            "source_policy_revision","typed_graph_source_revision","writer_settings","roles"}
+        return (set(profile)==expected_keys
+                and profile.get("physical_profile") == CARRIER_PROFILE
+                and profile.get("lookup_hash_profile") == LOOKUP_HASH_PROFILE
+                and profile.get("generated_carriers_sha256") ==
+                    "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa"
+                and profile.get("local_realization") == LOCAL_TARGET_PROFILE
+                and profile.get("writer_settings") == [
+                    {"key":"spark.sql.parquet.compression.codec","value":"zstd"}]
+                and profile.get("source_policy_revision") == "ashlar-local-current-delta4-sdk0101-source-policy/0.1"
+                and profile.get("typed_graph_source_revision") == GRAPH_CHECK_PIN
+                and profile.get("umf_revision") == "0.10.1"
+                and profile.get("umf_candidate_commit") == GRAPH_CHECK_PIN
+                and profile.get("umf_selected_tag_commit") == GRAPH_CHECK_PIN
+                and profile.get("umf_archive_sha256") ==
+                    "3d95fff822f4f44b3d1a8e56185c3697e94ee66f5315cda7389f5301f3d16d26"
+                and profile.get("umf_source_policy_sha256") == SOURCE_POLICY_SHA256
+                and profile.get("umf_realization_profile") == UMF_REALIZATION_PROFILE
+                and profile.get("umf_realization_manifest_sha256") == MANIFEST_SHA256
+                and profile.get("umf_bridge_sha256") == BRIDGE_SHA256
+                and profile.get("umf_build_inputs_sha256") == BUILD_INPUTS_SHA256)
     if profile.get("profile") != "ashlar-local-current-installation-profile/0.2":
         return False
     from .typed_graph_sdk058_admission import (
@@ -342,7 +372,8 @@ def plan_configured_local_delta4_transaction1(configuration, *, stream: str,
     producer, publication or ACK authority.
     """
     from ashlar.typed_graph_source_config import TypedGraphJsonlConfiguration
-    _require(type(configuration) is TypedGraphJsonlConfiguration,
+    from ashlar.typed_graph_source_config_sdk0101 import TypedGraphJsonlConfiguration as TypedGraphJsonlConfigurationSdk0101
+    _require(type(configuration) in (TypedGraphJsonlConfiguration, TypedGraphJsonlConfigurationSdk0101),
              "Original typed graph JSONL configuration required")
     configuration.verify()
     _require(type(stream) is str and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9:_-]{0,127}", stream),

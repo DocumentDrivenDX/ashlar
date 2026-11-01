@@ -28,13 +28,15 @@ source, model, engine versions and authority; they do not establish selected Tru
 production authority ([configured publication](04-build/evidence/native-configured-publication-complete-20261008.json),
 [Truss 0.0.22 lifecycle](04-build/evidence/truss22-commerce-lifecycle-20261013/README.md)).
 
-The candidate pins Weft 0.4.56, UMF SDK 0.10.0, Python Core 0.10.4
-(semantic Core 0.10.0) and Access 0.1.0.dev8. Focused installed macOS checks
-passed for compiler responses, managed page-target admission, and the SDK
-Delta 4 bridge's six-role MiniRacer parity. The local wheel and sdist contain
-the pinned bridge resources. Linux native execution and managed publication
-remain open ([upstream adoption](04-build/evidence/current-upstream-release-20261031/README.md),
-[runtime integration](04-build/evidence/current-upstream-release-20261031/sdk010-delta4-runtime-integration/README.md)).
+The candidate pins Weft 0.4.56, UMF SDK 0.10.1, Python Core 0.10.5
+(semantic Core 0.10.0) and Access 0.1.0.dev8. The public SDK 0.10.1 Delta
+proposal passed exact equality for the six `.4-xxhash64` carrier roles; the
+versioned bridge and latest-source typed-graph profile are recorded under the
+[0.10.1 adoption evidence](04-build/evidence/current-upstream-release-20261101/umf0101-adoption/README.md).
+The generic producer profile has not yet been executed against the sparse source
+checkout; neither local proposal parity nor profile definition is native Delta
+evidence. Linux
+native execution and managed publication remain open.
 
 The candidate `truss-local` extra selects Truss 0.0.51 with its `[native]`
 dependencies. R16 stopped during cold-backup restore; R17 refused at its

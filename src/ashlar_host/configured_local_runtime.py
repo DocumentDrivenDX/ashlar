@@ -47,6 +47,7 @@ class ConfiguredLocalRuntimeConfig:
     carrier_profile:str='ashlar-delta/0.3'
     sdk058_admission:object=None
     sdk010_admission:object=None
+    sdk0101_admission:object=None
     def __post_init__(self):
         for path in (self.installation,self.output,self.jars,self.java_home):_path(path)
         _require(type(self.admission)is ConfiguredSourceAdmissionConfig);self.admission.__post_init__()
@@ -65,7 +66,12 @@ class ConfiguredLocalRuntimeConfig:
         _require(type(self.carrier_profile)is str and self.carrier_profile in CONFIGURED_LOCAL_CARRIERS)
         _require(self.sdk058_admission is None or self.carrier_profile=='ashlar-delta/0.4-xxhash64')
         _require(self.sdk010_admission is None or self.carrier_profile=='ashlar-delta/0.4-xxhash64')
-        _require(self.sdk058_admission is None or self.sdk010_admission is None)
+        _require(self.sdk0101_admission is None or self.carrier_profile=='ashlar-delta/0.4-xxhash64')
+        if self.sdk0101_admission is not None:
+            from .typed_graph_admission_sdk0101 import TypedGraphSdk0101AdmissionConfig
+            _require(type(self.sdk0101_admission) is TypedGraphSdk0101AdmissionConfig)
+            self.sdk0101_admission.__post_init__()
+        _require(sum((self.sdk058_admission is not None,self.sdk010_admission is not None,self.sdk0101_admission is not None))<=1)
         if self.sdk058_admission is not None:
             from .typed_graph_sdk058_admission import TypedGraphSdk058AdmissionConfig
             _require(type(self.sdk058_admission)is TypedGraphSdk058AdmissionConfig)
@@ -177,15 +183,17 @@ def _create_configured_xxhash64_tables(spark,installation,tables,creator):
         'umf_bridge_sha256','umf_build_inputs_sha256','writer_settings','roles'}
     sdk058=type(profile)is dict and profile.get('profile')=='ashlar-local-current-installation-profile/0.2'
     sdk010=type(profile)is dict and profile.get('profile')=='ashlar-local-current-installation-profile/0.3'
+    sdk0101=type(profile)is dict and profile.get('profile')=='ashlar-local-current-installation-profile/0.4'
     sdk058_keys={'source_policy_revision','umf_selected_tag_commit','umf_source_tree','umf_archive_sha256'}
     sdk010_keys={'source_policy_revision','umf_selected_tag_commit','umf_archive_sha256','umf_source_policy_sha256'}
-    expected_keys=(base_profile_keys|sdk058_keys if sdk058 else base_profile_keys|sdk010_keys if sdk010 else base_profile_keys)
+    sdk0101_keys=sdk010_keys|{'typed_graph_source_revision'}
+    expected_keys=(base_profile_keys|sdk058_keys if sdk058 else base_profile_keys|sdk0101_keys if sdk0101 else base_profile_keys|sdk010_keys if sdk010 else base_profile_keys)
     _require(type(profile)is dict and set(profile)==expected_keys
-        and profile.get('profile')==('ashlar-local-current-installation-profile/0.2' if sdk058 else 'ashlar-local-current-installation-profile/0.3' if sdk010 else 'ashlar-local-current-installation-profile/0.1')
+        and profile.get('profile')==('ashlar-local-current-installation-profile/0.2' if sdk058 else 'ashlar-local-current-installation-profile/0.3' if sdk010 else 'ashlar-local-current-installation-profile/0.4' if sdk0101 else 'ashlar-local-current-installation-profile/0.1')
         and profile.get('physical_profile')=='ashlar-delta/0.4-xxhash64'
         and profile.get('lookup_hash_profile')=='spark-xxhash64-typed-key/0.1'
         and type(profile.get('roles'))is dict and set(profile['roles'])==set(tables))
-    if sdk058 or sdk010:
+    if sdk058 or sdk010 or sdk0101:
         from .configured_local_delta4_publication import _valid_installation_profile_identity
         _require(_valid_installation_profile_identity(profile))
     _require(type(created)is list and len(created)==6
@@ -215,6 +223,9 @@ def _scope(config,source):
     if config.sdk010_admission is not None:
         from .typed_graph_sdk010_admission import SDK010_PRODUCER_REVISION
         scope['typed_graph_policy_revision']=SDK010_PRODUCER_REVISION
+    if config.sdk0101_admission is not None:
+        from ashlar.typed_graph_source_sdk0101 import GRAPH_CHECK_PIN
+        scope['typed_graph_policy_revision']=GRAPH_CHECK_PIN
     return scope
 
 
@@ -291,6 +302,7 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
     initialize=ordinal is None
     _require(config.sdk058_admission is None or initialize)
     _require(config.sdk010_admission is None or initialize)
+    _require(config.sdk0101_admission is None or initialize)
     jars=_runtime(config)
     # The .4 installer is separately versioned and intentionally has no
     # continuation, publication, read, or query route until those consumers
@@ -323,12 +335,14 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
         if initialize:config.installation.mkdir(mode=0o700)
         lease=PrivateFiniteLease(config.installation,create=initialize)
         context=object()
-        if config.sdk058_admission is None and config.sdk010_admission is None:
+        if config.sdk058_admission is None and config.sdk010_admission is None and config.sdk0101_admission is None:
             source_manager=open_configured_local_source(config.admission,stream=config.stream,context=context)
         elif config.sdk058_admission is not None:
             source_manager=open_configured_local_source(config.admission,stream=config.stream,context=context,sdk058_admission=config.sdk058_admission)
-        else:
+        elif config.sdk010_admission is not None:
             source_manager=open_configured_local_source(config.admission,stream=config.stream,context=context,sdk010_admission=config.sdk010_admission)
+        else:
+            source_manager=open_configured_local_source(config.admission,stream=config.stream,context=context,sdk0101_admission=config.sdk0101_admission)
         source=source_manager.__enter__()
         _require(not export or source.graph)
         if query is not None:_require(type(query)is not ConfiguredSdkPagesConfig or source.graph)
@@ -352,9 +366,11 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
                     create_local_current_xxhash64_tables,
                     create_local_current_xxhash64_sdk058_tables,
                     create_local_current_xxhash64_sdk010_tables,
+                    create_local_current_xxhash64_sdk0101_tables,
                 )
                 creator=(create_local_current_xxhash64_sdk058_tables if config.sdk058_admission is not None
                          else create_local_current_xxhash64_sdk010_tables if config.sdk010_admission is not None
+                         else create_local_current_xxhash64_sdk0101_tables if config.sdk0101_admission is not None
                          else create_local_current_xxhash64_tables)
                 targets,carrier_profile_record,_=_create_configured_xxhash64_tables(
                     spark,config.installation,tables,creator)
@@ -510,15 +526,18 @@ def run_configured_local_delta4_transaction1(config):
              and installation_profile.get('profile') in (
                 'ashlar-local-current-installation-profile/0.1',
                 'ashlar-local-current-installation-profile/0.2',
-                'ashlar-local-current-installation-profile/0.3')
+                'ashlar-local-current-installation-profile/0.3',
+                'ashlar-local-current-installation-profile/0.4')
              and installation_profile.get('physical_profile') == config.carrier_profile)
     selected_profile = installation_profile['profile']
     _require((selected_profile == 'ashlar-local-current-installation-profile/0.3'
-              and config.sdk010_admission is not None and config.sdk058_admission is None)
+              and config.sdk010_admission is not None and config.sdk058_admission is None and config.sdk0101_admission is None)
              or (selected_profile == 'ashlar-local-current-installation-profile/0.2'
                  and config.sdk058_admission is not None and config.sdk010_admission is None)
+             or (selected_profile == 'ashlar-local-current-installation-profile/0.4'
+                 and config.sdk0101_admission is not None and config.sdk010_admission is None and config.sdk058_admission is None)
              or (selected_profile == 'ashlar-local-current-installation-profile/0.1'
-                 and config.sdk010_admission is None and config.sdk058_admission is None))
+                 and config.sdk010_admission is None and config.sdk058_admission is None and config.sdk0101_admission is None))
     config.output.mkdir(mode=0o700)
 
     lease = spark = transport = source = admission = None
@@ -536,6 +555,9 @@ def run_configured_local_delta4_transaction1(config):
             source_manager = open_configured_local_source(
                 config.admission, stream=config.stream, context=context,
                 sdk058_admission=config.sdk058_admission)
+        elif config.sdk0101_admission is not None:
+            source_manager = open_configured_local_source(
+                config.admission, stream=config.stream, context=context, sdk0101_admission=config.sdk0101_admission)
         else:
             source_manager = open_configured_local_source(
                 config.admission, stream=config.stream, context=context)
@@ -591,7 +613,8 @@ def run_configured_local_delta4_transaction1(config):
         apply_local_writer_settings(spark)
         if installation_profile.get('profile') in (
                 'ashlar-local-current-installation-profile/0.2',
-                'ashlar-local-current-installation-profile/0.3'):
+                'ashlar-local-current-installation-profile/0.3',
+                'ashlar-local-current-installation-profile/0.4'):
             from .local_current_carrier_profile import verify_local_current_profile
             verify_local_current_profile(spark, installation_profile, tuple(
                 DeltaTarget(item['table'],Path(item['path']),item['uuid'])
