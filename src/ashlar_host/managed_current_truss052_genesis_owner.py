@@ -195,17 +195,30 @@ class ManagedCurrentTruss052GenesisSourceOwner:
             accepted = report_doc.get("acceptedInput", {}).get("documents")
             _need(type(accepted) is list and bool(accepted),
                   "Original accepted source-document inventory required")
+            accepted_by_id = {}
+            for item in accepted:
+                artifact = item.get("artifact") if type(item) is dict else None
+                _need(type(item) is dict and type(item.get("documentId")) is str
+                      and item["documentId"] and item["documentId"] not in accepted_by_id
+                      and type(item.get("documentRevision")) is str
+                      and item["documentRevision"] and type(artifact) is dict
+                      and type(artifact.get("identity")) is str and artifact["identity"]
+                      and type(artifact.get("sha256")) is str
+                      and len(artifact["sha256"]) == 64,
+                      "Closed accepted source-document identity and artifact pin required")
+                accepted_by_id[item["documentId"]] = item
             accepted_documents = {}
             sources = {}
-            for item in accepted:
-                _need(type(item) is dict and type(item.get("documentId")) is str,
-                      "Closed accepted source-document identity required")
-                document_id = item["documentId"]
+            for document_id, item in accepted_by_id.items():
+                artifact = item["artifact"]
                 document = _outcome(assembly.accepted_document_in_transaction(
-                    transaction, document_id=document_id, maximum_bytes=1048576),
+                    transaction, document_id=document_id, maximum_bytes=16777216),
                     "accepted source document")
                 _need(type(document) is AcceptedDocument
                       and document.document_id == document_id
+                      and document.document_revision == item["documentRevision"]
+                      and document.artifact_identity == artifact["identity"]
+                      and document.sha256 == artifact["sha256"]
                       and document.registration_id == selection.catalog_registration_id
                       and str(document.catalog_revision) == selection.catalog_revision
                       and type(document.content) is bytes

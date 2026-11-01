@@ -892,8 +892,17 @@ def select_truss_local_dev_source_custody_anchor(
         report = decode_retained_json(registration.report_bytes)
         accepted = report["acceptedInput"]
         documents = accepted["documents"]
-        if (report["registrationId"] != registration.registration_id
-                or report["revision"] != registration.revision
+        # The public report encodes catalog revision as canonical decimal
+        # text; CatalogRegistration carries the same revision as an int.
+        # Compare their documented representations without changing either
+        # original value or accepting lossy/noncanonical numbers.
+        report_revision = report.get("revision")
+        registration_revision = registration.revision
+        if (report.get("registrationId") != registration.registration_id
+                or type(report_revision) is not str
+                or not re.fullmatch(r"[1-9][0-9]{0,18}", report_revision)
+                or type(registration_revision) is not int
+                or str(registration_revision) != report_revision
                 or type(documents) is not list):
             raise ValueError("Registration report identity differs")
         matches = [item for item in documents

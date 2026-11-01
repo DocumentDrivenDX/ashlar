@@ -123,7 +123,9 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
             "explicit-truss-genesis", {"source": "r21"})
         self.request_bytes = canonical(request).encode()
         self.publication_id = "truss-graph-" + request["request_digest"]
-        report = {"registrationId": "acceptance-registration-r21", "revision": 3,
+        # The public report preserves revision as canonical decimal text while
+        # CatalogRegistration.revision is the typed integer field.
+        report = {"registrationId": "acceptance-registration-r21", "revision": "3",
             "acceptedInput": {"documents": [{"documentId": "typed-graph-r21",
                 "documentRevision": "1.0.0", "artifact": {
                     "identity": "model-graph-r21",
@@ -239,7 +241,7 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
     def test_refuses_duplicate_members_in_public_acceptance_report(self):
         self.registration.report_bytes = (
             b'{"registrationId":"acceptance-registration-r21",'
-            b'"registrationId":"forged-registration","revision":3,'
+            b'"registrationId":"forged-registration","revision":"3",'
             b'"acceptedInput":{"documents":[]}}')
         with patch.dict(sys.modules, self._modules()):
             with self.assertRaisesRegex(TrussSourceSelectionError, "correspondence"):
