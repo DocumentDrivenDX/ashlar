@@ -61,7 +61,7 @@ def _persist(path,raw):
         stream.flush();os.fsync(stream.fileno())
 
 
-def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_seconds=0,maximum_page_bytes=1048576,archives=()):
+def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_seconds=0,maximum_page_bytes=1048576,archives=(),defer_source_acknowledgement=False):
     """Continue a restored explicit committed predecessor; never initialize/reset.
 
     Caller holds the existing installation lease and outer transport/Spark/source
@@ -89,6 +89,10 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         raise ValueError('Bounded continuation pages1..8 and wait0..60 required')
     if type(maximum_page_bytes)is not int or not 1<=maximum_page_bytes<=2097152:
         raise ValueError('Explicit bounded continuation page bytes required')
+    if type(defer_source_acknowledgement)is not bool:
+        raise ValueError('Explicit boolean continuation ACK mode required')
+    if defer_source_acknowledgement and maximum_pages!=1:
+        raise ValueError('Deferred-ACK continuation is limited to one page')
     context=driver.context;source=driver.source_sessions
     with owned_context(driver.writer(driver.policy.active['request']['stream'],context)):
         state=_ready(driver)
@@ -155,7 +159,7 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             target=transport.targets[driver.tables['attempts']]
             backend=TrussPublisherBackend(DeltaAttemptStore(AttemptExecutor(following_driver),CarrierPolicy(following_driver,'attempts'),target.table,target.uuid),following_driver,
                 lambda original,supplied:ManifestPort(following_driver,original),context=context)
-            descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context)
+            descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context,acknowledge_source=not defer_source_acknowledgement)
             results.append({'manifest':dict(descriptor.raw),'source_page':{'path':str(page_path),'sha256':hashlib.sha256(page_raw).hexdigest()},
                 'publication_intent':selection})
             state=after;expected=following;progress=following_driver.policy.active['progress'];predecessor=publication_id;cursor=page.next.content;current_revisions=revisions
@@ -169,7 +173,12 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             except BaseException:
                 pass  # Diagnostic capture never replaces the original failure.
             raise
-    return {'predecessor':original_predecessor,'publications':results,'scope':('Contiguous public Truss pages appended with consumer-verified durable publication before exact source-retained destination receipt ACK; caller controls commit; no history release or Unity Catalog qualification.'if source.destination_receipts else'Contiguous public Truss pages appended to the existing private local Delta installation with publication-before-caller-asserted ACK; no reset/new registration or Unity Catalog qualification.')}
+    return {'predecessor':original_predecessor,'publications':results,
+        'source_acknowledgement':('not_attempted_empty_interval' if not results else
+            'deferred_not_attempted' if defer_source_acknowledgement else 'completed_by_public_truss_api'),
+        'scope':('No continuation page was available; no source ACK was attempted.' if not results else
+            'One contiguous page appended to the existing private local Delta installation; source ACK explicitly not attempted and no protected ACK is claimed.' if defer_source_acknowledgement else
+            ('Contiguous public Truss pages appended with consumer-verified durable publication before exact source-retained destination receipt ACK; caller controls commit; no history release or Unity Catalog qualification.'if source.destination_receipts else'Contiguous public Truss pages appended to the existing private local Delta installation with publication-before-caller-asserted ACK; no reset/new registration or Unity Catalog qualification.'))}
 
 
 def _ready(driver):

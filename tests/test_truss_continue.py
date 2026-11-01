@@ -99,7 +99,7 @@ class Tests(unittest.TestCase):
                      patch.object(TrussFeedSessions,'observe_checkpoint',return_value=cursor_raw),patch('ashlar_host.truss_continue.read_next_page',return_value=page)as read, \
                      patch('ashlar_host.truss_continue.publish_truss_transaction')as publish:
                     result=continue_truss_graph(driver,lambda:None)
-                    self.assertEqual(result['publications'],[]);publish.assert_not_called()
+                    self.assertEqual(result['publications'],[]);self.assertEqual(result['source_acknowledgement'],'not_attempted_empty_interval');publish.assert_not_called()
                     self.assertEqual(events,['open','close']);read.assert_called_once()
                     # Receipt mode cannot inherit a checkpoint advanced by plain ACK.
                     object.__setattr__(source,'destination_receipts',True)
@@ -159,26 +159,42 @@ class Tests(unittest.TestCase):
                     new=object.__new__(NativeDriver);new.context=context;new.transport=transport;new.policy=policy
                     captured.append(new);return new
                 def publish(backend,feed,original,**kwargs):
-                    self.assertEqual(life,['open','close']);self.assertEqual(original.begin,batch.begin)
+                    self.assertEqual(life[-2:],['open','close']);self.assertEqual(original.begin,batch.begin)
                     active=captured[0].policy.active
                     self.assertEqual(len(active['expected']['object_current']),2)
                     self.assertEqual(len(active['expected']['edge_current']),1)
                     self.assertEqual(len(active['expected']['whole_source_history']),3)
                     self.assertEqual(kwargs['predecessor'],'old')
+                    self.assertIn('acknowledge_source',kwargs)
                     return SimpleNamespace(raw={'publication_id':active['publication_id']})
                 initial_active=copy.deepcopy(driver.policy.active)
                 with patch('ashlar_host.truss_continue._ready',return_value=empty_state()),patch('ashlar_host.truss_continue.read_next_page',return_value=page), \
                      patch('ashlar_host.truss_feed_sessions._sdk',return_value=(None,None,None,None,Page,None)), \
                      patch('ashlar_host.truss_page_archive._types',return_value=(Page,Cursor)), \
                      patch('ashlar_host.truss_catalog_reader.read_graph_catalog_evidence',return_value=catalogs), \
-                     patch.object(NativeDriver,'from_existing_truss',side_effect=existing),patch('ashlar_host.truss_continue.publish_truss_transaction',side_effect=publish):
+                     patch.object(NativeDriver,'from_existing_truss',side_effect=existing),patch('ashlar_host.truss_continue.publish_truss_transaction',side_effect=publish)as default_publish:
                     report=continue_truss_graph(driver,lambda:None)
+                self.assertTrue(default_publish.call_args.kwargs['acknowledge_source'])
                 self.assertEqual(len(report['publications']),1)
                 selected=report['publications'][0]
+                self.assertEqual(report['source_acknowledgement'],'completed_by_public_truss_api')
                 intent=json.loads(Path(selected['publication_intent']['path']).read_bytes())
                 self.assertEqual(intent['publication_id'],'truss-graph-'+intent['request_digest'])
                 self.assertEqual(hashlib.sha256(Path(selected['source_page']['path']).read_bytes()).hexdigest(),selected['source_page']['sha256'])
                 self.assertEqual(Path(selected['source_page']['path']).stat().st_mode&0o777,0o600)
+                deferred=root/'deferred';deferred.mkdir();driver.transport.journal_path=deferred/'operations.sqlite'
+                driver.policy.active=initial_active
+                with patch('ashlar_host.truss_continue._ready',return_value=empty_state()),patch('ashlar_host.truss_continue.read_next_page',return_value=page), \
+                     patch('ashlar_host.truss_feed_sessions._sdk',return_value=(None,None,None,None,Page,None)), \
+                     patch('ashlar_host.truss_page_archive._types',return_value=(Page,Cursor)), \
+                     patch('ashlar_host.truss_catalog_reader.read_graph_catalog_evidence',return_value=catalogs), \
+                     patch.object(NativeDriver,'from_existing_truss',side_effect=existing),patch('ashlar_host.truss_continue.publish_truss_transaction',side_effect=publish)as deferred_publish:
+                    deferred_report=continue_truss_graph(driver,lambda:None,defer_source_acknowledgement=True)
+                self.assertFalse(deferred_publish.call_args.kwargs['acknowledge_source'])
+                self.assertEqual(deferred_report['source_acknowledgement'],'deferred_not_attempted')
+                self.assertIn('no protected ACK is claimed',deferred_report['scope'])
+                with self.assertRaisesRegex(ValueError,'limited to one page'):
+                    continue_truss_graph(driver,lambda:None,maximum_pages=2,defer_source_acknowledgement=True)
                 second=root/'failed';second.mkdir();driver.transport.journal_path=second/'operations.sqlite'
                 driver.policy.active=initial_active
                 failure=OSError('private native failure')
