@@ -1,0 +1,25 @@
+{
+  "R3ElapsedMs": 617649,
+  "R3Status": "completed-verified",
+  "SQLitePrefix": {
+    "metadataCount": 2,
+    "operationCount": 3,
+    "outputReceiptSha256": "eef82376bff8eafc281442aa8f7da2e424d0439ab942b5ccb0c5464c07f37b2c",
+    "publicationArtifacts": 0
+  },
+  "bounds": {
+    "continuationRssBytes": 2147483648,
+    "continuationWallSeconds": 900,
+    "producerTimeoutSeconds": 60,
+    "sparkDriverMemory": "512m",
+    "sparkMaster": "local[1]"
+  },
+  "candidateCommit": "b7ba6e0a51c4d6b1c54a8da9e91ce70c16afcaa1",
+  "nativeDispatch": false,
+  "preflightSubprocessesSynchronousAndReaped": true,
+  "profile": "ashlar-g03-r3-manifest-only-preflight/0.1",
+  "reachedSparkBoundary": true,
+  "retainedInstallationBytesUnchanged": true,
+  "retainedR3ProcessGroupEmpty": true,
+  "sparkStarted": false
+}

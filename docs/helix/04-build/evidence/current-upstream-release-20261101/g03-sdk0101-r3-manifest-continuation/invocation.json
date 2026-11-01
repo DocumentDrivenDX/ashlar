@@ -1,0 +1,138 @@
+{
+  "profile": "ashlar-g03-r3-manifest-only-continuation-invocation/0.1",
+  "dispatchEnabled": true,
+  "installation": "/private/tmp/ashlar-g03-sdk0101-lifecycle-r3-attempts-20261101/ashlar-g03-sdk0101-lifecycle-94c1991ea883463b88d938b126893d31/installation",
+  "installationId": "g03-sdk0101-a883463b88d938b126893d31",
+  "installationSha256": "76ae97288b29564b56b6b1d45c1559a011f0269ad2f1656d60e1dbecd0863e58",
+  "carrierProfileSha256": "9b7f64fa3efbe71f5ecb601ad0b36185e1bd99a6def396ae83d0c03af2d38fd6",
+  "source": {
+    "profile": "ashlar-jsonl-typed-graph-source/0.1",
+    "configuration": "/private/tmp/ashlar-g03-sdk0101-lifecycle-r3-attempts-20261101/ashlar-g03-sdk0101-lifecycle-94c1991ea883463b88d938b126893d31/inputs/configured-typed-graph-source.json",
+    "configurationSha256": "c62cf82f2116e6b7630585597f20887ba0038e08f022c2e05f319f2827857f82",
+    "sourceSha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+    "modelSha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "bindingSha256": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863",
+    "stream": "g03-sdk0101-a883463b88d938b126893d31",
+    "producerSource": "/private/tmp/umf-sdk0101-90cb",
+    "materializationClockUs": "1793504419378646",
+    "producerCommit": "90cb61eb63aec3f5a77b5991a56e3dfc3d10bd27",
+    "producerTree": "24d2531cbe9025fdc07fb1321a82a81ae31ff12a"
+  },
+  "sourceCode": {
+    "baseCommit": "d723eeeb8cee30f278d2742dc9218dbb2fc9f6c4",
+    "continuationCommit": "ae07b9203591f309a0fee72d6740fa26d5da73bb",
+    "runtimeSha256": "c452f2be4397d11baaf9e213c47dcaf08ab07a383e1ce1add637f4b65cbacea7",
+    "publicationSha256": "fbfcda903d845a503bf43ca28fe6754edb8b2fe6d583d42bbd818c9a15856ae1",
+    "sdk0101CheckerSha256": "b006e36b48f05da4bdab60f2a784112383bfeb83eb2b0a3a67c19e0f842997dd",
+    "sdk0101CustodySha256": "5e2ec2fa1dfd097ccf5d31fbc77b8309c566c981fa72b366d1bb24244d4fc1f4"
+  },
+  "runtime": {
+    "python": "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/bin/python3.12",
+    "javaHome": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
+    "jars": "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars",
+    "spark": "4.2.0",
+    "delta": "4.4.1",
+    "sparkMaster": "local[1]",
+    "driverMemory": "512m",
+    "bun": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+    "git": "/usr/bin/git",
+    "sdkProducerTimeoutSeconds": 60
+  },
+  "operation": {
+    "name": "reopen retained R3 and finalize its existing transaction-one manifest only",
+    "requestDigest": "bebb23db9dee40dd09424cc071d4d80beb200f75b0c6487b5274b1d3d387fb77",
+    "outputReceiptSha256": "eef82376bff8eafc281442aa8f7da2e424d0439ab942b5ccb0c5464c07f37b2c",
+    "expectedCommittedGraphOperations": 3,
+    "expectedGraphPrepareApplyRecoverCalls": 0,
+    "expectedTerminalHeads": {
+      "edge_current": 2,
+      "object_current": 2,
+      "whole_source_history": 2,
+      "attempts": 3,
+      "manifest": 1,
+      "tombstone": 1
+    },
+    "effects": {
+      "nativeManifestCommit": "one retained `.4` manifest finalization, with full current revalidation",
+      "graphRows": "no new operations",
+      "publicationArtifact": false,
+      "sourceAck": false,
+      "cloud": false,
+      "truss": false
+    }
+  },
+  "bounds": {
+    "wallSeconds": 900,
+    "rssBytes": 2147483648,
+    "processGroup": "one sequential worker, empty at terminal",
+    "attemptParent": "/private/tmp/ashlar-g03-sdk0101-r3-manifest-continuation-attempts-20261101/continuation-r5-d24785a0-e9a9-4607-a7cc-88ef672bc35c",
+    "freshOutput": "/private/tmp/ashlar-g03-sdk0101-r3-manifest-continuation-attempts-20261101/continuation-r5-d24785a0-e9a9-4607-a7cc-88ef672bc35c/output",
+    "attemptParentMustBeAbsentAtDispatch": true
+  },
+  "execution": {
+    "supervisor": "docs/helix/04-build/evidence/current-upstream-release-20261101/g03-sdk0101-r3-manifest-continuation/continuation_supervisor.py",
+    "worker": "docs/helix/04-build/evidence/current-upstream-release-20261101/g03-sdk0101-r3-manifest-continuation/continuation_worker.py",
+    "dispatchArgv": [
+      "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/bin/python3.12",
+      "-I",
+      "-B",
+      "docs/helix/04-build/evidence/current-upstream-release-20261101/g03-sdk0101-r3-manifest-continuation/continuation_supervisor.py"
+    ],
+    "effectFreeArgv": [
+      "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/bin/python3.12",
+      "-I",
+      "-B",
+      "docs/helix/04-build/evidence/current-upstream-release-20261101/g03-sdk0101-r3-manifest-continuation/continuation_supervisor.py",
+      "--preflight"
+    ]
+  },
+  "retainedR3Receipts": {
+    "executionStatusSha256": "e0adadeed8c9aa8a4c5e1963f5e17d345b7d4ebdfe96cf92ddf366b5cd5ef688",
+    "lifecycleCompletionSha256": "68a4b40cb6ff45ffe6da92c31e2fba419a93728262f7ee14e277df1547abb157",
+    "initializeResultSha256": "5bdc1624cc1661aacc6d951bef515e065b08dd2d9cce55e486bdec7e73131d54",
+    "transaction1ResultSha256": "f982e5e9ee5cb3297c4f459b1071f59d36e3ae2b140cc1f7ddf46d231e4c582a",
+    "timingReceiptSha256": "83b002d3eaa09127cf44544073b5c0456b13c667a72e79d9a6a7ec8a295adfc1",
+    "r3TotalMs": 617649,
+    "initializeMs": 79389,
+    "transaction1Ms": 538102,
+    "originalStatus": "completed-verified"
+  },
+  "priorContinuationRefusal": {
+    "attemptRoot": "/private/tmp/ashlar-g03-sdk0101-r3-manifest-continuation-attempts-20261101/continuation-af566a06-5c6e-4664-83dd-1b412ff32cb2",
+    "elapsedMs": 4455,
+    "classification": "uncertain-after-dispatch",
+    "processGroupEmpty": true,
+    "failure": "KeyError: publication_attempt_phase in delta_heads before native API call",
+    "nativeApiCalled": false,
+    "operationsSqliteSha256": "10754c3d2b2e947b16b0770f5af13f90353925728a553290314fba403c00c016",
+    "journalCounts": {
+      "committedGraphOperations": 3,
+      "committedMetadataOperations": 2,
+      "outputReceipts": 1,
+      "publicationArtifacts": 0,
+      "walFiles": 0
+    },
+    "headsUnchanged": true
+  },
+  "priorR4ContinuationRefusal": {
+    "attemptRoot": "/private/tmp/ashlar-g03-sdk0101-r3-manifest-continuation-attempts-20261101/continuation-r4-1fc4b68f-ac39-4951-b01b-081f408cfe82",
+    "elapsedMs": 139348,
+    "classification": "uncertain-after-dispatch",
+    "processGroupEmpty": true,
+    "failure": "ValueError: Changed, missing or duplicate `.4` output receipt refuses manifest readiness",
+    "executionStatusSha256": "71487ee93980bab4712e0b9ecb94a3846079094b37de93417e2185f9071d7899",
+    "stderrSha256": "8c3c9040765ef4d76f4783a791e10402778d3fbc56673aed90ff2d28c91cece6",
+    "nativeApiCallStarted": true,
+    "manifestOperationAdded": false,
+    "manifestHeadAdvanced": false,
+    "operationsSqliteSha256": "10754c3d2b2e947b16b0770f5af13f90353925728a553290314fba403c00c016",
+    "journalCounts": {
+      "committedGraphOperations": 3,
+      "committedMetadataOperations": 2,
+      "outputReceipts": 1,
+      "publicationArtifacts": 0,
+      "walFiles": 0
+    },
+    "headsUnchanged": true
+  }
+}

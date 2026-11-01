@@ -1,0 +1,49 @@
+{
+  "actualWorkerPreCallCheck": {
+    "deltaHeads": {
+      "edge_current": {"uuid": "4db27b56-a042-442e-923c-c70a3734a308", "version": 2},
+      "object_current": {"uuid": "fae99e2d-2510-4c66-a463-c1b7111ea36f", "version": 2},
+      "publication_attempt_phase": {"uuid": "54846b0f-2633-47c6-9984-958fcc51c523", "version": 3},
+      "publication_manifest": {"uuid": "0796e532-30e7-4531-afed-93540b549458", "version": 1},
+      "tombstone": {"uuid": "796a23fc-5030-4341-8115-1c5dd69daec7", "version": 1},
+      "whole_source_history": {"uuid": "ac1749e9-2fe1-4e4f-bc6c-771c7e534ac3", "version": 2}
+    },
+    "installationId": "g03-sdk0101-a883463b88d938b126893d31",
+    "invocationSha256": "d0640d216f503e108867de4b25eb6321582e6f629204ef4a6e7722b7c547f33b",
+    "journal": {"artifacts": 0, "metadata": 2, "operations": 3, "plan": 1, "receipt": 1, "source": 1},
+    "nativeCall": false,
+    "outputCreated": false,
+    "profile": "ashlar-g03-r4-worker-preflight/0.1",
+    "runtimeConfigConstructed": true,
+    "sourceAndReceiptBindingsVerified": true
+  },
+  "dispatchStarted": false,
+  "invocationSha256": "d0640d216f503e108867de4b25eb6321582e6f629204ef4a6e7722b7c547f33b",
+  "plannedAttemptRemainsAbsent": true,
+  "profile": "ashlar-g03-r4-complete-effect-free-preflight/0.1",
+  "retainedRuntimePreSparkCheck": {
+    "R3ElapsedMs": 617649,
+    "R3Status": "completed-verified",
+    "SQLitePrefix": {
+      "metadataCount": 2,
+      "operationCount": 3,
+      "outputReceiptSha256": "eef82376bff8eafc281442aa8f7da2e424d0439ab942b5ccb0c5464c07f37b2c",
+      "publicationArtifacts": 0
+    },
+    "bounds": {
+      "continuationRssBytes": 2147483648,
+      "continuationWallSeconds": 900,
+      "producerTimeoutSeconds": 60,
+      "sparkDriverMemory": "512m",
+      "sparkMaster": "local[1]"
+    },
+    "candidateCommit": "ff4221306e85ea01deed8533ee93c709c7e15130",
+    "nativeDispatch": false,
+    "preflightSubprocessesSynchronousAndReaped": true,
+    "profile": "ashlar-g03-r3-manifest-only-preflight/0.1",
+    "reachedSparkBoundary": true,
+    "retainedInstallationBytesUnchanged": true,
+    "retainedR3ProcessGroupEmpty": true,
+    "sparkStarted": false
+  }
+}
