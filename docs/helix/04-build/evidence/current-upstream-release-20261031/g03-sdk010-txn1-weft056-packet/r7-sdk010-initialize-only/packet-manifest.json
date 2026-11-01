@@ -1,0 +1,81 @@
+{
+  "profile": "ashlar-g03-sdk010-fresh-delta4-initialize-r7/0.1",
+  "sourceCommit": "fe0ae9e017b86c454abdfd5b4b630180f2778a07",
+  "sourceTreeObject": "6b5fc884380e040f21c1b51b1cc3f49e84d0e9a4",
+  "carrierProfile": "ashlar-delta/0.4-xxhash64",
+  "installationProfile": "ashlar-local-current-installation-profile/0.3",
+  "sourcePolicyRevision": "umf-sdk-0.10.0/2fb63dea5ca85b32c6bad823703de526875ac79490234dbfea4a8863c7d5fe6c/b32bce2fdcf928bc5b9fd8376b4c7cab9beb1b63d90cb1d20b9ad0ec94595951",
+  "inputs": {
+    "configured-typed-graph-source.json": "040545b8cc96701a158b8936750c89f97ce991df9652ceeacf6c66fb9d9fc168",
+    "typed-graph-model.umf.json": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "typed-graph-source.jsonl": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+    "typed-graph-binding.json": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863",
+    "source-oracle.json": "6a0bfb29131c210b68ce7644b93bac484f845526ef87c23482ac1d6d70f344c1"
+  },
+  "sdk010": {
+    "node": "/opt/homebrew/Cellar/node/26.12.1/bin/node",
+    "sdkPackageRoot": "/private/tmp/ashlar-umf010-core104/sdk010/package",
+    "sdkArchive": "/private/tmp/ashlar-umf010-core104/umf-sdk-0.10.0.tgz",
+    "archiveSha256": "2fb63dea5ca85b32c6bad823703de526875ac79490234dbfea4a8863c7d5fe6c",
+    "publicEntrySha256": "b32bce2fdcf928bc5b9fd8376b4c7cab9beb1b63d90cb1d20b9ad0ec94595951"
+  },
+  "runtime": {
+    "python": "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/bin/python3.12",
+    "pythonVersion": "3.12.14",
+    "pythonSha256": "0048df8bc66cbf4cc964f31eb89321e762902aeecf95dfbde306a36601d27034",
+    "pyspark": "4.2.0",
+    "deltaSpark": "4.4.1",
+    "miniRacer": "0.14.1",
+    "javaHome": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
+    "javaExecutableSha256": "382e51393d712cf7e228a606142d3c079f5fe12e4b599c62fdd1470e40fe7916",
+    "jars": {
+      "delta-spark_4.2_2.13-4.4.1.jar": {
+        "path": "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-spark_4.2_2.13-4.4.1.jar",
+        "sha256": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be"
+      },
+      "delta-storage-4.4.1.jar": {
+        "path": "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-storage-4.4.1.jar",
+        "sha256": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+      }
+    }
+  },
+  "producer": {
+    "source": "/private/tmp/ashlar-g03-pinned-umf-producer-sparse-sdk010",
+    "bun": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+    "git": "/opt/homebrew/Cellar/git/2.56.0_1/bin/git",
+    "timeoutSeconds": 30,
+    "maximumOutputBytes": 1048576,
+    "maximumReceiptBytes": 1048576,
+    "sourceCommit": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+    "sourceTree": "61eebfbe6dcd63c0768b20e514c250a526113d17",
+    "sparseCheckout": [
+      "native",
+      "package.json",
+      "spec",
+      "src",
+      "tsconfig.json"
+    ],
+    "sparseIndex": true,
+    "nodeModulesTarget": "/private/tmp/ashlar-g03-pinned-umf-producer/node_modules"
+  },
+  "attemptParent": "/private/tmp/ashlar-g03-sdk010-delta4-init-r7-attempts-20261101",
+  "limits": {
+    "wallSeconds": 300,
+    "attemptBytes": 536870912,
+    "combinedLogBytes": 1048576,
+    "receiptBytes": 1048576,
+    "processGroupRssBytes": 2147483648,
+    "sparkMaster": "local[1]",
+    "driverMemory": "512m",
+    "sparkSessionsAtOnce": 1,
+    "attempts": 1,
+    "automaticRetries": 0,
+    "sourcePreflightWallSeconds": 120,
+    "sourcePreflightOutputBytes": 65536
+  },
+  "r3Disposition": {
+    "installationPath": "/private/tmp/ashlar-g03-sdk058-delta4-txn1-attempts-20261030/ashlar-g03-txn1-f66791eded7f449eb4b21ef60cd50bca/installation",
+    "eligible": false,
+    "reason": "SDK058 .2 profile and uncertain transaction-1 metadata attempt"
+  }
+}
