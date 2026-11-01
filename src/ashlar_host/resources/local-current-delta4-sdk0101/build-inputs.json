@@ -1021,7 +1021,7 @@
   "producerSource": {
     "commit": "90cb61eb63aec3f5a77b5991a56e3dfc3d10bd27",
     "repository": "DocumentDrivenDX/umf",
-    "tree": "24d2531cbe9025fdc07fb1321a82a81ae31ff12a5"
+    "tree": "24d2531cbe9025fdc07fb1321a82a81ae31ff12a"
   },
   "profile": "ashlar-local-current-delta4-umf-source-sdk0101/0.1",
   "releasePackage": {

@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 from ashlar.typed_graph_source_sdk0101 import GRAPH_CHECK_PIN
 from ashlar_host.local_current_delta4_umf_sdk0101 import (
-    UMF_REALIZATION_PROFILE, pinned_sdk0101_resources,
+    SOURCE_TREE, UMF_REALIZATION_PROFILE, pinned_sdk0101_resources,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,6 +20,11 @@ class UmfSdk0101PinTests(unittest.TestCase):
                          'ashlar-local-current-delta4-umf-source-sdk0101/0.1')
         self.assertEqual(manifest['selectedRelease']['version'], '0.10.1')
         self.assertEqual(manifest['selectedRelease']['semanticCore'], '0.10.0')
+        self.assertRegex(SOURCE_TREE, r'^[0-9a-f]{40}$')
+        self.assertEqual(SOURCE_TREE, '24d2531cbe9025fdc07fb1321a82a81ae31ff12a')
+        self.assertEqual(manifest['producerSource']['tree'], SOURCE_TREE)
+        self.assertEqual(manifest['producerSource']['commit'], GRAPH_CHECK_PIN)
+        self.assertEqual(len(manifest['producerSource']['tree']), 40)
         self.assertEqual(hashlib.sha256(bridge).hexdigest(), manifest['bridge']['assetSha256'])
         self.assertEqual(set(sources), {
             'object_current.umf.json', 'edge_current.umf.json', 'tombstone.umf.json',

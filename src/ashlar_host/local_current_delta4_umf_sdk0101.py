@@ -10,8 +10,9 @@ from .managed_current_carriers import load_current_managed_carriers
 
 UMF_REALIZATION_PROFILE = 'ashlar-local-current-delta4-umf-source-sdk0101/0.1'
 LOCAL_TARGET_PROFILE = 'spark-delta4/0.1'
-MANIFEST_SHA256 = '100cf701d97be6e92c1420fae8451cb435c2ff5f084d09b230e9fb0a2b0fa61b'
-BUILD_INPUTS_SHA256 = 'abe88f16fde4d5ffa06bfbcf6ff4b057955bd965fe614641528eac029a331999'
+SOURCE_TREE = '24d2531cbe9025fdc07fb1321a82a81ae31ff12a'
+MANIFEST_SHA256 = '64236c1022e7544faf4f56082d01b8b58805231e8c5277419b0ffb02ebf885fc'
+BUILD_INPUTS_SHA256 = '3cd19238be07a71b9c252a0c4661d201c0e8ca71a9566ca1228e6b85a104c627'
 BRIDGE_SHA256 = '4d0ce3902368d0d1a73312626ec153125992327ee812cd579282445514067735'
 ENTRY_SHA256 = '739c9579cb4662fbb48123e828ea9b7125eeed085b14f26019880a2d46b1462e'
 ROLE_SEMANTICS_SHA256 = '148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d'
@@ -68,6 +69,16 @@ def pinned_sdk0101_resources():
     build_inputs = json.loads(inputs_bytes)
     semantics = json.loads(semantic_bytes)
     policy = json.loads(policy_bytes)
+    producer_source = manifest.get('producerSource')
+    _require(type(producer_source) is dict
+             and producer_source.get('commit') == '90cb61eb63aec3f5a77b5991a56e3dfc3d10bd27'
+             and type(producer_source.get('tree')) is str
+             and re.fullmatch('[0-9a-f]{40}', producer_source['tree']) is not None
+             and producer_source['tree'] == SOURCE_TREE
+             and type(build_inputs.get('producerSource')) is dict
+             and build_inputs['producerSource'].get('commit') == producer_source['commit']
+             and build_inputs['producerSource'].get('tree') == SOURCE_TREE,
+             'Exact 40-hex UMF source commit/tree custody required')
     _require(manifest.get('profile') == UMF_REALIZATION_PROFILE
              and manifest.get('carrierProfile') == 'ashlar-delta/0.4-xxhash64'
              and manifest.get('selectedRelease') == {

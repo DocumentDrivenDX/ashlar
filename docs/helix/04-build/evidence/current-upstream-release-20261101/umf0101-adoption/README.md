@@ -9,7 +9,7 @@ The versioned `sdk0101` Delta bridge resource profile is bound to SDK archive
 SHA-256 `3d95fff822f4f44b3d1a8e56185c3697e94ee66f5315cda7389f5301f3d16d26`,
 public entry SHA-256 `7577c4efe5269d9f98187265b31be71f2be69b67cab357ce9bf07dabcd758f27`,
 source commit `90cb61eb63aec3f5a77b5991a56e3dfc3d10bd27`, and source tree
-`24d2531cbe9025fdc07fb1321a82a81ae31ff12a5`. The Delta bridge bundle is
+`24d2531cbe9025fdc07fb1321a82a81ae31ff12a`. The Delta bridge bundle is
 byte-identical to the SDK 0.10.0-built bundle because the imported Delta DDL
 modules and entry are unchanged. Public SDK 0.10.1 `readDocument` and
 `realizeSparkDelta4DDL` were compared with the six frozen `.4-xxhash64` carrier

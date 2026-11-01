@@ -3,7 +3,7 @@
     "asset": "umf-spark-delta4.iife.js",
     "assetBytes": 521802,
     "assetSha256": "4d0ce3902368d0d1a73312626ec153125992327ee812cd579282445514067735",
-    "buildInputsSha256": "abe88f16fde4d5ffa06bfbcf6ff4b057955bd965fe614641528eac029a331999",
+    "buildInputsSha256": "3cd19238be07a71b9c252a0c4661d201c0e8ca71a9566ca1228e6b85a104c627",
     "builder": "Bun 1.4.3",
     "dependencyCustody": "All 195 Bun metafile input paths and bytes were recorded. Installed node_modules versions used for this build matched the selected commit bun.lock; installed bytes were not independently reconstructed from npm tarballs.",
     "dependencyLockSha256": "5fb58795dfe9ef5df89597c44372cf2a0739e1855f322f7622ae0c9d0ac71ce4",
@@ -20,7 +20,7 @@
       "src/adapters/delta/ddl.ts": "8e4f694b7e3ecbdc0548f06b4db0a67339ea9319d3b70939003d4a0d18856051",
       "src/model/document.ts": "6ea8f43e4bcd3b5d7259329e6768dd563e066d7169a23bee75e88f054f348ddb"
     },
-    "tree": "24d2531cbe9025fdc07fb1321a82a81ae31ff12a5"
+    "tree": "24d2531cbe9025fdc07fb1321a82a81ae31ff12a"
   },
   "profile": "ashlar-local-current-delta4-umf-source-sdk0101/0.1",
   "roleSemanticsSha256": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d",
