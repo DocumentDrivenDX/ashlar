@@ -52,7 +52,7 @@ def distribution_metadata(path: Path) -> tuple[str, str]:
             metadata_files = [
                 member
                 for member in archive.getmembers()
-                if member.name.endswith("/PKG-INFO")
+                if member.name.endswith("/PKG-INFO") and member.name.count("/") == 1
             ]
             if len(metadata_files) != 1:
                 raise ValueError(f"sdist must contain one PKG-INFO file: {path.name}")

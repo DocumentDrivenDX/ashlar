@@ -76,6 +76,13 @@ def build_and_manifest(
 ) -> dict[str, Any]:
     directory.mkdir(parents=True, exist_ok=True)
     run(["uv", "build", "--out-dir", str(directory)])
+    uv_ignore = directory / ".gitignore"
+    if uv_ignore.exists():
+        require(
+            uv_ignore.is_file() and uv_ignore.read_text(encoding="utf-8") == "*",
+            "unexpected file in temporary build output",
+        )
+        uv_ignore.unlink()
     return create_manifest(
         directory,
         directory / MANIFEST_NAME,
