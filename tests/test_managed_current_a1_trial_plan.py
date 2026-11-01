@@ -16,6 +16,10 @@ from ashlar_host.managed_current_a1_trial_plan import (
 from ashlar_host.managed_current_genesis import ManagedCurrentGenesisPredecessor
 from ashlar_host.managed_current_prefix_delivery import ManagedCurrentPrefixPage
 from ashlar_host.managed_current_publication import _managed_current_a1_task_inputs
+from ashlar_host.managed_current_spark_source_oracle import (
+    build_managed_current_a1_source_oracle,
+    managed_current_a1_lookup_keys,
+)
 from ashlar_host.managed_current_truss052_genesis_owner import (
     ManagedCurrentTruss052GenesisSelection,
 )
@@ -176,6 +180,71 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
                 _managed_current_a1_task_inputs(plan, stream='source-stream',
                     predecessor='genesis-manifest', schema_revisions_json='{}',
                     materialized_at='1762000000000000')
+
+    def test_a1_native_oracle_binds_the_owner_page_and_complete_progress(self):
+        from ashlar_host.managed_current_core import (
+            CARRIER_PROFILE_XXHASH64, ManagedCurrentCoreConfig,
+        )
+
+        schedule = self._schedule()
+        batch = self._truss_batch()
+        page = SimpleNamespace(content=batch.begin,
+            prior=SimpleNamespace(content=base64.b64decode(batch.cursor_before)),
+            next=SimpleNamespace(content=base64.b64decode(batch.cursor_after)))
+        admission = TrussGraphAdmission.__new__(TrussGraphAdmission)
+        admission.batch = batch
+        admission.changes = ()
+        admission.parsed = SimpleNamespace(event_bytes=(), edge_order_keys=())
+        admission.admit = lambda _change: None
+        admission.admit_transition = lambda _previous, _change: None
+        selection = ManagedCurrentTruss052GenesisSelection(
+            schedule.sha256, schedule.raw, {}, {}, {}, {'catalog-rev': '1'},
+            {'A': SimpleNamespace(batch=batch, page=page),
+             'B': SimpleNamespace(batch=None)}, admission, batch)
+        genesis = {'publication_id': 'genesis-manifest'}
+        predecessor = ManagedCurrentGenesisPredecessor(genesis, {}, {})
+        with patch('ashlar_host.managed_current_genesis.verify_managed_current_genesis_predecessor',
+                   return_value=predecessor):
+            plan = prepare_managed_current_a1_trial(selection, genesis,
+                stream='source-stream', materialized_at='1762000000000000', context=object())
+
+        config = ManagedCurrentCoreConfig('client_dev', 'trial_schema', None, None, 0, 100,
+            carrier_profile=CARRIER_PROFILE_XXHASH64)
+        progress = {'feed-A': {'profile': 'page-checkpoint'},
+                    'feed-B': {'profile': 'genesis-marker'}}
+        manifest = {'publication_id': 'a1-manifest',
+            'profile_version': CARRIER_PROFILE_XXHASH64,
+            'source_progress_json': json.dumps(progress, sort_keys=True, separators=(',', ':')),
+            'schema_revisions_json': json.dumps(selection.schema_revisions, sort_keys=True,
+                                                separators=(',', ':'))}
+        prefix = {'entries': [{'requestJson': json.dumps(plan.request, sort_keys=True,
+                            separators=(',', ':')),
+                    'publicationManifestJson': json.dumps(manifest, sort_keys=True,
+                            separators=(',', ':')),
+                    'materializationClockUs': '1762000000000000'}]}
+        prefix_bytes = json.dumps(prefix, sort_keys=True, separators=(',', ':')).encode()
+        prefix_sha = hashlib.sha256(prefix_bytes).hexdigest()
+        selected = {'destination': {'catalog': 'client_dev', 'schema': 'trial_schema'}}
+        correspondence = SimpleNamespace(prefix_sha256=prefix_sha,
+                                         schedule_sha256=schedule.sha256)
+        with patch('ashlar_host.managed_current_prefix_delivery.validate_managed_current_prefix_delivery',
+                   return_value=correspondence), \
+             patch('ashlar.manifest.validate_manifest_row', return_value=None), \
+             patch('ashlar_host.managed_current_genesis.transition_managed_current_first_a_page',
+                   return_value=progress):
+            keys = managed_current_a1_lookup_keys(plan, config=config)
+            oracle = build_managed_current_a1_source_oracle(
+                plan, config=config, prefix_bytes=prefix_bytes, prefix_sha256=prefix_sha,
+                selected=selected, manifest=manifest, lookup_hashes={})
+
+        self.assertEqual(keys, ())
+        self.assertEqual(oracle.profile, 'ashlar-managed-current-a1-source-oracle/0.1')
+        self.assertEqual(oracle.prefix_sha256, prefix_sha)
+        self.assertEqual(oracle.final_request, plan.request)
+        self.assertEqual(oracle.progress, progress)
+        self.assertEqual(oracle.expected_rows,
+                         {role: [] for role in ('object_current', 'edge_current',
+                             'tombstone', 'whole_source_history')})
 
 
 if __name__ == "__main__":

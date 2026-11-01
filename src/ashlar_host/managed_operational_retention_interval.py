@@ -42,6 +42,11 @@ _MAX_INTERVAL_SECONDS = 900
 _MIN_RETENTION_SECONDS = 7 * 24 * 60 * 60
 
 
+def _canonical(value):
+    return json.dumps(value, ensure_ascii=False, sort_keys=True,
+                      separators=(",", ":"), allow_nan=False)
+
+
 class OperationalRetentionIntervalError(ValueError):
     """A bounded managed-read observation refused or did not complete."""
 
@@ -84,6 +89,8 @@ class ManagedOperationalRetentionSelection:
     source_prefix_bytes: bytes | None = field(default=None, repr=False)
     source_prefix_sha256: str | None = None
     source_core_config: object | None = field(default=None, repr=False, compare=False)
+    a1_plan: object | None = field(default=None, repr=False, compare=False)
+    a1_prefix_selected: dict | None = field(default=None, repr=False, compare=False)
     _expected_receipt_bytes: bytes = field(init=False, repr=False, compare=False)
 
     def __post_init__(self):
@@ -143,6 +150,36 @@ class ManagedOperationalRetentionSelection:
                    != (self.reader_config.catalog, self.reader_config.schema)):
             raise OperationalRetentionIntervalError(
                 "The .4 interval requires matching frozen prefix bytes, digest and native-probe core config")
+        if self.a1_plan is not None:
+            from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
+            if (type(self.a1_plan) is not ManagedCurrentA1TrialPlan
+                    or self.reader_config.source_truss_version != "0.0.52"
+                    or type(self.a1_prefix_selected) is not dict):
+                raise OperationalRetentionIntervalError(
+                    "A1 operational read requires the exact `.52` plan and selected `/0.2` custody")
+            try:
+                from ashlar.schema import decode_retained_json
+                request = decode_retained_json(self.request_bytes)
+                manifest = decode_retained_json(self.manifest_bytes)
+                if (request != self.a1_plan.request
+                        or _canonical(request).encode("utf-8") != self.request_bytes
+                        or manifest != self.expected_receipt.get("manifest")
+                        or _canonical(manifest).encode("utf-8") != self.manifest_bytes
+                        or request.get("request_digest") != self.expected_receipt.get("requestDigest")
+                        or manifest.get("publication_id") != self.expected_receipt.get("publicationId")):
+                    raise ValueError("A1 receipt anchors differ")
+                self.a1_plan.verify_delivery(
+                    self.source_prefix_bytes,
+                    prefix_sha256=self.source_prefix_sha256,
+                    selected=self.a1_prefix_selected,
+                    schedule_bytes=self.a1_plan.selection.schedule_bytes,
+                    pages=(self.a1_plan.delivery_page,))
+            except (AttributeError, TypeError, ValueError) as error:
+                raise OperationalRetentionIntervalError(
+                    "Exact A1 `/0.2` page, request and destination receipt correspondence required") from error
+        elif self.a1_prefix_selected is not None:
+            raise OperationalRetentionIntervalError(
+                "A1 `/0.2` anchors require the exact prepared A1 plan")
 
 
 @dataclass(frozen=True)
@@ -300,6 +337,9 @@ class OperationalRetentionInterval:
                 kwargs.update(source_prefix_bytes=self.selection.source_prefix_bytes,
                               source_prefix_sha256=self.selection.source_prefix_sha256,
                               source_core_config=self.selection.source_core_config)
+                if self.selection.a1_plan is not None:
+                    kwargs.update(a1_plan=self.selection.a1_plan,
+                                  a1_prefix_selected=self.selection.a1_prefix_selected)
             result = reader.reopen(**kwargs)
             self._validate_reader_result(result)
             if self.clock() >= self.deadline and not closing:

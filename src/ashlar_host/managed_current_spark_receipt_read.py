@@ -94,7 +94,7 @@ class ManagedCurrentSparkReceiptConfig:
                  and type(self.schema) is str and _IDENT.fullmatch(self.schema)
                  and all(type(v) is str and v and "\0" not in v and len(v.encode()) <= 1024
                          for v in (self.expected_principal, self.expected_table_owner))
-                 and self.source_truss_version in ("0.0.44", "0.0.45", "0.0.48", "0.0.49", "0.0.50")
+                 and self.source_truss_version in ("0.0.44", "0.0.45", "0.0.48", "0.0.49", "0.0.50", "0.0.52")
                  and type(self.protocol_profile) is ReaderProtocolProfile
                  and type(self.expected_runtime) is dict
                  and self.expected_runtime.get("principal") == self.expected_principal
@@ -470,7 +470,8 @@ class ManagedCurrentSparkReceiptReader:
 
     def _read_and_compare_source_bags(self, oracle, request, manifest, versions, role_tables):
         _require(type(oracle) is ManagedCurrentSourcePrefixOracle
-                 and oracle.profile == "ashlar-managed-current-source-prefix/0.1"
+                 and oracle.profile in ("ashlar-managed-current-source-prefix/0.1",
+                                        "ashlar-managed-current-a1-source-oracle/0.1")
                  and oracle.carrier_profile == self.config.carrier_profile
                  and oracle.destination == {"catalog": self.config.catalog, "schema": self.config.schema}
                  and oracle.final_request == request
@@ -679,7 +680,8 @@ class ManagedCurrentSparkReceiptReader:
         return runtime, inventory
 
     def reopen(self, *, request_bytes, manifest_bytes, expected_receipt, source_oracle=None,
-               source_prefix_bytes=None, source_prefix_sha256=None, source_core_config=None):
+               source_prefix_bytes=None, source_prefix_sha256=None, source_core_config=None,
+               a1_plan=None, a1_prefix_selected=None):
         prefix_supplied = any(value is not None for value in (
             source_prefix_bytes, source_prefix_sha256, source_core_config))
         if self.config.carrier_profile == CARRIER_PROFILE_XXHASH64:
@@ -715,11 +717,25 @@ class ManagedCurrentSparkReceiptReader:
                  "Exact task manifest was not independently reopened")
         frozen_prefix = source_keys = None
         if prefix_supplied:
-            frozen_prefix = self._frozen_prefix_anchors(source_prefix_bytes,
-                source_prefix_sha256, source_core_config, request, manifest)
-            source_keys = derive_managed_current_prefix_lookup_keys(source_prefix_bytes,
-                prefix_sha256=source_prefix_sha256, config=source_core_config,
-                expected_source_truss_version=self.config.source_truss_version)
+            if a1_plan is None:
+                frozen_prefix = self._frozen_prefix_anchors(source_prefix_bytes,
+                    source_prefix_sha256, source_core_config, request, manifest)
+                source_keys = derive_managed_current_prefix_lookup_keys(source_prefix_bytes,
+                    prefix_sha256=source_prefix_sha256, config=source_core_config,
+                    expected_source_truss_version=self.config.source_truss_version)
+            else:
+                _require(self.config.carrier_profile == CARRIER_PROFILE_XXHASH64
+                         and self.config.source_truss_version == "0.0.52"
+                         and type(a1_prefix_selected) is dict,
+                         "A1 `/0.2` source selection requires exact Truss .52 and `.4` pins")
+                from .managed_current_spark_source_oracle import managed_current_a1_lookup_keys
+                frozen_prefix = a1_plan.verify_delivery(
+                    source_prefix_bytes, prefix_sha256=source_prefix_sha256,
+                    selected=a1_prefix_selected,
+                    schedule_bytes=a1_plan.selection.schedule_bytes,
+                    pages=(a1_plan.delivery_page,))
+                source_keys = managed_current_a1_lookup_keys(a1_plan,
+                    config=source_core_config)
         from ashlar.publication import descriptor_from_manifest_row
         from ashlar.attempt_store import verify_request_digest
         descriptor = descriptor_from_manifest_row(dict(observed[0]))
@@ -781,10 +797,21 @@ class ManagedCurrentSparkReceiptReader:
         bag_comparison_sha256 = bag_comparison_summary = None
         if frozen_prefix is not None:
             lookup_hashes = self._probe_source_lookup_hashes(source_keys)
-            source_oracle = build_managed_current_prefix_oracle(source_prefix_bytes,
-                prefix_sha256=source_prefix_sha256, config=source_core_config,
-                lookup_hashes=lookup_hashes,
-                expected_source_truss_version=self.config.source_truss_version)
+            if a1_plan is None:
+                source_oracle = build_managed_current_prefix_oracle(source_prefix_bytes,
+                    prefix_sha256=source_prefix_sha256, config=source_core_config,
+                    lookup_hashes=lookup_hashes,
+                    expected_source_truss_version=self.config.source_truss_version)
+            else:
+                from .managed_current_spark_source_oracle import (
+                    build_managed_current_a1_source_oracle,
+                )
+                source_oracle = build_managed_current_a1_source_oracle(
+                    a1_plan, config=source_core_config,
+                    prefix_bytes=source_prefix_bytes,
+                    prefix_sha256=source_prefix_sha256,
+                    selected=a1_prefix_selected, manifest=manifest,
+                    lookup_hashes=lookup_hashes)
             _require(source_oracle.final_request == request
                      and source_oracle.progress == json.loads(manifest["source_progress_json"],
                                                                 object_pairs_hook=self._unique_pairs)
@@ -813,6 +840,8 @@ class ManagedCurrentSparkReceiptReader:
             "source_prefix_bytes": source_prefix_bytes,
             "source_prefix_sha256": source_prefix_sha256,
             "source_core_config": source_core_config,
+            "a1_plan": a1_plan,
+            "a1_prefix_selected": a1_prefix_selected,
         }
         self._closing_witness = {
             "request": request,
