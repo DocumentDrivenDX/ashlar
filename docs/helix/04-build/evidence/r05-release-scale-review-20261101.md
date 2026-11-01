@@ -89,6 +89,58 @@ reasonable screening envelope; it does not admit a dedicated compute shape,
 runtime, or cost envelope for the existing workspace, or make the full workload
 likely to finish within five minutes.
 
+At the existing 80%-of-measured-throughput planning rate, the paired sample's
+setup/write/combined-witness bundle projects to 28.206 minutes. That is 1.88x
+the 15-minute review trigger and 5.64x the provisional five-minute working
+target before omitted work. The separate storage/edge-attribution packet's
+18.05-minute figure is a write-only projection from its own calibration; these
+different scopes are not additive. Neither projection is a target-scale result.
+
+## Scaling diagnosis and one redesign candidate
+
+The measurements do not identify CPU, compression, or storage as the causal
+limit. They do expose a concrete parallelism ceiling in the current trial shape:
+the 225M-edge attribution completed one 18-task write stage, while the held
+1B/5B supervisor pins `local[18]` and 18 shuffle partitions. At the planning
+target this provides no more than 18 input tasks per role, even if a future
+admitted compute shape has hundreds of cores. The observed stage used
+310.684 executor CPU-seconds over a 25.485-second span (about 68% of the
+18-core theoretical capacity); this is consistent with several possible
+limits and does not prove CPU starvation. The dominant unavoidable algorithmic
+work is row-wise carrier generation/Parquet writing followed by at least two
+full persisted-table scans and a GraphFrames input pass: O(N+E) work per pass
+over an estimated 68.05 GB active carrier. At a five-minute target, three
+whole-carrier passes imply about 680 MB/s useful aggregate I/O; a fourth
+GraphFrames pass implies about 907 MB/s. These are lower-bound sensitivities,
+not measured bandwidth requirements for a particular runtime.
+
+The single redesign candidate is to make generator and writer partition counts
+explicit and scale them with the admitted executor shape while leaving the
+`.4-xxhash64` schema, ZSTD, values, formulas, and all witnesses unchanged. For
+the 256-core sizing candidate only, start with 256 node partitions and 1,024
+edge partitions (four edge tasks per core); row-linear bytes imply roughly
+40 MiB per node partition and 56 MiB per edge partition. This is compatible
+with the selected 64 MiB target-file-size hint as a starting point, not a
+promised file size. It removes the known 18-task ceiling and gives a reviewable
+file-geometry hypothesis; it does not establish faster writes, linear scaling,
+or adequate memory/storage.
+
+The bounded mechanism discriminator, if the local Spark slot is admitted, is
+one 45M-node/225M-edge candidate run on the existing pinned 18-core runtime
+with 72 explicit partitions (four tasks per core), changing no other setting.
+Compare it to the retained 18-partition baseline; do not rerun the baseline.
+Bound startup, writes, exact row/value/endpoint witnesses and owned cleanup to
+900 seconds and 32 GiB retained attempt data; one candidate, no retries, no
+cloud compute. Record stage task count and duration distribution, executor CPU/GC,
+spill, write time, output files/bytes and exact semantic equality. Stop at
+either bound or any mismatch. This checks whether extra task granularity
+improves or harms the measured local mechanism; it cannot validate 256-core
+scaling. Carry the partition plan to a production-runtime screen only if the
+candidate preserves all witnesses and materially improves write time without
+unacceptable file or task overhead. Otherwise retain the current plan and
+redesign around the measured bottleneck. A later 256-core screen requires separately admitted
+compute/runtime and cost bounds; the 1B/5B run remains held.
+
 ## Smallest useful next discriminator
 
 No additional writer micro-optimization is supported by current evidence. The
