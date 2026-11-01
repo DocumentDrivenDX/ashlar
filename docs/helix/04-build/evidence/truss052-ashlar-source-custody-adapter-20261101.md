@@ -30,8 +30,8 @@ Truss runtime gate is the exact installed public status
 `5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522`, and
 distribution version `0.0.52`. The staged local wheel is
 `umf_truss-0.0.52-py3-none-any.whl`, SHA-256
-`00d8b11abc83d9c84fa131ae6f3eef23ecad9d321d4b04a13641ed31c77e9747`; the
-GitHub release asset upload remains pending.
+`00d8b11abc83d9c84fa131ae6f3eef23ecad9d321d4b04a13641ed31c77e9747`, from the
+[public GitHub release](https://github.com/DocumentDrivenDX/truss/releases/tag/v0.0.52).
 
 `Truss052SourceCustodySession` calls the public runtime status check on the
 retained connection before materializing the exact `.52` selection. The source

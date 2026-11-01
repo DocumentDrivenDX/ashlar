@@ -85,6 +85,12 @@ class TrussCurrentCatalogTests(unittest.TestCase):
                          '5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522')
         self.assertEqual(CURRENT_052_CANDIDATE_EVIDENCE_PROFILE,
                          'ashlar-truss-current-catalog-evidence/0.7-local-candidate')
+        dependency = (Path(__file__).parents[1] / 'pyproject.toml').read_text()
+        self.assertIn(
+            'umf-truss[native] @ https://github.com/DocumentDrivenDX/truss/releases/download/'
+            'v0.0.52/umf_truss-0.0.52-py3-none-any.whl#sha256='
+            '00d8b11abc83d9c84fa131ae6f3eef23ecad9d321d4b04a13641ed31c77e9747',
+            dependency)
         manifest = b'exact staged Truss 0.0.52 candidate runtime manifest'
         direct_url = json.dumps({'archive_info': {'hashes': {
             'sha256': CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256}}})

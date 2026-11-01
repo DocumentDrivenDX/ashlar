@@ -40,15 +40,17 @@ four-role data vector. This qualifies the recorded local source and runtime;
 Linux native execution and managed publication remain open
 ([R5 completion](04-build/evidence/current-upstream-release-20261101/g03-sdk0101-r3-manifest-continuation/r5-completion.md)).
 
-The candidate `truss-local` extra selects Truss 0.0.51 with its `[native]`
-dependencies. R16 stopped during cold-backup restore; R17 refused at its
-selected-tree check; R19 refused at an isolated SDK-bridge import. The approved
+The `truss-local` extra selects the public Truss 0.0.52 wheel with its
+`[native]` dependencies and verifies its immutable asset digest. Historical R16
+stopped during cold-backup restore; R17 refused at its selected-tree check; R19
+refused at an isolated SDK-bridge import. The approved
 R20 run then stopped before migration or publication because its retained PG18
 backup lacked required cluster directories. Each one-shot approval is spent.
 R21's effect-free check rejects that incomplete backup; no directory repair is
 assumed. A fresh local development source has since been established through
-Truss public APIs and migrated to 0.0.51, but its R12 accepted-document read
-stopped at a missing principal grant before consumer enrollment or the seed.
+Truss public APIs and migrated to 0.0.51 under the historical runtime, but its
+R12 accepted-document read stopped at a missing principal grant before consumer
+enrollment or the seed.
 The selected Truss feed/ACK lifecycle and production source authority remain
 unqualified ([R20 failure](04-build/evidence/current-upstream-release-20261031/truss051-r20-failure-evidence-20261031/README.md),
 [R21 backup check](04-build/evidence/current-upstream-release-20261031/truss051-r21-local-restore-candidate/README.md),
