@@ -24,7 +24,7 @@ from typing import Any
 
 from full_delta4_generator import (
     EDGE_ROWS, NODE_ROWS, ROLES, SOURCE_SYSTEM, build_generation_plan,
-    endpoint_oracle, validate_offline_oracle,
+    endpoint_oracle, validate_offline_oracle, validate_range_partition_count,
 )
 
 PROFILE = "ashlar-r05-full-delta4-local-trial/0.1"
@@ -668,8 +668,19 @@ def _ensure_no_overlap(phase_times: dict) -> None:
 def run_full_delta4_trial(*, spark, attempt_root: str | Path,
                           authorization_path: str | Path,
                           packet_sha256: str,
-                          supervised_child_started: float) -> dict:
-    """Run one fully authorized local attempt; never starts Spark itself."""
+                          supervised_child_started: float,
+                          object_range_partitions: int,
+                          edge_range_partitions: int) -> dict:
+    """Run the held local 18/18 attempt; production geometry is plan-only."""
+    object_range_partitions = validate_range_partition_count(
+        object_range_partitions, NODE_ROWS)
+    edge_range_partitions = validate_range_partition_count(
+        edge_range_partitions, EDGE_ROWS)
+    if (object_range_partitions, edge_range_partitions) != (18, 18):
+        raise TrialRefused(
+            "dispatch is authorized only for the held local 18/18 geometry; "
+            "other partition counts are offline-plan-only pending a reviewed production packet"
+        )
     now = time.monotonic()
     if (type(supervised_child_started) not in (float, int)
             or not 0 < supervised_child_started <= now
@@ -720,7 +731,11 @@ def run_full_delta4_trial(*, spark, attempt_root: str | Path,
             result["runtime"] = runtime
             if spark.conf.get("spark.sql.session.timeZone") != "UTC":
                 raise TrialRefused("Spark session timezone must be UTC")
-            plan = build_generation_plan(str(root / ROLES[0]), str(root / ROLES[1]))
+            plan = build_generation_plan(
+                str(root / ROLES[0]), str(root / ROLES[1]),
+                object_range_partitions=object_range_partitions,
+                edge_range_partitions=edge_range_partitions,
+            )
             result["generator"] = {"profile": plan.profile,
                                     "nodeRows": plan.node_rows, "edgeRows": plan.edge_rows,
                                     "rangePartitions": {

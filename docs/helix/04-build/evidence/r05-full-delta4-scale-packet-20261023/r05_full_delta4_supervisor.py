@@ -1365,7 +1365,8 @@ def _open_child(root: Path, packet_digest: str, child_started: float) -> int:
     try:
         outcome = run_full_delta4_trial(
             spark=spark, attempt_root=root, authorization_path=auth_path,
-            packet_sha256=packet_digest, supervised_child_started=child_started)
+            packet_sha256=packet_digest, supervised_child_started=child_started,
+            object_range_partitions=18, edge_range_partitions=18)
         return 0 if outcome.get("status") == "bounded-synthetic-checks-passed" else 2
     finally:
         spark.stop()

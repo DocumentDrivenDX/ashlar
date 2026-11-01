@@ -108,7 +108,7 @@ def _expressions(role: str, edge_rows: int) -> dict[str, str]:
     return common
 
 
-def _range_partition_count(value: int, rows: int) -> int:
+def validate_range_partition_count(value: int, rows: int) -> int:
     if (type(value) is not int or not 1 <= value <= MAX_RANGE_PARTITIONS
             or value > rows):
         raise ValueError("Positive bounded range partition count no greater than role rows required")
@@ -123,7 +123,7 @@ def _insert_sql(role: str, path: str, fields: tuple, node_rows: int, edge_rows: 
         raise ValueError(f"UMF `.4` {role} schema differs from the frozen row-value oracle")
     projection = ",\n  ".join(f"{expected[name]} AS `{name}`" for name in names)
     count = node_rows if role == "object_current" else edge_rows
-    range_partitions = _range_partition_count(range_partitions, count)
+    range_partitions = validate_range_partition_count(range_partitions, count)
     # Spark SQL range(start, end, step, numPartitions) makes task/file geometry an
     # explicit plan input instead of inheriting defaultParallelism from cores.
     return (f"INSERT INTO {_path_relation(path)}\nSELECT\n  {projection}\n"
@@ -180,8 +180,9 @@ def build_generation_plan(
     the Spark master's cores. Defaults retain the measured 18/18 local profile.
     """
     validate_offline_oracle(node_rows, edge_rows)
-    object_range_partitions = _range_partition_count(object_range_partitions, node_rows)
-    edge_range_partitions = _range_partition_count(edge_range_partitions, edge_rows)
+    object_range_partitions = validate_range_partition_count(
+        object_range_partitions, node_rows)
+    edge_range_partitions = validate_range_partition_count(edge_range_partitions, edge_rows)
     paths = {"object_current": node_path, "edge_current": edge_path}
     if node_path == edge_path:
         raise ValueError("Distinct exact Delta paths required")
