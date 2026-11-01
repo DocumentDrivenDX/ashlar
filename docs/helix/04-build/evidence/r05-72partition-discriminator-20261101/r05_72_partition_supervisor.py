@@ -1,4 +1,4 @@
-"""Held one-pair R05 supervisor with a 15-minute aggregate hard stop.
+"""Held one-candidate 72-partition R05 writer supervisor with a 15-minute hard stop.
 
 Import is inert. Execution requires a separate exact owner authorization,
 reviewed local runtime pins, a pre-existing exclusive local slot lock, and a

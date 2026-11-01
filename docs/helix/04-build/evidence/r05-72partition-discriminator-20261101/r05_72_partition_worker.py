@@ -157,19 +157,6 @@ def _clear_spark_job_group(spark_context) -> None:
         spark_context.setLocalProperty(key, None)
 
 
-def _execute_parallel_role(*, spark, group_id: str, role: str,
-                           insert_sql: str, role_seconds: dict) -> None:
-    spark_context = spark.sparkContext
-    spark_context.setJobGroup(
-        group_id, f"R05 paired {role}", interruptOnCancel=True)
-    role_started = time.monotonic()
-    try:
-        spark.sql(insert_sql)
-    finally:
-        role_seconds[role] = round(time.monotonic() - role_started, 6)
-        _clear_spark_job_group(spark_context)
-
-
 def run_candidate(*, spark, root: Path, started: float, packet_digest: str,
                   authorization: dict, runtime_identity: dict) -> dict:
     """Run one sequential 45M/225M candidate using 72 explicit range slices."""
@@ -196,7 +183,7 @@ def run_candidate(*, spark, root: Path, started: float, packet_digest: str,
               "rangeSliceWitness": range_slice_witness, "runtime": runtime, "host": host,
               "logicalInputPlans": {}, "modes": {}}
     root_st = root.stat()
-    ownership = {"profile": "ashlar-r05-paired-ownership/0.1",
+    ownership = {"profile": "ashlar-r05-72-partition-ownership/0.1",
                  "root": [root_st.st_dev, root_st.st_ino], "status": "building",
                  "tables": {}}
     _write_receipt(root / "r05-72-ownership-building.json", ownership)
