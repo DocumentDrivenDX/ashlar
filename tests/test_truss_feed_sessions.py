@@ -105,6 +105,30 @@ class Tests(unittest.TestCase):
             self.assertIs(driver.source_sessions,owner)
             self.assertIs(driver.ack_sessions,owner)
 
+    def test_current_052_candidate_requires_actual_admission_and_matching_sessions(self):
+        from ashlar_host.driver import NativeDriver
+        from ashlar_host.truss_graph_admission import TrussGraphAdmission,CURRENT_052_CANDIDATE_PROFILE
+        owner,_,context,_,_,_,_=self.setup_case()
+        facts={'profile':CURRENT_052_CANDIDATE_PROFILE,'qualification':'Unit current Truss 0.0.52 candidate admission',
+            'feed':owner.feed,'epoch':owner.batch().epoch,'source_transaction_sha256':owner.page.sha256}
+        with closing(sqlite3.connect(':memory:'))as db:
+            db.execute('CREATE TABLE local_plan (value TEXT)')
+            transport=SimpleNamespace(db=db)
+            actual=object.__new__(TrussGraphAdmission)
+            actual.metadata=lambda:facts
+            actual.admit=lambda change:None
+            with self.assertRaisesRegex(PermissionError,'Complete original Truss source and ACK session owner required'):
+                NativeDriver(transport,object(),context,{}, {},(),{},source_admission=actual)
+            fake=SimpleNamespace(metadata=lambda:facts,admit=lambda change:None)
+            with self.assertRaisesRegex(PermissionError,'Actual typed Truss catalog admission required'):
+                NativeDriver(transport,object(),context,{}, {},(),{},source_admission=fake,
+                    source_sessions=owner,ack_sessions=owner)
+            driver=NativeDriver(transport,object(),context,{}, {},(),{},source_admission=actual,
+                source_sessions=owner,ack_sessions=owner)
+            self.assertIs(driver.source_admission,actual)
+            self.assertIs(driver.source_sessions,owner)
+            self.assertIs(driver.ack_sessions,owner)
+
     def test_same_transaction_can_have_a_new_safe_frontier_observation(self):
         owner,request,context,events,_,_,_=self.setup_case()
         with patch.object(TrussFeedSessions,'_read',return_value=replace(owner.page,safe_watermark_xid='90')):

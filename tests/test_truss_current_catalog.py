@@ -77,6 +77,21 @@ class TrussCurrentCatalogTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'versioned current Truss'):
             current_admission_profile('0.0.46')
 
+    def test_052_qualification_names_published_wheel_without_claiming_runtime_authority(self):
+        from ashlar_host.truss_graph_admission import TrussGraphAdmission
+        admission=object.__new__(TrussGraphAdmission)
+        admission.current=True
+        admission.current_truss_version=CURRENT_TRUSS_052_CANDIDATE_VERSION
+        admission.typed=True
+        admission.batch=SimpleNamespace(profile='truss-native-feed/0.1',feed='feed',epoch='epoch',begin=b'page')
+        admission.changes=()
+        admission.revisions={}
+        admission.catalog_views={}
+        qualification=admission.metadata()['qualification']
+        self.assertIn('Published Truss 0.0.52 public wheel',qualification)
+        self.assertNotIn('does not claim a published package release',qualification)
+        self.assertIn('production authority are not established',qualification)
+
     def test_052_local_candidate_profile_requires_exact_candidate_wheel_and_manifest(self):
         self.assertEqual(CURRENT_TRUSS_052_CANDIDATE_VERSION, '0.0.52')
         self.assertEqual(CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256,

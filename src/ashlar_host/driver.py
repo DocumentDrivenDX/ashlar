@@ -487,10 +487,12 @@ class NativeDriver:
                                   TRUSS_SCALAR_GRAPH_PROFILE,TRUSS_TYPED_GRAPH_PROFILE,
                                   TRUSS_CURRENT_GRAPH_PROFILE,TRUSS_CURRENT_045_GRAPH_PROFILE,
                                   TRUSS_CURRENT_048_GRAPH_PROFILE,TRUSS_CURRENT_049_GRAPH_PROFILE,
-                                  TRUSS_CURRENT_050_GRAPH_PROFILE,TRUSS_CURRENT_051_GRAPH_PROFILE)
+                                  TRUSS_CURRENT_050_GRAPH_PROFILE,TRUSS_CURRENT_051_GRAPH_PROFILE,
+                                  TRUSS_CURRENT_052_CANDIDATE_GRAPH_PROFILE)
         if facts['profile'] in (TRUSS_TYPED_GRAPH_PROFILE,TRUSS_CURRENT_GRAPH_PROFILE,
                                 TRUSS_CURRENT_045_GRAPH_PROFILE,TRUSS_CURRENT_048_GRAPH_PROFILE,
-                                TRUSS_CURRENT_049_GRAPH_PROFILE,TRUSS_CURRENT_050_GRAPH_PROFILE,TRUSS_CURRENT_051_GRAPH_PROFILE):
+                                TRUSS_CURRENT_049_GRAPH_PROFILE,TRUSS_CURRENT_050_GRAPH_PROFILE,
+                                TRUSS_CURRENT_051_GRAPH_PROFILE,TRUSS_CURRENT_052_CANDIDATE_GRAPH_PROFILE):
             from .truss_graph_admission import TrussGraphAdmission
             if type(source_admission)is not TrussGraphAdmission:raise PermissionError('Actual typed Truss catalog admission required')
         if facts['profile']==TRUSS_EMPTY_INTERVAL_PROFILE:
@@ -2293,7 +2295,7 @@ class NativeDriver:
                 raise LocalDeltaError('Complete bounded original source plan required')
             retained_plan = None if row is None else (row[1].decode('utf-8'),)
         truss_intent = None
-        if self.admission_facts()['profile'] in (TRUSS_SCALAR_GRAPH_PROFILE,TRUSS_TYPED_GRAPH_PROFILE,TRUSS_CURRENT_GRAPH_PROFILE,TRUSS_CURRENT_045_GRAPH_PROFILE,TRUSS_CURRENT_048_GRAPH_PROFILE,TRUSS_CURRENT_049_GRAPH_PROFILE,TRUSS_CURRENT_050_GRAPH_PROFILE,TRUSS_CURRENT_051_GRAPH_PROFILE,TRUSS_EMPTY_INTERVAL_PROFILE):
+        if self.admission_facts()['profile'] in (TRUSS_SCALAR_GRAPH_PROFILE,TRUSS_TYPED_GRAPH_PROFILE,TRUSS_CURRENT_GRAPH_PROFILE,TRUSS_CURRENT_045_GRAPH_PROFILE,TRUSS_CURRENT_048_GRAPH_PROFILE,TRUSS_CURRENT_049_GRAPH_PROFILE,TRUSS_CURRENT_050_GRAPH_PROFILE,TRUSS_CURRENT_051_GRAPH_PROFILE,TRUSS_CURRENT_052_CANDIDATE_GRAPH_PROFILE,TRUSS_EMPTY_INTERVAL_PROFILE):
             truss_intent = {'profile':'ashlar-truss-publication-intent/0.1',
                 'publication_id':active['publication_id'], 'recorded_at':active['recorded_at'],
                 'previous_progress':active['previous_progress'], 'progress':active['progress'],
@@ -2401,7 +2403,7 @@ class NativeDriver:
     def prepare_truss_apply(self, request, context):
         """Retain original Truss source and effect intent before prepared phase."""
         self.require(context)
-        if self.admission_facts()['profile'] not in (TRUSS_SCALAR_GRAPH_PROFILE,TRUSS_TYPED_GRAPH_PROFILE,TRUSS_CURRENT_GRAPH_PROFILE,TRUSS_CURRENT_045_GRAPH_PROFILE,TRUSS_CURRENT_048_GRAPH_PROFILE,TRUSS_CURRENT_049_GRAPH_PROFILE,TRUSS_CURRENT_050_GRAPH_PROFILE,TRUSS_CURRENT_051_GRAPH_PROFILE,TRUSS_EMPTY_INTERVAL_PROFILE) or self.policy.active['request'] != request:
+        if self.admission_facts()['profile'] not in (TRUSS_SCALAR_GRAPH_PROFILE,TRUSS_TYPED_GRAPH_PROFILE,TRUSS_CURRENT_GRAPH_PROFILE,TRUSS_CURRENT_045_GRAPH_PROFILE,TRUSS_CURRENT_048_GRAPH_PROFILE,TRUSS_CURRENT_049_GRAPH_PROFILE,TRUSS_CURRENT_050_GRAPH_PROFILE,TRUSS_CURRENT_051_GRAPH_PROFILE,TRUSS_CURRENT_052_CANDIDATE_GRAPH_PROFILE,TRUSS_EMPTY_INTERVAL_PROFILE) or self.policy.active['request'] != request:
             raise PermissionError('Exact original Truss graph preparation required')
         self.source_admit(request)
         self._apply_source_plan(request, context, False)
@@ -2411,7 +2413,7 @@ class NativeDriver:
     def observe_prepared_truss_apply(self, request, context):
         """Require unchanged original native prior and no started effect slots."""
         self.require(context)
-        if self.admission_facts()['profile'] not in (TRUSS_SCALAR_GRAPH_PROFILE,TRUSS_TYPED_GRAPH_PROFILE,TRUSS_CURRENT_GRAPH_PROFILE,TRUSS_CURRENT_045_GRAPH_PROFILE,TRUSS_CURRENT_048_GRAPH_PROFILE,TRUSS_CURRENT_049_GRAPH_PROFILE,TRUSS_CURRENT_050_GRAPH_PROFILE,TRUSS_CURRENT_051_GRAPH_PROFILE,TRUSS_EMPTY_INTERVAL_PROFILE) or self.policy.active['request'] != request:
+        if self.admission_facts()['profile'] not in (TRUSS_SCALAR_GRAPH_PROFILE,TRUSS_TYPED_GRAPH_PROFILE,TRUSS_CURRENT_GRAPH_PROFILE,TRUSS_CURRENT_045_GRAPH_PROFILE,TRUSS_CURRENT_048_GRAPH_PROFILE,TRUSS_CURRENT_049_GRAPH_PROFILE,TRUSS_CURRENT_050_GRAPH_PROFILE,TRUSS_CURRENT_051_GRAPH_PROFILE,TRUSS_CURRENT_052_CANDIDATE_GRAPH_PROFILE,TRUSS_EMPTY_INTERVAL_PROFILE) or self.policy.active['request'] != request:
             raise PermissionError('Exact original Truss graph preparation required')
         self.source_admit(request)
         plan = json.loads(self._apply_source_plan(request, context, True))

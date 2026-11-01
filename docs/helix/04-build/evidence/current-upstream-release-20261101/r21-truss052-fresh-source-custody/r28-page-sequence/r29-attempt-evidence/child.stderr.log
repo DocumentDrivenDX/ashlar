@@ -1,0 +1,27 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/11/01 06:45:10 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/01 06:45:15 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-local-worker.py", line 1808, in <module>
+    main()
+  File "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-local-worker.py", line 1804, in main
+    run_native(scope, scope_raw, args)
+  File "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-local-worker.py", line 1359, in run_native
+    delta_result = publish_graph_pages(spark, root / "delta",
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-r21-truss052-source-custody/src/ashlar_host/truss_note_publication.py", line 272, in publish_graph_pages
+    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,maximum_page_bytes=maximum_page_bytes,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id,carrier_profile=carrier_profile,umf_sdk_version=umf_sdk_version,defer_source_acknowledgement=defer_source_acknowledgement,expected_first_page=expected_first_page,catalog_connection_factory=catalog_connection_factory,prepublication_source_custody=prepublication_source_custody)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-r21-truss052-source-custody/src/ashlar_host/truss_note_publication.py", line 452, in publish_note_pages
+    finish(primary,([transport.close]if transport is not None else [])+[lease.renew,lease.close])
+  File "/private/tmp/ashlar-r21-truss052-source-custody/src/ashlar_host/lifecycle.py", line 23, in finish
+    raise owner
+  File "/private/tmp/ashlar-r21-truss052-source-custody/src/ashlar_host/truss_note_publication.py", line 361, in publish_note_pages
+    driver=NativeDriver(transport,policy,context,tables,{},admission.changes,graph_columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions,lookup_hash_profile=lookup_hash_profile)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-r21-truss052-source-custody/src/ashlar_host/driver.py", line 507, in __init__
+    raise PermissionError('Explicit registered ordinary source session owner required')
+PermissionError: Explicit registered ordinary source session owner required

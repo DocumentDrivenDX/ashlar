@@ -1,0 +1,307 @@
+{
+  "attempt_receipts": {
+    "child.stderr.log": {
+      "bytes": 3958,
+      "sha256": "55a44adde9bcdb68abdb2b796b0f423b325d8088af7c20bc1214ffa5e7b93e35"
+    },
+    "child.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "failure.json": {
+      "bytes": 278,
+      "sha256": "5d54eb98298bdc2b5942647768d6bb28431ab93f384e4741264d70da91114967"
+    },
+    "genesis-page-selection.json": {
+      "bytes": 554,
+      "sha256": "94d29d96f37161274b7bc0389d416b01b2b08817653319367af5283026432812"
+    },
+    "resume-source-copy.json": {
+      "bytes": 549,
+      "sha256": "679e0b4f40f9af3bec88ab216ce90ff076e7a542ae317bb3284b2a7156d087ac"
+    },
+    "resume-source-reconciliation.json": {
+      "bytes": 1222,
+      "sha256": "628ec66679cf1b416514d2b7a0c55b0c1d03f71b2f3842e3b1a8de432d00d530"
+    },
+    "supervisor-receipt.json": {
+      "bytes": 1217,
+      "sha256": "34408774dd78478daf4e230720aa16909bebf9e4993a0efd394bbe75eab2f843"
+    }
+  },
+  "delta_roles": [
+    {
+      "parquet_file_count": 0,
+      "role": "attempts",
+      "table_directory": "/private/tmp/ashlar-r29-truss052-page-sequence-loopback-20261101/delta/attempts",
+      "versions": [
+        {
+          "action_names": [
+            "commitInfo",
+            "metaData",
+            "protocol"
+          ],
+          "add_file_count": 0,
+          "log_json_sha256": "b3a53372d9d0f680b5e445b460521d6ad18a90523f23b43281a4814ba6155fbf",
+          "operation": "CREATE TABLE",
+          "remove_file_count": 0,
+          "table_uuid": "e56008b7-21a9-48a9-b117-61556f1cdbb9",
+          "version": 0
+        },
+        {
+          "action_names": [
+            "commitInfo",
+            "metaData"
+          ],
+          "add_file_count": 0,
+          "log_json_sha256": "dd9afaa62670144cfcda05d4d1679f651c0bd9504eda5b804a0d4473bde0acf5",
+          "operation": "SET TBLPROPERTIES",
+          "remove_file_count": 0,
+          "table_uuid": "e56008b7-21a9-48a9-b117-61556f1cdbb9",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "parquet_file_count": 0,
+      "role": "edge_current",
+      "table_directory": "/private/tmp/ashlar-r29-truss052-page-sequence-loopback-20261101/delta/edge_current",
+      "versions": [
+        {
+          "action_names": [
+            "commitInfo",
+            "metaData",
+            "protocol",
+            "domainMetadata"
+          ],
+          "add_file_count": 0,
+          "log_json_sha256": "c7359a8ea262c5de97b0d3652ea8b07cd53d564a02f8a23551d653bb636f0da4",
+          "operation": "CREATE TABLE",
+          "remove_file_count": 0,
+          "table_uuid": "3aaf173f-f521-40cd-9bd1-6ef3327eefe8",
+          "version": 0
+        },
+        {
+          "action_names": [
+            "commitInfo",
+            "metaData"
+          ],
+          "add_file_count": 0,
+          "log_json_sha256": "77aa12c173818919d79d0457729fbc52b590bb80be496bbe14e2845c1855db0c",
+          "operation": "SET TBLPROPERTIES",
+          "remove_file_count": 0,
+          "table_uuid": "3aaf173f-f521-40cd-9bd1-6ef3327eefe8",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "parquet_file_count": 0,
+      "role": "manifest",
+      "table_directory": "/private/tmp/ashlar-r29-truss052-page-sequence-loopback-20261101/delta/manifest",
+      "versions": [
+        {
+          "action_names": [
+            "commitInfo",
+            "metaData",
+            "protocol"
+          ],
+          "add_file_count": 0,
+          "log_json_sha256": "df5811ae90bc8e6472d2ebcf009cd7a452be0adac55fc99c57d759486c26c11d",
+          "operation": "CREATE TABLE",
+          "remove_file_count": 0,
+          "table_uuid": "43d61ec5-69c1-44d2-bbf5-33a6255f3a5f",
+          "version": 0
+        },
+        {
+          "action_names": [
+            "commitInfo",
+            "metaData"
+          ],
+          "add_file_count": 0,
+          "log_json_sha256": "4d6bf42268c94442b2eb906f1731f82f83fc24d37a3ef4935604d736eefe7ddf",
+          "operation": "SET TBLPROPERTIES",
+          "remove_file_count": 0,
+          "table_uuid": "43d61ec5-69c1-44d2-bbf5-33a6255f3a5f",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "parquet_file_count": 0,
+      "role": "object_current",
+      "table_directory": "/private/tmp/ashlar-r29-truss052-page-sequence-loopback-20261101/delta/object_current",
+      "versions": [
+        {
+          "action_names": [
+            "commitInfo",
+            "metaData",
+            "protocol",
+            "domainMetadata"
+          ],
+          "add_file_count": 0,
+          "log_json_sha256": "1d5625dc5e40bdb2012de4af3640a6dd08a7c3092df6859a6724f5897160e394",
+          "operation": "CREATE TABLE",
+          "remove_file_count": 0,
+          "table_uuid": "06b85bdf-e8cb-4b9d-9d8b-acced47be37f",
+          "version": 0
+        },
+        {
+          "action_names": [
+            "commitInfo",
+            "metaData"
+          ],
+          "add_file_count": 0,
+          "log_json_sha256": "d2a90d356cf00bb395ab2774f977f535e1d10e3a2e981be6546a564ca67e1db1",
+          "operation": "SET TBLPROPERTIES",
+          "remove_file_count": 0,
+          "table_uuid": "06b85bdf-e8cb-4b9d-9d8b-acced47be37f",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "parquet_file_count": 0,
+      "role": "tombstone",
+      "table_directory": "/private/tmp/ashlar-r29-truss052-page-sequence-loopback-20261101/delta/tombstone",
+      "versions": [
+        {
+          "action_names": [
+            "commitInfo",
+            "metaData",
+            "protocol",
+            "domainMetadata"
+          ],
+          "add_file_count": 0,
+          "log_json_sha256": "7439a440173362d4219838177aba0ea0e238bfe21e24440064c5dfdb4b9b2a57",
+          "operation": "CREATE TABLE",
+          "remove_file_count": 0,
+          "table_uuid": "a1fe6dcc-5b14-4161-a223-0ce74301d601",
+          "version": 0
+        },
+        {
+          "action_names": [
+            "commitInfo",
+            "metaData"
+          ],
+          "add_file_count": 0,
+          "log_json_sha256": "494ecaada7d0d058770168686dc5d3b180d006bc7ed9e54cc4a3405ec581bb43",
+          "operation": "SET TBLPROPERTIES",
+          "remove_file_count": 0,
+          "table_uuid": "a1fe6dcc-5b14-4161-a223-0ce74301d601",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "parquet_file_count": 0,
+      "role": "whole_source_history",
+      "table_directory": "/private/tmp/ashlar-r29-truss052-page-sequence-loopback-20261101/delta/whole_source_history",
+      "versions": [
+        {
+          "action_names": [
+            "commitInfo",
+            "metaData",
+            "protocol"
+          ],
+          "add_file_count": 0,
+          "log_json_sha256": "dbbbde43d755c57e694413026357fdfa7354fc16a894d261c9ee60a6d7605f4f",
+          "operation": "CREATE TABLE",
+          "remove_file_count": 0,
+          "table_uuid": "9f4faa6a-ef8d-4878-989b-5d2852cc4e7e",
+          "version": 0
+        },
+        {
+          "action_names": [
+            "commitInfo",
+            "metaData"
+          ],
+          "add_file_count": 0,
+          "log_json_sha256": "d89d8afa854495bceeca19624ad551651821b7758bbb68a26605f8bbe948ae7d",
+          "operation": "SET TBLPROPERTIES",
+          "remove_file_count": 0,
+          "table_uuid": "9f4faa6a-ef8d-4878-989b-5d2852cc4e7e",
+          "version": 1
+        }
+      ]
+    }
+  ],
+  "method": "read-only file/Delta-log inspection plus SQLite URI mode=ro&immutable=1; no PostgreSQL, Spark, Delta writer, Truss mutation, or ACK call",
+  "observed_at_utc": "2026-11-01T11:49:23Z",
+  "outcome": {
+    "R29_delta_root_reusable": false,
+    "future_attempt_requires_fresh_delta_root": true,
+    "graph_or_page_data_files_present": false,
+    "registered_local_installation_metadata_only": true,
+    "source_ack_attempted": false,
+    "source_ack_receipt_present": false
+  },
+  "profile": "ashlar-local-truss-r29-attempt-reconciliation/0.1",
+  "source_attempt_root": "/private/tmp/ashlar-r29-truss052-page-sequence-loopback-20261101",
+  "source_readback": {
+    "acceptance_replayed": false,
+    "acknowledgement_attempted": false,
+    "consumer_enrollment_replayed": false,
+    "genesis_group_replayed": false,
+    "page_changes": 0,
+    "page_class": "prerequisite",
+    "page_payload_counts": {
+      "catalogPrerequisites": 2,
+      "changes": 0,
+      "reservations": 0,
+      "revisions": 1,
+      "sources": 0
+    },
+    "page_sha256": "942a325702683382c99bd92c69a1af6478cf04879fee0f9d8db4cd4e80f8a9a0",
+    "prior_cursor_sha256": "9afcb17ae6f64d065c0bc11f25c2f111c43b95ade0bd20a354a568001a91ad4a",
+    "public_readbacks": [
+      "status_in_transaction",
+      "report_in_transaction",
+      "accepted_document_in_transaction",
+      "read_feed_in_transaction"
+    ]
+  },
+  "sqlite_tables": {
+    "local_installation": 1,
+    "local_operation": 0,
+    "local_plan": 0,
+    "local_publication_artifact": 0,
+    "local_source_plan": 0
+  },
+  "supervisor": {
+    "attempt_root_bytes_final": 65255494,
+    "attempt_root_bytes_peak": 65255494,
+    "attempt_root_limit_bytes": 536870912,
+    "attempts": 1,
+    "automatic_retries": 0,
+    "combined_log_bytes_final": 3958,
+    "combined_log_limit_bytes": 16777216,
+    "effects_may_remain": true,
+    "failure_reason": "worker exited 1",
+    "logs": {
+      "stderr": "/private/tmp/ashlar-r29-truss052-page-sequence-loopback-20261101-supervisor/child.stderr.log",
+      "stdout": "/private/tmp/ashlar-r29-truss052-page-sequence-loopback-20261101-supervisor/child.stdout.log"
+    },
+    "native_effects": "local-only; inspect worker receipt for phase",
+    "peak_supervised_process_rss_bytes": 1272512512,
+    "postgres_cluster_cleanup": {
+      "postmaster_pid": null,
+      "process_tree": [],
+      "remaining": [],
+      "status": "absent"
+    },
+    "postgres_postmaster_pid_observed": 38758,
+    "process_group_remaining": [],
+    "profile": "ashlar-r28-truss052-supervisor/0.1",
+    "returncode": 1,
+    "rss_limit_bytes": 2147483648,
+    "scope_sha256": "b860effacb4ab24cf1ebd1c04c3ec804099365f65bbebb47975440e2c4f75496",
+    "status": "child_failed",
+    "supervisor_sha256": "b79fb3676ff6436bd85b5207fa04633c3efd7c6d60ecbc5c86bc2761a7c9c10d",
+    "wall_limit_seconds": 900,
+    "wall_seconds": 16.43,
+    "worker_deadline_seconds": 855,
+    "worker_sha256": "b91640e28362b06eb8bfb20157ccf1ff7aa0c99337b2e784b3050dbcc9846ab5"
+  },
+  "supervisor_root": "/private/tmp/ashlar-r29-truss052-page-sequence-loopback-20261101-supervisor"
+}

@@ -47,3 +47,22 @@ class Tests(unittest.TestCase):
             driver.transport.original_history=lambda target:[{'version':3}]
             with self.assertRaisesRegex(LocalDeltaError,'native prior changed'):
                 driver.observe_prepared_truss_apply(request,context)
+
+    def test_current_052_candidate_is_admitted_by_prepared_apply_and_observation(self):
+        from ashlar_host.truss_graph_admission import CURRENT_052_CANDIDATE_PROFILE
+        context=object();request={'request_digest':'d'};calls=[]
+        driver=object.__new__(NativeDriver)
+        driver.require=lambda supplied:None
+        driver.admission_facts=lambda:{'profile':CURRENT_052_CANDIDATE_PROFILE}
+        driver.policy=SimpleNamespace(active={'request':request,'steps':[],
+            'previous_expected':{'object_current':[]}})
+        driver.tables={'object_current':'objects'}
+        driver.source_admit=lambda selected:calls.append('source')
+        plan={'observed_native_prior':{'objects':{'uuid':'u','version':2}}}
+        driver._apply_source_plan=lambda *args:json.dumps(plan)
+        driver.transport=SimpleNamespace(targets={'objects':SimpleNamespace(uuid='u')},
+            _detail=lambda target:None,original_history=lambda target:[{'version':2}])
+        with patch.object(LocalDeltaEffects,'prepare'), \
+             patch.object(LocalDeltaEffects,'observe',return_value={'states':['no-operation-record']}):
+            driver.prepare_truss_apply(request,context)
+        self.assertEqual(calls,['source','source','source'])
