@@ -316,7 +316,24 @@ def _local_native_rows(spark, path, version):
         kind = item.dataType.simpleString()
         _need(type(name) is str and name and name not in {entry[0] for entry in schema},
               "Unique native Delta field names required")
-        schema.append((name, kind))
+        if kind == "timestamp":
+            # PySpark materializes Spark TIMESTAMP as a naive Python datetime.
+            # Its conversion follows the host timezone, so attaching UTC after
+            # collect can shift the instant. Convert in Spark before crossing
+            # that boundary; unix_micros is independent of Python's local TZ.
+            schema.append((name, "bigint"))
+        else:
+            schema.append((name, kind))
+    if any(item.dataType.simpleString() == "timestamp" for item in fields):
+        from pyspark.sql import functions as F
+        projection = []
+        for item in fields:
+            name = item.name
+            if item.dataType.simpleString() == "timestamp":
+                projection.append(F.unix_micros(F.col(name)).alias(name))
+            else:
+                projection.append(F.col(name))
+        frame = frame.select(*projection)
     rows = frame.limit(_MAX_NATIVE_ROWS + 1).collect()
     _need(type(rows) is list and len(rows) <= _MAX_NATIVE_ROWS,
           "Bounded complete local native row bag required")
