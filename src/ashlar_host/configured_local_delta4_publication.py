@@ -602,6 +602,10 @@ class ConfiguredLocalDelta4WriterAuthority:
         self._delta4_attempt_admission = None
         self._delta4_prepared_phase_reservation = None
         self._delta4_prepared_phase_witness = False
+        self._delta4_manifest_row = None
+        self._delta4_manifest_preparing = False
+        self._delta4_manifest_committed = False
+        self._delta4_manifest_installation_observation = None
         self._delta4_applying_phase_witness = False
         self._witness = (plan, effect_plan, transport, installation_profile, fresh,
                          source, current_admission, context, policy)
@@ -863,7 +867,8 @@ class ConfiguredLocalDelta4WriterAuthority:
                  "Exact unique durable `.4` source-scope replay required")
         self.source_scope_sha256 = _sha(original.encode("utf-8"))
 
-    def _observe_effect_prefix(self, *, allow_prepared=False, submitted_index=None):
+    def _observe_effect_prefix(self, *, allow_prepared=False, submitted_index=None,
+                               manifest_row=None):
         """Read-only exact journal/native reconciliation; never grants dispatch."""
         from .delta_custody import (LocalDeltaEffects, original_operation_intent,
                                     sha as custody_sha)
@@ -912,20 +917,44 @@ class ConfiguredLocalDelta4WriterAuthority:
         _require(plan_rows == [(operation, original, plan_digest)],
                  "Exact durable original `.4` effect plan required")
 
+        manifest_key = manifest_intent = manifest_sql = manifest_parameters = None
+        if manifest_row is not None:
+            from ashlar.manifest import DeltaManifestStore, validate_manifest_row
+            from .delta_custody import child_operation
+            validate_manifest_row(manifest_row)
+            _require(manifest_row["publication_id"] == self.plan.publication_id
+                     and manifest_row["profile_version"] == CARRIER_PROFILE,
+                     "Exact original `.4` manifest row required")
+            manifest_target = _delta4_target(
+                self.transport, "publication_manifest", self.installation_profile)
+            manifest_sql, manifest_parameters = DeltaManifestStore(
+                None, None, manifest_target.table, manifest_target.uuid).statement(manifest_row)
+            manifest_operation = "manifest:" + self.plan.request["request_digest"]
+            manifest_key = child_operation(manifest_operation, manifest_sql,
+                                           manifest_parameters)
+            manifest_intent = original_operation_intent(
+                self.transport.installation_id, manifest_key,
+                self.plan.request["request_digest"], manifest_sql,
+                manifest_parameters, manifest_target,
+                self.transport.operation_capacity)
         operation_count = self.transport.db.execute("SELECT count(*) FROM local_operation").fetchone()[0]
-        _require(type(operation_count) is int and operation_count <= len(operation_ids),
+        _require(type(operation_count) is int
+                 and operation_count <= len(operation_ids) + int(manifest_key is not None),
                  "Bounded exact `.4` operation row inventory required")
         small_rows = self.transport.db.execute(
             "SELECT operation,length(CAST(intent AS BLOB)),length(CAST(receipt AS BLOB)),"
             "intent_sha,before_version,state FROM local_operation ORDER BY operation").fetchall()
         _require(len(small_rows) == operation_count
-                 and all(row[0] in operation_ids
+                 and all(row[0] in set(operation_ids) | ({manifest_key} if manifest_key else set())
                          and type(row[1]) is int and 0 < row[1] <= 4 * 1024 * 1024
                          and (row[2] is None or (type(row[2]) is int
                              and 0 <= row[2] <= 4 * 1024 * 1024))
                          for row in small_rows),
                  "Exact bounded original `.4` operation intent/receipt inventory required")
         small_by_operation = {row[0]: row for row in small_rows}
+        manifest_small = small_by_operation.get(manifest_key)
+        _require(manifest_small is None or manifest_intent is not None,
+                 "Unowned manifest operation refuses `.4` reconciliation")
         operation_rows = []
         for key in operation_ids:
             small = small_by_operation.get(key)
@@ -962,8 +991,70 @@ class ConfiguredLocalDelta4WriterAuthority:
                                     - int(submitted_tail)),
                  "Only an exact committed prefix and one explicitly admitted tail are allowed")
         _require(self.transport.db.execute("SELECT count(*) FROM local_operation").fetchone()
-                 == (prefix + int(prepared_tail) + int(submitted_tail),),
+                 == (prefix + int(prepared_tail) + int(submitted_tail)
+                     + int(manifest_small is not None),),
                  "Extra original local operation journal rows refuse reconciliation")
+
+        manifest_state = "missing"
+        manifest_version = self.fresh.heads["publication_manifest"]["version"]
+        if manifest_small is not None:
+            row = self.transport.db.execute(
+                "SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?",
+                (manifest_key,)).fetchone()
+            manifest_state = row[3]
+            manifest_target = _delta4_target(
+                self.transport, "publication_manifest", self.installation_profile)
+            _require(row[0] == manifest_intent
+                     and row[1] == custody_sha(manifest_intent)
+                     and row[2] == self.fresh.heads["publication_manifest"]["version"]
+                     and manifest_state in ("prepared", "submitted", "committed")
+                     and ((manifest_state in ("prepared", "submitted") and row[4] is None)
+                          or (manifest_state == "committed" and type(row[4]) is str)),
+                     "Exact durable original `.4` manifest intent required")
+            manifest_metadata = _canonical({
+                "profile": "ashlar-local-delta-commit/0.1",
+                "installation_id": self.transport.installation_id,
+                "operation": manifest_key,
+                "operation_sha256": custody_sha(manifest_intent),
+                "request_digest": self.plan.request["request_digest"],
+            })
+            named_manifest = [record for record in
+                self.transport.original_history(manifest_target)
+                if record.get("userMetadata") == manifest_metadata]
+            _require(len(named_manifest) <= 1,
+                     "Unique exact native `.4` manifest commit required")
+            if manifest_state == "committed":
+                _require(len(named_manifest) == 1
+                         and named_manifest[0].get("version") == row[2] + 1,
+                         "Committed `.4` manifest must have its exact named native commit")
+                manifest_version = row[2] + 1
+                snapshot = self.transport._snapshot(manifest_target, manifest_version)
+                proof = {
+                    "profile": "ashlar-local-delta-receipt/0.1",
+                    "operation": manifest_key,
+                    "operation_sha256": custody_sha(manifest_intent),
+                    "request_digest": self.plan.request["request_digest"],
+                    "table": manifest_target.table, "uuid": manifest_target.uuid,
+                    "before_version": row[2], "version": manifest_version,
+                    "commit_metadata": manifest_metadata,
+                    "native_operation": named_manifest[0]["operation"],
+                    "snapshot": snapshot,
+                }
+                _require(local_receipt_equals(row[4], _canonical(proof)),
+                         "Exact retained `.4` manifest native receipt required")
+            elif manifest_state == "submitted":
+                if named_manifest:
+                    _require(named_manifest[0].get("version") == row[2] + 1,
+                             "Submitted `.4` manifest commit must be its exact next version")
+                    manifest_version = row[2] + 1
+                _require(not named_manifest or len(named_manifest) == 1,
+                         "Submitted `.4` manifest commit is ambiguous")
+            else:
+                _require(not named_manifest,
+                         "Prepared `.4` manifest has no native commit")
+            actual_manifest_version = self.transport.original_history(manifest_target)[0]["version"]
+            _require(actual_manifest_version == manifest_version,
+                     "Native manifest head differs from exact retained intent state")
 
         expected_native_metadata = []
         for index, (key, step, target, row) in enumerate(
@@ -1004,6 +1095,8 @@ class ConfiguredLocalDelta4WriterAuthority:
             expected_native_prefix = prefix + int(submitted_tail)
             expected_version = baseline[role]["version"] + int(
                 role in step_roles[:expected_native_prefix])
+            if role == "publication_manifest":
+                expected_version = manifest_version
             _require(version == expected_version,
                      "Native `.4` role head includes a changed baseline or extra commit")
             history = self.transport.original_history(target)
@@ -1078,6 +1171,11 @@ class ConfiguredLocalDelta4WriterAuthority:
                 rows_for_role = [item["phase_row"] for item in reservations[:count]]
                 columns = tuple((name, kind) for name, kind, _nullable
                                 in carriers.ordered_fields(role))
+            elif role == "publication_manifest" and manifest_row is not None:
+                rows_for_role = ([dict(manifest_row)] if manifest_version >
+                                 self.fresh.heads[role]["version"] else [])
+                columns = tuple((name, kind) for name, kind, _nullable
+                                in carriers.ordered_fields(role))
             else:
                 rows_for_role = []
                 columns = tuple((name, kind) for name, kind, _nullable
@@ -1090,9 +1188,46 @@ class ConfiguredLocalDelta4WriterAuthority:
                 "effect_plan_sha256": plan_digest,
                 "operation_ids": operation_ids, "states": states,
                 "committed_prefix": prefix, "heads": observed_heads,
+                "manifest_state": manifest_state,
                 "lookup_hashes": [{"role": key[0], "source_system": key[1],
                                     "type_id": key[2], "id": key[3], "lookup_hash": value}
                                    for key, value in sorted(lookup_hashes.items())]}
+
+    def _build_delta4_manifest_row(self, manifest_row=None):
+        return build_delta4_manifest_row(self, manifest_row=manifest_row)
+
+    def _validate_delta4_manifest_row(self, row):
+        _require(type(row) is dict and _canonical(row) ==
+                 _canonical(self._build_delta4_manifest_row(manifest_row=row)),
+                 "Exact source-held `.4` manifest intent required")
+
+    def _admit_delta4_manifest_operation(self, intent, row):
+        from .delta_custody import original_operation_intent, child_operation
+        from ashlar.manifest import DeltaManifestStore
+        self._require_current(held=True)
+        self._check_writer_lock()
+        self._validate_delta4_manifest_row(row)
+        target = _delta4_target(self.transport, "publication_manifest",
+                                self.installation_profile)
+        sql, parameters = DeltaManifestStore(None, None, target.table,
+                                             target.uuid).statement(row)
+        operation = child_operation("manifest:" + self.plan.request["request_digest"],
+                                    sql, parameters)
+        expected = original_operation_intent(
+            self.transport.installation_id, operation,
+            self.plan.request["request_digest"], sql, parameters, target,
+            self.transport.operation_capacity)
+        _require(type(intent) is dict and _canonical(intent) == expected,
+                 "Exact original `.4` manifest mutation intent required")
+        retained = self.transport.db.execute(
+            "SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?",
+            (operation,)).fetchone()
+        if retained is None:
+            _require(self._delta4_manifest_preparing,
+                     "Durable prepared `.4` manifest intent required before commit")
+            return
+        _require(retained[0] == expected and retained[1] == _sha(expected.encode("utf-8")),
+                 "Retained `.4` manifest operation differs from the original row")
 
     def reconcile_effect_prefix(self):
         """Hold the original writer lock and read-only verify a committed prefix.
@@ -1105,7 +1240,8 @@ class ConfiguredLocalDelta4WriterAuthority:
         _require(not self.held and self._fd is None and not self._active
                  and self.policy.active is None
                  and self.policy._delta4_prepare_owner is None
-                 and self.policy._delta4_execution_owner is None,
+                 and self.policy._delta4_execution_owner is None
+                 and self.policy._delta4_manifest_owner is None,
                  "Inactive original `.4` owner required for read-only prefix reconciliation")
         self._require_current()
         parent = self.transport.journal_path.parent.lstat()
@@ -1942,7 +2078,8 @@ class ConfiguredLocalDelta4WriterAuthority:
         _require(not self.held and self._fd is None
                  and self.policy._delta4_prepare_owner is None
                  and self.policy._delta4_execution_owner is None
-                 and self.policy._delta4_metadata_owner is None,
+                 and self.policy._delta4_metadata_owner is None
+                 and self.policy._delta4_manifest_owner is None,
                  "Reentrant or concurrent `.4` writer authority refused")
         self._require_current()
         from .configured_local_runtime import ConfiguredLocalAdmission
@@ -1998,7 +2135,11 @@ class ConfiguredLocalDelta4WriterAuthority:
             self._fd = None
         closing = []
         if locked and self._active:
-            closing = [self._check_writer_lock, self._check_fresh_heads,
+            closing = [self._check_writer_lock,
+                       (lambda: self._validate_delta4_manifest_row(
+                           self._delta4_manifest_row)
+                        if self._delta4_manifest_row is not None
+                        else self._check_fresh_heads()),
                        lambda: self.current_admission.closing(self.source, None,
                                                               self.context),
                        self._retain_source_scope]
@@ -2193,6 +2334,323 @@ def retain_delta4_output_completion_receipt(authority):
     return {"profile": "ashlar-configured-local-delta4-output-receipt-ref/0.1",
             "request_digest": digest, "receipt_sha256": receipt_sha256,
             "original": original}
+
+
+def build_delta4_manifest_row(authority, *, manifest_row=None):
+    """Build the exact `.4` manifest only under the live original source owner.
+
+    The local output receipt is checked as retained transaction correspondence;
+    all source, role-head and full-bag facts are independently re-read by the
+    held coordinator. A receipt never supplies authority or a protected ACK.
+    """
+    from ashlar.manifest import validate_manifest_row
+    _require(type(authority) is ConfiguredLocalDelta4WriterAuthority
+             and authority.held and authority._active and authority._fd is not None,
+             "Held original `.4` publication owner required")
+    authority._require_current(held=True)
+    authority._check_writer_lock()
+    request = authority.plan.request
+    authority.current_admission(authority.source, request, None, authority.context)
+    authority._retain_source_scope()
+    observation = authority._observe_effect_prefix(manifest_row=manifest_row)
+    _require(observation["committed_prefix"] == 3
+             and observation["states"] == ["committed"] * 3
+             and observation["manifest_state"] in
+                 ("missing", "prepared", "submitted", "committed"),
+             "Exact completed `.4` transaction-one and manifest prefix required")
+    _require(authority._delta4_completion_witness is True
+             and authority._delta4_inflight_index is None
+             and authority._delta4_inflight_state is None
+             and authority.policy.active is None
+             and authority.policy._delta4_execution_owner is None,
+             "Successful current-hold `.4` transaction-one witness required")
+
+    rows = _delta4_output_receipt_rows(authority.transport.db)
+    _require(len(rows) == 1, "Original durable `.4` output receipt required")
+    digest, original, receipt_sha = rows[0]
+    receipt_envelope = decode_retained_json(original.encode("utf-8"))
+    _require(type(receipt_envelope) is dict
+             and set(receipt_envelope) == {"profile", "receipt", "receipt_sha256"}
+             and _canonical(receipt_envelope) == original
+             and receipt_envelope["profile"] == OUTPUT_RECEIPT_PROFILE
+             and receipt_envelope["receipt_sha256"] == receipt_sha
+             and digest == request["request_digest"],
+             "Exact retained `.4` output receipt envelope required")
+    receipt_body = receipt_envelope["receipt"]
+    receipt_body_json = _canonical(receipt_body)
+    _require(_sha(receipt_body_json.encode("utf-8")) == receipt_sha
+             and type(receipt_body) is dict
+             and receipt_body.get("profile") == OUTPUT_RECEIPT_PROFILE,
+             "Exact retained `.4` output receipt digest required")
+    expected_request = {"json": authority.plan.request_json,
+                        "sha256": _sha(authority.plan.request_json.encode("utf-8")),
+                        "request_digest": request["request_digest"]}
+    _require(receipt_body.get("request") == expected_request
+             and receipt_body.get("publication_id") == authority.plan.publication_id
+             and receipt_body.get("source_scope_sha256") == authority.source_scope_sha256
+             and receipt_body.get("source_oracle_sha256") == authority.plan.source_oracle_sha256
+             and receipt_body.get("installation_id") == authority.transport.installation_id
+             and receipt_body.get("installation_profile_sha256") ==
+                 authority.effect_plan.installation_profile_sha256
+             and receipt_body.get("effect_intent_digest") == authority.effect_plan.intent_digest
+             and receipt_body.get("effect_plan_sha256") == observation["effect_plan_sha256"],
+             "Retained `.4` output receipt must bind the original live source/effect owner")
+
+    from .delta_custody import LocalDeltaEffects
+    from .local_receipt_codec import original_receipt_chunks
+    effect_original, effect_digest, operation_ids = LocalDeltaEffects(
+        authority.transport).original_plan(
+            "effects:" + authority.effect_plan.intent_digest,
+            authority.effect_plan.intent_digest, authority.effect_plan.steps)
+    expected_receipts = []
+    for operation_id in operation_ids:
+        op = authority.transport.db.execute(
+            "SELECT state,receipt FROM local_operation WHERE operation=?",
+            (operation_id,)).fetchone()
+        _require(op is not None and op[0] == "committed" and type(op[1]) is str,
+                 "Original committed `.4` graph effect receipt required")
+        receipt_json = b"".join(original_receipt_chunks(op[1])).decode("utf-8")
+        receipt_value = decode_retained_json(receipt_json.encode("utf-8"))
+        _require(type(receipt_value) is dict and _canonical(receipt_value) == receipt_json,
+                 "Canonical original `.4` graph receipt required")
+        expected_receipts.append({
+            "operation_id": operation_id,
+            "receipt_json": receipt_json,
+            "receipt_sha256": _sha(receipt_json.encode("utf-8")),
+        })
+    _require(receipt_body.get("effect_plan_json") == effect_original
+             and receipt_body.get("effect_plan_sha256") == effect_digest
+             and receipt_body.get("operation_receipts") == expected_receipts,
+             "Retained `.4` output receipt graph operations differ from original journal custody")
+
+    # Compare the durable output vector and six-role identity inventory with
+    # this independent current native observation, allowing only the expected
+    # publication-manifest version transition for a submitted/committed row.
+    observed_versions = {"local.configured." + role:
+                         observation["heads"][role]["version"] for role in DATA_ROLES}
+    receipt_versions = decode_retained_json(
+        receipt_body["table_versions_json"].encode("utf-8"))
+    _require(receipt_versions == observed_versions,
+             "Retained `.4` receipt four-role vector differs from fresh native heads")
+    old_snapshot = decode_retained_json(
+        receipt_body["snapshot_observation_json"].encode("utf-8"))
+    snapshot_checks = {
+        "profile": type(old_snapshot) is dict and old_snapshot.get("profile") == observation["profile"],
+        "source-scope": type(old_snapshot) is dict and old_snapshot.get("source_scope_sha256") == authority.source_scope_sha256,
+        "effect": type(old_snapshot) is dict and old_snapshot.get("effect_plan_sha256") == observation["effect_plan_sha256"],
+        "operations": type(old_snapshot) is dict and old_snapshot.get("operation_ids") == observation["operation_ids"],
+        "states": type(old_snapshot) is dict and old_snapshot.get("states") == observation["states"],
+        "prefix": type(old_snapshot) is dict and old_snapshot.get("committed_prefix") == 3,
+        "hashes": type(old_snapshot) is dict and old_snapshot.get("lookup_hashes") == observation["lookup_hashes"],
+    }
+    _require(all(snapshot_checks.values()),
+             "Retained `.4` output receipt differs from independent source rows: "
+             + repr([key for key, ok in snapshot_checks.items() if not ok]))
+    old_heads = old_snapshot.get("heads")
+    _require(type(old_heads) is dict and set(old_heads) == set(INSTALLATION_ROLES)
+             and all(old_heads[role] == observation["heads"][role]
+                     for role in INSTALLATION_ROLES if role != "publication_manifest")
+             and old_heads["publication_manifest"] == authority.fresh.heads[
+                 "publication_manifest"],
+             "Only the manifest head may advance after transaction-one custody")
+    inventory = {}
+    for role in INSTALLATION_ROLES:
+        target, version, protocol, fields = _observe_delta4_role(
+            authority.transport, role, authority.installation_profile)
+        _require(observation["heads"][role] ==
+                 {"uuid": target.uuid, "version": version},
+                 "Fresh `.4` role identity/version differs from coordinator observation")
+        profile_role = _delta4_profile_role(authority.installation_profile, role)
+        inventory[role] = {
+            "name": target.table, "uuid": target.uuid,
+            "version": version,
+            "schemaSha256": _sha(_canonical(fields).encode("utf-8")),
+            "protocolSha256": _sha(_canonical(protocol).encode("utf-8")),
+        }
+    old_inventory = decode_retained_json(
+        receipt_body["installation_inventory_json"].encode("utf-8"))
+    receipt_inventory = {role: dict(item) for role, item in inventory.items()}
+    receipt_inventory["publication_manifest"]["version"] = authority.fresh.heads[
+        "publication_manifest"]["version"]
+    _require(old_inventory == receipt_inventory,
+             "Retained `.4` output receipt six-role inventory differs from fresh native identity")
+
+    checkpoint = decode_retained_json(request["source_checkpoint_json"].encode("utf-8"))
+    source_progress = {authority.source.configuration.feed: checkpoint}
+    schema_revisions_json = request["schema_revisions_json"]
+    revisions = decode_retained_json(schema_revisions_json.encode("utf-8"))
+    _require(type(revisions) is dict and revisions
+             and type(source_progress) is dict
+             and all(type(key) is str and key and type(value) is dict
+                     for key, value in source_progress.items()),
+             "Exact original `.4` source progress and schema revisions required")
+    source_metadata = authority.source.metadata(authority.context)
+    _require(type(source_metadata) is dict
+             and source_metadata.get("configuration_sha256") == authority.plan.configuration_sha256
+             and source_metadata.get("source_sha256") == authority.plan.source_sha256
+             and source_metadata.get("model_sha256") == authority.plan.model_sha256,
+             "Current source custody differs from the exact planned `.4` source")
+    report = {
+        "complete": True,
+        "profile": "ashlar-configured-local-delta4-validation-report/0.1",
+        "request_digest": request["request_digest"],
+        "predecessor": request["predecessor"],
+        "source_admission": source_metadata,
+        "source_oracle_sha256": authority.plan.source_oracle_sha256,
+        "effect_plan_sha256": observation["effect_plan_sha256"],
+        "output_receipt_sha256": receipt_sha,
+        "snapshot_observation_json": receipt_body["snapshot_observation_json"],
+        "protected_ack": False,
+        "ack_state": "not-submitted",
+    }
+    row = {
+        "publication_id": authority.plan.publication_id,
+        "profile_version": CARRIER_PROFILE,
+        "table_versions_json": _canonical(observed_versions),
+        "source_progress_json": _canonical(source_progress),
+        "schema_revisions_json": schema_revisions_json,
+        "validation_report_json": _canonical(report),
+        "recorded_at": authority.plan.materialized_at_us,
+    }
+    validate_manifest_row(row)
+    authority._delta4_manifest_installation_observation = {
+        role: {"name": item["name"], "uuid": item["uuid"],
+               "version": item["version"],
+               "schema_sha256": item["schemaSha256"],
+               "protocol_sha256": item["protocolSha256"]}
+        for role, item in inventory.items()
+    }
+    return row
+
+
+class _ConfiguredLocalDelta4ManifestPolicy:
+    def __init__(self, authority):
+        self.authority = authority
+
+    @contextmanager
+    def writer(self, table, native_uuid, context):
+        owner = self.authority
+        owner._require_current(held=True)
+        target = _delta4_target(owner.transport, "publication_manifest",
+                                owner.installation_profile)
+        _require(context is owner.context and table == target.table
+                 and native_uuid == target.uuid,
+                 "Exact held `.4` manifest target/context required")
+        yield
+
+    def admit(self, row, context):
+        owner = self.authority
+        _require(context is owner.context,
+                 "Original held `.4` manifest context required")
+        owner._validate_delta4_manifest_row(row)
+
+
+class ConfiguredLocalDelta4ManifestPort:
+    """One source-held durable `.4` manifest intent with exact recovery only."""
+    def __init__(self, authority, row):
+        from .delta_custody import LocalOperationExecutor
+        from ashlar.manifest import DeltaManifestStore
+        _require(type(authority) is ConfiguredLocalDelta4WriterAuthority
+                 and type(row) is dict,
+                 "Original `.4` manifest owner and row required")
+        authority._validate_delta4_manifest_row(row)
+        self.authority = authority
+        self.row = dict(row)
+        request_digest = authority.plan.request["request_digest"]
+        self.operation = "manifest:" + request_digest
+        self.executor = LocalOperationExecutor(
+            authority.transport, self.operation, request_digest, authority.context)
+        target = _delta4_target(authority.transport, "publication_manifest",
+                                authority.installation_profile)
+        self.store = DeltaManifestStore(self.executor,
+            _ConfiguredLocalDelta4ManifestPolicy(authority), target.table, target.uuid)
+
+    def prepare(self, *, context):
+        owner = self.authority
+        _require(context is owner.context,
+                 "Original held `.4` manifest context required")
+        owner.policy._activate_delta4_manifest(owner, self.row, context)
+        owner._delta4_manifest_row = dict(self.row)
+        owner._delta4_manifest_preparing = True
+        primary = None
+        try:
+            self.store.prepare(self.row, context=context)
+        except BaseException as error:
+            primary = error
+        finally:
+            owner._delta4_manifest_preparing = False
+            owner.policy._deactivate_delta4_manifest(owner)
+        if primary is not None:
+            raise primary
+
+    def commit(self, *, context):
+        owner = self.authority
+        _require(context is owner.context,
+                 "Original held `.4` manifest context required")
+        owner.policy._activate_delta4_manifest(owner, self.row, context)
+        primary = None
+        result = None
+        try:
+            result = self.store.commit(self.row, context=context)
+        except BaseException as error:
+            primary = error
+        finally:
+            owner.policy._deactivate_delta4_manifest(owner)
+        if primary is not None:
+            raise primary
+        owner._delta4_manifest_committed = True
+        return result
+
+    def recover(self, *, context):
+        """Resolve the retained mutation only; never submit a replacement."""
+        from .driver import RecoveryExecutor
+        from ashlar.manifest import DeltaManifestStore
+        owner = self.authority
+        _require(context is owner.context,
+                 "Original held `.4` manifest context required")
+        prefix = self.operation + ":%"
+        rows = owner.transport.db.execute(
+            "SELECT operation,intent,intent_sha,before_version,state,receipt "
+            "FROM local_operation WHERE operation LIKE ? LIMIT 2", (prefix,)).fetchall()
+        _require(len(rows) == 1,
+                 "Exact original `.4` manifest submission required for recovery")
+        owner._validate_delta4_manifest_row(self.row)
+        owner.policy._activate_delta4_manifest(owner, self.row, context)
+        target = _delta4_target(owner.transport, "publication_manifest",
+                                owner.installation_profile)
+        recovery = DeltaManifestStore(RecoveryExecutor(self.executor),
+            self.store.policy, target.table, target.uuid)
+        primary = None
+        result = None
+        try:
+            result = recovery.commit(self.row, context=context)
+        except BaseException as error:
+            primary = error
+        finally:
+            owner.policy._deactivate_delta4_manifest(owner)
+        if primary is not None:
+            raise primary
+        owner._delta4_manifest_committed = True
+        return result
+
+
+def finalize_configured_local_delta4_manifest(authority):
+    """Prepare and commit one independently revalidated `.4` manifest row.
+
+    This does not submit any source ACK. The caller must remain inside the
+    original held source/writer scope through the returned native readback.
+    """
+    _require(type(authority) is ConfiguredLocalDelta4WriterAuthority
+             and authority.held and authority._active,
+             "Original held `.4` source authority required")
+    row = authority._build_delta4_manifest_row()
+    port = ConfiguredLocalDelta4ManifestPort(authority, row)
+    port.prepare(context=authority.context)
+    result = port.commit(context=authority.context)
+    authority._validate_delta4_manifest_row(row)
+    return {"row": result,
+            "realized_vector": build_delta4_realized_vector(
+                row, authority._delta4_manifest_installation_observation)}
 
 
 def build_delta4_transaction1_effect_plan(plan: ConfiguredLocalDelta4BatchPlan, *, tables: dict,

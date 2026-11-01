@@ -46,6 +46,144 @@ class Tests(unittest.TestCase):
             self.assertIsNone(policy._delta4_manifest_owner)
             self.assertIsNone(policy._delta4_manifest_row)
 
+    def test_source_held_manifest_row_uses_revalidated_four_role_vector_and_no_ack(self):
+        from ashlar_host.configured_local_delta4_publication import (
+            build_delta4_manifest_row, retain_delta4_output_completion_receipt,
+        )
+        from ashlar.manifest import validate_manifest_row
+        with tempfile.TemporaryDirectory() as directory:
+            fake, transport, effect, _source, _admission, authority = self.build(Path(directory))
+            self._active_fake, self._active_effect = fake, effect
+            def run_stub(effects, operation, intent_digest, steps, *, context):
+                return self._simulate_delta4_effects(
+                    effects, operation, intent_digest, steps, context=context)
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with patch.object(LocalDeltaEffects, "run", run_stub):
+                    with authority.hold() as held:
+                        held.prepare_and_execute_effect_plan()
+                        receipt = retain_delta4_output_completion_receipt(held)
+                        retained_body = json.loads(receipt["original"])["receipt"]
+                        retained_snapshot = json.loads(retained_body["snapshot_observation_json"])
+                        current_snapshot = held._observe_effect_prefix()
+                        self.assertEqual(retained_snapshot, current_snapshot)
+                        row = build_delta4_manifest_row(held)
+                        validate_manifest_row(row)
+                        self.assertEqual(row["publication_id"], self.plan.publication_id)
+                        self.assertEqual(row["profile_version"], "ashlar-delta/0.4-xxhash64")
+                        versions = json.loads(row["table_versions_json"])
+                        self.assertEqual(set(versions), {
+                            "local.configured.object_current", "local.configured.edge_current",
+                            "local.configured.tombstone", "local.configured.whole_source_history"})
+                        progress = json.loads(row["source_progress_json"])
+                        self.assertEqual(progress[held.source.configuration.feed],
+                                         json.loads(self.plan.request["source_checkpoint_json"]))
+                        report = json.loads(row["validation_report_json"])
+                        self.assertTrue(report["complete"])
+                        self.assertFalse(report["protected_ack"])
+                        self.assertEqual(report["ack_state"], "not-submitted")
+                        self.assertEqual(report["output_receipt_sha256"], receipt["receipt_sha256"])
+
+    def test_manifest_finalizer_retains_intent_commits_and_reconciles_native_vector(self):
+        from ashlar.native import SQLResult
+        from ashlar_host.configured_local_delta4_publication import (
+            finalize_configured_local_delta4_manifest,
+        )
+        from ashlar_host.delta_custody import child_operation, original_operation_intent
+        from ashlar_host.local_receipt_codec import encode_local_receipt
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve(); root.chmod(0o700)
+            fake, transport, effect, _source, _admission, authority = self.build(root)
+            self._active_fake, self._active_effect = fake, effect
+
+            def run_stub(effects, operation, intent_digest, steps, *, context):
+                return self._simulate_delta4_effects(
+                    effects, operation, intent_digest, steps, context=context)
+
+            def prepare_stub(operation, sql, parameters, *, intent_digest, context):
+                target = transport._target(sql)
+                key = operation
+                raw = original_operation_intent(transport.installation_id, key,
+                    intent_digest, sql, parameters, target, transport.operation_capacity)
+                intent = json.loads(raw)
+                transport.policy.admit(intent, context)
+                prior = transport.db.execute(
+                    "SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?",
+                    (key,)).fetchone()
+                if prior is None:
+                    transport.db.execute("INSERT INTO local_operation VALUES(?,?,?,?,?,NULL)",
+                        (key, raw, custody_sha(raw), fake.versions["publication_manifest"], "prepared"))
+                    transport.db.commit()
+                else:
+                    self.assertEqual(prior, (raw, custody_sha(raw),
+                        fake.versions["publication_manifest"], "prepared", None))
+                transport.policy.admit(intent, context)
+
+            def mutation_stub(operation, sql, parameters, *, intent_digest, context):
+                target = transport._target(sql)
+                key = operation
+                raw = original_operation_intent(transport.installation_id, key,
+                    intent_digest, sql, parameters, target, transport.operation_capacity)
+                intent = json.loads(raw)
+                transport.policy.admit(intent, context)
+                row = json.loads(parameters["row"])
+                before = fake.versions["publication_manifest"]
+                fake.manifest_rows = [row]
+                fake.versions["publication_manifest"] = before + 1
+                fake.histories["publication_manifest"] = [before + 1, before, 0]
+                operation_sha = custody_sha(raw)
+                metadata = json.dumps({
+                    "profile": "ashlar-local-delta-commit/0.1",
+                    "installation_id": transport.installation_id,
+                    "operation": key,
+                    "operation_sha256": operation_sha,
+                    "request_digest": intent_digest,
+                }, sort_keys=True, separators=(",", ":"), ensure_ascii=False,
+                   allow_nan=False)
+                fake.native_metadata["publication_manifest"][before + 1] = metadata
+                fake.native_operations["publication_manifest"][before + 1] = "MERGE INTO publication_manifest"
+                transport.db.execute(
+                    "UPDATE local_operation SET state='submitted' WHERE operation=?", (key,))
+                transport.db.commit()
+                transport.policy.admit(intent, context)
+                proof = {
+                    "profile": "ashlar-local-delta-receipt/0.1",
+                    "operation": key, "operation_sha256": operation_sha,
+                    "request_digest": intent_digest, "table": target.table,
+                    "uuid": target.uuid, "before_version": before,
+                    "version": before + 1, "commit_metadata": metadata,
+                    "native_operation": fake.native_operations["publication_manifest"][before + 1],
+                    "snapshot": fake.snapshot(target, before + 1),
+                }
+                transport.db.execute(
+                    "UPDATE local_operation SET state='committed',receipt=? WHERE operation=?",
+                    (encode_local_receipt(json.dumps(proof, sort_keys=True, separators=(",", ":"))), key))
+                transport.db.commit()
+                transport.policy.admit(intent, context)
+                return SQLResult([], ())
+
+            def query_stub(sql, parameters):
+                if sql.startswith("SELECT publication_id,"):
+                    return SQLResult([dict(fake.manifest_rows[0])], ())
+                return fake.query(sql, parameters)
+
+            with patch.object(ConfiguredLocalAdmission, "_admit", return_value=None):
+                with patch.object(LocalDeltaEffects, "run", run_stub):
+                    with patch.object(transport, "prepare_mutation", side_effect=prepare_stub):
+                        with patch.object(transport, "mutation", side_effect=mutation_stub):
+                            with patch.object(transport, "query", side_effect=query_stub):
+                                with authority.hold() as held:
+                                    held.prepare_and_execute_effect_plan()
+                                    retain_delta4_output_completion_receipt(held)
+                                    result = finalize_configured_local_delta4_manifest(held)
+            self.assertTrue(result["row"]["publication_id"] == self.plan.publication_id)
+            self.assertEqual(fake.versions["publication_manifest"], 2)
+            self.assertEqual(len(fake.manifest_rows), 1)
+            self.assertEqual(result["realized_vector"]["dataRoles"].keys(),
+                             {"edge_current", "object_current", "tombstone", "whole_source_history"})
+            self.assertFalse(json.loads(
+                result["row"]["validation_report_json"])["protected_ack"])
+
     def build(self, root):
         fake = FakeTransport(self.plan)
         transport = fake.transport()
@@ -83,6 +221,7 @@ class Tests(unittest.TestCase):
         source.context = self.context
         source.graph = True
         source._active = True
+        source.configuration = load_typed_graph_jsonl_configuration(CONFIG.resolve())
         source.batches = (object(),)
         source._specs = (ConfiguredLocalBatchSpec(
             1, self.plan.request_json, self.plan.publication_id),)

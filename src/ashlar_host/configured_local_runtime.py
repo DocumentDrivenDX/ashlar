@@ -491,8 +491,9 @@ def run_configured_local_delta4_transaction1(config):
 
     This separately versioned local composition owns the source, lease, Spark
     runtime, initialized role profile, Delta journal and coordinator together.
-    It retains a local output-completion receipt but does not write a manifest,
-    acknowledge a source, or claim a consumer/publication result.
+    It retains the exact transaction-one receipt, independently revalidates the
+    source-derived four-role snapshots, and commits one immutable local manifest.
+    It does not acknowledge a source or claim a protected ACK.
 
     This is a one-fresh-attempt entrypoint. A partial or completed attempt no
     longer satisfies fresh-empty admission and must be reconciled separately;
@@ -501,6 +502,7 @@ def run_configured_local_delta4_transaction1(config):
     from .configured_local_delta4_publication import (
         admit_delta4_fresh_empty_installation,
         build_delta4_transaction1_effect_plan,
+        finalize_configured_local_delta4_manifest,
         open_configured_local_delta4_authority,
         plan_configured_local_delta4_transaction1,
         retain_delta4_output_completion_receipt,
@@ -659,19 +661,22 @@ def run_configured_local_delta4_transaction1(config):
                      and observation['heads']['publication_manifest']['version']
                         == fresh.heads['publication_manifest']['version'])
             receipt = retain_delta4_output_completion_receipt(held)
+            finalized = finalize_configured_local_delta4_manifest(held)
             receipt_reference = {
                 'profile': receipt['profile'],
                 'request_digest': receipt['request_digest'],
                 'receipt_sha256': receipt['receipt_sha256'],
             }
             result = {
-                'profile': 'ashlar-configured-local-delta4-transaction1-result/0.1',
+                'profile': 'ashlar-configured-local-delta4-publication-result/0.1',
                 'installation_id': config.installation_id,
-                'operation': 'transaction1-effects-validated',
+                'operation': 'publish',
                 'batch_id': 'typed-graph-1',
-                'publication': False,
+                'publication': True,
                 'protected_ack': False,
                 'completion_receipt': receipt_reference,
+                'manifest': finalized['row'],
+                'realized_vector': finalized['realized_vector'],
                 'native_observation': observation,
             }
     except BaseException as error:
