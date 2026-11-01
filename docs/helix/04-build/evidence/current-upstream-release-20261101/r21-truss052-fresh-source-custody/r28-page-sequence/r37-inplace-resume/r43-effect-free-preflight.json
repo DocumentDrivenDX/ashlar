@@ -1,0 +1,20 @@
+{
+  "cloud": false,
+  "database_opened": false,
+  "delta_written": false,
+  "monitored_existing_roots": [
+    "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
+    "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta"
+  ],
+  "native_effects": false,
+  "output_root_absent": true,
+  "profile": "ashlar-r37-truss052-inplace-resume-supervisor/0.1",
+  "scope_sha256": "58af99245138dd78be0b8adac7020a4d87bd98e976b87673bf55afad253a8668",
+  "source_acknowledgement": false,
+  "spark_started": false,
+  "status": "preflight_ok",
+  "supervisor_root_absent": true,
+  "supervisor_sha256": "dbd2ac1563885eead43d6241c2d82013372ca83927e670705372bdcac8b2fece",
+  "worker_sha256": "f3073f8b26bb3267137388dd6b33a43add6d8de786ed86ee72542d4fb177ab66",
+  "worker_status": "passed_effect_free_inplace_preflight"
+}
