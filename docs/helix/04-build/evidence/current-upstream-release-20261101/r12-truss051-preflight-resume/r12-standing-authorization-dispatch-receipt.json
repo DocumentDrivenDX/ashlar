@@ -1,0 +1,12 @@
+{
+  "schema": "ashlar.standing-local-dispatch-binding/1",
+  "authorization_basis": "standing_user_local_release_authorization",
+  "user_authorization_statement": "User authorized fresh Truss source creation, a local seed, and a tested release; bounded local R12 resume execution is within that standing authorization and requires no per-attempt user approval.",
+  "scope_sha256": "149e33fb5147fea1a1cd77eadbedc6b0db4df399f2db336f8d403af108cc90c4",
+  "worker_sha256": "b2dba293d1095aecba1b6e5b579ebad0ef7178a1cd6e7a4868e3d2e555ecba71",
+  "supervisor_sha256": "36f5c69c9c4ac61e44bc9519688e2d11ff7f0c08cb543331885ebd1f8a7c6d18",
+  "attempts": 1,
+  "cloud": false,
+  "sol_review_status": "pending_sol_review",
+  "dispatch_enabled": false
+}

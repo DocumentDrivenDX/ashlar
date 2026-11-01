@@ -1,0 +1,55 @@
+{
+  "authorization": {
+    "basis": "standing_user_local_release_authorization",
+    "dispatch_enabled": false,
+    "sol_review_status": "pending_sol_review"
+  },
+  "checks": {
+    "actual_r12_scope_used": true,
+    "actual_worker_preflight": "passed",
+    "focused_tests": "7/7 passed",
+    "free_bytes": 678687797248,
+    "git_diff_check": "pending final check",
+    "matching_source_processes": 0,
+    "r10_migration_receipt_sha256": "7737b3bc4b652a315e2bf4ec48115eff0ce7c1346e002025884553f3d33f31c7",
+    "r10_registry_sha256": "6b3508d38229c8d437f321fb6da2f8e1dcc14c9407cabac2dc894f39136ea55f",
+    "required_free_bytes": 666482968,
+    "runtime_proof_filename": "r12-runtime-proof.json",
+    "source_pgdata_bytes": 64806028,
+    "source_pgdata_files": 1249,
+    "source_pgdata_tree_sha256": "568f49211725383e0f78f2ab26d46b58c3bb7f61d15e1ec823bfa228b9a2131c",
+    "syntax": "passed"
+  },
+  "effects": {
+    "acknowledgement": false,
+    "cloud": false,
+    "consumer_enrolled": false,
+    "database_contacted": false,
+    "feed_read": false,
+    "migration_replayed": false,
+    "native_database_calls": false,
+    "postgres_started": false,
+    "publication": false,
+    "r12_output_root_created": false,
+    "r12_supervisor_root_created": false,
+    "roles_created": false,
+    "seed_committed": false
+  },
+  "hashes": {
+    "README.md": "10cc9fc2301643202a967fe02ded2c70ea32b99d5abbd53fe95deefb2bf43431",
+    "check_r12_preflight.py": "fae0108d1ca15f3b7b18133c9a996b23cddac20c61318e679281d56338cd4b56",
+    "r12-standing-authorization-dispatch-receipt.json": "71a5e79a274f046d9412f6d7ec1ac24eb3273520f1844e3090c4cd15dec5222a",
+    "r12-truss051-resume-scope.json": "149e33fb5147fea1a1cd77eadbedc6b0db4df399f2db336f8d403af108cc90c4",
+    "r12_truss051_local_worker.py": "b2dba293d1095aecba1b6e5b579ebad0ef7178a1cd6e7a4868e3d2e555ecba71",
+    "r12_truss051_supervisor.py": "36f5c69c9c4ac61e44bc9519688e2d11ff7f0c08cb543331885ebd1f8a7c6d18",
+    "test_r12_preflight.py": "d2c62ca7c194be62046384a950cbcd4c90ac7fd8838239938431280d49c7fa50"
+  },
+  "profile": "ashlar-r12-actual-worker-effect-free-preflight/0.1",
+  "runtime": {
+    "platform": "macOS arm64",
+    "python": "3.12.14",
+    "truss": "0.0.51",
+    "umf_core": "0.10.5"
+  },
+  "status": "passed_actual_worker_preflight"
+}

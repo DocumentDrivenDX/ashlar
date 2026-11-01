@@ -1,0 +1,20 @@
+{
+  "profile": "ashlar-truss048-fresh-local-group-seed/0.1",
+  "authority_class": "local_development_authority",
+  "document_id": "ashlar-local-dev-typed-graph-r6-20261031",
+  "document_revision": "1",
+  "source_system": "ashlar-local-development-typed-graph-r6-20261031",
+  "source_epoch": "ashlar-local-development-typed-graph-epoch-r6-20261031",
+  "request_key": "ashlar-local-dev-typed-graph-seed-r6",
+  "operations": [
+    {"op": "create_object", "alias": "local_ada", "type": "Person", "values": {"person_key": {"kind": "string", "text": "local-ada-20261031"}, "person_name": {"kind": "string", "text": "Local Ada"}, "quantity": {"kind": "integer", "text": "9007199254740993"}}},
+    {"op": "create_object", "alias": "local_ben", "type": "Person", "values": {"person_key": {"kind": "string", "text": "local-ben-20261031"}, "person_name": {"kind": "string", "text": "Local Ben"}, "quantity": {"kind": "null"}}},
+    {"op": "create_object", "alias": "local_cy", "type": "Person", "values": {"person_key": {"kind": "string", "text": "local-cy-20261031"}, "person_name": {"kind": "string", "text": "Local Cy"}}},
+    {"op": "create_object", "alias": "local_workshop", "type": "Place", "values": {"place_key": {"kind": "string", "text": "local-workshop-20261031"}, "place_name": {"kind": "string", "text": "Local Workshop"}}},
+    {"op": "create_edge", "alias": "local_knows_1", "relationship": "knows", "source": "local_ada", "target": "local_ben", "order_key": "local-knows-1"},
+    {"op": "create_edge", "alias": "local_knows_2", "relationship": "knows", "source": "local_ada", "target": "local_ben", "order_key": "local-knows-2"},
+    {"op": "create_edge", "alias": "local_located_1", "relationship": "located", "source": "local_ben", "target": "local_workshop", "order_key": "local-located-1"}
+  ],
+  "origin": {"profile": "local_truss_acceptance_trial", "authority_class": "local_development_authority", "request_key": "ashlar-local-dev-typed-graph-seed-r6", "source_system": "ashlar-local-development-typed-graph-r6-20261031", "purpose": "bounded fresh-source release-candidate evidence"},
+  "historical_A_seed_bytes_reused": false
+}
