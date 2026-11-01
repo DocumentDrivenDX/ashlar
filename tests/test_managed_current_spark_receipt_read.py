@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Offline receipt-verifier tests; the fake Spark session performs no I/O."""
 import copy
+from contextlib import contextmanager
 import hashlib
 import json
 import unittest
@@ -10,6 +11,7 @@ from unittest.mock import patch
 from types import SimpleNamespace
 
 from ashlar.native import SQLResult
+from ashlar.pins import PostgresPins
 from ashlar.apply import EntityKey
 from ashlar.protocol import ReaderProtocolProfile
 from ashlar_host.managed_current_carriers import load_current_managed_carriers
@@ -28,6 +30,7 @@ from ashlar_host.managed_operational_retention_interval import (
 )
 from ashlar_host.managed_operational_read_port import (
     ManagedOperationalReadPort, ManagedOperationalReadPortError,
+    ManagedOperationalReadPinPort,
 )
 from ashlar.manifest import manifest_pin_vector
 from ashlar_host.truss_note_publication import graph_expected_rows
@@ -953,6 +956,81 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
         self.assertTrue(all(item.closed for item in self.sessions))
         self.assertEqual([sum("LIMIT 1025" in sql for sql in item.spark.calls)
                           for item in self.sessions], [4, 4, 4])
+
+    def test_pin_composition_holds_exact_vector_across_open_renew_and_close(self):
+        context = object()
+        events = self.events
+        vector = self.selection.vector
+
+        class Executor:
+            @contextmanager
+            def transaction(inner_self, supplied):
+                self.assertIs(supplied, context)
+                events.append(("pin-transaction", "open"))
+                try:
+                    yield inner_self
+                finally:
+                    events.append(("pin-transaction", "close"))
+
+            def query(inner_self, sql, params):
+                if "assert_uuid_available(" in sql or "assert_active(" in sql:
+                    return SQLResult([])
+                if sql.startswith("SELECT table_name"):
+                    return SQLResult([
+                        {"table_name": table, "table_uuid": uuid,
+                         "version": str(version), "digest": vector.custody_digest,
+                         "released": False}
+                        for table, (uuid, version) in vector.targets.items()
+                    ])
+                raise AssertionError("Unexpected native pin query")
+
+        class PinPolicy:
+            def authorize_read(inner_self, actual, supplied):
+                self.assertIs(actual, vector)
+                self.assertIs(supplied, context)
+                events.append(("pin-read-authority",))
+
+            def authorize_source_bound_read(inner_self, actual, selection, supplied):
+                self.assertIs(actual, vector)
+                self.assertIs(selection, self.selection)
+                self.assertIs(supplied, context)
+                events.append(("pin-source-authority",))
+
+        read_port = ManagedOperationalReadPort(
+            self.selection, self.session_factory, self.source_observer,
+            self.policy_observer, context=context)
+        port = ManagedOperationalReadPinPort(
+            read_port, PostgresPins(Executor(), PinPolicy()), context=context)
+        handle = port.open(self.selection.receipt_bytes, vector, context)
+        self.assertLess(events.index(("pin-transaction", "open")),
+                        events.index(("session-open", "open")))
+        handle.renew()
+        self.assertEqual([item.stage for item in self.sessions], ["open", "pre_ack"])
+        receipt = handle.close()
+        self.assertEqual(receipt.outcome, "observed_available_at_checks")
+        self.assertEqual(receipt.authority, "read_observation_only_no_source_ack")
+        self.assertEqual([item.stage for item in self.sessions], ["open", "pre_ack", "close"])
+        self.assertLess(events.index(("session-close", "close")),
+                        len(events) - 1 - events[::-1].index(("pin-source-authority",)))
+        self.assertEqual(events[-1], ("pin-transaction", "close"))
+        self.assertFalse(hasattr(handle, "acknowledge"))
+
+    def test_pin_composition_requires_source_bound_policy_before_open(self):
+        context = object()
+        read_port = ManagedOperationalReadPort(
+            self.selection, self.session_factory, self.source_observer,
+            self.policy_observer, context=context)
+
+        class PolicyWithoutSourceAuthority:
+            def authorize_read(self, vector, supplied):
+                return None
+
+        with self.assertRaisesRegex(ManagedOperationalReadPortError,
+                                    "source-bound policy"):
+            ManagedOperationalReadPinPort(
+                read_port, PostgresPins(object(), PolicyWithoutSourceAuthority()),
+                context=context)
+        self.assertEqual(self.sessions, [])
 
     def test_port_refuses_changed_receipt_vector_context_and_reuse_before_sessions(self):
         context = object()
