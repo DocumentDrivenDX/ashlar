@@ -14,6 +14,7 @@ import hashlib
 import importlib.metadata
 import json
 import re
+import weakref
 
 from ashlar.pins import PinVector
 from ashlar.schema import decode_retained_json
@@ -30,10 +31,21 @@ _IDENTITY_FIELDS = (
 _MAX_BYTES = 4 * 1024 * 1024
 _RELEASE_ID = "truss-catalog-runtime/0.75-candidate"
 _RELEASE_SHA256 = "5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522"
+_ANCHORS = weakref.WeakValueDictionary()
+_SELECTIONS = weakref.WeakValueDictionary()
 
 
 class TrussSourceSelectionError(ValueError):
     """Selected Truss source, destination, or publication correspondence refused."""
+
+
+def _issued(registry, value):
+    return registry.get(id(value)) is value
+
+
+def _issue(registry, value):
+    registry[id(value)] = value
+    return value
 
 
 def _need(value, message):
@@ -72,6 +84,8 @@ class TrussSourceCustodyAnchor:
                          receipt_bytes: bytes, observation: object
                          ) -> "TrussSourceCustodySelection":
         """Bind to the exact managed-reader observation and original publication."""
+        _need(_issued(_ANCHORS, self),
+              "Source custody anchor must come from the validated source selector")
         if (type(manifest_bytes) is not bytes or not 0 < len(manifest_bytes) <= _MAX_BYTES
                 or type(vector) is not PinVector
                 or type(receipt_bytes) is not bytes or not 0 < len(receipt_bytes) <= _MAX_BYTES):
@@ -103,7 +117,7 @@ class TrussSourceCustodyAnchor:
               and observation.source_receipt_bytes == receipt_bytes
               and observation.source_receipt_sha256 == hashlib.sha256(receipt_bytes).hexdigest(),
               "Managed reader observation must bind this exact manifest, vector and receipt")
-        return TrussSourceCustodySelection(
+        return _issue(_SELECTIONS, TrussSourceCustodySelection(
             page=self.page, maximum_facts=self.maximum_facts,
             maximum_bytes=self.maximum_bytes, request_bytes=self.request_bytes,
             destination_registration_bytes=self.destination_registration_bytes,
@@ -111,7 +125,7 @@ class TrussSourceCustodyAnchor:
             request_sha256=self.request_sha256, publication_id=publication_id,
             manifest_bytes=manifest_bytes, vector=vector, receipt_bytes=receipt_bytes,
             schedule_sha256=self.schedule_sha256, source=self.source,
-            identity=dict(self.identity))
+            identity=dict(self.identity)))
 
 
 @dataclass(frozen=True)
@@ -134,7 +148,7 @@ class TrussSourceCustodySelection:
     source: str
     identity: dict = field(repr=False, compare=False)
 
-    def to_candidate_sdk(self):
+    def to_candidate_sdk(self, *, runtime_status=None):
         """Materialize the public selection only for the exact candidate release.
 
         The installed 0.0.51 release is intentionally refused even if a local
@@ -142,18 +156,24 @@ class TrussSourceCustodySelection:
         package metadata and its authenticated runtime manifest identity must
         match before creating the public selection type.
         """
+        _need(_issued(_SELECTIONS, self),
+              "Publication selection must come from the validated binder")
         try:
-            from truss.catalog_runtime import _release
+            from truss import CatalogRuntimeStatus
+            from truss.contracts import ProfilePin
             from truss.feed import FeedSourceSelection
-            manifest, digest, _ = _release()
             package_version = importlib.metadata.version("umf-truss")
         except (ImportError, LookupError, ValueError) as error:
             raise TrussSourceSelectionError(
                 "Exact Truss source-custody candidate runtime unavailable") from error
-        _need(package_version == "0.0.52"
-              and manifest.get("releaseId") == _RELEASE_ID
-              and digest == _RELEASE_SHA256
-              and type(FeedSourceSelection).__name__ == "FeedSourceSelection",
+        _need(type(runtime_status) is CatalogRuntimeStatus
+              and runtime_status.installed is True
+              and runtime_status.installation_id == self.identity["installation_id"]
+              and runtime_status.release_id == _RELEASE_ID
+              and runtime_status.release_sha256 == _RELEASE_SHA256
+              and type(runtime_status.layout_profile) is ProfilePin
+              and package_version == "0.0.52"
+              and getattr(FeedSourceSelection, "__name__", None) == "FeedSourceSelection",
               "Truss source custody is gated to the reviewed .75 candidate manifest")
         return FeedSourceSelection(
             page=self.page, maximum_facts=self.maximum_facts,
@@ -246,8 +266,8 @@ def select_truss_source_custody_anchor(*, schedule: R04Schedule, source: str,
     scope_bytes = _canonical_bytes(scope)
     _need(len(registration_bytes) <= 1048576 and len(scope_bytes) <= 1048576,
           "Canonical source registration/scope selection exceeds Truss API bounds")
-    return TrussSourceCustodyAnchor(
+    return _issue(_ANCHORS, TrussSourceCustodyAnchor(
         schedule_sha256=schedule.sha256, source=source, identity=dict(identity),
         page=page, destination_id=destination_id, request_bytes=request_bytes,
         request_sha256=request_sha, destination_registration_bytes=registration_bytes,
-        ack_scope_bytes=scope_bytes)
+        ack_scope_bytes=scope_bytes))

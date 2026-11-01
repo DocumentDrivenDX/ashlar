@@ -76,6 +76,16 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
             source_receipt_sha256=hashlib.sha256(receipt).hexdigest(),
             vector=self.vector, installation_inventory={})
 
+    def bound(self):
+        anchor = select_truss_source_custody_anchor(schedule=self.schedule,
+            source="A", page=self.page, request_bytes=self.request_bytes,
+            destination_id="selected-r04-destination")
+        receipt = encode_truss_destination_receipt(
+            self.request_bytes, self.manifest_bytes, self.vector)
+        return anchor.bind_publication(manifest_bytes=self.manifest_bytes,
+            vector=self.vector, receipt_bytes=receipt,
+            observation=self.observation(receipt))
+
     def test_freezes_schedule_page_and_destination_before_publication(self):
         anchor = select_truss_source_custody_anchor(schedule=self.schedule,
             source="A", page=self.page, request_bytes=self.request_bytes,
@@ -135,27 +145,70 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
                 destination_id="selected-r04-destination")
 
     def test_candidate_sdk_materialization_refuses_051_metadata(self):
-        anchor = select_truss_source_custody_anchor(schedule=self.schedule,
-            source="A", page=self.page, request_bytes=self.request_bytes,
-            destination_id="selected-r04-destination")
-        receipt = encode_truss_destination_receipt(
-            self.request_bytes, self.manifest_bytes, self.vector)
-        bound = anchor.bind_publication(manifest_bytes=self.manifest_bytes,
-            vector=self.vector, receipt_bytes=receipt,
-            observation=self.observation(receipt))
+        bound = self.bound()
         package = types.ModuleType("truss")
         package.__path__ = []
-        runtime = types.ModuleType("truss.catalog_runtime")
-        runtime._release = lambda: ({"releaseId": _RELEASE_ID}, _RELEASE_SHA256, ())
+        class CatalogRuntimeStatus: pass
+        package.CatalogRuntimeStatus = CatalogRuntimeStatus
+        contracts = types.ModuleType("truss.contracts")
+        class ProfilePin: pass
+        contracts.ProfilePin = ProfilePin
         feed = types.ModuleType("truss.feed")
         class FeedSourceSelection:
             def __init__(self, **kwargs): self.__dict__.update(kwargs)
         feed.FeedSourceSelection = FeedSourceSelection
         with patch.dict(sys.modules, {"truss": package,
-                "truss.catalog_runtime": runtime, "truss.feed": feed}), \
+                "truss.contracts": contracts, "truss.feed": feed}), \
                 patch("importlib.metadata.version", return_value="0.0.51"):
             with self.assertRaisesRegex(TrussSourceSelectionError, "gated"):
                 bound.to_candidate_sdk()
+
+    def test_direct_dataclass_construction_cannot_materialize_or_bind(self):
+        anchor = select_truss_source_custody_anchor(schedule=self.schedule,
+            source="A", page=self.page, request_bytes=self.request_bytes,
+            destination_id="selected-r04-destination")
+        from dataclasses import replace
+        forged_anchor = replace(anchor)
+        receipt = encode_truss_destination_receipt(
+            self.request_bytes, self.manifest_bytes, self.vector)
+        with self.assertRaisesRegex(TrussSourceSelectionError, "validated source selector"):
+            forged_anchor.bind_publication(manifest_bytes=self.manifest_bytes,
+                vector=self.vector, receipt_bytes=receipt,
+                observation=self.observation(receipt))
+        forged = replace(self.bound())
+        with self.assertRaisesRegex(TrussSourceSelectionError, "validated binder"):
+            forged.to_candidate_sdk()
+
+    def test_candidate_sdk_requires_matching_public_observed_status(self):
+        bound = self.bound()
+        package = types.ModuleType("truss")
+        package.__path__ = []
+        class CatalogRuntimeStatus:
+            def __init__(self, **kwargs): self.__dict__.update(kwargs)
+        package.CatalogRuntimeStatus = CatalogRuntimeStatus
+        contracts = types.ModuleType("truss.contracts")
+        class ProfilePin: pass
+        contracts.ProfilePin = ProfilePin
+        feed = types.ModuleType("truss.feed")
+        class FeedSourceSelection:
+            def __init__(self, **kwargs): self.__dict__.update(kwargs)
+        feed.FeedSourceSelection = FeedSourceSelection
+        status_fields = dict(installed=True,
+            installation_id=self.identity["installation_id"],
+            release_id=_RELEASE_ID, release_sha256=_RELEASE_SHA256,
+            layout_profile=ProfilePin())
+        with patch.dict(sys.modules, {"truss": package,
+                "truss.contracts": contracts, "truss.feed": feed}), \
+                patch("importlib.metadata.version", return_value="0.0.52"):
+            with self.assertRaisesRegex(TrussSourceSelectionError, "gated"):
+                bound.to_candidate_sdk()
+            drifted = CatalogRuntimeStatus(**{**status_fields,
+                "installation_id": "other-installation"})
+            with self.assertRaisesRegex(TrussSourceSelectionError, "gated"):
+                bound.to_candidate_sdk(runtime_status=drifted)
+            status = CatalogRuntimeStatus(**status_fields)
+            sdk_selection = bound.to_candidate_sdk(runtime_status=status)
+            self.assertIs(type(sdk_selection), FeedSourceSelection)
 
 
 if __name__ == "__main__":
