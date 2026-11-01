@@ -37,23 +37,17 @@ remain open ([upstream adoption](04-build/evidence/current-upstream-release-2026
 [runtime integration](04-build/evidence/current-upstream-release-20261031/sdk010-delta4-runtime-integration/README.md)).
 
 The candidate `truss-local` extra selects Truss 0.0.51 with its `[native]`
-dependencies. R16 stopped during cold-backup restore after 305.595 seconds of
-preparation, with its approval spent. R17 consumed its separate approval but
-refused at the frozen selected-tree check before any native effect; its approval
-is also spent. The original selected and cold-backup paths are now empty, while
-the exact R16 retained copies and their preservation receipts remain available
-as candidate inputs. R19 bound those copies and the SDK 0.10.0/Core 0.10.4 runtime
-to actual `.4` Delta DDL, but its approved one-shot failed before native effects
-because the isolated child could not import the current SDK bridge. The failure
-receipt and logs are preserved. R20 is a fresh unapproved candidate with a pinned
-clean Ashlar source archive and pre-effect isolated import/runtime check; its
-focused effect-free tests pass. No R20 approval or native run exists. The Truss
-lifecycle remains unqualified; selected-source acceptance and feed/ACK evidence
-remain open ([R16 failure](04-build/evidence/current-upstream-release-20261024/truss051-r16-native-candidate-20261029/r16-failure-evidence.json),
-[R17 failure](04-build/evidence/current-upstream-release-20261024/truss051-r17-native-candidate-20261029/r17-pre-effect-failure-20261031.md),
-[R19 failure](04-build/evidence/current-upstream-release-20261031/truss051-r19-failure-evidence-20261031/README.md),
-[R19 candidate](04-build/evidence/current-upstream-release-20261031/truss051-r19-runtime-cohort/README.md),
-[R20 candidate](04-build/evidence/current-upstream-release-20261031/truss051-r20-runtime-cohort/README.md)).
+dependencies. R16 stopped during cold-backup restore; R17 refused at its
+selected-tree check; R19 refused at an isolated SDK-bridge import. The approved
+R20 run then stopped before migration or publication because its retained PG18
+backup lacked required cluster directories. Each one-shot approval is spent.
+R21's effect-free check rejects that incomplete backup; no directory repair is
+assumed. Pinned Truss 0.0.48 public APIs can create a fresh local development
+source, but the earlier accepted source bytes are absent at the retained paths;
+production source authority remains open. The selected Truss lifecycle and feed/ACK remain
+unqualified ([R20 failure](04-build/evidence/current-upstream-release-20261031/truss051-r20-failure-evidence-20261031/README.md),
+[R21 backup check](04-build/evidence/current-upstream-release-20261031/truss051-r21-local-restore-candidate/README.md),
+[fresh-source packet](04-build/evidence/current-upstream-release-20261031/truss051-fresh-source-packet/README.md)).
 
 Local Spark 4.2.0/Delta 4.4.1 candidate checks include bounded Weft query and
 SDK paging; a separate native one-table Delta check accepted a candidate DDL
@@ -71,6 +65,8 @@ cloud execution, or production source custody
 [continuation result](04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024/native-continuation-result-427287c7f6564985b1a947bea049158a.json)).
 A separate local `.4-xxhash64` run completed six-role initialization only; no
 publication, query, or ACK was exercised ([initialization evidence](04-build/evidence/current-upstream-release-20261024/configured-local-delta4-init-20261024/README.md)).
+The SDK 0.10 six-role initializer has an effect-free preflight and prepared
+one-shot packet; it has not run ([SDK 0.10 packet](04-build/evidence/current-upstream-release-20261031/g03-sdk010-txn1-weft056-packet/README.md)).
 Managed Unity Catalog and the full Truss lifecycle remain unqualified.
 A bounded probe confirmed create/read/delete authority for one empty owned
 schema under `client_dev`; that schema was deleted and verified absent. Managed

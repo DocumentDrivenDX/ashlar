@@ -101,7 +101,8 @@ confirms that existing offline choreography supplies no renewable live
 source, publication, or pin handle. No managed trial is admitted by it.
 The [G03 SDK010 init-only packet](evidence/current-upstream-release-20261031/g03-sdk010-txn1-weft056-packet/README.md)
 is a separate bounded candidate for a fresh six-role local installation; its
-focused inert checks pass, but it has not created an attempt or run Spark.
+focused inert checks pass and an effect-free attempt and empty process slot are
+prepared, but it has not run Spark.
 Transaction 1 and Weft 0.4.56 native consumer reads remain later gates.
 
 Gate 6 now has a [local GitHub release publisher](pypi-publishing.md) with five

@@ -93,12 +93,13 @@ The retained r3 installation has carrier profile `.2`, SDK058 source revision
 physical `.4-xxhash64` and installation digest
 `735eba9e3348381dbcb3c53271216de100070a1bcbf5ce4d62927c0e9f5ce686`. It is
 not eligible for the SDK010 `.3` route and its attempt journal is uncertain.
-The proposed fresh R4 attempt parent
+At that earlier preflight, the proposed transaction-one R4 attempt parent
 `/private/tmp/ashlar-g03-sdk010-delta4-txn1-r4-attempts-20261031` was absent.
 The process-inventory command failed with `Operation not permitted` under that
-sandbox, so it produced no process-slot receipt. A later read-only inventory
-under the permitted process view found no Java process at its capture time;
-the packet still requires its own fresh receipt immediately before dispatch.
+sandbox, so that preflight produced no process-slot receipt. A later read-only
+inventory under the permitted process view found no Java process at its capture
+time. The separate init-only R4 attempt and empty slot receipt are recorded
+below; its slot must be refreshed immediately before dispatch.
 
 These facts hold transaction 1: a transaction worker cannot reopen or invoke
 the existing transaction-1 route until a fresh, separately admitted SDK010 `.3`
