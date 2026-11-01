@@ -15,9 +15,11 @@ from ashlar_host.managed_current_a1_trial_plan import (
 )
 from ashlar_host.managed_current_genesis import ManagedCurrentGenesisPredecessor
 from ashlar_host.managed_current_prefix_delivery import ManagedCurrentPrefixPage
+from ashlar_host.managed_current_publication import _managed_current_a1_task_inputs
 from ashlar_host.managed_current_truss052_genesis_owner import (
     ManagedCurrentTruss052GenesisSelection,
 )
+from ashlar_host.truss_graph_admission import TrussGraphAdmission
 from ashlar_host.r04_schedule import R04Schedule, PROFILE, SLOT_ORDER, STAGES
 
 
@@ -137,6 +139,43 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
             prepare_managed_current_a1_trial(
                 selection, {}, stream="source-stream", materialized_at="1",
                 context=object())
+
+    def test_managed_task_inputs_recompose_exact_owner_batch_and_genesis_plan(self):
+        schedule = self._schedule()
+        batch = self._truss_batch()
+        page = SimpleNamespace(content=batch.begin,
+            prior=SimpleNamespace(content=base64.b64decode(batch.cursor_before)),
+            next=SimpleNamespace(content=base64.b64decode(batch.cursor_after)))
+        admission = TrussGraphAdmission.__new__(TrussGraphAdmission)
+        admission.batch = batch
+        selection = ManagedCurrentTruss052GenesisSelection(
+            schedule.sha256, schedule.raw, {}, {}, {}, {},
+            {'A': SimpleNamespace(batch=batch, page=page),
+             'B': SimpleNamespace(batch=None)}, admission, batch)
+        manifest = {'publication_id': 'genesis-manifest'}
+        predecessor = ManagedCurrentGenesisPredecessor(manifest, {}, {})
+        context = object()
+        with patch('ashlar_host.managed_current_genesis.verify_managed_current_genesis_predecessor',
+                   return_value=predecessor):
+            plan = prepare_managed_current_a1_trial(selection, manifest,
+                stream='source-stream', materialized_at='1762000000000000', context=context)
+            selected_admission, selected_predecessor, selected_batch, request = (
+                _managed_current_a1_task_inputs(plan, stream='source-stream',
+                    predecessor='genesis-manifest', schema_revisions_json='{}',
+                    materialized_at='1762000000000000'))
+            self.assertIs(selected_admission, admission)
+            self.assertIs(selected_predecessor, predecessor)
+            self.assertIs(selected_batch, batch)
+            self.assertEqual(request, plan.request)
+            with self.assertRaisesRegex(ValueError, 'request differs'):
+                _managed_current_a1_task_inputs(plan, stream='other-stream',
+                    predecessor='genesis-manifest', schema_revisions_json='{}',
+                    materialized_at='1762000000000000')
+            plan.driver_inputs['source_owner_admitted_batch'] = object()
+            with self.assertRaisesRegex(ValueError, 'exact source-owner admission'):
+                _managed_current_a1_task_inputs(plan, stream='source-stream',
+                    predecessor='genesis-manifest', schema_revisions_json='{}',
+                    materialized_at='1762000000000000')
 
 
 if __name__ == "__main__":

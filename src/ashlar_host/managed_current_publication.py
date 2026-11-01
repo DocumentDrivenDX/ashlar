@@ -1068,9 +1068,62 @@ class ManagedCurrentManifestPort:
     def reconcile(self,row,*,context):return self._observe(row,context)
 
 
-def run_managed_current_publication_task(spark,*,binding,core_config,protocol_profile,
+def _managed_current_a1_task_inputs(a1_plan, *, stream, predecessor,
+        schema_revisions_json, materialized_at):
+    """Recheck the pure A1 composition before handing its exact inputs to a driver.
+
+    This is correspondence only: the source holder still owns live source and
+    ACK authority, while the managed task receives no ACK capability.
+    """
+    from .managed_current_a1_trial_plan import (
+        ManagedCurrentA1TrialPlan, prepare_managed_current_a1_trial,
+    )
+    from .managed_current_truss052_genesis_owner import (
+        ManagedCurrentTruss052GenesisSelection,
+    )
+    from .managed_current_genesis import ManagedCurrentGenesisPredecessor
+    from .truss_graph_admission import TrussGraphAdmission
+
+    _require(type(a1_plan) is ManagedCurrentA1TrialPlan,
+             'Exact prepared managed A1 trial plan required')
+    selection = a1_plan.selection
+    _require(type(selection) is ManagedCurrentTruss052GenesisSelection
+             and type(a1_plan.predecessor) is ManagedCurrentGenesisPredecessor,
+             'Exact Truss .52 A/B selection and verified genesis predecessor required')
+    _require(type(a1_plan.driver_inputs) is dict and set(a1_plan.driver_inputs) == {
+        'admission', 'stream', 'materialized_at', 'context',
+        'managed_genesis_predecessor', 'source_owner_admitted_batch'},
+        'Closed managed A1 driver input composition required')
+    _require(type(selection.admission) is TrussGraphAdmission
+             and selection.admission.batch is selection.source_owner_admitted_batch
+             and a1_plan.driver_inputs['admission'] is selection.admission
+             and a1_plan.driver_inputs['source_owner_admitted_batch']
+                 is selection.source_owner_admitted_batch
+             and a1_plan.driver_inputs['managed_genesis_predecessor']
+                 is a1_plan.predecessor,
+             'A1 plan must retain the exact source-owner admission, batch and genesis predecessor')
+    _require(a1_plan.driver_inputs['stream'] == stream
+             and a1_plan.driver_inputs['materialized_at'] == materialized_at
+             and predecessor == a1_plan.request.get('predecessor')
+             and _canonical(selection.schema_revisions) == schema_revisions_json,
+             'Managed A1 task request differs from the prepared source-owner plan')
+
+    # Recompose from the retained owner outputs so mutable nested mappings in a
+    # frozen dataclass cannot change request or page correspondence unnoticed.
+    rebuilt = prepare_managed_current_a1_trial(
+        selection, a1_plan.predecessor.manifest, stream=stream,
+        materialized_at=materialized_at, context=a1_plan.driver_inputs['context'])
+    _require(a1_plan.request == rebuilt.request
+             and a1_plan.delivery_page == rebuilt.delivery_page
+             and a1_plan.predecessor.manifest == rebuilt.predecessor.manifest,
+             'Managed A1 plan differs from recomposed exact owner outputs')
+    return (selection.admission, rebuilt.predecessor,
+            selection.source_owner_admitted_batch, rebuilt.request)
+
+
+def run_managed_current_publication_task(spark,*,binding=None,core_config,protocol_profile,
         stream,predecessor,schema_revisions_json,materialized_at,expected_environment,
-        publication_profile='ashlar-managed-current-incremental/0.1'):
+        publication_profile='ashlar-managed-current-incremental/0.1',a1_plan=None):
     """Run one current Truss page on the caller's injected UC Spark task.
 
     The caller must provide a digest-bound accepted development-source bundle
@@ -1111,7 +1164,21 @@ def run_managed_current_publication_task(spark,*,binding,core_config,protocol_pr
              and expected_environment['protocol']==protocol_profile.identity,
              'Selected serverless runtime/protocol profile differs')
 
-    admission=restore_managed_current_admission(binding,core_config)
+    a1_predecessor=None
+    a1_batch=None
+    if a1_plan is None:
+        _require(binding is not None,
+                 'Digest-bound current source bundle or exact managed A1 plan required')
+        admission=restore_managed_current_admission(binding,core_config)
+    else:
+        _require(binding is None,
+                 'Managed A1 task accepts its exact .52 owner selection without a second source bundle')
+        _require(publication_profile=='ashlar-managed-current-incremental/0.1',
+                 'Managed A1 source-owner composition requires the incremental publication profile')
+        admission,a1_predecessor,a1_batch,planned_request = _managed_current_a1_task_inputs(
+            a1_plan, stream=stream, predecessor=predecessor,
+            schema_revisions_json=schema_revisions_json,
+            materialized_at=materialized_at)
     _require(admission.batch.feed and admission.batch.batch_id)
     target=ManagedCurrentTargetOwner(spark,catalog=core_config.catalog,schema=core_config.schema,
                                      protocol_profile=protocol_profile)
@@ -1123,9 +1190,16 @@ def run_managed_current_publication_task(spark,*,binding,core_config,protocol_pr
     driver_type=(ManagedCurrentIncrementalPublicationDriver
                  if publication_profile=='ashlar-managed-current-incremental/0.1'
                  else ManagedCurrentGraphPublicationDriver)
-    driver=driver_type(target,admission,stream=stream,
-                       materialized_at=materialized_at,context=context)
+    driver_inputs = {'stream': stream, 'materialized_at': materialized_at,
+                     'context': context}
+    if publication_profile == 'ashlar-managed-current-incremental/0.1':
+        driver_inputs.update(managed_genesis_predecessor=a1_predecessor,
+                             source_owner_admitted_batch=a1_batch)
+    driver=driver_type(target,admission,**driver_inputs)
     request=truss_request_for(stream,admission.batch,predecessor,revisions)
+    if a1_plan is not None:
+        _require(request==planned_request,
+                 'Managed task request differs from exact prepared A1 request')
     _require(request['source_checkpoint_json']==truss_checkpoint(admission.batch),
              'Exact accepted current Truss checkpoint required')
     attempts_role='publication_attempt_phase';attempt_table=target.names[attempts_role]

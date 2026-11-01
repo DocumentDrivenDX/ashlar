@@ -192,7 +192,8 @@ def _schema_exists(spark, catalog, schema):
     return bool(rows)
 
 
-def run_managed_current_trial_page(spark, *, config, binding, protocol_profile):
+def run_managed_current_trial_page(spark, *, config, protocol_profile,
+                                   binding=None, a1_plan=None):
     """Run exactly one original source page and return its destination receipt.
 
     The external source holder must retain this result, independently reopen
@@ -202,17 +203,28 @@ def run_managed_current_trial_page(spark, *, config, binding, protocol_profile):
     from .managed_current_core import (BINDING_PROFILE, BINDING_PROFILE_045,
                                        BINDING_PROFILE_XXHASH64,
                                        restore_managed_current_admission)
-    from .managed_current_publication import run_managed_current_publication_task
+    from .managed_current_publication import (
+        _managed_current_a1_task_inputs, run_managed_current_publication_task,
+    )
     _require(type(config) is ManagedCurrentTrialConfig,
              "Closed managed current trial configuration required")
     config.validate()
-    _require(type(binding) is dict and binding.get("profile") in (
-        BINDING_PROFILE, BINDING_PROFILE_045, BINDING_PROFILE_XXHASH64)
-             and binding.get("status") == "preinstallation-source-bundle",
-             "One digest-bound original current Truss source bundle required")
-    # Reconstruct and re-admit the exact versioned Truss evidence before the
-    # optional CREATE SCHEMA side effect. A digest alone is not admission.
-    restore_managed_current_admission(binding, config.core_config())
+    if a1_plan is None:
+        _require(type(binding) is dict and binding.get("profile") in (
+            BINDING_PROFILE, BINDING_PROFILE_045, BINDING_PROFILE_XXHASH64)
+                 and binding.get("status") == "preinstallation-source-bundle",
+                 "One digest-bound original current Truss source bundle required")
+        # Reconstruct and re-admit the exact versioned Truss evidence before
+        # the optional CREATE SCHEMA side effect. A digest alone is not admission.
+        restore_managed_current_admission(binding, config.core_config())
+    else:
+        _require(binding is None and config.schedule_step == 1
+                 and a1_plan.selection.schedule_sha256 == config.schedule_sha256,
+                 "Managed A1 plan must match the independently selected first R04 schedule slot")
+        _managed_current_a1_task_inputs(a1_plan, stream=config.stream,
+            predecessor=config.predecessor,
+            schema_revisions_json=config.schema_revisions_json,
+            materialized_at=config.materialized_at)
     from .managed_current_publication import observe_managed_current_environment
     preflight = observe_managed_current_environment(spark, protocol_profile)
     _require(type(preflight) is dict and all(preflight.get(key) == config.expected_environment.get(key)
@@ -257,6 +269,7 @@ def run_managed_current_trial_page(spark, *, config, binding, protocol_profile):
         materialized_at=config.materialized_at,
         expected_environment=config.expected_environment,
         publication_profile=config.publication_profile,
+        a1_plan=a1_plan,
     )
     return {
         "profile": "ashlar-managed-current-trial-step/0.1",
