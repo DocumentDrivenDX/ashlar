@@ -80,7 +80,11 @@ class _NativePinHandle:
 
     def remaining_lifetime_seconds(self) -> float:
         """Return fresh coverage from the independent retention authority."""
-        return self._coverage()
+        try:
+            return self._coverage()
+        except BaseException as error:
+            self._close_after(error)
+            raise
 
     def renew(self) -> None:
         self._require_active()

@@ -111,6 +111,16 @@ class NativePinPortTests(unittest.TestCase):
         with self.assertRaisesRegex(NativePinPortError, "closed"):
             handle.close()
 
+    def test_direct_coverage_refusal_closes_and_runs_final_pin_check(self):
+        handle = self.port.open(self.vector, self.source, self.context)
+        self.retention.failure = PermissionError("admission unavailable")
+        with self.assertRaisesRegex(NativePinPortError, "retention admission failed"):
+            handle.remaining_lifetime_seconds()
+        self.assertFalse(self.executor.open)
+        self.assertEqual(sum("assert_active(" in sql for sql, _ in self.executor.calls), 8)
+        with self.assertRaisesRegex(NativePinPortError, "closed"):
+            handle.remaining_lifetime_seconds()
+
     def test_pin_vector_drift_refuses_and_closes(self):
         handle = self.port.open(self.vector, self.source, self.context)
         self.executor.rows.pop()
