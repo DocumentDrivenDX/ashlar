@@ -98,6 +98,8 @@ class ManagedCurrentServerlessJobSpec:
             "tasks": [{
                 "task_key": "managed_current_trial",
                 "timeout_seconds": self.timeout_seconds,
+                "max_retries": 0,
+                "retry_on_timeout": False,
                 "notebook_task": {"notebook_path": self.notebook_path},
                 "environment_key": "managed_current_trial_env",
                 # Serverless auto-optimization can add retries beyond the
@@ -150,6 +152,8 @@ def admit_serverless_job_readback(job, spec):
              and task.get("notebook_task") == expected_task["notebook_task"]
              and task.get("environment_key") == expected_task["environment_key"]
              and task.get("timeout_seconds") == expected_task["timeout_seconds"]
+             and task.get("max_retries", 0) == 0
+             and task.get("retry_on_timeout", False) is False
              and task.get("disable_auto_optimization") is True
              and "existing_cluster_id" not in task and "job_cluster_key" not in task
              and "new_cluster" not in task and "sql_warehouse_id" not in task,

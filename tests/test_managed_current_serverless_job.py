@@ -40,6 +40,8 @@ class ManagedCurrentServerlessJobTests(unittest.TestCase):
         self.assertEqual(settings["timeout_seconds"], 900)
         self.assertEqual(len(settings["tasks"]), 1)
         self.assertEqual(settings["tasks"][0]["timeout_seconds"], 900)
+        self.assertEqual(settings["tasks"][0]["max_retries"], 0)
+        self.assertIs(settings["tasks"][0]["retry_on_timeout"], False)
         self.assertIs(settings["tasks"][0]["disable_auto_optimization"], True)
         self.assertNotIn("schedule", settings)
         self.assertNotIn("job_clusters", settings)
@@ -51,6 +53,8 @@ class ManagedCurrentServerlessJobTests(unittest.TestCase):
         job = _readback(spec)
         del job["settings"]["max_retries"]
         del job["settings"]["retry_on_timeout"]
+        del job["settings"]["tasks"][0]["max_retries"]
+        del job["settings"]["tasks"][0]["retry_on_timeout"]
         self.assertEqual(admit_serverless_job_readback(job, spec)["taskCount"], 1)
 
     def test_rejects_timeout_cost_and_unscoped_dependency_inputs(self):
@@ -69,6 +73,8 @@ class ManagedCurrentServerlessJobTests(unittest.TestCase):
             lambda settings: settings.update(schedule={"quartz_cron_expression": "* * * * *"}),
             lambda settings: settings.update(max_retries=1),
             lambda settings: settings["tasks"][0].update(existing_cluster_id="cluster"),
+            lambda settings: settings["tasks"][0].update(max_retries=1),
+            lambda settings: settings["tasks"][0].update(retry_on_timeout=True),
             lambda settings: settings["tasks"][0].update(timeout_seconds=901),
             lambda settings: settings["environments"][0]["spec"].update(
                 dependencies=["/Volumes/client_dev/other.whl"]),
