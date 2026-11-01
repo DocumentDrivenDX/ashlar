@@ -1,0 +1,452 @@
+{
+  "ashlar_source_bindings": {
+    "pyproject.toml": "3e2788efac61e7d1cafe04449b28716c1ae2c8a5517b5c9271127b0bb83515f0",
+    "src/ashlar/truss_native_feed.py": "b66592354310377260ceaf4a8ded91209ce1a89e463bdfda45a3c372063eeb7b",
+    "src/ashlar_host/configured_local_runtime.py": "56d213c82c3266ff523cf74ebf2a192212a662b9c39a4f2f3154568072f68881",
+    "src/ashlar_host/driver.py": "0c3c79f98039afae74c0f0f40b38c888b53a3e6c6d8084e237eb24b1e5f5f30f",
+    "src/ashlar_host/local_current_carrier_profile.py": "c3c18142b07f087dac607bda8d85f4674324a4c5ebb20f838f12e9cf83e3781c",
+    "src/ashlar_host/publication_planning.py": "e097474eba579520058a658f11863eaf86662f6f4b3df7c673118c520c06c4d9",
+    "src/ashlar_host/truss052_source_custody.py": "cc28a33f0ac82c68345af46cf704820ac6825966a40498e1bc22b3c2fedbf24b",
+    "src/ashlar_host/truss_ack_journal.py": "e849b899c878be42760d1e186863494d3c016d92108f864b9d53a715b6b1e161",
+    "src/ashlar_host/truss_backend.py": "3150fb179b56f25764090543684e39dd6811a89d65cc03c4d52e0eeab7abf0ee",
+    "src/ashlar_host/truss_catalog_reader.py": "772a9ff8eb755f0a5b26edbb3655f4af9da9e09eed3b8110540dcd5e9eeaeb0c",
+    "src/ashlar_host/truss_continue.py": "b15c7cd3186ca07eb423bf924faf58bae9f8ee122d597c232f4f33adbf1f8ee8",
+    "src/ashlar_host/truss_continue_cli.py": "b54f33b1d83f344f3fd70541f679ad04a1eb16e558756d13b52a01a495baf423",
+    "src/ashlar_host/truss_current_catalog.py": "9e6851a8dfde569f59a2aed01409863ae5ae22dc5be8fa8263b1859da0aa8d94",
+    "src/ashlar_host/truss_feed_sessions.py": "51fad36496548faf7906c5d810f3d57a62df1f68256ace78953fc640e5178ca4",
+    "src/ashlar_host/truss_graph_admission.py": "406434aec69f0283c56d5f70a589803e8c23ae24a2618517e4cb7026255937ad",
+    "src/ashlar_host/truss_note_publication.py": "f160f4de3dafa722fb3812e706c11b611b21bfbdf757f59995e9d85a0b2b9a28",
+    "src/ashlar_host/truss_source_custody_selection.py": "7cc6b921209af4437cfab125af4d7093855b99badfea9c5aecb43767b388b36e"
+  },
+  "attempt_id": "ashlar-local-development-r37-inplace-resume-20261101",
+  "attempt_namespace": "ashlar-r39-truss052-resume-evidence-shape-20261101",
+  "authority_class": "local_development_authority",
+  "authority_note": "In-place local-development continuation from the exact stopped R36 accepted Truss source and verified genesis ACK; no acceptance/enrollment/seed replay, no production or cloud authority.",
+  "authorization": "standing_user_local_release_authorization",
+  "cloud": false,
+  "continuation": {
+    "authorization": "only after genesis destination verification and exact source ACK reconciliation",
+    "expected_operation_count": 2,
+    "expected_outcome": "one advancing public Truss page with exactly two typed changes appended after the matched seven-change seed page publication",
+    "historical_A_seed_bytes_reused": false,
+    "path": "r28-continuation-request.json",
+    "profile": "ashlar-truss052-fresh-local-continuation-group/0.1",
+    "request_key": "ashlar-local-dev-typed-graph-continuation-r21",
+    "sha256": "52066d42c59c889d6b487cf42627c7cef6751c151a104b0b1a3a42430adf64e1",
+    "source_acknowledgement": "protected Truss .52 ACK only after independent native Delta readback and exact checkpoint reconciliation; expected matched",
+    "source_system": "ashlar-local-development-typed-graph-r21-20261101",
+    "transaction_operation": "two independent create_object operations (Person and Place); no cross-page identity reference"
+  },
+  "limits": {
+    "attempt_root_bytes": 536870912,
+    "attempts": 1,
+    "automatic_retries": 0,
+    "cleanup": false,
+    "cloud": false,
+    "combined_log_bytes": 16777216,
+    "network_listen": false,
+    "parallelism": "sequential local only",
+    "process_rss_bytes": 2147483648,
+    "retain_source_and_all_receipts": true,
+    "wall_seconds": 900
+  },
+  "model": {
+    "authority": "operator-authored local-development fixture",
+    "bun_path": "/opt/homebrew/bin/bun",
+    "bun_sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
+    "declared_umf_version": "0.10.0",
+    "derivation": "replace exactly one `id` token `typed-graph-example` with `ashlar-local-dev-typed-graph-r21-20261101`; preserve all other model bytes",
+    "derived_path": "r28-model.umf.json",
+    "derived_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
+    "document_id": "ashlar-local-dev-typed-graph-r21-20261101",
+    "document_revision": "1",
+    "source_path": "docs/helix/04-build/evidence/current-upstream-release-20261031/g03-sdk010-txn1-weft056-packet/r4-sdk010-initialize-only/inputs/typed-graph-model.umf.json",
+    "source_sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b"
+  },
+  "native_effects_authorization": "standing local-release authorization; Sol review required before dispatch; no one-run native run here",
+  "paths": {
+    "data_directory": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
+    "must_be_absent_before_native_run": true,
+    "output_root": "/private/tmp/ashlar-r40-truss052-inplace-resume-20261101",
+    "publication_directory": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
+    "supervisor_root": "/private/tmp/ashlar-r40-truss052-inplace-resume-20261101-supervisor"
+  },
+  "prior_attempt_r25": {
+    "attempt_root": "/private/tmp/ashlar-r25-truss052-resume-20261101",
+    "pgdata_bytes": 64850381,
+    "pgdata_files": 1259,
+    "pgdata_sha256": "df8ffb0e83b55938afd7cff910952c8f6eda2317f58006262a995f370474b701",
+    "profile": "ashlar-r25-read-only-resume-attempt/0.1",
+    "receipt_directory": "r25-attempt-evidence",
+    "receipt_sha256": {
+      "child.stderr.log": "6fc70ef97013a402447d8b51dcf5573da2923666f1c7087274d3a62428861dfa",
+      "child.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure.json": "61efcfdf0d033cfe65e27eca34dbb5b2ef497d96e5222e184f85d95d4fd01515",
+      "resume-source-copy.json": "c1226b124c77cadab73b8818a05b71448b73b185e632ca8d938d322d5830e1de",
+      "supervisor-receipt.json": "98ba7c1163847dea44148800f4f07143832ec9c4fe7400e259d4601169497969"
+    },
+    "source_pgdata_not_reused": true,
+    "supervisor_root": "/private/tmp/ashlar-r25-truss052-resume-20261101-supervisor"
+  },
+  "prior_attempt_r26": {
+    "attempt_root": "/private/tmp/ashlar-r26-truss052-resume-20261101",
+    "cloud": false,
+    "database_effects_may_remain": true,
+    "delta_effects_may_remain": false,
+    "page_selection_receipt_present": false,
+    "pgdata_bytes": 64851368,
+    "pgdata_files": 1259,
+    "pgdata_sha256": "fcb02461ab8316d4fa80dabc23d96eb88e9261143237a5fa8159a09144cef564",
+    "profile": "ashlar-r26-read-only-resume-attempt/0.1",
+    "receipt_directory": "r26-attempt-evidence",
+    "receipt_sha256": {
+      "child.stderr.log": "2de56b11c951a7baae6b42132d8c1c4930f275ce82ac0b281183217037f883b7",
+      "child.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure.json": "9a33cca93b3a30abe56d527c93e9d692282f847de827c75bf5bdadeb03794203",
+      "resume-source-copy.json": "80780bec19dd8819be136cd126e8b2763bb49ed659a9bd98573b74d1fa3579cb",
+      "supervisor-receipt.json": "21b7f9938fdd5b2c353ee67f3c3703f59f4f0cce35f3500d1dfae2c6585f0321"
+    },
+    "source_ack_attempted": false,
+    "source_pgdata_not_reused": true,
+    "supervisor_root": "/private/tmp/ashlar-r26-truss052-resume-20261101-supervisor"
+  },
+  "prior_attempt_r28_host": {
+    "attempt_root": "/private/tmp/ashlar-r28-truss052-page-sequence-host-20261101",
+    "delta_receipt_present": false,
+    "evidence_directory": "r28-host-attempt-evidence",
+    "evidence_sha256": {
+      "child.stderr.log": "7a546e11b9f6c36dc20c0b7be172b71339bc496e5fd59eb3b9567d251818d5e2",
+      "child.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "genesis-page-selection.json": "94d29d96f37161274b7bc0389d416b01b2b08817653319367af5283026432812",
+      "resume-source-copy.json": "679e0b4f40f9af3bec88ab216ce90ff076e7a542ae317bb3284b2a7156d087ac",
+      "resume-source-reconciliation.json": "628ec66679cf1b416514d2b7a0c55b0c1d03f71b2f3842e3b1a8de432d00d530",
+      "supervisor-receipt.json": "2a54977371e7ef96477fa7702d051ed7829c8df0c35f10ca3728a86c23f4f662"
+    },
+    "failure_reason": "SupervisorRefusal: externally reachable TCP listener refused",
+    "page_selection_receipt_sha256": "94d29d96f37161274b7bc0389d416b01b2b08817653319367af5283026432812",
+    "postgres_cleanup": "stopped_gracefully",
+    "profile": "ashlar-r28-truss052-supervisor/0.1",
+    "source_ack_attempted": false,
+    "status": "supervisor_failed_or_stopped",
+    "supervisor_receipt_sha256": "2a54977371e7ef96477fa7702d051ed7829c8df0c35f10ca3728a86c23f4f662",
+    "supervisor_root": "/private/tmp/ashlar-r28-truss052-page-sequence-host-20261101-supervisor",
+    "wall_seconds": 7.234
+  },
+  "prior_attempt_r29": {
+    "attempt_root": "/private/tmp/ashlar-r29-truss052-page-sequence-loopback-20261101",
+    "delta_reconciliation_path": "r29-attempt-evidence/r29-readonly-reconciliation.json",
+    "delta_reconciliation_sha256": "0b34535ca35101f3c38105f130c4ce0400153f24cdcee58b5e5472d6ceefaf66",
+    "delta_root_reusable": false,
+    "failure": "NativeDriver rejected TrussFeedSessions because current .52 candidate profile was not in both typed/Truss allowlists",
+    "only_installation_reservation_metadata": true,
+    "profile": "ashlar-r29-truss052-page-sequence-loopback/0.1",
+    "resume_source_is_original_r24": true,
+    "selected_page_ack_attempted": false,
+    "selected_page_sha256": "942a325702683382c99bd92c69a1af6478cf04879fee0f9d8db4cd4e80f8a9a0",
+    "source_checkpoint_sha256": "9afcb17ae6f64d065c0bc11f25c2f111c43b95ade0bd20a354a568001a91ad4a",
+    "supervisor_root": "/private/tmp/ashlar-r29-truss052-page-sequence-loopback-20261101-supervisor"
+  },
+  "prior_attempt_r32": {
+    "attempt_root": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101",
+    "failure": "selector compared canonical report revision string with CatalogRegistration integer; fixed by public string representation guard",
+    "graph_data_publication": false,
+    "profile": "ashlar-r32-truss052-selector-refusal-reconciliation/0.1",
+    "reconciliation_receipt_sha256": "1e3fec692e71625e2b0baa520ca94d9daa33f38d0c6d7fe4477f195e9855d9de",
+    "source_acknowledgement_attempted": false,
+    "source_pgdata_not_reused": true,
+    "supervisor_root": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101-supervisor"
+  },
+  "prior_attempt_r33": {
+    "attempt_root": "/private/tmp/ashlar-r33-truss052-page-sequence-20261101",
+    "data_publication": false,
+    "failure": "selector required report artifact.bytesBase64, absent in actual public report; exact accepted bytes were returned through accepted_document_in_transaction.",
+    "public_readonly_reconciliation_sha256": "a5b60ecaed48e688ae159566684e8a8f8d9632dc1194bdbcec77fc5c07b74354",
+    "r24_source_tree_sha256": "dd122a2d01bce3e99c0d6d824cf33c07a57a5c38358f2a081d2e47d47941cbdd",
+    "source_ack_attempted": false,
+    "supervisor_root": "/private/tmp/ashlar-r33-truss052-page-sequence-20261101-supervisor"
+  },
+  "prior_work": {
+    "R20": "committed schema-only Delta publication, irrevocably deferred/unacknowledged; never reused or replayed by R21",
+    "R21_pre_effect_attempt": "Supervisor-created child logs had mode 0640 under inherited umask; worker refused before output root or PostgreSQL startup. No DB, Spark, Delta, ACK, or cloud effects occurred. R22 uses fresh output and supervisor roots; R21 local source identities remain unused.",
+    "R22_pre_effect_attempt": "Worker path unpack attempted Path(boolean) on must_be_absent_before_native_run after child log validation; no output root, PostgreSQL, Spark, Delta, ACK, or cloud effect occurred. R23 parses explicit path keys only, validates all deterministic native setup before output creation, and has a fresh output/supervisor namespace.",
+    "R23_pre_effect_attempt": "Supervisor stopped at 1.555 seconds during LocalPostgres startup because a partially written postmaster.pid was treated as an ownership mismatch. Child was SIGTERM; no PostgreSQL process, Truss catalog, Spark, Delta, ACK, or cloud activity remained. Supervisor receipt is retained as r23-supervisor-receipt.json. R24 tolerates only an incomplete startup pidfile for at most 10 seconds while the worker is live; complete PID/PGDATA/lsof proof remains mandatory for process accounting and all cleanup.",
+    "R25_pre_effect_attempt": "R25 resumed a cold R24 copy, passed registrar status/report and ordinary-reader ACL/accepted-document readback, then failed at public read_page because its autocommit connection had no explicit transaction. No source ACK, Spark, Delta, or cloud effect occurred. R26 uses the original stopped R24 PGDATA again and a fresh attempt namespace.",
+    "R26_pre_effect_attempt": "R26 resumed the immutable stopped R24 source, passed public status/report/document and feed readbacks, then stopped before Spark at a SourceBatch result-shape misuse (SourceBatch has no changes field). It started and stopped only the retained R26 PostgreSQL copy; no Delta or ACK occurred. R27 uses the original R24 source and fresh attempt roots.",
+    "R28_host_listener_failure": "R28 host attempt passed R24 source public readbacks and the first-page selection, then the supervisor refused an externally reachable TCP LISTEN during local Spark startup after 7.234 seconds. PostgreSQL cleanup completed gracefully; no Delta or ACK receipt was produced. The retained supervisor receipt did not record the offending endpoint. R29 sets explicit loopback Spark IP, advertised driver host, driver bind address, and UI bind address; no listener parser relaxation is made.",
+    "R28_sandbox_denial": "Original R28 supervisor stopped in 0.015s because sandbox denied /bin/ps; no attempt tree bytes or child output, no observed native effects. Escalated host process inventory found no R28 worker or R28 PGDATA postmaster. This host-permission attempt uses fresh roots and no source replay.",
+    "R29_native_attempt": "Read-only reconciliation shows schema/installation reservation metadata only across six roles, zero data files or effect-journal rows, a zero-change prerequisite page, and no source ACK attempt. R30 uses immutable stopped R24 PGDATA and a fresh output/Delta root; it never reuses R29 Delta state.",
+    "R33_native_attempt": "The R33 worker passed public status/report/document/page reads and stopped in source selection before publication/ACK. Its R24 cold copy was reconciled read-only; the correction uses the exact public AcceptedDocument object. R34 starts from immutable R24 again and uses fresh output/destination/ACK identifiers.",
+    "R34_native_attempt": "Independent local R34 run committed genesis Delta v1, then stopped before Truss custody open because catalog_status EXECUTE is registrar-only. R35 uses a fresh R24 source copy and fresh destination/ACK identity; it does not mutate or resume R34.",
+    "historical_A": "not used",
+    "source_selection": "new Truss installation and public source registration; not copied R6/R16b PGDATA"
+  },
+  "production_authority": false,
+  "profile": "ashlar-r37-truss052-inplace-resume/0.1",
+  "publication": {
+    "ack_after_durable_destination_verification": true,
+    "ack_api": "Truss 0.0.52 public same-session source-custody API",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "destination_id": "ashlar-local-dev-delta-r36-20261101",
+    "feed": "ashlar-local-dev-typed-graph-feed-r21-20261101",
+    "first_page_limit": 1,
+    "maximum_page_bytes": 1048576,
+    "next_page": "Use exact immediately preceding verified publication intent and ACK-advanced source checkpoint for each one-page resume; no replay/reset. Keep each precursor vector and source ACK receipt distinct.",
+    "page_sequence": {
+      "ack_each_page_after_independent_native_readback": true,
+      "continuation_ack": "matched_through_same_session_Truss_0.52_source_custody",
+      "expected_change_counts": [
+        7,
+        2
+      ],
+      "expected_order": [
+        "exact-seven-change-seed-page",
+        "exact-two-change-continuation-page"
+      ],
+      "genesis_ack_replay": false,
+      "genesis_replay": false,
+      "page_bound": 2,
+      "profile": "ashlar-r37-inplace-two-page-resume/0.1",
+      "protected_ack_bound": 2,
+      "seed_group_replay": false,
+      "unknown_page_refused_before_publication": true
+    },
+    "predecessor": "explicit-truss-genesis",
+    "prepublication_selection_fields": [
+      "local source authority class",
+      "installation and runtime release identity",
+      "feed and source epoch",
+      "consumer and actual Truss registration ID",
+      "exact prior and next cursor bytes",
+      "page SHA-256",
+      "canonical publication request bytes and digest",
+      "destination selection and publication ID",
+      "canonical ACK scope bytes"
+    ],
+    "prepublication_selection_required": true,
+    "umf_sdk_version": "0.10.1"
+  },
+  "r33_selector_reconciliation": {
+    "failure": "Truss public acceptance report has artifact.identity and artifact.sha256 but no artifact.bytesBase64; public AcceptedDocument carries content bytes separately.",
+    "fix": "Require exact public AcceptedDocument result; bind report document id/revision/artifact identity/SHA to object fields and recompute the hash of object.content. Also bind registration id/catalog revision.",
+    "fixture": "r28-page-sequence/r33-attempt-evidence/r24-public-report-document-projection-v3.json",
+    "fixture_sha256": "62ff140371e3c6999b7aef3af44192a08d0edb74f3842246b3271a7ce8a95807",
+    "no_ack_or_native_delta_publication_in_r33": true,
+    "profile": "ashlar-r33-public-report-selector-reconciliation/0.1",
+    "receipt": "r28-page-sequence/r33-attempt-evidence/r33-public-source-reconciliation-v3.json",
+    "receipt_sha256": "a5b60ecaed48e688ae159566684e8a8f8d9632dc1194bdbcec77fc5c07b74354",
+    "selector_preflight": "passed with actual public report, AcceptedDocument, status and page; consumer is typed from retained public enrollment identity and exact prior cursor; temporary empty six-role destination registry only."
+  },
+  "resume": {
+    "profile": "ashlar-truss052-resume-committed-genesis/0.1",
+    "receipt_directory": "r24-resume-evidence",
+    "receipt_sha256": {
+      "acceptance.json": "f765f2e12a10abb3d0a2cd8462f27dfd8d0f0f12c93e87937aa4a930374c742b",
+      "consumer-registration.json": "262d9a9eb817f673a9011724ccf686bdc91070d1f77e14a11116a30b4f2f71ae",
+      "failure.json": "e7105200563819d10995621632e7af36dbbd646a2521a3f4be981261bf3dcfca",
+      "genesis-group-commit.json": "3997c164716b891ae4eec28ae4a54886ffbf486ce78d86cb4052f903a0fef5cc",
+      "installation.json": "61b4b6b041ee899822237d34c7bf0450bc6832ff28e5b8b9bc93ff34233fee17",
+      "supervisor-receipt.json": "ac6e02605117ebf02ae99153fb28c9801409fcf5a5fd9bc8fa37c327b49c56b2"
+    },
+    "resume_policy": "restart the exact stopped R36 PGDATA in place and resume the exact retained R36 six-role Delta journal/Genesis intent from its matched public ACK checkpoint; do not copy, reinitialize, replay genesis, reenroll consumer, or replay seed",
+    "source_attempt_id": "ashlar-local-development-r24-attempt-20261101",
+    "source_pgdata": "/private/tmp/ashlar-r24-truss052-fresh-source-20261101/pgdata",
+    "source_pgdata_bytes": 48071712,
+    "source_pgdata_files": 1258,
+    "source_pgdata_sha256": "dd122a2d01bce3e99c0d6d824cf33c07a57a5c38358f2a081d2e47d47941cbdd",
+    "source_postconditions": {
+      "accepted_document_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
+      "accepted_registration_id": "4356b0ee-2d21-4a39-9182-b82c66dffd97",
+      "accepted_report_sha256": "466a3c0f4f0223499f9f1ba2e9c4bf6a73d74ddcbbc3b9275c89276e6efd502c",
+      "consumer_checkpoint_sha256": "9afcb17ae6f64d065c0bc11f25c2f111c43b95ade0bd20a354a568001a91ad4a",
+      "consumer_registration_id": "68efd137-eddf-46d3-9a06-5eb6406f2bd7",
+      "genesis_request_key": "ashlar-local-dev-typed-graph-seed-r21",
+      "genesis_result_count": 7,
+      "installation_id": "87406914-c3f1-49d4-a687-d5dbec313389",
+      "no_ack_or_delta_receipt_expected": true,
+      "prior_delta_effects_may_remain": false,
+      "prior_source_ack_attempted": false
+    },
+    "source_root": "/private/tmp/ashlar-r24-truss052-fresh-source-20261101"
+  },
+  "retained_r35_resume_preflight": {
+    "attempt_root": "/private/tmp/ashlar-r35-truss052-page-sequence-20261101",
+    "configuration_path": "/private/tmp/ashlar-r35-truss052-page-sequence-20261101/continuation-config-2.json",
+    "configuration_sha256": "b9520a7adb0a3d1c3478b575c125e1759c8d891e7d11fa2f2a7995d44f54e4bc",
+    "journal_sha256": "e52a05f4b5a012158eac26fbf764e1286ee2ce3d1a51eae591e272548b544856",
+    "pgdata_bytes": 65204338,
+    "pgdata_files": 1261,
+    "pgdata_sha256": "84ebcd2536f28743fa72e58675033f61886015686eeb2b7edebdfd5951bd50f5",
+    "profile": "ashlar-r35-parser-journal-preflight/0.1",
+    "receipt_sha256": {
+      "failure.json": "74ef1b2597d3fb0a666397ed0c3af3f58ecf3f520c8d16cbacb69f03f0d3b39e",
+      "genesis-ack-reconciliation.json": "05982d2ec413db87fd10e9d2dae4cdc78a2600e34b9c0121694cd96cd2b28db2",
+      "genesis-native-readback.json": "d82f3025cfbbd7b556704ce2c4351da0730ac4c1d64a8755172becb6c90af8ad",
+      "page-2-rehydrate-proof.json": "8d7dd8e6bd947ffe1c7cfa85d84b5b59417e29d53bc7c51b937e15acd661aca9"
+    },
+    "supervisor_receipt_sha256": "8f9255587a9e07e737aa9365b0bb183f1d9c654e046ba35228ff1f2b78a2d19c",
+    "supervisor_root": "/private/tmp/ashlar-r35-truss052-page-sequence-20261101-supervisor"
+  },
+  "retained_r36": {
+    "ack_checkpoint_sha256": "8e370e1497197b93029ff7f5287d9102802a098fbc4ea02b1e6bf20339841f9f",
+    "attempt_root": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101",
+    "base_supervisor_path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r36_truss052_supervisor.py",
+    "base_supervisor_sha256": "584e225e0663e276e39a6da19187c9f01f642982257fc2cda8811b9e26d111bc",
+    "base_worker_path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r36-local-worker.py",
+    "base_worker_sha256": "cc8facf22574bfff1be1985928cd648a86b65ff32366fb7b55402c4898ab9dfd",
+    "continuation_config_path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/continuation-config-2.json",
+    "continuation_config_sha256": "d41b15e25d0e507b3466a900170ecf8d02a6f909e33de5903c8b4c57b1278006",
+    "delta_tree": {
+      "bytes": 1390069,
+      "files": 100,
+      "sha256": "cf038ad5e0be628f829b67996e4686548b3c9e8a707f43f78f78afdeffc54d20"
+    },
+    "genesis_intent_sha256": "24e071ba8287d7d611c9bf009eb6d30e27e616ae8e314ee3e526151ee332f510",
+    "journal_sha256": "9a4f24e4fa76dbdc2250d4c1c270b00ed91ef5129ccf59a0e03c65e39a476030",
+    "pgdata_tree": {
+      "bytes": 65208181,
+      "files": 1261,
+      "sha256": "06165099b313b5470120140f9e8efbe6a670a7a9c3045ec57016148badb550ce"
+    },
+    "profile": "ashlar-r36-inplace-recovery-source/0.1",
+    "receipt_sha256": {
+      "durable-deferred-ack-intent.json": "403e3445e88c0210c5f9d1f6a5b0a24917169359762d9da502018e7160865810",
+      "failure.json": "2d54dc548b821c1e7a56e2182341d2d7f23963eda688d1ebeca349b20561a303",
+      "genesis-ack-reconciliation.json": "6c137d32eb00535848a007b22ec209d2ff1db906de113685d617f62c06bbb2db",
+      "genesis-native-readback.json": "7b95d2f43acbc827bef775f5ab5d0cef0bc42082122dce08bb0b4fe2a249846d",
+      "page-2-rehydrate-proof.json": "2010f956625cf5e8c805b1089cd094f74731efe833b5fce165c2ac509fc85ce8",
+      "resume-source-reconciliation.json": "628ec66679cf1b416514d2b7a0c55b0c1d03f71b2f3842e3b1a8de432d00d530"
+    }
+  },
+  "retained_r39_page_evidence": {
+    "accepted_model_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
+    "next_cursor_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+    "page_relative_path": "r39-public-feed-page.json",
+    "page_sha256": "0248fd1607b971f267df71b1262668930a96925a767855dd3400fb0ecd1a6456",
+    "prior_cursor_sha256": "8e370e1497197b93029ff7f5287d9102802a098fbc4ea02b1e6bf20339841f9f",
+    "receipt_relative_path": "r39-nullability-reconciliation.json",
+    "receipt_sha256": "d4903948a93d87fad3e987de8a1aa6063db9a623077460b2534be38bf821eb61"
+  },
+  "runtime_candidate": {
+    "ashlar_candidate_admission_commit": "c705f37ccfcca5bb6f42d44eff0d22fdd13fa773",
+    "ashlar_candidate_tree": "bbc8a097c2dfb0b0728c0fe4eb601ff055121e97",
+    "distribution": "umf-truss",
+    "local_extra_overlay": "/private/tmp/ashlar-r9-truss051-current-runtime-20261101/site-packages",
+    "local_runtime_base_python": "/private/tmp/ashlar-r19-truss051-runtime-cohort-20261031/bin/python",
+    "new_overlay_or_venv": "/private/tmp/ashlar-r21-truss052-runtime-candidate-20261101",
+    "release_id": "truss-catalog-runtime/0.75-candidate",
+    "release_state": "published GitHub asset; wheel SHA-256 verified against public release readback",
+    "runtime_manifest_sha256": "5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522",
+    "source_commit": "1d23bedfdfdc0901e16e1a0663882c765fe1068f",
+    "version": "0.0.52",
+    "wheel_asset_url": "https://github.com/DocumentDrivenDX/truss/releases/download/v0.0.52/umf_truss-0.0.52-py3-none-any.whl",
+    "wheel_path": "/private/tmp/truss-0.0.52-local-release-1/assets/umf_truss-0.0.52-py3-none-any.whl",
+    "wheel_sha256": "00d8b11abc83d9c84fa131ae6f3eef23ecad9d321d4b04a13641ed31c77e9747"
+  },
+  "seed": {
+    "atomicity": "one public Truss atomic group: four objects and three edges",
+    "historical_A_seed_bytes_reused": false,
+    "newly_authored_local_bytes": true,
+    "operation_count": 7,
+    "path": "r28-seed-request.json",
+    "sha256": "fb74cf6fb22b1f44b7dd8bb0a8d75d0bda982e14abb466d22afecd2017f4444a"
+  },
+  "source": {
+    "ack_registration_id": "ashlar-local-dev-ack-registration-r36-20261101",
+    "ack_scope_id": "ashlar-local-dev-ack-scope-r36-20261101",
+    "acknowledgement": "protected Truss .52 ACK only after independently verified durable Delta receipt; exact receipt reconciliation required",
+    "consumer_id": "ashlar-local-dev-typed-graph-consumer-r21-20261101",
+    "consumer_registration_source": "retained public FeedConsumer registration from R36; no reenrollment",
+    "cursor_identity_source": "actual page prior/next bytes from public read_feed; exact bytes retained",
+    "feed_identity_source": "public FeedPage cursor plus native_feed_batch correspondence; exact observed feed/epoch retained at runtime",
+    "feed_selection": "ashlar-local-dev-typed-graph-feed-r21-20261101",
+    "installation_identity_source": "public CatalogRuntimeStatus and exact public accepted-document/readback",
+    "module_reader_role": "ashlar_local_dev_modread_r21_20261101",
+    "ordinary_reader_role": "ashlar_local_dev_reader_r21_20261101",
+    "registrar_login_role": "ashlar_local_dev_registrar_r21_20261101",
+    "registrar_no_login_role": "ashlar_local_dev_catalog_registrar_r23_20261101",
+    "request_key": "ashlar-local-dev-typed-graph-acceptance-r21-20261101",
+    "source_holder_id": "ashlar-local-dev-source-holder-r36-20261101",
+    "source_system": "ashlar-local-development-typed-graph-r21-20261101",
+    "writer_login_role": "ashlar_local_dev_writer_r21_20261101",
+    "writer_module_role": "ashlar_local_dev_modwrite_r21_20261101"
+  },
+  "source_binding_followup": {
+    "evidence": "r28-page-sequence/r33-attempt-evidence/r33-public-source-reconciliation-v3.json",
+    "focused_test_sha256": "d2ac4001295be5138020094beeffa0c203359bfb88d60b54529b493b37f68ff5",
+    "profile": "ashlar-r33-public-accepted-document-selector-correction/0.1",
+    "selector_sha256": "7cc6b921209af4437cfab125af4d7093855b99badfea9c5aecb43767b388b36e",
+    "test_fixture_sha256": "72ac564d5fe79fd460a9e2bdb55dde60d79a000deaaec1da080edfc9a1308cb0"
+  },
+  "source_custody_adapter": {
+    "commit": "611a75e33fc252da0305cd3d610508901c762a73",
+    "files": {
+      "pyproject.toml": "3e2788efac61e7d1cafe04449b28716c1ae2c8a5517b5c9271127b0bb83515f0",
+      "src/ashlar_host/truss052_source_custody.py": "cc28a33f0ac82c68345af46cf704820ac6825966a40498e1bc22b3c2fedbf24b",
+      "src/ashlar_host/truss_current_catalog.py": "9e6851a8dfde569f59a2aed01409863ae5ae22dc5be8fa8263b1859da0aa8d94",
+      "src/ashlar_host/truss_source_custody_selection.py": "1736ddfe039e74e27665c36522e4425e9c4b6d213a63c0bef34cb952d7a43242",
+      "tests/test_truss052_source_custody.py": "0e3599d64179c58cf58df773767facbff5d0e1c3d38fe0e27b88f0800beffe0e",
+      "tests/test_truss_current_catalog.py": "f4edd09b8211577592347d3372dbcb95ffa9d0945dca8014e686466f9e9d04aa",
+      "tests/test_truss_local_dev_source_custody_selection.py": "f8fc4e9825b9b6b8cb3b7889a603fcfada77700174cb82a61b23f755349712b7",
+      "tests/test_truss_source_custody_selection.py": "e5fa0fa169ccd2245f8a2320db08ca0c4d6062e3401b390d119148a20a9c01e9"
+    },
+    "release_asset_sha256_readback": "00d8b11abc83d9c84fa131ae6f3eef23ecad9d321d4b04a13641ed31c77e9747",
+    "release_asset_url_pin": "https://github.com/DocumentDrivenDX/truss/releases/download/v0.0.52/umf_truss-0.0.52-py3-none-any.whl#sha256=00d8b11abc83d9c84fa131ae6f3eef23ecad9d321d4b04a13641ed31c77e9747",
+    "tree": "4f4640b6edeca4cd942374f21e3887db9427db22"
+  },
+  "source_implementation": {
+    "commit": "31370a041190eb0aa607d7731f5669ad77733973",
+    "files": {
+      "src/ashlar_host/driver.py": "0c3c79f98039afae74c0f0f40b38c888b53a3e6c6d8084e237eb24b1e5f5f30f",
+      "src/ashlar_host/truss_catalog_reader.py": "ab41b650967b175ee3e1b799acfea1869d39fa9f888361252cc2176bf1c25e2e",
+      "src/ashlar_host/truss_continue.py": "144b0969dfa9f76ab78a3e3e94c78be3ef9619cafc9c16a7e9456257312d8220",
+      "src/ashlar_host/truss_continue_cli.py": "62665459b04c00d57aab45a007371c26e3c01811554b33ccd15718e200d755b8",
+      "src/ashlar_host/truss_current_catalog.py": "9e6851a8dfde569f59a2aed01409863ae5ae22dc5be8fa8263b1859da0aa8d94",
+      "src/ashlar_host/truss_graph_admission.py": "98279c6564e9f45460bdf29192a5459e2a47aaa6fa18a966086f726aa57c4af4",
+      "src/ashlar_host/truss_note_publication.py": "0289e35661e7767496f529bef2b7051121826dce756a2fdc7bbb1c89f12cb42c",
+      "src/ashlar_host/truss_resume_cli.py": "c0367e3c5af0a8df1a5a40b6ec892527f40403c8c339d0c1db1b639d904f7f43",
+      "src/ashlar_host/truss_source_custody_selection.py": "7438366d362c5c509c3df7012af45a57410297879ca535d7fc9f47d4fbf5598e",
+      "tests/test_truss_continue_cli.py": "73b2a444ea1213f5faaf57b245f3b86da1c082a10b381f3a9cb45531d075456f",
+      "tests/test_truss_current_catalog.py": "f4edd09b8211577592347d3372dbcb95ffa9d0945dca8014e686466f9e9d04aa"
+    },
+    "tree": "37a0df30ecb0aca8bf170b966a988f49c5bd0eee"
+  },
+  "spark_network": {
+    "driver_bind_address": "127.0.0.1",
+    "driver_host": "127.0.0.1",
+    "local_ip": "127.0.0.1",
+    "profile": "ashlar-local-spark-loopback-bind/0.1",
+    "ui_bind_address": "127.0.0.1"
+  },
+  "spark_probe": {
+    "path": "r29-spark-loopback-probe-receipt.json",
+    "probe_script_sha256": "09acc76fff773da8df76ec3104d6ad1a6d4223ba33146e447af1926da378b6d9",
+    "profile": "ashlar-r29c-spark-loopback-probe-receipt/0.1",
+    "sha256": "cc5ad41bd33b0f70f8bcbfb0870cbc5d3ad226b944233c564a2b78c3cb1c4ff7",
+    "source_scope_sha256": "4483a75df0bb91baa1a732f4bbbdc731b77ca174d707da63b678c1b05052d514"
+  },
+  "spark_runtime": {
+    "jars": [
+      {
+        "name": "delta-spark_4.2_2.13-4.4.1.jar",
+        "path": "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-spark_4.2_2.13-4.4.1.jar",
+        "sha256": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be"
+      },
+      {
+        "name": "delta-storage-4.4.1.jar",
+        "path": "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-storage-4.4.1.jar",
+        "sha256": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+      }
+    ],
+    "java_home": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
+    "runtime_profile": "ashlar-configured-local-runtime/0.2"
+  },
+  "status": "pending_sol_review",
+  "supervisor": {
+    "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r37_truss052_supervisor.py",
+    "sha256": "dbd2ac1563885eead43d6241c2d82013372ca83927e670705372bdcac8b2fece"
+  },
+  "worker": {
+    "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r40-local-worker.py",
+    "sha256": "a4b27c5271ad6bb0cab3b9b8378c68fa63b944e4d7b4f81ab70fda1b8bbc3df3"
+  }
+}
