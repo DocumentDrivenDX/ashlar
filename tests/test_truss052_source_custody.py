@@ -15,6 +15,11 @@ class _Ok:
 
 
 class _Handle: pass
+class _RuntimeStatus:
+    def __init__(self, installation_id="install", installed=True):
+        self.installation_id = installation_id
+        self.installed = installed
+
 class _Observation:
     def __init__(self, phase): self.phase = phase
 class _Closed:
@@ -94,12 +99,13 @@ class _Assembly:
         self.reconcile_outcome = reconcile_outcome
         self.disposed = False
     def status_in_transaction(self, transaction):
-        return _Ok(SimpleNamespace(installed=True, installation_id="install"))
+        raise AssertionError("catalog status must use the separately authorized provider")
     def open_feed_source_custody_in_transaction(self, transaction, selection):
         self.connection.last_op = "open"
         self.open_selection = selection
         return _Ok(_Handle())
     def read_feed_in_transaction(self, transaction, *, consumer_id, maximum_facts, maximum_bytes):
+        self.connection.last_op = "read"
         self.read_arguments = (consumer_id, maximum_facts, maximum_bytes)
         return _Ok(self.selected.page)
     def renew_feed_source_custody_in_transaction(self, transaction, handle, *, phase):
@@ -150,8 +156,11 @@ class Truss052SourceCustodyTests(unittest.TestCase):
         self.host = _Host(self.connection)
         self.assembly = _Assembly(self.connection, self.host, self.selection)
         self.calls = []
+        self.order = []
+        self.runtime_status = _RuntimeStatus()
         def factory(context):
             self.calls.append(context)
+            self.order.append("reader_connection")
             return self.connection
         def adopt(connection, **kwargs):
             self.assertIs(connection, self.connection)
@@ -161,23 +170,31 @@ class Truss052SourceCustodyTests(unittest.TestCase):
             self.assertIs(host, self.host)
             return _Ok(self.assembly)
         self.sdk = (_Ok, object, create, adopt, _Handle, _Observation,
-                    _Ack, _Reconciled, _Closed, _Unavailable, object, _Page)
+                    _Ack, _Reconciled, _Closed, _Unavailable, _RuntimeStatus, _Page)
+        def materialize(selection, *, runtime_status):
+            self.materialized_status = runtime_status
+            return SimpleNamespace(selection=selection,
+                destination_registration_bytes=selection.destination_registration_bytes,
+                ack_scope_bytes=selection.ack_scope_bytes)
         self.patches = [
             patch("ashlar_host.truss052_source_custody._sdk", return_value=self.sdk),
             patch.object(TrussSourceCustodySelection, "to_candidate_sdk",
-                autospec=True, side_effect=lambda selection, *, runtime_status:
-                    SimpleNamespace(selection=selection, **{
-                        "destination_registration_bytes": selection.destination_registration_bytes,
-                        "ack_scope_bytes": selection.ack_scope_bytes})),
+                autospec=True, side_effect=materialize),
         ]
         for p in self.patches: p.start()
         self.addCleanup(lambda: [p.stop() for p in reversed(self.patches)])
         self.context = object()
+        def status_provider():
+            self.order.append("registrar_status")
+            return self.runtime_status
         self.session = Truss052SourceCustodySession(
-            connection_factory=factory, selection=self.selection, context=self.context)
+            connection_factory=factory, runtime_status_provider=status_provider,
+            selection=self.selection, context=self.context)
 
     def test_lifecycle_uses_one_connection_and_exact_registration_scope(self):
         self.session.open()
+        self.assertEqual(self.order[:2], ["registrar_status", "reader_connection"])
+        self.assertIs(self.materialized_status, self.runtime_status)
         self.assertEqual(self.assembly.open_selection.destination_registration_bytes, b"registration")
         self.assertEqual(self.assembly.open_selection.ack_scope_bytes, b"scope")
         page = self.session.observe_selected_page()
@@ -212,6 +229,14 @@ class Truss052SourceCustodyTests(unittest.TestCase):
         with self.assertRaisesRegex(Truss052CustodyError, "connection was lost"):
             self.session.renew()
         self.assertEqual(self.calls, [self.context])
+
+    def test_mismatched_public_runtime_status_refuses_before_reader_connection(self):
+        session = Truss052SourceCustodySession(
+            connection_factory=lambda _context: self.fail("reader connection must not open"),
+            runtime_status_provider=lambda: _RuntimeStatus(installation_id="other-install"),
+            selection=self.selection, context=self.context)
+        with self.assertRaisesRegex(Truss052CustodyError, "differs from selected installation"):
+            session.open()
 
     def test_unknown_ack_is_one_shot_and_allows_only_reconciliation(self):
         self.session.open()

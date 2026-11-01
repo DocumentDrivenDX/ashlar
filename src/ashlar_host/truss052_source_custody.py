@@ -33,8 +33,7 @@ def _sdk():
                            adopt_psycopg_host, FeedSourceCustodyHandle,
                            FeedSourceObservation, FeedReceiptAcknowledged,
                            FeedAckReconciled, FeedSourceClosed)
-        from truss.feed import FeedPage
-        from truss.feed import FeedUnavailable
+        from truss.feed import FeedPage, FeedUnavailable
         from truss import CatalogRuntimeStatus
     except ImportError as error:
         raise Truss052CustodyError("Public Truss 0.0.52 custody API is unavailable") from error
@@ -63,6 +62,7 @@ class Truss052SourceCustodySession:
     connection_factory: object = field(repr=False, compare=False)
     selection: TrussSourceCustodySelection = field(repr=False, compare=False)
     context: object = field(repr=False, compare=False)
+    runtime_status_provider: object = field(default=None, repr=False, compare=False)
     statement_timeout_ms: int = 10000
     _connection: object = field(default=None, init=False, repr=False, compare=False)
     _host: object = field(default=None, init=False, repr=False, compare=False)
@@ -79,6 +79,8 @@ class Truss052SourceCustodySession:
         if (type(self.selection) is not TrussSourceCustodySelection
                 or type(self.context) is type(None)
                 or not callable(self.connection_factory)
+                or (self.runtime_status_provider is not None
+                    and not callable(self.runtime_status_provider))
                 or type(self.statement_timeout_ms) is not int
                 or not 1 <= self.statement_timeout_ms <= 60000):
             raise Truss052CustodyError("Exact .52 selection, context and bounded connection factory required")
@@ -167,10 +169,28 @@ class Truss052SourceCustodySession:
         if self._phase != "new":
             raise Truss052CustodyError("Source custody can be opened only once")
         selected = self._selection()
+        status = None
+        if self.runtime_status_provider is not None:
+            # Query through the caller's registrar connection immediately
+            # before the retained feed-reader session starts its open call.
+            status = self.runtime_status_provider()
+            CatalogRuntimeStatus = _sdk()[10]
+            if (type(status) is not CatalogRuntimeStatus or status.installed is not True
+                    or status.installation_id != selected.identity.get("installation_id")):
+                self._phase = "refused"
+                raise Truss052CustodyError(
+                    "Fresh public Truss runtime status differs from selected installation")
         self._ensure_host()
         try:
             with self._transaction("read_write") as transaction:
-                status = _value(self._assembly.status_in_transaction(transaction))
+                if self.runtime_status_provider is None:
+                    status = _value(self._assembly.status_in_transaction(transaction))
+                    CatalogRuntimeStatus = _sdk()[10]
+                    if (type(status) is not CatalogRuntimeStatus or status.installed is not True
+                            or status.installation_id != selected.identity.get("installation_id")):
+                        self._phase = "refused"
+                        raise Truss052CustodyError(
+                            "Public Truss runtime status differs from selected installation")
                 self._sdk_selection = selected.to_candidate_sdk(runtime_status=status)
                 handle = _value(self._assembly.open_feed_source_custody_in_transaction(
                     transaction, self._sdk_selection))
