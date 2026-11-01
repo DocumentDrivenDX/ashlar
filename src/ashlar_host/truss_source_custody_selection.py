@@ -151,10 +151,10 @@ class TrussSourceCustodySelection:
     def to_candidate_sdk(self, *, runtime_status=None):
         """Materialize the public selection only for the exact candidate release.
 
-        The installed 0.0.51 release is intentionally refused even if a local
-        monkeypatch exposes similarly named methods. Both stable candidate
-        package metadata and its authenticated runtime manifest identity must
-        match before creating the public selection type.
+        A caller-supplied ``CatalogRuntimeStatus`` has no provenance by type
+        alone; the caller must obtain it through public
+        ``status_in_transaction`` on the selected installation. This gate
+        establishes correspondence only and grants no ACK authority.
         """
         _need(_issued(_SELECTIONS, self),
               "Publication selection must come from the validated binder")
@@ -168,6 +168,8 @@ class TrussSourceCustodySelection:
                 "Exact Truss source-custody candidate runtime unavailable") from error
         _need(type(runtime_status) is CatalogRuntimeStatus
               and runtime_status.installed is True
+              and type(runtime_status.installation_id) is str
+              and bool(runtime_status.installation_id)
               and runtime_status.installation_id == self.identity["installation_id"]
               and runtime_status.release_id == _RELEASE_ID
               and runtime_status.release_sha256 == _RELEASE_SHA256
