@@ -9,11 +9,30 @@ import tempfile
 import unittest
 
 import r05_72_partition_worker as worker
+import r05_72_partition_supervisor as supervisor
 from full_delta4_generator import RolePlan, build_generation_plan
 import r05_72_runtime as runtime
 
 
 class WriterDiscriminatorChecks(unittest.TestCase):
+    def test_write_stage_gate_ignores_unrelated_untagged_delta_jobs(self):
+        event_summary = {
+            "status": "parsed", "stagePhaseAttribution": "incomplete",
+            "untaggedJobs": 16, "unmappedTaskStages": 14,
+            "stages": [
+                {"stageId": 12, "phaseNames": ["node_write"], "tasks": 72},
+                {"stageId": 13, "phaseNames": ["edge_write"], "tasks": 72},
+                {"stageId": 0, "phaseNames": [], "tasks": 1},
+            ],
+        }
+        self.assertTrue(supervisor._write_stage_attribution_valid(event_summary))
+        changed = json.loads(json.dumps(event_summary))
+        changed["stages"][1]["tasks"] = 71
+        self.assertFalse(supervisor._write_stage_attribution_valid(changed))
+        changed = json.loads(json.dumps(event_summary))
+        changed["stages"][0]["phaseNames"] = []
+        self.assertFalse(supervisor._write_stage_attribution_valid(changed))
+
     def test_delta_detail_uses_current_path_quoting_api(self):
         class Query:
             def limit(self, count):

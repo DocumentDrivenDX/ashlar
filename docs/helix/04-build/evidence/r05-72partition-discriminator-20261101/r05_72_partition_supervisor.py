@@ -275,6 +275,32 @@ def _active_delta_bytes(root: Path) -> int:
     return total
 
 
+def _write_stage_attribution_valid(event_summary: Any) -> bool:
+    """Require exactly tagged 72-task write stages, ignoring unrelated jobs.
+
+    Delta snapshot/metadata jobs may have no R05 job-group tag. The event
+    summary retains that global attribution gap; it does not invalidate the
+    node and edge write stages when each is independently tagged and complete.
+    """
+    if type(event_summary) is not dict or event_summary.get("status") != "parsed":
+        return False
+    stages = event_summary.get("stages")
+    if type(stages) is not list:
+        return False
+    for phase in ("node_write", "edge_write"):
+        tagged = [stage for stage in stages
+                  if type(stage) is dict
+                  and type(stage.get("phaseNames")) is list
+                  and phase in stage["phaseNames"]]
+        if (not tagged
+                or any(stage["phaseNames"] != [phase]
+                       or type(stage.get("tasks")) is not int
+                       or stage["tasks"] != 72
+                       for stage in tagged)):
+            return False
+    return True
+
+
 def _wait_for_group_quiescence(pgid: int, timeout_seconds: float = 2.0) -> bool:
     """Allow exited child descendants a short bounded shutdown window.
 
@@ -554,14 +580,9 @@ def run_supervised_attempt(*, authorization_path: Path, runtime_pins_path: Path,
         elapsed = time.monotonic() - started
         event_summary = full._spark_event_summary(root)
         _write_private(root / "r05-72-event-summary.json", _canonical(event_summary))
+        write_stages_valid = _write_stage_attribution_valid(event_summary)
         if reason is None and status == 0:
-            phase_stages = {phase: [stage for stage in event_summary.get("stages", [])
-                                    if phase in stage.get("phaseNames", [])]
-                            for phase in ("node_write", "edge_write")}
-            if (event_summary.get("status") != "parsed"
-                    or event_summary.get("stagePhaseAttribution") != "complete"
-                    or any(not stages or max(item.get("tasks", 0) for item in stages) != 72
-                           for stages in phase_stages.values())):
+            if not write_stages_valid:
                 reason = "write-stage-task-attribution-not-exactly-72"
         result = {"profile": PROFILE, "packetSha256": digest,
                   "sourcePinsSha256": source_digest, "runtimePinsSha256": runtime_digest,
@@ -570,6 +591,8 @@ def run_supervised_attempt(*, authorization_path: Path, runtime_pins_path: Path,
                   "totalSecondsCap": TOTAL_SECONDS, "workerSecondsCap": WORKER_SECONDS,
                   "attemptRootBytesCap": ROOT_BYTES,
                   "activeDeltaBytesCap": ACTIVE_DELTA_BYTES,
+                  "writeStageAttribution": ("exactly-72-tasks-per-write-phase"
+                                            if write_stages_valid else "incomplete"),
                   "sparkEventSummary": event_summary,
                   "cleanup": {"status": "preserved-after-failure-or-uncertainty"},
                   "reason": reason}

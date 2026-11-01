@@ -19,8 +19,11 @@ ddx:
 
 # R05 single 72-partition writer discriminator — 2026-11-01
 
-**Status: candidate implementation, pending Sol review; no Spark launched.** This
-packet implements the single 45M-node/225M-edge local candidate scoped by the
+**Status: one bounded local candidate completed; worker witnesses passed, while
+the supervisor held the outcome on a global event-attribution false negative.**
+See [the run reconciliation](r05-72partition-run-reconciliation-20261101.md)
+for exact receipts, comparison, projection and the future validator correction.
+The packet implements the 45M-node/225M-edge local candidate scoped by the
 reviewed R05 release-scale design. It uses the existing `.4-xxhash64` UMF
 carrier, schema, values, ZSTD settings and deterministic row formulas. The only
 workload change is explicit Spark SQL `range(0, N, 1, 72)` slicing and 72 shuffle
@@ -45,10 +48,9 @@ installation and the exact restored Delta JARs. GraphFrames Python/JVM packages
 are outside this writer-only profile; GraphFrames export remains a separate
 qualification gate.
 
-Before any native work, the code, receipt and inert runtime pins require Sol
-review. If reviewed, the only permitted next native step is a tiny Spark/Delta
-startup and profile smoke on the isolated local slot; the 45M/225M candidate
-then requires separate admission. Results can compare this writer mechanism
-with retained baseline evidence only. They cannot establish repeatability,
-256-core scaling, 1B/5B capacity, Unity Catalog qualification, or production
-support.
+The one-run authorization capped the attempt at 900 seconds and 32 GiB. The
+preserved attempt root remains for Sol review because the supervisor did not
+complete cleanup after its attribution guard fired; no cleanup or repeat run
+is authorized here. Results compare this writer mechanism with retained local
+baseline evidence only. They cannot establish repeatability, 256-core scaling,
+1B/5B capacity, Unity Catalog qualification, or production support.
