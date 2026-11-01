@@ -11,13 +11,18 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from ashlar.staging import batch_row
+from ashlar.pins import PinVector
 from ashlar.source_checkpoint import truss_checkpoint
 from ashlar.truss_native_feed import native_feed_batch
 from ashlar_host.publication_planning import truss_request_for
 from ashlar_host.truss_source_custody_selection import (
-    TrussSourceSelectionError,
+    LOCAL_NATIVE_OBSERVATION_PROFILE, LocalNativeDeltaPublicationObservation,
+    LocalNativeDeltaRoleObservation, TrussSourceSelectionError,
+    _mint_expected_native_post_state, _issue_local_native_delta_publication_observation,
+    local_native_row_bag_summary,
     select_truss_local_dev_source_custody_anchor,
 )
+from ashlar_host.truss_feed_sessions import encode_truss_destination_receipt
 
 
 def canonical(value):
@@ -59,6 +64,7 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
         request = truss_request_for("r21-local-development", batch,
             "explicit-truss-genesis", {"source": "r21"})
         self.request_bytes = canonical(request).encode()
+        self.publication_id = "truss-graph-" + request["request_digest"]
         report = {"registrationId": "acceptance-registration-r21", "revision": 3,
             "acceptedInput": {"documents": [{"documentId": "typed-graph-r21",
                 "documentRevision": "1.0.0", "artifact": {
@@ -101,7 +107,7 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
         feed.FeedPage = self.types.FeedPage
         return {"truss": root, "truss.catalog_results": catalog, "truss.feed": feed}
 
-    def anchor(self, *, page=None, consumer=None):
+    def anchor(self, *, page=None, consumer=None, publication_id=None):
         return select_truss_local_dev_source_custody_anchor(
             registration=self.registration,
             consumer=self.consumer if consumer is None else consumer,
@@ -112,7 +118,8 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
             destination_id="ashlar-local-dev-delta-r21-20261101",
             ack_registration_id="ashlar-local-dev-ack-registration-r21",
             ack_scope_id="ashlar-local-dev-ack-scope-r21",
-            publication_id="publication-r21", request_bytes=self.request_bytes,
+            publication_id=self.publication_id if publication_id is None else publication_id,
+            request_bytes=self.request_bytes,
             predecessor_id="explicit-truss-genesis")
 
     def test_binds_public_registration_genesis_page_and_one_page_ack_scope(self):
@@ -128,7 +135,7 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
         self.assertEqual(registration["ackRegistrationId"], "ashlar-local-dev-ack-registration-r21")
         self.assertEqual(registration["ackScopeId"], "ashlar-local-dev-ack-scope-r21")
         self.assertEqual(scope["scopeId"], "ashlar-local-dev-ack-scope-r21")
-        self.assertEqual(scope["publicationId"], "publication-r21")
+        self.assertEqual(scope["publicationId"], self.publication_id)
         self.assertEqual(scope["maximumPages"], 1)
         self.assertEqual(scope["priorCursorSha256"], hashlib.sha256(self.prior).hexdigest())
 
@@ -138,6 +145,11 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
         with patch.dict(sys.modules, self._modules()):
             with self.assertRaisesRegex(TrussSourceSelectionError, "correspondence"):
                 self.anchor(consumer=foreign)
+
+    def test_refuses_publication_id_not_derived_from_request(self):
+        with patch.dict(sys.modules, self._modules()):
+            with self.assertRaisesRegex(TrussSourceSelectionError, "local-development source registration"):
+                self.anchor(publication_id="caller-selected-foreign-publication")
 
     def test_refuses_duplicate_members_in_public_acceptance_report(self):
         self.registration.report_bytes = (
@@ -157,6 +169,106 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
         with self.assertRaisesRegex(TrussSourceSelectionError, "validated source selector"):
             replace(anchor, ack_scope_bytes=b"{}").bind_publication(
                 manifest_bytes=b"{}", vector=None, receipt_bytes=b"", observation=None)
+
+    def _local_publication_evidence(self):
+        roles = ("object_current", "edge_current", "tombstone", "whole_source_history")
+        table_versions = {f"local.trussgraph.{role}": 0 for role in roles}
+        manifest = {"publication_id": self.publication_id,
+                    "profile_version": "ashlar-delta/0.4-xxhash64",
+                    "table_versions_json": canonical(table_versions)}
+        manifest_bytes = canonical(manifest).encode()
+        targets = {f"local.trussgraph.{role}": (f"uuid-{role}", 0) for role in roles}
+        vector = PinVector("private-local-process", "manifest", self.publication_id,
+            hashlib.sha256(manifest_bytes).hexdigest(), targets)
+        receipt = encode_truss_destination_receipt(self.request_bytes, manifest_bytes, vector)
+        following = {role: ([{"role": role, "value": "present"}] if role != "tombstone" else [])
+                     for role in roles}
+        expected = _mint_expected_native_post_state(
+            publication_id=self.publication_id,
+            request_digest=json.loads(self.request_bytes)["request_digest"],
+            following=following, carrier_profile="ashlar-delta/0.4-xxhash64")
+        native_roles = {}
+        for role in roles:
+            table = f"local.trussgraph.{role}"
+            digest = hashlib.sha256(("delta-log-" + role).encode()).hexdigest()
+            bag = local_native_row_bag_summary(following[role])
+            native_roles[role] = LocalNativeDeltaRoleObservation(
+                role=role, table=table, uuid=f"uuid-{role}", version=0,
+                head_version=0, head_json_sha256=digest,
+                log_history=((0, digest),), active_files=1,
+                physical_parquet_files=1, row_bag_sha256=bag["row_bag_sha256"],
+                row_count=bag["row_count"])
+        observation = _issue_local_native_delta_publication_observation(
+            publication_id=self.publication_id,
+            manifest_bytes=manifest_bytes,
+            manifest_sha256=hashlib.sha256(manifest_bytes).hexdigest(),
+            vector=vector, receipt_bytes=receipt,
+            receipt_sha256=hashlib.sha256(receipt).hexdigest(), roles=native_roles)
+        return manifest_bytes, vector, receipt, expected, observation, following
+
+    def test_local_native_publication_binds_exact_manifest_vector_and_role_bags(self):
+        with patch.dict(sys.modules, self._modules()):
+            anchor = self.anchor()
+        manifest, vector, receipt, expected, observation, _ = self._local_publication_evidence()
+        selection = anchor.bind_local_native_publication(manifest_bytes=manifest,
+            vector=vector, receipt_bytes=receipt, expected_post_state=expected,
+            observation=observation)
+        self.assertEqual(selection.authority_profile, "local-development")
+        self.assertEqual(selection.publication_id, self.publication_id)
+
+    def test_local_native_publication_refuses_row_bag_or_log_drift(self):
+        from dataclasses import replace
+        with patch.dict(sys.modules, self._modules()):
+            anchor = self.anchor()
+        manifest, vector, receipt, expected, observation, _ = self._local_publication_evidence()
+        changed = dict(observation.roles)
+        changed["edge_current"] = replace(changed["edge_current"], row_bag_sha256="0" * 64)
+        bad_bag = _issue_local_native_delta_publication_observation(
+            publication_id=observation.publication_id,
+            manifest_bytes=observation.manifest_bytes,
+            manifest_sha256=observation.manifest_sha256, vector=observation.vector,
+            receipt_bytes=observation.receipt_bytes,
+            receipt_sha256=observation.receipt_sha256, roles=changed)
+        with self.assertRaisesRegex(TrussSourceSelectionError, "row bag"):
+            anchor.bind_local_native_publication(manifest_bytes=manifest, vector=vector,
+                receipt_bytes=receipt, expected_post_state=expected, observation=bad_bag)
+        changed = dict(observation.roles)
+        changed["edge_current"] = replace(changed["edge_current"], log_history=((1, "a" * 64),))
+        bad_log = _issue_local_native_delta_publication_observation(
+            publication_id=observation.publication_id,
+            manifest_bytes=observation.manifest_bytes,
+            manifest_sha256=observation.manifest_sha256, vector=observation.vector,
+            receipt_bytes=observation.receipt_bytes,
+            receipt_sha256=observation.receipt_sha256, roles=changed)
+        with self.assertRaisesRegex(TrussSourceSelectionError, "Delta log version"):
+            anchor.bind_local_native_publication(manifest_bytes=manifest, vector=vector,
+                receipt_bytes=receipt, expected_post_state=expected, observation=bad_log)
+
+    def test_local_native_publication_refuses_unissued_observation(self):
+        from dataclasses import replace
+        with patch.dict(sys.modules, self._modules()):
+            anchor = self.anchor()
+        manifest, vector, receipt, expected, observation, _ = self._local_publication_evidence()
+        forged = replace(observation)
+        with self.assertRaisesRegex(TrussSourceSelectionError, "native readback"):
+            anchor.bind_local_native_publication(manifest_bytes=manifest, vector=vector,
+                receipt_bytes=receipt, expected_post_state=expected, observation=forged)
+
+    def test_local_native_publication_refuses_unissued_expected_post_state(self):
+        with patch.dict(sys.modules, self._modules()):
+            anchor = self.anchor()
+        manifest, vector, receipt, expected, observation, _ = self._local_publication_evidence()
+        forged = replace(expected)
+        with self.assertRaisesRegex(TrussSourceSelectionError, "publisher post-state"):
+            anchor.bind_local_native_publication(manifest_bytes=manifest, vector=vector,
+                receipt_bytes=receipt, expected_post_state=forged, observation=observation)
+
+    def test_local_native_anchor_cannot_use_managed_r04_binder(self):
+        with patch.dict(sys.modules, self._modules()):
+            anchor = self.anchor()
+        with self.assertRaisesRegex(TrussSourceSelectionError, "limited to the scheduled R04"):
+            anchor.bind_publication(manifest_bytes=b"{}", vector=None,
+                receipt_bytes=b"x", observation=None)
 
 
 if __name__ == "__main__":

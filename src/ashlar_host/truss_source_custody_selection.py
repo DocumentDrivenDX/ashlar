@@ -34,6 +34,13 @@ _RELEASE_ID = "truss-catalog-runtime/0.75-candidate"
 _RELEASE_SHA256 = "5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522"
 _ANCHORS = weakref.WeakValueDictionary()
 _SELECTIONS = weakref.WeakValueDictionary()
+_EXPECTED_POST_STATES = weakref.WeakValueDictionary()
+_LOCAL_NATIVE_OBSERVATIONS = weakref.WeakValueDictionary()
+
+LOCAL_ROW_BAG_CANONICALIZATION = "ashlar-local-native-row-bag/0.1"
+LOCAL_EXPECTED_POST_STATE_PROFILE = "ashlar-local-native-expected-post-state/0.1"
+LOCAL_NATIVE_OBSERVATION_PROFILE = "ashlar-local-native-delta-publication-observation/0.1"
+_LOCAL_DATA_ROLES = ("object_current", "edge_current", "tombstone", "whole_source_history")
 
 
 class TrussSourceSelectionError(ValueError):
@@ -65,6 +72,101 @@ def _canonical_bytes(value):
     return canonical(value)
 
 
+def local_native_row_bag_summary(rows):
+    """Digest an unordered native row bag without losing duplicates or nulls.
+
+    Rows are canonical JSON objects sorted by encoded bytes. Each row is
+    length-prefixed with an unsigned 8-byte big-endian size before hashing.
+    This binds multiplicity while making native collection order irrelevant.
+    """
+    if type(rows) not in (list, tuple):
+        raise TrussSourceSelectionError("Exact native row list required")
+    encoded_rows = []
+    for row in rows:
+        if type(row) is not dict:
+            raise TrussSourceSelectionError("Native row must be an exact field mapping")
+        encoded_rows.append(_canonical_bytes(row))
+    encoded_rows.sort()
+    digest = hashlib.sha256()
+    for raw in encoded_rows:
+        digest.update(len(raw).to_bytes(8, "big"))
+        digest.update(raw)
+    return {"canonicalization": LOCAL_ROW_BAG_CANONICALIZATION,
+            "row_count": len(encoded_rows), "row_bag_sha256": digest.hexdigest()}
+
+
+@dataclass(frozen=True, eq=False)
+class ExpectedNativePostState:
+    profile: str
+    publication_id: str
+    request_digest: str
+    carrier_profile: str
+    roles: object = field(repr=False, compare=False)
+
+    def receipt(self):
+        return {"profile": self.profile, "publication_id": self.publication_id,
+                "request_digest": self.request_digest,
+                "carrier_profile": self.carrier_profile,
+                "roles": {role: dict(value) for role, value in self.roles.items()}}
+
+
+def _mint_expected_native_post_state(*, publication_id, request_digest, following,
+                                    carrier_profile="ashlar-delta/0.4-xxhash64"):
+    """Mint exact planned role bags from the publisher's computed post-state."""
+    publication_id = _bounded_text(publication_id, "publication ID", 4096)
+    _need(type(request_digest) is str and re.fullmatch(r"[0-9a-f]{64}", request_digest),
+          "Exact publication request digest required")
+    _need(type(following) is dict and set(following) == set(_LOCAL_DATA_ROLES),
+          "Complete exact planned four-role post-state required")
+    _need(carrier_profile == "ashlar-delta/0.4-xxhash64",
+          "Local native post-state requires the pinned Delta carrier profile")
+    roles = {role: MappingProxyType(local_native_row_bag_summary(following[role]))
+             for role in _LOCAL_DATA_ROLES}
+    value = ExpectedNativePostState(
+        profile=LOCAL_EXPECTED_POST_STATE_PROFILE, publication_id=publication_id,
+        request_digest=request_digest, carrier_profile="ashlar-delta/0.4-xxhash64",
+        roles=MappingProxyType(roles))
+    return _issue(_EXPECTED_POST_STATES, value)
+
+
+@dataclass(frozen=True)
+class LocalNativeDeltaRoleObservation:
+    role: str
+    table: str
+    uuid: str
+    version: int
+    head_version: int
+    head_json_sha256: str
+    log_history: tuple
+    active_files: int
+    physical_parquet_files: int
+    row_bag_sha256: str
+    row_count: int
+
+
+@dataclass(frozen=True, eq=False)
+class LocalNativeDeltaPublicationObservation:
+    profile: str
+    publication_id: str
+    manifest_bytes: bytes = field(repr=False)
+    manifest_sha256: str
+    vector: PinVector = field(repr=False, compare=False)
+    receipt_bytes: bytes = field(repr=False)
+    receipt_sha256: str
+    roles: object = field(repr=False, compare=False)
+
+
+def _issue_local_native_delta_publication_observation(*, publication_id,
+        manifest_bytes, manifest_sha256, vector, receipt_bytes, receipt_sha256, roles):
+    """Issue the closed observation after the caller's independent native reads."""
+    value = LocalNativeDeltaPublicationObservation(
+        profile=LOCAL_NATIVE_OBSERVATION_PROFILE, publication_id=publication_id,
+        manifest_bytes=manifest_bytes, manifest_sha256=manifest_sha256,
+        vector=vector, receipt_bytes=receipt_bytes, receipt_sha256=receipt_sha256,
+        roles=MappingProxyType(dict(roles)))
+    return _issue(_LOCAL_NATIVE_OBSERVATIONS, value)
+
+
 @dataclass(frozen=True)
 class TrussSourceCustodyAnchor:
     """Bindings frozen before publication from schedule plus actual source page."""
@@ -89,6 +191,8 @@ class TrussSourceCustodyAnchor:
         """Bind to the exact managed-reader observation and original publication."""
         _need(_issued(_ANCHORS, self),
               "Source custody anchor must come from the validated source selector")
+        _need(self.authority_profile == "r04-scheduled" and self.source in ("A", "B"),
+              "Managed observation binder is limited to the scheduled R04 source")
         if (type(manifest_bytes) is not bytes or not 0 < len(manifest_bytes) <= _MAX_BYTES
                 or type(vector) is not PinVector
                 or type(receipt_bytes) is not bytes or not 0 < len(receipt_bytes) <= _MAX_BYTES):
@@ -133,6 +237,132 @@ class TrussSourceCustodyAnchor:
             schedule_sha256=self.schedule_sha256, source=self.source,
             identity=MappingProxyType(dict(self.identity)),
             authority_profile=self.authority_profile))
+
+    def bind_local_native_publication(self, *, manifest_bytes: bytes, vector: PinVector,
+                                      receipt_bytes: bytes, expected_post_state: object,
+                                      observation: "LocalNativeDeltaPublicationObservation"
+                                      ) -> "TrussSourceCustodySelection":
+        """Bind local-dev source custody to planned rows and independent Delta readback.
+
+        This deliberately grants no managed production authority. R04 remains
+        bound only by ``bind_publication`` and its managed reader observation.
+        """
+        _need(_issued(_ANCHORS, self),
+              "Source custody anchor must come from the validated source selector")
+        _need(self.authority_profile == "local-development"
+              and self.source == "local-development",
+              "Local native binder requires the distinct local-development anchor")
+        if (type(manifest_bytes) is not bytes or not 0 < len(manifest_bytes) <= _MAX_BYTES
+                or type(vector) is not PinVector
+                or type(receipt_bytes) is not bytes or not 0 < len(receipt_bytes) <= _MAX_BYTES
+                or type(expected_post_state) is not ExpectedNativePostState
+                or not _issued(_EXPECTED_POST_STATES, expected_post_state)
+                or type(observation) is not LocalNativeDeltaPublicationObservation
+                or not _issued(_LOCAL_NATIVE_OBSERVATIONS, observation)):
+            raise TrussSourceSelectionError(
+                "Exact local manifest, vector, publisher post-state and native readback required")
+        manifest = decode_retained_json(manifest_bytes)
+        publication_id = _bounded_text(manifest.get("publication_id"), "publication ID", 4096)
+        _need(manifest.get("profile_version") == "ashlar-delta/0.4-xxhash64"
+              and _canonical_bytes(manifest) == manifest_bytes
+              and vector.authority == "private-local-process"
+              and vector.scope_kind == "manifest" and vector.scope_id == publication_id
+              and vector.custody_digest == hashlib.sha256(manifest_bytes).hexdigest(),
+              "Exact canonical local `.4` manifest and pin digest required")
+        _need(publication_id == self.preselected_publication_id
+              and expected_post_state.profile == LOCAL_EXPECTED_POST_STATE_PROFILE
+              and expected_post_state.carrier_profile == "ashlar-delta/0.4-xxhash64"
+              and expected_post_state.publication_id == publication_id,
+              "Publisher post-state differs from frozen local request/publication")
+        request = decode_retained_json(self.request_bytes)
+        from ashlar.attempt_store import verify_request_digest
+        inner_digest = verify_request_digest(request)
+        _need(hashlib.sha256(self.request_bytes).hexdigest() == self.request_sha256
+              and expected_post_state.request_digest == inner_digest
+              and publication_id == "truss-graph-" + inner_digest,
+              "Frozen local request, publisher digest and publication ID differ")
+        from .truss_feed_sessions import encode_truss_destination_receipt
+        expected_receipt = encode_truss_destination_receipt(
+            self.request_bytes, manifest_bytes, vector)
+        _need(receipt_bytes == expected_receipt,
+              "Destination receipt differs from exact local request, manifest and vector")
+        _need(type(observation.profile) is str
+              and observation.profile == LOCAL_NATIVE_OBSERVATION_PROFILE
+              and observation.publication_id == publication_id
+              and observation.manifest_bytes == manifest_bytes
+              and observation.manifest_sha256 == hashlib.sha256(manifest_bytes).hexdigest()
+              and observation.vector == vector
+              and observation.receipt_bytes == receipt_bytes
+              and observation.receipt_sha256 == hashlib.sha256(receipt_bytes).hexdigest(),
+              "Native Delta observation differs from exact local manifest/vector/receipt")
+        versions_raw = manifest.get("table_versions_json")
+        _need(type(versions_raw) is str, "Exact local manifest data-role versions required")
+        versions = decode_retained_json(versions_raw.encode("utf-8"))
+        _need(type(versions) is dict and set(versions) == set(vector.targets),
+              "Manifest and complete four-role vector target sets differ")
+        role_rows = observation.roles
+        _need(type(role_rows) in (dict, MappingProxyType)
+              and set(role_rows) == set(_LOCAL_DATA_ROLES)
+              and set(expected_post_state.roles) == set(_LOCAL_DATA_ROLES),
+              "Exact four-role native and expected post-state maps required")
+        target_roles = {}
+        for table, target in vector.targets.items():
+            role = table.rsplit(".", 1)[-1]
+            _need(table == "local.trussgraph." + role
+                  and role in _LOCAL_DATA_ROLES and role not in target_roles,
+                  "Exact local.trussgraph four-role vector required")
+            target_roles[role] = (table, target)
+        _need(set(target_roles) == set(_LOCAL_DATA_ROLES),
+              "All native graph data roles must be selected")
+        for role in _LOCAL_DATA_ROLES:
+            native = role_rows[role]
+            _need(type(native) is LocalNativeDeltaRoleObservation
+                  and native.role == role,
+                  "Exact typed local native role observation required")
+            table, (uuid, version) = target_roles[role]
+            _need(native.table == table and native.uuid == uuid
+                  and type(native.version) is int and native.version == version
+                  and versions[table] == version
+                  and type(native.head_version) is int and native.head_version == version,
+                  "Native Delta role UUID/version differs from selected publication vector")
+            _need(type(native.log_history) is tuple and 1 <= len(native.log_history) <= 100001
+                  and len(native.log_history) == version + 1,
+                  "Complete bounded contiguous local Delta log history required")
+            previous = -1
+            last_digest = None
+            for entry in native.log_history:
+                _need(type(entry) is tuple and len(entry) == 2
+                      and type(entry[0]) is int and entry[0] == previous + 1
+                      and type(entry[1]) is str
+                      and re.fullmatch(r"[0-9a-f]{64}", entry[1]) is not None,
+                      "Contiguous canonical Delta log version/digest sequence required")
+                previous, last_digest = entry
+            _need(native.head_json_sha256 == last_digest
+                  and type(native.active_files) is int and 0 <= native.active_files <= 1000000
+                  and type(native.physical_parquet_files) is int
+                  and native.active_files <= native.physical_parquet_files <= 1000000
+                  and type(native.row_count) is int and 0 <= native.row_count <= 1000000
+                  and type(native.row_bag_sha256) is str
+                  and re.fullmatch(r"[0-9a-f]{64}", native.row_bag_sha256) is not None,
+                  "Bounded actual native file and row-bag observation required")
+            expected = expected_post_state.roles[role]
+            _need(type(expected) in (dict, MappingProxyType)
+                  and set(expected) == {"canonicalization", "row_count", "row_bag_sha256"}
+                  and expected["canonicalization"] == LOCAL_ROW_BAG_CANONICALIZATION
+                  and type(expected["row_count"]) is int
+                  and expected["row_count"] == native.row_count
+                  and expected["row_bag_sha256"] == native.row_bag_sha256,
+                  "Native Delta row bag differs from exact publisher post-state")
+        return _issue(_SELECTIONS, TrussSourceCustodySelection(
+            page=self.page, maximum_facts=self.maximum_facts,
+            maximum_bytes=self.maximum_bytes, request_bytes=self.request_bytes,
+            destination_registration_bytes=self.destination_registration_bytes,
+            ack_scope_bytes=self.ack_scope_bytes, destination_id=self.destination_id,
+            request_sha256=self.request_sha256, publication_id=publication_id,
+            manifest_bytes=manifest_bytes, vector=vector, receipt_bytes=receipt_bytes,
+            schedule_sha256=self.schedule_sha256, source=self.source,
+            identity=MappingProxyType(dict(self.identity)),
+            authority_profile="local-development"))
 
 
 @dataclass(frozen=True)
@@ -398,7 +628,9 @@ def select_truss_local_dev_source_custody_anchor(
                 or request.get("source_checkpoint_json") != truss_checkpoint(batch)):
             raise ValueError("Canonical request differs from exact local-development source page")
         from ashlar.attempt_store import verify_request_digest
-        verify_request_digest(request)
+        inner_digest = verify_request_digest(request)
+        if publication_id != "truss-graph-" + inner_digest:
+            raise ValueError("Local graph publication ID must be derived from the exact request")
     except (AttributeError, KeyError, TypeError, ValueError) as error:
         raise TrussSourceSelectionError(
             "Exact public local-development source registration/page/request correspondence required") from error

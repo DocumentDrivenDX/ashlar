@@ -201,7 +201,7 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
                 "truss.contracts": contracts, "truss.feed": feed}), \
                 patch("importlib.metadata.version", return_value="0.0.52"), \
                 patch("ashlar_host.truss_current_catalog.installed_truss_052_source_custody_profile",
-                      return_value="ashlar-truss-052-source-custody/0.1"):
+                      return_value="ashlar-truss-052-local-candidate-source-custody/0.1"):
             with self.assertRaisesRegex(TrussSourceSelectionError, "gated"):
                 bound.to_candidate_sdk()
             drifted = CatalogRuntimeStatus(**{**status_fields,

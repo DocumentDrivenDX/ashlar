@@ -23,7 +23,7 @@ ddx:
 
 This isolated candidate adds an Ashlar adapter for Truss 0.0.52's public
 same-session source-custody API and a separate local-development source
-selection. The candidate is based on Ashlar `68098f80` and is on branch
+selection. The candidate is based on Ashlar `e60e2a8f` and is on branch
 `codex/truss052-feed-source-ashlar-adapter` in the isolated checkout. The
 Truss runtime gate is the exact installed public status
 `truss-catalog-runtime/0.75-candidate`, manifest SHA-256
@@ -43,10 +43,16 @@ Truss acceptance, consumer, installed-status and feed-page result types, then
 binds their exact registration/report/page/cursor identity to canonical
 destination-registration and ACK-scope bytes. The scope includes the selected
 publication ID and a one-page bound. It does not inherit the R04 A/B schedule
-identity. The local feed label is an Ashlar selection binding; Truss's public
-page exposes consumer registration/cursors, not a separate named feed object.
-The candidate therefore makes no claim that Truss independently registered
-that local feed label.
+identity. Its separate publication binder requires the exact canonical local
+`.4` manifest, request, full four-role pin vector and receipt; an issuer-guarded
+expected post-state from the publisher; and an independently read local Delta
+observation with contiguous log history, exact UUID/version/head and actual
+row-bag digest/count for each role. R04 continues to require its managed-reader
+observation. The local feed label is an Ashlar selection binding; Truss's
+public page exposes consumer registration/cursors, not a separate named feed
+object. The candidate therefore makes no claim that Truss independently
+registered that local feed label or that local Delta readback grants managed
+production authority.
 
 The adapter preserves Ashlar ownership of destination registration and ACK
 scope meaning. It does not execute the external protected destination ACK,
@@ -58,8 +64,8 @@ and native-pin owners, followed by the scoped native lifecycle evidence.
 Focused tests were run with the selected Python 3.12 runtime:
 
 ```text
-PYTHONPATH=src:tests /private/tmp/ashlar-r19-truss051-runtime-cohort-20261031/bin/python -m unittest test_truss052_source_custody test_truss_local_dev_source_custody_selection test_truss_source_custody_selection -v
-Ran 16 tests — OK
+PYTHONPATH=src:tests /private/tmp/ashlar-r19-truss051-runtime-cohort-20261031/bin/python -m unittest test_truss_local_dev_source_custody_selection test_truss_source_custody_selection test_truss052_source_custody test_truss_current_catalog -v
+Ran 35 tests — OK
 ```
 
 These are fake-port and source-selection checks only; no local PostgreSQL,
