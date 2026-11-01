@@ -684,6 +684,20 @@ class ManagedCurrentSparkReceiptReader:
                a1_plan=None, a1_prefix_selected=None):
         prefix_supplied = any(value is not None for value in (
             source_prefix_bytes, source_prefix_sha256, source_core_config))
+        a1_args_supplied = any(value is not None for value in (
+            a1_plan, a1_prefix_selected))
+        is_a1_reader = self.config.source_truss_version == "0.0.52"
+        if is_a1_reader:
+            _require(self.config.carrier_profile == CARRIER_PROFILE_XXHASH64
+                     and source_oracle is None
+                     and prefix_supplied
+                     and all(value is not None for value in (
+                         source_prefix_bytes, source_prefix_sha256, source_core_config))
+                     and a1_plan is not None and type(a1_prefix_selected) is dict,
+                     "Truss .52 A1 reads require the exact `/0.2` plan, selected page and complete `.4` prefix pins")
+        else:
+            _require(not a1_args_supplied,
+                     "A1 `/0.2` plan inputs require the exact Truss .52 reader profile")
         if self.config.carrier_profile == CARRIER_PROFILE_XXHASH64:
             _require(source_oracle is None,
                      "Prebuilt .4 source oracles cannot stand in for native-probed hashes")

@@ -246,6 +246,29 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
                          {role: [] for role in ('object_current', 'edge_current',
                              'tombstone', 'whole_source_history')})
 
+    def test_truss052_reader_refuses_missing_or_partial_a1_pins_and_oracle_bypass(self):
+        from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64
+        from ashlar_host.managed_current_spark_receipt_read import (
+            ManagedCurrentSparkReceiptReader,
+        )
+
+        reader = ManagedCurrentSparkReceiptReader.__new__(ManagedCurrentSparkReceiptReader)
+        reader.config = SimpleNamespace(source_truss_version='0.0.52',
+                                        carrier_profile=CARRIER_PROFILE_XXHASH64)
+        cases = (
+            {},
+            {'a1_plan': object()},
+            {'a1_prefix_selected': {}},
+            {'source_prefix_bytes': b'prefix', 'source_prefix_sha256': '0' * 64,
+             'source_core_config': object()},
+            {'source_oracle': object()},
+        )
+        for pins in cases:
+            with self.subTest(pins=tuple(pins)), self.assertRaisesRegex(
+                    ValueError, 'Truss .52 A1 reads require'):
+                reader.reopen(request_bytes=b'{}', manifest_bytes=b'{}',
+                              expected_receipt={}, **pins)
+
 
 if __name__ == "__main__":
     unittest.main()
