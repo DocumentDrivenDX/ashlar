@@ -147,10 +147,11 @@ Sol's reported read-only inventory
 found no Java process at its capture time; that observation is not the packet's
 fresh receipt and must be repeated at dispatch.
 
-No permit is present. Sol reviewed the source-tree gate, process-group cleanup,
-exact packet/manifest binding and refused/uncertain outcomes. The owner must
-authorize the exact one-shot initialization scope after the prepared attempt
-and fresh process-slot receipt are bound. The local pinned
+The R4 one-shot permit was consumed. Sol reviewed the source-tree gate,
+process-group cleanup, exact packet/manifest binding, and refused/uncertain
+outcomes. The owner authorized R4 after its prepared attempt and fresh
+process-slot receipt were bound. That dispatch failed during isolated worker
+module import before initialization outputs were created. The local pinned
 Python 3.12 environment ran `test_r4_init_packet.py` (7 inert tests) and
 `test_r4_timing.py` (3 inert tests); both pass. Bytecode compilation also
 passes. These checks do not prove initialization behavior. The actual fresh
@@ -166,9 +167,21 @@ and its reviewed [empty process-slot receipt](r4-init-process-slot-receipt.json)
 has SHA-256 `c8d6f22b8175921caf39029b0e0060d28e5849f310f9ca2683fb2adcb43e9a90`.
 The selected packet tree digest is
 `a6e18fb93b2f69d4ed305b4c5be93f9c5966758f26fadf49f5c912da272c2b43`.
-No `dispatch.json`, Spark session, installation, transaction or query exists.
-The separate `execute` step will take another process inventory immediately
-before dispatch if the exact permit is granted.
+R4 consumed one dispatch and the isolated child exited before it could import
+the sibling packet module. Its worker traceback is at line 17; no installation,
+initialize output directory, init result, or Spark log exists. The supervisor
+retained `uncertain-after-dispatch` while recording verified empty process-group
+cleanup. The bounded read-only reconciliation supports a pre-native-effect
+conclusion from the traceback, empty worker stdout, absent native outputs, and
+empty group, without changing that conservative status. Exact receipt and log
+hashes are retained in [R4 failure reconciliation](r5-sdk010-initialize-only/r4-attempt-reconciliation.md).
+
+The [R5 init-only candidate](r5-sdk010-initialize-only/README.md) fixes the
+isolated-child packet import path and binds a new absent attempt parent. It has
+not run `prepare`, `slot`, or `execute`; it has no permit. Its isolated-child
+import preflight and effect-free SDK010 admission pass. A new permit and fresh
+attempt receipts remain separate review gates. Its packet tree digest is
+`48fb4e5a81f2b1f61189aee2fcfbc14503dc71dd9377b84b0ef1d3506b410b2a`.
 
 The effect-free [R4 transaction-one release gate](r4-transaction1-gate/README.md)
 now binds the prepared initializer and Weft 0.4.56 wheel, but remains blocked
