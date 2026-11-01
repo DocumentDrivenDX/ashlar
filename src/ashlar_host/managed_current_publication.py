@@ -662,7 +662,9 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
     from .managed_current_incremental import PROFILE as publication_profile
     GENESIS = 'managed-current-incremental-genesis/0.1'
 
-    def __init__(self, target_owner, admission, *, stream, materialized_at, context):
+    def __init__(self, target_owner, admission, *, stream, materialized_at, context,
+                 managed_genesis_predecessor=None,
+                 source_owner_admitted_batch=None):
         super().__init__(target_owner, admission, stream=stream,
                          materialized_at=materialized_at, context=context)
         from .managed_current_incremental import ManagedCurrentAffectedReader
@@ -671,6 +673,12 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
             lookup_hash_profile=self.targets.carriers.lookup_hash_profile
             if hasattr(self.targets.carriers, 'lookup_hash_profile') else 'sha256-json-v1')
         self.predecessor_manifest = None
+        # These remain explicit caller-owned inputs. An Ashlar batch object is
+        # not itself proof that Truss admitted it or that its cursor is current.
+        self.managed_genesis_predecessor = managed_genesis_predecessor
+        self.source_owner_admitted_batch = source_owner_admitted_batch
+        _require((managed_genesis_predecessor is None) == (source_owner_admitted_batch is None),
+                 'Verified genesis predecessor and source-owner admitted batch must be supplied together')
 
     def _previous_progress(self, request):
         from base64 import b64decode
@@ -703,6 +711,36 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
                  'Incremental predecessor must carry complete prior publication validation')
         _require(json.loads(latest['table_versions_json']) == heads,
                  'Predecessor manifest four-role vector must equal current native heads')
+        if report.get('publication_plan_profile') == 'ashlar-managed-current-genesis-manifest/0.1':
+            from .managed_current_genesis import (
+                MANIFEST_PROFILE, transition_managed_current_first_a_page,
+                verify_managed_current_genesis_predecessor,
+            )
+            predecessor = self.managed_genesis_predecessor
+            batch = self.source_owner_admitted_batch
+            _require(predecessor is not None and batch is not None,
+                     'Genesis advancement requires separately admitted source owner batch and A/B anchors')
+            verified = verify_managed_current_genesis_predecessor(
+                latest, selected_sources=predecessor.selected_sources)
+            _require(predecessor.manifest == latest
+                     and predecessor.source_progress == verified.source_progress
+                     and request['predecessor'] == latest['publication_id']
+                     and batch is self.admission.batch
+                     and batch is self.source_owner_admitted_batch
+                     and report.get('publication_plan_profile') == MANIFEST_PROFILE,
+                     'Exact selected genesis manifest and admitted original A batch required')
+            # This checks page/cursor correspondence and that B remains byte
+            # identical. The source-owner's external admission/freshness remains
+            # an explicit caller authority supplied above.
+            transition = transition_managed_current_first_a_page(
+                verified, source_owner_admitted_batch=batch)
+            checkpoint = json.loads(request['source_checkpoint_json'])
+            _require(transition.get(verified.selected_sources['A'].feed) == checkpoint
+                     and transition.get(verified.selected_sources['B'].feed)
+                         == verified.source_progress.get(verified.selected_sources['B'].feed),
+                     'Exact B genesis marker must survive first A page transition')
+            self.predecessor_manifest = latest
+            return verified.source_progress
         _require(report.get('publication_plan_profile') ==
                  'ashlar-managed-current-incremental-plan/0.1',
                  'Only the exact incremental predecessor profile can advance this publication stream')

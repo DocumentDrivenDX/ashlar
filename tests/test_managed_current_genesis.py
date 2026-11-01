@@ -235,6 +235,52 @@ class TestManagedCurrentGenesis(unittest.TestCase):
         self.assertNotIn('position_sha256', updated[source_a.feed])
         self.assertNotIn('batch_id', args['source_progress']['A'].document())
 
+    def test_incremental_driver_admits_genesis_predecessor_only_with_explicit_a_batch(self):
+        from ashlar.source_checkpoint import truss_checkpoint
+        from ashlar.truss_native_feed import native_feed_batch
+        from ashlar_host.managed_current_publication import ManagedCurrentIncrementalPublicationDriver
+
+        args = _initialize_args()
+        row = ManagedCurrentGenesisManifestOwner(_Targets(), _Store(_Executor())).initialize(**args)
+        predecessor = verify_managed_current_genesis_predecessor(
+            row, selected_sources=args['source_progress'])
+        source_a = args['source_progress']['A']
+        prior = source_a.cursor_bytes
+        following_doc = json.loads(prior); following_doc['nextXid'] = '2'
+        following = json.dumps(following_doc, separators=(',', ':')).encode()
+        page = json.dumps({'interfaceVersion': 'truss-native-feed/0.1',
+            'prior': json.loads(prior), 'next': json.loads(following),
+            'catalogPrerequisites': [], 'revisions': [], 'changes': [],
+            'sources': [], 'reservations': [], 'configuration': {}, 'writerXid': '1'},
+            separators=(',', ':')).encode()
+        batch = native_feed_batch(page, sha256=hashlib.sha256(page).hexdigest(),
+                                  prior=prior, next=following, feed=source_a.feed)
+        checkpoint = truss_checkpoint(batch)
+
+        class _ManifestTransport:
+            def query(self, _sql, _parameters): return SimpleNamespace(rows=[row])
+
+        heads = {name: SimpleNamespace(version=0) for name in (
+            'object_current', 'edge_current', 'tombstone', 'whole_source_history')}
+        driver = object.__new__(ManagedCurrentIncrementalPublicationDriver)
+        driver.transport = _ManifestTransport()
+        driver.names = {**{role: 'catalog.schema.' + role for role in heads},
+                        'publication_manifest': 'catalog.schema.publication_manifest'}
+        driver.table_roles = tuple(heads)
+        driver.targets = SimpleNamespace(observe=lambda: heads,
+            carriers=SimpleNamespace(physical_profile=CARRIER_PROFILE_XXHASH64))
+        driver.managed_genesis_predecessor = predecessor
+        driver.source_owner_admitted_batch = batch
+        driver.admission = SimpleNamespace(batch=batch)
+        request = {'source_checkpoint_json': checkpoint, 'predecessor': row['publication_id']}
+        progress = driver._previous_progress(request)
+        self.assertEqual(progress, json.loads(row['source_progress_json']))
+        self.assertEqual(driver.predecessor_manifest, row)
+
+        driver.source_owner_admitted_batch = None
+        with self.assertRaisesRegex(ValueError, 'separately admitted source owner batch'):
+            driver._previous_progress(request)
+
     def test_genesis_transition_refuses_unbound_predecessor_or_noncontiguous_a_page(self):
         from ashlar.truss_native_feed import native_feed_batch
 
