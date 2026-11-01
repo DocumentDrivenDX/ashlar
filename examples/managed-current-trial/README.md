@@ -9,7 +9,23 @@ the Jobs definition enforces it. Before any paid run, independently inspect the
 actual Jobs task through the Jobs API for its unscheduled serverless compute,
 single-task concurrency, zero retries and finite timeout, and verify the
 cumulative DBU/USD estimate including terminal cleanup against the owner's
-approved limits.
+approved limits. For the approved 15-minute trial, the Jobs API readback must
+show `settings.timeout_seconds <= 900`, the sole notebook task's
+`timeout_seconds <= 900`, `max_concurrent_runs: 1`, `max_retries: 0`, and
+`retry_on_timeout: false`; the job must have no schedule or trigger. The private
+`maximum_task_seconds` value is an inner worker deadline, not proof that the
+Jobs definition enforces the outer bound. Read back the actual definition
+before any run.
+
+Within the worker, each Weft SQL request sets the supported serverless Spark
+Connect property `spark.databricks.execution.timeout` to the remaining inner
+deadline (with a one-second setup reserve), then restores the prior session
+value. This replaces classic `SparkContext` job-group cancellation, which is
+unavailable on Spark Connect. The property bounds an individual Spark Connect
+query; the Jobs job/task timeout is the outer run bound. Serverless Jobs have
+no query timeout by default unless this property is set. See Microsoft's
+[serverless Spark configuration reference](https://learn.microsoft.com/en-us/azure/databricks/spark/conf)
+and [Jobs API reference](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/api/latest/jobs).
 
 This campaign worker is for the positive graph page after the catalog page has
 been published and ACKed. It publishes that positive page and runs all four

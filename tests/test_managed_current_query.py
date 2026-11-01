@@ -89,6 +89,130 @@ def _oracle(source_bundle=None):
 
 
 class ManagedCurrentQueryTests(unittest.TestCase):
+  def test_deadline_uses_spark_connect_query_timeout_without_spark_context(self):
+    from datetime import timedelta
+    from types import SimpleNamespace
+    from ashlar_host.managed_current_query import ManagedCurrentReadOwner
+
+    class Conf:
+      def __init__(self, previous=None):
+        self.values = {} if previous is None else {
+            "spark.databricks.execution.timeout": previous}
+        self.events = []
+      def get(self, key, default=None):
+        return self.values.get(key, default)
+      def set(self, key, value):
+        self.events.append(("set", key, value))
+        self.values[key] = value
+      def unset(self, key):
+        self.events.append(("unset", key))
+        self.values.pop(key, None)
+
+    class Row:
+      def asDict(self, recursive=False):
+        return {"value": "ok"}
+
+    class Frame:
+      schema = SimpleNamespace(fields=[SimpleNamespace(
+          name="value", dataType=SimpleNamespace(simpleString=lambda: "string"))])
+      def collect(self):
+        return [Row()]
+
+    class SparkConnectSession:
+      def __init__(self, conf):
+        self.conf = conf
+      @property
+      def sparkContext(self):
+        raise AssertionError("Serverless Spark Connect has no SparkContext")
+      def sql(self, sql, args):
+        self.request = (sql, args)
+        return Frame()
+
+    conf = Conf()
+    owner = object.__new__(ManagedCurrentReadOwner)
+    owner.spark = SparkConnectSession(conf)
+    owner.active = True
+    owner.current_artifact = {"sql": "SELECT :p0", "parameters": [
+        {"position": 0, "value": "ok"}], "obligations": []}
+    owner.maximum_rows = 2
+
+    with owner.deadline(timedelta(seconds=8)):
+      result = owner.query("SELECT :p0", {"p0": "ok"})
+
+    self.assertEqual(result.rows, [{"value": "ok"}])
+    self.assertEqual(owner.spark.request, ("SELECT :p0", {"p0": "ok"}))
+    self.assertEqual(conf.events[-1], ("unset", "spark.databricks.execution.timeout"))
+    configured = [event for event in conf.events if event[0] == "set"]
+    self.assertEqual(len(configured), 1)
+    self.assertGreaterEqual(int(configured[0][2]), 1)
+    self.assertLessEqual(int(configured[0][2]), 7)
+    self.assertNotIn("spark.databricks.execution.timeout", conf.values)
+
+  def test_deadline_refuses_expired_spark_connect_query_before_execution(self):
+    from datetime import timedelta
+    from unittest.mock import patch
+    from ashlar_host.managed_current_query import ManagedCurrentReadOwner
+
+    class Conf:
+      def __init__(self):
+        self.events = []
+      def get(self, key, default=None):
+        return default
+      def set(self, key, value):
+        self.events.append(("set", key, value))
+      def unset(self, key):
+        self.events.append(("unset", key))
+
+    class SparkConnectSession:
+      def __init__(self):
+        self.conf = Conf()
+        self.executed = False
+      def sql(self, sql, args):
+        self.executed = True
+        raise AssertionError("Expired query must not execute")
+
+    owner = object.__new__(ManagedCurrentReadOwner)
+    owner.spark = SparkConnectSession()
+    owner.active = True
+    owner.current_artifact = {"sql": "SELECT 1", "parameters": [], "obligations": []}
+    owner.maximum_rows = 2
+    with patch("ashlar_host.managed_current_query.time.monotonic", side_effect=(10.0, 20.0)):
+      with owner.deadline(timedelta(seconds=2)):
+        with self.assertRaisesRegex(ValueError, "deadline exhausted"):
+          owner.query("SELECT 1", {})
+    self.assertFalse(owner.spark.executed)
+    self.assertEqual(owner.spark.conf.events, [])
+
+  def test_deadline_restores_existing_timeout_after_query_failure(self):
+    from datetime import timedelta
+    from ashlar_host.managed_current_query import ManagedCurrentReadOwner
+
+    class Conf:
+      def __init__(self):
+        self.value = "600"
+      def get(self, key, default=None):
+        return self.value
+      def set(self, key, value):
+        self.value = value
+      def unset(self, key):
+        self.value = None
+
+    class SparkConnectSession:
+      def __init__(self):
+        self.conf = Conf()
+      def sql(self, sql, args):
+        raise RuntimeError("Spark Connect query failed")
+
+    owner = object.__new__(ManagedCurrentReadOwner)
+    owner.spark = SparkConnectSession()
+    owner.active = True
+    owner.current_artifact = {"sql": "SELECT 1", "parameters": [], "obligations": []}
+    owner.maximum_rows = 2
+    with owner.deadline(timedelta(seconds=8)):
+      with self.assertRaisesRegex(RuntimeError, "Spark Connect query failed"):
+        owner.query("SELECT 1", {})
+    self.assertEqual(owner.spark.conf.value, "600")
+
   def test_048_runtime_tuple_is_preserved_in_source_oracle_receipt(self):
     from ashlar_host.truss_current_catalog import (CURRENT_TRUSS_048_WHEEL_SHA256,
         CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)

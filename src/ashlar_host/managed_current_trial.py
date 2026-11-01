@@ -109,8 +109,8 @@ class ManagedCurrentTrialConfig:
                       or type(self.expected_environment["runtimeTag"]) is str
                       and self.expected_environment["runtimeTag"]),
                  "Selected serverless runtime, principal, destination namespace, and protocol pins required")
-        _require(type(self.maximum_task_seconds) is int and 1 <= self.maximum_task_seconds <= 7200,
-                 "Finite dedicated task timeout required")
+        _require(type(self.maximum_task_seconds) is int and 1 <= self.maximum_task_seconds <= 900,
+                 "Finite managed-current task deadline of at most 15 minutes required")
         _require(type(self.estimated_total_dbu) in (int, float) and math.isfinite(self.estimated_total_dbu)
                  and self.estimated_total_dbu > 0
                  and type(self.authorized_total_dbu) in (int, float) and math.isfinite(self.authorized_total_dbu)

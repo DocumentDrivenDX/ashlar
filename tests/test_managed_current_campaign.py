@@ -32,6 +32,14 @@ def _config():
 
 
 class ManagedCurrentCampaignTests(unittest.TestCase):
+    def test_trial_worker_deadline_is_limited_to_15_minutes(self):
+        from dataclasses import replace
+
+        config = _config()
+        replace(config, maximum_task_seconds=900).validate()
+        with self.assertRaisesRegex(ValueError, "at most 15 minutes"):
+            replace(config, maximum_task_seconds=901).validate()
+
     def test_campaign_refuses_unadmitted_oracle_before_publication(self):
         from test_managed_current_query import _source_bundle
 

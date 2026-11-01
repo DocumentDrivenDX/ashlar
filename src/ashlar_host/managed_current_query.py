@@ -10,9 +10,7 @@ import base64
 import hashlib
 import json
 import re
-import threading
 import time
-import uuid
 from contextlib import contextmanager
 from datetime import timedelta
 
@@ -21,6 +19,7 @@ _COMMIT = re.compile(r"(?:[0-9a-f]{40}|[0-9a-f]{64})\Z")
 _PROFILE = "ashlar-managed-current-source-oracle/0.1"
 _MAX_ROWS = 1000
 _CASE_PROFILE = "weft-selected-native-case/0.1"
+_SERVERLESS_QUERY_TIMEOUT_CONF = "spark.databricks.execution.timeout"
 
 
 def _require(value, reason="Managed current source oracle refused"):
@@ -842,8 +841,46 @@ class ManagedCurrentReadOwner:
             allowed.extend(check.get("sql") for check in obligation.get("parameters", {}).get("checks", [])
                            if type(check) is dict)
         _require(sql in allowed and parameters == slots)
-        frame = self.spark.sql(sql, args=parameters)
-        rows = frame.collect()
+        deadline = getattr(self, "_managed_query_deadline", None)
+        conf = None
+        prior_timeout = None
+        if deadline is not None:
+            remaining = deadline - time.monotonic()
+            # Reserve one second for setting the session property and sending
+            # the Spark Connect request. The Jobs timeout remains the outer
+            # task bound; this property bounds each server-side query.
+            timeout_seconds = int(remaining) - 1
+            _require(timeout_seconds >= 1, "Managed Weft query deadline exhausted")
+            conf = getattr(self.spark, "conf", None)
+            _require(conf is not None
+                     and callable(getattr(conf, "get", None))
+                     and callable(getattr(conf, "set", None))
+                     and callable(getattr(conf, "unset", None)),
+                     "Spark Connect runtime configuration required for bounded query execution")
+            prior_timeout = conf.get(_SERVERLESS_QUERY_TIMEOUT_CONF, None)
+            conf.set(_SERVERLESS_QUERY_TIMEOUT_CONF, str(timeout_seconds))
+        primary = None
+        rows = None
+        try:
+            frame = self.spark.sql(sql, args=parameters)
+            rows = frame.collect()
+        except BaseException as error:
+            primary = error
+        if conf is not None:
+            try:
+                if prior_timeout is None:
+                    conf.unset(_SERVERLESS_QUERY_TIMEOUT_CONF)
+                else:
+                    conf.set(_SERVERLESS_QUERY_TIMEOUT_CONF, prior_timeout)
+            except BaseException as error:
+                if primary is None:
+                    primary = error
+                else:
+                    add_note = getattr(primary, "add_note", None)
+                    if callable(add_note):
+                        add_note("Could not restore the prior Spark Connect query timeout")
+        if primary is not None:
+            raise primary
         _require(len(rows) <= self.maximum_rows)
         type_names = {"string": "STRING", "long": "BIGINT", "integer": "INT",
                       "boolean": "BOOLEAN", "timestamp": "TIMESTAMP", "double": "DOUBLE",
@@ -856,20 +893,16 @@ class ManagedCurrentReadOwner:
     @contextmanager
     def deadline(self, budget):
         _require(type(budget) is timedelta and 0 < budget.total_seconds() <= 120)
-        sc = self.spark.sparkContext
-        group = "managed-current-read-" + uuid.uuid4().hex
-        keys = ("spark.jobGroup.id", "spark.job.description", "spark.job.interruptOnCancel")
-        previous = {key: sc.getLocalProperty(key) for key in keys}
-        timer = threading.Timer(budget.total_seconds(), lambda: sc.cancelJobGroup(group))
-        timer.daemon = True
+        previous = getattr(self, "_managed_query_deadline", None)
+        proposed = time.monotonic() + budget.total_seconds()
+        self._managed_query_deadline = min(previous, proposed) if previous is not None else proposed
         try:
-            sc.setJobGroup(group, "bounded managed current Weft read", interruptOnCancel=True)
-            timer.start()
             yield
         finally:
-            timer.cancel()
-            for key, value in previous.items():
-                sc.setLocalProperty(key, value)
+            if previous is None:
+                del self._managed_query_deadline
+            else:
+                self._managed_query_deadline = previous
 
     def run_backend03(self, compiler, request, *, timeout_seconds=90, retain_response=False,
                       admit_compiled=None):
