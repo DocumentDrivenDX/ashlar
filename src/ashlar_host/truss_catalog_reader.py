@@ -11,11 +11,13 @@ from .truss_current_catalog import (CURRENT_REPORT_VERSION,
     CURRENT_TRUSS_049_VERSION,
     CURRENT_TRUSS_050_VERSION,
     CURRENT_TRUSS_051_VERSION,
+    CURRENT_TRUSS_052_CANDIDATE_VERSION,
     CURRENT_TRUSS_045_WHEEL_SHA256, CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256,
     CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256,
     CURRENT_TRUSS_049_WHEEL_SHA256, CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256,
     CURRENT_TRUSS_050_WHEEL_SHA256, CURRENT_TRUSS_050_RUNTIME_MANIFEST_SHA256,
     CURRENT_TRUSS_051_WHEEL_SHA256, CURRENT_TRUSS_051_RUNTIME_MANIFEST_SHA256,
+    CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256, CURRENT_TRUSS_052_CANDIDATE_RUNTIME_MANIFEST_SHA256,
     CurrentCatalogEvidence,
     installed_current_truss_profile, installed_truss_version, parse_current_catalog_json, resolve_current_accepted_sources,
     interpret_current_catalog)
@@ -115,7 +117,7 @@ def read_current_catalog_evidence(connection_factory,batch):
     version=installed_truss_version()
     if version not in (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION,
                        CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION,
-                       CURRENT_TRUSS_051_VERSION):
+                       CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION):
         raise ValueError('Supported current Truss catalog profile required')
     installed_current_truss_profile()
     payload=parse_current_catalog_json(batch.begin)
@@ -149,7 +151,7 @@ def read_current_catalog_evidence(connection_factory,batch):
         connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED')
         connection.execute("SET LOCAL statement_timeout = '2000ms'" if version in (
             CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION,
-            CURRENT_TRUSS_051_VERSION)
+            CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION)
                            else "SET LOCAL statement_timeout = '15000ms'")
         host=adopt_psycopg_host(connection);assembly=None;primary=None
         try:
@@ -189,12 +191,14 @@ def read_current_catalog_evidence(connection_factory,batch):
                                CURRENT_TRUSS_048_VERSION:CURRENT_TRUSS_048_WHEEL_SHA256,
                                CURRENT_TRUSS_049_VERSION:CURRENT_TRUSS_049_WHEEL_SHA256,
                                CURRENT_TRUSS_050_VERSION:CURRENT_TRUSS_050_WHEEL_SHA256,
-                               CURRENT_TRUSS_051_VERSION:CURRENT_TRUSS_051_WHEEL_SHA256}.get(version)),
+                               CURRENT_TRUSS_051_VERSION:CURRENT_TRUSS_051_WHEEL_SHA256,
+                               CURRENT_TRUSS_052_CANDIDATE_VERSION:CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256}.get(version)),
         runtime_manifest_sha256=({CURRENT_TRUSS_045_VERSION:CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256,
                                   CURRENT_TRUSS_048_VERSION:CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256,
                                   CURRENT_TRUSS_049_VERSION:CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256,
                                   CURRENT_TRUSS_050_VERSION:CURRENT_TRUSS_050_RUNTIME_MANIFEST_SHA256,
-                                  CURRENT_TRUSS_051_VERSION:CURRENT_TRUSS_051_RUNTIME_MANIFEST_SHA256}.get(version)))
+                                  CURRENT_TRUSS_051_VERSION:CURRENT_TRUSS_051_RUNTIME_MANIFEST_SHA256,
+                                  CURRENT_TRUSS_052_CANDIDATE_VERSION:CURRENT_TRUSS_052_CANDIDATE_RUNTIME_MANIFEST_SHA256}.get(version)))
 
 
 def read_graph_catalog_evidence(connection_factory,batch,archives=(),*,catalog_connection_factory=None):

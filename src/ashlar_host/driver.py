@@ -24,6 +24,7 @@ from .truss_graph_admission import (CURRENT_PROFILE as TRUSS_CURRENT_GRAPH_PROFI
                                     CURRENT_049_PROFILE as TRUSS_CURRENT_049_GRAPH_PROFILE,
                                     CURRENT_050_PROFILE as TRUSS_CURRENT_050_GRAPH_PROFILE,
                                     CURRENT_051_PROFILE as TRUSS_CURRENT_051_GRAPH_PROFILE,
+                                    CURRENT_052_CANDIDATE_PROFILE as TRUSS_CURRENT_052_CANDIDATE_GRAPH_PROFILE,
                                     EMPTY_INTERVAL_PROFILE as TRUSS_EMPTY_INTERVAL_PROFILE)
 from .truss_graph_admission import PROFILE as TRUSS_SCALAR_GRAPH_PROFILE
 from .truss_graph_admission import TYPED_PROFILE as TRUSS_TYPED_GRAPH_PROFILE
@@ -460,12 +461,12 @@ class NativeDriver:
         self.lookup_hash_profile = lookup_hash_profile
         installed_profile=getattr(transport,'installation_profile',None)
         if lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
-            from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION
+            from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION
             if (type(installed_profile)is not dict
                     or installed_profile.get('physical_profile')!='ashlar-delta/0.4-xxhash64'
                     or installed_profile.get('lookup_hash_profile')!=lookup_hash_profile
                     or getattr(source_admission,'current_truss_version',None) not in (
-                        CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION)
+                        CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION)
                     or set(columns)!={'object_current','edge_current','tombstone','whole_source_history'}
                     or any(dict(columns[role]).get('lookup_hash')!='BIGINT'
                            for role in ('object_current','edge_current'))):

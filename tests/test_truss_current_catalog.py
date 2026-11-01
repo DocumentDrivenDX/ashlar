@@ -17,6 +17,9 @@ from ashlar_host.truss_current_catalog import (
     CURRENT_TRUSS_050_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_050_WHEEL_SHA256,
     CURRENT_051_EVIDENCE_PROFILE, CURRENT_TRUSS_051_VERSION,
     CURRENT_TRUSS_051_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_051_WHEEL_SHA256,
+    CURRENT_052_CANDIDATE_EVIDENCE_PROFILE, CURRENT_TRUSS_052_CANDIDATE_VERSION,
+    CURRENT_TRUSS_052_CANDIDATE_RUNTIME_MANIFEST_SHA256,
+    CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256,
     CurrentCatalogEvidence, interpret_current_catalog, require_current_truss_runtime,
     require_installed_current_catalog_evidence,
 )
@@ -60,8 +63,39 @@ class TrussCurrentCatalogTests(unittest.TestCase):
                          'ashlar-truss-current-umf010-graph-semantic-admission/0.5')
         self.assertEqual(current_admission_profile(CURRENT_TRUSS_051_VERSION),
                          'ashlar-truss-current-umf010-graph-semantic-admission/0.6')
+        self.assertEqual(current_admission_profile(CURRENT_TRUSS_052_CANDIDATE_VERSION),
+                         'ashlar-truss-current-umf010-graph-semantic-admission/0.7-local-candidate')
         with self.assertRaisesRegex(ValueError, 'versioned current Truss'):
             current_admission_profile('0.0.46')
+
+    def test_052_local_candidate_profile_requires_exact_candidate_wheel_and_manifest(self):
+        self.assertEqual(CURRENT_TRUSS_052_CANDIDATE_VERSION, '0.0.52')
+        self.assertEqual(CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256,
+                         '00d8b11abc83d9c84fa131ae6f3eef23ecad9d321d4b04a13641ed31c77e9747')
+        self.assertEqual(CURRENT_TRUSS_052_CANDIDATE_RUNTIME_MANIFEST_SHA256,
+                         '5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522')
+        self.assertEqual(CURRENT_052_CANDIDATE_EVIDENCE_PROFILE,
+                         'ashlar-truss-current-catalog-evidence/0.7-local-candidate')
+        manifest = b'exact staged Truss 0.0.52 candidate runtime manifest'
+        direct_url = json.dumps({'archive_info': {'hashes': {
+            'sha256': CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256}}})
+        with patch('ashlar_host.truss_current_catalog.CURRENT_TRUSS_052_CANDIDATE_RUNTIME_MANIFEST_SHA256',
+                   hashlib.sha256(manifest).hexdigest()):
+            self.assertEqual(require_current_truss_runtime(CURRENT_TRUSS_052_CANDIDATE_VERSION,
+                runtime_manifest=manifest, direct_url=direct_url), CURRENT_052_CANDIDATE_EVIDENCE_PROFILE)
+            with self.assertRaisesRegex(ValueError, 'manifest differs'):
+                require_current_truss_runtime(CURRENT_TRUSS_052_CANDIDATE_VERSION,
+                    runtime_manifest=b'wrong manifest', direct_url=direct_url)
+            with self.assertRaisesRegex(ValueError, 'installed wheel differs'):
+                require_current_truss_runtime(CURRENT_TRUSS_052_CANDIDATE_VERSION,
+                    runtime_manifest=manifest,
+                    direct_url=json.dumps({'archive_info': {'hashes': {'sha256': '0' * 64}}}))
+        evidence = CurrentCatalogEvidence(CURRENT_TRUSS_052_CANDIDATE_VERSION, {}, {}, {},
+            CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256,
+            CURRENT_TRUSS_052_CANDIDATE_RUNTIME_MANIFEST_SHA256)
+        self.assertEqual(evidence.profile, CURRENT_052_CANDIDATE_EVIDENCE_PROFILE)
+        with self.assertRaisesRegex(ValueError, '0.0.52 runtime-attested'):
+            CurrentCatalogEvidence(CURRENT_TRUSS_052_CANDIDATE_VERSION, {}, {}, {})
 
     def test_versioned_current_runtime_profiles_preserve_044_and_pin_045(self):
         self.assertEqual(require_current_truss_runtime(CURRENT_TRUSS_VERSION),
