@@ -19,6 +19,17 @@ ddx:
 
 # UMF release adoption review — 2026-10-31
 
+A read-only GitHub release inventory check on 2026-10-31 found the current
+installable [UMF SDK 0.10.0](https://github.com/DocumentDrivenDX/umf/releases/tag/umf-v0.10.0)
+and [Python Core 0.10.4](https://github.com/DocumentDrivenDX/umf/releases/tag/python-v0.10.4)
+releases, alongside [Weft 0.4.56](https://github.com/DocumentDrivenDX/weft/releases/tag/v0.4.56)
+and [Truss 0.0.51](https://github.com/DocumentDrivenDX/truss/releases/tag/v0.0.51).
+UMF also published a later [actions/sagas qualification packet](https://github.com/DocumentDrivenDX/umf/releases/tag/actions-sagas-qualification-2026-10-31);
+its release notes state that it contains evidence only and leaves SDK 0.10.0
+and Python Core 0.10.4 unchanged. No dependency pin change follows from that
+packet. This release inventory is a timestamped selection check, not native
+Ashlar qualification.
+
 Status: **Core pin updated; focused local checks passed; native runtime remains unqualified.** The
 `typed-sdk` extra now selects Python Core distribution 0.10.4 for macOS arm64
 and Linux x86_64. The exact macOS wheel was downloaded and its SHA-256 matched
