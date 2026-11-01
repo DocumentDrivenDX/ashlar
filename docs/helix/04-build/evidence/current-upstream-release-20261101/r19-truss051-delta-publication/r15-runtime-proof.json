@@ -1,0 +1,54 @@
+{
+  "profile": "ashlar-r9-truss051-sdk0101-python-runtime/0.1",
+  "result": "passed",
+  "platform": "macOS arm64",
+  "python": "3.12.14",
+  "truss": {
+    "distribution": "umf-truss",
+    "version": "0.0.51",
+    "wheel_sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57",
+    "runtime_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "module_path": "/private/tmp/ashlar-r19-truss051-runtime-cohort-20261031/lib/python3.12/site-packages/truss/__init__.py",
+    "LocalPostgres_signature": "(data_directory: str | pathlib.Path)",
+    "RuntimeMigrations_signature": "(connect, recovery_registry, *, maximum_preservation_bytes=268435456, operation_timeout_ms=30000, statement_timeout_ms=10000)",
+    "HostRecoveryRegistry_signature": "(path)"
+  },
+  "r9_overlay": {
+    "path": "/private/tmp/ashlar-r9-truss051-current-runtime-20261101/site-packages",
+    "directory_mode": "0700",
+    "size_kib": 48464,
+    "core_wheel_filename": "umf_core-0.10.5-cp311-abi3-macosx_11_0_arm64.whl",
+    "core_wheel_sha256": "9213ff4b87649f551abcfdff40cdb6b0d75d619260988fa8ea4fe26cac7f6788",
+    "core_distribution": "umf-core",
+    "core_version": "0.10.5",
+    "core_distribution_root": "/private/tmp/ashlar-r9-truss051-current-runtime-20261101/site-packages",
+    "core_metadata_sha256": "97ab656a17fe27f2c26c3e3424d4a2940e35a458c4447b754f4ed57dbb8a5945",
+    "umf_module_path": "/private/tmp/ashlar-r9-truss051-current-runtime-20261101/site-packages/umf/__init__.py",
+    "umf_module_sha256": "340f7d7609ba5fb71b552560b50b88b01d3b30f72bd90c36a7d561461fc05eb8",
+    "rust_module_sha256": "8358bed451249d9d3b6c7af6cb4806b3c1b87e4617ee003ca1e2a9e013cbae7f"
+  },
+  "r19_original_unchanged": {
+    "core_version": "0.10.4",
+    "metadata_sha256": "516e3bf37feb82be1d6dd5c1c6b3db89b9e3a1504c45c0356abc471f2d12b9aa"
+  },
+  "ashlar_integration": {
+    "commit": "afeb78c41679454730a3bf0129db6f438191953a",
+    "tree": "08862e9d2f3482f505cec40ed266f5e77cad0192",
+    "runtime_profile": "ashlar-local-current-installation-profile/0.4",
+    "sdk_archive_sha256": "3d95fff822f4f44b3d1a8e56185c3697e94ee66f5315cda7389f5301f3d16d26",
+    "sdk_public_entry_sha256": "7577c4efe5269d9f98187265b31be71f2be69b67cab357ce9bf07dabcd758f27",
+    "upstream_source_commit": "90cb61eb63aec3f5a77b5991a56e3dfc3d10bd27",
+    "semantic_core": "0.10.0",
+    "source_custody_correction_commit": "64f28c3b04803eadcac0f920cd2b8bb3f84a6f43",
+    "source_custody_correction_tree": "28138503d679a480f7af9de8aac25b8ab0884f14",
+    "upstream_source_tree_object": "24d2531cbe9025fdc07fb1321a82a81ae31ff12a"
+  },
+  "effects": {
+    "native_postgres_started": false,
+    "database_contacted": false,
+    "truss_public_api_called": false,
+    "publication": false,
+    "acknowledgement": false,
+    "cloud": false
+  }
+}

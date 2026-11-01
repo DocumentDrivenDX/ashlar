@@ -1,0 +1,294 @@
+{
+  "profile": "ashlar-r19-native-failure-reconciliation/0.1",
+  "attempt": "R19 retained; no retry",
+  "status": "failed_before_publication_catalog_view_unauthorized",
+  "failure": {
+    "type": "ValueError",
+    "message": "Public current Truss catalog view operation refused",
+    "traceback_terminal": "read_current_catalog_evidence -> assembly.catalog_view_in_transaction(tx, seed)",
+    "outcome_type": "Error",
+    "outcome_repr": "Error(error=ExecutionFailure(code='execution_obligation', message='Original operation failed and locally contained', retry_scope='none', sql_state='P1403', catalog_code='unauthorized'), status='error')",
+    "error": {
+      "code": "execution_obligation",
+      "sql_state": "P1403",
+      "catalog_code": "unauthorized",
+      "message": "Original operation failed and locally contained"
+    },
+    "principal": [
+      "ashlar_local_dev_reader_r6_20261031",
+      "off",
+      true,
+      false
+    ],
+    "transaction_access_mode": "read_write"
+  },
+  "interpretation": "Truss .51 person_catalog_view_basis was callable through the public wrapper but the installed R6 feed-reader principal lacked EXECUTE on the underlying truss.catalog_view_basis registrar-mode routine. The native publication worker discarded the Error details and surfaced a generic ValueError. This is a Truss role authorization mismatch, not a Delta role-map failure.",
+  "authorization_contract": {
+    "person_entrypoint": "truss.person_catalog_view_basis(integer,integer,integer)",
+    "required_mode": "registrar",
+    "reader_person_entrypoint_execute": true,
+    "reader_underlying_registrar_routine_execute": false,
+    "sqlstate": "P1403",
+    "catalog_code": "unauthorized"
+  },
+  "source": {
+    "accepted_document_public_reread": {
+      "catalog_revision": 1,
+      "document_id": "ashlar-local-dev-typed-graph-r6-20261031",
+      "document_revision": "1",
+      "document_sha256": "2c9b295a8232cae4770255650bf634941ab223e582b79ae2bb78f6acf0b8a880",
+      "public_api": "Truss .51 accepted_document_in_transaction",
+      "registration_id": "bc6e5004-b07f-4a25-9c35-19a08c4b5f39",
+      "transaction_read_only": true
+    },
+    "first_page_public_reread": {
+      "acknowledgement": false,
+      "bytes": 32337,
+      "matches_r16b_receipt": true,
+      "next_sha256": "195f826d5257fbcd920c19569d9dc33930dfeef22aa7ee14dce3e6c3fe4f280c",
+      "page_sha256": "de5c6d50f03082e5650126db86b4b50871a70f3a74f183a06a1f645a31e51760",
+      "prior_sha256": "802f677f84076a2deaa1da682c836550a38654e2e1b67494b9cd2acf01299725",
+      "registration_id": "fdc09c3f-be99-444a-8031-a48ae4f527ec",
+      "writer_xid": "754"
+    },
+    "cold_backup_receipt": {
+      "bytes": 65754852,
+      "cold_backup": "/private/tmp/ashlar-r19-truss051-delta-publication-20261101/r16b-stopped-source-backup-pgdata",
+      "files": 1255,
+      "migration_replayed": false,
+      "source": "/private/tmp/ashlar-r16b-truss051-seed-resume-20261101/r15-seed-continuation-clone-pgdata",
+      "source_unchanged": true,
+      "tree_sha256": "b1ab6a55e3d13981e706b0cdb7ddd653ba7db9e241da6bef9ad4c16a47adc82e",
+      "working_clone": "/private/tmp/ashlar-r19-truss051-delta-publication-20261101/r16b-publication-clone-pgdata"
+    },
+    "r16b_original_unchanged": true,
+    "acknowledgement_attempted": false
+  },
+  "delta_initialization": {
+    "tables": [
+      {
+        "name": "attempts",
+        "versions": [
+          {
+            "version": 0,
+            "operation": "CREATE TABLE",
+            "actions": [
+              "commitInfo",
+              "metaData",
+              "protocol"
+            ],
+            "adds": 0,
+            "removes": 0,
+            "sha256": "86aeae106563dbaeacf63c8c2bea1c7e32801e715d0b81a4aab18007fb928689"
+          },
+          {
+            "version": 1,
+            "operation": "SET TBLPROPERTIES",
+            "actions": [
+              "commitInfo",
+              "metaData"
+            ],
+            "adds": 0,
+            "removes": 0,
+            "sha256": "36741b0bd1e75ab4f9b387cdc380d0fca9a51e9abf84b77a43dda71d8c5342ad"
+          }
+        ]
+      },
+      {
+        "name": "edge_current",
+        "versions": [
+          {
+            "version": 0,
+            "operation": "CREATE TABLE",
+            "actions": [
+              "commitInfo",
+              "metaData",
+              "protocol",
+              "domainMetadata"
+            ],
+            "adds": 0,
+            "removes": 0,
+            "sha256": "a59916d5d4df8b5aeea9e638ca2054ec97c4f68d652bf2b163cd25ff2695690c"
+          },
+          {
+            "version": 1,
+            "operation": "SET TBLPROPERTIES",
+            "actions": [
+              "commitInfo",
+              "metaData"
+            ],
+            "adds": 0,
+            "removes": 0,
+            "sha256": "cf406ce06da3443a9468b6d24525b4557c7b371506b79974bccb258242edfb81"
+          }
+        ]
+      },
+      {
+        "name": "manifest",
+        "versions": [
+          {
+            "version": 0,
+            "operation": "CREATE TABLE",
+            "actions": [
+              "commitInfo",
+              "metaData",
+              "protocol"
+            ],
+            "adds": 0,
+            "removes": 0,
+            "sha256": "9e244e8a88a9dac1d3a737180c217d49fcdf0d59f4f85304e742fc42c89058d2"
+          },
+          {
+            "version": 1,
+            "operation": "SET TBLPROPERTIES",
+            "actions": [
+              "commitInfo",
+              "metaData"
+            ],
+            "adds": 0,
+            "removes": 0,
+            "sha256": "24ea963d3c18a1d2af60930f2dfef091d299e33f9542301da7bafaf0dc505e52"
+          }
+        ]
+      },
+      {
+        "name": "object_current",
+        "versions": [
+          {
+            "version": 0,
+            "operation": "CREATE TABLE",
+            "actions": [
+              "commitInfo",
+              "metaData",
+              "protocol",
+              "domainMetadata"
+            ],
+            "adds": 0,
+            "removes": 0,
+            "sha256": "ad133a9e45fab7bdfe4f9841ad97de1b3413d864e379d5485aa4909f4de23728"
+          },
+          {
+            "version": 1,
+            "operation": "SET TBLPROPERTIES",
+            "actions": [
+              "commitInfo",
+              "metaData"
+            ],
+            "adds": 0,
+            "removes": 0,
+            "sha256": "385b5b3093094afb0989753b6918f4ddb8079ca6b880d4fddfe5012ad5ace336"
+          }
+        ]
+      },
+      {
+        "name": "tombstone",
+        "versions": [
+          {
+            "version": 0,
+            "operation": "CREATE TABLE",
+            "actions": [
+              "commitInfo",
+              "metaData",
+              "protocol",
+              "domainMetadata"
+            ],
+            "adds": 0,
+            "removes": 0,
+            "sha256": "d97cc97a55d07288115a2f22cf34234d74a54b9de06e1a7d0839aa32de0467d7"
+          },
+          {
+            "version": 1,
+            "operation": "SET TBLPROPERTIES",
+            "actions": [
+              "commitInfo",
+              "metaData"
+            ],
+            "adds": 0,
+            "removes": 0,
+            "sha256": "bb659891a9997299f2d1bc9a7e32fea75920d833a6111b2fc52e3e7b0898ce05"
+          }
+        ]
+      },
+      {
+        "name": "whole_source_history",
+        "versions": [
+          {
+            "version": 0,
+            "operation": "CREATE TABLE",
+            "actions": [
+              "commitInfo",
+              "metaData",
+              "protocol"
+            ],
+            "adds": 0,
+            "removes": 0,
+            "sha256": "67f4a956963db94a79f46e1f836eb5e7d4bdc2d9038a73780bfa34339e31eec9"
+          },
+          {
+            "version": 1,
+            "operation": "SET TBLPROPERTIES",
+            "actions": [
+              "commitInfo",
+              "metaData"
+            ],
+            "adds": 0,
+            "removes": 0,
+            "sha256": "93e0d12b543bd04f9fb823224f686ebefe6b84279a9d733f9faa267c71114487"
+          }
+        ]
+      }
+    ],
+    "operations_sqlite_rows": {
+      "local_installation": 1,
+      "local_operation": 0,
+      "local_plan": 0,
+      "local_publication_artifact": 0,
+      "local_source_plan": 0
+    },
+    "source_page_archive": {
+      "path": "/private/tmp/ashlar-r19-truss051-delta-publication-20261101/delta/source-page-1.json",
+      "bytes": 44329,
+      "sha256": "586955d9929dc826c447c21edcbc3b071b41e92bdf766bbcc825af33031143fd"
+    },
+    "publication_intent_exists": false,
+    "deferred_ack_sidecar_exists": false,
+    "publication_commit_confirmed": false,
+    "publication_may_be_committed": true
+  },
+  "custody": {
+    "supervisor_process_status": "no_owned_processes_remain",
+    "worker_group_remaining_pids": [],
+    "migration_clone_owners": [],
+    "clone_postmaster_pid_exists": false,
+    "diagnostic_postmaster_pid_exists": false,
+    "diagnostic_clone_tree": [
+      65758216,
+      "a0f5209965e7e4fad527b15b88443d4866f5cb505af7d58397dcddf38a994698",
+      1255
+    ],
+    "r19_clone_tree_after_run": [
+      65758216,
+      "a0f5209965e7e4fad527b15b88443d4866f5cb505af7d58397dcddf38a994698",
+      1255
+    ],
+    "process_check_matching_r19_and_forensic_pgdata": 0,
+    "r16b_source_unchanged": true
+  },
+  "limits": {
+    "cloud": false,
+    "production_authority": false,
+    "acknowledgement": false,
+    "publication_commit_confirmed": false
+  },
+  "receipts": {
+    "r19-worker-failure.json": "892da9333f3e6a83f23ca8f86c07beb498d0741e71ae74c6007fd3e7d7c63b1e",
+    "r19-supervisor-receipt.json": "736740a8f9be1ae1411c7edf292a14f234e1c3e952edb17515d600ac9dad214d",
+    "r19-catalog-view-diagnostic-receipt.json": "150dffe99c63244139f28eab0511b72b3107a403af661d13599c85c64a2a91d1",
+    "accepted-document-public-reread.json": "4ff76ce7612f34736aa2377fc3a1d7a4fcb32634febc055c5f0bf3a3b9ec370a",
+    "original-unacknowledged-page-reread.json": "6554b21170bb097da62162a2537583be6bb5a1f4d54fde9721d2b289eafc99b7",
+    "source-copy-custody.json": "7a22632d87c38244a7810ad75cae627f9fe03e743f8baf043cd932f09b256cf3",
+    "spark-delta-runtime.json": "981f85adc3b105259930a8e1faeffbf66e90ace257f3796b10d613e99459ff36",
+    "r19-child-stderr.log": "8a71c4d2885b9274edb8f3f44b74f5d63d267d4b8a9b8d1ba5202b7c91f51fc5",
+    "r19-child-stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

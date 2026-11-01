@@ -246,11 +246,40 @@ class TrussCurrentCatalogTests(unittest.TestCase):
             live.assert_called_once()
             archived.assert_not_called()
 
+        reader_factory=lambda:'reader'
+        registrar_factory=lambda:'registrar'
+        with patch('ashlar_host.truss_catalog_reader.read_current_catalog_evidence',return_value='current') as live:
+            self.assertEqual(read_graph_catalog_evidence(reader_factory,current,
+                catalog_connection_factory=registrar_factory),'current')
+            live.assert_called_once_with(registrar_factory,current)
+
+        from ashlar_host.truss_note_publication import publish_graph_pages
+        with patch('ashlar_host.truss_note_publication.publish_note_pages',return_value='published') as publish:
+            self.assertEqual(publish_graph_pages('spark','output',connection_factory=reader_factory,
+                consumer_id='consumer',feed='feed',catalog_connection_factory=registrar_factory),'published')
+            self.assertIs(publish.call_args.kwargs['connection_factory'],reader_factory)
+            self.assertIs(publish.call_args.kwargs['catalog_connection_factory'],registrar_factory)
+
+        # A registrar authority refusal is terminal; never retry the complete
+        # catalog read under the feed reader principal.
+        with patch('ashlar_host.truss_catalog_reader.read_current_catalog_evidence',
+                   side_effect=ValueError('Public current Truss catalog view operation refused')) as live:
+            with self.assertRaisesRegex(ValueError,'catalog view operation refused'):
+                read_graph_catalog_evidence(reader_factory,current,
+                    catalog_connection_factory=registrar_factory)
+            live.assert_called_once_with(registrar_factory,current)
+
         with patch('ashlar_host.truss_catalog_reader.read_current_catalog_evidence',return_value='current') as live, \
              patch('ashlar_host.truss_catalog_reader.read_historical_catalog_views',return_value='historical') as archived:
             self.assertEqual(read_graph_catalog_evidence(lambda:None,original),'historical')
             live.assert_not_called()
             archived.assert_called_once()
+
+        with patch('ashlar_host.truss_catalog_reader.read_historical_catalog_views') as archived:
+            with self.assertRaisesRegex(ValueError,'applies only to current'):
+                read_graph_catalog_evidence(reader_factory,original,
+                    catalog_connection_factory=registrar_factory)
+            archived.assert_not_called()
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,33 @@
+{
+  "operation_input_count": 7,
+  "prepared_relationship_pins": {
+    "knows": "a2065f369d815c98fc92d2f9be27d32c29ebde964acf55f969f53ffff8c7de7c",
+    "located": "db9fe621eef48d0dcc43e1db49d810ab9c4e9513ef3e8b8d0e71cc3e8201ac28"
+  },
+  "prepared_type_pins": {
+    "Person": "032039d1dfa597a1ce83e4ebf737a919e5b135e4f0a6e2a4815c42e1ed6a022d",
+    "Place": "3db7728badc1db526fb3139f9baceee578b0ee84d6c51ca2807385deca2c2c2d"
+  },
+  "probe": "one public Truss .51 apply_in_transaction on a fresh R15 forensic copy; transaction forcibly rolled back",
+  "result": {
+    "diagnostic_repr": "ExactArtifact(identity='159f026b97a751c99df3ebbb6697246a543672624745e086bbca77120d5a4f49', bytes_base64='eyJjb2RlIjogImludmFsaWRfaW5wdXQiLCAib3V0Y29tZSI6ICJmYWlsZWQiLCAibmF0aXZlU3RhdGUiOiAiMjIwMjMifQ==', sha256='159f026b97a751c99df3ebbb6697246a543672624745e086bbca77120d5a4f49')",
+    "failure_code": "invalid",
+    "failure_type": "InvalidGroupInput",
+    "operation_code": null,
+    "operation_index": null,
+    "outer_type": "Ok",
+    "value_repr": "GroupFailed(failure=InvalidGroupInput(diagnostic_profile=ProfilePin(identity='truss-native-create-diagnostic', version='0.1', sha256='27c241fa37e64bbabb5c24f257690f98f2dcb1c3b8d8b3c273254ba31a6499e2'), diagnostic=ExactArtifact(identity='159f026b97a751c99df3ebbb6697246a543672624745e086bbca77120d5a4f49', bytes_base64='eyJjb2RlIjogImludmFsaWRfaW5wdXQiLCAib3V0Y29tZSI6ICJmYWlsZWQiLCAibmF0aXZlU3RhdGUiOiAiMjIwMjMifQ==', sha256='159f026b97a751c99df3ebbb6697246a543672624745e086bbca77120d5a4f49'), code='invalid'), outcome='failed')",
+    "value_type": "GroupFailed"
+  },
+  "rollback_confirmed": true,
+  "rollback_reason": "deliberate rollback after result capture",
+  "seed_sha256": "550768ec3f90d929e5e60c719f31e708183a3cc41b3f558b2da932633c18281d",
+  "session_identity": [
+    "ashlar_local_dev_registrar_r6_20261031",
+    "ashlar_local_dev_registrar_r6_20261031",
+    "none",
+    "off"
+  ],
+  "source_document_sha256": "2c9b295a8232cae4770255650bf634941ab223e582b79ae2bb78f6acf0b8a880",
+  "transaction_committed": false
+}

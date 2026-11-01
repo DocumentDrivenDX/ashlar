@@ -1,0 +1,241 @@
+{
+  "acknowledgement": false,
+  "authority_class": "local_development_authority",
+  "authorization": "standing_user_local_release_authorization",
+  "authorization_receipt": "r16b-standing-authorization-dispatch-receipt.json",
+  "cloud": false,
+  "consumer_and_model": {
+    "consumer_id": "ashlar-local-dev-typed-graph-consumer-r6-20261031",
+    "feed_maximum_bytes": 8388608,
+    "feed_maximum_facts": 4096,
+    "reader_login_role": "ashlar_local_dev_reader_r6_20261031",
+    "registrar_login_role": "ashlar_local_dev_registrar_r6_20261031",
+    "seed_operation_count": 7,
+    "seed_request_path": "../r15-truss051-view-transaction/fresh-local-seed-request.json",
+    "seed_request_sha256": "550768ec3f90d929e5e60c719f31e708183a3cc41b3f558b2da932633c18281d"
+  },
+  "continuation": {
+    "acknowledgement": false,
+    "attempt_id": "R16b",
+    "cloud": false,
+    "consumer_enrollment_replay": false,
+    "migration_replay": false,
+    "persist_failure_variant_and_diagnostic_before_rollback": true,
+    "production_authority": false,
+    "publication": false,
+    "read_exactly_one_feed_page_after_commit": true,
+    "request_identity_source": "PreparedGroup.context.request(seed_request_key)",
+    "seed_request_key": "ashlar-local-dev-typed-graph-seed-r6",
+    "typed_group_result_receipt_before_commit": true
+  },
+  "limits": {
+    "attempt_root_bytes": 536870912,
+    "attempts": 1,
+    "automatic_retries": 0,
+    "cleanup": false,
+    "cloud": false,
+    "combined_log_bytes": 16777216,
+    "migration_preservation_bytes": 268435456,
+    "parallelism": "sequential local only",
+    "process_group_rss_bytes": 2147483648,
+    "retained_plus_attempt_bytes": 2147483648,
+    "storage_sample_seconds": 15,
+    "wall_seconds": 900
+  },
+  "paths": {
+    "cold_backup_pgdata": "/private/tmp/ashlar-r16b-truss051-seed-resume-20261101/r15-stopped-state-backup-pgdata",
+    "migration_clone_pgdata": "/private/tmp/ashlar-r16b-truss051-seed-resume-20261101/r15-seed-continuation-clone-pgdata",
+    "output_root": "/private/tmp/ashlar-r16b-truss051-seed-resume-20261101",
+    "receipt_root": "/private/tmp/ashlar-r16b-truss051-seed-resume-20261101/receipts",
+    "recovery_registry": "/private/tmp/ashlar-r16b-truss051-seed-resume-20261101/unused-recovery-registry.sqlite3",
+    "supervisor_root": "/private/tmp/ashlar-r16b-truss051-seed-resume-20261101-supervisor"
+  },
+  "prior_r15": {
+    "diagnostic_result": "GroupFailed(InvalidGroupInput), nativeState=22023; rolled back",
+    "scope_sha256": "d9f907117f1a4ed70d96c864b20f8ee4fb9fe8e6ec8bdb687ced2b82ced4df5c",
+    "supervisor_sha256": "e553cfbfdf131268c664d353d5bfd630d9904e3b06ee06abc1b2f59698fb7414",
+    "worker_sha256": "fe401d97ec3fbfc9d5d055f17cd38c8df6c8818a32e920eb9defc346b091a534"
+  },
+  "production_authority": false,
+  "profile": "ashlar-r16b-truss051-r15-consumer-seed-resume/0.1",
+  "publication": false,
+  "release_cohort": {
+    "ashlar_integration_commit": "afeb78c41679454730a3bf0129db6f438191953a",
+    "ashlar_integration_tree": "08862e9d2f3482f505cec40ed266f5e77cad0192",
+    "ashlar_runtime_profile": "ashlar-local-current-installation-profile/0.4",
+    "integration_files": {
+      "pyproject.toml": "3e2788efac61e7d1cafe04449b28716c1ae2c8a5517b5c9271127b0bb83515f0",
+      "src/ashlar/typed_graph_source_config_sdk0101.py": "cf35d6f6f69a6dfc7384d445dbdb62f5959034a76c8ec7fe49d2515450694f0d",
+      "src/ashlar/typed_graph_source_sdk0101.py": "07b9f382f4c1ef12eaf68ecc96ca67991a8d97bcf7fa0c06c4bbfb81aa70bd9c",
+      "src/ashlar_host/configured_local_delta4_publication.py": "43f25290e051660b969ffa2719e4725d3837f9806fbfde23d8a1ec28063e569a",
+      "src/ashlar_host/configured_local_runtime.py": "42d4e8509a35b01a6efd85e1c92956a571c1e8055e26337beec380e1f62064dc",
+      "src/ashlar_host/configured_source_admission.py": "619d564fa0f95c393d8faa67c34e804a65ac9eae847370205ad211956d90aad8",
+      "src/ashlar_host/configured_source_local.py": "4cc5ccdf24a16dcb6833e70bcb15b93f4aea141f0a47b2519aa0abb358b85265",
+      "src/ashlar_host/configured_typed_graph_source_admission_sdk0101.py": "5bc5666da6cd3298afababb18661f7997df02dc2f36698ca0dc79b80f8761cb9",
+      "src/ashlar_host/local_current_carrier_profile.py": "60165580fb05aba2619c2c36939172e6f8b6746a711b7b4dc8900de95bdd1045",
+      "src/ashlar_host/local_current_delta4_umf_sdk0101.py": "a411aaccf3c76a34f626aef4afb05cd3ad920677b9e76675a5ea462a14161d9c",
+      "src/ashlar_host/resources/local-current-delta4-sdk0101/THIRD_PARTY_NOTICES.txt": "8177eaded1ef5e38152c2ab4d88df6029b90d032ca8a7cddedee61def508bca9",
+      "src/ashlar_host/resources/local-current-delta4-sdk0101/bridge-entry.ts": "739c9579cb4662fbb48123e828ea9b7125eeed085b14f26019880a2d46b1462e",
+      "src/ashlar_host/resources/local-current-delta4-sdk0101/build-inputs.json": "3cd19238be07a71b9c252a0c4661d201c0e8ca71a9566ca1228e6b85a104c627",
+      "src/ashlar_host/resources/local-current-delta4-sdk0101/realization.json": "64236c1022e7544faf4f56082d01b8b58805231e8c5277419b0ffb02ebf885fc",
+      "src/ashlar_host/resources/local-current-delta4-sdk0101/role-semantics.json": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d",
+      "src/ashlar_host/resources/local-current-delta4-sdk0101/source-policy.json": "d4254bb1a3f33120cd890392672f8cffbab4e7c609815417f35bf5ca3a010faf",
+      "src/ashlar_host/resources/local-current-delta4-sdk0101/umf-spark-delta4.iife.js": "4d0ce3902368d0d1a73312626ec153125992327ee812cd579282445514067735",
+      "src/ashlar_host/resources/typed_graph_values_sdk0101.ts": "b006e36b48f05da4bdab60f2a784112383bfeb83eb2b0a3a67c19e0f842997dd",
+      "src/ashlar_host/typed_graph_admission_sdk0101.py": "09eb90c2f0bad2d907cbf6aa5c2b9be51bfdfe5404d052e4ac3500eadbfc28eb",
+      "tests/test_umf_sdk0101_pins.py": "0edfa6112cbd4d905d1ed34dcb42105597ab102b43bb22411676cc276c644adc"
+    },
+    "integration_overlay_files": {
+      "src/ashlar_host/configured_local_delta4_publication.py": {
+        "commit": "4c92be7fdbade0d58a8eb18d83965af0c79c8c6d",
+        "sha256": "fbfcda903d845a503bf43ca28fe6754edb8b2fe6d583d42bbd818c9a15856ae1"
+      },
+      "src/ashlar_host/configured_local_runtime.py": {
+        "commit": "477fabeca80aef26adde5a0426c6ee47fc84a61b",
+        "sha256": "c452f2be4397d11baaf9e213c47dcaf08ab07a383e1ce1add637f4b65cbacea7"
+      },
+      "src/ashlar_host/driver.py": {
+        "commit": "6e40a1ac17322c6c9736b714a8638be035ba3ec4",
+        "sha256": "5dc40ffaf77885d3d5ddb63079b094f4ae2d783485bc89ca4a9a17faf3db3e75"
+      },
+      "src/ashlar_host/local_current_carrier_profile.py": {
+        "commit": "6b0bd06e766b65390c4134ffada2c0d5a7e884f5",
+        "sha256": "c3c18142b07f087dac607bda8d85f4674324a4c5ebb20f838f12e9cf83e3781c"
+      },
+      "src/ashlar_host/typed_graph_admission_sdk0101.py": {
+        "commit": "7a49ab52d43e4132561eece781b9e00ee5b8f95b",
+        "sha256": "5e2ec2fa1dfd097ccf5d31fbc77b8309c566c981fa72b366d1bb24244d4fc1f4"
+      },
+      "tests/test_umf_sdk0101_pins.py": {
+        "commit": "d0c5bebf81da69898c52df31e54209ccaad7d7df",
+        "sha256": "047bf046d41b0cafaa9e60c0f0d86937af771954ca0ef7c59729c864bf0847f2"
+      }
+    },
+    "manifest_follow_on_commits": [
+      {
+        "commit": "6e40a1ac17322c6c9736b714a8638be035ba3ec4",
+        "tree": "0cef27aec8cf929ec2f6f568e5f4e9f4f519b3c1"
+      },
+      {
+        "commit": "3f6c35413ec3a4e05bf3e281c3b60e4d37efc0c5",
+        "tree": "1895756cdf101f9278ec62664b53c5d72078ef5a"
+      },
+      {
+        "commit": "d723eeeb8cee30f278d2742dc9218dbb2fc9f6c4",
+        "tree": "2426a690554c99e5e15a9deda6af6c0dbcd1ad45"
+      },
+      {
+        "commit": "477fabeca80aef26adde5a0426c6ee47fc84a61b",
+        "tree": "c1b45a9dd7be4836bef319e638f6367cf6dfdf6a"
+      },
+      {
+        "commit": "4c92be7fdbade0d58a8eb18d83965af0c79c8c6d",
+        "tree": "aed303c4da9d33553d3eadf383f4fe9a0c7db4c8"
+      }
+    ],
+    "python_core_distribution": "umf-core",
+    "python_core_version": "0.10.5",
+    "python_core_wheel_sha256": "9213ff4b87649f551abcfdff40cdb6b0d75d619260988fa8ea4fe26cac7f6788",
+    "runtime_integration": "Sol-reviewed SDK0101 runtime integration bound",
+    "runtime_proof": "r15-runtime-proof.json",
+    "runtime_proof_sha256": "433097d76c551d40585b74d592a4ef22384e511cb29355f7fb909fb03d1578e4",
+    "sdk0101_source_follow_on_commits": [
+      {
+        "commit": "d0c5bebf81da69898c52df31e54209ccaad7d7df",
+        "tree": "3067a29c827a602a5cae3285aa45df21c4482165"
+      },
+      {
+        "commit": "7a49ab52d43e4132561eece781b9e00ee5b8f95b",
+        "tree": "fbbee87ed870e8029542cf47d11717d60f29db51"
+      }
+    ],
+    "sdk_archive_sha256": "3d95fff822f4f44b3d1a8e56185c3697e94ee66f5315cda7389f5301f3d16d26",
+    "sdk_public_entry_sha256": "7577c4efe5269d9f98187265b31be71f2be69b67cab357ce9bf07dabcd758f27",
+    "sdk_version": "0.10.1",
+    "semantic_core_version": "0.10.0",
+    "source_commit_declared": "90cb61eb63aec3f5a77b5991a56e3dfc3d10bd27",
+    "source_custody_correction_commit": "64f28c3b04803eadcac0f920cd2b8bb3f84a6f43",
+    "source_custody_correction_tree": "28138503d679a480f7af9de8aac25b8ab0884f14",
+    "source_tree_object": "24d2531cbe9025fdc07fb1321a82a81ae31ff12a"
+  },
+  "resume_source": {
+    "bytes": 65047892,
+    "files": 1249,
+    "path": "/private/tmp/ashlar-r15-truss051-current-cohort-20261101/r13-state-continuation-clone-pgdata",
+    "r15_consumer_checkpoint_sha256": "802f677f84076a2deaa1da682c836550a38654e2e1b67494b9cd2acf01299725",
+    "r15_failure_sha256": "e7642d2d3c9488b388a5728dc3d4686b0a6daafb39d0e88b856129a29c4df0e5",
+    "r15_supervisor_sha256": "e40b102ff68deb8ea148a4fcaef558a9fdece072d6f1adea113875da70f931cf",
+    "reconciliation_path": "r15-stopped-clone-reconciliation.json",
+    "reconciliation_sha256": "ccf1a9d60b6349322069f34e1f91d90c71ea561e530e39c3612cc37038b14943",
+    "tree_sha256": "61c941f8b713b307c01a0748703f6c271c762355632e73bb949fdfd31664a6d0"
+  },
+  "runtime": {
+    "intermediate_manifest_sha256": "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f",
+    "local_extra_dependencies": [
+      {
+        "distribution": "pgserver-pg18",
+        "sha256": "424165d468f69ab6b73ac40de3258d8e9cb85b4ffb6496767671edc836cdb862",
+        "version": "18.6.1",
+        "wheel": "pgserver_pg18-18.6.1-cp312-cp312-macosx_14_0_arm64.whl"
+      },
+      {
+        "distribution": "fasteners",
+        "sha256": "9422c40d1e350e4259f509fb2e608d6bc43c0136f79a00db1b49046029d0b3b7",
+        "version": "0.20",
+        "wheel": "fasteners-0.20-py3-none-any.whl"
+      },
+      {
+        "distribution": "platformdirs",
+        "sha256": "78bfb9db2a8471ed7eebe3c3c932da413911042994e699b384fbb4493fa872d7",
+        "version": "4.12.4",
+        "wheel": "platformdirs-4.12.4-py3-none-any.whl"
+      },
+      {
+        "distribution": "psutil",
+        "sha256": "1a7b04c10f32cc88ab39cbf606e117fd74721c831c98a27dc04578deb0c16979",
+        "version": "7.2.2",
+        "wheel": "psutil-7.2.2-cp36-abi3-macosx_11_0_arm64.whl"
+      }
+    ],
+    "local_extra_overlay": "/private/tmp/ashlar-r9-truss051-current-runtime-20261101/site-packages",
+    "local_extra_wheelhouse": "/private/tmp/ashlar-truss048-fresh-dependencies",
+    "migration_edges": [
+      {
+        "artifact": "edge-c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0-35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f.json",
+        "source": "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+        "target": "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f"
+      },
+      {
+        "artifact": "edge-35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f-288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4.json",
+        "source": "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f",
+        "target": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4"
+      }
+    ],
+    "outer_migration_index_sha256": "d1672e85ae0e89137986fc57669186af47e5826366bd430284aba9b7cf52c37d",
+    "postgresql": "18.6",
+    "python_core_site_packages": "/private/tmp/ashlar-r9-truss051-current-runtime-20261101/site-packages",
+    "python_path": "/private/tmp/ashlar-r19-truss051-runtime-cohort-20261031/bin/python",
+    "pythonpath": "/private/tmp/ashlar-r9-truss051-current-runtime-20261101/site-packages:/private/tmp/ashlar-r19-truss051-runtime-cohort-20261031/lib/python3.12/site-packages",
+    "runtime_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "target_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "truss_distribution": "umf-truss",
+    "truss_version": "0.0.51",
+    "truss_wheel_sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57"
+  },
+  "source": {
+    "catalog_accepted": {
+      "catalog_revision": 1,
+      "document_id": "ashlar-local-dev-typed-graph-r6-20261031",
+      "document_revision": "1",
+      "document_sha256": "2c9b295a8232cae4770255650bf634941ab223e582b79ae2bb78f6acf0b8a880",
+      "registration_id": "bc6e5004-b07f-4a25-9c35-19a08c4b5f39"
+    },
+    "existing_pgdata": "/private/tmp/ashlar-r13-truss051-current-cohort-20261101/resume-clone-pgdata",
+    "existing_pgdata_is_mutable": false,
+    "pgdata_bytes_at_packet_review": 130061709,
+    "pgdata_files_at_packet_review": 1249,
+    "pgdata_tree_sha256_at_packet_review": "e9083cf72e3471923bdc0af00c6edb2c8bf8787c278c8f3f8cdbd2f6a22e63f7",
+    "r13_pgdata_sha256": "e9083cf72e3471923bdc0af00c6edb2c8bf8787c278c8f3f8cdbd2f6a22e63f7"
+  },
+  "status": "standing_local_native_authorization"
+}

@@ -267,12 +267,12 @@ def _create_current_graph_tables(spark, output, tables, carrier_profile, umf_sdk
     return creators[umf_sdk_version](spark, output, tables)
 
 
-def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None,defer_source_acknowledgement=False,expected_first_page=None):
+def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None,defer_source_acknowledgement=False,expected_first_page=None,catalog_connection_factory=None):
     """Publish accepted scalar objects/edges with real historical catalog admission."""
-    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,maximum_page_bytes=maximum_page_bytes,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id,carrier_profile=carrier_profile,umf_sdk_version=umf_sdk_version,defer_source_acknowledgement=defer_source_acknowledgement,expected_first_page=expected_first_page)
+    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,maximum_page_bytes=maximum_page_bytes,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id,carrier_profile=carrier_profile,umf_sdk_version=umf_sdk_version,defer_source_acknowledgement=defer_source_acknowledgement,expected_first_page=expected_first_page,catalog_connection_factory=catalog_connection_factory)
 
 
-def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None,defer_source_acknowledgement=False,expected_first_page=None):
+def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None,defer_source_acknowledgement=False,expected_first_page=None,catalog_connection_factory=None):
     """Read, publish and ACK up to eight pages in a fresh owned local destination.
 
     Registration must already exist at genesis. Partial effects remain on failure;
@@ -300,6 +300,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
     if expected_first_page is not None:
         # Validate the closed field set before any source call or output creation.
         validate_expected_first_page_shape(expected_first_page)
+    if catalog_connection_factory is not None and not callable(catalog_connection_factory):raise ValueError('Explicit callable Truss catalog authority factory required')
     if not output.is_absolute()or output.parent.resolve()!=output.parent or output.exists()or any(character in str(output)for character in ('`',"'",'\\','\0','\n','\r'))or type(maximum_pages)is not int or not 1<=maximum_pages<=8 or not callable(connection_factory):raise ValueError('Fresh canonical local output and finite ordinary source selection required')
     if any(type(value)is not str or not value for value in (consumer_id,feed)):raise ValueError('Explicit original consumer/feed required')
     # Source is observed before creating destination resources.
@@ -340,7 +341,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             if graph:
                 from .truss_catalog_reader import read_graph_catalog_evidence
                 from .truss_graph_admission import TrussGraphAdmission
-                admission=TrussGraphAdmission(batch,read_graph_catalog_evidence(connection_factory,batch,archived_acceptance_files))
+                admission=TrussGraphAdmission(batch,read_graph_catalog_evidence(connection_factory,batch,archived_acceptance_files,catalog_connection_factory=catalog_connection_factory))
             else:admission=TrussNoteAdmission(batch)
             lookup_hash_profile='spark-xxhash64-typed-key/0.1' if carrier_profile=='ashlar-delta/0.4-xxhash64' else 'sha256-json-v1'
             if carrier_profile=='ashlar-delta/0.4-xxhash64':

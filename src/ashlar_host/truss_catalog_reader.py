@@ -197,8 +197,10 @@ def read_current_catalog_evidence(connection_factory,batch):
                                   CURRENT_TRUSS_051_VERSION:CURRENT_TRUSS_051_RUNTIME_MANIFEST_SHA256}.get(version)))
 
 
-def read_graph_catalog_evidence(connection_factory,batch,archives=()):
+def read_graph_catalog_evidence(connection_factory,batch,archives=(),*,catalog_connection_factory=None):
     """Select live public custody for report 0.6, historical archives otherwise."""
+    if catalog_connection_factory is not None and not callable(catalog_connection_factory):
+        raise ValueError('Explicit callable Truss catalog authority factory required')
     batch_row(batch)
     payload=parse_current_catalog_json(batch.begin)
     current=False
@@ -207,7 +209,16 @@ def read_graph_catalog_evidence(connection_factory,batch,archives=()):
         raw=base64.b64decode(item['reportBytesBase64'],validate=True)
         if parse_current_catalog_json(raw).get('interfaceVersion')==CURRENT_REPORT_VERSION:
             current=True
+    if not current and catalog_connection_factory is not None:
+        raise ValueError('Separate catalog authority factory applies only to current Truss evidence')
     if current:
         if archives:raise ValueError('Current Truss report source custody comes from the live accepted-document API')
-        return read_current_catalog_evidence(connection_factory,batch)
+        # The feed/page belongs to its ordinary reader principal. Current
+        # catalog reports and the complete catalog view may require the
+        # registrar principal; keep that authority in a separate connection.
+        # The same catalog connection still binds accepted-document bytes and
+        # the complete view in one READ COMMITTED transaction.
+        selected_catalog_factory=(connection_factory if catalog_connection_factory is None
+                                  else catalog_connection_factory)
+        return read_current_catalog_evidence(selected_catalog_factory,batch)
     return read_historical_catalog_views(connection_factory,batch,archives)

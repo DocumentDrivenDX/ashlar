@@ -1,0 +1,50 @@
+{
+  "acknowledgement": false,
+  "cloud": false,
+  "created_log_handshake": {
+    "output_clone_receipt_paths_required_absent": true,
+    "shape": "supervisor-owned mode-0700 directory with exactly child.stdout.log and child.stderr.log, created under umask 0077",
+    "status": "passed_actual_worker_path_validator",
+    "unexpected_supervisor_file_rejected": true
+  },
+  "production_authority": false,
+  "scope": "ashlar-r18-truss051-delta-publication-deferred-ack/0.1",
+  "scope_sha256": "7d0d3c09e21d5df54e9c45a6ae7e7c2070e44ef1d42d0faa065d20525bbbc28b",
+  "status": "passed_actual_r18_worker_supervisor_and_created_log_handshake_preflight",
+  "supervisor_preflight": {
+    "database_contacted": false,
+    "dispatch_enabled": false,
+    "output_root_created": false,
+    "postgres_started": false,
+    "process_snapshot_count": 1328,
+    "retained_source_bytes": 65013817,
+    "retained_source_files": 1249,
+    "retained_source_pgdata_owners": 0,
+    "retained_source_tree_digest_sha256": "e9083cf72e3471923bdc0af00c6edb2c8bf8787c278c8f3f8cdbd2f6a22e63f7",
+    "scope_sha256": "7d0d3c09e21d5df54e9c45a6ae7e7c2070e44ef1d42d0faa065d20525bbbc28b",
+    "status": "passed_effect_free_supervisor_preflight",
+    "supervisor_root_created": false,
+    "supervisor_sha256": "b8082b974f82423edd351c27a92da83a603ffe75c3ddf1b83b08444860f7004e",
+    "worker_sha256": "3a125bb7410602976b0e4883cafe36b0f00887cd4d522da2bbec535c748ae05f",
+    "worker_started": false
+  },
+  "supervisor_sha256": "b8082b974f82423edd351c27a92da83a603ffe75c3ddf1b83b08444860f7004e",
+  "supervisor_stderr": "",
+  "worker_preflight": {
+    "acknowledgement": false,
+    "database_contacted": false,
+    "delta_written": false,
+    "dispatch_enabled": false,
+    "expected_page_sha256": "de5c6d50f03082e5650126db86b4b50871a70f3a74f183a06a1f645a31e51760",
+    "expected_prior_sha256": "802f677f84076a2deaa1da682c836550a38654e2e1b67494b9cd2acf01299725",
+    "output_root_created": false,
+    "postgres_started": false,
+    "public_api_imports": "passed",
+    "r16b_source_bytes": 65754852,
+    "r16b_source_tree_sha256": "b1ab6a55e3d13981e706b0cdb7ddd653ba7db9e241da6bef9ad4c16a47adc82e",
+    "spark_started": false,
+    "status": "passed_effect_free_worker_preflight"
+  },
+  "worker_sha256": "3a125bb7410602976b0e4883cafe36b0f00887cd4d522da2bbec535c748ae05f",
+  "worker_stderr": ""
+}
