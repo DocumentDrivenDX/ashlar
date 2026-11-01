@@ -42,7 +42,43 @@
     },
     "source_custody_correction_commit": "64f28c3b04803eadcac0f920cd2b8bb3f84a6f43",
     "source_custody_correction_tree": "28138503d679a480f7af9de8aac25b8ab0884f14",
-    "source_tree_object": "24d2531cbe9025fdc07fb1321a82a81ae31ff12a"
+    "source_tree_object": "24d2531cbe9025fdc07fb1321a82a81ae31ff12a",
+    "integration_overlay_files": {
+      "src/ashlar_host/configured_local_delta4_publication.py": {
+        "commit": "477fabeca80aef26adde5a0426c6ee47fc84a61b",
+        "sha256": "cfbf7a04bbab8172239e99f7004fe25fc9bba1ad5d5ab43f3a6fef7d351acba9"
+      },
+      "src/ashlar_host/configured_local_runtime.py": {
+        "commit": "477fabeca80aef26adde5a0426c6ee47fc84a61b",
+        "sha256": "c452f2be4397d11baaf9e213c47dcaf08ab07a383e1ce1add637f4b65cbacea7"
+      },
+      "src/ashlar_host/local_current_carrier_profile.py": {
+        "commit": "6b0bd06e766b65390c4134ffada2c0d5a7e884f5",
+        "sha256": "c3c18142b07f087dac607bda8d85f4674324a4c5ebb20f838f12e9cf83e3781c"
+      },
+      "src/ashlar_host/driver.py": {
+        "commit": "6e40a1ac17322c6c9736b714a8638be035ba3ec4",
+        "sha256": "5dc40ffaf77885d3d5ddb63079b094f4ae2d783485bc89ca4a9a17faf3db3e75"
+      }
+    },
+    "manifest_follow_on_commits": [
+      {
+        "commit": "6e40a1ac17322c6c9736b714a8638be035ba3ec4",
+        "tree": "0cef27aec8cf929ec2f6f568e5f4e9f4f519b3c1"
+      },
+      {
+        "commit": "3f6c35413ec3a4e05bf3e281c3b60e4d37efc0c5",
+        "tree": "1895756cdf101f9278ec62664b53c5d72078ef5a"
+      },
+      {
+        "commit": "d723eeeb8cee30f278d2742dc9218dbb2fc9f6c4",
+        "tree": "2426a690554c99e5e15a9deda6af6c0dbcd1ad45"
+      },
+      {
+        "commit": "477fabeca80aef26adde5a0426c6ee47fc84a61b",
+        "tree": "c1b45a9dd7be4836bef319e638f6367cf6dfdf6a"
+      }
+    ]
   },
   "safety_basis": {
     "reviewed_r8_scope_sha256": "1b1ea2df93d84d002e0986008c77004a9b7ec87fb850550c067223b5ed5368cd",

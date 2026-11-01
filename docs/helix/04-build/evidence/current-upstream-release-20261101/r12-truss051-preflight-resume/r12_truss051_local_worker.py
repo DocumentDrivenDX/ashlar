@@ -188,6 +188,12 @@ def validate_integration_binding(release: dict) -> None:
     """Bind reviewed SDK0101 commit plus the reviewed source-tree correction."""
     repo = HERE.parents[5]
     integration = "afeb78c41679454730a3bf0129db6f438191953a"
+    manifest_follow_ons = [
+        {"commit":"6e40a1ac17322c6c9736b714a8638be035ba3ec4", "tree":"0cef27aec8cf929ec2f6f568e5f4e9f4f519b3c1"},
+        {"commit":"3f6c35413ec3a4e05bf3e281c3b60e4d37efc0c5", "tree":"1895756cdf101f9278ec62664b53c5d72078ef5a"},
+        {"commit":"d723eeeb8cee30f278d2742dc9218dbb2fc9f6c4", "tree":"2426a690554c99e5e15a9deda6af6c0dbcd1ad45"},
+        {"commit":"477fabeca80aef26adde5a0426c6ee47fc84a61b", "tree":"c1b45a9dd7be4836bef319e638f6367cf6dfdf6a"},
+    ]
     integration_tree = "08862e9d2f3482f505cec40ed266f5e77cad0192"
     correction = "64f28c3b04803eadcac0f920cd2b8bb3f84a6f43"
     correction_tree = "28138503d679a480f7af9de8aac25b8ab0884f14"
@@ -207,25 +213,81 @@ def validate_integration_binding(release: dict) -> None:
     expected_paths = sorted(path for path in original_paths if path and not path.startswith("docs/"))
     corrected_paths = {path for path in corrected_paths if path and not path.startswith("docs/")}
     bound = release.get("integration_files")
+    overlay = release.get("integration_overlay_files")
+    expected_overlay = {
+        "src/ashlar_host/driver.py": {
+            "commit": "6e40a1ac17322c6c9736b714a8638be035ba3ec4",
+            "sha256": "5dc40ffaf77885d3d5ddb63079b094f4ae2d783485bc89ca4a9a17faf3db3e75"},
+        "src/ashlar_host/configured_local_delta4_publication.py": {
+            "commit": "477fabeca80aef26adde5a0426c6ee47fc84a61b",
+            "sha256": "cfbf7a04bbab8172239e99f7004fe25fc9bba1ad5d5ab43f3a6fef7d351acba9"},
+        "src/ashlar_host/configured_local_runtime.py": {
+            "commit": "477fabeca80aef26adde5a0426c6ee47fc84a61b",
+            "sha256": "c452f2be4397d11baaf9e213c47dcaf08ab07a383e1ce1add637f4b65cbacea7"},
+        "src/ashlar_host/local_current_carrier_profile.py": {
+            "commit": "6b0bd06e766b65390c4134ffada2c0d5a7e884f5",
+            "sha256": "c3c18142b07f087dac607bda8d85f4674324a4c5ebb20f838f12e9cf83e3781c"},
+    }
     if (trees != [integration_tree, correction_tree] or any(item.returncode != 0 for item in ancestors)
             or not isinstance(bound, dict)):
         raise StopRun("reviewed SDK0101/source-custody commit/tree is not in current checkout ancestry")
-    if not corrected_paths.issubset(expected_paths) or sorted(bound) != expected_paths:
-        raise StopRun("SDK0101 integration file set differs from reviewed commit")
+    if (not corrected_paths.issubset(expected_paths) or sorted(bound) != expected_paths
+            or overlay != expected_overlay or not set(overlay).issubset(set(expected_paths) | {"src/ashlar_host/driver.py"})
+            or release.get("manifest_follow_on_commits") != manifest_follow_ons):
+        raise StopRun("SDK0101 integration file set/current bridge overlay differs from reviewed commits")
+    for item in manifest_follow_ons:
+        try:
+            tree = subprocess.run(["git", "-C", str(repo), "rev-parse", f"{item['commit']}^{{tree}}"],
+                                  check=True, text=True, capture_output=True, timeout=10).stdout.strip()
+            ancestry = subprocess.run(["git", "-C", str(repo), "merge-base", "--is-ancestor",
+                                       item["commit"], "HEAD"], text=True, capture_output=True, timeout=10)
+        except (OSError, subprocess.SubprocessError) as error:
+            raise StopRun("cannot prove reviewed manifest/recovery follow-on commits") from error
+        if tree != item["tree"] or ancestry.returncode != 0:
+            raise StopRun(f"reviewed manifest/recovery follow-on is absent or changed: {item['commit']}")
     for relative in expected_paths:
         path = (repo / relative).resolve()
-        blob_commit = correction if relative in corrected_paths else integration
+        base_commit = correction if relative in corrected_paths else integration
+        overlay_entry = overlay.get(relative)
+        current_commit = overlay_entry["commit"] if overlay_entry else base_commit
+        expected_current = overlay_entry["sha256"] if overlay_entry else bound[relative]
         try:
             path.relative_to(repo.resolve())
             actual = sha(path.read_bytes())
-            committed_bytes = subprocess.run(
-                ["git", "-C", str(repo), "show", f"{blob_commit}:{relative}"],
+            base_bytes = subprocess.run(
+                ["git", "-C", str(repo), "show", f"{base_commit}:{relative}"],
                 check=True, capture_output=True, timeout=10).stdout
+            current_bytes = subprocess.run(
+                ["git", "-C", str(repo), "show", f"{current_commit}:{relative}"],
+                check=True, capture_output=True, timeout=10).stdout
+            if overlay_entry:
+                ancestry = subprocess.run(["git", "-C", str(repo), "merge-base", "--is-ancestor",
+                                           current_commit, "HEAD"], text=True, capture_output=True, timeout=10)
+                if ancestry.returncode != 0:
+                    raise StopRun(f"reviewed current integration overlay is not an ancestor: {current_commit}")
         except (OSError, ValueError, subprocess.SubprocessError) as error:
             raise StopRun(f"cannot verify SDK0101 integration file: {relative}") from error
-        if actual != bound[relative] or sha(committed_bytes) != bound[relative]:
+        if (sha(base_bytes) != bound[relative] or sha(current_bytes) != expected_current
+                or actual != expected_current):
             raise StopRun(f"SDK0101 integration file hash mismatch: {relative}")
-    dirty = subprocess.run(["git", "-C", str(repo), "status", "--porcelain", "--untracked-files=no", "--", *expected_paths],
+    for relative, entry in overlay.items():
+        if relative in expected_paths:
+            continue
+        path = (repo / relative).resolve()
+        try:
+            path.relative_to(repo.resolve())
+            committed = subprocess.run(["git", "-C", str(repo), "show",
+                                        f"{entry['commit']}:{relative}"], check=True,
+                                       capture_output=True, timeout=10).stdout
+            ancestry = subprocess.run(["git", "-C", str(repo), "merge-base", "--is-ancestor",
+                                       entry["commit"], "HEAD"], text=True, capture_output=True, timeout=10)
+            actual = sha(path.read_bytes())
+        except (OSError, ValueError, subprocess.SubprocessError) as error:
+            raise StopRun(f"cannot verify supplemental integration source: {relative}") from error
+        if sha(committed) != entry["sha256"] or actual != entry["sha256"] or ancestry.returncode != 0:
+            raise StopRun(f"supplemental integration source hash mismatch: {relative}")
+    relevant_paths = sorted(set(expected_paths) | set(overlay))
+    dirty = subprocess.run(["git", "-C", str(repo), "status", "--porcelain", "--untracked-files=no", "--", *relevant_paths],
                            check=True, text=True, capture_output=True, timeout=10).stdout
     if dirty.strip():
         raise StopRun("SDK0101 integration paths have local modifications")
