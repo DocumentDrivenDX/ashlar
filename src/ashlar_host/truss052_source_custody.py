@@ -33,6 +33,7 @@ def _sdk():
                            adopt_psycopg_host, FeedSourceCustodyHandle,
                            FeedSourceObservation, FeedReceiptAcknowledged,
                            FeedAckReconciled, FeedSourceClosed)
+        from truss.feed import FeedPage
         from truss.feed import FeedUnavailable
         from truss import CatalogRuntimeStatus
     except ImportError as error:
@@ -40,7 +41,7 @@ def _sdk():
     return (Ok, CatalogRuntimeConfiguration, create_reference_assembly,
             adopt_psycopg_host, FeedSourceCustodyHandle, FeedSourceObservation,
             FeedReceiptAcknowledged, FeedAckReconciled, FeedSourceClosed,
-            FeedUnavailable, CatalogRuntimeStatus)
+            FeedUnavailable, CatalogRuntimeStatus, FeedPage)
 
 
 def _value(result):
@@ -202,6 +203,44 @@ class Truss052SourceCustodySession:
                 raise Truss052CustodyError("Exact source custody renewal observation required")
         self._commit()
         return value
+
+    def observe_selected_page(self):
+        """Reread the selected page on the held source session before effects.
+
+        This is one-page source observation only. It does not select catalog
+        registrations, establish genesis for another feed, or authenticate a
+        caller's original selection. A/B genesis admission remains external.
+        """
+        self._require_handle()
+        selected = self._selection()
+        expected = selected.page
+        try:
+            with self._transaction("read_only") as transaction:
+                page = _value(self._assembly.read_feed_in_transaction(
+                    transaction, consumer_id=expected.consumer_id,
+                    maximum_facts=selected.maximum_facts,
+                    maximum_bytes=selected.maximum_bytes))
+                if type(page) is not _sdk()[11]:
+                    raise Truss052CustodyError("Exact public Truss FeedPage observation required")
+                fields = ("content", "sha256", "prior", "next", "consumer_id",
+                          "registration_id", "writer_xid", "outcome")
+                if any(getattr(page, field, None) != getattr(expected, field, None)
+                       for field in fields):
+                    raise Truss052CustodyError(
+                        "Current Truss page differs from the selected original page")
+        finally:
+            # Ensure the read transaction ends on this same held connection,
+            # including when source comparison refuses. _transaction already
+            # rolls back exceptions; the repeated rollback is idempotent.
+            try:
+                if not getattr(self._connection, "closed", False):
+                    self._connection.rollback()
+            except BaseException as error:
+                self._phase = "connection_lost"
+                raise Truss052CustodyError(
+                    "Original Truss page reread transaction cleanup failed") from error
+        self._phase = "renewed"
+        return page
 
     def acknowledge(self):
         """Attempt the one exact-byte Truss source receipt ACK on the held page."""

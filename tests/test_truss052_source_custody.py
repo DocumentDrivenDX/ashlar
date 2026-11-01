@@ -99,6 +99,9 @@ class _Assembly:
         self.connection.last_op = "open"
         self.open_selection = selection
         return _Ok(_Handle())
+    def read_feed_in_transaction(self, transaction, *, consumer_id, maximum_facts, maximum_bytes):
+        self.read_arguments = (consumer_id, maximum_facts, maximum_bytes)
+        return _Ok(self.selected.page)
     def renew_feed_source_custody_in_transaction(self, transaction, handle, *, phase):
         self.connection.last_op = "renew"
         return _Ok(_Observation(phase))
@@ -120,10 +123,14 @@ class _Assembly:
     def dispose(self): self.disposed = True
 
 
+class _Page(SimpleNamespace):
+    pass
+
+
 def _selection():
     # Direct construction is acceptable at this adapter seam only in tests;
     # production materialization is additionally guarded by the issuer registry.
-    page = SimpleNamespace(consumer_id="consumer", registration_id="registration-id",
+    page = _Page(consumer_id="consumer", registration_id="registration-id",
         prior=SimpleNamespace(content=b"prior-cursor"),
         next=SimpleNamespace(content=b"next-cursor"), sha256="c" * 64)
     return TrussSourceCustodySelection(
@@ -154,7 +161,7 @@ class Truss052SourceCustodyTests(unittest.TestCase):
             self.assertIs(host, self.host)
             return _Ok(self.assembly)
         self.sdk = (_Ok, object, create, adopt, _Handle, _Observation,
-                    _Ack, _Reconciled, _Closed, _Unavailable, object)
+                    _Ack, _Reconciled, _Closed, _Unavailable, object, _Page)
         self.patches = [
             patch("ashlar_host.truss052_source_custody._sdk", return_value=self.sdk),
             patch.object(TrussSourceCustodySelection, "to_candidate_sdk",
@@ -173,6 +180,11 @@ class Truss052SourceCustodyTests(unittest.TestCase):
         self.session.open()
         self.assertEqual(self.assembly.open_selection.destination_registration_bytes, b"registration")
         self.assertEqual(self.assembly.open_selection.ack_scope_bytes, b"scope")
+        page = self.session.observe_selected_page()
+        self.assertIs(page, self.selection.page)
+        self.assertEqual(self.assembly.read_arguments, ("consumer", 10, 1000))
+        self.assertEqual(self.connection.info.transaction_status, 0)
+        self.assertIs(self.session._connection, self.connection)
         self.session.renew()
         self.session.acknowledge()
         reconciled = self.session.reconcile()
@@ -180,9 +192,19 @@ class Truss052SourceCustodyTests(unittest.TestCase):
         self.session.close()
         self.assertEqual(self.calls, [self.context])
         self.assertEqual(self.host.modes,
-            ["read_write", "read_write", "read_write", "read_write",
+            ["read_write", "read_only", "read_write", "read_write", "read_write",
              "read_only", "read_write"])
         self.assertTrue(self.assembly.closed_committed)
+
+    def test_live_page_must_match_the_selected_original_page(self):
+        from dataclasses import replace
+        self.session.open()
+        original = self.selection.page
+        self.assembly.selected = replace(self.selection, page=_Page(consumer_id=original.consumer_id,
+            registration_id=original.registration_id, prior=original.prior,
+            next=original.next, sha256="d" * 64))
+        with self.assertRaisesRegex(Truss052CustodyError, "differs from the selected original page"):
+            self.session.observe_selected_page()
 
     def test_lost_connection_is_not_replaced(self):
         self.session.open()
