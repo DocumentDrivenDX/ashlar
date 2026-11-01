@@ -246,6 +246,18 @@ class Tests(unittest.TestCase):
                     self.assertEqual(len(active['expected']['whole_source_history']),3)
                     self.assertEqual(kwargs['predecessor'],'old')
                     self.assertIn('acknowledge_source',kwargs)
+                    if not kwargs['acknowledge_source']:
+                        from ashlar.publication import Descriptor
+                        request=active['request'];checkpoint=json.loads(request['source_checkpoint_json'])
+                        report={'complete':True,'request_digest':request['request_digest']}
+                        manifest={'publication_id':active['publication_id'],'profile_version':'ashlar-delta/0.3',
+                            'table_versions_json':json.dumps({driver.tables['attempts']:0},separators=(',',':')),
+                            'source_progress_json':json.dumps({checkpoint['feed']:checkpoint},separators=(',',':')),
+                            'schema_revisions_json':request['schema_revisions_json'],
+                            'validation_report_json':json.dumps(report,separators=(',',':')),'recorded_at':'0'}
+                        return Descriptor(manifest['publication_id'],manifest['profile_version'],
+                            {driver.tables['attempts']:0},json.loads(manifest['schema_revisions_json']),
+                            {checkpoint['feed']:checkpoint},report,manifest)
                     return SimpleNamespace(raw={'publication_id':active['publication_id']})
                 initial_active=copy.deepcopy(driver.policy.active)
                 with patch('ashlar_host.truss_continue._ready',return_value=empty_state()),patch('ashlar_host.truss_continue.read_next_page',return_value=page), \
