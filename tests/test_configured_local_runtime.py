@@ -233,6 +233,32 @@ class Tests(unittest.TestCase):
         historical=SimpleNamespace(sdk058_admission=None,sdk010_admission=None)
         original=object();self.assertIs(_delta4_source_configuration(historical,SimpleNamespace(configuration=original)),original)
 
+    def test_delta4_sdk0101_admitted_configuration_unwraps_for_transaction_plan(self):
+        from ashlar.typed_graph_source_config_sdk0101 import load_typed_graph_jsonl_configuration
+        from ashlar_host.configured_local_delta4_publication import plan_configured_local_delta4_transaction1
+        from ashlar.typed_graph_source_config_sdk0101 import GRAPH_CHECK_PIN
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory).resolve();root.chmod(0o700)
+            example=Path(__file__).resolve().parents[1]/'examples/end-to-end'
+            for name in ('typed-graph-source.jsonl','typed-graph-model.umf.json',
+                         'typed-graph-binding.json'):
+                (root/name).write_bytes((example/name).read_bytes())
+            config_value=json.loads((example/'configured-typed-graph-source.json').read_bytes())
+            config_value['producerRevision']=GRAPH_CHECK_PIN
+            config_path=root/'configured-typed-graph-source.json'
+            config_path.write_text(json.dumps(config_value,sort_keys=True,separators=(',',':'))+'\n')
+            base=load_typed_graph_jsonl_configuration(config_path)
+            view=SimpleNamespace(base=base)
+            sdk=SimpleNamespace(sdk058_admission=None,sdk010_admission=None,
+                                sdk0101_admission=object())
+            configuration=_delta4_source_configuration(sdk,SimpleNamespace(configuration=view))
+            self.assertIs(configuration,base)
+            plan=plan_configured_local_delta4_transaction1(
+                configuration,stream='g03-sdk0101-regression',
+                materialized_at_us='1793504419378646')
+            self.assertEqual(plan.batch_id,'typed-graph-1')
+            self.assertEqual(plan.request['batch_id'],'typed-graph-1')
+
     def test_delta4_transaction1_composition_closes_owners_if_spark_open_fails(self):
         with tempfile.TemporaryDirectory()as directory:
             root=Path(directory).resolve();root.chmod(0o700)

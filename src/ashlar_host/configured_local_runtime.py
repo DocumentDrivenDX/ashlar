@@ -478,7 +478,8 @@ def publish_configured_local(config,*,ordinal):return _run(config,ordinal)
 
 
 def _delta4_source_configuration(config,source):
-    if config.sdk058_admission is not None or config.sdk010_admission is not None:
+    if (config.sdk058_admission is not None or config.sdk010_admission is not None
+            or getattr(config,'sdk0101_admission',None) is not None):
         base=getattr(source.configuration,'base',None)
         _require(base is not None)
         return base
