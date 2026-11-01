@@ -32,12 +32,25 @@ def retain_truss_ack_attempt(driver, request, manifest, vector):
 
 
 def admit_truss_ack_attempt(driver, request, manifest, vector):
-    """Require real committed native phase/manifest and exact retained intent."""
+    """Admit the original native publication for either supported ACK path.
+
+    Plain caller-asserted ACKs require their local durable intent. The protected
+    destination-receipt path commits through Truss source custody outside the
+    driver, so it has no such local row; that path is admitted only when the
+    exact receipt-backed Truss session is present. Its caller must then perform
+    fresh public receipt reconciliation before continuation proceeds.
+    """
     from .driver import AttemptExecutor,CarrierPolicy
     original=encoded(_intent(driver,request,manifest,vector))
-    if driver.transport.db.execute('SELECT original,digest FROM local_plan WHERE operation=?',
-            ('truss-ack:'+request['request_digest'],)).fetchall() != [(original,sha(original))]:
-        raise ValueError('Original durable Truss ACK attempt required')
+    retained=driver.transport.db.execute('SELECT original,digest FROM local_plan WHERE operation=?',
+            ('truss-ack:'+request['request_digest'],)).fetchall()
+    if retained != [(original,sha(original))]:
+        receipt_backed=(not retained
+            and driver.source_sessions.destination_receipts is True
+            and type(driver.source_sessions.destination_id)is str
+            and bool(driver.source_sessions.destination_id))
+        if not receipt_backed:
+            raise ValueError('Original durable Truss ACK attempt or protected receipt session required')
     driver.source_sessions._request(request,driver.context)
     target=driver.transport.targets[driver.tables['attempts']]
     store=DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid)
