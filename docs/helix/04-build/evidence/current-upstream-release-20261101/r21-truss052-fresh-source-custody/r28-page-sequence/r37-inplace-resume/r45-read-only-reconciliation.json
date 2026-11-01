@@ -1,0 +1,76 @@
+{
+  "ack_or_completion_receipts_present": [],
+  "ack_outcome": "not_attempted",
+  "attempt_root": "/private/tmp/ashlar-r45-truss052-readback-recovery-20261101",
+  "cloud": false,
+  "database_effects_may_remain": "worker/supervisor conservatively marked possible after opening local PostgreSQL and initializing local Spark; independent journal/log/receipt reconciliation proves no new Delta publication or source ACK. PostgreSQL was stopped by supervisor.",
+  "delta": {
+    "artifact_request_digests": [
+      "8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea",
+      "cbf69ea847e30930ec586b2a3d508745f0430da3e9e1628f6b81149b9d58230b"
+    ],
+    "counts": {
+      "local_operation": 15,
+      "local_plan": 2,
+      "local_publication_artifact": 2,
+      "local_source_plan": 2
+    },
+    "heads": {
+      "attempts": 11,
+      "edge_current": 2,
+      "manifest": 3,
+      "object_current": 2,
+      "tombstone": 1,
+      "whole_source_history": 2
+    },
+    "integrity_check": "ok",
+    "journal_sha256": "6084db7eddfc116020b34d7a213dd2a8010cefbf0c2c6f6c0c58e60372842aec",
+    "new_delta_publication": false,
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
+    "pending_r42_vector": {
+      "edge_current": 2,
+      "object_current": 2,
+      "tombstone": 1,
+      "whole_source_history": 2
+    },
+    "source_ack_delta_row": false
+  },
+  "failure_boundary": "KeyError arose in recovery callback while indexing scope resume source_postconditions for revision; page/public API read and custody open were after this line. No restore/readback completion or ACK marker exists.",
+  "failure_receipt_sha256": "3f3d0bf06d030ce72b7514dd8aa843dac8e02bfee4569a8f36283327a9fcd9f9",
+  "failure_type": "KeyError",
+  "pgdata": {
+    "bytes": 65219987,
+    "files": 1261,
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
+    "postmaster_pid_present": false,
+    "tree_sha256": "4b9cbcf69ee1101976d10bf730778a1d282169c3d043c4f78d26caacd7bbff11"
+  },
+  "production_authority": false,
+  "profile": "ashlar-r45-read-only-reconciliation/0.1",
+  "publication_replayed": false,
+  "receipts_present": [
+    "failure.json",
+    "recovery-started.json"
+  ],
+  "runtime_receipts": {
+    "resume_config_sha256": "976582cff465d84f4ae3eb45657f04f3f8fddd254fc9491ac8b8fc77b0ced23a",
+    "stderr_sha256": "b7c19836c094318168e337ff217d4e79385dd2b34d5ea9b2df025969fe79c3c0",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "source_ack_attempted": false,
+  "stage": "restore_readback_and_protected_ack",
+  "status": "failed_before_source_page_custody_or_ack",
+  "supervisor": {
+    "peak_rss_bytes": 931840000,
+    "postgres_cleanup": {
+      "postmaster_pid": null,
+      "process_tree": [],
+      "remaining": [],
+      "status": "absent"
+    },
+    "process_group_remaining": [],
+    "receipt_sha256": "877baa618067caf3fdcbc11ecb4220ed84442d82af63b639382f08b58c6941c2",
+    "returncode": 1,
+    "wall_seconds": 18.066
+  }
+}

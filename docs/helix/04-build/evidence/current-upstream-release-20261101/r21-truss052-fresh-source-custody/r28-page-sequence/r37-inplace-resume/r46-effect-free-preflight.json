@@ -1,0 +1,152 @@
+{
+  "attempt_root": "/private/tmp/ashlar-r46-truss052-readback-recovery-20261101",
+  "attempt_root_absent_after_preflight": true,
+  "cloud": false,
+  "configured_runtime_preflight": {
+    "runtime_admission": "configured_local_runtime._runtime passed",
+    "selected_jars": [
+      "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-spark_4.2_2.13-4.4.1.jar",
+      "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-storage-4.4.1.jar"
+    ]
+  },
+  "configured_spark_environment": {
+    "environment": {
+      "JAVA_HOME": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
+      "PYSPARK_DRIVER_PYTHON": "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+      "PYSPARK_PYTHON": "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+      "SPARK_LOCAL_IP": "127.0.0.1"
+    },
+    "jars": [
+      "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-spark_4.2_2.13-4.4.1.jar",
+      "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-storage-4.4.1.jar"
+    ],
+    "java_home": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
+    "loopback_spark_config": {
+      "spark.driver.bindAddress": "127.0.0.1",
+      "spark.driver.host": "127.0.0.1",
+      "spark.ui.bindAddress": "127.0.0.1"
+    },
+    "profile": "ashlar-configured-local-runtime/0.2",
+    "python": "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+    "runtime_identity": {
+      "delta_spark": "4.4.1",
+      "jars": {
+        "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+        "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+      },
+      "jdk": "21",
+      "pyspark": "4.2.0",
+      "python": "3.12",
+      "sessionSettings": {
+        "spark.sql.legacy.parameterSubstitution.constantsOnly": "true"
+      }
+    }
+  },
+  "database_opened": false,
+  "delta_written": false,
+  "journal_readonly_preflight": {
+    "connection_mode": "mode=ro with WAL awareness",
+    "counts": {
+      "local_operation": 15,
+      "local_plan": 2,
+      "local_publication_artifact": 2,
+      "local_source_plan": 2
+    },
+    "integrity_check": "ok",
+    "main_sha256_before_after": "6084db7eddfc116020b34d7a213dd2a8010cefbf0c2c6f6c0c58e60372842aec",
+    "matching_request_artifacts": 1,
+    "no_checkpoint_or_delete": true,
+    "sidecars_after": {
+      "-shm": {
+        "bytes": 32768,
+        "dev": 16777231,
+        "ino": 314149869,
+        "mode": 384,
+        "present": true,
+        "sha256": null,
+        "uid": 501
+      },
+      "-wal": {
+        "bytes": 0,
+        "dev": 16777231,
+        "ino": 314149868,
+        "mode": 384,
+        "present": true,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "uid": 501
+      }
+    },
+    "sidecars_before": {
+      "-shm": {
+        "bytes": 32768,
+        "dev": 16777231,
+        "ino": 314149869,
+        "mode": 384,
+        "present": true,
+        "sha256": null,
+        "uid": 501
+      },
+      "-wal": {
+        "bytes": 0,
+        "dev": 16777231,
+        "ino": 314149868,
+        "mode": 384,
+        "present": true,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "uid": 501
+      }
+    }
+  },
+  "limits": {
+    "attempt_root_bytes": 536870912,
+    "attempts": 1,
+    "automatic_retries": 0,
+    "cloud": false,
+    "process_rss_bytes": 2147483648,
+    "wall_seconds": 900
+  },
+  "native_dispatch": false,
+  "native_effects": false,
+  "notes": "The operation input sentinel runs the actual recovery operation closure with retained source/evidence and stops before imports, public catalog/feed calls, database, Spark, Delta or ACK.",
+  "profile": "ashlar-r46-effect-free-preflight/0.1",
+  "publication_replayed": false,
+  "r45_reconciliation_sha256": "ddc12307f1010ebad40621399f34b30828a92664a4d0965a80e58784b7045367",
+  "recovery_input_shape": {
+    "acceptance_registration_id": "4356b0ee-2d21-4a39-9182-b82c66dffd97",
+    "acceptance_revision": 1,
+    "delta_written": false,
+    "pending_request_digest": "8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea",
+    "postgres_opened": false,
+    "public_api_calls": false,
+    "source_ack_attempted": false,
+    "spark_started": false,
+    "status": "passed_effect_free_recovery_operation_input_sentinel"
+  },
+  "runtime": {
+    "extras": "/private/tmp/ashlar-r9-truss051-current-runtime-20261101/site-packages",
+    "local_extra_versions": {
+      "fasteners": "0.20",
+      "pgserver-pg18": "18.6.1",
+      "platformdirs": "4.12.4",
+      "psutil": "7.2.2"
+    },
+    "overlay": "/private/tmp/ashlar-r21-truss052-runtime-candidate-20261101/site-packages",
+    "truss_origin": "/private/tmp/ashlar-r21-truss052-runtime-candidate-20261101/site-packages/truss/__init__.py",
+    "truss_version": "0.0.52",
+    "wheel_sha256": "00d8b11abc83d9c84fa131ae6f3eef23ecad9d321d4b04a13641ed31c77e9747"
+  },
+  "scope_sha256": "3a916144f7bff9539aa88c1edad18a297f3d857dafc72b8ec098409fe299de76",
+  "source_acknowledgement_attempted": false,
+  "spark_started": false,
+  "status": "passed_effect_free_inplace_preflight",
+  "supervisor_preflight_output_sha256": "8a00e03e07ea7a0ed6e496da728875752effbd1a5be9b52fb159399f4d3a3e06",
+  "supervisor_root": "/private/tmp/ashlar-r46-truss052-readback-recovery-20261101-supervisor",
+  "supervisor_root_absent_after_preflight": true,
+  "supervisor_sha256": "dbd2ac1563885eead43d6241c2d82013372ca83927e670705372bdcac8b2fece",
+  "tests": {
+    "test_r45_runtime_bootstrap.py": "2 passed",
+    "test_r46_recovery_inputs.py": "3 passed",
+    "tests.test_truss_local_publication_recovery": "6 passed"
+  },
+  "worker_sha256": "8e8e7f10cc5b4788fc99eac1267f86f72cf4eb2d787feb3b99060ddfb6b77370"
+}
