@@ -1,0 +1,53 @@
+{
+  "status": "passed_effect_free_r7_truss051_packet_validation",
+  "checker": "check_r7_truss051_packet.py",
+  "database_connected": false,
+  "postgres_started": false,
+  "native_dispatch": false,
+  "acceptance_replayed": false,
+  "original_pgdata_mutated": false,
+  "supervisor_handshake_inert_tests": "passed 3 cases",
+  "r6_dispatch_failure": "worker rejected supervisor-created root before output-root or PostgreSQL effects; R6 consumed",
+  "r7_output_namespace": "/private/tmp/ashlar-r7-truss051-continuation-20261031",
+  "source_pgdata": {
+    "path": "/private/tmp/ashlar-truss048-fresh-local-20261031-r6/pgdata",
+    "postgres_major": "18",
+    "required_layout_directories": 23,
+    "files": 1247,
+    "bytes": 46962594,
+    "tree_sha256": "6e184a4eb02612b5f8ce92aebbc9ed2ba78743e127eb5b6d6ab1795bbcf3d7a5"
+  },
+  "process_inventory": {
+    "status": "not_performed_by_effect_free_checker",
+    "required_before_native_copy": true
+  },
+  "truss": {
+    "version": "0.0.51",
+    "wheel_sha256": "eb59141c48e94bb93ab7053e9e8725012eee1749e4432e9c71804d23abbdff57",
+    "migration_route": [
+      "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+      "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f",
+      "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4"
+    ]
+  },
+  "limits": {
+    "attempts": 1,
+    "wall_seconds": 900,
+    "process_group_rss_bytes": 2147483648,
+    "attempt_root_bytes": 536870912,
+    "retained_plus_attempt_bytes": 2147483648,
+    "migration_preservation_bytes": 268435456,
+    "combined_log_bytes": 16777216,
+    "automatic_retries": 0,
+    "cloud": false,
+    "publication": false,
+    "acknowledgement": false,
+    "cleanup": false
+  },
+  "review_gate": "Sol accepted R7; user standing authorization is hash-bound. Effect-free validation did not dispatch native work.",
+  "authorization_receipt": "r7-truss051-native-approval.json",
+  "scope_sha256": "3cf9bb07d642f0b32a60ee9962fa7001cae6a2f4f4d170bd282020a244074162",
+  "worker_sha256": "1cd2cfc15fe494dc6a4f703603b9844796b19d4f93d6e4c1989fd83059ba67bb",
+  "supervisor_sha256": "80f2cba9dfffb8bba735c50dd79186339b20cc7a15b23784091eb04878fc109a",
+  "approval_sha256": "1b374a2d8610f04bac4ff83e289a747889ae62bf0f0dc394a683279628219393"
+}
