@@ -10,11 +10,16 @@ import tarfile
 import zipfile
 from email import message_from_bytes
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 TAG_PATTERN = re.compile(r"v(?P<version>\d+\.\d+\.\d+)\Z")
 COMMIT_PATTERN = re.compile(r"[0-9a-f]{40}\Z")
 MANIFEST_NAME = "release-manifest.json"
+BUILDER_FIELDS = {
+    "mode", "python_path", "python_executable", "python_version",
+    "platform_system", "platform_machine", "setuptools_version",
+    "wheel_version", "uv_version",
+}
 
 
 def digest(path: Path) -> str:
@@ -34,6 +39,34 @@ def release_version(tag: str) -> str:
     if match is None:
         raise ValueError("stable vMAJOR.MINOR.PATCH tag required")
     return match.group("version")
+
+
+def _version_parts(value: Any) -> tuple[int, ...]:
+    match = re.match(r"^(\d+(?:\.\d+)*)", value) if isinstance(value, str) else None
+    if match is None:
+        raise ValueError("builder version is invalid")
+    return tuple(int(part) for part in match.group(1).split("."))
+
+
+def validate_builder_identity(builder: Any) -> None:
+    if not isinstance(builder, dict) or set(builder) != BUILDER_FIELDS:
+        raise ValueError("selected build identity is incomplete")
+    if builder["mode"] != "selected-python-no-build-isolation":
+        raise ValueError("selected build identity mode is unsupported")
+    for key in ("python_path", "python_executable"):
+        if not isinstance(builder[key], str) or not Path(builder[key]).is_absolute():
+            raise ValueError("selected build Python path is invalid")
+    if _version_parts(builder["python_version"]) < (3, 9):
+        raise ValueError("selected build Python must be 3.9 or newer")
+    if _version_parts(builder["setuptools_version"]) < (77,):
+        raise ValueError("selected build requires setuptools 77 or newer")
+    _version_parts(builder["wheel_version"])
+    if not all(isinstance(builder[key], str) and builder[key]
+               for key in ("platform_system", "platform_machine")):
+        raise ValueError("selected build platform identity is incomplete")
+    if (not isinstance(builder["uv_version"], str)
+            or re.match(r"^uv \d+(?:\.\d+)+\b", builder["uv_version"]) is None):
+        raise ValueError("selected build uv version is invalid")
 
 
 def distribution_metadata(path: Path) -> tuple[str, str]:
@@ -99,13 +132,14 @@ def create_manifest(
     repository: str,
     source_commit: str,
     package: str,
+    builder: Optional[dict[str, Any]] = None,
 ) -> dict[str, Any]:
     version = release_version(tag)
     if COMMIT_PATTERN.fullmatch(source_commit) is None:
         raise ValueError("full lowercase source commit required")
     files = distribution_files(directory, package, version)
     manifest = {
-        "schema": "github-pypi-release/1",
+        "schema": "github-release/1",
         "repository": repository,
         "tag": tag,
         "source_commit": source_commit,
@@ -113,6 +147,9 @@ def create_manifest(
         "version": version,
         "artifacts": [{"name": path.name, "sha256": digest(path)} for path in files],
     }
+    if builder is not None:
+        validate_builder_identity(builder)
+        manifest["builder"] = builder
     output.write_text(
         json.dumps(manifest, sort_keys=True, indent=2) + "\n", encoding="utf-8"
     )
@@ -144,7 +181,7 @@ def verify_release(
         raise ValueError("release manifest asset required")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if (
-        manifest.get("schema") != "github-pypi-release/1"
+        manifest.get("schema") != "github-release/1"
         or manifest.get("repository") != repository
         or manifest.get("tag") != tag
         or manifest.get("source_commit") != source_commit
@@ -152,6 +189,8 @@ def verify_release(
         or manifest.get("version") != version
     ):
         raise ValueError("release manifest source or package identity mismatch")
+    if "builder" in manifest:
+        validate_builder_identity(manifest["builder"])
     actual = {path.name: digest(path) for path in [*files, manifest_path]}
     assets = release.get("assets")
     if not isinstance(assets, list):

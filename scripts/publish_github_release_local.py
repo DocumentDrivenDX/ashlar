@@ -4,12 +4,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 from verify_release_artifacts import (
     MANIFEST_NAME,
@@ -17,6 +18,7 @@ from verify_release_artifacts import (
     digest,
     distribution_files,
     release_version,
+    validate_builder_identity,
     verify_release,
 )
 
@@ -41,6 +43,63 @@ def run(command: list[str], *, cwd: Path = ROOT, capture: bool = True) -> str:
 def require(condition: bool, message: str) -> None:
     if not condition:
         raise ValueError(message)
+
+
+def _version_tuple(value: str) -> tuple[int, ...]:
+    match = re.match(r"^(\d+(?:\.\d+)*)", value) if type(value) is str else None
+    require(match is not None, "selected build environment has an invalid version")
+    return tuple(int(part) for part in match.group(1).split("."))
+
+
+def selected_builder_identity(python_path: Path) -> dict[str, Any]:
+    """Validate and retain the explicitly selected no-isolation build runtime."""
+    require(isinstance(python_path, Path) and python_path.is_absolute()
+            and python_path.is_file() and os.access(python_path, os.X_OK),
+            "--build-python must name an executable absolute Python path")
+    probe = (
+        "import importlib.metadata as m,json,platform,sys; "
+        "get=lambda n: (m.version(n) if next((d for d in m.distributions() "
+        "if d.metadata.get('Name','').lower().replace('_','-')==n),None) else None); "
+        "print(json.dumps({'executable':sys.executable,'version':list(sys.version_info[:3]),"
+        "'system':platform.system(),'machine':platform.machine(),"
+        "'setuptools':get('setuptools'),'wheel':get('wheel')}))"
+    )
+    try:
+        observation = json.loads(run([str(python_path), "-c", probe]))
+    except (OSError, json.JSONDecodeError, subprocess.CalledProcessError):
+        raise ValueError("selected build Python identity could not be observed") from None
+    require(type(observation) is dict
+            and type(observation.get("executable")) is str
+            and Path(observation["executable"]).is_absolute()
+            and type(observation.get("version")) is list
+            and len(observation["version"]) == 3
+            and all(type(part) is int and part >= 0 for part in observation["version"])
+            and tuple(observation["version"][:2]) >= (3, 9)
+            and type(observation.get("system")) is str
+            and type(observation.get("machine")) is str,
+            "selected build Python must be a supported, identified Python 3.9+ runtime")
+    setuptools = observation.get("setuptools")
+    wheel = observation.get("wheel")
+    require(type(setuptools) is str and _version_tuple(setuptools) >= (77,)
+            and type(wheel) is str and _version_tuple(wheel) >= (0,),
+            "selected no-isolation builder requires setuptools>=77 and wheel")
+    try:
+        uv_version = run(["uv", "--version"])
+    except (OSError, subprocess.CalledProcessError):
+        raise ValueError("uv builder identity could not be observed") from None
+    require(re.match(r"^uv \d+(?:\.\d+)+\b", uv_version) is not None,
+            "uv builder version could not be identified")
+    return {
+        "mode": "selected-python-no-build-isolation",
+        "python_path": str(python_path),
+        "python_executable": observation["executable"],
+        "python_version": ".".join(str(part) for part in observation["version"]),
+        "platform_system": observation["system"],
+        "platform_machine": observation["machine"],
+        "setuptools_version": setuptools,
+        "wheel_version": wheel,
+        "uv_version": uv_version,
+    }
 
 
 def check_source(tag: str, expected_commit: str, repository: str) -> str:
@@ -72,10 +131,16 @@ def check_source(tag: str, expected_commit: str, repository: str) -> str:
 
 
 def build_and_manifest(
-    directory: Path, *, tag: str, repository: str, source_commit: str
+    directory: Path, *, tag: str, repository: str, source_commit: str,
+    build_python: Optional[Path] = None,
 ) -> dict[str, Any]:
     directory.mkdir(parents=True, exist_ok=True)
-    run(["uv", "build", "--out-dir", str(directory)])
+    builder = selected_builder_identity(build_python) if build_python is not None else None
+    command = ["uv", "build"]
+    if build_python is not None:
+        command.extend(["--python", str(build_python), "--no-build-isolation"])
+    command.extend(["--out-dir", str(directory)])
+    run(command)
     uv_ignore = directory / ".gitignore"
     if uv_ignore.exists():
         require(
@@ -90,6 +155,7 @@ def build_and_manifest(
         repository=repository,
         source_commit=source_commit,
         package=PACKAGE,
+        builder=builder,
     )
 
 
@@ -137,7 +203,7 @@ def download_and_verify_draft(
     require(manifest_path.is_file(), "release manifest asset required")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     require(
-        manifest.get("schema") == "github-pypi-release/1"
+        manifest.get("schema") == "github-release/1"
         and manifest.get("repository") == repository
         and manifest.get("tag") == tag
         and manifest.get("source_commit") == source_commit
@@ -145,6 +211,8 @@ def download_and_verify_draft(
         and manifest.get("version") == release_version(tag),
         "draft manifest source or package identity mismatch",
     )
+    if "builder" in manifest:
+        validate_builder_identity(manifest["builder"])
     expected = {entry.get("name"): entry.get("sha256") for entry in manifest.get("artifacts", [])}
     actual = {path.name: digest(path) for path in files}
     require(expected == actual, "draft distributions do not match the source manifest")
@@ -173,6 +241,11 @@ def main() -> int:
     parser.add_argument("--expected-commit", required=True)
     parser.add_argument("--repository", required=True, help="GitHub owner/repository")
     parser.add_argument(
+        "--build-python",
+        type=Path,
+        help="explicit executable Python path; opts into a validated no-build-isolation build",
+    )
+    parser.add_argument(
         "--execute",
         action="store_true",
         help="perform the requested GitHub stage/publish action; default is a dry run",
@@ -197,6 +270,7 @@ def main() -> int:
                     tag=args.tag,
                     repository=args.repository,
                     source_commit=args.expected_commit,
+                    build_python=args.build_python,
                 )
                 summary = {"action": args.action, **result}
             else:
