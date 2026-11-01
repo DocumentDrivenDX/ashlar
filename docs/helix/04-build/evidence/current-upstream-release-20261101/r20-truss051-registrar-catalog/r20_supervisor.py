@@ -1,16 +1,23 @@
 #!/usr/bin/env python3
 """R20 adapter to the reviewed bounded PostgreSQL/RSS/storage supervisor."""
 from __future__ import annotations
-import hashlib,importlib.util,json,os,sys
+import hashlib,importlib.util,json,os,sys,types
 from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
 R15=HERE.parent/'r15-truss051-view-transaction'
 R19=HERE.parent/'r19-truss051-delta-publication'
 sys.path.insert(0,str(R15))
-spec=importlib.util.spec_from_file_location('r19_r15_bounded_supervisor',R15/'r15_truss051_supervisor.py')
-if spec is None or spec.loader is None: raise RuntimeError('reviewed bounded supervisor unavailable')
-base=importlib.util.module_from_spec(spec);spec.loader.exec_module(base)
+R15_SUPERVISOR=R15/'r15_truss051_supervisor.py'
+R15_SOURCE_GATE='/private/tmp/ashlar-r13-truss051-current-cohort-20261101/resume-clone-pgdata'
+R20_SOURCE_GATE='scope.get("r16b_source", {}).get("path")'
+raw_supervisor=R15_SUPERVISOR.read_bytes()
+old_gate=json.dumps(R15_SOURCE_GATE).encode()
+if raw_supervisor.count(old_gate)!=1: raise RuntimeError('R15 supervisor source gate drifted')
+derived_supervisor=raw_supervisor.replace(old_gate,R20_SOURCE_GATE.encode(),1)
+base=types.ModuleType('r20_r15_bounded_supervisor')
+base.__file__=str(R15_SUPERVISOR)
+exec(compile(derived_supervisor,str(R15_SUPERVISOR),'exec'),base.__dict__)
 spec=importlib.util.spec_from_file_location('r19_release_worker_contract',R19/'r19_truss051_local_worker.py')
 if spec is None or spec.loader is None: raise RuntimeError('reviewed release-cohort validator unavailable')
 r15_worker=importlib.util.module_from_spec(spec);spec.loader.exec_module(r15_worker)
@@ -59,6 +66,22 @@ def release_scope(scope):
         raise base.StopSupervisor('R20 resolver-fix provenance mismatch')
     r15_worker.validate_release_cohort(scope['release_cohort'],scope['runtime'])
     expected=scope['r16b_source']
+    adapter=scope.get('r20_supervisor_source_adapter',{})
+    base_raw=R15_SUPERVISOR.read_bytes()
+    old_raw=json.dumps(R15_SOURCE_GATE).encode();new_raw=R20_SOURCE_GATE.encode()
+    if (adapter.get('base_helper')!='../r15-truss051-view-transaction/r15_truss051_supervisor.py'
+        or adapter.get('base_sha256')!=hashlib.sha256(base_raw).hexdigest()
+        or adapter.get('source_gate_literal_before')!=R15_SOURCE_GATE
+        or adapter.get('source_gate_expression_after')!=R20_SOURCE_GATE
+        or adapter.get('transformation')!='one exact byte substitution of the R15 hard-coded source path gate to the R20 scope r16b_source.path; all other supervisor source bytes unchanged'
+        or base_raw.count(old_raw)!=1
+        or adapter.get('derived_module_sha256')!=hashlib.sha256(base_raw.replace(old_raw,new_raw,1)).hexdigest()):
+        raise base.StopSupervisor('R20 derived supervisor source-gate binding mismatch')
+    if (scope['source'].get('existing_pgdata')!=expected.get('path')
+        or scope['source'].get('pgdata_bytes_at_packet_review')!=expected.get('bytes')
+        or scope['source'].get('pgdata_files_at_packet_review')!=expected.get('files')
+        or scope['source'].get('pgdata_tree_sha256_at_packet_review')!=expected.get('tree_sha256')):
+        raise base.StopSupervisor('R20 supervisor custody fields must bind the selected R16b backup')
     if (scope['source']['catalog_accepted']['document_id']!='ashlar-local-dev-typed-graph-r6-20261031'
         or scope['source']['catalog_accepted']['document_revision']!='1'
         or scope['source']['catalog_accepted']['document_sha256']!='2c9b295a8232cae4770255650bf634941ab223e582b79ae2bb78f6acf0b8a880'

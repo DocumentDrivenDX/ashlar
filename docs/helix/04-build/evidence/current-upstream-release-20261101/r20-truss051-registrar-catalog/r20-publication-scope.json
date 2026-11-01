@@ -107,6 +107,14 @@
     "source_copy_receipt_sha256": "7a22632d87c38244a7810ad75cae627f9fe03e743f8baf043cd932f09b256cf3",
     "tree_sha256": "b1ab6a55e3d13981e706b0cdb7ddd653ba7db9e241da6bef9ad4c16a47adc82e"
   },
+  "r20_supervisor_source_adapter": {
+    "base_helper": "../r15-truss051-view-transaction/r15_truss051_supervisor.py",
+    "base_sha256": "e553cfbfdf131268c664d353d5bfd630d9904e3b06ee06abc1b2f59698fb7414",
+    "derived_module_sha256": "b791c5994271814a4b45ccc96828b74317bc98cbf4825db72d5827124e540c7c",
+    "source_gate_expression_after": "scope.get(\"r16b_source\", {}).get(\"path\")",
+    "source_gate_literal_before": "/private/tmp/ashlar-r13-truss051-current-cohort-20261101/resume-clone-pgdata",
+    "transformation": "one exact byte substitution of the R15 hard-coded source path gate to the R20 scope r16b_source.path; all other supervisor source bytes unchanged"
+  },
   "release_cohort": {
     "ashlar_integration_commit": "afeb78c41679454730a3bf0129db6f438191953a",
     "ashlar_integration_tree": "08862e9d2f3482f505cec40ed266f5e77cad0192",
@@ -277,10 +285,10 @@
       "document_sha256": "2c9b295a8232cae4770255650bf634941ab223e582b79ae2bb78f6acf0b8a880",
       "registration_id": "bc6e5004-b07f-4a25-9c35-19a08c4b5f39"
     },
-    "existing_pgdata": "/private/tmp/ashlar-r13-truss051-current-cohort-20261101/resume-clone-pgdata",
-    "pgdata_bytes_at_packet_review": 130061709,
-    "pgdata_files_at_packet_review": 1249,
-    "pgdata_tree_sha256_at_packet_review": "e9083cf72e3471923bdc0af00c6edb2c8bf8787c278c8f3f8cdbd2f6a22e63f7"
+    "existing_pgdata": "/private/tmp/ashlar-r19-truss051-delta-publication-20261101/r16b-stopped-source-backup-pgdata",
+    "pgdata_bytes_at_packet_review": 65754852,
+    "pgdata_files_at_packet_review": 1255,
+    "pgdata_tree_sha256_at_packet_review": "b1ab6a55e3d13981e706b0cdb7ddd653ba7db9e241da6bef9ad4c16a47adc82e"
   },
   "source_implementation": {
     "commit": "754288406193b7c1a7c293aff369757350dff655",
