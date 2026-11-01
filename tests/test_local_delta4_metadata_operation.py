@@ -272,7 +272,7 @@ def reservation_for(transport, request):
 
 
 class Tests(unittest.TestCase):
-    def sdk0101_profile(self, root, targets):
+    def sdk0101_profile(self, root, targets, *, table_prefix='local.configured'):
         from ashlar.typed_graph_source_sdk0101 import GRAPH_CHECK_PIN
         from ashlar_host.configured_local_delta4_publication import (
             INSTALLATION_ROLES, LOCAL_ROLE_BY_CARRIER,
@@ -284,7 +284,7 @@ class Tests(unittest.TestCase):
         roles = {}
         for role in INSTALLATION_ROLES:
             alias = LOCAL_ROLE_BY_CARRIER[role]
-            target = targets["local.configured." + alias]
+            target = targets[table_prefix + "." + alias]
             roles[alias] = {"carrier_role": role, "table": target.table,
                             "path": str(target.path), "uuid": target.uuid}
         return {
@@ -356,6 +356,54 @@ class Tests(unittest.TestCase):
             LocalDeltaTransport.require_existing_journal(
                 transport.journal_path, "sdk0101-test", tuple(targets.values()),
                 installation_profile=profile)
+
+    def test_sdk0101_profile_accepts_only_complete_configured_or_trussgraph_namespaces(self):
+        from ashlar_host.delta_custody import DeltaTarget
+        from ashlar_host.configured_local_delta4_publication import (
+            INSTALLATION_ROLES, LOCAL_ROLE_BY_CARRIER, _delta4_profile_role,
+            _delta4_profile_table_prefix, _delta4_target,
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            for prefix in ('local.configured', 'local.trussgraph'):
+                targets = {}
+                for role in INSTALLATION_ROLES:
+                    alias = LOCAL_ROLE_BY_CARRIER[role]
+                    path = root / prefix.rsplit('.', 1)[-1] / alias
+                    path.mkdir(parents=True)
+                    table = prefix + '.' + alias
+                    targets[table] = DeltaTarget(
+                        table, path, str(uuid.uuid5(uuid.NAMESPACE_URL, prefix + '-' + role)))
+                profile = self.sdk0101_profile(root, targets, table_prefix=prefix)
+                self.assertEqual(_delta4_profile_table_prefix(profile), prefix)
+                retained = _retained_installation_profile(profile, targets=targets.values())
+                self.assertEqual(retained, profile)
+                self.assertEqual(_delta4_profile_role(
+                    profile, 'publication_attempt_phase', table_prefix=prefix)['table'],
+                    prefix + '.attempts')
+                transport = SimpleNamespace(installation_profile=profile, targets=targets)
+                self.assertIs(_delta4_target(
+                    transport, 'publication_attempt_phase'),
+                    targets[prefix + '.attempts'])
+
+            graph_targets = {}
+            graph_prefix = 'local.trussgraph'
+            for role in INSTALLATION_ROLES:
+                alias = LOCAL_ROLE_BY_CARRIER[role]
+                path = root / 'mixed' / alias
+                path.mkdir(parents=True)
+                table = graph_prefix + '.' + alias
+                graph_targets[table] = DeltaTarget(
+                    table, path, str(uuid.uuid5(uuid.NAMESPACE_URL, 'mixed-' + role)))
+            graph_profile = self.sdk0101_profile(root, graph_targets, table_prefix=graph_prefix)
+            mixed = json.loads(json.dumps(graph_profile))
+            mixed['roles']['manifest']['table'] = 'local.configured.manifest'
+            with self.assertRaises(LocalDeltaError):
+                _retained_installation_profile(mixed, targets=graph_targets.values())
+            duplicate = json.loads(json.dumps(graph_profile))
+            duplicate['roles']['manifest']['uuid'] = duplicate['roles']['attempts']['uuid']
+            with self.assertRaises(LocalDeltaError):
+                _retained_installation_profile(duplicate, targets=graph_targets.values())
 
     def setUp(self):
         configuration = load_typed_graph_jsonl_configuration(CONFIG)

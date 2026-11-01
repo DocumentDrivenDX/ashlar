@@ -50,6 +50,7 @@ if (len(_CARRIER_TO_LOCAL) != len(LOCAL_CURRENT_ROLE_TO_UMF)
             "attempts", "manifest"}):
     raise RuntimeError("Configured-local `.4` role alias map must be a closed six-role bijection")
 LOCAL_ROLE_BY_CARRIER = _CARRIER_TO_LOCAL
+_DELTA4_PROFILE_TABLE_PREFIXES = ("local.configured", "local.trussgraph")
 _MINT = object()
 _EFFECT_MINT = object()
 _AUTHORITY_MINT = object()
@@ -159,7 +160,23 @@ def _valid_installation_profile_identity(profile):
             and profile.get("umf_build_inputs_sha256") == BUILD_INPUTS_SHA256)
 
 
-def _delta4_profile_role(profile, carrier_role):
+def _delta4_profile_table_prefix(profile):
+    """Return one explicitly supported six-role namespace from a closed profile."""
+    if type(profile) is not dict or type(profile.get("roles")) is not dict:
+        raise ValueError("Exact configured-local `.4` role map required")
+    roles = profile["roles"]
+    aliases = set(LOCAL_ROLE_BY_CARRIER.values())
+    matches = [prefix for prefix in _DELTA4_PROFILE_TABLE_PREFIXES
+               if set(roles) == aliases
+               and all(type(roles.get(alias)) is dict
+                       and roles[alias].get("table") == prefix + "." + alias
+                       for alias in aliases)]
+    _require(len(matches) == 1,
+             "Configured-local `.4` profile must use one complete approved table namespace")
+    return matches[0]
+
+
+def _delta4_profile_role(profile, carrier_role, *, table_prefix="local.configured"):
     """Resolve one local API alias through the exact retained UMF role map.
 
     Configured-local installations intentionally keep the historical
@@ -167,6 +184,8 @@ def _delta4_profile_role(profile, carrier_role):
     carrier-role names internally and accepts that translation only when the
     complete journal-pinned profile proves a one-to-one mapping.
     """
+    _require(table_prefix in _DELTA4_PROFILE_TABLE_PREFIXES,
+             "Exact approved configured-local `.4` table prefix required")
     local_role = LOCAL_ROLE_BY_CARRIER.get(carrier_role)
     _require(local_role is not None and type(profile) is dict
              and type(profile.get("roles")) is dict,
@@ -176,7 +195,7 @@ def _delta4_profile_role(profile, carrier_role):
              and len(LOCAL_ROLE_BY_CARRIER) == len(set(LOCAL_ROLE_BY_CARRIER.values()))
              and all(type(roles.get(alias)) is dict
                      and roles[alias].get("carrier_role") == mapped_carrier
-                     and roles[alias].get("table") == "local.configured." + alias
+                     and roles[alias].get("table") == table_prefix + "." + alias
                      and type(roles[alias].get("path")) is str
                      and type(roles[alias].get("uuid")) is str
                      for mapped_carrier, alias in LOCAL_ROLE_BY_CARRIER.items())
@@ -195,7 +214,8 @@ def _delta4_profile_role(profile, carrier_role):
 
 def _delta4_target(transport, carrier_role, installation_profile=None):
     profile = installation_profile or getattr(transport, "installation_profile", None)
-    selected = _delta4_profile_role(profile, carrier_role)
+    selected = _delta4_profile_role(
+        profile, carrier_role, table_prefix=_delta4_profile_table_prefix(profile))
     target = transport.targets.get(selected.get("table"))
     _require(target is not None and selected.get("path") == str(target.path)
              and selected.get("uuid") == target.uuid,
@@ -2902,7 +2922,9 @@ def _observe_delta4_role(transport, role, installation_profile):
     from ashlar.protocol import validate_protocol_detail
     from .configured_local_runtime import PROFILE as READER_PROTOCOL
     target = _delta4_target(transport, role, installation_profile)
-    selected = _delta4_profile_role(installation_profile, role)
+    selected = _delta4_profile_role(
+        installation_profile, role,
+        table_prefix=_delta4_profile_table_prefix(installation_profile))
     # The path-based proof and table-name proof must resolve to the same Delta
     # object.  A catalog alias can otherwise point somewhere else while the
     # path reader still sees the initialized installation.

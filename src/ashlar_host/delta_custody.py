@@ -108,23 +108,25 @@ def _retained_installation_profile(profile, targets=None):
     if original['profile'] == 'ashlar-local-current-installation-profile/0.4':
         from .configured_local_delta4_publication import (
             INSTALLATION_ROLES, LOCAL_ROLE_BY_CARRIER, _delta4_profile_role,
+            _delta4_profile_table_prefix,
             _valid_installation_profile_identity,
         )
         try:
             if not _valid_installation_profile_identity(original):
                 raise LocalDeltaError('Exact SDK 0.10.1 local `.4` installation profile required')
+            table_prefix = _delta4_profile_table_prefix(original)
             for role in INSTALLATION_ROLES:
-                selected = _delta4_profile_role(original, role)
+                selected = _delta4_profile_role(original, role, table_prefix=table_prefix)
                 alias = LOCAL_ROLE_BY_CARRIER[role]
-                if selected.get('table') != 'local.configured.' + alias:
+                if selected.get('table') != table_prefix + '.' + alias:
                     raise LocalDeltaError('SDK 0.10.1 `.4` role alias differs from the closed local profile')
             if targets is not None:
                 by_table = {target.table: target for target in targets}
-                expected = {'local.configured.' + local for local in LOCAL_ROLE_BY_CARRIER.values()}
+                expected = {table_prefix + '.' + local for local in LOCAL_ROLE_BY_CARRIER.values()}
                 if set(by_table) != expected:
                     raise LocalDeltaError('Complete six-role SDK 0.10.1 `.4` target registry required')
                 for role in INSTALLATION_ROLES:
-                    selected = _delta4_profile_role(original, role)
+                    selected = _delta4_profile_role(original, role, table_prefix=table_prefix)
                     target = by_table.get(selected['table'])
                     if (target is None or selected.get('path') != str(target.path)
                             or selected.get('uuid') != target.uuid):
@@ -184,9 +186,13 @@ def _metadata_intent_from_reservation(transport, reservation):
             target.table, str(target.path), target.uuid):
         raise LocalDeltaError('Original `.4` metadata target identity differs')
     profile = getattr(transport, 'installation_profile', None)
-    from .configured_local_delta4_publication import _delta4_profile_role
+    from .configured_local_delta4_publication import (
+        _delta4_profile_role, _delta4_profile_table_prefix,
+    )
     try:
-        role = _delta4_profile_role(profile, 'publication_attempt_phase')
+        role = _delta4_profile_role(
+            profile, 'publication_attempt_phase',
+            table_prefix=_delta4_profile_table_prefix(profile))
     except ValueError:
         role = None
     if (type(role) is not dict or role.get('table') != target.table
@@ -1206,11 +1212,13 @@ class LocalDeltaTransport:
 
     def _observe_delta4_metadata_target(self, expected_version, *, allow_later=False):
         from .configured_local_delta4_publication import (
-            _delta4_profile_role, _observe_delta4_role)
+            _delta4_profile_role, _delta4_profile_table_prefix, _observe_delta4_role)
         target, version, _protocol, _fields = _observe_delta4_role(
             self, 'publication_attempt_phase', self.installation_profile)
         selected = self.targets[_delta4_profile_role(
-            self.installation_profile, 'publication_attempt_phase')['table']]
+            self.installation_profile, 'publication_attempt_phase',
+            table_prefix=_delta4_profile_table_prefix(
+                self.installation_profile))['table']]
         versions = expected_version if type(expected_version) is tuple else (expected_version,)
         if (target.uuid != selected.uuid or target.path != selected.path
                 or (version not in versions if not allow_later
