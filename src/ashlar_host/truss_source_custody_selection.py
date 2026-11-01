@@ -15,6 +15,7 @@ import importlib.metadata
 import json
 import re
 import weakref
+from types import MappingProxyType
 
 from ashlar.pins import PinVector
 from ashlar.schema import decode_retained_json
@@ -79,6 +80,8 @@ class TrussSourceCustodyAnchor:
     ack_scope_bytes: bytes = field(repr=False)
     maximum_facts: int = 4096
     maximum_bytes: int = 8 * 1024 * 1024
+    authority_profile: str = "r04-scheduled"
+    preselected_publication_id: str | None = None
 
     def bind_publication(self, *, manifest_bytes: bytes, vector: PinVector,
                          receipt_bytes: bytes, observation: object
@@ -93,6 +96,9 @@ class TrussSourceCustodyAnchor:
                 "Exact original manifest, complete pin vector and destination receipt required")
         manifest = decode_retained_json(manifest_bytes)
         publication_id = _bounded_text(manifest.get("publication_id"), "publication ID", 4096)
+        if (self.preselected_publication_id is not None
+                and publication_id != self.preselected_publication_id):
+            raise TrussSourceSelectionError("Manifest differs from the preselected publication ID")
         from .truss_feed_sessions import encode_truss_destination_receipt
         expected_receipt = encode_truss_destination_receipt(
             self.request_bytes, manifest_bytes, vector)
@@ -125,7 +131,8 @@ class TrussSourceCustodyAnchor:
             request_sha256=self.request_sha256, publication_id=publication_id,
             manifest_bytes=manifest_bytes, vector=vector, receipt_bytes=receipt_bytes,
             schedule_sha256=self.schedule_sha256, source=self.source,
-            identity=dict(self.identity)))
+            identity=MappingProxyType(dict(self.identity)),
+            authority_profile=self.authority_profile))
 
 
 @dataclass(frozen=True)
@@ -147,6 +154,7 @@ class TrussSourceCustodySelection:
     schedule_sha256: str
     source: str
     identity: dict = field(repr=False, compare=False)
+    authority_profile: str = "r04-scheduled"
 
     def to_candidate_sdk(self, *, runtime_status=None):
         """Materialize the public selection only for the exact candidate release.
@@ -269,7 +277,182 @@ def select_truss_source_custody_anchor(*, schedule: R04Schedule, source: str,
     _need(len(registration_bytes) <= 1048576 and len(scope_bytes) <= 1048576,
           "Canonical source registration/scope selection exceeds Truss API bounds")
     return _issue(_ANCHORS, TrussSourceCustodyAnchor(
-        schedule_sha256=schedule.sha256, source=source, identity=dict(identity),
+        schedule_sha256=schedule.sha256, source=source, identity=MappingProxyType(dict(identity)),
         page=page, destination_id=destination_id, request_bytes=request_bytes,
         request_sha256=request_sha, destination_registration_bytes=registration_bytes,
         ack_scope_bytes=scope_bytes))
+
+
+def select_truss_local_dev_source_custody_anchor(
+        *, registration: object, consumer: object, runtime_status: object,
+        page: object, feed: str, source_holder_id: str, document_id: str,
+        destination_id: str,
+        ack_registration_id: str, ack_scope_id: str, publication_id: str,
+        request_bytes: bytes, predecessor_id: str) -> TrussSourceCustodyAnchor:
+    """Freeze one new local-development source interval from public Truss results.
+
+    This separate selector is deliberately not an R04 schedule path. The
+    acceptance report, genesis consumer and feed page must be exact public
+    Truss result types; their bytes establish correspondence, while the
+    ``local-development`` label grants no production authority.
+    """
+    try:
+        from truss import CatalogRuntimeStatus
+        from truss.catalog_results import CatalogRegistration
+        from truss.feed import FeedConsumer, FeedPage
+    except ImportError as error:
+        raise TrussSourceSelectionError("Public Truss .52 source result types required") from error
+    if (type(registration) is not CatalogRegistration
+            or type(consumer) is not FeedConsumer
+            or type(runtime_status) is not CatalogRuntimeStatus
+            or type(page) is not FeedPage):
+        raise TrussSourceSelectionError("Exact public Truss acceptance, consumer, status and page required")
+    for value, label, maximum in (
+            (feed, "feed", 1024), (source_holder_id, "source-holder ID", 1024),
+            (document_id, "document ID", 4096),
+            (destination_id, "destination ID", 1024),
+            (ack_registration_id, "ACK registration ID", 1024),
+            (ack_scope_id, "ACK scope ID", 1024),
+            (publication_id, "publication ID", 4096),
+            (predecessor_id, "predecessor ID", 4096)):
+        _bounded_text(value, label, maximum)
+    if (type(request_bytes) is not bytes or not 0 < len(request_bytes) <= _MAX_BYTES
+            or type(registration.report_bytes) is not bytes
+            or not 0 < len(registration.report_bytes) <= 64 * 1024 * 1024
+            or type(registration.registration_id) is not str or not registration.registration_id
+            or type(registration.revision) is not int or registration.revision < 1
+            or runtime_status.installed is not True
+            or type(runtime_status.installation_id) is not str or not runtime_status.installation_id):
+        raise TrussSourceSelectionError("Bounded public Truss registration, runtime and request required")
+    try:
+        report = decode_retained_json(registration.report_bytes)
+        accepted = report["acceptedInput"]
+        documents = accepted["documents"]
+        if (report["registrationId"] != registration.registration_id
+                or report["revision"] != registration.revision
+                or type(documents) is not list):
+            raise ValueError("Registration report identity differs")
+        matches = [item for item in documents
+                   if type(item) is dict and item.get("documentId") == document_id]
+        if len(matches) != 1:
+            raise ValueError("Source-holder document absent from accepted report")
+        source_doc = matches[0]
+        artifact = source_doc.get("artifact")
+        document_revision = source_doc.get("documentRevision")
+        model_sha256 = artifact.get("sha256") if type(artifact) is dict else None
+        if (type(document_revision) is not str or not document_revision
+                or type(model_sha256) is not str
+                or re.fullmatch(r"[0-9a-f]{64}", model_sha256) is None
+                or type(artifact.get("identity")) is not str or not artifact.get("identity")
+                or type(artifact.get("bytesBase64")) is not str):
+            raise ValueError("Source-holder document identity, revision and digest required")
+        import base64
+        document_bytes = base64.b64decode(artifact["bytesBase64"], validate=True)
+        if hashlib.sha256(document_bytes).hexdigest() != model_sha256:
+            raise ValueError("Accepted source-holder document bytes differ from report digest")
+        identity = {
+            "feed": feed,
+            "consumer_id": consumer.consumer_id,
+            "registration_id": consumer.registration_id,
+            "ack_scope": ack_scope_id,
+            "ack_registration_id": ack_registration_id,
+            "installation_id": runtime_status.installation_id,
+            "epoch": None,
+            "source_holder_id": source_holder_id,
+            "document_id": document_id,
+            "artifact_identity": artifact["identity"],
+            "document_revision": document_revision,
+            "model_sha256": model_sha256,
+            "acceptance_registration_id": registration.registration_id,
+            "acceptance_report_sha256": hashlib.sha256(registration.report_bytes).hexdigest(),
+            "catalog_revision": str(registration.revision),
+        }
+        if (consumer.consumer_id != page.consumer_id
+                or consumer.registration_id != page.registration_id
+                or consumer.checkpoint.content != page.prior.content):
+            raise ValueError("Public genesis consumer differs from the actual source page")
+        batch = native_feed_batch(page.content, sha256=page.sha256,
+            prior=page.prior.content, next=page.next.content, feed=feed)
+        prior = decode_retained_json(page.prior.content)
+        following = decode_retained_json(page.next.content)
+        identity["epoch"] = batch.epoch
+        if (page.outcome != "transaction"
+                or batch.epoch != prior.get("sourceEpoch")
+                or prior.get("sourceEpoch") != following.get("sourceEpoch")
+                or any(cursor.get(key) != expected for cursor in (prior, following)
+                    for key, expected in (("installationId", runtime_status.installation_id),
+                        ("consumerId", consumer.consumer_id),
+                        ("registrationId", consumer.registration_id)))
+                or page.consumer_id != consumer.consumer_id
+                or page.registration_id != consumer.registration_id):
+            raise ValueError("Feed page/cursors differ from accepted installation and genesis consumer")
+        request = decode_retained_json(request_bytes)
+        row = batch_row(batch)
+        if (request.get("predecessor") != predecessor_id
+                or request.get("source_batch_json") != row["batch_json"]
+                or request.get("source_batch_digest") != row["batch_digest"]
+                or request.get("source_checkpoint_json") != truss_checkpoint(batch)):
+            raise ValueError("Canonical request differs from exact local-development source page")
+        from ashlar.attempt_store import verify_request_digest
+        verify_request_digest(request)
+    except (AttributeError, KeyError, TypeError, ValueError) as error:
+        raise TrussSourceSelectionError(
+            "Exact public local-development source registration/page/request correspondence required") from error
+
+    request_sha = hashlib.sha256(request_bytes).hexdigest()
+    prior_sha = hashlib.sha256(page.prior.content).hexdigest()
+    next_sha = hashlib.sha256(page.next.content).hexdigest()
+    registration_value = {
+        "profile": "ashlar-local-development-destination-registration/0.1",
+        "authority": "local-development",
+        "sourceHolderId": source_holder_id,
+        "documentId": document_id,
+        "artifactIdentity": identity["artifact_identity"],
+        "acceptanceRegistrationId": registration.registration_id,
+        "catalogRevision": registration.revision,
+        "documentRevision": document_revision,
+        "modelSha256": model_sha256,
+        "acceptanceReportSha256": identity["acceptance_report_sha256"],
+        "ackRegistrationId": ack_registration_id,
+        "ackScopeId": ack_scope_id,
+        "destinationId": destination_id,
+        "feed": feed, "epoch": batch.epoch,
+        "installationId": runtime_status.installation_id,
+        "consumerId": consumer.consumer_id,
+        "consumerRegistrationId": consumer.registration_id,
+        "requestSha256": request_sha,
+    }
+    scope_value = {
+        "profile": "ashlar-local-development-ack-scope/0.1",
+        "authority": "local-development",
+        "sourceHolderId": source_holder_id,
+        "documentId": document_id,
+        "artifactIdentity": identity["artifact_identity"],
+        "acceptanceReportSha256": identity["acceptance_report_sha256"],
+        "scopeId": ack_scope_id,
+        "ackRegistrationId": ack_registration_id,
+        "destinationId": destination_id,
+        "feed": feed, "epoch": batch.epoch,
+        "installationId": runtime_status.installation_id,
+        "consumerId": consumer.consumer_id,
+        "consumerRegistrationId": consumer.registration_id,
+        "priorCursorSha256": prior_sha,
+        "nextCursorSha256": next_sha,
+        "pageSha256": page.sha256,
+        "requestSha256": request_sha,
+        "publicationId": publication_id,
+        "maximumPages": 1,
+    }
+    registration_bytes = _canonical_bytes(registration_value)
+    scope_bytes = _canonical_bytes(scope_value)
+    if len(registration_bytes) > 1048576 or len(scope_bytes) > 1048576:
+        raise TrussSourceSelectionError("Canonical local-development source bindings exceed Truss API limits")
+    # The caller retains this exact anchor and later attaches the immutable
+    # publication/vector/read observation. This path is intentionally distinct
+    # from the schedule-bound A/B source selector above.
+    return _issue(_ANCHORS, TrussSourceCustodyAnchor(
+        schedule_sha256="", source="local-development", identity=MappingProxyType(dict(identity)),
+        page=page, destination_id=destination_id, request_bytes=request_bytes,
+        request_sha256=request_sha, destination_registration_bytes=registration_bytes,
+        ack_scope_bytes=scope_bytes, authority_profile="local-development",
+        preselected_publication_id=publication_id))
