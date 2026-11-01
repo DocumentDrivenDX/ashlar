@@ -23,7 +23,7 @@ ddx:
 
 This isolated candidate adds an Ashlar adapter for Truss 0.0.52's public
 same-session source-custody API and a separate local-development source
-selection. The candidate is based on Ashlar `e60e2a8f` and is on branch
+selection. The candidate is based on Ashlar `20c08f6b` and is on branch
 `codex/truss052-feed-source-ashlar-adapter` in the isolated checkout. The
 Truss runtime gate is the exact installed public status
 `truss-catalog-runtime/0.75-candidate`, manifest SHA-256
@@ -34,8 +34,12 @@ distribution version `0.0.52`. The staged local wheel is
 GitHub release asset upload remains pending.
 
 `Truss052SourceCustodySession` calls the public runtime status check on the
-retained connection before materializing the exact `.52` selection. It keeps
-one borrowed psycopg connection, host and reference assembly across writable
+retained connection before materializing the exact `.52` selection. The source
+selection freezes before destination effects; this evidence does not claim a
+prepublication native Truss handle. The `.52` same-session handle opens only
+after the exact destination manifest and receipt exist, and remains on that
+connection through ACK and reconciliation. It keeps one borrowed psycopg
+connection, host and reference assembly across writable
 open/renew/source-ACK/close transactions and read-only reconciliation. An
 unknown source-ACK commit is one-shot and permits reconciliation only; a lost
 connection is never replaced. The local-development binder requires public
