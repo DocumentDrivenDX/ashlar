@@ -1,0 +1,122 @@
+{
+  "fresh_readonly_public_page": {
+    "ack_attempted": false,
+    "archive_sha256": "ca80c742e78d4fbf76b14dfd66b07b3a76c912f11273efa4239a5a3f78d24ab3",
+    "cloud": false,
+    "delta_write": false,
+    "fields_equal_except_safe_watermark": true,
+    "next_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+    "page_sha256": "0248fd1607b971f267df71b1262668930a96925a767855dd3400fb0ecd1a6456",
+    "prior_sha256": "8e370e1497197b93029ff7f5287d9102802a098fbc4ea02b1e6bf20339841f9f",
+    "profile": "Truss .52 public FeedPage reread; read-only transaction; PostgreSQL stopped cleanly",
+    "safe_watermark_xid": "818",
+    "spark_started": false,
+    "writer_xid": "768"
+  },
+  "field_comparison": {
+    "equal": [
+      "profile",
+      "feed",
+      "consumer_id",
+      "registration_id",
+      "outcome",
+      "content_sha256",
+      "prior_cursor_sha256",
+      "next_cursor_sha256",
+      "writer_xid"
+    ],
+    "only_difference": {
+      "field": "safe_watermark_xid",
+      "retained": "806",
+      "fresh": "818",
+      "monotone": true
+    }
+  },
+  "hypothetical_fresh_intent": {
+    "sha256": "159ef70120a68974d5934ed3dcda0c23f172afe4f44af9d1e69cc5d3cc6e1bce",
+    "would_bind_fresh_archive_sha256": "ca80c742e78d4fbf76b14dfd66b07b3a76c912f11273efa4239a5a3f78d24ab3"
+  },
+  "post_attempt_readonly_reconciliation": {
+    "counts": {
+      "local_operation": 6,
+      "local_plan": 1,
+      "local_publication_artifact": 1,
+      "local_source_plan": 1
+    },
+    "delta_journal_sha256": "9a4f24e4fa76dbdc2250d4c1c270b00ed91ef5129ccf59a0e03c65e39a476030",
+    "journal_integrity": "ok",
+    "page2_ack": false,
+    "page2_delta_publication": false,
+    "postmaster_stopped": true
+  },
+  "profile": "ashlar-r41-prepublication-carrier-reconciliation/0.1",
+  "r41_failure": {
+    "path": "/private/tmp/ashlar-r41-truss052-inplace-resume-20261101/receipts/failure.json",
+    "sha256": "b677a2d43ab589812a42b4dc93510b42c009aea5e4961838e929ff286299f6ef",
+    "value": {
+      "cloud": false,
+      "database_effects_may_remain": true,
+      "delta_effects_may_remain": true,
+      "failure": "Existing continuation carrier is not the exact private prepublication byte",
+      "failure_type": "ValueError",
+      "production_authority": false,
+      "profile": "ashlar-r37-truss052-inplace-resume/0.1",
+      "source_ack_attempted": false,
+      "status": "failed_or_interrupted"
+    }
+  },
+  "r41_page_selection": {
+    "path": "/private/tmp/ashlar-r41-truss052-inplace-resume-20261101/receipts/resume-public-page-selection.json",
+    "sha256": "bc7692dc9c6dead83dcdba22211f632592baeff55210acd9509a4eab1292971c",
+    "value": {
+      "genesis_ack_checkpoint_sha256": "8e370e1497197b93029ff7f5287d9102802a098fbc4ea02b1e6bf20339841f9f",
+      "group_commit_result_count": 7,
+      "next_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+      "no_publication_yet": true,
+      "page_kind": "entity",
+      "page_sha256": "0248fd1607b971f267df71b1262668930a96925a767855dd3400fb0ecd1a6456",
+      "prior_sha256": "8e370e1497197b93029ff7f5287d9102802a098fbc4ea02b1e6bf20339841f9f",
+      "profile": "ashlar-r37-public-seed-page-selection/0.1",
+      "typed_changes": 7
+    }
+  },
+  "r41_supervisor_receipt": {
+    "path": "/private/tmp/ashlar-r41-truss052-inplace-resume-20261101-supervisor/supervisor-receipt.json",
+    "sha256": "a7501445149a49160f9dfe7e42af30c9b59b38e42976a4d6fee6e640b6a2b4b4",
+    "status": "supervisor_stopped_child",
+    "wall_seconds": 24.118
+  },
+  "resolution": "Reuse only the retained canonical transaction archive and its original intent when every FeedPage transaction-identity field except safe_watermark_xid matches, both pages are transaction pages, and the newly observed safe frontier is canonical and monotone. Keep retained bytes/hashes for result, selection, recovery, and ACK receipts. Default mode remains fail-closed.",
+  "retained_r40_intent": {
+    "matches_retained_archive": true,
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/publication-intent-8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea.json",
+    "sha256": "0ac8a41387eba0275695aff0e52628ff525be5a7e0a3befd023c8bdfb5aec34a",
+    "source_page_sha256": "fe63c1affe12bf60a15fdeb505aee09b925df74d0c40618646aa4b9835970cf6"
+  },
+  "retained_r40_page_archive": {
+    "fields": {
+      "consumer_id": "ashlar-local-dev-typed-graph-consumer-r21-20261101",
+      "feed": "ashlar-local-dev-typed-graph-feed-r21-20261101",
+      "outcome": "transaction",
+      "profile": "ashlar-truss-original-feed-page/0.1",
+      "registration_id": "68efd137-eddf-46d3-9a06-5eb6406f2bd7",
+      "safe_watermark_xid": "806",
+      "sha256": "0248fd1607b971f267df71b1262668930a96925a767855dd3400fb0ecd1a6456",
+      "writer_xid": "768"
+    },
+    "next_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/source-page-8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea.json",
+    "prior_sha256": "8e370e1497197b93029ff7f5287d9102802a098fbc4ea02b1e6bf20339841f9f",
+    "sha256": "fe63c1affe12bf60a15fdeb505aee09b925df74d0c40618646aa4b9835970cf6"
+  },
+  "scope_sha256": "42147a418295e976e1698a1ec297e28a8b73eb74e1726216fa066dcf0a28ea9b",
+  "sole_page_archive_difference": {
+    "field": "safe_watermark_xid",
+    "fresh": "818",
+    "reason": "Truss read_feed sets safeWatermarkXid to the current pg_snapshot_xmin frontier; it can advance while the whole transaction page, writer, content digest, and cursors remain unchanged",
+    "retained": "806"
+  },
+  "status": "page-identity-matched-safe-frontier-advanced",
+  "supervisor_sha256": "dbd2ac1563885eead43d6241c2d82013372ca83927e670705372bdcac8b2fece",
+  "worker_sha256": "f9fe57df5d9f8103a29b8e5033f5f118ca1124f74f54cae0c00dc40dbe5b0f54"
+}

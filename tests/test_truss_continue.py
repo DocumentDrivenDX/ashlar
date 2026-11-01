@@ -27,11 +27,11 @@ class Tests(unittest.TestCase):
             root=Path(temporary); page=root/'source-page-digest.json'; intent=root/'publication-intent-digest.json'
             page_bytes=b'exact public page archive'; intent_bytes=b'exact request/page intent'
             self.assertEqual(_persist_or_reuse_exact_prepublication_pair(page,page_bytes,intent,intent_bytes,allow_reuse=False),
-                             'created_prepublication_pair')
+                             (page_bytes,intent_bytes))
             with self.assertRaisesRegex(ValueError,'carriers already exist'):
                 _persist_or_reuse_exact_prepublication_pair(page,page_bytes,intent,intent_bytes,allow_reuse=False)
             self.assertEqual(_persist_or_reuse_exact_prepublication_pair(page,page_bytes,intent,intent_bytes,allow_reuse=True),
-                             'reused_identical_prepublication_pair')
+                             (page_bytes,intent_bytes))
             self.assertEqual(page.read_bytes(),page_bytes);self.assertEqual(intent.read_bytes(),intent_bytes)
             self.assertEqual(stat.S_IMODE(page.stat().st_mode),0o600)
             page.unlink()
@@ -43,6 +43,61 @@ class Tests(unittest.TestCase):
             page.unlink();page.symlink_to(intent)
             with self.assertRaisesRegex(ValueError,'exact private'):
                 _persist_or_reuse_exact_prepublication_pair(page,page_bytes,intent,intent_bytes,allow_reuse=True)
+
+    def test_prepublication_reuse_keeps_archived_transaction_and_intent_when_safe_frontier_advances(self):
+        from types import SimpleNamespace
+        from test_truss_feed_sessions import Page,Cursor
+        from ashlar_host.truss_continue import _persist_or_reuse_exact_prepublication_pair
+        from ashlar_host.truss_page_archive import encode_truss_page
+        feed='local-feed';consumer='local-consumer';registration='local-registration'
+        prior=json.dumps({'consumerId':consumer,'registrationId':registration,'sourceEpoch':'9','nextXid':'768'},
+                         sort_keys=True,separators=(',',':')).encode()
+        following=json.dumps({'consumerId':consumer,'registrationId':registration,'sourceEpoch':'9','nextXid':'769'},
+                             sort_keys=True,separators=(',',':')).encode()
+        content=b'canonical transaction page';page_sha=hashlib.sha256(content).hexdigest()
+        old=Page(content,page_sha,Cursor(prior),Cursor(following),consumer,registration,'768','transaction','806')
+        current=Page(content,page_sha,Cursor(prior),Cursor(following),consumer,registration,'768','transaction','818')
+        fake_batch=SimpleNamespace(batch_id='768')
+        with TemporaryDirectory() as temporary, \
+             patch('ashlar_host.truss_page_archive._types',return_value=(Page,Cursor)), \
+             patch('ashlar_host.truss_page_archive.native_feed_batch',return_value=fake_batch):
+            root=Path(temporary);page_path=root/'source-page-digest.json';intent_path=root/'publication-intent-digest.json'
+            old_page=encode_truss_page(old,feed);new_page=encode_truss_page(current,feed)
+            self.assertNotEqual(old_page,new_page)
+            old_value=json.loads(old_page);new_value=json.loads(new_page)
+            self.assertEqual({k:v for k,v in old_value.items() if k!='safe_watermark_xid'},
+                             {k:v for k,v in new_value.items() if k!='safe_watermark_xid'})
+            fields={'request_digest':'a'*64,'publication_id':'truss-graph-'+'a'*64,
+                    'source_page_path':str(page_path),'source_page_sha256':hashlib.sha256(old_page).hexdigest(),'feed':feed}
+            old_intent=(encoded(fields)+'\n').encode()
+            self.assertEqual(_persist_or_reuse_exact_prepublication_pair(
+                page_path,old_page,intent_path,old_intent,allow_reuse=False),(old_page,old_intent))
+            fields['source_page_sha256']=hashlib.sha256(new_page).hexdigest()
+            new_intent=(encoded(fields)+'\n').encode()
+            retained_page,retained_intent=_persist_or_reuse_exact_prepublication_pair(
+                page_path,new_page,intent_path,new_intent,allow_reuse=True,page=current,feed=feed)
+            self.assertEqual(retained_page,old_page);self.assertEqual(retained_intent,old_intent)
+            self.assertEqual(json.loads(retained_intent)['source_page_sha256'],hashlib.sha256(retained_page).hexdigest())
+            regressed=Page(content,page_sha,Cursor(prior),Cursor(following),consumer,registration,'768','transaction','805')
+            with self.assertRaisesRegex(ValueError,'precedes retained'):
+                _persist_or_reuse_exact_prepublication_pair(
+                    page_path,encode_truss_page(regressed,feed),intent_path,new_intent,
+                    allow_reuse=True,page=regressed,feed=feed)
+            other_registration='other-registration'
+            other_prior=json.dumps({'consumerId':consumer,'registrationId':other_registration,'sourceEpoch':'9','nextXid':'768'},
+                                   sort_keys=True,separators=(',',':')).encode()
+            other_next=json.dumps({'consumerId':consumer,'registrationId':other_registration,'sourceEpoch':'9','nextXid':'769'},
+                                  sort_keys=True,separators=(',',':')).encode()
+            changed_registration=Page(content,page_sha,Cursor(other_prior),Cursor(other_next),consumer,other_registration,'768','transaction','818')
+            with self.assertRaisesRegex(ValueError,'same transaction page identity'):
+                _persist_or_reuse_exact_prepublication_pair(
+                    page_path,encode_truss_page(changed_registration,feed),intent_path,new_intent,
+                    allow_reuse=True,page=changed_registration,feed=feed)
+            intent_path.write_bytes(old_intent.replace(hashlib.sha256(old_page).hexdigest().encode(),b'0'*64))
+            intent_path.chmod(0o600)
+            with self.assertRaisesRegex(ValueError,'does not bind retained page'):
+                _persist_or_reuse_exact_prepublication_pair(
+                    page_path,new_page,intent_path,new_intent,allow_reuse=True,page=current,feed=feed)
 
     def test_advancing_empty_interval_uses_durable_progress_publication(self):
         import base64

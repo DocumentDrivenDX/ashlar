@@ -1,0 +1,135 @@
+{
+  "native_effects": false,
+  "output_root_exists": false,
+  "profile": "ashlar-r42-effect-free-preflight/0.1",
+  "scope_sha256": "860cd5054f3a137e9a660a99753032f10baaba7bd2c43aed93f5f5b5d135e217",
+  "status": "passed_effect_free_inplace_preflight",
+  "supervisor_preflight": {
+    "attempt_root": "/private/tmp/ashlar-r42-truss052-inplace-resume-20261101",
+    "monitored_existing_roots": [
+      "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
+      "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta"
+    ],
+    "native_effects": false,
+    "profile": "ashlar-r37-truss052-inplace-resume-supervisor/0.1",
+    "status": "preflight_ok",
+    "supervisor_root": "/private/tmp/ashlar-r42-truss052-inplace-resume-20261101-supervisor",
+    "worker_preflight": {
+      "preflight": {
+        "ack_attempted": false,
+        "ack_checkpoint_sha256": "8e370e1497197b93029ff7f5287d9102802a098fbc4ea02b1e6bf20339841f9f",
+        "cloud": false,
+        "delta_tree": {
+          "bytes": 1440098,
+          "files": 100,
+          "sha256": "771b3431f762f8d4bf6cc9b725caa1828161d958a16a2a05ad1cd9e66821fc08"
+        },
+        "delta_written": false,
+        "genesis_ack": "matched",
+        "genesis_publication_id": "truss-graph-cbf69ea847e30930ec586b2a3d508745f0430da3e9e1628f6b81149b9d58230b",
+        "journal_integrity": "ok",
+        "journal_operation_rows": 6,
+        "journal_sha256": "9a4f24e4fa76dbdc2250d4c1c270b00ed91ef5129ccf59a0e03c65e39a476030",
+        "next_page_artifact_absent": true,
+        "output_created": false,
+        "parser": "passed_actual_retained_intent",
+        "pgdata_tree": {
+          "bytes": 65216139,
+          "files": 1261,
+          "sha256": "f4a9c9a518cd4e10d1d5e828e34a48263b572f98391f376e5e145339971bdc96"
+        },
+        "postgres_opened": false,
+        "r40_prepublication_reconciliation": {
+          "acknowledgement_attempted": false,
+          "next_cursor_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+          "page_sha256": "0248fd1607b971f267df71b1262668930a96925a767855dd3400fb0ecd1a6456",
+          "prior_cursor_sha256": "8e370e1497197b93029ff7f5287d9102802a098fbc4ea02b1e6bf20339841f9f",
+          "publication_intent_sha256": "0ac8a41387eba0275695aff0e52628ff525be5a7e0a3befd023c8bdfb5aec34a",
+          "request_digest": "8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea",
+          "source_page_archive_sha256": "fe63c1affe12bf60a15fdeb505aee09b925df74d0c40618646aa4b9835970cf6"
+        },
+        "spark_started": false,
+        "sqlite_sidecars": {
+          "sha256": {
+            "operations.sqlite-shm": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+            "operations.sqlite-wal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "state": {
+            "operations.sqlite-shm": {
+              "bytes": 32768,
+              "present": true
+            },
+            "operations.sqlite-wal": {
+              "bytes": 0,
+              "present": true
+            }
+          }
+        },
+        "target_count": 6
+      },
+      "scope_sha256": "860cd5054f3a137e9a660a99753032f10baaba7bd2c43aed93f5f5b5d135e217",
+      "status": "passed_effect_free_inplace_preflight",
+      "worker_sha256": "e8d576064f0573aa99cb78bcd818fea7f85034b579ba4debbd1e9b0233e355fa"
+    }
+  },
+  "supervisor_root_exists": false,
+  "supervisor_sha256": "dbd2ac1563885eead43d6241c2d82013372ca83927e670705372bdcac8b2fece",
+  "worker_preflight": {
+    "preflight": {
+      "ack_attempted": false,
+      "ack_checkpoint_sha256": "8e370e1497197b93029ff7f5287d9102802a098fbc4ea02b1e6bf20339841f9f",
+      "cloud": false,
+      "delta_tree": {
+        "bytes": 1440098,
+        "files": 100,
+        "sha256": "771b3431f762f8d4bf6cc9b725caa1828161d958a16a2a05ad1cd9e66821fc08"
+      },
+      "delta_written": false,
+      "genesis_ack": "matched",
+      "genesis_publication_id": "truss-graph-cbf69ea847e30930ec586b2a3d508745f0430da3e9e1628f6b81149b9d58230b",
+      "journal_integrity": "ok",
+      "journal_operation_rows": 6,
+      "journal_sha256": "9a4f24e4fa76dbdc2250d4c1c270b00ed91ef5129ccf59a0e03c65e39a476030",
+      "next_page_artifact_absent": true,
+      "output_created": false,
+      "parser": "passed_actual_retained_intent",
+      "pgdata_tree": {
+        "bytes": 65216139,
+        "files": 1261,
+        "sha256": "f4a9c9a518cd4e10d1d5e828e34a48263b572f98391f376e5e145339971bdc96"
+      },
+      "postgres_opened": false,
+      "r40_prepublication_reconciliation": {
+        "acknowledgement_attempted": false,
+        "next_cursor_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+        "page_sha256": "0248fd1607b971f267df71b1262668930a96925a767855dd3400fb0ecd1a6456",
+        "prior_cursor_sha256": "8e370e1497197b93029ff7f5287d9102802a098fbc4ea02b1e6bf20339841f9f",
+        "publication_intent_sha256": "0ac8a41387eba0275695aff0e52628ff525be5a7e0a3befd023c8bdfb5aec34a",
+        "request_digest": "8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea",
+        "source_page_archive_sha256": "fe63c1affe12bf60a15fdeb505aee09b925df74d0c40618646aa4b9835970cf6"
+      },
+      "spark_started": false,
+      "sqlite_sidecars": {
+        "sha256": {
+          "operations.sqlite-shm": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+          "operations.sqlite-wal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "operations.sqlite-shm": {
+            "bytes": 32768,
+            "present": true
+          },
+          "operations.sqlite-wal": {
+            "bytes": 0,
+            "present": true
+          }
+        }
+      },
+      "target_count": 6
+    },
+    "scope_sha256": "860cd5054f3a137e9a660a99753032f10baaba7bd2c43aed93f5f5b5d135e217",
+    "status": "passed_effect_free_inplace_preflight",
+    "worker_sha256": "e8d576064f0573aa99cb78bcd818fea7f85034b579ba4debbd1e9b0233e355fa"
+  },
+  "worker_sha256": "e8d576064f0573aa99cb78bcd818fea7f85034b579ba4debbd1e9b0233e355fa"
+}

@@ -67,36 +67,73 @@ def _persist(path,raw):
     finally:os.close(directory)
 
 
-def _persist_or_reuse_exact_prepublication_pair(page_path,page_raw,intent_path,intent_raw,*,allow_reuse):
-    """Persist a page/intent pair, or reuse only the exact private pair from a stopped prepublication attempt."""
+def _private_carrier_bytes(path, *, maximum_bytes):
+    descriptor=os.open(path,os.O_RDONLY|getattr(os,'O_NOFOLLOW',0))
+    try:
+        info=os.fstat(descriptor)
+        if (not stat.S_ISREG(info.st_mode) or info.st_uid!=os.getuid()
+                or stat.S_IMODE(info.st_mode)!=0o600 or not 0<=info.st_size<=maximum_bytes):
+            raise ValueError('Existing continuation carrier is not an exact private prepublication byte')
+        observed=bytearray()
+        while len(observed)<=info.st_size:
+            chunk=os.read(descriptor,min(65536,info.st_size+1-len(observed)))
+            if not chunk:break
+            observed.extend(chunk)
+        if len(observed)!=info.st_size:
+            raise ValueError('Existing continuation carrier changed during bounded read')
+        return bytes(observed)
+    finally:os.close(descriptor)
+
+
+def _persist_or_reuse_exact_prepublication_pair(page_path,page_raw,intent_path,intent_raw,*,allow_reuse,page=None,feed=None):
+    """Persist a carrier pair; narrowly reuse a canonical transaction identity with a newer safe frontier."""
     page_path=Path(page_path);intent_path=Path(intent_path)
     page_present=page_path.exists() or page_path.is_symlink()
     intent_present=intent_path.exists() or intent_path.is_symlink()
     if page_present or intent_present:
         if not allow_reuse or not (page_present and intent_present):
             raise ValueError('Original continuation carriers already exist; inspect original attempt')
-        for path,expected in ((page_path,page_raw),(intent_path,intent_raw)):
-            try:
-                descriptor=os.open(path,os.O_RDONLY|getattr(os,'O_NOFOLLOW',0))
-            except OSError as error:
-                raise ValueError('Existing continuation carrier is not the exact private prepublication byte') from error
-            try:
-                info=os.fstat(descriptor)
-                if (not stat.S_ISREG(info.st_mode) or info.st_uid!=os.getuid()
-                        or stat.S_IMODE(info.st_mode)!=0o600 or info.st_size!=len(expected)):
-                    raise ValueError('Existing continuation carrier is not the exact private prepublication byte')
-                observed=bytearray()
-                while len(observed)<=len(expected):
-                    chunk=os.read(descriptor,min(65536,len(expected)+1-len(observed)))
-                    if not chunk:break
-                    observed.extend(chunk)
-                if bytes(observed)!=expected:
-                    raise ValueError('Existing continuation carrier is not the exact private prepublication byte')
-            finally:os.close(descriptor)
-        return 'reused_identical_prepublication_pair'
+        try:
+            stored_page=_private_carrier_bytes(page_path,maximum_bytes=3*1024*1024)
+            stored_intent=_private_carrier_bytes(intent_path,maximum_bytes=65536)
+        except OSError as error:
+            raise ValueError('Existing continuation carrier is not the exact private prepublication byte') from error
+        if page is None or type(feed)is not str or not feed:
+            if stored_page!=page_raw or stored_intent!=intent_raw:
+                raise ValueError('Existing continuation carrier is not the exact private prepublication byte')
+            return stored_page,stored_intent
+        from .truss_page_archive import decode_truss_page
+        archived=decode_truss_page(stored_page,hashlib.sha256(stored_page).hexdigest(),feed)
+        stable_fields=('content','sha256','consumer_id','registration_id','writer_xid','outcome')
+        if (archived.outcome!='transaction' or page.outcome!='transaction'
+                or any(getattr(archived,name)!=getattr(page,name) for name in stable_fields)
+                or archived.prior.content!=page.prior.content or archived.next.content!=page.next.content):
+            raise ValueError('Existing continuation archive is not the same transaction page identity')
+        def frontier(value):
+            if (type(value)is not str or not value.isascii() or not value.isdecimal()
+                    or str(int(value))!=value or len(value)>20 or int(value)>18446744073709551615):
+                raise ValueError('Canonical bounded Truss safe frontier required')
+            return int(value)
+        if frontier(page.safe_watermark_xid)<frontier(archived.safe_watermark_xid):
+            raise ValueError('Current Truss safe frontier precedes retained transaction-page observation')
+        def unique_pairs(items):
+            selected={}
+            for key,value in items:
+                if key in selected:raise ValueError('Duplicate continuation intent member')
+                selected[key]=value
+            return selected
+        expected=json.loads(intent_raw,object_pairs_hook=unique_pairs)
+        observed=json.loads(stored_intent,object_pairs_hook=unique_pairs)
+        if type(expected)is not dict or type(observed)is not dict:
+            raise ValueError('Closed continuation intent required')
+        expected['source_page_sha256']=hashlib.sha256(stored_page).hexdigest()
+        canonical=(encoded(observed)+'\n').encode()
+        if observed!=expected or canonical!=stored_intent:
+            raise ValueError('Existing continuation intent does not bind retained page bytes')
+        return stored_page,stored_intent
     _persist(page_path,page_raw)
     _persist(intent_path,intent_raw)
-    return 'created_prepublication_pair'
+    return page_raw,intent_raw
 
 
 def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_seconds=0,maximum_page_bytes=1048576,archives=(),defer_source_acknowledgement=False,catalog_connection_factory=None,prepublication_source_custody=None,reuse_identical_prepublication_intent=False):
@@ -186,8 +223,10 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         readback_marker_path=None;readback_marker_sha256=None
         intent_raw=(encoded({'request_digest':digest,'publication_id':publication_id,
             'source_page_path':str(page_path),'source_page_sha256':hashlib.sha256(page_raw).hexdigest(),'feed':feed})+'\n').encode()
-        _persist_or_reuse_exact_prepublication_pair(
-            page_path,page_raw,intent_path,intent_raw,allow_reuse=reuse_identical_prepublication_intent)
+        page_raw,intent_raw=_persist_or_reuse_exact_prepublication_pair(
+            page_path,page_raw,intent_path,intent_raw,allow_reuse=reuse_identical_prepublication_intent,
+            page=page if reuse_identical_prepublication_intent else None,
+            feed=feed if reuse_identical_prepublication_intent else None)
         selection={'path':str(intent_path),'sha256':hashlib.sha256(intent_raw).hexdigest()}
         try:
             following_driver=NativeDriver.from_existing_truss(transport,driver.policy,context,driver.tables,
