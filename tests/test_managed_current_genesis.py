@@ -42,6 +42,36 @@ def _progress(source):
         installation_id=f'install-{source}')
 
 
+def _model_evidence(source):
+    raw = f'model evidence {source}'.encode()
+    return {'pin': {'documentRevision': f'model-{source}',
+                    'modelSha256': hashlib.sha256(raw).hexdigest()}, 'bytes': raw}
+
+
+def _catalog_acceptance():
+    result = {}
+    for source, revision in (('A', '1'), ('B', '2')):
+        installation_id = f'install-{source}'
+        result[source] = {
+            'installation_id': installation_id,
+            'revision': revision,
+            'report_bytes': json.dumps({'installationId': installation_id,
+                                        'revision': revision}, separators=(',', ':')).encode(),
+            'catalog_bytes': json.dumps({'catalogRevision': revision},
+                                        separators=(',', ':')).encode(),
+        }
+    return result
+
+
+def _initialize_args():
+    return {'schedule_bytes': _schedule().raw,
+        'source_progress': {'A': _progress('A'), 'B': _progress('B')},
+        'selected_model_evidence': {'A': _model_evidence('A'), 'B': _model_evidence('B')},
+        'catalog_acceptance_revisions': _catalog_acceptance(),
+        'schema_revisions': {'install-A': '1', 'install-B': '2'},
+        'recorded_at': '1762000000000000', 'context': object()}
+
+
 class _Executor:
     sql_table = '`catalog`.`schema`.`publication_manifest`'
     def __init__(self): self.rows = []; self.queries = []
@@ -99,14 +129,7 @@ class TestManagedCurrentGenesis(unittest.TestCase):
     def test_owner_writes_one_genesis_row(self):
         executor = _Executor(); store = _Store(executor); targets = _Targets()
         owner = ManagedCurrentGenesisManifestOwner(targets, store)
-        args = {'schedule_bytes': _schedule().raw,
-            'source_progress': {'A': _progress('A'), 'B': _progress('B')},
-            'selected_model_evidence': {
-                'A': {'pin': {'documentRevision': 'model-A', 'modelSha256': hashlib.sha256(b'model evidence A').hexdigest()}, 'revision_key': 'model-A', 'bytes': b'model evidence A'},
-                'B': {'pin': {'documentRevision': 'model-B', 'modelSha256': hashlib.sha256(b'model evidence B').hexdigest()}, 'revision_key': 'model-B', 'bytes': b'model evidence B'}},
-            'schema_revisions': {'model-A': hashlib.sha256(b'model evidence A').hexdigest(),
-                                 'model-B': hashlib.sha256(b'model evidence B').hexdigest()},
-            'recorded_at': '1762000000000000', 'context': object()}
+        args = _initialize_args()
         row = owner.initialize(**args)
         self.assertEqual(store.commits, 1)
         report = json.loads(row['validation_report_json'])
@@ -116,17 +139,12 @@ class TestManagedCurrentGenesis(unittest.TestCase):
         self.assertEqual(len(report['six_role_inventory']), 6)
         self.assertEqual(report['fresh_target_creation']['initial_role_heads'], {role: 0 for role in ROLES})
         self.assertTrue(all(w['row_count'] == 0 for w in report['empty_data_role_witnesses'].values()))
+        self.assertEqual(json.loads(row['schema_revisions_json']),
+                         {'install-A': '1', 'install-B': '2'})
+        self.assertEqual(report['catalog_acceptance_revisions']['A']['revision'], '1')
 
     def test_owner_refuses_reopened_or_nonempty_target_and_other_manifest(self):
-        schedule = _schedule().raw
-        args = {'schedule_bytes': schedule,
-            'source_progress': {'A': _progress('A'), 'B': _progress('B')},
-            'selected_model_evidence': {
-                'A': {'pin': {'documentRevision': 'model-A', 'modelSha256': hashlib.sha256(b'model evidence A').hexdigest()}, 'revision_key': 'model-A', 'bytes': b'model evidence A'},
-                'B': {'pin': {'documentRevision': 'model-B', 'modelSha256': hashlib.sha256(b'model evidence B').hexdigest()}, 'revision_key': 'model-B', 'bytes': b'model evidence B'}},
-            'schema_revisions': {'model-A': hashlib.sha256(b'model evidence A').hexdigest(),
-                                 'model-B': hashlib.sha256(b'model evidence B').hexdigest()},
-            'recorded_at': '1762000000000000', 'context': object()}
+        args = _initialize_args()
         targets = _Targets(); targets.created_fresh = False
         with self.assertRaises(ValueError):
             ManagedCurrentGenesisManifestOwner(targets, _Store(_Executor())).initialize(**args)
@@ -140,14 +158,7 @@ class TestManagedCurrentGenesis(unittest.TestCase):
 
     def test_open_existing_reopens_exact_row_without_commit(self):
         executor = _Executor(); store = _Store(executor); targets = _Targets()
-        args = {'schedule_bytes': _schedule().raw,
-            'source_progress': {'A': _progress('A'), 'B': _progress('B')},
-            'selected_model_evidence': {
-                'A': {'pin': {'documentRevision': 'model-A', 'modelSha256': hashlib.sha256(b'model evidence A').hexdigest()}, 'revision_key': 'model-A', 'bytes': b'model evidence A'},
-                'B': {'pin': {'documentRevision': 'model-B', 'modelSha256': hashlib.sha256(b'model evidence B').hexdigest()}, 'revision_key': 'model-B', 'bytes': b'model evidence B'}},
-            'schema_revisions': {'model-A': hashlib.sha256(b'model evidence A').hexdigest(),
-                                 'model-B': hashlib.sha256(b'model evidence B').hexdigest()},
-            'recorded_at': '1762000000000000', 'context': object()}
+        args = _initialize_args()
         first = ManagedCurrentGenesisManifestOwner(targets, store).initialize(**args)
         targets.inventory['publication_manifest'].version = 1
         targets.inventory['publication_manifest'].detail_digest = 'z' * 64
@@ -163,29 +174,25 @@ class TestManagedCurrentGenesis(unittest.TestCase):
         targets.opening = dict(targets.inventory)
         targets.created_fresh = False
         store = _Store(_Executor())
-        args = {'schedule_bytes': _schedule().raw,
-            'source_progress': {'A': _progress('A'), 'B': _progress('B')},
-            'selected_model_evidence': {
-                'A': {'pin': {'documentRevision': 'model-A', 'modelSha256': hashlib.sha256(b'model evidence A').hexdigest()}, 'revision_key': 'model-A', 'bytes': b'model evidence A'},
-                'B': {'pin': {'documentRevision': 'model-B', 'modelSha256': hashlib.sha256(b'model evidence B').hexdigest()}, 'revision_key': 'model-B', 'bytes': b'model evidence B'}},
-            'schema_revisions': {'model-A': hashlib.sha256(b'model evidence A').hexdigest(),
-                                 'model-B': hashlib.sha256(b'model evidence B').hexdigest()},
-            'recorded_at': '1762000000000000', 'context': object()}
+        args = _initialize_args()
         with self.assertRaises(ValueError):
             ManagedCurrentGenesisManifestOwner(targets, store).initialize(**args)
         self.assertEqual(store.commits, 0)
 
     def test_model_evidence_must_match_frozen_pin_and_revision_digest(self):
-        schedule = _schedule().raw
         targets = _Targets(); store = _Store(_Executor())
-        args = {'schedule_bytes': schedule,
-            'source_progress': {'A': _progress('A'), 'B': _progress('B')},
-            'selected_model_evidence': {
-                'A': {'pin': {'documentRevision': 'model-A', 'modelSha256': hashlib.sha256(b'model evidence A').hexdigest()}, 'revision_key': 'model-A', 'bytes': b'unrelated evidence'},
-                'B': {'pin': {'documentRevision': 'model-B', 'modelSha256': hashlib.sha256(b'model evidence B').hexdigest()}, 'revision_key': 'model-B', 'bytes': b'model evidence B'}},
-            'schema_revisions': {'model-A': hashlib.sha256(b'model evidence A').hexdigest(),
-                                 'model-B': hashlib.sha256(b'model evidence B').hexdigest()},
-            'recorded_at': '1762000000000000', 'context': object()}
+        args = _initialize_args()
+        args['selected_model_evidence']['A'] = {
+            'pin': dict(_model_evidence('A')['pin']), 'bytes': b'unrelated evidence'}
+        with self.assertRaises(ValueError):
+            ManagedCurrentGenesisManifestOwner(targets, store).initialize(**args)
+
+    def test_schema_revisions_bind_catalog_acceptance_not_model_document_hashes(self):
+        targets = _Targets(); store = _Store(_Executor())
+        args = _initialize_args()
+        args['schema_revisions'] = {
+            'install-A': hashlib.sha256(b'model evidence A').hexdigest(),
+            'install-B': hashlib.sha256(b'model evidence B').hexdigest()}
         with self.assertRaises(ValueError):
             ManagedCurrentGenesisManifestOwner(targets, store).initialize(**args)
 

@@ -35,6 +35,23 @@ def _canonical(value):
                       separators=(",", ":"), allow_nan=False)
 
 
+def _decode_json_bytes(raw, message):
+    def pairs(items):
+        result = {}
+        for key, value in items:
+            _require(key not in result, message)
+            result[key] = value
+        return result
+    _require(type(raw) is bytes and raw, message)
+    try:
+        value = json.loads(raw.decode("utf-8"), object_pairs_hook=pairs,
+                           parse_constant=lambda _: (_ for _ in ()).throw(ValueError(message)))
+    except (UnicodeError, ValueError, RecursionError) as error:
+        raise ValueError(message) from error
+    _require(type(value) is dict, message)
+    return value
+
+
 @dataclass(frozen=True)
 class TrussSourceGenesisProgress:
     """Typed source position before any page has been accepted."""
@@ -109,8 +126,17 @@ class ManagedCurrentGenesisManifestOwner:
         self.store = manifest_store
 
     def initialize(self, *, schedule_bytes, source_progress,
-                   selected_model_evidence, schema_revisions, recorded_at,
+                   selected_model_evidence, catalog_acceptance_revisions,
+                   schema_revisions, recorded_at,
                    context):
+        """Create or reopen using externally admitted source and catalog anchors.
+
+        Catalog evidence is independently selected original Truss report/view
+        bytes. Its installation and canonical catalog revision populate the
+        manifest schema map; model-document hashes remain a separate pin check.
+        This is correspondence validation and does not authenticate Truss or
+        UMF acceptance on behalf of their owners.
+        """
         created_fresh = getattr(self.targets, "created_fresh", False)
         _require(type(created_fresh) is bool
                  and self.targets.carriers.physical_profile == CARRIER_PROFILE_XXHASH64,
@@ -133,27 +159,57 @@ class ManagedCurrentGenesisManifestOwner:
                  and set(selected_model_evidence) == {"A", "B"},
                  "Selected A/B model evidence bound to the frozen schedule required")
         model_evidence_digests = {}
-        model_revision_keys = set()
         for source in ("A", "B"):
             evidence = selected_model_evidence[source]
-            _require(type(evidence) is dict and set(evidence) == {"pin", "revision_key", "bytes"}
+            _require(type(evidence) is dict and set(evidence) == {"pin", "bytes"}
                      and evidence["pin"] == schedule_doc["accepted_model_pins"][source]
                      and type(evidence["pin"]) is dict
-                     and type(evidence["pin"].get("documentRevision")) is str
-                     and evidence["pin"]["documentRevision"] == evidence["revision_key"]
                      and type(evidence["pin"].get("modelSha256")) is str
                      and _SHA.fullmatch(evidence["pin"]["modelSha256"]) is not None
-                     and type(evidence["revision_key"]) is str and evidence["revision_key"]
                      and type(evidence["bytes"]) is bytes and evidence["bytes"],
-                     "Exact scheduled model pin, revision and original evidence bytes required")
+                     "Scheduled model pin with digest and exact original evidence bytes required")
             digest = hashlib.sha256(evidence["bytes"]).hexdigest()
-            _require(evidence["pin"]["modelSha256"] == digest
-                     and schema_revisions.get(evidence["revision_key"]) == digest,
-                     "Scheduled model pin and schema revision must bind the exact evidence bytes")
-            model_revision_keys.add(evidence["revision_key"])
+            _require(evidence["pin"]["modelSha256"] == digest,
+                     "Scheduled model pin must bind the exact model evidence bytes")
             model_evidence_digests[source] = digest
-        _require(model_revision_keys == set(schema_revisions),
-                 "Schema revision inventory must exactly cover selected A/B model evidence")
+
+        _require(type(catalog_acceptance_revisions) is dict
+                 and set(catalog_acceptance_revisions) == {"A", "B"},
+                 "Independent A/B catalog acceptance revision evidence required")
+        expected_schema_revisions = {}
+        catalog_acceptance = {}
+        for source in ("A", "B"):
+            accepted = catalog_acceptance_revisions[source]
+            _require(type(accepted) is dict and set(accepted) == {
+                "installation_id", "revision", "report_bytes", "catalog_bytes"},
+                "Closed selected catalog acceptance revision evidence required")
+            installation_id, revision = accepted["installation_id"], accepted["revision"]
+            _require(type(installation_id) is str and installation_id
+                     and type(revision) is str
+                     and re.fullmatch(r"0|[1-9][0-9]{0,18}", revision)
+                     and int(revision) < 2**63,
+                     "Canonical installation identity and catalog revision string required")
+            binding = schedule_doc["source_bindings"][source]
+            _require(binding.get("installation_id") == installation_id
+                     and source_progress[source].installation_id == installation_id,
+                     "Catalog acceptance installation differs from frozen source selection")
+            report = _decode_json_bytes(accepted["report_bytes"],
+                                        "Exact Truss catalog acceptance report bytes required")
+            catalog = _decode_json_bytes(accepted["catalog_bytes"],
+                                         "Exact Truss accepted catalog bytes required")
+            _require(report.get("installationId") == installation_id
+                     and report.get("revision") == revision
+                     and catalog.get("catalogRevision") == revision,
+                     "Catalog acceptance report and view must select the same installation revision")
+            _require(installation_id not in expected_schema_revisions,
+                     "A/B catalog installation IDs must be distinct")
+            expected_schema_revisions[installation_id] = revision
+            catalog_acceptance[source] = {"installation_id": installation_id,
+                "revision": revision,
+                "report_sha256": hashlib.sha256(accepted["report_bytes"]).hexdigest(),
+                "catalog_sha256": hashlib.sha256(accepted["catalog_bytes"]).hexdigest()}
+        _require(type(schema_revisions) is dict and schema_revisions == expected_schema_revisions,
+                 "Manifest schema revisions must exactly map selected installations to accepted catalog revisions")
         progress_docs = {}
         for source in ("A", "B"):
             item = source_progress[source]
@@ -224,6 +280,7 @@ class ManagedCurrentGenesisManifestOwner:
             "schedule_sha256": hashlib.sha256(schedule_bytes).hexdigest(),
             "sources": sources,
             "accepted_model_pins": schedule_doc["accepted_model_pins"],
+            "catalog_acceptance_revisions": catalog_acceptance,
             "source_progress_sha256": hashlib.sha256(_canonical(progress_docs).encode()).hexdigest(),
             "model_evidence_sha256": model_evidence_digests,
             "six_role_inventory": inventory_doc,
