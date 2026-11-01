@@ -67,6 +67,7 @@ class ManagedCurrentTargetOwner:
         self.tables={role:'.'.join(self.names[role]) for role in ROLES}
         self.transport=ManagedCurrentSparkTransport(spark)
         self.opening=None
+        self.created_fresh=False
     def _existing(self):
         namespace='`'+self.catalog+'`.`'+self.schema+'`'
         frame=self.spark.sql('SHOW TABLES IN '+namespace)
@@ -81,10 +82,12 @@ class ManagedCurrentTargetOwner:
         for role in ROLES:
             self.spark.sql(self.carriers.create_sql(role,self.names[role]))
         self.opening=self.observe()
+        self.created_fresh=True
         return self.opening
     def open_existing(self):
         _require(self._existing()==set(ROLES),'All six exact current managed roles required')
         self.opening=self.observe()
+        self.created_fresh=False
         return self.opening
     def observe(self):
         observations={}
