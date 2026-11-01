@@ -177,18 +177,22 @@ empty group, without changing that conservative status. Exact receipt and log
 hashes are retained in [R4 failure reconciliation](r5-sdk010-initialize-only/r4-attempt-reconciliation.md).
 
 The [R5 init-only candidate](r5-sdk010-initialize-only/README.md) fixes the
-isolated-child packet import path and binds a new absent attempt parent. It has
-not run `prepare`, `slot`, or `execute`; it has no permit. Its isolated-child
-import preflight and effect-free SDK010 admission pass. A new permit and fresh
-attempt receipts remain separate review gates. Its packet tree digest is
+isolated-child packet import path and binds a distinct attempt parent. Its
+isolated-child import preflight and effect-free SDK010 admission pass. The
+effect-free `prepare` and `slot` steps created a fresh attempt at
+`/private/tmp/ashlar-g03-sdk010-delta4-init-r5-attempts-20261101/ashlar-g03-sdk010-init-2f44fbff52e74bd9a12ff1895847cf03`.
+The [prepared receipt](r5-init-prepared-receipt.json) has SHA-256
+`a7fe5797ba08419b66a5eb91058142df5497018007414811a42dc8bc623aa54d`;
+the [empty process-slot receipt](r5-init-process-slot-receipt.json) has SHA-256
+`4d4396a5e6e87795b9bb64cb30c31feb2d9aa6c0e0073c4ed069b7e392e19de2`.
+There is no permit, dispatch, Spark initialization, or result. Its packet tree digest is
 `48fb4e5a81f2b1f61189aee2fcfbc14503dc71dd9377b84b0ef1d3506b410b2a`.
 
 The effect-free [R4 transaction-one release gate](r4-transaction1-gate/README.md)
-now binds the prepared initializer and Weft 0.4.56 wheel, but remains blocked
-until that exact attempt produces its SDK010 six-role initialization result.
-The null publication vector is retained; exact `.4`-bound Weft requests and
-responses remain downstream consumer evidence. No transaction-one dispatch is
-authorized by that gate.
+binds the consumed R4 initializer and Weft 0.4.56 wheel, so it cannot admit an
+R5 result without a later reviewed rebinding. Its null publication vector is
+retained; exact `.4`-bound Weft requests and responses remain downstream
+consumer evidence. No transaction-one dispatch is authorized by that gate.
 
 ## r3 disposition and timeout finding
 
