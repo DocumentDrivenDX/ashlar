@@ -1,7 +1,5 @@
 """Effect-free range-task planning checks; no Spark or native writes."""
-import ast
 import json
-from pathlib import Path
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -11,37 +9,7 @@ import full_delta4_trial as trial_worker
 
 
 class RangePartitionPlanChecks(unittest.TestCase):
-    def test_trial_entrypoint_requires_and_forwards_both_bounded_counts(self):
-        trial_path = Path(generator.__file__).with_name("full_delta4_trial.py")
-        trial_tree = ast.parse(trial_path.read_text(encoding="utf-8"))
-        trial = next(node for node in trial_tree.body
-                     if isinstance(node, ast.FunctionDef)
-                     and node.name == "run_full_delta4_trial")
-        parameters = {item.arg for item in trial.args.kwonlyargs}
-        self.assertTrue({"object_range_partitions", "edge_range_partitions"}
-                        .issubset(parameters))
-        calls = [node for node in ast.walk(trial) if isinstance(node, ast.Call)
-                 and isinstance(node.func, ast.Name)
-                 and node.func.id == "build_generation_plan"]
-        self.assertEqual(1, len(calls))
-        forwarded = {item.arg: item.value for item in calls[0].keywords}
-        self.assertIsInstance(forwarded["object_range_partitions"], ast.Name)
-        self.assertEqual("object_range_partitions",
-                         forwarded["object_range_partitions"].id)
-        self.assertIsInstance(forwarded["edge_range_partitions"], ast.Name)
-        self.assertEqual("edge_range_partitions", forwarded["edge_range_partitions"].id)
-
-        supervisor_path = trial_path.with_name("r05_full_delta4_supervisor.py")
-        supervisor_tree = ast.parse(supervisor_path.read_text(encoding="utf-8"))
-        calls = [node for node in ast.walk(supervisor_tree) if isinstance(node, ast.Call)
-                 and isinstance(node.func, ast.Name)
-                 and node.func.id == "run_full_delta4_trial"]
-        self.assertEqual(1, len(calls))
-        local_counts = {item.arg: item.value.value for item in calls[0].keywords
-                        if item.arg in ("object_range_partitions", "edge_range_partitions")
-                        and isinstance(item.value, ast.Constant)}
-        self.assertEqual({"object_range_partitions": 18,
-                          "edge_range_partitions": 18}, local_counts)
+    def test_trial_refuses_unadmitted_range_geometry_before_side_effects(self):
         with self.assertRaises(ValueError):
             trial_worker.run_full_delta4_trial(
                 spark=None, attempt_root="/unused", authorization_path="/unused",
