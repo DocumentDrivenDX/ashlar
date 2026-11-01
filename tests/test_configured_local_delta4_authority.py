@@ -35,6 +35,17 @@ class Tests(unittest.TestCase):
             configuration, stream="gate3-typed-graph", materialized_at_us="1791547200000000")
         self.context = object()
 
+    def test_manifest_lane_rejects_unheld_or_foreign_authority(self):
+        with tempfile.TemporaryDirectory() as directory:
+            _fake, transport, _effect, _source, _admission, authority = self.build(Path(directory))
+            policy = transport.policy
+            with self.assertRaises(PermissionError):
+                policy._activate_delta4_manifest(object(), {}, self.context)
+            with self.assertRaises(PermissionError):
+                policy._activate_delta4_manifest(authority, {}, self.context)
+            self.assertIsNone(policy._delta4_manifest_owner)
+            self.assertIsNone(policy._delta4_manifest_row)
+
     def build(self, root):
         fake = FakeTransport(self.plan)
         transport = fake.transport()

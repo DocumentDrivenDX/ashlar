@@ -215,6 +215,8 @@ class PrivatePolicy:
         self._delta4_execution_ids = None
         self._delta4_metadata_owner = None
         self._delta4_metadata_reservation = None
+        self._delta4_manifest_owner = None
+        self._delta4_manifest_row = None
 
     @contextmanager
     def writer(self, *args):
@@ -296,6 +298,29 @@ class PrivatePolicy:
         self._delta4_metadata_owner = None
         self._delta4_metadata_reservation = None
 
+    def _activate_delta4_manifest(self, owner, row, context):
+        """Admit one exact manifest mutation under the original held `.4` owner."""
+        from .configured_local_delta4_publication import ConfiguredLocalDelta4WriterAuthority
+        if (type(owner) is not ConfiguredLocalDelta4WriterAuthority
+                or context is not self.context or self.initializing
+                or self.active is not None or self._delta4_prepare_owner is not None
+                or self._delta4_execution_owner is not None
+                or self._delta4_metadata_owner is not None
+                or self._delta4_manifest_owner is not None
+                or not owner.held or not owner._active
+                or type(row) is not dict):
+            raise PermissionError('Original held `.4` manifest owner required')
+        owner._require_current(held=True)
+        owner._validate_delta4_manifest_row(row)
+        self._delta4_manifest_owner = owner
+        self._delta4_manifest_row = dict(row)
+
+    def _deactivate_delta4_manifest(self, owner):
+        if self._delta4_manifest_owner is not owner:
+            raise PermissionError('Original held `.4` manifest owner required')
+        self._delta4_manifest_owner = None
+        self._delta4_manifest_row = None
+
     def admit(self, intent, context):
         if context is not self.context:
             raise PermissionError('Original private writer context required')
@@ -336,6 +361,12 @@ class PrivatePolicy:
                 raise PermissionError('Concurrent native policy scope refused')
             self._delta4_execution_owner._admit_delta4_operation(
                 intent, self._delta4_execution_ids)
+            return
+        if profile == 'ashlar-local-delta-operation/0.1' and self._delta4_manifest_owner is not None:
+            if self.active is not None or self._delta4_manifest_row is None:
+                raise PermissionError('Exact held `.4` manifest mutation scope required')
+            self._delta4_manifest_owner._admit_delta4_manifest_operation(
+                intent, self._delta4_manifest_row)
             return
         active = self.active
         if active is None:
