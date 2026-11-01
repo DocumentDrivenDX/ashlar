@@ -40,7 +40,10 @@ The existing `/0.1` prefix is insufficient for the governed A1 state. CONTRACT-0
 and TD-009 require A1 to preserve both A and B progress entries while A1
 advances only A. The proposed `/0.2` package validator
 (`validate_selected_managed_current_prefix_v2`) checks correspondence against
-separately selected anchors; it does not select or authenticate them. Its
+separately selected anchors; it does not select or authenticate them. A focused
+13-test update now checks typed A/B genesis cursor identities, complete
+page-absent initial markers, and each retained request against its native page
+bytes and cursor transition. This remains a pure correspondence check. Its
 required anchors are original A/B registration objects and exact genesis cursor
 bytes with typed feed/consumer/ACK identities, the complete original two-feed
 Ashlar progress JSON, and the original publication manifest ID and bytes. It
