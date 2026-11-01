@@ -8,6 +8,8 @@ import unittest
 from ashlar_host.managed_current_prefix_custody_v2 import (
     PROFILE, validate_selected_managed_current_prefix_v2,
 )
+from ashlar.truss_native_feed import native_feed_batch
+from ashlar_host.publication_planning import truss_request_for
 from test_r04_schedule import schedule
 
 
@@ -25,9 +27,13 @@ def make_fixture(step=2):
     progress = {}
     for source in ("A", "B"):
         registration = canonical({"fixtureOnly": source})
-        cursor = canonical({"fixtureOnlyGenesis": source}).encode()
-        cursor_b64 = base64.b64encode(cursor).decode("ascii")
         identity = schedule_doc["source_bindings"][source]
+        cursor = canonical({"profile": "truss-caller-asserted-feed/0.1",
+            "nextXid": "0", "installationId": identity["installation_id"],
+            "sourceEpoch": identity["epoch"], "consumerId": identity["consumer_id"],
+            "registrationId": identity["registration_id"],
+            "fixtureExtension": source}).encode()
+        cursor_b64 = base64.b64encode(cursor).decode("ascii")
         sources[source] = {"registrationJson": registration,
                             "genesisCursorBase64": cursor_b64}
         selected_sources[source] = {
@@ -35,29 +41,48 @@ def make_fixture(step=2):
             "genesisCursorSha256": hashlib.sha256(cursor).hexdigest(),
             "identity": identity,
         }
-        progress[identity["feed"]] = {"feed": identity["feed"],
-            "epoch": identity["epoch"], "position": "genesis",
-            "fixtureOnlyGenesis": source}
+        progress[identity["feed"]] = {
+            "profile": "ashlar-truss-source-genesis-progress/0.1",
+            "feed": identity["feed"], "epoch": identity["epoch"],
+            "position": cursor_b64,
+            "position_sha256": hashlib.sha256(cursor).hexdigest(),
+            "catalog_registration_id": f"catalog-registration-{source}",
+            "catalog_registration_sha256": hashlib.sha256(registration.encode()).hexdigest(),
+            "consumer_id": identity["consumer_id"],
+            "consumer_registration_id": identity["registration_id"],
+            "installation_id": identity["installation_id"],
+            "page": {"profile": "ashlar-source-page-absent/0.1"},
+        }
     initial_progress = canonical(progress)
     initial_manifest = canonical({"publication_id": "genesis-fixture",
                                   "source_progress_json": initial_progress})
     entries = []
     predecessor = "genesis-fixture"
     ids = []
+    cursors = {source: base64.b64decode(sources[source]["genesisCursorBase64"])
+               for source in ("A", "B")}
     for ordinal, slot in enumerate(schedule_doc["slots"][:step]):
         publication_id = f"publication-fixture-{ordinal}"
         source = slot["source"]
         identity = selected_sources[source]["identity"]
         feed = identity["feed"]
-        checkpoint = {"feed": feed, "epoch": identity["epoch"],
-                      "previous": progress[feed].get("position", "genesis"),
-                      "position": f"cursor-{ordinal}"}
+        prior = cursors[source]
+        next_doc = json.loads(prior)
+        next_doc["nextXid"] = str(int(next_doc["nextXid"]) + 1)
+        following = canonical(next_doc).encode()
+        page = canonical({"interfaceVersion": "truss-native-feed/0.1",
+            "prior": json.loads(prior), "next": json.loads(following),
+            "catalogPrerequisites": [], "revisions": [], "changes": [],
+            "sources": [], "reservations": [], "configuration": {}, "writerXid": None}).encode()
+        batch = native_feed_batch(page, sha256=hashlib.sha256(page).hexdigest(),
+                                  prior=prior, next=following, feed=feed)
+        request = truss_request_for(feed, batch, predecessor, {})
+        checkpoint = json.loads(request["source_checkpoint_json"])
         progress[feed] = checkpoint
+        cursors[source] = following
         entries.append({
             "bundleJson": canonical({"source": {"feed": selected_sources[source]["identity"]["feed"]}}),
-            "requestJson": canonical({"predecessor": predecessor,
-                                       "source_checkpoint_json": canonical(checkpoint),
-                                       "fixtureSlot": slot["slot"]}),
+            "requestJson": canonical(request),
             "materializationClockUs": str(1792756800000000 + ordinal),
             "publicationManifestJson": canonical({"publication_id": publication_id,
                 "source_progress_json": canonical(progress)}),
@@ -108,6 +133,52 @@ class ManagedCurrentPrefixCustodyV2Tests(unittest.TestCase):
         package["initialSources"]["B"]["registrationJson"] += " "
         raw = canonical(package).encode()
         with self.assertRaisesRegex(ValueError, "Registration, genesis cursor"):
+            validate_selected_managed_current_prefix_v2(
+                raw, prefix_sha256=hashlib.sha256(raw).hexdigest(), selected=selected)
+
+    def test_cursor_bytes_must_match_selected_typed_identity(self):
+        package, _raw, selected, _ids = make_fixture(step=1)
+        source = package["initialSources"]["A"]
+        cursor = json.loads(base64.b64decode(source["genesisCursorBase64"]))
+        cursor["installationId"] = "unselected-installation"
+        changed = canonical(cursor).encode()
+        source["genesisCursorBase64"] = base64.b64encode(changed).decode("ascii")
+        selected["sources"]["A"]["genesisCursorSha256"] = hashlib.sha256(changed).hexdigest()
+        raw = canonical(package).encode()
+        with self.assertRaisesRegex(ValueError, "selected typed identity"):
+            validate_selected_managed_current_prefix_v2(
+                raw, prefix_sha256=hashlib.sha256(raw).hexdigest(), selected=selected)
+
+    def test_initial_progress_must_be_the_closed_genesis_marker(self):
+        package, _raw, selected, _ids = make_fixture(step=1)
+        initial_progress = json.loads(package["initialProgressJson"])
+        marker = initial_progress["feed-A"]
+        marker["previous"] = "fabricated-checkpoint"
+        package["initialProgressJson"] = canonical(initial_progress)
+        initial_manifest = json.loads(package["initialPublicationJson"])
+        initial_manifest["source_progress_json"] = package["initialProgressJson"]
+        package["initialPublicationJson"] = canonical(initial_manifest)
+        selected["initialProgressSha256"] = hashlib.sha256(
+            package["initialProgressJson"].encode()).hexdigest()
+        selected["initialPublicationSha256"] = hashlib.sha256(
+            package["initialPublicationJson"].encode()).hexdigest()
+        raw = canonical(package).encode()
+        with self.assertRaisesRegex(ValueError, "typed genesis marker"):
+            validate_selected_managed_current_prefix_v2(
+                raw, prefix_sha256=hashlib.sha256(raw).hexdigest(), selected=selected)
+
+    def test_request_checkpoint_must_match_retained_native_page_bytes(self):
+        package, _raw, selected, _ids = make_fixture(step=1)
+        entry = package["entries"][0]
+        request = json.loads(entry["requestJson"])
+        checkpoint = json.loads(request["source_checkpoint_json"])
+        checkpoint["position"] = "Zm9v"
+        request["source_checkpoint_json"] = canonical(checkpoint)
+        body = {key: value for key, value in request.items() if key != "request_digest"}
+        request["request_digest"] = hashlib.sha256(canonical(body).encode()).hexdigest()
+        entry["requestJson"] = canonical(request)
+        raw = canonical(package).encode()
+        with self.assertRaisesRegex(ValueError, "page/checkpoint byte correspondence"):
             validate_selected_managed_current_prefix_v2(
                 raw, prefix_sha256=hashlib.sha256(raw).hexdigest(), selected=selected)
 

@@ -2,7 +2,9 @@
 """Pure correspondence checks for the proposed complete source-prefix carrier.
 
 The selected external anchors are inputs, not authority established here. This
-module has no Truss, Spark, Delta, publication, source, or ACK ports.
+module has no Truss, Spark, Delta, publication, source, or ACK ports. Cursor
+and page checks establish exact correspondence only; original registration
+parsing, acceptance, freshness and ACK authority remain with their owners.
 """
 from __future__ import annotations
 
@@ -13,6 +15,7 @@ import json
 import re
 
 from ashlar_host.r04_schedule import R04Schedule, R04CustodyError
+from .managed_current_truss_cursor import validate_selected_truss_cursor
 
 PROFILE = "ashlar-managed-current-source-prefix/0.2"
 _SHA = re.compile(r"[0-9a-f]{64}\Z")
@@ -146,6 +149,19 @@ def validate_selected_managed_current_prefix_v2(prefix_bytes, *, prefix_sha256,
                  and registration_sha == expected["registrationSha256"]
                  and hashlib.sha256(cursor_raw).hexdigest() == expected["genesisCursorSha256"],
                  "Registration, genesis cursor or selected schedule source identity differs")
+        try:
+            selected_cursor = validate_selected_truss_cursor(
+                cursor_raw, cursor_sha256=expected["genesisCursorSha256"],
+                selected_identity={
+                    "installation_id": identity["installation_id"],
+                    "epoch": identity["epoch"],
+                    "consumer_id": identity["consumer_id"],
+                    "registration_id": identity["registration_id"],
+                })
+        except ValueError as error:
+            raise ValueError("Original genesis cursor differs from selected typed identity") from error
+        _require(selected_cursor.next_xid == "0",
+                 "Original selected cursor must remain at Truss genesis")
         selected_identities[source] = identity
     for key in identity_fields:
         _require(selected_identities["A"][key] != selected_identities["B"][key],
@@ -162,16 +178,35 @@ def validate_selected_managed_current_prefix_v2(prefix_bytes, *, prefix_sha256,
         progress = _decode(initial_progress_raw)
     except (UnicodeError, ValueError, RecursionError) as error:
         raise ValueError("Original complete initial progress JSON required") from error
+    _require(_canonical(progress).encode("utf-8") == initial_progress_raw,
+             "Canonical exact complete initial progress JSON required")
     _require(type(progress) is dict and set(progress) == {
         selected_identities[source]["feed"] for source in ("A", "B")},
         "Complete selected A/B initial progress map required")
     for source in ("A", "B"):
         identity = selected_identities[source]
         checkpoint = progress[identity["feed"]]
-        _require(type(checkpoint) is dict and checkpoint.get("feed") == identity["feed"]
+        original_source = package["initialSources"][source]
+        selected_source = source_ids[source]
+        cursor_sha = selected_source["genesisCursorSha256"]
+        registration_sha = selected_source["registrationSha256"]
+        marker_fields = {"profile", "feed", "epoch", "position", "position_sha256",
+                         "catalog_registration_id", "catalog_registration_sha256",
+                         "consumer_id", "consumer_registration_id", "installation_id", "page"}
+        _require(type(checkpoint) is dict and set(checkpoint) == marker_fields
+                 and checkpoint.get("profile") == "ashlar-truss-source-genesis-progress/0.1"
+                 and checkpoint.get("feed") == identity["feed"]
                  and checkpoint.get("epoch") == identity["epoch"]
-                 and type(checkpoint.get("position")) is str and checkpoint["position"],
-                 "Selected initial checkpoint must retain both feed and epoch positions")
+                 and checkpoint.get("position") == original_source["genesisCursorBase64"]
+                 and checkpoint.get("position_sha256") == cursor_sha
+                 and checkpoint.get("catalog_registration_sha256") == registration_sha
+                 and type(checkpoint.get("catalog_registration_id")) is str
+                 and bool(checkpoint["catalog_registration_id"])
+                 and checkpoint.get("consumer_id") == identity["consumer_id"]
+                 and checkpoint.get("consumer_registration_id") == identity["registration_id"]
+                 and checkpoint.get("installation_id") == identity["installation_id"]
+                 and checkpoint.get("page") == {"profile": "ashlar-source-page-absent/0.1"},
+                 "Initial progress must retain the selected typed genesis marker")
 
     initial_manifest_raw = package["initialPublicationJson"].encode("utf-8") \
         if type(package["initialPublicationJson"]) is str else b""
@@ -235,6 +270,55 @@ def validate_selected_managed_current_prefix_v2(prefix_bytes, *, prefix_sha256,
                  and type(checkpoint.get("position")) is str and checkpoint["position"]
                  and checkpoint.get("previous") == old.get("position"),
                  "Source checkpoint must continue its separately selected A/B progress")
+        from ashlar.attempt_store import verify_request_digest
+        from ashlar.source_checkpoint import truss_checkpoint
+        from ashlar.staging import batch_from_row
+        try:
+            verify_request_digest(request)
+            batch_artifact = _decode(request["source_batch_json"].encode("utf-8"))
+            _require(type(batch_artifact) is dict,
+                     "Original Truss batch artifact object required")
+            batch = batch_from_row({
+                "source_profile": batch_artifact["profile"],
+                "feed": batch_artifact["feed"],
+                "epoch": batch_artifact["epoch"],
+                "batch_id": batch_artifact["batch_id"],
+                "cursor_before": batch_artifact["cursor_before"],
+                "cursor_after": batch_artifact["cursor_after"],
+                "records_digest": batch_artifact["records_sha256"],
+                "batch_json": request["source_batch_json"],
+                "batch_digest": request["source_batch_digest"],
+            })
+        except (KeyError, TypeError, ValueError) as error:
+            raise ValueError("Original Truss page/checkpoint byte correspondence required") from error
+        _require(batch.profile == "truss-native-feed/0.1"
+                 and batch.feed == feed and batch.epoch == identity["epoch"]
+                 and request["batch_id"] == batch.batch_id
+                 and batch.cursor_before == checkpoint["previous"]
+                 and batch.cursor_after == checkpoint["position"]
+                 and request["source_checkpoint_json"] == truss_checkpoint(batch),
+                 "Original page cursors must continue the selected source progress")
+        cursor_identity = {"installation_id": identity["installation_id"],
+                           "epoch": identity["epoch"],
+                           "consumer_id": identity["consumer_id"],
+                           "registration_id": identity["registration_id"]}
+        try:
+            prior_cursor = base64.b64decode(batch.cursor_before, validate=True)
+            next_cursor = base64.b64decode(batch.cursor_after, validate=True)
+            validate_selected_truss_cursor(prior_cursor,
+                cursor_sha256=hashlib.sha256(prior_cursor).hexdigest(),
+                selected_identity=cursor_identity)
+            validate_selected_truss_cursor(next_cursor,
+                cursor_sha256=hashlib.sha256(next_cursor).hexdigest(),
+                selected_identity=cursor_identity)
+        except (TypeError, ValueError) as error:
+            raise ValueError("Original Truss page cursor identity differs from selected source") from error
+        if old.get("profile") == "ashlar-truss-source-genesis-progress/0.1":
+            original_source = package["initialSources"][source]
+            _require(batch.cursor_before == original_source["genesisCursorBase64"]
+                     and hashlib.sha256(prior_cursor).hexdigest()
+                         == old["position_sha256"],
+                     "First source page must begin at its exact selected genesis cursor")
         progress[feed] = checkpoint
         try:
             manifest_progress = _decode(manifest["source_progress_json"].encode("utf-8"))
