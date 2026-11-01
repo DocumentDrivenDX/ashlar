@@ -194,6 +194,10 @@ def validate_integration_binding(release: dict) -> None:
         {"commit":"d723eeeb8cee30f278d2742dc9218dbb2fc9f6c4", "tree":"2426a690554c99e5e15a9deda6af6c0dbcd1ad45"},
         {"commit":"477fabeca80aef26adde5a0426c6ee47fc84a61b", "tree":"c1b45a9dd7be4836bef319e638f6367cf6dfdf6a"},
     ]
+    sdk_source_follow_ons = [
+        {"commit":"d0c5bebf81da69898c52df31e54209ccaad7d7df", "tree":"3067a29c827a602a5cae3285aa45df21c4482165"},
+        {"commit":"7a49ab52d43e4132561eece781b9e00ee5b8f95b", "tree":"fbbee87ed870e8029542cf47d11717d60f29db51"},
+    ]
     integration_tree = "08862e9d2f3482f505cec40ed266f5e77cad0192"
     correction = "64f28c3b04803eadcac0f920cd2b8bb3f84a6f43"
     correction_tree = "28138503d679a480f7af9de8aac25b8ab0884f14"
@@ -224,6 +228,12 @@ def validate_integration_binding(release: dict) -> None:
         "src/ashlar_host/configured_local_runtime.py": {
             "commit": "477fabeca80aef26adde5a0426c6ee47fc84a61b",
             "sha256": "c452f2be4397d11baaf9e213c47dcaf08ab07a383e1ce1add637f4b65cbacea7"},
+        "tests/test_umf_sdk0101_pins.py": {
+            "commit": "d0c5bebf81da69898c52df31e54209ccaad7d7df",
+            "sha256": "047bf046d41b0cafaa9e60c0f0d86937af771954ca0ef7c59729c864bf0847f2"},
+        "src/ashlar_host/typed_graph_admission_sdk0101.py": {
+            "commit": "7a49ab52d43e4132561eece781b9e00ee5b8f95b",
+            "sha256": "5e2ec2fa1dfd097ccf5d31fbc77b8309c566c981fa72b366d1bb24244d4fc1f4"},
         "src/ashlar_host/local_current_carrier_profile.py": {
             "commit": "6b0bd06e766b65390c4134ffada2c0d5a7e884f5",
             "sha256": "c3c18142b07f087dac607bda8d85f4674324a4c5ebb20f838f12e9cf83e3781c"},
@@ -233,7 +243,8 @@ def validate_integration_binding(release: dict) -> None:
         raise StopRun("reviewed SDK0101/source-custody commit/tree is not in current checkout ancestry")
     if (not corrected_paths.issubset(expected_paths) or sorted(bound) != expected_paths
             or overlay != expected_overlay or not set(overlay).issubset(set(expected_paths) | {"src/ashlar_host/driver.py"})
-            or release.get("manifest_follow_on_commits") != manifest_follow_ons):
+            or release.get("manifest_follow_on_commits") != manifest_follow_ons
+            or release.get("sdk0101_source_follow_on_commits") != sdk_source_follow_ons):
         raise StopRun("SDK0101 integration file set/current bridge overlay differs from reviewed commits")
     for item in manifest_follow_ons:
         try:
@@ -245,6 +256,16 @@ def validate_integration_binding(release: dict) -> None:
             raise StopRun("cannot prove reviewed manifest/recovery follow-on commits") from error
         if tree != item["tree"] or ancestry.returncode != 0:
             raise StopRun(f"reviewed manifest/recovery follow-on is absent or changed: {item['commit']}")
+    for item in sdk_source_follow_ons:
+        try:
+            tree = subprocess.run(["git", "-C", str(repo), "rev-parse", f"{item['commit']}^{{tree}}"],
+                                  check=True, text=True, capture_output=True, timeout=10).stdout.strip()
+            ancestry = subprocess.run(["git", "-C", str(repo), "merge-base", "--is-ancestor",
+                                       item["commit"], "HEAD"], text=True, capture_output=True, timeout=10)
+        except (OSError, subprocess.SubprocessError) as error:
+            raise StopRun("cannot prove reviewed SDK0101 source follow-on commits") from error
+        if tree != item["tree"] or ancestry.returncode != 0:
+            raise StopRun(f"reviewed SDK0101 source follow-on is absent or changed: {item['commit']}")
     for relative in expected_paths:
         path = (repo / relative).resolve()
         base_commit = correction if relative in corrected_paths else integration

@@ -59,6 +59,14 @@
       "src/ashlar_host/driver.py": {
         "commit": "6e40a1ac17322c6c9736b714a8638be035ba3ec4",
         "sha256": "5dc40ffaf77885d3d5ddb63079b094f4ae2d783485bc89ca4a9a17faf3db3e75"
+      },
+      "src/ashlar_host/typed_graph_admission_sdk0101.py": {
+        "commit": "7a49ab52d43e4132561eece781b9e00ee5b8f95b",
+        "sha256": "5e2ec2fa1dfd097ccf5d31fbc77b8309c566c981fa72b366d1bb24244d4fc1f4"
+      },
+      "tests/test_umf_sdk0101_pins.py": {
+        "commit": "d0c5bebf81da69898c52df31e54209ccaad7d7df",
+        "sha256": "047bf046d41b0cafaa9e60c0f0d86937af771954ca0ef7c59729c864bf0847f2"
       }
     },
     "manifest_follow_on_commits": [
@@ -77,6 +85,16 @@
       {
         "commit": "477fabeca80aef26adde5a0426c6ee47fc84a61b",
         "tree": "c1b45a9dd7be4836bef319e638f6367cf6dfdf6a"
+      }
+    ],
+    "sdk0101_source_follow_on_commits": [
+      {
+        "commit": "d0c5bebf81da69898c52df31e54209ccaad7d7df",
+        "tree": "3067a29c827a602a5cae3285aa45df21c4482165"
+      },
+      {
+        "commit": "7a49ab52d43e4132561eece781b9e00ee5b8f95b",
+        "tree": "fbbee87ed870e8029542cf47d11717d60f29db51"
       }
     ]
   },
