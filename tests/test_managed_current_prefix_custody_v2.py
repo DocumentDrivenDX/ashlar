@@ -8,8 +8,12 @@ import unittest
 from ashlar_host.managed_current_prefix_custody_v2 import (
     PROFILE, validate_selected_managed_current_prefix_v2,
 )
+from ashlar_host.managed_current_prefix_delivery import (
+    ManagedCurrentPrefixPage, validate_managed_current_prefix_delivery,
+)
 from ashlar.truss_native_feed import native_feed_batch
 from ashlar_host.publication_planning import truss_request_for
+from ashlar.staging import batch_from_row
 from test_r04_schedule import schedule
 
 
@@ -119,6 +123,62 @@ class ManagedCurrentPrefixCustodyV2Tests(unittest.TestCase):
         self.assertEqual(result.publication_ids, tuple(ids))
         self.assertEqual(result.initial_publication_id, "genesis-fixture")
         self.assertEqual(result.schedule_step, 2)
+
+    def _pages(self, package):
+        schedule_doc = json.loads(package["scheduleJson"])
+        pages = []
+        for ordinal, (slot, entry) in enumerate(
+                zip(schedule_doc["slots"], package["entries"]), start=1):
+            request = json.loads(entry["requestJson"])
+            artifact = json.loads(request["source_batch_json"])
+            batch = batch_from_row({
+                "source_profile": artifact["profile"],
+                "feed": artifact["feed"],
+                "epoch": artifact["epoch"],
+                "batch_id": artifact["batch_id"],
+                "cursor_before": artifact["cursor_before"],
+                "cursor_after": artifact["cursor_after"],
+                "records_digest": artifact["records_sha256"],
+                "batch_json": request["source_batch_json"],
+                "batch_digest": request["source_batch_digest"],
+            })
+            pages.append(ManagedCurrentPrefixPage(
+                ordinal, slot["source"], batch.begin,
+                base64.b64decode(batch.cursor_before),
+                base64.b64decode(batch.cursor_after)))
+        return tuple(pages)
+
+    def test_delivery_binds_exact_ordered_pages_to_retained_requests(self):
+        package, raw, selected, ids = make_fixture()
+        delivery = validate_managed_current_prefix_delivery(
+            raw, prefix_sha256=hashlib.sha256(raw).hexdigest(), selected=selected,
+            schedule_bytes=package["scheduleJson"].encode(), pages=self._pages(package))
+        self.assertEqual(delivery.correspondence.publication_ids, tuple(ids))
+        self.assertEqual(len(delivery.page_sha256), 2)
+
+    def test_delivery_refuses_page_bytes_that_differ_from_retained_request(self):
+        package, raw, selected, _ids = make_fixture(step=1)
+        pages = list(self._pages(package))
+        page = json.loads(pages[0].page_bytes)
+        page["configuration"] = {"changed": True}
+        pages[0] = ManagedCurrentPrefixPage(
+            pages[0].ordinal, pages[0].source, canonical(page).encode(),
+            pages[0].prior_cursor_bytes, pages[0].next_cursor_bytes)
+        with self.assertRaisesRegex(ValueError, "page/cursor bytes differ"):
+            validate_managed_current_prefix_delivery(
+                raw, prefix_sha256=hashlib.sha256(raw).hexdigest(), selected=selected,
+                schedule_bytes=package["scheduleJson"].encode(), pages=tuple(pages))
+
+    def test_delivery_refuses_page_order_that_differs_from_frozen_schedule(self):
+        package, raw, selected, _ids = make_fixture()
+        pages = list(self._pages(package))
+        pages[0] = ManagedCurrentPrefixPage(
+            1, "B", pages[0].page_bytes, pages[0].prior_cursor_bytes,
+            pages[0].next_cursor_bytes)
+        with self.assertRaisesRegex(ValueError, "global schedule slot"):
+            validate_managed_current_prefix_delivery(
+                raw, prefix_sha256=hashlib.sha256(raw).hexdigest(), selected=selected,
+                schedule_bytes=package["scheduleJson"].encode(), pages=tuple(pages))
 
     def test_package_hash_cannot_replace_separately_selected_schedule_anchor(self):
         package, _raw, selected, _ids = make_fixture()
