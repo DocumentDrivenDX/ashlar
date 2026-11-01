@@ -108,10 +108,10 @@ Do not run a local 1B/5B load: its current 80%-rate measured bundle already
 projects above 15 minutes, before omitted phases. Do not run a 72-partition
 local pair on the assumption it will improve wall time; that adds scheduling
 choices without adding cores, and no current profile identifies task
-granularity as the local bottleneck. If the owner separately requests a local
-partition discriminator with a resource bound, it can answer only whether
-task/file geometry changes at 18 cores, not whether a full local run meets a
-few-minute goal.
+granularity as the local bottleneck. An optional small local partition
+discriminator under the existing owner request and recorded resource limits
+could answer only whether task/file geometry changes at 18 cores, not whether
+a full local run meets a few-minute goal.
 
 For production, first admit one exact 192–256-vCPU runtime and total resource
 and cost envelope. A subsequent diagnostic should measure one changed
@@ -119,9 +119,10 @@ partition plan and capture per-role time, task duration/CPU, GC, spill,
 output-file count/size, active bytes and all exact witnesses. It must also
 measure both scans, two point reads, the pinned GraphFrames action, startup,
 checks and cleanup before computing a complete estimate. The full 1B/5B run
-stays held until that conservative estimate is at most 15 minutes and a
-separate owner authorization exists. A few-minute result remains a goal, not
-an acceptance claim.
+stays held until that conservative estimate is at most 15 minutes and its
+compute/cost limits fit the owner's existing authorization. If the estimate
+exceeds 15 minutes, review it with the owner before a run. A few-minute
+result remains a goal, not an acceptance claim.
 
 ## Limits
 
