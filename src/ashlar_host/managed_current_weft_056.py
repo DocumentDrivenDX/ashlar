@@ -101,6 +101,9 @@ def run_managed_current_weft_056_backend03(owner, compiler, request, *,
                  "Weft 0.4.56 response differs from independently reviewed response")
         response = _decode(raw)
         artifact = response.get("artifact") if type(response) is dict else None
+        if artifact is None and type(response) is dict and response.get("status") == "compiled":
+            # Weft's explicit 0.4.1 compiler entry returns its artifact directly.
+            artifact = response
         _require(response.get("status") == "compiled" and type(artifact) is dict
                  and artifact.get("backend") == expected_backend
                  and type(artifact.get("sql")) is str and bool(artifact["sql"]))
@@ -114,6 +117,8 @@ def run_managed_current_weft_056_backend03(owner, compiler, request, *,
              and outcome.get("request") == request)
     response = _decode(raw)
     artifact = response.get("artifact") if type(response) is dict else None
+    if artifact is None and type(response) is dict and response.get("status") == "compiled":
+        artifact = response
     _require(response.get("status") == "compiled" and type(artifact) is dict
              and artifact.get("backend") == expected_backend
              and type(artifact.get("sql")) is str and artifact["sql"]

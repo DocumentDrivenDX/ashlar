@@ -11,21 +11,24 @@ import hashlib
 import importlib
 import importlib.metadata
 import json
-import re
+import platform
 import time
 from pathlib import Path
-from urllib.parse import unquote, urlsplit
 
 from .managed_current_trial import ManagedCurrentTrialConfig, run_managed_current_trial_page
 from .managed_current_core import CARRIER_PROFILE_XXHASH64
 
-PROFILE = "ashlar-managed-current-functional-campaign/0.1"
-WEFT_SOURCE_COMMIT = "93a6b5ba8491b8e9211adad506da162250fc23c3"
-WEFT_VERSION = "0.4.50"
-WEFT_LINUX_WHEEL_SHA256 = "5335c47969ffe242da6c8ea4e3ce011598b32c5f36e55bc9b833a6716342a574"
-WEFT_LINUX_NATIVE_SHA256 = "730c41c8ab0106ebd809adb3f6339f411bf86f2acac77fa95e64805f77b03460"
-WEFT_LINUX_RECORD_SHA256 = "435d5606a053224ff466b0c18be5b01949544b6576762960c6c9718e89f08577"
-_SHA = re.compile(r"[0-9a-f]{64}\Z")
+PROFILE = "ashlar-managed-current-functional-campaign/0.2"
+WEFT_SOURCE_COMMIT = "2f62e1148d1b2030558550e4f6f2ffe518bac62d"
+WEFT_VERSION = "0.4.56"
+WEFT_LINUX_WHEELS = {
+    "x86_64": ("https://github.com/DocumentDrivenDX/weft/releases/download/v0.4.56/"
+               "umf_weft-0.4.56-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+               "32f4c38d9a614dd4c3a367f8b24d5cd4ba41ec80c2a4a2e3423e2082a294dbdd"),
+    "aarch64": ("https://github.com/DocumentDrivenDX/weft/releases/download/v0.4.56/"
+                "umf_weft-0.4.56-cp39-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+                "2de2156e283c34e45154f5d9fbc83a3eb1dd43fad497d787509d66cc96cfbe5a"),
+}
 _CASES = ("backend03-grouped-having", "backend03-negative-having",
           "backend02-page1", "backend02-continuation")
 
@@ -52,13 +55,14 @@ def _hash_file(path, maximum):
     return _sha(raw)
 
 
-def observe_managed_weft_050():
-    """Verify installed compiler bytes against the selected Linux wheel lineage."""
+def observe_managed_weft_056():
+    """Verify installed compiler metadata against the selected Linux wheel pin."""
     try:
-        distribution = importlib.metadata.distribution("weft-sql")
+        _require(platform.system() == "Linux" and platform.machine() in WEFT_LINUX_WHEELS,
+                 "Selected Weft 0.4.56 campaign supports Linux x86_64/aarch64 only")
+        expected_url, expected_hash = WEFT_LINUX_WHEELS[platform.machine()]
+        distribution = importlib.metadata.distribution("umf-weft")
         module = importlib.import_module("weft")
-        record_name = next(name for name in (str(item) for item in distribution.files or ())
-                           if name.endswith(".dist-info/RECORD"))
         direct_url = distribution.read_text("direct_url.json")
         direct = json.loads(direct_url) if type(direct_url) is str else None
         archive = direct.get("archive_info", {}) if type(direct) is dict else {}
@@ -67,31 +71,31 @@ def observe_managed_weft_050():
             algorithm, separator, digest = archive["hash"].partition("=")
             wheel_hash = digest if algorithm == "sha256" and separator else None
         wheel_url = direct.get("url") if type(direct) is dict else None
-        parsed_url = urlsplit(wheel_url) if type(wheel_url) is str else None
-        wheel_path = Path(unquote(parsed_url.path)) if parsed_url and parsed_url.scheme == "file" else None
+        record_name = next(name for name in (str(item) for item in distribution.files or ())
+                           if name.endswith(".dist-info/RECORD"))
         native_path = Path(module.__file__).resolve().parent / "weft.abi3.so"
         record_path = Path(distribution.locate_file(record_name)).resolve()
         observed = {
             "version": distribution.version,
             "wheelSha256": wheel_hash,
+            "platformMachine": platform.machine(),
+            "wheelUrl": wheel_url,
             "nativeModuleSha256": _hash_file(native_path, 64 * 1024 * 1024),
             "recordSha256": _hash_file(record_path, 2 * 1024 * 1024),
         }
         _require(distribution.version == WEFT_VERSION
-                 and wheel_path is not None
-                 and _hash_file(wheel_path, 64 * 1024 * 1024) == WEFT_LINUX_WHEEL_SHA256
-                 and observed == {"version": WEFT_VERSION,
-                                  "wheelSha256": WEFT_LINUX_WHEEL_SHA256,
-                                  "nativeModuleSha256": WEFT_LINUX_NATIVE_SHA256,
-                                  "recordSha256": WEFT_LINUX_RECORD_SHA256}
+                 and wheel_url == expected_url
+                 and wheel_hash == expected_hash
                  and all(callable(getattr(module, name, None)) for name in (
-                     "compile_json", "compile_engine_page_json")),
-                 "Installed Weft 0.4.50 Linux wheel, RECORD, native module, or APIs differ")
+                     "compile_json", "compile_engine_page_json",
+                     "compile_paths_keys_json",
+                     "check_engine_page_json", "check_engine_read_json")),
+                 "Installed Weft 0.4.56 Linux release URL, wheel hash, or API differs")
         return observed, module
     except Exception as error:
         if isinstance(error, ValueError):
             raise
-        raise ValueError("Selected installed Weft 0.4.50 Linux wheel could not be observed") from None
+        raise ValueError("Selected installed Weft 0.4.56 Linux wheel could not be observed") from None
 
 
 def run_managed_current_campaign(spark, *, config, binding, protocol_profile,
@@ -135,7 +139,7 @@ def run_managed_current_campaign(spark, *, config, binding, protocol_profile,
     oracle = admit_managed_current_source_oracle(
         source_oracle_input, source_bundle=binding,
         schedule_sha256=config.schedule_sha256, schedule_step=config.schedule_step)
-    selected_weft, compiler = observe_managed_weft_050()
+    selected_weft, compiler = observe_managed_weft_056()
     _require(config.maximum_task_seconds - int(time.monotonic() - started) > 0,
              "Campaign task deadline exhausted before publication")
     publication_result = run_managed_current_trial_page(
@@ -189,9 +193,9 @@ def run_managed_current_campaign(spark, *, config, binding, protocol_profile,
         source_bundle=binding, oracle=oracle, expected_rows=[],
         schedule_sha256=config.schedule_sha256, schedule_step=config.schedule_step)
     common = {"source_commit": WEFT_SOURCE_COMMIT,
-              "linux_wheel_sha256": WEFT_LINUX_WHEEL_SHA256,
-              "linux_native_module_sha256": WEFT_LINUX_NATIVE_SHA256,
-              "linux_record_sha256": WEFT_LINUX_RECORD_SHA256,
+              "linux_wheel_sha256": selected_weft["wheelSha256"],
+              "linux_native_module_sha256": selected_weft["nativeModuleSha256"],
+              "linux_record_sha256": selected_weft["recordSha256"],
               "oracle": oracle, "run_id": run_id,
               "task_receipt_id": task_receipt_id}
     def remaining():

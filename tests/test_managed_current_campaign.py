@@ -1,12 +1,15 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert campaign routing and namespace bootstrap tests."""
 import json
+import tempfile
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
 from ashlar.protocol import ReaderProtocolProfile
 from ashlar_host.managed_current_campaign import run_managed_current_campaign
+from ashlar_host.managed_current_campaign import observe_managed_weft_056, WEFT_LINUX_WHEELS
 from ashlar_host.managed_current_trial import (
     ManagedCurrentTrialConfig, run_managed_current_trial_page,
 )
@@ -39,6 +42,52 @@ class ManagedCurrentCampaignTests(unittest.TestCase):
         replace(config, maximum_task_seconds=900).validate()
         with self.assertRaisesRegex(ValueError, "at most 15 minutes"):
             replace(config, maximum_task_seconds=901).validate()
+
+    def test_observer_admits_only_exact_release_asset_for_each_serverless_architecture(self):
+        class Compiler:
+            compile_json = compile_engine_page_json = compile_paths_keys_json = lambda self: None
+            check_engine_page_json = check_engine_read_json = lambda self: None
+
+        for machine, (wheel_url, wheel_hash) in WEFT_LINUX_WHEELS.items():
+            with self.subTest(machine=machine), tempfile.TemporaryDirectory() as root:
+                package = Path(root) / "weft"
+                metadata = Path(root) / "umf_weft-0.4.56.dist-info"
+                package.mkdir()
+                metadata.mkdir()
+                native = package / "weft.abi3.so"
+                record = metadata / "RECORD"
+                native.write_bytes(b"native")
+                record.write_bytes(b"record")
+                direct = {"url": wheel_url,
+                          "archive_info": {"hashes": {"sha256": wheel_hash}}}
+                distribution = SimpleNamespace(
+                    version="0.4.56", files=[Path("umf_weft-0.4.56.dist-info/RECORD")],
+                    read_text=lambda _name: json.dumps(direct),
+                    locate_file=lambda _name: record,
+                )
+                compiler = Compiler()
+                compiler.__file__ = str(package / "__init__.py")
+                with patch("ashlar_host.managed_current_campaign.platform.system", return_value="Linux"), \
+                     patch("ashlar_host.managed_current_campaign.platform.machine", return_value=machine), \
+                     patch("ashlar_host.managed_current_campaign.importlib.metadata.distribution",
+                           return_value=distribution), \
+                     patch("ashlar_host.managed_current_campaign.importlib.import_module",
+                           return_value=compiler):
+                    observed, selected = observe_managed_weft_056()
+                self.assertIs(selected, compiler)
+                self.assertEqual(observed["wheelSha256"], wheel_hash)
+                self.assertEqual(observed["platformMachine"], machine)
+                self.assertEqual(len(observed["nativeModuleSha256"]), 64)
+                self.assertEqual(len(observed["recordSha256"]), 64)
+
+    def test_observer_refuses_unpinned_distribution_wheel(self):
+        with patch("ashlar_host.managed_current_campaign.platform.system", return_value="Linux"), \
+             patch("ashlar_host.managed_current_campaign.platform.machine", return_value="x86_64"), \
+             patch("ashlar_host.managed_current_campaign.importlib.metadata.distribution",
+                   return_value=SimpleNamespace(version="0.4.56")), \
+             patch("ashlar_host.managed_current_campaign.importlib.import_module"):
+            with self.assertRaises(ValueError):
+                observe_managed_weft_056()
 
     def test_campaign_refuses_unadmitted_oracle_before_publication(self):
         from test_managed_current_query import _source_bundle
@@ -108,9 +157,11 @@ class ManagedCurrentCampaignTests(unittest.TestCase):
                         "continuation": {"case": "backend02-continuation", "status": "passed"}}
             def _renew(self): return None
 
-        with patch("ashlar_host.managed_current_campaign.observe_managed_weft_050",
-                   return_value=({"version": "0.4.50", "wheelSha256": "5" * 64,
-                                 "nativeModuleSha256": "7" * 64, "recordSha256": "4" * 64}, Compiler())), \
+        with patch("ashlar_host.managed_current_campaign.observe_managed_weft_056",
+                   return_value=({"version": "0.4.56", "wheelSha256": "5" * 64,
+                                 "platformMachine": "x86_64", "wheelUrl": "release-url",
+                                 "nativeModuleSha256": "7" * 64,
+                                 "recordSha256": "4" * 64}, Compiler())), \
              patch("ashlar_host.managed_current_campaign.run_managed_current_trial_page",
                    return_value={"profile": "ashlar-managed-current-trial-step/0.1",
                        "scheduleSha256": config.schedule_sha256, "scheduleStep": config.schedule_step,

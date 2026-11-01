@@ -16,6 +16,7 @@ PROFILE = 'ashlar-weft-056-runtime-index/0.1'
 WHEEL_SHA256 = {
     ('Darwin', 'arm64'): '68f9297b4b55df483b86d3041040991c4dadfb9b4d63afcff1420c43f93ae41d',
     ('Linux', 'x86_64'): '32f4c38d9a614dd4c3a367f8b24d5cd4ba41ec80c2a4a2e3423e2082a294dbdd',
+    ('Linux', 'aarch64'): '2de2156e283c34e45154f5d9fbc83a3eb1dd43fad497d787509d66cc96cfbe5a',
 }
 SCHEMA_SHA256 = {
     'compile-request-v0.4.1.schema.json': 'eadea16ecb850add4dd1a276e417e5659a553d37171ff6ba455668acec7ab13b',

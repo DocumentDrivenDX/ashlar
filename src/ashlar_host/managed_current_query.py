@@ -909,15 +909,30 @@ class ManagedCurrentReadOwner:
                       admit_compiled=None):
         """Compile and execute one original Backend03 query under this owner."""
         from ashlar.weft_query import read_weft
-        _require(callable(getattr(compiler, "compile_json", None))
-                 and type(timeout_seconds) is int and 1 <= timeout_seconds <= 90
+        _require(type(timeout_seconds) is int and 1 <= timeout_seconds <= 90
                  and type(request) is dict and type(retain_response) is bool)
-        raw = compiler.compile_json(_canonical(request))
+        # Weft 0.4 exposes its 0.4.1 Backend03 entry point separately from the
+        # legacy compile_json API. Current requests must never fall back to the
+        # legacy composition route.
+        if request.get("interfaceVersion") == "weft-compile/0.4.1":
+            selected_compile = getattr(compiler, "compile_paths_keys_json", None)
+        else:
+            selected_compile = getattr(compiler, "compile_json", None)
+        _require(callable(selected_compile))
+        raw = selected_compile(_canonical(request))
         _require(type(raw) is str and len(raw.encode("utf-8")) <= 4 * 1024 * 1024)
         compiled = json.loads(raw)
-        _require(type(compiled) is dict and compiled.get("status") == "compiled"
-                 and type(compiled.get("artifact")) is dict)
-        artifact = compiled["artifact"]
+        _require(type(compiled) is dict and compiled.get("status") == "compiled")
+        if type(compiled.get("artifact")) is dict:
+            artifact = compiled["artifact"]
+        else:
+            # Weft's 0.4.1 response is the compiled artifact itself, with the
+            # status and backend at the top level. Preserve it byte-for-byte.
+            _require(request.get("interfaceVersion") == "weft-compile/0.4.1"
+                     and compiled.get("interfaceVersion") == request["interfaceVersion"]
+                     and compiled.get("dialect") == request.get("dialect")
+                     and type(compiled.get("backend")) is dict)
+            artifact = compiled
         expected_backend = ({
             "backendId": "ashlar.databricks.managed-uc-spark-xxhash64",
             "backendVersion": "0.2.0-managed-current-core-xxhash64-candidate",

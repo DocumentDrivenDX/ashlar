@@ -21,18 +21,22 @@ from test_managed_current_core import _current_admission
 
 
 def _response(request):
-    artifact = {"backend": {
+    artifact = {"status": "compiled", "backend": {
         "backendId": XXHASH64_BACKEND_ID,
         "backendVersion": XXHASH64_BACKEND03_VERSION,
         "interfaceVersion": "weft-backend/0.3.0",
         "targetProfile": XXHASH64_TARGET_PROFILE,
     }, "sql": "SELECT exact_compiler_sql"}
-    raw = json.dumps({"status": "compiled", "artifact": artifact},
-                     separators=(",", ":")).encode()
+    raw = json.dumps(artifact, separators=(",", ":")).encode()
     return artifact, raw
 
 
 class ManagedCurrentWeft056Tests(unittest.TestCase):
+    def test_linux_aarch64_release_wheel_is_pinned(self):
+        from ashlar.weft_056_distribution import WHEEL_SHA256
+        self.assertEqual(WHEEL_SHA256[("Linux", "aarch64")],
+                         "2de2156e283c34e45154f5d9fbc83a3eb1dd43fad497d787509d66cc96cfbe5a")
+
     def setUp(self):
         bundle = bind_current_core(_current_admission(), _xxhash_config())
         self.sql = ("SELECT p.person_key, COUNT(*) AS paths, "
@@ -101,7 +105,7 @@ class ManagedCurrentWeft056Tests(unittest.TestCase):
         self.owner.receipt = {"manifest": {"schema_revisions_json": "{}"}}
         self.owner.runtime_identity = {"opening": {}, "closing": {}}
         with patch.object(Weft056Distribution, "_verify", return_value=True), \
-             patch.object(Weft056Distribution, "compile_json", return_value=raw), \
+             patch.object(Weft056Distribution, "compile_paths_keys_json", return_value=raw), \
              patch.object(ManagedCurrentReadOwner, "deadline", return_value=nullcontext()), \
              patch("ashlar.weft_query.read_weft") as read:
             with self.assertRaises(ValueError):
@@ -124,7 +128,7 @@ class ManagedCurrentWeft056Tests(unittest.TestCase):
             self.request, ensure_ascii=False, sort_keys=True,
             separators=(",", ":"), allow_nan=False).encode()).hexdigest()
         with patch.object(Weft056Distribution, "_verify", return_value=True), \
-             patch.object(Weft056Distribution, "compile_json", return_value=raw.decode()), \
+             patch.object(Weft056Distribution, "compile_paths_keys_json", return_value=raw.decode()), \
              patch.object(ManagedCurrentReadOwner, "deadline", return_value=nullcontext()), \
              patch("ashlar.weft_query.read_weft") as read:
             with self.assertRaises(ValueError):

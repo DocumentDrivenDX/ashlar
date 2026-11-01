@@ -36,6 +36,14 @@ job ID, run ID and task key can identify the retained usage receipt when no
 budget policy is available. These functions make no API calls. Estimates and
 timeouts are admission controls, not a hard invoice cap; serverless wheel paths
 also need separate byte and architecture evidence before they are selected.
+For the four-case worker, set the environment dependency to
+`-r /Workspace/<approved-path>/requirements-serverless.txt`. Databricks Jobs
+accepts this requirements-file reference for serverless task dependencies. The
+file pins Weft 0.4.56 Linux wheels for both serverless architectures by SHA-256.
+The `.4.1` request contract uses Weft's explicit
+`compile_paths_keys_json` entry point; its flat compiled response is retained
+as the artifact. Generic `compile_json` remains the legacy composition API.
+This request/response selection is recorded as campaign profile `/0.2`.
 The task disables serverless auto-optimization because it can add retries beyond
 the retry policy; this does not change the serverless performance target or
 Unity Catalog predictive optimization.
@@ -101,10 +109,10 @@ their digests enter the result.
 
 The operator retains four separate case assets from this single positive-page
 task:
-`managed-current-uc-case-backend03-grouped-having-v0.4.50.json`,
-`managed-current-uc-case-backend03-negative-having-v0.4.50.json`,
-`managed-current-uc-case-backend02-page1-v0.4.50.json`, and
-`managed-current-uc-case-backend02-continuation-v0.4.50.json`. The case helper
+`managed-current-uc-case-backend03-grouped-having-v0.4.56.json`,
+`managed-current-uc-case-backend03-negative-having-v0.4.56.json`,
+`managed-current-uc-case-backend02-page1-v0.4.56.json`, and
+`managed-current-uc-case-backend02-continuation-v0.4.56.json`. The case helper
 stores canonical request/artifact JSON beside their SHA-256 values, exact
 ordered-parameter hash, independent expected/actual rows, runtime identity,
 four-role publication vector, and separate six-role inventory. Page records

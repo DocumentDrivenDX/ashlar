@@ -33,13 +33,25 @@ def _workspace_path(value, *, suffix=None):
     return True
 
 
+def _dependency_path(value):
+    if _workspace_path(value, suffix=".whl"):
+        return True
+    if type(value) is str and value.startswith("-r "):
+        value = value[3:]
+    if not _workspace_path(value, suffix=".txt"):
+        return False
+    filename = value.rsplit("/", 1)[-1]
+    return filename == "requirements.txt" or filename.startswith("requirements-")
+
+
 @dataclass(frozen=True)
 class ManagedCurrentServerlessJobSpec:
     """Caller-selected inputs for an unscheduled single notebook task.
 
-    `dependencies` are pip requirement lines pointing at immutable wheel files
-    or other workspace/volume artifacts. Native wheel architecture coverage is
-    still an external admission fact; a path alone does not prove compatibility.
+    `dependencies` are absolute Workspace/Volume paths to immutable wheels or
+    requirements files. A requirements file may select architecture-specific
+    wheel URLs with pip environment markers. Native wheel architecture coverage
+    remains an external admission fact; a path alone does not prove it.
     """
 
     name: str
@@ -63,9 +75,9 @@ class ManagedCurrentServerlessJobSpec:
         _require(type(self.environment_version) is int and self.environment_version > 0,
                  "A read-back-confirmed serverless environment version is required")
         _require(type(self.dependencies) is tuple and self.dependencies
-                 and all(_workspace_path(path, suffix=".whl") for path in self.dependencies)
+                 and all(_dependency_path(path) for path in self.dependencies)
                  and len(set(self.dependencies)) == len(self.dependencies),
-                 "Selected wheel dependencies must be unique absolute Workspace/Volume .whl paths")
+                 "Dependencies must be unique absolute Workspace/Volume wheel or requirements paths")
         _require(type(self.timeout_seconds) is int and 1 <= self.timeout_seconds <= _MAX_SECONDS,
                  "Job and task timeout must be between 1 and 900 seconds")
         _require(type(self.estimated_total_cost_usd) in (int, float)

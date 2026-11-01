@@ -49,6 +49,13 @@ class ManagedCurrentServerlessJobTests(unittest.TestCase):
         self.assertEqual(admitted["jobId"], 123)
         self.assertEqual(admitted["dependencyPaths"], list(spec.dependencies))
 
+    def test_accepts_hash_locked_requirements_path_for_architecture_marked_wheels(self):
+        path = "-r /Workspace/Shared/managed-current-trial/requirements-serverless.txt"
+        spec = _spec(dependencies=(path,))
+        settings = spec.build_settings()
+        self.assertEqual(settings["environments"][0]["spec"]["dependencies"], [path])
+        self.assertEqual(admit_serverless_job_readback(_readback(spec), spec)["dependencyPaths"], [path])
+
         # Jobs GET omits default-valued zero retries and false timeout retry.
         job = _readback(spec)
         del job["settings"]["max_retries"]

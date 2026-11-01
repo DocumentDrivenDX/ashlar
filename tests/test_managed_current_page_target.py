@@ -64,7 +64,7 @@ class ManagedCurrentPageTargetTests(unittest.TestCase):
         if parsed.get("status") != "compiled":
             if any(item.get("code") == "WFT-ENGINE-PAGE"
                    for item in parsed.get("diagnostics", [])):
-                if cls.weft_version not in {"0.4.50", "0.4.52"}:
+                if cls.weft_version not in {"0.4.50", "0.4.52", "0.4.56"}:
                     raise unittest.SkipTest(
                         "installed Weft compiler does not emit the managed .4 page target")
                 raise AssertionError(
@@ -103,6 +103,62 @@ class ManagedCurrentPageTargetTests(unittest.TestCase):
         target = self.make_target()
         self.assertEqual(json.loads(target.native_target_json)["backendId"],
                          "ashlar.databricks.managed-uc-spark-xxhash64")
+
+    def test_weft056_backend03_uses_explicit_041_entry_and_flat_artifact(self):
+        if self.weft_version != "0.4.56":
+            self.skipTest("requires the selected Weft 0.4.56 release wheel")
+        from unittest.mock import patch
+        from ashlar_host.managed_current_query import ManagedCurrentReadOwner
+        from ashlar_host.managed_current_weft_binding import managed_current_count_star_request
+
+        owner = object.__new__(ManagedCurrentReadOwner)
+        owner.carrier_profile = "ashlar-delta/0.4-xxhash64"
+        owner.receipt = {"manifest": {"schema_revisions_json": "{}"}}
+        owner.runtime_identity = {"opening": {}, "closing": {}}
+        owner.context = owner.backend = owner.vector = object()
+        owner.deadline = lambda _budget: nullcontext()
+        bundle = bind_current_core(_current_admission(), _xxhash_config())
+        for threshold in (0, 2):
+            sql = ("SELECT p.person_key, COUNT(*) AS paths, "
+                   "COUNT_DISTINCT_PATH_TARGETS(x) AS targets FROM Person p "
+                   "CROSS JOIN EXPAND_PATHS(p.knows, located) AS x "
+                   f"GROUP BY p.person_key HAVING COUNT(*) > {threshold} "
+                   "ORDER BY p.person_key")
+            request = managed_current_count_star_request(bundle, _inputs(bundle), sql)
+            with patch("ashlar.weft_query.read_weft", return_value=[] ) as read:
+                result = owner.run_backend03(self.weft, request, retain_response=True)
+            artifact = read.call_args.kwargs["artifact"]
+            self.assertEqual(artifact["status"], "compiled")
+            self.assertEqual(artifact["interfaceVersion"], "weft-compile/0.4.1")
+            self.assertEqual(artifact["dialect"], "weft-sql/0.4.1")
+            self.assertEqual(artifact["backend"]["backendId"],
+                             "ashlar.databricks.managed-uc-spark-xxhash64")
+            self.assertIn(f"HAVING COUNT(*)>CAST(:p", artifact["sql"])
+            self.assertEqual(json.loads(result["compilerResponseBytes"])["status"], "compiled")
+
+    def test_041_backend03_refuses_when_explicit_entry_is_missing(self):
+        from types import SimpleNamespace
+        from unittest.mock import Mock, patch
+        from ashlar_host.managed_current_query import ManagedCurrentReadOwner
+        from ashlar_host.managed_current_weft_binding import managed_current_count_star_request
+
+        bundle = bind_current_core(_current_admission(), _xxhash_config())
+        request = managed_current_count_star_request(
+            bundle, _inputs(bundle),
+            "SELECT p.person_key, COUNT(*) AS paths FROM Person p "
+            "GROUP BY p.person_key HAVING COUNT(*) > 0 ORDER BY p.person_key")
+        owner = object.__new__(ManagedCurrentReadOwner)
+        owner.carrier_profile = "ashlar-delta/0.4-xxhash64"
+        owner.receipt = {"manifest": {"schema_revisions_json": "{}"}}
+        legacy = Mock()
+        compiler = SimpleNamespace(compile_json=legacy)
+
+        with patch("ashlar.weft_query.read_weft") as read:
+            with self.assertRaises(ValueError):
+                owner.run_backend03(compiler, request)
+
+        legacy.assert_not_called()
+        read.assert_not_called()
 
     def test_actual_compiler_page_artifact_keeps_legacy_managed_target(self):
         bundle = bind_current_core(_current_admission(), _managed_config())
