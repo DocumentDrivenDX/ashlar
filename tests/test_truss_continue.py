@@ -19,6 +19,31 @@ from ashlar_host.truss_continue import continue_truss_graph
 
 
 class Tests(unittest.TestCase):
+    def test_exact_prepublication_carrier_pair_reuse_is_private_and_opt_in(self):
+        import os
+        import stat
+        from ashlar_host.truss_continue import _persist_or_reuse_exact_prepublication_pair
+        with TemporaryDirectory() as temporary:
+            root=Path(temporary); page=root/'source-page-digest.json'; intent=root/'publication-intent-digest.json'
+            page_bytes=b'exact public page archive'; intent_bytes=b'exact request/page intent'
+            self.assertEqual(_persist_or_reuse_exact_prepublication_pair(page,page_bytes,intent,intent_bytes,allow_reuse=False),
+                             'created_prepublication_pair')
+            with self.assertRaisesRegex(ValueError,'carriers already exist'):
+                _persist_or_reuse_exact_prepublication_pair(page,page_bytes,intent,intent_bytes,allow_reuse=False)
+            self.assertEqual(_persist_or_reuse_exact_prepublication_pair(page,page_bytes,intent,intent_bytes,allow_reuse=True),
+                             'reused_identical_prepublication_pair')
+            self.assertEqual(page.read_bytes(),page_bytes);self.assertEqual(intent.read_bytes(),intent_bytes)
+            self.assertEqual(stat.S_IMODE(page.stat().st_mode),0o600)
+            page.unlink()
+            with self.assertRaisesRegex(ValueError,'carriers already exist'):
+                _persist_or_reuse_exact_prepublication_pair(page,page_bytes,intent,intent_bytes,allow_reuse=True)
+            page.write_bytes(b'different page');os.chmod(page,0o600)
+            with self.assertRaisesRegex(ValueError,'exact private'):
+                _persist_or_reuse_exact_prepublication_pair(page,page_bytes,intent,intent_bytes,allow_reuse=True)
+            page.unlink();page.symlink_to(intent)
+            with self.assertRaisesRegex(ValueError,'exact private'):
+                _persist_or_reuse_exact_prepublication_pair(page,page_bytes,intent,intent_bytes,allow_reuse=True)
+
     def test_advancing_empty_interval_uses_durable_progress_publication(self):
         import base64
         from ashlar.apply import empty_state

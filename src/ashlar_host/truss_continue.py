@@ -1,9 +1,11 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Append contiguous public Truss feed pages to an existing owned publication."""
 import datetime
+import base64
 import hashlib
 import json
 import os
+import stat
 import time
 from pathlib import Path
 from ashlar.attempt_store import DeltaAttemptStore
@@ -59,9 +61,45 @@ def _persist(path,raw):
     with os.fdopen(descriptor,'wb')as stream:
         if stream.write(raw)!=len(raw):raise OSError('Complete original continuation carrier write required')
         stream.flush();os.fsync(stream.fileno())
+    directory_flags=os.O_RDONLY|getattr(os,'O_DIRECTORY',0)
+    directory=os.open(Path(path).parent,directory_flags)
+    try:os.fsync(directory)
+    finally:os.close(directory)
 
 
-def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_seconds=0,maximum_page_bytes=1048576,archives=(),defer_source_acknowledgement=False,catalog_connection_factory=None):
+def _persist_or_reuse_exact_prepublication_pair(page_path,page_raw,intent_path,intent_raw,*,allow_reuse):
+    """Persist a page/intent pair, or reuse only the exact private pair from a stopped prepublication attempt."""
+    page_path=Path(page_path);intent_path=Path(intent_path)
+    page_present=page_path.exists() or page_path.is_symlink()
+    intent_present=intent_path.exists() or intent_path.is_symlink()
+    if page_present or intent_present:
+        if not allow_reuse or not (page_present and intent_present):
+            raise ValueError('Original continuation carriers already exist; inspect original attempt')
+        for path,expected in ((page_path,page_raw),(intent_path,intent_raw)):
+            try:
+                descriptor=os.open(path,os.O_RDONLY|getattr(os,'O_NOFOLLOW',0))
+            except OSError as error:
+                raise ValueError('Existing continuation carrier is not the exact private prepublication byte') from error
+            try:
+                info=os.fstat(descriptor)
+                if (not stat.S_ISREG(info.st_mode) or info.st_uid!=os.getuid()
+                        or stat.S_IMODE(info.st_mode)!=0o600 or info.st_size!=len(expected)):
+                    raise ValueError('Existing continuation carrier is not the exact private prepublication byte')
+                observed=bytearray()
+                while len(observed)<=len(expected):
+                    chunk=os.read(descriptor,min(65536,len(expected)+1-len(observed)))
+                    if not chunk:break
+                    observed.extend(chunk)
+                if bytes(observed)!=expected:
+                    raise ValueError('Existing continuation carrier is not the exact private prepublication byte')
+            finally:os.close(descriptor)
+        return 'reused_identical_prepublication_pair'
+    _persist(page_path,page_raw)
+    _persist(intent_path,intent_raw)
+    return 'created_prepublication_pair'
+
+
+def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_seconds=0,maximum_page_bytes=1048576,archives=(),defer_source_acknowledgement=False,catalog_connection_factory=None,prepublication_source_custody=None,reuse_identical_prepublication_intent=False):
     """Continue a restored explicit committed predecessor; never initialize/reset.
 
     Caller holds the existing installation lease and outer transport/Spark/source
@@ -91,8 +129,20 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         raise ValueError('Explicit bounded continuation page bytes required')
     if type(defer_source_acknowledgement)is not bool:
         raise ValueError('Explicit boolean continuation ACK mode required')
+    if type(reuse_identical_prepublication_intent)is not bool:
+        raise ValueError('Explicit boolean prepublication-intent recovery selection required')
     if defer_source_acknowledgement and maximum_pages!=1:
         raise ValueError('Deferred-ACK continuation is limited to one page')
+    if prepublication_source_custody is not None and (
+            not callable(prepublication_source_custody) or not defer_source_acknowledgement
+            or maximum_pages!=1 or not driver.source_sessions.destination_receipts
+            or not driver.source_sessions.destination_id):
+        raise ValueError('Per-page protected custody requires one deferred-ACK destination-backed continuation')
+    if reuse_identical_prepublication_intent and (
+            not defer_source_acknowledgement or maximum_pages!=1 or prepublication_source_custody is None
+            or not driver.source_sessions.destination_receipts or not driver.source_sessions.destination_id
+            or driver.lookup_hash_profile!='spark-xxhash64-typed-key/0.1'):
+        raise ValueError('Identical prepublication carrier reuse is limited to one protected local `.4` page')
     context=driver.context;source=driver.source_sessions
     with owned_context(driver.writer(driver.policy.active['request']['stream'],context)):
         state=_ready(driver)
@@ -132,12 +182,12 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             raise ValueError('Original continuation attempt already exists; use resume')
         page_path=root/('source-page-'+digest+'.json');page_raw=encode_truss_page(page,feed)
         intent_path=root/('publication-intent-'+digest+'.json')
-        if page_path.exists()or page_path.is_symlink()or intent_path.exists()or intent_path.is_symlink():
-            raise ValueError('Original continuation carriers already exist; inspect original attempt')
-        _persist(page_path,page_raw)
+        recovery_path=None;recovery_sha256=None
+        readback_marker_path=None;readback_marker_sha256=None
         intent_raw=(encoded({'request_digest':digest,'publication_id':publication_id,
             'source_page_path':str(page_path),'source_page_sha256':hashlib.sha256(page_raw).hexdigest(),'feed':feed})+'\n').encode()
-        _persist(intent_path,intent_raw)
+        _persist_or_reuse_exact_prepublication_pair(
+            page_path,page_raw,intent_path,intent_raw,allow_reuse=reuse_identical_prepublication_intent)
         selection={'path':str(intent_path),'sha256':hashlib.sha256(intent_raw).hexdigest()}
         try:
             following_driver=NativeDriver.from_existing_truss(transport,driver.policy,context,driver.tables,
@@ -160,9 +210,104 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             target=transport.targets[driver.tables['attempts']]
             backend=TrussPublisherBackend(DeltaAttemptStore(AttemptExecutor(following_driver),CarrierPolicy(following_driver,'attempts'),target.table,target.uuid),following_driver,
                 lambda original,supplied:ManifestPort(following_driver,original),context=context)
+            native_sink=None
+            if prepublication_source_custody is not None:
+                native_sink=prepublication_source_custody(page=page,feed=feed,batch=batch,
+                    admission=admission,request=request,
+                    publication_id=publication_id,destination_transport=transport,
+                    context=context,source_sessions=sessions)
+                if not callable(native_sink):raise ValueError('Continuation source selection must return its postpublication custody sink')
             descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context,acknowledge_source=not defer_source_acknowledgement)
-            results.append({'manifest':dict(descriptor.raw),'source_page':{'path':str(page_path),'sha256':hashlib.sha256(page_raw).hexdigest()},
-                'publication_intent':selection})
+            manifest=dict(descriptor.raw);result={'manifest':manifest,
+                'source_page':{'path':str(page_path),'sha256':hashlib.sha256(page_raw).hexdigest()},
+                'publication_intent':selection}
+            if defer_source_acknowledgement:
+                from .truss_note_publication import validate_deferred_ack_pair
+                digest=validate_deferred_ack_pair(request,descriptor,expected_publication_id=publication_id)
+                request_raw=encoded(request).encode();manifest_raw=encoded(manifest).encode()
+                target_uuids={table:transport.targets[table].uuid
+                    for table in json.loads(manifest['table_versions_json'])}
+                vector=manifest_pin_vector(manifest,target_uuids,authority='private-local-process')
+                from .truss_feed_sessions import encode_truss_destination_receipt
+                receipt_raw=encode_truss_destination_receipt(request_raw,manifest_raw,vector)
+                recovery_path=root/('publication-readback-pending-'+digest+'.json')
+                if recovery_path.exists()or recovery_path.is_symlink():
+                    raise ValueError('Original postpublication recovery carrier already exists; inspect original attempt')
+                recovery={'profile':'ashlar-truss-deferred-publication-recovery/0.1',
+                    'status':'publication_returned_native_readback_pending',
+                    'acknowledgement':'not_attempted',
+                    'qualification':'Publisher returned a committed destination descriptor. Independent native readback may still be pending; do not ACK or replay. Reopen only under explicit original-attempt recovery.',
+                    'consumer_id':consumer,'feed':feed,'destination_id':source.destination_id,
+                    'publication_id':descriptor.publication_id,'request_digest':digest,
+                    'source_page':{'path':str(page_path),'archive_sha256':hashlib.sha256(page_raw).hexdigest(),
+                        'page_sha256':page.sha256,'content_sha256':hashlib.sha256(page.content).hexdigest(),
+                        'prior_sha256':hashlib.sha256(page.prior.content).hexdigest(),
+                        'next_sha256':hashlib.sha256(page.next.content).hexdigest(),
+                        'registration_id':page.registration_id,'writer_xid':page.writer_xid},
+                    'request_bytes_base64':base64.b64encode(request_raw).decode(),
+                    'request_sha256':hashlib.sha256(request_raw).hexdigest(),
+                    'manifest_bytes_base64':base64.b64encode(manifest_raw).decode(),
+                    'manifest_sha256':hashlib.sha256(manifest_raw).hexdigest(),'manifest':manifest,
+                    'receipt_bytes_base64':base64.b64encode(receipt_raw).decode(),
+                    'receipt_sha256':hashlib.sha256(receipt_raw).hexdigest(),
+                    'publication_vector':{'authority':vector.authority,'scope_kind':vector.scope_kind,
+                        'scope_id':vector.scope_id,'custody_digest':vector.custody_digest,
+                        'targets':{table:list(value) for table,value in vector.targets.items()}}}
+                recovery_raw=(encoded(recovery)+'\n').encode();_persist(recovery_path,recovery_raw)
+                recovery_sha256=hashlib.sha256(recovery_raw).hexdigest()
+                result['publication_recovery_receipt']={'path':str(recovery_path),
+                    'sha256':recovery_sha256,'status':recovery['status']}
+                if native_sink is not None:
+                    from .truss_source_custody_selection import _mint_expected_native_post_state
+                    native_sink(expected_post_state=_mint_expected_native_post_state(
+                        publication_id=publication_id,request_digest=request['request_digest'],
+                        following=following,carrier_profile=('ashlar-delta/0.4-xxhash64'
+                            if driver.lookup_hash_profile=='spark-xxhash64-typed-key/0.1'
+                            else 'ashlar-delta/0.3')),
+                        destination_transport=transport,descriptor=descriptor,
+                        manifest_bytes=manifest_raw,vector=vector,receipt_bytes=receipt_raw)
+                intent={'profile':'ashlar-truss-deferred-destination-receipt-ack/0.1',
+                    'acknowledgement':'deferred_not_attempted','consumer_id':consumer,'feed':feed,
+                    'destination_id':source.destination_id,'request_digest':digest,
+                    'publication_id':descriptor.publication_id,
+                    'source_page':{'path':str(page_path),'archive_sha256':hashlib.sha256(page_raw).hexdigest(),
+                        'page_sha256':page.sha256,'content_sha256':hashlib.sha256(page.content).hexdigest(),
+                        'prior_sha256':hashlib.sha256(page.prior.content).hexdigest(),
+                        'next_sha256':hashlib.sha256(page.next.content).hexdigest(),
+                        'registration_id':page.registration_id,'writer_xid':page.writer_xid},
+                    'request_bytes_base64':base64.b64encode(request_raw).decode(),
+                    'request_sha256':hashlib.sha256(request_raw).hexdigest(),
+                    'manifest_bytes_base64':base64.b64encode(manifest_raw).decode(),
+                    'manifest_sha256':hashlib.sha256(manifest_raw).hexdigest(),'manifest':manifest,
+                    'destination_receipt_bytes_base64':base64.b64encode(receipt_raw).decode(),
+                    'destination_receipt_sha256':hashlib.sha256(receipt_raw).hexdigest(),
+                    'publication_vector':{'authority':vector.authority,'scope_kind':vector.scope_kind,
+                        'scope_id':vector.scope_id,'custody_digest':vector.custody_digest,
+                        'targets':{table:list(value) for table,value in vector.targets.items()}}}
+                deferred_path=root/('deferred-ack-'+digest+'.json')
+                if deferred_path.exists()or deferred_path.is_symlink():
+                    raise ValueError('Original deferred continuation ACK intent already exists; inspect original attempt')
+                intent_raw=(encoded(intent)+'\n').encode();_persist(deferred_path,intent_raw)
+                result['deferred_ack_intent']={'path':str(deferred_path),
+                    'sha256':hashlib.sha256(intent_raw).hexdigest()}
+                if native_sink is not None:
+                    marker={'profile':'ashlar-truss-publication-native-readback-complete/0.1',
+                        'status':'native_readback_verified_deferred_ack',
+                        'acknowledgement':'not_attempted',
+                        'supersedes_pending_recovery_only_when_hashes_match':True,
+                        'publication_id':descriptor.publication_id,'request_digest':digest,
+                        'pending_recovery_receipt':{'path':str(recovery_path),'sha256':recovery_sha256},
+                        'deferred_ack_intent':{'path':str(deferred_path),
+                            'sha256':hashlib.sha256(intent_raw).hexdigest()},
+                        'qualification':'Strict native readback completed and the deferred ACK intent is durable. This marker supersedes the matching pending carrier; it does not assert or perform ACK.'}
+                    readback_marker_path=root/('publication-native-readback-complete-'+digest+'.json')
+                    if readback_marker_path.exists()or readback_marker_path.is_symlink():
+                        raise ValueError('Original native readback completion marker exists; inspect original attempt')
+                    marker_raw=(encoded(marker)+'\n').encode();_persist(readback_marker_path,marker_raw)
+                    readback_marker_sha256=hashlib.sha256(marker_raw).hexdigest()
+                    result['publication_readback_completion']={'path':str(readback_marker_path),
+                        'sha256':readback_marker_sha256,'status':marker['status']}
+            results.append(result)
             state=after;expected=following;progress=following_driver.policy.active['progress'];predecessor=publication_id;cursor=page.next.content;current_revisions=revisions
         except BaseException as error:
             try:
@@ -170,7 +315,13 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
                     'format':'ashlar-truss-continuation-interruption/0.1','outcome':'unconfirmed',
                     'publication_intent':selection,'request_digest':digest,'publication_id':publication_id,
                     'completed_publication_ids':[item['manifest']['publication_id']for item in results],
-                    'qualification':'Saved original selection only; publication/ACK outcome requires actual original resume admission. No rollback or recovery authority is asserted.'}
+                    'publication_recovery_receipt':({'path':str(recovery_path),'sha256':recovery_sha256,
+                        'status':'publication_returned_native_readback_pending'} if recovery_path is not None
+                        else None),
+                    'publication_readback_completion':({'path':str(readback_marker_path),
+                        'sha256':readback_marker_sha256,'status':'native_readback_verified_deferred_ack'}
+                        if readback_marker_path is not None else None),
+                    'qualification':'No rollback or automatic retry is asserted. If the recovery receipt exists, the publisher returned: preserve the original attempt and require an explicit readback/reconciliation path before any ACK. An absent receipt leaves publication outcome unconfirmed.'}
             except BaseException:
                 pass  # Diagnostic capture never replaces the original failure.
             raise
