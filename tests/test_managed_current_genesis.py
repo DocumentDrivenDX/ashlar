@@ -23,7 +23,9 @@ def _schedule():
         'source_bindings': {source: {'feed': f'feed-{source}', 'epoch': f'epoch-{source}',
             'consumer_id': f'consumer-{source}', 'registration_id': f'consumer-reg-{source}',
             'installation_id': f'install-{source}'} for source in ('A', 'B')},
-        'accepted_model_pins': {'A': {'selected': 'model-A'}, 'B': {'selected': 'model-B'}},
+        'accepted_model_pins': {
+            'A': {'documentRevision': 'model-A', 'modelSha256': hashlib.sha256(b'model evidence A').hexdigest()},
+            'B': {'documentRevision': 'model-B', 'modelSha256': hashlib.sha256(b'model evidence B').hexdigest()}},
         'slots': slots, 'prefix_oracle': [{'prefix': n} for n in range(9)]})
 
 
@@ -94,31 +96,36 @@ class TestManagedCurrentGenesis(unittest.TestCase):
                 consumer_id='consumer-A', consumer_registration_id='consumer-reg-A',
                 installation_id='install-A')
 
-    def test_owner_writes_once_and_reopens_exact_row(self):
+    def test_owner_writes_one_genesis_row(self):
         executor = _Executor(); store = _Store(executor); targets = _Targets()
         owner = ManagedCurrentGenesisManifestOwner(targets, store)
         args = {'schedule_bytes': _schedule().raw,
             'source_progress': {'A': _progress('A'), 'B': _progress('B')},
-            'selected_model_evidence': {'A': b'model evidence A', 'B': b'model evidence B'},
-            'schema_revisions': {'model-A': 'sha-a', 'model-B': 'sha-b'},
+            'selected_model_evidence': {
+                'A': {'pin': {'documentRevision': 'model-A', 'modelSha256': hashlib.sha256(b'model evidence A').hexdigest()}, 'revision_key': 'model-A', 'bytes': b'model evidence A'},
+                'B': {'pin': {'documentRevision': 'model-B', 'modelSha256': hashlib.sha256(b'model evidence B').hexdigest()}, 'revision_key': 'model-B', 'bytes': b'model evidence B'}},
+            'schema_revisions': {'model-A': hashlib.sha256(b'model evidence A').hexdigest(),
+                                 'model-B': hashlib.sha256(b'model evidence B').hexdigest()},
             'recorded_at': '1762000000000000', 'context': object()}
         row = owner.initialize(**args)
-        replay = owner.initialize(**args)
-        self.assertEqual(row, replay)
         self.assertEqual(store.commits, 1)
         report = json.loads(row['validation_report_json'])
         self.assertEqual(report['publication_plan_profile'], MANIFEST_PROFILE)
         self.assertFalse(report['source_page_accepted'])
         self.assertFalse(report['source_acknowledged'])
         self.assertEqual(len(report['six_role_inventory']), 6)
+        self.assertEqual(report['fresh_target_creation']['initial_role_heads'], {role: 0 for role in ROLES})
         self.assertTrue(all(w['row_count'] == 0 for w in report['empty_data_role_witnesses'].values()))
 
     def test_owner_refuses_reopened_or_nonempty_target_and_other_manifest(self):
         schedule = _schedule().raw
         args = {'schedule_bytes': schedule,
             'source_progress': {'A': _progress('A'), 'B': _progress('B')},
-            'selected_model_evidence': {'A': b'model evidence A', 'B': b'model evidence B'},
-            'schema_revisions': {'model-A': 'sha-a', 'model-B': 'sha-b'},
+            'selected_model_evidence': {
+                'A': {'pin': {'documentRevision': 'model-A', 'modelSha256': hashlib.sha256(b'model evidence A').hexdigest()}, 'revision_key': 'model-A', 'bytes': b'model evidence A'},
+                'B': {'pin': {'documentRevision': 'model-B', 'modelSha256': hashlib.sha256(b'model evidence B').hexdigest()}, 'revision_key': 'model-B', 'bytes': b'model evidence B'}},
+            'schema_revisions': {'model-A': hashlib.sha256(b'model evidence A').hexdigest(),
+                                 'model-B': hashlib.sha256(b'model evidence B').hexdigest()},
             'recorded_at': '1762000000000000', 'context': object()}
         targets = _Targets(); targets.created_fresh = False
         with self.assertRaises(ValueError):
@@ -130,6 +137,57 @@ class TestManagedCurrentGenesis(unittest.TestCase):
         executor = _Executor(); executor.rows.append({'publication_id': 'other-manifest'})
         with self.assertRaises(ValueError):
             ManagedCurrentGenesisManifestOwner(_Targets(), _Store(executor)).initialize(**args)
+
+    def test_open_existing_reopens_exact_row_without_commit(self):
+        executor = _Executor(); store = _Store(executor); targets = _Targets()
+        args = {'schedule_bytes': _schedule().raw,
+            'source_progress': {'A': _progress('A'), 'B': _progress('B')},
+            'selected_model_evidence': {
+                'A': {'pin': {'documentRevision': 'model-A', 'modelSha256': hashlib.sha256(b'model evidence A').hexdigest()}, 'revision_key': 'model-A', 'bytes': b'model evidence A'},
+                'B': {'pin': {'documentRevision': 'model-B', 'modelSha256': hashlib.sha256(b'model evidence B').hexdigest()}, 'revision_key': 'model-B', 'bytes': b'model evidence B'}},
+            'schema_revisions': {'model-A': hashlib.sha256(b'model evidence A').hexdigest(),
+                                 'model-B': hashlib.sha256(b'model evidence B').hexdigest()},
+            'recorded_at': '1762000000000000', 'context': object()}
+        first = ManagedCurrentGenesisManifestOwner(targets, store).initialize(**args)
+        targets.inventory['publication_manifest'].version = 1
+        targets.inventory['publication_manifest'].detail_digest = 'z' * 64
+        targets.opening = dict(targets.inventory)
+        targets.created_fresh = False  # same state set by ManagedCurrentTargetOwner.open_existing()
+        reopened = ManagedCurrentGenesisManifestOwner(targets, store).initialize(**args)
+        self.assertEqual(first, reopened)
+        self.assertEqual(store.commits, 1)
+
+    def test_open_existing_refuses_when_genesis_row_is_missing(self):
+        targets = _Targets()
+        targets.inventory['publication_manifest'].version = 1
+        targets.opening = dict(targets.inventory)
+        targets.created_fresh = False
+        store = _Store(_Executor())
+        args = {'schedule_bytes': _schedule().raw,
+            'source_progress': {'A': _progress('A'), 'B': _progress('B')},
+            'selected_model_evidence': {
+                'A': {'pin': {'documentRevision': 'model-A', 'modelSha256': hashlib.sha256(b'model evidence A').hexdigest()}, 'revision_key': 'model-A', 'bytes': b'model evidence A'},
+                'B': {'pin': {'documentRevision': 'model-B', 'modelSha256': hashlib.sha256(b'model evidence B').hexdigest()}, 'revision_key': 'model-B', 'bytes': b'model evidence B'}},
+            'schema_revisions': {'model-A': hashlib.sha256(b'model evidence A').hexdigest(),
+                                 'model-B': hashlib.sha256(b'model evidence B').hexdigest()},
+            'recorded_at': '1762000000000000', 'context': object()}
+        with self.assertRaises(ValueError):
+            ManagedCurrentGenesisManifestOwner(targets, store).initialize(**args)
+        self.assertEqual(store.commits, 0)
+
+    def test_model_evidence_must_match_frozen_pin_and_revision_digest(self):
+        schedule = _schedule().raw
+        targets = _Targets(); store = _Store(_Executor())
+        args = {'schedule_bytes': schedule,
+            'source_progress': {'A': _progress('A'), 'B': _progress('B')},
+            'selected_model_evidence': {
+                'A': {'pin': {'documentRevision': 'model-A', 'modelSha256': hashlib.sha256(b'model evidence A').hexdigest()}, 'revision_key': 'model-A', 'bytes': b'unrelated evidence'},
+                'B': {'pin': {'documentRevision': 'model-B', 'modelSha256': hashlib.sha256(b'model evidence B').hexdigest()}, 'revision_key': 'model-B', 'bytes': b'model evidence B'}},
+            'schema_revisions': {'model-A': hashlib.sha256(b'model evidence A').hexdigest(),
+                                 'model-B': hashlib.sha256(b'model evidence B').hexdigest()},
+            'recorded_at': '1762000000000000', 'context': object()}
+        with self.assertRaises(ValueError):
+            ManagedCurrentGenesisManifestOwner(targets, store).initialize(**args)
 
 
 if __name__ == '__main__': unittest.main()

@@ -111,18 +111,15 @@ class ManagedCurrentGenesisManifestOwner:
     def initialize(self, *, schedule_bytes, source_progress,
                    selected_model_evidence, schema_revisions, recorded_at,
                    context):
-        _require(getattr(self.targets, "created_fresh", False)
+        created_fresh = getattr(self.targets, "created_fresh", False)
+        _require(type(created_fresh) is bool
                  and self.targets.carriers.physical_profile == CARRIER_PROFILE_XXHASH64,
-                 "Fresh explicitly selected six-role `.4` installation required")
+                 "Explicitly selected six-role `.4` installation required")
         schedule = R04Schedule(schedule_bytes)
         _require(type(source_progress) is dict and set(source_progress) == {"A", "B"}
                  and all(isinstance(item, TrussSourceGenesisProgress)
                          for item in source_progress.values()),
                  "Two typed, independently admitted A/B genesis progress entries required")
-        _require(type(selected_model_evidence) is dict
-                 and set(selected_model_evidence) == {"A", "B"}
-                 and all(type(value) is bytes and value for value in selected_model_evidence.values()),
-                 "Exact accepted A/B model evidence bytes required")
         _require(type(schema_revisions) is dict and bool(schema_revisions)
                  and all(type(key) is str and key and type(value) is str and value
                          for key, value in schema_revisions.items()),
@@ -132,6 +129,31 @@ class ManagedCurrentGenesisManifestOwner:
                  "Canonical recorded UTC microsecond clock required")
 
         schedule_doc = schedule.document()
+        _require(type(selected_model_evidence) is dict
+                 and set(selected_model_evidence) == {"A", "B"},
+                 "Selected A/B model evidence bound to the frozen schedule required")
+        model_evidence_digests = {}
+        model_revision_keys = set()
+        for source in ("A", "B"):
+            evidence = selected_model_evidence[source]
+            _require(type(evidence) is dict and set(evidence) == {"pin", "revision_key", "bytes"}
+                     and evidence["pin"] == schedule_doc["accepted_model_pins"][source]
+                     and type(evidence["pin"]) is dict
+                     and type(evidence["pin"].get("documentRevision")) is str
+                     and evidence["pin"]["documentRevision"] == evidence["revision_key"]
+                     and type(evidence["pin"].get("modelSha256")) is str
+                     and _SHA.fullmatch(evidence["pin"]["modelSha256"]) is not None
+                     and type(evidence["revision_key"]) is str and evidence["revision_key"]
+                     and type(evidence["bytes"]) is bytes and evidence["bytes"],
+                     "Exact scheduled model pin, revision and original evidence bytes required")
+            digest = hashlib.sha256(evidence["bytes"]).hexdigest()
+            _require(evidence["pin"]["modelSha256"] == digest
+                     and schema_revisions.get(evidence["revision_key"]) == digest,
+                     "Scheduled model pin and schema revision must bind the exact evidence bytes")
+            model_revision_keys.add(evidence["revision_key"])
+            model_evidence_digests[source] = digest
+        _require(model_revision_keys == set(schema_revisions),
+                 "Schema revision inventory must exactly cover selected A/B model evidence")
         progress_docs = {}
         for source in ("A", "B"):
             item = source_progress[source]
@@ -162,9 +184,17 @@ class ManagedCurrentGenesisManifestOwner:
         for role in ROLES:
             before, current = self.targets.opening[role], inventory[role]
             _require((before.name, before.uuid, before.schema, before.protocol)
-                     == (current.name, current.uuid, current.schema, current.protocol)
-                     and before.version == 0 and current.version == 0,
+                     == (current.name, current.uuid, current.schema, current.protocol),
                      "Fresh unchanged six-role native installation required")
+            if role != "publication_manifest":
+                _require(before.version == 0 and current.version == 0,
+                         "All six-role non-manifest tables must remain at version zero")
+            elif created_fresh:
+                _require(before.version in (0, 1) and current.version == before.version,
+                         "Fresh owner may observe only an empty or single-manifest Delta head")
+            else:
+                _require(before.version == 1 and current.version == 1,
+                         "Existing target must have exactly one genesis-manifest commit")
         empty_witnesses = {}
         for role in DATA_ROLES:
             rows = self.targets.transport.query(
@@ -175,9 +205,10 @@ class ManagedCurrentGenesisManifestOwner:
 
         versions = {self.targets.tables[role]: inventory[role].version for role in DATA_ROLES}
         inventory_doc = {role: {"name": inventory[role].name, "uuid": inventory[role].uuid,
-            "version": inventory[role].version, "schema": list(inventory[role].schema),
-            "protocol": inventory[role].protocol,
-            "detail_sha256": inventory[role].detail_digest} for role in ROLES}
+            # The frozen installation inventory is the pre-genesis state. The
+            # one immutable manifest commit advances only its own Delta log.
+            "version": 0, "schema": list(inventory[role].schema),
+            "protocol": inventory[role].protocol} for role in ROLES}
         sources = {source: {
             "feed": source_progress[source].feed,
             "epoch": source_progress[source].epoch,
@@ -194,9 +225,11 @@ class ManagedCurrentGenesisManifestOwner:
             "sources": sources,
             "accepted_model_pins": schedule_doc["accepted_model_pins"],
             "source_progress_sha256": hashlib.sha256(_canonical(progress_docs).encode()).hexdigest(),
-            "model_evidence_sha256": {source: hashlib.sha256(selected_model_evidence[source]).hexdigest()
-                                      for source in ("A", "B")},
+            "model_evidence_sha256": model_evidence_digests,
             "six_role_inventory": inventory_doc,
+            "fresh_target_creation": {"profile": "ashlar-managed-current-fresh-target/0.1",
+                                      "created_by_owner": True,
+                                      "initial_role_heads": {role: 0 for role in ROLES}},
             "empty_data_role_witnesses": empty_witnesses,
             "recorded_at": recorded_at,
             "source_page_accepted": False,
@@ -219,10 +252,18 @@ class ManagedCurrentGenesisManifestOwner:
                  "cast(unix_micros(recorded_at) AS STRING) AS recorded_at FROM "
                  + self.store.sql_table + " ORDER BY recorded_at DESC LIMIT 2")
         prior = self.store.executor.query(query, {}).rows
-        _require(len(prior) <= 1 and (not prior or dict(prior[0]) == row),
-                 "Genesis manifest is create-once; a different or additional row refuses")
-        if not prior:
-            self.store.commit(row, context=context)
+        if created_fresh:
+            if not prior:
+                _require(inventory["publication_manifest"].version == 0,
+                         "Manifest Delta head without its genesis row refuses")
+                self.store.commit(row, context=context)
+            else:
+                _require(len(prior) == 1 and dict(prior[0]) == row
+                         and inventory["publication_manifest"].version == 1,
+                         "Fresh owner can only reopen its exact single genesis manifest")
+        else:
+            _require(len(prior) == 1 and dict(prior[0]) == row,
+                     "Existing target can only reopen its exact genesis manifest")
         actual = self.store.executor.query(
             "SELECT publication_id,profile_version,table_versions_json,source_progress_json,"
             "schema_revisions_json,validation_report_json,"
