@@ -2247,6 +2247,23 @@ def open_configured_local_delta4_authority(plan, effect_plan, transport,
 
 OUTPUT_RECEIPT_TABLE = "local_delta4_output_receipt"
 OUTPUT_RECEIPT_PROFILE = "ashlar-configured-local-delta4-output-completion/0.1"
+OUTPUT_RECEIPT_OBSERVATION_KEYS = (
+    "profile", "source_scope_sha256", "effect_plan_sha256", "operation_ids",
+    "states", "committed_prefix", "heads", "lookup_hashes",
+)
+
+
+def _delta4_output_receipt_observation(observation):
+    """Project the stable transaction-one prefix fields retained by receipt v0.1.
+
+    Later coordinator observations can include manifest reconciliation fields.
+    Those belong to the publication/finalization result, not the immutable
+    transaction-one output receipt. Keep the historical wire shape byte-stable.
+    """
+    _require(type(observation) is dict
+             and set(OUTPUT_RECEIPT_OBSERVATION_KEYS) <= set(observation),
+             "Exact stable `.4` transaction-one observation required")
+    return {key: observation[key] for key in OUTPUT_RECEIPT_OBSERVATION_KEYS}
 MAX_OUTPUT_RECEIPT_BYTES = 4 * 1024 * 1024
 
 
@@ -2279,7 +2296,8 @@ def _make_delta4_output_receipt(authority):
     authority._retain_source_scope()
     observation = authority._observe_effect_prefix()
     _require(observation["committed_prefix"] == 3
-             and observation["states"] == ["committed"] * 3,
+             and observation["states"] == ["committed"] * 3
+             and observation.get("manifest_state") == "missing",
              "Complete validated `.4` source/effect state required")
     _require(authority._delta4_closing_heads == observation["heads"]
              and authority._delta4_completion_witness is True
@@ -2348,7 +2366,8 @@ def _make_delta4_output_receipt(authority):
         "operation_receipts": receipts,
         "table_versions_json": _canonical(versions),
         "installation_inventory_json": _canonical(inventory),
-        "snapshot_observation_json": _canonical(observation),
+        "snapshot_observation_json": _canonical(
+            _delta4_output_receipt_observation(observation)),
     }
     body_json = _canonical(body)
     _require(len(body_json.encode("utf-8")) <= MAX_OUTPUT_RECEIPT_BYTES,

@@ -12,6 +12,7 @@ from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuratio
 from ashlar_host.configured_local_delta4_publication import (
     INSTALLATION_ROLES, LOCAL_ROLE_BY_CARRIER, admit_delta4_fresh_empty_installation,
     build_delta4_transaction1_effect_plan,
+    _delta4_output_receipt_observation,
     open_configured_local_delta4_authority,
     plan_configured_local_delta4_transaction1,
     rehydrate_delta4_fresh_head_admission,
@@ -65,7 +66,8 @@ class Tests(unittest.TestCase):
                         retained_body = json.loads(receipt["original"])["receipt"]
                         retained_snapshot = json.loads(retained_body["snapshot_observation_json"])
                         current_snapshot = held._observe_effect_prefix()
-                        self.assertEqual(retained_snapshot, current_snapshot)
+                        self.assertEqual(retained_snapshot,
+                                         _delta4_output_receipt_observation(current_snapshot))
                         row = build_delta4_manifest_row(held)
                         validate_manifest_row(row)
                         self.assertEqual(row["publication_id"], self.plan.publication_id)
@@ -1403,10 +1405,22 @@ class Tests(unittest.TestCase):
                     with patch.object(LocalDeltaEffects, "run", run_stub):
                         authority.prepare_and_execute_effect_plan()
                     retained = retain_delta4_output_completion_receipt(authority)
-                    replay = retain_delta4_output_completion_receipt(authority)
+                    original_observe = authority._observe_effect_prefix
+                    def observe_with_later_manifest_fields(**kwargs):
+                        return {**original_observe(**kwargs),
+                                "manifest_state": "missing",
+                                "manifest_bridge": {"profile": "later-observation"}}
+                    with patch.object(authority, "_observe_effect_prefix",
+                                      side_effect=observe_with_later_manifest_fields):
+                        replay = retain_delta4_output_completion_receipt(authority)
                     self.assertEqual(replay, retained)
                     original = json.loads(retained["original"])
                     body = original["receipt"]
+                    snapshot = json.loads(body["snapshot_observation_json"])
+                    self.assertEqual(set(snapshot), {
+                        "profile", "source_scope_sha256", "effect_plan_sha256",
+                        "operation_ids", "states", "committed_prefix", "heads",
+                        "lookup_hashes"})
                     self.assertEqual(body["profile"],
                                      "ashlar-configured-local-delta4-output-completion/0.1")
                     self.assertEqual(len(json.loads(body["installation_inventory_json"])), 6)
