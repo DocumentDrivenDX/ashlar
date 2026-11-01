@@ -185,12 +185,24 @@ The [prepared receipt](r5-init-prepared-receipt.json) has SHA-256
 `a7fe5797ba08419b66a5eb91058142df5497018007414811a42dc8bc623aa54d`;
 the [empty process-slot receipt](r5-init-process-slot-receipt.json) has SHA-256
 `4d4396a5e6e87795b9bb64cb30c31feb2d9aa6c0e0073c4ed069b7e392e19de2`.
-There is no permit, dispatch, Spark initialization, or result. Its packet tree digest is
+The approved R5 one-shot was dispatched and consumed. The worker failed before
+initialization because its producer fields used camelCase keys where the closed
+invocation parser requires snake_case. The supervisor retains
+`uncertain-after-dispatch`; the traceback, absent installation/output paths, and
+verified empty process group support a narrower pre-native-effect conclusion
+without changing that original status ([R5 reconciliation](r6-sdk010-initialize-only/r5-attempt-reconciliation.md)).
+Its packet tree digest is
 `48fb4e5a81f2b1f61189aee2fcfbc14503dc71dd9377b84b0ef1d3506b410b2a`.
+
+The [R6 init-only candidate](r6-sdk010-initialize-only/README.md) maps the
+producer fields explicitly and passes an isolated-child parse of its generated
+invocation through the installed parser. Its distinct attempt parent is absent;
+R6 has not run `prepare`, `slot`, or `execute` and has no permit. Its packet tree
+digest is `7b448c887f1ecb581fb9c944f398bd35f43ae21ae021ec271e6a6d39aa326b66`.
 
 The effect-free [R4 transaction-one release gate](r4-transaction1-gate/README.md)
 binds the consumed R4 initializer and Weft 0.4.56 wheel, so it cannot admit an
-R5 result without a later reviewed rebinding. Its null publication vector is
+R5 or R6 result without a later reviewed rebinding. Its null publication vector is
 retained; exact `.4`-bound Weft requests and responses remain downstream
 consumer evidence. No transaction-one dispatch is authorized by that gate.
 
