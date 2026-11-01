@@ -1,0 +1,153 @@
+{
+  "accepted_model": {
+    "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json",
+    "public_report_artifact_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
+    "quantity_declaration": {
+      "cardinality": "one",
+      "extensions": {},
+      "id": "quantity",
+      "kind": "field",
+      "name": "quantity",
+      "nullability": "absent-allowed",
+      "scalarType": "integer"
+    },
+    "sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2"
+  },
+  "authority": "local development only; no production source authority inferred",
+  "destination_reconciliation": {
+    "delta_tree_now": {
+      "bytes": 1390069,
+      "files": 100,
+      "sha256": "cf038ad5e0be628f829b67996e4686548b3c9e8a707f43f78f78afdeffc54d20"
+    },
+    "four_role_heads": {
+      "edge_current": {
+        "head_json_sha256": "790b0f448284c033558fa668d46202823dd234ccc1e3dfed076c1a3325f2357c",
+        "head_version": 1,
+        "matches_genesis_readback": true,
+        "row_bag_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "row_count": 0,
+        "uuid": "b78564df-d9ed-4d65-9f4e-89fe81ef3aaa",
+        "vector_version": 1
+      },
+      "object_current": {
+        "head_json_sha256": "5d975ca4b389004592cc5448ded25110fe765a4d802b576dad56c3ef852846fc",
+        "head_version": 1,
+        "matches_genesis_readback": true,
+        "row_bag_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "row_count": 0,
+        "uuid": "a8770dc6-2f0d-4d19-b6c6-217e2fd4d983",
+        "vector_version": 1
+      },
+      "tombstone": {
+        "head_json_sha256": "4d9aec8a7e9b6183a137644fb087b3e9545029ad4a917a7fb2a14f2ecaff62d6",
+        "head_version": 1,
+        "matches_genesis_readback": true,
+        "row_bag_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "row_count": 0,
+        "uuid": "5b37f47e-c3a6-4e7b-a3b9-bac8f4807ba3",
+        "vector_version": 1
+      },
+      "whole_source_history": {
+        "head_json_sha256": "313d9ef4c2a23eb9138e1f19fedc3ed22b8e4f6ab96ad57dd5e6e6e4c9dc9f0b",
+        "head_version": 1,
+        "matches_genesis_readback": true,
+        "row_bag_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "row_count": 0,
+        "uuid": "c471362d-dab9-43c6-b18b-7cb9da97578f",
+        "vector_version": 1
+      }
+    },
+    "manifest_v2_sha256": "bda18b3b836d01d3c7d1a42ac77a0cd0205ff6df8cb1151a4a1e7eca668d49e7",
+    "publication_count": 1,
+    "publication_ids": [
+      "truss-graph-cbf69ea847e30930ec586b2a3d508745f0430da3e9e1628f6b81149b9d58230b"
+    ],
+    "r36_recorded_delta_tree": {
+      "bytes": 1390069,
+      "files": 100,
+      "sha256": "cf038ad5e0be628f829b67996e4686548b3c9e8a707f43f78f78afdeffc54d20"
+    },
+    "sole_page_is_genesis": true,
+    "sole_page_sha256": "942a325702683382c99bd92c69a1af6478cf04879fee0f9d8db4cd4e80f8a9a0",
+    "sqlite_counts": {
+      "local_operation": 6,
+      "local_plan": 1,
+      "local_publication_artifact": 1,
+      "local_source_plan": 1
+    },
+    "transient_sqlite_wal_shm_present": true
+  },
+  "null_event": [
+    {
+      "change_index": 1,
+      "definition_pin": "23606c044793c4d459fc88ab9b5da1e9dd5f58d14d571c3c108b4fdefdb223b2",
+      "event_sha256": "5d73425a969c07d9d58c7a11da3354fed9d2efa1c3cfd022b48843d394fbdab1",
+      "object_identity": {
+        "definitionPin": "be626ed848a9a40cb0ea29f18857852b2e90ca6811ca38ad92650115f5d8c7fa",
+        "id": "2",
+        "owner": {
+          "documentId": "ashlar-local-dev-typed-graph-r21-20261101",
+          "moduleId": "m"
+        },
+        "typeId": "1"
+      },
+      "operation": "create",
+      "property_id": "3",
+      "value": {
+        "kind": "null"
+      }
+    }
+  ],
+  "page_reread": {
+    "ack_attempted": false,
+    "cursor_hash_checks_passed_in_live_public_call": true,
+    "delta_opened_by_page_reader": false,
+    "exact_page_file": "/private/tmp/ashlar-r39-truss052-inplace-resume-20261101/receipts/r39-public-page-reread.json",
+    "next_cursor_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+    "page_bytes": 60814,
+    "page_sha256": "0248fd1607b971f267df71b1262668930a96925a767855dd3400fb0ecd1a6456",
+    "prior_cursor_sha256": "8e370e1497197b93029ff7f5287d9102802a098fbc4ea02b1e6bf20339841f9f",
+    "prior_next_xid": [
+      "762",
+      "769"
+    ],
+    "public_api": "Truss 0.0.52 read_page under ordinary reader; catalog evidence read under registrar",
+    "r39_selection_sha256": "0248fd1607b971f267df71b1262668930a96925a767855dd3400fb0ecd1a6456",
+    "spark_started": false,
+    "typed_change_count": 7
+  },
+  "pgdata_rebaseline_after_public_read": {
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
+    "postmaster_pid_absent": true,
+    "prior_r36_tree": {
+      "bytes": 65204338,
+      "files": 1261,
+      "sha256": "a1623b3ef01f7b1bef0d32d4a5bbef3c755c4dc08175a814a8ac8e9615250ee7"
+    },
+    "tree": {
+      "bytes": 65208181,
+      "files": 1261,
+      "sha256": "06165099b313b5470120140f9e8efbe6a670a7a9c3045ec57016148badb550ce"
+    }
+  },
+  "profile": "ashlar-r39-nullability-page-and-custody-reconciliation/0.1",
+  "public_report": [
+    {
+      "artifact_identity": "ashlar-local-dev-typed-graph-r21-20261101",
+      "artifact_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
+      "document_id": "ashlar-local-dev-typed-graph-r21-20261101",
+      "document_revision": "1",
+      "registration_id": "4356b0ee-2d21-4a39-9182-b82c66dffd97",
+      "report_sha256": "466a3c0f4f0223499f9f1ba2e9c4bf6a73d74ddcbbc3b9275c89276e6efd502c",
+      "revision": "1"
+    }
+  ],
+  "source_state": {
+    "genesis_ack_checkpoint_sha256": "8e370e1497197b93029ff7f5287d9102802a098fbc4ea02b1e6bf20339841f9f",
+    "genesis_ack_outcome": "matched",
+    "no_page2_publication_or_ack": true,
+    "r39_failure_source_ack_attempted": false,
+    "r39_page_prior_equals_ack_checkpoint": true
+  }
+}

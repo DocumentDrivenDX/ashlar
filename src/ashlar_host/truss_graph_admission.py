@@ -251,6 +251,12 @@ class TrussGraphAdmission:
             if any(prop['definitionPin']!=record['fields'][prop_id]for prop_id,prop in props.items()):raise PermissionError('Actual property definition pin differs')
             for pid,prop in props.items():
                 family,nullability=record['domains'][pid];kind=prop['value']['kind']
+                # An absent-allowed field may be absent or explicitly null.
+                # Keep the delivered null carrier present in the event; only
+                # skip family-specific value/facet checks for that null.
+                if kind=='null':
+                    if nullability!='absent-allowed':raise PermissionError('Explicit null requires accepted absent-allowed field')
+                    continue
                 if kind!=family:raise PermissionError('Original scalar family/nullability differs')
                 require_facet_value(family,record['facets'][pid],prop['value'])
         else:
