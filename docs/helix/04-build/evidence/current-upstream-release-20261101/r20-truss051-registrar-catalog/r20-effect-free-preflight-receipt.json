@@ -1,0 +1,74 @@
+{
+  "all_r20_paths_absent": true,
+  "native_dispatch_enabled": false,
+  "registrar_catalog_api_shape": "passed",
+  "scope_sha256": "b866143aff5e7acf2f744a446ad888b5cc98eb777cb456262c04fe91a98fc47e",
+  "status": "passed_actual_r20_worker_and_supervisor_effect_free_preflight",
+  "supervisor": {
+    "database_contacted": false,
+    "dispatch_enabled": false,
+    "output_root_created": false,
+    "postgres_started": false,
+    "process_snapshot_count": 1334,
+    "retained_source_bytes": 65013817,
+    "retained_source_files": 1249,
+    "retained_source_pgdata_owners": 0,
+    "retained_source_tree_digest_sha256": "e9083cf72e3471923bdc0af00c6edb2c8bf8787c278c8f3f8cdbd2f6a22e63f7",
+    "scope_sha256": "b866143aff5e7acf2f744a446ad888b5cc98eb777cb456262c04fe91a98fc47e",
+    "status": "passed_effect_free_supervisor_preflight",
+    "supervisor_root_created": false,
+    "supervisor_sha256": "e553cfbfdf131268c664d353d5bfd630d9904e3b06ee06abc1b2f59698fb7414",
+    "worker_sha256": "701efa340734396c65a39dc4e07b04976ac09cfcf97a10d89825c6a446761a8a",
+    "worker_started": false
+  },
+  "supervisor_sha256": "275ca16eb3332991dd1eca3bc65ba13ce8374fb7935857052ff2fc0acfc3d8cd",
+  "worker": {
+    "acknowledgement": false,
+    "database_contacted": false,
+    "delta_written": false,
+    "dispatch_enabled": false,
+    "expected_first_page": {
+      "consumer_id": "ashlar-local-dev-typed-graph-consumer-r6-20261031",
+      "outcome": "transaction",
+      "page_bytes": 32337,
+      "page_sha256": "de5c6d50f03082e5650126db86b4b50871a70f3a74f183a06a1f645a31e51760",
+      "prior_sha256": "802f677f84076a2deaa1da682c836550a38654e2e1b67494b9cd2acf01299725",
+      "profile": "ashlar-truss-first-page-binding/0.1",
+      "registration_id": "fdc09c3f-be99-444a-8031-a48ae4f527ec",
+      "writer_xid": "754"
+    },
+    "free_bytes": 323439783936,
+    "output_root_created": false,
+    "postgres_started": false,
+    "process_custody": {
+      "inventory_command": "/bin/ps -Ao pid=,command=",
+      "matching_processes": 0,
+      "source_path": "/private/tmp/ashlar-r19-truss051-delta-publication-20261101/r16b-stopped-source-backup-pgdata",
+      "status": "passed"
+    },
+    "public_api_imports": "passed",
+    "required_free_bytes": 668380616,
+    "separate_catalog_factory_api": "passed",
+    "source_tree": [
+      65754852,
+      "b1ab6a55e3d13981e706b0cdb7ddd653ba7db9e241da6bef9ad4c16a47adc82e",
+      1255
+    ],
+    "spark_runtime": {
+      "delta_spark": "4.4.1",
+      "jars": {
+        "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+        "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+      },
+      "jdk": "21",
+      "pyspark": "4.2.0",
+      "python": "3.12",
+      "sessionSettings": {
+        "spark.sql.legacy.parameterSubstitution.constantsOnly": "true"
+      }
+    },
+    "spark_started": false,
+    "status": "passed_effect_free_worker_preflight"
+  },
+  "worker_sha256": "701efa340734396c65a39dc4e07b04976ac09cfcf97a10d89825c6a446761a8a"
+}
