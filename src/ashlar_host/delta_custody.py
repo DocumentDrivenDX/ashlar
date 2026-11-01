@@ -84,6 +84,57 @@ def encoded(value):
 def sha(value):
     return hashlib.sha256(value.encode()).hexdigest()
 
+
+_LOCAL_INSTALLATION_PROFILES = frozenset((
+    'ashlar-local-current-installation-profile/0.1',
+    'ashlar-local-current-installation-profile/0.2',
+    'ashlar-local-current-installation-profile/0.3',
+    'ashlar-local-current-installation-profile/0.4',
+))
+
+
+def _retained_installation_profile(profile, targets=None):
+    """Validate and freeze a supported local installation profile.
+
+    The SDK 0.10.1 `/0.4` profile has a closed, version-specific identity and
+    six carrier-role aliases. Its semantic schema/UMF checks remain owned by
+    `verify_local_current_profile`; this transport gate binds its exact role
+    aliases to the six registered native targets and retains the complete bytes.
+    """
+    if (type(profile) is not dict or len(encoded(profile).encode()) > 65536
+            or profile.get('profile') not in _LOCAL_INSTALLATION_PROFILES):
+        raise LocalDeltaError('Exact bounded local current installation profile required')
+    original = json.loads(encoded(profile))
+    if original['profile'] == 'ashlar-local-current-installation-profile/0.4':
+        from .configured_local_delta4_publication import (
+            INSTALLATION_ROLES, LOCAL_ROLE_BY_CARRIER, _delta4_profile_role,
+            _valid_installation_profile_identity,
+        )
+        try:
+            if not _valid_installation_profile_identity(original):
+                raise LocalDeltaError('Exact SDK 0.10.1 local `.4` installation profile required')
+            for role in INSTALLATION_ROLES:
+                selected = _delta4_profile_role(original, role)
+                alias = LOCAL_ROLE_BY_CARRIER[role]
+                if selected.get('table') != 'local.configured.' + alias:
+                    raise LocalDeltaError('SDK 0.10.1 `.4` role alias differs from the closed local profile')
+            if targets is not None:
+                by_table = {target.table: target for target in targets}
+                expected = {'local.configured.' + local for local in LOCAL_ROLE_BY_CARRIER.values()}
+                if set(by_table) != expected:
+                    raise LocalDeltaError('Complete six-role SDK 0.10.1 `.4` target registry required')
+                for role in INSTALLATION_ROLES:
+                    selected = _delta4_profile_role(original, role)
+                    target = by_table.get(selected['table'])
+                    if (target is None or selected.get('path') != str(target.path)
+                            or selected.get('uuid') != target.uuid):
+                        raise LocalDeltaError('SDK 0.10.1 `.4` role profile differs from its native target')
+        except LocalDeltaError:
+            raise
+        except (ValueError, TypeError, KeyError) as error:
+            raise LocalDeltaError('Malformed SDK 0.10.1 `.4` installation profile') from error
+    return original
+
 def child_operation(operation, statement, parameters):
     return operation + ':' + sha(encoded({'statement': statement, 'parameters': parameters}))
 
@@ -239,13 +290,8 @@ class LocalDeltaTransport:
     def _open(self, spark, journal_path, installation_id, targets, policy, *, create, context, capacity, installation_profile):
         self.operation_capacity = operation_capacity(capacity)
         if installation_profile is not None:
-            if (type(installation_profile) is not dict or len(encoded(installation_profile).encode()) > 65536
-                    or installation_profile.get('profile') not in (
-                        'ashlar-local-current-installation-profile/0.1',
-                        'ashlar-local-current-installation-profile/0.2',
-                        'ashlar-local-current-installation-profile/0.3')):
-                raise LocalDeltaError('Exact bounded local current installation profile required')
-            installation_profile = json.loads(encoded(installation_profile))
+            installation_profile = _retained_installation_profile(
+                installation_profile, targets=targets)
         self.installation_profile = installation_profile
         if type(installation_id) is not str or not re.fullmatch('[A-Za-z0-9][A-Za-z0-9:_-]{0,1023}', installation_id) or (not targets):
             raise LocalDeltaError('Explicit original installation/table registry required')
@@ -339,6 +385,19 @@ class LocalDeltaTransport:
         return target.path / '.ashlar-local-installation-reservation.json'
 
     def _journal(self, registry, *, create):
+        if type(registry) is not str:
+            raise LocalDeltaError('Canonical original installation registry required')
+        try:
+            registry_value = json.loads(registry)
+        except (TypeError, ValueError) as error:
+            raise LocalDeltaError('Canonical original installation registry required') from error
+        if type(registry_value) is not dict or encoded(registry_value) != registry:
+            raise LocalDeltaError('Canonical original installation registry required')
+        if registry_value.get('installation_profile') is not None:
+            retained_profile = _retained_installation_profile(
+                registry_value['installation_profile'], targets=self.targets.values())
+            if retained_profile != registry_value['installation_profile']:
+                raise LocalDeltaError('Original installation profile is not canonical')
         if create:
             descriptor = os.open(self.journal_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 384)
             os.close(descriptor)
@@ -378,13 +437,8 @@ class LocalDeltaTransport:
             raise LocalDeltaError('Private bounded original journal required')
         registry = {'installation': installation_id, 'targets': [{'table': t.table, 'path': str(t.path), 'uuid': t.uuid} for t in sorted(targets, key=lambda t: t.table)]}
         if installation_profile is not None:
-            if (type(installation_profile) is not dict or len(encoded(installation_profile).encode()) > 65536
-                    or installation_profile.get('profile') not in (
-                        'ashlar-local-current-installation-profile/0.1',
-                        'ashlar-local-current-installation-profile/0.2',
-                        'ashlar-local-current-installation-profile/0.3')):
-                raise LocalDeltaError('Exact bounded local current installation profile required')
-            registry['installation_profile'] = json.loads(encoded(installation_profile))
+            registry['installation_profile'] = _retained_installation_profile(
+                installation_profile, targets=targets)
         selected = operation_capacity(capacity)
         if selected is not None: registry['operation_capacity'] = dict(selected)
         definitions = local_journal_definitions()

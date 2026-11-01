@@ -8,12 +8,14 @@ from pathlib import Path
 import sqlite3
 import tempfile
 import unittest
+import uuid
 from types import SimpleNamespace
 
 from ashlar.attempt_store import verify_request_digest
 from ashlar.native import SQLResult, quote_table_identifier
 from ashlar_host.delta_custody import (
-    LocalDeltaError, LocalDeltaUncertain, LocalDeltaTransport, encoded, sha,
+    LocalDeltaError, LocalDeltaUncertain, LocalDeltaTransport, _retained_installation_profile,
+    encoded, sha,
 )
 from ashlar_host.local_receipt_codec import original_receipt_chunks
 from ashlar_host.managed_current_carriers import load_current_managed_carriers
@@ -270,6 +272,91 @@ def reservation_for(transport, request):
 
 
 class Tests(unittest.TestCase):
+    def sdk0101_profile(self, root, targets):
+        from ashlar.typed_graph_source_sdk0101 import GRAPH_CHECK_PIN
+        from ashlar_host.configured_local_delta4_publication import (
+            INSTALLATION_ROLES, LOCAL_ROLE_BY_CARRIER,
+        )
+        from ashlar_host.local_current_delta4_umf_sdk0101 import (
+            BRIDGE_SHA256, BUILD_INPUTS_SHA256, LOCAL_TARGET_PROFILE, MANIFEST_SHA256,
+            SOURCE_POLICY_SHA256, UMF_REALIZATION_PROFILE,
+        )
+        roles = {}
+        for role in INSTALLATION_ROLES:
+            alias = LOCAL_ROLE_BY_CARRIER[role]
+            target = targets["local.configured." + alias]
+            roles[alias] = {"carrier_role": role, "table": target.table,
+                            "path": str(target.path), "uuid": target.uuid}
+        return {
+            "profile": "ashlar-local-current-installation-profile/0.4",
+            "physical_profile": "ashlar-delta/0.4-xxhash64",
+            "lookup_hash_profile": "spark-xxhash64-typed-key/0.1",
+            "generated_carriers_sha256": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa",
+            "umf_revision": "0.10.1", "local_realization": LOCAL_TARGET_PROFILE,
+            "umf_realization_profile": UMF_REALIZATION_PROFILE,
+            "umf_candidate_commit": GRAPH_CHECK_PIN,
+            "umf_selected_tag_commit": GRAPH_CHECK_PIN,
+            "umf_archive_sha256": "3d95fff822f4f44b3d1a8e56185c3697e94ee66f5315cda7389f5301f3d16d26",
+            "umf_source_policy_sha256": SOURCE_POLICY_SHA256,
+            "umf_realization_manifest_sha256": MANIFEST_SHA256,
+            "umf_bridge_sha256": BRIDGE_SHA256,
+            "umf_build_inputs_sha256": BUILD_INPUTS_SHA256,
+            "source_policy_revision": "ashlar-local-current-delta4-sdk0101-source-policy/0.1",
+            "typed_graph_source_revision": GRAPH_CHECK_PIN,
+            "writer_settings": [{"key": "spark.sql.parquet.compression.codec", "value": "zstd"}],
+            "roles": roles,
+        }
+
+    def test_sdk0101_profile_is_exact_and_bound_to_all_six_transport_targets(self):
+        from ashlar_host.delta_custody import DeltaTarget
+        from ashlar_host.configured_local_delta4_publication import (
+            INSTALLATION_ROLES, LOCAL_ROLE_BY_CARRIER,
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            targets = {}
+            for role in INSTALLATION_ROLES:
+                alias = LOCAL_ROLE_BY_CARRIER[role]
+                path = root / alias
+                path.mkdir()
+                table = "local.configured." + alias
+                targets[table] = DeltaTarget(
+                    table, path, str(uuid.uuid5(uuid.NAMESPACE_URL, "sdk0101-" + role)))
+            profile = self.sdk0101_profile(root, targets)
+            self.assertEqual(_retained_installation_profile(
+                profile, targets=targets.values()), profile)
+
+            changed = dict(profile, typed_graph_source_revision="0" * 40)
+            with self.assertRaisesRegex(LocalDeltaError, "profile"):
+                _retained_installation_profile(changed, targets=targets.values())
+            with_extra = dict(profile, unrecognized=True)
+            with self.assertRaisesRegex(LocalDeltaError, "profile"):
+                _retained_installation_profile(with_extra, targets=targets.values())
+            wrong_target = dict(targets)
+            first = next(iter(wrong_target.values()))
+            wrong_target[first.table] = DeltaTarget(first.table, first.path, str(uuid.uuid4()))
+            with self.assertRaisesRegex(LocalDeltaError, "native target"):
+                _retained_installation_profile(profile, targets=wrong_target.values())
+
+            registry = {"installation": "sdk0101-test",
+                        "targets": [{"table": target.table, "path": str(target.path),
+                                     "uuid": target.uuid}
+                                    for target in sorted(targets.values(), key=lambda item: item.table)],
+                        "installation_profile": profile}
+            transport = object.__new__(LocalDeltaTransport)
+            transport.journal_path = root / "operations.sqlite"
+            transport.targets = targets
+            transport._journal(encoded(registry), create=True)
+            transport.db.execute("CREATE TABLE local_delta4_attempt_phase(request_digest TEXT NOT NULL,phase TEXT NOT NULL,payload_json TEXT NOT NULL,payload_sha256 TEXT NOT NULL,PRIMARY KEY(request_digest,phase))")
+            transport.db.execute("CREATE TABLE local_delta4_metadata_lane_reservation(operation TEXT PRIMARY KEY,original TEXT NOT NULL,digest TEXT NOT NULL)")
+            transport.db.execute("CREATE TABLE local_delta4_output_receipt(request_digest TEXT PRIMARY KEY,original TEXT NOT NULL,receipt_sha256 TEXT NOT NULL)")
+            transport.db.execute("CREATE TABLE local_delta4_metadata_operation(operation TEXT PRIMARY KEY,lane TEXT NOT NULL,intent TEXT NOT NULL,intent_sha TEXT NOT NULL,before_version INTEGER NOT NULL,state TEXT NOT NULL,receipt TEXT)")
+            transport.db.commit()
+            transport.db.close()
+            LocalDeltaTransport.require_existing_journal(
+                transport.journal_path, "sdk0101-test", tuple(targets.values()),
+                installation_profile=profile)
+
     def setUp(self):
         configuration = load_typed_graph_jsonl_configuration(CONFIG)
         self.plan = plan_configured_local_delta4_transaction1(
