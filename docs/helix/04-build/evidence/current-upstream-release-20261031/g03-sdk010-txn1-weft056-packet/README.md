@@ -170,6 +170,13 @@ No `dispatch.json`, Spark session, installation, transaction or query exists.
 The separate `execute` step will take another process inventory immediately
 before dispatch if the exact permit is granted.
 
+The effect-free [R4 transaction-one release gate](r4-transaction1-gate/README.md)
+now binds the prepared initializer and Weft 0.4.56 wheel, but remains blocked
+until that exact attempt produces its SDK010 six-role initialization result.
+The null publication vector is retained; exact `.4`-bound Weft requests and
+responses remain downstream consumer evidence. No transaction-one dispatch is
+authorized by that gate.
+
 ## r3 disposition and timeout finding
 
 The consumed r3 attempt is

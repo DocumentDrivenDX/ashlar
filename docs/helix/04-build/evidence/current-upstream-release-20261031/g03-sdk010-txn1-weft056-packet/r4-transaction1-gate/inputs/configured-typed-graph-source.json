@@ -1,0 +1,21 @@
+{
+  "profile": "ashlar-jsonl-typed-graph-source/0.1",
+  "feed": "typed-graph-jsonl",
+  "epoch": "typed-graph-1",
+  "sourceSystem": "typed-graph-source",
+  "schemaAlias": "typed-graph",
+  "documentRevision": "1",
+  "producerRevision": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+  "source": {
+    "path": "typed-graph-source.jsonl",
+    "sha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b"
+  },
+  "schema": {
+    "path": "typed-graph-model.umf.json",
+    "sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b"
+  },
+  "bindings": {
+    "path": "typed-graph-binding.json",
+    "sha256": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863"
+  }
+}

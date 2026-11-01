@@ -1,0 +1,75 @@
+{
+  "profile": "ashlar-g03-sdk010-transaction1-release-gate/0.1",
+  "status": "effect-free candidate; transaction1 native dispatch not authorized",
+  "sourceCommit": "fe0ae9e017b86c454abdfd5b4b630180f2778a07",
+  "sourceTreeObject": "6b5fc884380e040f21c1b51b1cc3f49e84d0e9a4",
+  "gitExecutable": "/opt/homebrew/Cellar/git/2.56.0_1/bin/git",
+  "r4Initialization": {
+    "packetTreeSha256": "a6e18fb93b2f69d4ed305b4c5be93f9c5966758f26fadf49f5c912da272c2b43",
+    "preparedReceiptPath": "r4-init-prepared-receipt.json",
+    "preparedReceiptSha256": "a9b2481b6a8d7ec73fe3a9875bc429345d1eb6c7c3dfffd7b10b8207bceb7303",
+    "processSlotReceiptPath": "r4-init-process-slot-receipt.json",
+    "processSlotReceiptSha256": "c8d6f22b8175921caf39029b0e0060d28e5849f310f9ca2683fb2adcb43e9a90",
+    "attemptRoot": "/private/tmp/ashlar-g03-sdk010-delta4-init-r4-attempts-20261031/ashlar-g03-sdk010-init-5b8b61df4b044481afb9f6fc157720a2",
+    "requiredResult": "init-result.json",
+    "requiredResultProfile": "ashlar-g03-sdk010-six-role-init-result/0.1",
+    "requiredCarrierProfile": "ashlar-delta/0.4-xxhash64",
+    "requiredInstallationProfile": "ashlar-local-current-installation-profile/0.3",
+    "requiredRoleNames": ["object_current", "edge_current", "tombstone", "whole_source_history", "attempts", "manifest"],
+    "requiredExecutionStatusProfile": "ashlar-g03-sdk010-init-execution-status/0.1",
+    "requiredSourcePolicyRevision": "umf-sdk-0.10.0/2fb63dea5ca85b32c6bad823703de526875ac79490234dbfea4a8863c7d5fe6c/b32bce2fdcf928bc5b9fd8376b4c7cab9beb1b63d90cb1d20b9ad0ec94595951"
+  },
+  "inputs": {
+    "configured-typed-graph-source.json": "040545b8cc96701a158b8936750c89f97ce991df9652ceeacf6c66fb9d9fc168",
+    "typed-graph-model.umf.json": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "typed-graph-source.jsonl": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+    "typed-graph-binding.json": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863",
+    "source-oracle.json": "6a0bfb29131c210b68ce7644b93bac484f845526ef87c23482ac1d6d70f344c1",
+    "publication-vector.json": "a4dead441f4c26c550c83ba3b891008b42ab06d647d273ca86e9f20be38488fa",
+    "query-scope.json": "736aafaa0b98ac68c284be4fd559fc818dce9f522deb92024211ebbf1e8192ec",
+    "positive-backend03-request-ashlar-delta-0.3-compiler-only.json": "8e89f94a3933e5f072b794ddee011dc954654b29485637f2d95254f6e9b56605"
+  },
+  "weft056": {
+    "distribution": "umf-weft",
+    "version": "0.4.56",
+    "sourceCommit": "2f62e1148d1b2030558550e4f6f2ffe518bac62d",
+    "wheelPath": "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/wheels/umf_weft-0.4.56-cp39-abi3-macosx_11_0_arm64.whl",
+    "wheelSha256": "68f9297b4b55df483b86d3041040991c4dadfb9b4d63afcff1420c43f93ae41d",
+    "directUrlRecordSha256": "d9345ae25d865032cf739bce1e2f0447a893e6aba10aaf636ad91416f6acfc08",
+    "compilerResponses": "not-present; exact .4 targets require realized publication vector",
+    "realizedVectorSha256": null
+  },
+  "publicationVector": {
+    "template": "inputs/publication-vector.json",
+    "templateSha256": "a4dead441f4c26c550c83ba3b891008b42ab06d647d273ca86e9f20be38488fa",
+    "realizedVector": null,
+    "state": "not-created; no publication or terminal vector exists"
+  },
+  "runtime": {
+    "python": "/private/tmp/ashlar-r16-truss051-runtime-cohort-20261029/venv/bin/python",
+    "pythonVersion": "3.12.14",
+    "pyspark": "4.2.0",
+    "deltaSpark": "4.4.1",
+    "miniRacer": "0.14.1",
+    "javaExecutableSha256": "382e51393d712cf7e228a606142d3c079f5fe12e4b599c62fdd1470e40fe7916",
+    "sparkMaster": "local[1]",
+    "driverMemory": "512m"
+  },
+  "limits": {
+    "wallSeconds": 450,
+    "attemptBytes": 536870912,
+    "processGroupRssBytes": 2147483648,
+    "combinedOutputBytes": 1048576,
+    "resultBytes": 1048576,
+    "attempts": 1,
+    "automaticRetries": 0
+  },
+  "effects": {
+    "sparkStarted": false,
+    "deltaStarted": false,
+    "transaction1Dispatched": false,
+    "publication": false,
+    "ack": false,
+    "cloud": false
+  }
+}

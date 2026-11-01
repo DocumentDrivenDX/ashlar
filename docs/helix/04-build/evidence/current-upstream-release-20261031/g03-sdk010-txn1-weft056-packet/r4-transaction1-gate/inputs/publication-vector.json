@@ -1,0 +1,19 @@
+{
+  "profile": "ashlar-g03-single-retained-publication-vector/0.1",
+  "state": "immutable-null-template",
+  "mutationPolicy": "Never edit or populate this template. A later one-shot worker must create a new exclusive realized-publication-vector.json from retained publication receipt plus independently reopened Delta identities, then include that file's canonical SHA-256 in every query target and gate manifest.",
+  "carrierProfile": "ashlar-delta/0.4-xxhash64",
+  "publicationId": null,
+  "manifestUuid": null,
+  "dataRoles": {
+    "edge_current": {"uuid": null, "version": null},
+    "object_current": {"uuid": null, "version": null},
+    "tombstone": {"uuid": null, "version": null},
+    "whole_source_history": {"uuid": null, "version": null}
+  },
+  "sixRoleInstallationInventory": {
+    "state": "must-be-captured-from-existing-reviewed-.4-initialization-or-the-fresh-initializer",
+    "roles": ["object_current", "edge_current", "tombstone", "whole_source_history", "publication_attempt_phase", "publication_manifest"]
+  },
+  "bindingRule": "This null template is not a runtime vector. Create a separate realized-publication-vector.json only after the one transaction-1 publication exists. Canonicalize and hash that realized file once. Every query target, source read, open check, renewal and close check uses that exact digest."
+}
