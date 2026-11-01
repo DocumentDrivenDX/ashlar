@@ -774,3 +774,54 @@ feed, establish a genesis position, construct progress, validate registration
 semantics, prove Truss acceptance, or confer source/ACK authority. The cursor's
 absence of feed and ACK fields is deliberate; those selections remain external.
 Authored tests cover parser/correspondence mechanics only, not Truss acceptance.
+
+### Proposed versioned genesis-progress and initialization seam
+
+Do not represent a source before its first page as a `truss_checkpoint`. A
+candidate `ashlar-truss-source-genesis-progress/0.1` value would explicitly
+retain the separately selected feed and epoch, exact canonical-base64 genesis
+cursor plus digest, catalog-registration ID and digest, consumer ID and
+consumer-registration ID, installation identity, and a closed
+`ashlar-source-page-absent/0.1` sentinel. Catalog and consumer registration
+IDs remain distinct.
+It has no `previous`, payload digest or batch ID. Its feed comes from public
+registration admission and the R04 source binding, never cursor decoding.
+
+The minimal Ashlar operation is a create-once
+`ManagedCurrentGenesisManifestOwner.initialize(...)`. It would require both
+independently admitted Truss registration/cursor pairs, the exact frozen R04
+schedule and accepted A/B model evidence, plus a fresh six-role target whose
+four data roles are verified empty. It would write one immutable initial
+manifest over the observed four-role vector, with `ashlar-delta/0.4-xxhash64`
+as physical profile and a validation-report discriminator
+`ashlar-managed-current-genesis-manifest/0.1`. The report binds both source
+identities and digests, complete genesis progress, six-role inventory, empty
+row-bag witnesses and exact time. The row means source-genesis initialization;
+it claims no page or ACK. Its stable manifest ID becomes the predecessor for
+A1.
+
+The first A1 manifest replaces only A's genesis marker with its actual
+`truss-native-feed/0.1` checkpoint and retains B's marker. B1 later replaces
+B's marker only when its original public prior cursor equals the retained
+genesis bytes. This transition can preserve existing `epoch`/`position`
+continuity, but `progress_union` must additionally validate the marker's
+closed profile, cursor digest and selected identity before accepting it.
+`ManagedCurrentIncrementalPublicationDriver` currently supports only an empty
+sentinel predecessor or an earlier committed incremental-page attempt, so it
+needs a special verified genesis-manifest predecessor branch. The current
+`.1` source-prefix fold starts from empty progress and cannot represent the
+unchanged B marker; a separately versioned full-prefix oracle must seed its
+fold from the two selected markers and retain the original initialization
+manifest. Existing `.1` and `/0.2` meanings remain unchanged until that carrier
+change is reviewed.
+
+No implementation is admitted by this proposal. Current candidate Truss
+selection binds one actual page to scheduled identity but does not itself
+provide an independently selected pair of original feed-registration objects
+or a complete Ashlar genesis manifest. The source boundary must expose both
+public registrations and their exact genesis cursors, and Ashlar must gain the
+initial manifest owner before the proposed marker can be used. The relevant
+existing consumers have been checked: manifest progress is opaque JSON, the
+current source binder checks the advanced page entry, but the incremental
+predecessor gate and `.1` oracle require the versioned branches above. No
+cursor-to-checkpoint conversion, native operation, or ACK is authorized here.

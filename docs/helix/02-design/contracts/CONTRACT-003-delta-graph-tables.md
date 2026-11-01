@@ -1957,6 +1957,72 @@ construct progress, establish genesis position, authenticate a registration,
 prove Truss acceptance, or confer source/ACK authority. Registration semantics
 and the complete initial progress remain open external-owner obligations.
 
+### Proposed explicit Truss source-genesis progress state (TD-009)
+
+Draft design only; this state is distinct from every source-page checkpoint and
+does not amend the current manifest writer or A1 run path. A future
+`ashlar-truss-source-genesis-progress/0.1` entry MAY represent one independently
+admitted source before its first page. Its closed value is:
+
+```json
+{"profile":"ashlar-truss-source-genesis-progress/0.1","feed":"selected-feed","epoch":"selected-epoch","position":"<canonical-base64-of-exact-genesis-cursor-bytes>","position_sha256":"<sha256-of-cursor-bytes>","catalog_registration_id":"selected-catalog-registration","catalog_registration_sha256":"<sha256-of-exact-catalog-registration-bytes>","consumer_id":"selected-consumer","consumer_registration_id":"selected-consumer-registration","installation_id":"selected-installation","page":{"profile":"ashlar-source-page-absent/0.1"}}
+```
+
+The feed, epoch, installation, consumer, catalog-registration and
+consumer-registration identities MUST come from separate public source-owner
+admission and MUST be compared to the retained registration and cursor
+observations. The catalog-registration and consumer-registration identifiers
+are distinct fields and MUST NOT be conflated. The cursor bytes MUST be
+preserved exactly and their digest MUST match. The `page` sentinel explicitly
+states that no source page has been accepted or published for this feed. This
+entry MUST NOT contain `previous`, `payload_digest` or `batch_id`, and MUST NOT
+be passed to `truss_checkpoint` or interpreted as a `truss-native-feed/0.1`
+page. In particular, the feed is selected from the registration/schedule, not
+inferred from cursor JSON.
+
+`ashlar-managed-current-genesis-manifest/0.1` is a proposed Ashlar-owned
+initialization operation, not a Truss checkpoint and not a graph publication
+of source-page data. After independently admitting both R04 source
+registrations and exact genesis cursors, accepted model evidence and a fresh
+empty six-role managed target, its owner would append one immutable manifest
+row over the exact initialized four-role vector. The row retains the physical
+`.4` carrier profile, but its complete validation report explicitly identifies
+this genesis-manifest profile and binds the R04 schedule digest, both source
+identity/registration/cursor digests, the exact two-entry genesis progress map,
+the complete six-role inventory, empty four-role row witnesses and recorded
+clock. Its deterministic publication ID and exact bytes are retained before
+the first page request. This setup row MUST NOT claim source-page acceptance,
+page payload, batch identity, or a source ACK.
+
+The first A1 page request MUST name that exact genesis-manifest ID as its
+predecessor. The first page's progress transition replaces A's explicit
+genesis entry with its actual page checkpoint and preserves B's exact genesis
+entry. A later B1 transition replaces B's entry only after its public prior
+cursor equals the retained genesis cursor. Progress transition code MUST
+recognize and validate this versioned marker before using its `epoch` and
+`position` continuity anchors; generic maps or matching cursor strings do not
+establish source admission. Once a feed has an actual page checkpoint, existing
+page-checkpoint semantics apply.
+
+This design requires coordinated versioned changes before implementation:
+the manifest owner needs a create-once/reopenable initialization API; the
+incremental publisher needs a narrowly admitted genesis-manifest predecessor
+case; and the managed source-prefix oracle needs a new profile seeded from the
+two selected genesis entries rather than empty progress. The existing
+`managed-current-incremental-genesis/0.1` sentinel and source-prefix `/0.1`
+remain unchanged. The `/0.2` draft can retain the exact initial genesis
+manifest and two-entry progress map, but its validator MUST validate the new
+profile against both independently selected registration/cursor pairs.
+
+The proposed public source-owner boundary must return or durably expose the
+original registration bytes, consumer registration identity, installation and
+epoch, and exact genesis cursor bytes for both feeds, with a reread that proves
+each is still at genesis. Ashlar's publication owner must separately select
+the empty-target six-role inventory and model/schema evidence before creating
+the initial row. Neither implementation is presently selected or qualified.
+The proposal establishes no production source authority, managed-UC behavior,
+retention, or ACK permission.
+
 ## `ashlar-managed-operational-retention/0.1` observation carrier
 
 This profile adds a receipt-side observation carrier only. It does not change
