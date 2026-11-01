@@ -1,0 +1,252 @@
+{
+  "attempt_root": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101",
+  "conclusion": {
+    "attempt_root_reusable": false,
+    "cause": "The Truss report encodes revision as JSON text while CatalogRegistration exposes revision as an integer; the selector compared them without converting the integer to its public JSON representation.",
+    "effects": "Six-role Delta installation metadata/reservations exist, but no Parquet data or effect journal rows were observed.",
+    "graph_data_publication": false,
+    "postgres_started_and_stopped_on_attempt_clone": true,
+    "source_acknowledgement_attempted": false,
+    "spark_started": true
+  },
+  "delta_roles": {
+    "attempts": {
+      "history": [
+        {
+          "actions": [
+            "commitInfo",
+            "metaData",
+            "protocol"
+          ],
+          "sha256": "aa91d66b5d57822d0f173f9eac45fe5d62a608fc6f497e79b0dd5724811d0777",
+          "version": 0
+        },
+        {
+          "actions": [
+            "commitInfo",
+            "metaData"
+          ],
+          "sha256": "ef3ce1c1207cc6e647a2ea46716ba0b488278e341e155e59161a55af255619d4",
+          "version": 1
+        }
+      ],
+      "parquet_files": 0,
+      "reservation_present": true
+    },
+    "edge_current": {
+      "history": [
+        {
+          "actions": [
+            "commitInfo",
+            "metaData",
+            "protocol",
+            "domainMetadata"
+          ],
+          "sha256": "77977a0687c759c5d31d74d810cbbd3512a7e8cb75efee7a7295a812216138cb",
+          "version": 0
+        },
+        {
+          "actions": [
+            "commitInfo",
+            "metaData"
+          ],
+          "sha256": "d37d01e97d7e397cc3eebe95d95c32aa2837a8aaec1193ca6007cea600519e2c",
+          "version": 1
+        }
+      ],
+      "parquet_files": 0,
+      "reservation_present": true
+    },
+    "manifest": {
+      "history": [
+        {
+          "actions": [
+            "commitInfo",
+            "metaData",
+            "protocol"
+          ],
+          "sha256": "14f50fb018784b22568e99b0554c770aaa0766f6f59cc4639a2c921cd763d84a",
+          "version": 0
+        },
+        {
+          "actions": [
+            "commitInfo",
+            "metaData"
+          ],
+          "sha256": "f7717430465345b048158d3653af2f1ee26d77008e1a811b71c5815664ae1830",
+          "version": 1
+        }
+      ],
+      "parquet_files": 0,
+      "reservation_present": true
+    },
+    "object_current": {
+      "history": [
+        {
+          "actions": [
+            "commitInfo",
+            "metaData",
+            "protocol",
+            "domainMetadata"
+          ],
+          "sha256": "e8ab1cdcfb545ecd045ecfd307b2fd2837bcd14b2bb618a575b4ce633cc14274",
+          "version": 0
+        },
+        {
+          "actions": [
+            "commitInfo",
+            "metaData"
+          ],
+          "sha256": "bc7ce23a4f2ced6458076cbe85f52751192bc17a54bb4ccda711cb117de9d473",
+          "version": 1
+        }
+      ],
+      "parquet_files": 0,
+      "reservation_present": true
+    },
+    "tombstone": {
+      "history": [
+        {
+          "actions": [
+            "commitInfo",
+            "metaData",
+            "protocol",
+            "domainMetadata"
+          ],
+          "sha256": "5bd7d74bcd8a295681592f5ecf5cde1bcccd4f745f25c192fb75fea6aae322c2",
+          "version": 0
+        },
+        {
+          "actions": [
+            "commitInfo",
+            "metaData"
+          ],
+          "sha256": "9a7c5a54b8568cb44ec1aa9d14484dd768d9d8adfd4948baedb10cf9588ed3ba",
+          "version": 1
+        }
+      ],
+      "parquet_files": 0,
+      "reservation_present": true
+    },
+    "whole_source_history": {
+      "history": [
+        {
+          "actions": [
+            "commitInfo",
+            "metaData",
+            "protocol"
+          ],
+          "sha256": "567928cccb0807aa3ceb4d1d0e095d92f04b795a344b4b48695cb25014b28d96",
+          "version": 0
+        },
+        {
+          "actions": [
+            "commitInfo",
+            "metaData"
+          ],
+          "sha256": "ade5057ae5e9bc634dcbfc27e6f2b1a10347209f12975c278ab0af46d51d9fe3",
+          "version": 1
+        }
+      ],
+      "parquet_files": 0,
+      "reservation_present": true
+    }
+  },
+  "failure": {
+    "message": "Exact public local-development source registration/page/request correspondence required",
+    "receipt": {
+      "bytes": 317,
+      "path": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101/receipts/failure.json",
+      "sha256": "b023ecd8ab1370b9a87ffcbb03a784cbce09024388d5d16d4d67d5ff9870e1fe"
+    },
+    "source_ack_attempted": false,
+    "type": "TrussSourceSelectionError"
+  },
+  "local_attempt_files": {
+    "delta/publication-intent-cbf69ea847e30930ec586b2a3d508745f0430da3e9e1628f6b81149b9d58230b.json": {
+      "bytes": 491,
+      "path": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101/delta/publication-intent-cbf69ea847e30930ec586b2a3d508745f0430da3e9e1628f6b81149b9d58230b.json",
+      "sha256": "3887371b41593ece6833d0be7b69805aba2465639db2f5cea6047f777419647a"
+    },
+    "delta/source-page-cbf69ea847e30930ec586b2a3d508745f0430da3e9e1628f6b81149b9d58230b.json": {
+      "bytes": 45654,
+      "path": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101/delta/source-page-cbf69ea847e30930ec586b2a3d508745f0430da3e9e1628f6b81149b9d58230b.json",
+      "sha256": "68b9453d306126ccfee4b08c3073c411361a974994b8a50ab27d8cea9914be0b"
+    },
+    "receipts/failure.json": {
+      "bytes": 317,
+      "path": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101/receipts/failure.json",
+      "sha256": "b023ecd8ab1370b9a87ffcbb03a784cbce09024388d5d16d4d67d5ff9870e1fe"
+    },
+    "receipts/genesis-page-selection.json": {
+      "bytes": 554,
+      "path": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101/receipts/genesis-page-selection.json",
+      "sha256": "94d29d96f37161274b7bc0389d416b01b2b08817653319367af5283026432812"
+    },
+    "receipts/resume-source-copy.json": {
+      "bytes": 549,
+      "path": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101/receipts/resume-source-copy.json",
+      "sha256": "679e0b4f40f9af3bec88ab216ce90ff076e7a542ae317bb3284b2a7156d087ac"
+    },
+    "receipts/resume-source-reconciliation.json": {
+      "bytes": 1222,
+      "path": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101/receipts/resume-source-reconciliation.json",
+      "sha256": "628ec66679cf1b416514d2b7a0c55b0c1d03f71b2f3842e3b1a8de432d00d530"
+    }
+  },
+  "profile": "ashlar-r32-truss052-selector-refusal-reconciliation/0.1",
+  "public_source": {
+    "acceptance_replayed": false,
+    "consumer_enrollment_replayed": false,
+    "genesis_group_replayed": false,
+    "page_acknowledgement": false,
+    "page_receipt": {
+      "bytes": 554,
+      "path": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101/receipts/genesis-page-selection.json",
+      "sha256": "94d29d96f37161274b7bc0389d416b01b2b08817653319367af5283026432812"
+    },
+    "page_sha256": "942a325702683382c99bd92c69a1af6478cf04879fee0f9d8db4cd4e80f8a9a0",
+    "public_readbacks": [
+      "status_in_transaction",
+      "report_in_transaction",
+      "accepted_document_in_transaction",
+      "read_feed_in_transaction"
+    ],
+    "source_receipt": {
+      "bytes": 1222,
+      "path": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101/receipts/resume-source-reconciliation.json",
+      "sha256": "628ec66679cf1b416514d2b7a0c55b0c1d03f71b2f3842e3b1a8de432d00d530"
+    }
+  },
+  "scope_sha256": "1946aa699c708b7c37547db24b9da1cbeebfd90f9b4a81ce972682aea1bd28f2",
+  "sqlite_counts": {
+    "local_installation": 1,
+    "local_operation": 0,
+    "local_plan": 0,
+    "local_publication_artifact": 0,
+    "local_source_plan": 0
+  },
+  "supervisor": {
+    "effects_may_remain": true,
+    "peak_supervised_process_rss_bytes": 1220755456,
+    "postgres_cluster_cleanup": {
+      "postmaster_pid": null,
+      "process_tree": [],
+      "remaining": [],
+      "status": "absent"
+    },
+    "postgres_postmaster_pid_observed": 49190,
+    "process_group_remaining": [],
+    "returncode": 1,
+    "status": "supervisor_stopped_child",
+    "wall_seconds": 31.074
+  },
+  "supervisor_receipt": {
+    "bytes": 1266,
+    "path": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101-supervisor/supervisor-receipt.json",
+    "sha256": "f32d61161213cf41026f7e230dddef8a336c98c1797f9ab1163c78d0e79bd83c"
+  },
+  "supervisor_root": "/private/tmp/ashlar-r32-truss052-page-sequence-20261101-supervisor",
+  "supervisor_sha256": "b79fb3676ff6436bd85b5207fa04633c3efd7c6d60ecbc5c86bc2761a7c9c10d",
+  "worker_sha256": "b91640e28362b06eb8bfb20157ccf1ff7aa0c99337b2e784b3050dbcc9846ab5"
+}
