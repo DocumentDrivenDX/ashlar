@@ -2,10 +2,10 @@
   "attempts": 1,
   "authorization_basis": "standing_user_local_release_authorization",
   "cloud": false,
-  "dispatch_enabled": false,
+  "dispatch_enabled": true,
   "schema": "ashlar.standing-local-dispatch-binding/1",
   "scope_sha256": "752125680d5066355c8ab6421f1475992a485fca9da5a489cdb88d7997d3dac9",
-  "sol_review_status": "pending_sol_review",
+  "sol_review_status": "sol_reviewed",
   "supervisor_sha256": "0bc9595fc215a259f4af00dd4020af6892d335269e3ec50d027cbcd3215b1d34",
   "user_authorization_statement": "User authorized fresh Truss source creation, a local seed, and a tested release; bounded local R20 Truss-to-Delta publication with source ACK deferred is within that standing authorization and requires no per-attempt user approval.",
   "worker_sha256": "701efa340734396c65a39dc4e07b04976ac09cfcf97a10d89825c6a446761a8a"

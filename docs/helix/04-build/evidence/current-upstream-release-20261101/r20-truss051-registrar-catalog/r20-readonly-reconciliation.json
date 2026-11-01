@@ -1,0 +1,216 @@
+{
+  "process_inventory_after_all_runs": {
+    "r20_owned_processes": [],
+    "sampled_process_count": 1290
+  },
+  "publication": {
+    "acknowledged": false,
+    "deferred_ack_intent_sha256": "d3f6ebe7e5b2df620bfb045981088d6a73a595a6e3ad6eba853ce80e1d041b6c",
+    "manifest_sha256": "e6a7da803b4e7d27c6340d21c89d35534003229272dd5682ccc1d2a064617358",
+    "publication_committed": true,
+    "publication_id": "truss-graph-949ff6d2eaa6e605d22432366c3ae4b557dfae10ecc858eecb7920a43e450f2b",
+    "publication_vector": {
+      "authority": "private-local-process",
+      "custody_digest": "e6a7da803b4e7d27c6340d21c89d35534003229272dd5682ccc1d2a064617358",
+      "scope_id": "truss-graph-949ff6d2eaa6e605d22432366c3ae4b557dfae10ecc858eecb7920a43e450f2b",
+      "scope_kind": "manifest",
+      "targets": {
+        "local.trussgraph.edge_current": [
+          "6af413a9-6324-4f9b-a8ac-c2d8fededb27",
+          1
+        ],
+        "local.trussgraph.object_current": [
+          "007c6ab7-f602-4047-88d0-80c67594f1ab",
+          1
+        ],
+        "local.trussgraph.tombstone": [
+          "254b7134-6e35-4a4e-97b8-03522b552308",
+          1
+        ],
+        "local.trussgraph.whole_source_history": [
+          "90ca86d0-7818-4672-b321-06ee3b3d0329",
+          1
+        ]
+      }
+    },
+    "request_digest": "949ff6d2eaa6e605d22432366c3ae4b557dfae10ecc858eecb7920a43e450f2b",
+    "request_sha256": "fc4553b8279f56c39f7864c5d7d743e78fd993f96aff066b35fd4bd8ee982289",
+    "result_sha256": "963a8bf751c2be6994c47a31ddb593f2fc9b809d3cc2160eef2845653da60139",
+    "source_acknowledgement": "deferred_not_attempted"
+  },
+  "receipt_hashes": {
+    "accepted-document-public-reread.json": "4ff76ce7612f34736aa2377fc3a1d7a4fcb32634febc055c5f0bf3a3b9ec370a",
+    "completed.json": "de493c951d87f7bee47676330a05ea852a196b1577a35cba70b3b1e877d7d407",
+    "native-delta-publication-readback.json": "d165014df83464c543e21e5dfe39409dc22063ecf2f4d34e759a47fd1eeda2da",
+    "original-unacknowledged-page-reread.json": "6554b21170bb097da62162a2537583be6bb5a1f4d54fde9721d2b289eafc99b7",
+    "registrar-catalog-acl-preflight.json": "96a073cbec8879498a7d320ec477a523cc18d780f6c59e195233a8356a907e45",
+    "registrar-catalog-public-reread.json": "9a749ceb8d211f8af1616c1d2d21e520e778d8beae2a3e546e02b0cd31713aca",
+    "source-ack-deferred-proof.json": "5acd365cde91ba1f90e8a6efcc2e2793eea5a160edb47e8d5725b957c3e1630c",
+    "source-copy-custody.json": "f9b08498df6bb5e31dff71f92b04d8e368c754e81da2acd8055801cc8071c056",
+    "spark-delta-runtime.json": "981f85adc3b105259930a8e1faeffbf66e90ace257f3796b10d613e99459ff36"
+  },
+  "schema": "ashlar.r20-readonly-publication-reconciliation/1",
+  "source": {
+    "accepted_public_api": true,
+    "document_id": "ashlar-local-dev-typed-graph-r6-20261031",
+    "document_sha256": "2c9b295a8232cae4770255650bf634941ab223e582b79ae2bb78f6acf0b8a880",
+    "feed_page_sha256": "de5c6d50f03082e5650126db86b4b50871a70f3a74f183a06a1f645a31e51760",
+    "fresh_stopped_clone_ack_rows": 0,
+    "fresh_stopped_clone_checkpoint_sha256": "802f677f84076a2deaa1da682c836550a38654e2e1b67494b9cd2acf01299725",
+    "fresh_stopped_clone_public_page_query": {
+      "ack_rows": 0,
+      "acknowledgement": false,
+      "checkpoint_sha256": "802f677f84076a2deaa1da682c836550a38654e2e1b67494b9cd2acf01299725",
+      "next_sha256": "195f826d5257fbcd920c19569d9dc33930dfeef22aa7ee14dce3e6c3fe4f280c",
+      "page_sha256": "de5c6d50f03082e5650126db86b4b50871a70f3a74f183a06a1f645a31e51760",
+      "prior_sha256": "802f677f84076a2deaa1da682c836550a38654e2e1b67494b9cd2acf01299725",
+      "public_api": "Truss .51 read_page; pg_catalog-authorized read-only checkpoint/ACK query"
+    },
+    "next_checkpoint_sha256": "195f826d5257fbcd920c19569d9dc33930dfeef22aa7ee14dce3e6c3fe4f280c",
+    "page_unchanged": true,
+    "prior_checkpoint_sha256": "802f677f84076a2deaa1da682c836550a38654e2e1b67494b9cd2acf01299725",
+    "registrar_catalog_public_api_receipt": true
+  },
+  "source_custody": {
+    "audit_query_transaction_mode": "READ ONLY",
+    "database_dml": false,
+    "r19_retained_source": {
+      "bytes": 65754852,
+      "files": 1255,
+      "tree_sha256": "b1ab6a55e3d13981e706b0cdb7ddd653ba7db9e241da6bef9ad4c16a47adc82e"
+    },
+    "r20_audit_clone_after_readonly_query_and_shutdown": {
+      "bytes": 65822940,
+      "files": 1255,
+      "tree_sha256": "033eaa799da6c0d46602924b7d6efc7a25931192d158943b90fb2e6e1cf36315"
+    },
+    "r20_cold_backup": {
+      "bytes": 65754852,
+      "files": 1255,
+      "tree_sha256": "b1ab6a55e3d13981e706b0cdb7ddd653ba7db9e241da6bef9ad4c16a47adc82e"
+    },
+    "r20_migration_clone_after_worker_stop": {
+      "bytes": 65982619,
+      "files": 1256,
+      "tree_sha256": "1aed6af3f1c05d411bf9b3197e99681e7a9349e836f60b7fc78057252640cef3"
+    }
+  },
+  "status": "passed_independent_readonly_reconciliation",
+  "supervisor": {
+    "database_effects_may_remain": true,
+    "failure": "child exited with process-group members remaining: [59112]",
+    "process_custody_status": "no_owned_processes_remain",
+    "process_group_termination": {
+      "remaining_pids": [],
+      "signals_sent": [
+        "SIGTERM"
+      ],
+      "status": "terminated"
+    },
+    "receipt_sha256": "3dd667722d4a652981a238ad945ebdd94a85e382d64902be477a393c9ab24c17",
+    "status": "failed_or_interrupted",
+    "worker_completed_receipt_sha256": "de493c951d87f7bee47676330a05ea852a196b1577a35cba70b3b1e877d7d407"
+  },
+  "tables": [
+    {
+      "action_counts": {
+        "commitInfo": 2,
+        "domainMetadata": 1,
+        "metaData": 2,
+        "protocol": 1
+      },
+      "active_files": [],
+      "data_bag": "empty",
+      "head_json_sha256": "10cd156622cd1ef71b065ff8f414af321bf1c04c90853e4e1c461c3f6aeec51f",
+      "head_version": 1,
+      "log_history": [
+        {
+          "sha256": "3fdb32448e7e0ec3710493b66f5d442910b81f824d785fb0940a7fa45b2424fd",
+          "version": 0
+        },
+        {
+          "sha256": "10cd156622cd1ef71b065ff8f414af321bf1c04c90853e4e1c461c3f6aeec51f",
+          "version": 1
+        }
+      ],
+      "physical_parquet_files": [],
+      "table": "local.trussgraph.edge_current",
+      "uuid": "6af413a9-6324-4f9b-a8ac-c2d8fededb27"
+    },
+    {
+      "action_counts": {
+        "commitInfo": 2,
+        "domainMetadata": 1,
+        "metaData": 2,
+        "protocol": 1
+      },
+      "active_files": [],
+      "data_bag": "empty",
+      "head_json_sha256": "b7795e4c44a75473dc894c0f91850fd960e187fbe76560e4fde28716d2ecfb2d",
+      "head_version": 1,
+      "log_history": [
+        {
+          "sha256": "b1e67a02668d1684748d50274d73bd0cc8ca6311a3fbc7d23bde24ef0faf0340",
+          "version": 0
+        },
+        {
+          "sha256": "b7795e4c44a75473dc894c0f91850fd960e187fbe76560e4fde28716d2ecfb2d",
+          "version": 1
+        }
+      ],
+      "physical_parquet_files": [],
+      "table": "local.trussgraph.object_current",
+      "uuid": "007c6ab7-f602-4047-88d0-80c67594f1ab"
+    },
+    {
+      "action_counts": {
+        "commitInfo": 2,
+        "domainMetadata": 1,
+        "metaData": 2,
+        "protocol": 1
+      },
+      "active_files": [],
+      "data_bag": "empty",
+      "head_json_sha256": "8a4225fc500568af52454701074fca69b91be8ae356545587f94d99650a3dacc",
+      "head_version": 1,
+      "log_history": [
+        {
+          "sha256": "bb8eab9729cf421a5eedb73da5e0b327f808ac7b3e0cdcb3103f9ef02889e41c",
+          "version": 0
+        },
+        {
+          "sha256": "8a4225fc500568af52454701074fca69b91be8ae356545587f94d99650a3dacc",
+          "version": 1
+        }
+      ],
+      "physical_parquet_files": [],
+      "table": "local.trussgraph.tombstone",
+      "uuid": "254b7134-6e35-4a4e-97b8-03522b552308"
+    },
+    {
+      "action_counts": {
+        "commitInfo": 2,
+        "metaData": 2,
+        "protocol": 1
+      },
+      "active_files": [],
+      "data_bag": "empty",
+      "head_json_sha256": "449ed9a9b1ffcd167daa14119c16dde9e21ec7d2879dee5b3da8a39cdd7c36d8",
+      "head_version": 1,
+      "log_history": [
+        {
+          "sha256": "1efcc4c4ce9f5880dbe4ef4ec033a62d15dd9302db84f18df3842a07193f93f2",
+          "version": 0
+        },
+        {
+          "sha256": "449ed9a9b1ffcd167daa14119c16dde9e21ec7d2879dee5b3da8a39cdd7c36d8",
+          "version": 1
+        }
+      ],
+      "physical_parquet_files": [],
+      "table": "local.trussgraph.whole_source_history",
+      "uuid": "90ca86d0-7818-4672-b321-06ee3b3d0329"
+    }
+  ],
+  "verifier_sha256": "71829374f939dc4fb6863bf13e94d60d16ee1e213225ec506d98305429c04f26"
+}
