@@ -39,7 +39,7 @@ def _require(value):
 
 def _environment():
     import tempfile
-    temporary_root = Path(tempfile.gettempdir())
+    temporary_root = Path(tempfile.gettempdir()).resolve(strict=True)
     temporary_info = temporary_root.lstat()
     _require(temporary_root.is_absolute() and temporary_root.resolve() == temporary_root
              and stat.S_ISDIR(temporary_info.st_mode)
