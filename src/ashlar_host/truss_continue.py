@@ -61,7 +61,7 @@ def _persist(path,raw):
         stream.flush();os.fsync(stream.fileno())
 
 
-def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_seconds=0,maximum_page_bytes=1048576,archives=(),defer_source_acknowledgement=False):
+def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_seconds=0,maximum_page_bytes=1048576,archives=(),defer_source_acknowledgement=False,catalog_connection_factory=None):
     """Continue a restored explicit committed predecessor; never initialize/reset.
 
     Caller holds the existing installation lease and outer transport/Spark/source
@@ -117,7 +117,8 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             admission=TrussEmptyIntervalAdmission(batch)
         else:
             from .truss_catalog_reader import read_graph_catalog_evidence
-            admission=TrussGraphAdmission(batch,read_graph_catalog_evidence(connection_factory,batch,archives))
+            admission=TrussGraphAdmission(batch,read_graph_catalog_evidence(
+                connection_factory,batch,archives,catalog_connection_factory=catalog_connection_factory))
         if driver.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
             from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION
             if not admission.current or admission.current_truss_version not in (

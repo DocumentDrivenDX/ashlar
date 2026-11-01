@@ -27,10 +27,36 @@ class Tests(unittest.TestCase):
         def restore(driver,digest):events.append(digest)
         def advance(driver,connection,**options):
             self.assertEqual(events,['open','a'*64,'close'])
-            self.assertEqual(options,{'maximum_pages':1,'wait_seconds':0,'maximum_page_bytes':2097152,'archives':(),'defer_source_acknowledgement':False})
+            self.assertEqual(options,{'maximum_pages':1,'wait_seconds':0,'maximum_page_bytes':2097152,'archives':(),'defer_source_acknowledgement':False,'catalog_connection_factory':None})
             return {'publications':[]}
         with patch('ashlar_host.truss_continue_cli.run_selected_truss_command',side_effect=owner),patch('ashlar_host.truss_continue_cli.restore_applied_truss_publication',side_effect=restore),patch('ashlar_host.truss_continue.continue_truss_graph',side_effect=advance),patch.dict('sys.modules',{'psycopg':SimpleNamespace()}):
             self.assertEqual(run_continue_truss_graph_command('/config','/output',maximum_page_bytes=2097152),{'publications':[]})
+
+    def test_registrar_catalog_authority_is_separate_from_feed_connection(self):
+        events=[]
+        @contextmanager
+        def writer(*args):
+            yield
+        driver=SimpleNamespace(writer=writer,context=object(),source_sessions=SimpleNamespace(batch=lambda:SimpleNamespace(feed='feed')))
+        def owner(config,output,operation):
+            return operation(driver,{'request_digest':'b'*64,'connection_uri':'postgresql://reader',
+                                     'catalog_connection_uri':'postgresql://registrar'})
+        sentinel=object()
+        def connect(uri,**kwargs):
+            events.append((uri,kwargs))
+            return sentinel
+        def advance(driver,connection,**options):
+            factory=options.pop('catalog_connection_factory')
+            self.assertIs(factory(),sentinel)
+            self.assertEqual(options,{'maximum_pages':1,'wait_seconds':0,'maximum_page_bytes':1048576,
+                                      'archives':(),'defer_source_acknowledgement':False})
+            return {'publications':[]}
+        with patch('ashlar_host.truss_continue_cli.run_selected_truss_command',side_effect=owner), \
+             patch('ashlar_host.truss_continue_cli.restore_applied_truss_publication'), \
+             patch('ashlar_host.truss_continue.continue_truss_graph',side_effect=advance), \
+             patch.dict('sys.modules',{'psycopg':SimpleNamespace(connect=connect)}):
+            run_continue_truss_graph_command('/config','/output')
+        self.assertEqual(events,[('postgresql://registrar',{'autocommit':False,'connect_timeout':5})])
 
     def test_private_interruption_report_preserves_failure_and_refuses_overwrite(self):
         import json

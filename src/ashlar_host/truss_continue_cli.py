@@ -19,10 +19,16 @@ def run_continue_truss_graph_command(configuration,output,*,maximum_pages=1,wait
             restore_applied_truss_publication(driver,config['request_digest'])
         def connection():
             return psycopg.connect(config['connection_uri'],autocommit=False,connect_timeout=5)
+        catalog_connection = None
+        if 'catalog_connection_uri' in config:
+            if type(config['catalog_connection_uri']) is not str or not config['catalog_connection_uri'] or len(config['catalog_connection_uri']) > 4096:
+                raise ValueError('Bounded explicit registrar catalog authority connection required')
+            catalog_connection = lambda: psycopg.connect(config['catalog_connection_uri'],autocommit=False,connect_timeout=5)
         from .truss_catalog_reader import parse_archived_acceptance_files
         return continue_truss_graph(driver,connection,maximum_pages=maximum_pages,
             wait_seconds=wait_seconds,maximum_page_bytes=maximum_page_bytes,archives=parse_archived_acceptance_files(config.get('archived_acceptance_files',[])),
-            defer_source_acknowledgement=defer_source_acknowledgement)
+            defer_source_acknowledgement=defer_source_acknowledgement,
+            catalog_connection_factory=catalog_connection)
     try:
         return run_selected_truss_command(configuration,output,advance)
     except BaseException as error:

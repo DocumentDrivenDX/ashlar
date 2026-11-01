@@ -39,7 +39,7 @@ def parse_resume_truss_configuration(configuration, output):
     base = {'connection_uri','publication_directory','jars'}
     selections = {'feed','source_page_path','source_page_sha256','request_digest'}
     required = base | ({'publication_intent'} if type(config) is dict and 'publication_intent' in config else selections)
-    if type(config) is not dict or not required <= set(config) <= required | {'archived_acceptance_files','destination_id','runtime_profile','carrier_profile'}:
+    if type(config) is not dict or not required <= set(config) <= required | {'archived_acceptance_files','destination_id','runtime_profile','carrier_profile','catalog_connection_uri'}:
         raise ValueError('Exact original Truss resume configuration required')
     carrier_profile=config.get('carrier_profile',DEFAULT_CARRIER_PROFILE)
     if carrier_profile not in ('ashlar-delta/0.3','ashlar-delta/0.4-xxhash64'):
@@ -73,6 +73,10 @@ def parse_resume_truss_configuration(configuration, output):
     for key in ('connection_uri','feed'):
         if type(config[key]) is not str or not config[key] or len(config[key]) > 4096 or '\0' in config[key]:
             raise ValueError('Bounded explicit ordinary Truss source required')
+    if ('catalog_connection_uri' in config and
+            (type(config['catalog_connection_uri']) is not str or not config['catalog_connection_uri']
+             or len(config['catalog_connection_uri']) > 4096 or '\0' in config['catalog_connection_uri'])):
+        raise ValueError('Bounded explicit registrar catalog authority connection required')
     for key in ('source_page_sha256','request_digest'): require_custody_digest(config[key])
     def path(value, *, directory=False):
         if type(value) is not str: raise ValueError('Explicit canonical path required')
@@ -223,12 +227,18 @@ def run_selected_truss_command(configuration, output, operation, *, report_write
     from .resources import RESOURCE_ROOT
     context = object()
     def connection(): return psycopg.connect(config['connection_uri'],autocommit=False,connect_timeout=5)
+    catalog_connection = None
+    if 'catalog_connection_uri' in config:
+        if type(config['catalog_connection_uri']) is not str or not config['catalog_connection_uri'] or len(config['catalog_connection_uri']) > 4096:
+            raise ValueError('Bounded explicit registrar catalog authority connection required')
+        catalog_connection = lambda: psycopg.connect(config['catalog_connection_uri'],autocommit=False,connect_timeout=5)
     sessions = TrussFeedSessions(page,config['feed'],bind_ordinary_connection(connection,context),context,**({'destination_receipts':True,'destination_id':config['destination_id']}if 'destination_id'in config else {}))
     if page.outcome=='empty_interval':
         admission=TrussEmptyIntervalAdmission(sessions.batch())
     else:
         from .truss_catalog_reader import read_graph_catalog_evidence
-        admission = TrussGraphAdmission(sessions.batch(),read_graph_catalog_evidence(connection,sessions.batch(),archives))
+        admission = TrussGraphAdmission(sessions.batch(),read_graph_catalog_evidence(
+            connection,sessions.batch(),archives,catalog_connection_factory=catalog_connection))
     _require_runtime_matches_admission(admission,config)
     lease = PrivateFiniteLease(publication,create=False)
     try:
