@@ -113,8 +113,16 @@ class ManagedCurrentQueryTests(unittest.TestCase):
         return {"value": "ok"}
 
     class Frame:
-      schema = SimpleNamespace(fields=[SimpleNamespace(
-          name="value", dataType=SimpleNamespace(simpleString=lambda: "string"))])
+      def __init__(self, conf):
+        self.conf = conf
+      @property
+      def schema(self):
+        self.conf.schema_timeout = self.conf.values.get(
+            "spark.databricks.execution.timeout")
+        if self.conf.schema_timeout is None:
+          raise AssertionError("Spark Connect schema analysis must remain timeout bounded")
+        return SimpleNamespace(fields=[SimpleNamespace(
+            name="value", dataType=SimpleNamespace(simpleString=lambda: "string"))])
       def collect(self):
         return [Row()]
 
@@ -126,7 +134,7 @@ class ManagedCurrentQueryTests(unittest.TestCase):
         raise AssertionError("Serverless Spark Connect has no SparkContext")
       def sql(self, sql, args):
         self.request = (sql, args)
-        return Frame()
+        return Frame(self.conf)
 
     conf = Conf()
     owner = object.__new__(ManagedCurrentReadOwner)
@@ -142,6 +150,7 @@ class ManagedCurrentQueryTests(unittest.TestCase):
     self.assertEqual(result.rows, [{"value": "ok"}])
     self.assertEqual(owner.spark.request, ("SELECT :p0", {"p0": "ok"}))
     self.assertEqual(conf.events[-1], ("unset", "spark.databricks.execution.timeout"))
+    self.assertIsNotNone(conf.schema_timeout)
     configured = [event for event in conf.events if event[0] == "set"]
     self.assertEqual(len(configured), 1)
     self.assertGreaterEqual(int(configured[0][2]), 1)
@@ -212,6 +221,52 @@ class ManagedCurrentQueryTests(unittest.TestCase):
       with self.assertRaisesRegex(RuntimeError, "Spark Connect query failed"):
         owner.query("SELECT 1", {})
     self.assertEqual(owner.spark.conf.value, "600")
+
+  def test_deadline_restoration_failure_withholds_query_result(self):
+    from datetime import timedelta
+    from types import SimpleNamespace
+    from ashlar_host.managed_current_query import ManagedCurrentReadOwner
+
+    class Conf:
+      def __init__(self):
+        self.value = None
+      def get(self, key, default=None):
+        return self.value if self.value is not None else default
+      def set(self, key, value):
+        self.value = value
+      def unset(self, key):
+        raise RuntimeError("Spark Connect timeout restoration failed")
+
+    class Row:
+      def asDict(self, recursive=False):
+        return {"value": "ok"}
+
+    class Frame:
+      def __init__(self, conf):
+        self.conf = conf
+      def collect(self):
+        return [Row()]
+      @property
+      def schema(self):
+        if self.conf.value is None:
+          raise AssertionError("Timeout must remain set through schema analysis")
+        return SimpleNamespace(fields=[SimpleNamespace(
+            name="value", dataType=SimpleNamespace(simpleString=lambda: "string"))])
+
+    class SparkConnectSession:
+      def __init__(self):
+        self.conf = Conf()
+      def sql(self, sql, args):
+        return Frame(self.conf)
+
+    owner = object.__new__(ManagedCurrentReadOwner)
+    owner.spark = SparkConnectSession()
+    owner.active = True
+    owner.current_artifact = {"sql": "SELECT 1", "parameters": [], "obligations": []}
+    owner.maximum_rows = 2
+    with owner.deadline(timedelta(seconds=8)):
+      with self.assertRaisesRegex(RuntimeError, "timeout restoration failed"):
+        owner.query("SELECT 1", {})
 
   def test_048_runtime_tuple_is_preserved_in_source_oracle_receipt(self):
     from ashlar_host.truss_current_catalog import (CURRENT_TRUSS_048_WHEEL_SHA256,

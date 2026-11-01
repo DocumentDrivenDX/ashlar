@@ -860,10 +860,18 @@ class ManagedCurrentReadOwner:
             prior_timeout = conf.get(_SERVERLESS_QUERY_TIMEOUT_CONF, None)
             conf.set(_SERVERLESS_QUERY_TIMEOUT_CONF, str(timeout_seconds))
         primary = None
-        rows = None
+        result = None
         try:
             frame = self.spark.sql(sql, args=parameters)
             rows = frame.collect()
+            _require(len(rows) <= self.maximum_rows)
+            type_names = {"string": "STRING", "long": "BIGINT", "integer": "INT",
+                          "boolean": "BOOLEAN", "timestamp": "TIMESTAMP", "double": "DOUBLE",
+                          "decimal": "DECIMAL"}
+            columns = tuple((field.name, type_names.get(field.dataType.simpleString(),
+                                                        field.dataType.simpleString().upper()))
+                            for field in frame.schema.fields)
+            result = SQLResult([row.asDict(recursive=True) for row in rows], columns)
         except BaseException as error:
             primary = error
         if conf is not None:
@@ -881,14 +889,7 @@ class ManagedCurrentReadOwner:
                         add_note("Could not restore the prior Spark Connect query timeout")
         if primary is not None:
             raise primary
-        _require(len(rows) <= self.maximum_rows)
-        type_names = {"string": "STRING", "long": "BIGINT", "integer": "INT",
-                      "boolean": "BOOLEAN", "timestamp": "TIMESTAMP", "double": "DOUBLE",
-                      "decimal": "DECIMAL"}
-        columns = tuple((field.name, type_names.get(field.dataType.simpleString(),
-                                                    field.dataType.simpleString().upper()))
-                        for field in frame.schema.fields)
-        return SQLResult([row.asDict(recursive=True) for row in rows], columns)
+        return result
 
     @contextmanager
     def deadline(self, budget):
