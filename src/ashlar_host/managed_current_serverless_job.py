@@ -15,6 +15,7 @@ from typing import Optional
 
 _MAX_SECONDS = 900
 _UUID = re.compile(r"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\Z")
+_TRIAL_ID = re.compile(r"[a-z0-9][a-z0-9-]{0,63}\Z")
 
 
 def _require(value, message):
@@ -42,6 +43,7 @@ class ManagedCurrentServerlessJobSpec:
     """
 
     name: str
+    trial_id: str
     notebook_path: str
     environment_version: int
     dependencies: tuple[str, ...]
@@ -54,6 +56,8 @@ class ManagedCurrentServerlessJobSpec:
     def build_settings(self):
         _require(type(self.name) is str and self.name.strip() and "\0" not in self.name,
                  "A stable job name is required")
+        _require(type(self.trial_id) is str and _TRIAL_ID.fullmatch(self.trial_id),
+                 "A unique managed trial ID is required for usage reconciliation")
         _require(_workspace_path(self.notebook_path),
                  "Notebook must resolve to an absolute Workspace path")
         _require(type(self.environment_version) is int and self.environment_version > 0,
@@ -72,8 +76,9 @@ class ManagedCurrentServerlessJobSpec:
                  and self.cleanup_reserve_usd > 0
                  and self.estimated_total_cost_usd + self.cleanup_reserve_usd <= 100,
                  "Estimated task cost plus cleanup reserve must fit the $100 operational ceiling")
-        _require(type(self.budget_policy_id) is str and _UUID.fullmatch(self.budget_policy_id),
-                 "An approved budget policy UUID is required for cost attribution")
+        _require(self.budget_policy_id is None or
+                 type(self.budget_policy_id) is str and _UUID.fullmatch(self.budget_policy_id),
+                 "Budget policy ID must be a UUID when supplied")
         if self.estimated_total_cost_usd + self.cleanup_reserve_usd > 10:
             _require(type(self.preferred_budget_exception) is str
                      and self.preferred_budget_exception.strip()
@@ -84,18 +89,20 @@ class ManagedCurrentServerlessJobSpec:
                      "Preferred-budget rationale must be omitted at or below $10")
         settings = {
             "name": self.name,
+            "tags": {"project": "ashlar", "purpose": "managed-current-a1",
+                     "ashlar_trial_id": self.trial_id},
             "max_concurrent_runs": 1,
             "max_retries": 0,
             "retry_on_timeout": False,
             "timeout_seconds": self.timeout_seconds,
-            # Disables serverless task auto-optimization retries. This does not
-            # change Unity Catalog predictive optimization.
-            "disable_auto_optimization": True,
             "tasks": [{
                 "task_key": "managed_current_trial",
                 "timeout_seconds": self.timeout_seconds,
                 "notebook_task": {"notebook_path": self.notebook_path},
                 "environment_key": "managed_current_trial_env",
+                # Serverless auto-optimization can add retries beyond the
+                # retry policy. Disabling it preserves at-most-once semantics.
+                "disable_auto_optimization": True,
             }],
             "environments": [{
                 "environment_key": "managed_current_trial_env",
@@ -105,7 +112,8 @@ class ManagedCurrentServerlessJobSpec:
                 },
             }],
         }
-        settings["budget_policy_id"] = self.budget_policy_id
+        if self.budget_policy_id is not None:
+            settings["budget_policy_id"] = self.budget_policy_id
         return settings
 
 
@@ -125,7 +133,8 @@ def admit_serverless_job_readback(job, spec):
              and settings.get("max_retries", 0) == 0
              and settings.get("retry_on_timeout", False) is False
              and settings.get("timeout_seconds") == expected["timeout_seconds"]
-             and settings.get("disable_auto_optimization") is True,
+             and type(settings.get("tags")) is dict
+             and settings["tags"].get("ashlar_trial_id") == spec.trial_id,
              "Jobs readback does not enforce the bounded single-run policy")
     _require("schedule" not in settings and "trigger" not in settings
              and "triggers" not in settings,
@@ -141,6 +150,7 @@ def admit_serverless_job_readback(job, spec):
              and task.get("notebook_task") == expected_task["notebook_task"]
              and task.get("environment_key") == expected_task["environment_key"]
              and task.get("timeout_seconds") == expected_task["timeout_seconds"]
+             and task.get("disable_auto_optimization") is True
              and "existing_cluster_id" not in task and "job_cluster_key" not in task
              and "new_cluster" not in task and "sql_warehouse_id" not in task,
              "Task readback differs from the selected serverless notebook task")
@@ -150,7 +160,10 @@ def admit_serverless_job_readback(job, spec):
         _require(settings.get("budget_policy_id") == spec.budget_policy_id
                  and job.get("effective_budget_policy_id") == spec.budget_policy_id,
                  "Selected budget attribution policy is not effective on this job")
-    return {"jobId": job.get("job_id"), "taskCount": 1,
+    _require(type(job.get("job_id")) is int and job["job_id"] > 0,
+             "Jobs readback omitted a valid job ID for usage reconciliation")
+    return {"jobId": job.get("job_id"), "trialId": spec.trial_id,
+            "taskKey": expected_task["task_key"], "taskCount": 1,
             "timeoutSeconds": expected["timeout_seconds"],
             "dependencyPaths": list(spec.dependencies),
             "budgetPolicyId": job.get("effective_budget_policy_id")}

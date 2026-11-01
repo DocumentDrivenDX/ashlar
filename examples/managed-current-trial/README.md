@@ -31,9 +31,14 @@ and [Jobs API reference](https://learn.microsoft.com/en-us/azure/databricks/dev-
 builds the declarative one-notebook-task Jobs settings, and
 `admit_serverless_job_readback` checks a subsequent Jobs GET response for that
 exact task, timeout, no-retry policy, dependency paths, unscheduled state and
-effective budget attribution. These functions make no API calls. Estimates and
+effective budget attribution when a policy is supplied. A unique trial ID plus
+job ID, run ID and task key can identify the retained usage receipt when no
+budget policy is available. These functions make no API calls. Estimates and
 timeouts are admission controls, not a hard invoice cap; serverless wheel paths
 also need separate byte and architecture evidence before they are selected.
+The task disables serverless auto-optimization because it can add retries beyond
+the retry policy; this does not change the serverless performance target or
+Unity Catalog predictive optimization.
 
 This campaign worker is for the positive graph page after the catalog page has
 been published and ACKed. It publishes that positive page and runs all four

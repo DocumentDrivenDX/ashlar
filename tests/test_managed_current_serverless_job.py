@@ -11,6 +11,7 @@ from ashlar_host.managed_current_serverless_job import (
 def _spec(**changes):
     values = {
         "name": "managed-current-a1-candidate",
+        "trial_id": "a1-client-dev-20261101-unique1",
         "notebook_path": "/Workspace/Shared/managed-current-trial",
         "environment_version": 4,
         "dependencies": ("/Volumes/client_dev/trial/wheels/ashlar.whl",),
@@ -37,9 +38,9 @@ class ManagedCurrentServerlessJobTests(unittest.TestCase):
         self.assertEqual(settings["max_retries"], 0)
         self.assertIs(settings["retry_on_timeout"], False)
         self.assertEqual(settings["timeout_seconds"], 900)
-        self.assertIs(settings["disable_auto_optimization"], True)
         self.assertEqual(len(settings["tasks"]), 1)
         self.assertEqual(settings["tasks"][0]["timeout_seconds"], 900)
+        self.assertIs(settings["tasks"][0]["disable_auto_optimization"], True)
         self.assertNotIn("schedule", settings)
         self.assertNotIn("job_clusters", settings)
         admitted = admit_serverless_job_readback(_readback(spec), spec)
@@ -79,9 +80,19 @@ class ManagedCurrentServerlessJobTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     admit_serverless_job_readback(job, spec)
 
-    def test_cost_over_preferred_budget_requires_policy_and_readback(self):
+    def test_budget_policy_is_optional_but_if_selected_must_be_effective(self):
+        spec_without_policy = _spec(budget_policy_id=None)
+        self.assertNotIn("budget_policy_id", spec_without_policy.build_settings())
+        self.assertEqual(admit_serverless_job_readback(
+            _readback(spec_without_policy), spec_without_policy)["trialId"],
+            spec_without_policy.trial_id)
+
         with self.assertRaises(ValueError):
             _spec(estimated_total_cost_usd=9.0, cleanup_reserve_usd=2.0).build_settings()
+        rationale_only = _spec(estimated_total_cost_usd=9.0, cleanup_reserve_usd=2.0,
+                               budget_policy_id=None,
+                               preferred_budget_exception="Owner accepted the >$10 estimate")
+        self.assertNotIn("budget_policy_id", rationale_only.build_settings())
         spec = _spec(estimated_total_cost_usd=9.0, cleanup_reserve_usd=2.0,
                      budget_policy_id="550e8400-e29b-41d4-a716-446655440000",
                      preferred_budget_exception="Owner accepted the >$10 estimate")
