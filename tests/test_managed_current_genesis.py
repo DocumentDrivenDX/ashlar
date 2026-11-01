@@ -6,6 +6,7 @@ from types import SimpleNamespace
 from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64, ROLES
 from ashlar_host.managed_current_genesis import (
     MANIFEST_PROFILE, PROGRESS_PROFILE, ManagedCurrentGenesisManifestOwner,
+    ManagedCurrentGenesisPredecessor,
     admit_truss_source_genesis_progress, verify_managed_current_genesis_predecessor,
     transition_managed_current_first_a_page,
 )
@@ -198,6 +199,7 @@ class TestManagedCurrentGenesis(unittest.TestCase):
             ManagedCurrentGenesisManifestOwner(targets, store).initialize(**args)
 
     def test_verified_genesis_predecessor_transitions_only_a_to_actual_page_checkpoint(self):
+        from dataclasses import replace
         from ashlar.source_checkpoint import truss_checkpoint
         from ashlar.truss_native_feed import native_feed_batch
 
@@ -218,8 +220,13 @@ class TestManagedCurrentGenesis(unittest.TestCase):
         }, separators=(',', ':')).encode()
         batch = native_feed_batch(page, sha256=hashlib.sha256(page).hexdigest(),
                                   prior=prior, next=following, feed=source_a.feed)
+        with self.assertRaisesRegex(ValueError, 'Batch differs from original source transaction'):
+            transition_managed_current_first_a_page(
+                predecessor,
+                source_owner_admitted_batch=replace(batch, batch_id='forged-batch-id'))
 
-        updated = transition_managed_current_first_a_page(predecessor, batch)
+        updated = transition_managed_current_first_a_page(
+            predecessor, source_owner_admitted_batch=batch)
         self.assertEqual(set(updated), {args['source_progress']['A'].feed,
                                         args['source_progress']['B'].feed})
         self.assertEqual(updated[source_a.feed], json.loads(truss_checkpoint(batch)))
@@ -243,6 +250,16 @@ class TestManagedCurrentGenesis(unittest.TestCase):
 
         predecessor = verify_managed_current_genesis_predecessor(
             row, selected_sources=args['source_progress'])
+        with self.assertRaisesRegex(ValueError, 'Exact selected genesis manifest row'):
+            transition_managed_current_first_a_page(
+                ManagedCurrentGenesisPredecessor(None, {}, {}),
+                source_owner_admitted_batch=None)
+        predecessor.source_progress[args['source_progress']['B'].feed]['position'] = 'tampered'
+        with self.assertRaisesRegex(ValueError, 'match its verified manifest row'):
+            transition_managed_current_first_a_page(
+                predecessor, source_owner_admitted_batch=None)
+        predecessor = verify_managed_current_genesis_predecessor(
+            row, selected_sources=args['source_progress'])
         source_a = args['source_progress']['A']
         wrong_prior_doc = json.loads(source_a.cursor_bytes)
         wrong_prior_doc['x-other'] = 'different cursor bytes'
@@ -259,7 +276,8 @@ class TestManagedCurrentGenesis(unittest.TestCase):
         batch = native_feed_batch(page, sha256=hashlib.sha256(page).hexdigest(),
                                   prior=wrong_prior, next=following, feed=source_a.feed)
         with self.assertRaisesRegex(ValueError, 'genesis cursor'):
-            transition_managed_current_first_a_page(predecessor, batch)
+            transition_managed_current_first_a_page(
+                predecessor, source_owner_admitted_batch=batch)
         selected_next_doc = json.loads(source_a.cursor_bytes)
         selected_next_doc['nextXid'] = '2'
         selected_next = json.dumps(selected_next_doc, separators=(',', ':')).encode()
@@ -273,7 +291,8 @@ class TestManagedCurrentGenesis(unittest.TestCase):
                                        prior=source_a.cursor_bytes, next=selected_next,
                                        feed='unselected-feed')
         with self.assertRaisesRegex(ValueError, 'selected genesis cursor'):
-            transition_managed_current_first_a_page(predecessor, wrong_feed)
+            transition_managed_current_first_a_page(
+                predecessor, source_owner_admitted_batch=wrong_feed)
 
 
 if __name__ == '__main__': unittest.main()

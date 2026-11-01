@@ -349,8 +349,11 @@ def verify_managed_current_genesis_predecessor(manifest, *, selected_sources):
 
     This is a pure correspondence primitive for the next incremental seam. It
     checks the create-once row's stable identity, complete initial vector,
-    report discriminator and marker digest. It cannot supply missing source
-    owner admission or make the incremental driver eligible to execute.
+    report discriminator and marker digest. The caller must obtain
+    ``selected_sources`` from the corresponding source owner; this helper can
+    compare their bytes and identities, but cannot prove their provenance. It
+    cannot supply missing source owner admission or make the incremental
+    driver eligible to execute.
     """
     from .managed_current_core import ROLES
 
@@ -447,20 +450,30 @@ def verify_managed_current_genesis_predecessor(manifest, *, selected_sources):
                                              dict(selected_sources))
 
 
-def transition_managed_current_first_a_page(predecessor, batch):
+def transition_managed_current_first_a_page(predecessor, *, source_owner_admitted_batch):
     """Replace A's typed genesis marker with its exact first native page checkpoint.
 
-    ``batch`` must be the original, already source-admitted native feed batch.
-    The helper verifies byte/cursor correspondence only; it does not establish
-    Truss acceptance, source freshness, publication effects or ACK authority.
-    B's selected marker is copied byte-for-byte at the decoded JSON-value level.
+    ``source_owner_admitted_batch`` is an explicit caller-authority input: it
+    must be the original native feed batch returned by the live Truss source
+    owner after that owner admitted the page and confirmed its prior cursor.
+    ``batch_row`` and
+    ``truss_checkpoint`` recheck internal page/cursor/byte correspondence, but
+    the in-memory batch object cannot prove who admitted it or that the source
+    is still current. This primitive makes neither claim and grants no
+    publication or ACK authority. B's selected marker is copied unchanged.
     """
     import base64
     from ashlar.source import SourceBatch
     from ashlar.source_checkpoint import truss_checkpoint
 
+    batch = source_owner_admitted_batch
     _require(type(predecessor) is ManagedCurrentGenesisPredecessor,
              "Verified managed genesis predecessor required")
+    verified = verify_managed_current_genesis_predecessor(
+        predecessor.manifest, selected_sources=predecessor.selected_sources)
+    _require(predecessor.source_progress == verified.source_progress,
+             "Genesis predecessor progress must match its verified manifest row")
+    predecessor = verified
     _require(type(batch) is SourceBatch
              and getattr(batch, "profile", None) == "truss-native-feed/0.1",
              "Original native Truss page batch required")
