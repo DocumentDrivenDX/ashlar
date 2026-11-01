@@ -23,7 +23,7 @@ ddx:
 
 # R7 SDK010 transaction-one packet
 
-Status: **effect-free transaction-one candidate; dispatch is disabled pending an external Sol review receipt.**
+Status: **Sol-reviewed local transaction-one packet; dispatch is enabled for one bounded attempt.**
 This packet is based on Ashlar `2a23b431` and the unchanged `src` tree admitted
 by R7. It binds the frozen G03 source, model, binding, source oracle, SDK 0.10.0,
 the exact sparse UMF producer checkout, the retained R7 installation, and the
@@ -45,8 +45,8 @@ head with both Delta log hashes retained. Each inspection reopens all twelve
 logs and refuses if any of the six current table heads has advanced beyond v1;
 the runtime repeats its fresh-head admission before writing the transaction.
 
-The packet contains a native Delta transaction worker. Before enabling dispatch,
-an external Sol review receipt must bind the packet tree digest, source commit
+The packet contains a native Delta transaction worker. The external Sol review
+receipt binds the packet tree digest, source commit
 and tree, R7 reconciliation digest, exact limits, and its narrow authorization
 for native transaction-one effects. That review scope excludes publication,
 manifest, protected ACK and cloud effects. The worker opens the exact R7 SDK010
@@ -65,9 +65,10 @@ The packet limits are one 300-second child, 2 GiB aggregate process-group RSS,
 512 MiB attempt storage, 1 MiB combined logs and receipts, local Spark
 `local[1]`, a 512 MiB driver and zero automatic retries. Before dispatch the
 outcome is `refused-before-dispatch`; a timeout or failure after dispatch is
-`uncertain-after-dispatch` and closes that attempt. The manifest has
-`dispatchEnabled: false` and has no Sol review receipt path or digest. An
-effect-free inspection reports dispatch authorization as false. The attempt
+`uncertain-after-dispatch` and closes that attempt. The manifest binds the Sol
+review receipt at `../r7-transaction1-sol-review.json` and enables native
+transaction-one effects only. An effect-free inspection reports final dispatch
+authorization as false until the one-shot permit and process inventory. The attempt
 parent `/private/tmp/ashlar-g03-sdk010-delta4-txn1-r7-attempts-20261101` is
 absent; this work has not prepared an attempt, created a dispatch record, or
 launched the native worker. Dispatch still requires a fresh current-head check,
@@ -92,5 +93,5 @@ initializer receipt. The original R7 attempt remains `uncertain-after-dispatch`;
 its native initialization completion is established only by the separate
 read-only reconciliation. This packet authorizes one future bounded local
 transaction-one attempt. It has not been prepared or executed. Dispatch
-requires an independent Sol receipt bound to the exact final packet, followed
-by the one-shot permit and fresh process inventory.
+requires the bound independent Sol receipt, one-shot permit and fresh process
+inventory.

@@ -31,7 +31,13 @@
     "git": "/opt/homebrew/Cellar/git/2.56.0_1/bin/git",
     "sourceCommit": "2ede4c879bea5db13794a6fa30e67c821306c17f",
     "sourceTree": "61eebfbe6dcd63c0768b20e514c250a526113d17",
-    "sparseCheckout": ["native", "package.json", "spec", "src", "tsconfig.json"],
+    "sparseCheckout": [
+      "native",
+      "package.json",
+      "spec",
+      "src",
+      "tsconfig.json"
+    ],
     "nodeModulesTarget": "/private/tmp/ashlar-g03-pinned-umf-producer/node_modules"
   },
   "runtime": {
@@ -44,17 +50,33 @@
     "javaHome": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
     "javaExecutableSha256": "382e51393d712cf7e228a606142d3c079f5fe12e4b599c62fdd1470e40fe7916",
     "jars": {
-      "delta-spark_4.2_2.13-4.4.1.jar": {"path": "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-spark_4.2_2.13-4.4.1.jar", "sha256": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be"},
-      "delta-storage-4.4.1.jar": {"path": "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-storage-4.4.1.jar", "sha256": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"}
+      "delta-spark_4.2_2.13-4.4.1.jar": {
+        "path": "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-spark_4.2_2.13-4.4.1.jar",
+        "sha256": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be"
+      },
+      "delta-storage-4.4.1.jar": {
+        "path": "/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-storage-4.4.1.jar",
+        "sha256": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+      }
     }
   },
-  "limits": {"wallSeconds": 300, "attemptBytes": 536870912, "combinedLogBytes": 1048576, "receiptBytes": 1048576, "processGroupRssBytes": 2147483648, "sparkMaster": "local[1]", "driverMemory": "512m", "attempts": 1, "automaticRetries": 0},
+  "limits": {
+    "wallSeconds": 300,
+    "attemptBytes": 536870912,
+    "combinedLogBytes": 1048576,
+    "receiptBytes": 1048576,
+    "processGroupRssBytes": 2147483648,
+    "sparkMaster": "local[1]",
+    "driverMemory": "512m",
+    "attempts": 1,
+    "automaticRetries": 0
+  },
   "attemptParent": "/private/tmp/ashlar-g03-sdk010-delta4-txn1-r7-attempts-20261101",
   "timingHelperSha256": "9ce10d94a5807ddcdccb71f2605dbf97829c8719303d776c4011d1bc0e2b748a",
-  "solReviewReceiptPath": null,
-  "solReviewReceiptSha256": null,
-  "dispatchEnabled": false,
+  "solReviewReceiptPath": "r7-transaction1-sol-review.json",
+  "solReviewReceiptSha256": "e63f1278dd6dc7365739b39b4c74c0d8d99daf9c6360407fc86750b6b467d419",
+  "dispatchEnabled": true,
   "publication": false,
   "ack": false,
-  "nativeTransactionEffectsEnabled": false
+  "nativeTransactionEffectsEnabled": true
 }
