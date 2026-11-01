@@ -267,12 +267,12 @@ def _create_current_graph_tables(spark, output, tables, carrier_profile, umf_sdk
     return creators[umf_sdk_version](spark, output, tables)
 
 
-def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None,defer_source_acknowledgement=False,expected_first_page=None,catalog_connection_factory=None):
+def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None,defer_source_acknowledgement=False,expected_first_page=None,catalog_connection_factory=None,prepublication_source_custody=None):
     """Publish accepted scalar objects/edges with real historical catalog admission."""
-    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,maximum_page_bytes=maximum_page_bytes,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id,carrier_profile=carrier_profile,umf_sdk_version=umf_sdk_version,defer_source_acknowledgement=defer_source_acknowledgement,expected_first_page=expected_first_page,catalog_connection_factory=catalog_connection_factory)
+    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,maximum_page_bytes=maximum_page_bytes,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id,carrier_profile=carrier_profile,umf_sdk_version=umf_sdk_version,defer_source_acknowledgement=defer_source_acknowledgement,expected_first_page=expected_first_page,catalog_connection_factory=catalog_connection_factory,prepublication_source_custody=prepublication_source_custody)
 
 
-def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None,defer_source_acknowledgement=False,expected_first_page=None,catalog_connection_factory=None):
+def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None,defer_source_acknowledgement=False,expected_first_page=None,catalog_connection_factory=None,prepublication_source_custody=None):
     """Read, publish and ACK up to eight pages in a fresh owned local destination.
 
     Registration must already exist at genesis. Partial effects remain on failure;
@@ -297,6 +297,11 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
         raise ValueError('Deferred ACK requires one graph page and an explicit destination receipt')
     if defer_source_acknowledgement and expected_first_page is None:
         raise ValueError('Deferred ACK requires the previous exact unacknowledged page receipt')
+    if prepublication_source_custody is not None and (
+            not graph or not defer_source_acknowledgement or maximum_pages != 1
+            or carrier_profile != 'ashlar-delta/0.4-xxhash64' or destination_id is None
+            or not callable(prepublication_source_custody)):
+        raise ValueError('Prepublication source custody requires one receipt-bound deferred-ACK local `.4` graph page')
     if expected_first_page is not None:
         # Validate the closed field set before any source call or output creation.
         validate_expected_first_page_shape(expected_first_page)
@@ -388,15 +393,30 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
                 if graph else StoredPublisherBackend(attempts,driver,manifest_factory))
             # Concrete backend validates actual native effects/manifest/pins before its
             # TrussFeedSessions performs public ACK and caller commit.
+            native_sink=None
+            if prepublication_source_custody is not None:
+                native_sink=prepublication_source_custody(page=page,feed=feed,request=request,
+                    publication_id=publication_id,destination_transport=transport,
+                    context=context,source_sessions=sessions)
+                if not callable(native_sink):raise ValueError('Prepublication source selection must return its postpublication custody sink')
             descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context,acknowledge_source=not defer_source_acknowledgement)
+            row=dict(descriptor.raw);vector=None;receipt_raw=None;request_raw=None;manifest_raw=None
+            if defer_source_acknowledgement or native_sink is not None:
+                target_uuids={table:transport.targets[table].uuid for table in json.loads(row['table_versions_json'])}
+                vector=manifest_pin_vector(row,target_uuids,authority='private-local-process')
+                request_raw=encoded(request).encode();manifest_raw=encoded(row).encode()
+                from .truss_feed_sessions import encode_truss_destination_receipt
+                receipt_raw=encode_truss_destination_receipt(request_raw,manifest_raw,vector)
+            if native_sink is not None:
+                from .truss_source_custody_selection import _mint_expected_native_post_state
+                native_sink(expected_post_state=_mint_expected_native_post_state(
+                    publication_id=publication_id, request_digest=request['request_digest'],
+                    following=following, carrier_profile=carrier_profile),
+                    destination_transport=transport,descriptor=descriptor,
+                    manifest_bytes=manifest_raw,vector=vector,receipt_bytes=receipt_raw)
             result={'source_page':{'path':str(page_path),'sha256':hashlib.sha256(original_page).hexdigest()},'writer_xid':page.writer_xid,'page_sha256':page.sha256,'manifest':dict(descriptor.raw)}
             if defer_source_acknowledgement:
                 retained_digest=validate_deferred_ack_pair(request,descriptor,expected_publication_id=publication_id)
-                row=dict(descriptor.raw)
-                target_uuids={table:transport.targets[table].uuid for table in json.loads(row['table_versions_json'])}
-                vector=manifest_pin_vector(row,target_uuids,authority='private-local-process')
-                request_raw=encoded(request).encode()
-                manifest_raw=encoded(row).encode()
                 deferred_intent={'profile':'ashlar-truss-deferred-destination-receipt-ack/0.1',
                     'acknowledgement':'deferred_not_attempted','consumer_id':consumer_id,'feed':feed,
                     'destination_id':destination_id,'request_digest':retained_digest,'publication_id':descriptor.publication_id,

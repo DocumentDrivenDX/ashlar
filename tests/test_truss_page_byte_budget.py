@@ -76,4 +76,18 @@ class Tests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError,'explicit destination receipt'):
                     publish_graph_pages(None,root/'out',connection_factory=lambda:None,consumer_id='c',feed='f',
                         maximum_pages=1,defer_source_acknowledgement=True,expected_first_page=expected)
+                with self.assertRaisesRegex(ValueError,'Prepublication source custody'):
+                    publish_graph_pages(None,root/'out',connection_factory=lambda:None,consumer_id='c',feed='f',
+                        maximum_pages=1,prepublication_source_custody=lambda **kwargs:None)
                 read.assert_not_called()
+
+    def test_prepublication_source_custody_is_closed_to_deferred_local_graph_mode(self):
+        callback=lambda **kwargs:None
+        with tempfile.TemporaryDirectory()as d:
+            root=Path(d).resolve()
+            with patch('ashlar_host.truss_note_publication.read_page')as read:
+                with self.assertRaisesRegex(ValueError,'Prepublication source custody'):
+                    publish_graph_pages(None,root/'out',connection_factory=lambda:None,consumer_id='c',feed='f',
+                        maximum_pages=1,prepublication_source_custody=callback)
+                read.assert_not_called()
+                self.assertFalse((root/'out').exists())
