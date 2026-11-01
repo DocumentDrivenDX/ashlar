@@ -19,87 +19,26 @@ Native singleton reads work through the publication resolver independently of Fa
 
 ## Implementation status
 
-A limited local development profile has exercised configured JSONL publication,
-update/delete and history, resolver singleton reads, guarded Weft queries and
-committed replay. Original UMF 0.8 commerce also has bounded local Truss 0.0.22
-publication and query evidence. These receipts qualify only their recorded
-source, model, engine versions and authority; they do not establish selected Truss
-0.0.51 acceptance/feed/ACK, broad model support, managed Unity Catalog or
-production authority ([configured publication](04-build/evidence/native-configured-publication-complete-20261008.json),
-[Truss 0.0.22 lifecycle](04-build/evidence/truss22-commerce-lifecycle-20261013/README.md)).
+The candidate selects UMF SDK 0.10.1 / Python Core 0.10.5, Weft 0.4.56,
+Access 0.1.0.dev8 and published Truss 0.0.52. The six-role `.4-xxhash64`
+carrier has bounded local SDK publication, retained manifest and native
+Spark 4.2 / Delta 4.4.1 singleton, grouped-query and page-read evidence
+([SDK result](04-build/evidence/current-upstream-release-20261101/g03-sdk0101-r3-manifest-continuation/r5-completion.md),
+[Weft result](04-build/evidence/current-upstream-release-20261101/g03-weft-native-consumer/README.md)).
 
-The candidate pins Weft 0.4.56, UMF SDK 0.10.1, Python Core 0.10.5
-(semantic Core 0.10.0) and Access 0.1.0.dev8. The public SDK 0.10.1 Delta
-proposal passed exact equality for the six `.4-xxhash64` carrier roles; the
-versioned bridge and latest-source typed-graph profile are recorded under the
-[0.10.1 adoption evidence](04-build/evidence/current-upstream-release-20261101/umf0101-adoption/README.md).
-The local SDK 0.10.1 transaction-one graph effects and retained manifest have
-now completed on the six-role `.4-xxhash64` carrier. The manifest-only R5
-continuation replayed no graph or metadata operations and bound the exact
-four-role data vector. This qualifies the recorded local source and runtime;
-Linux native execution and managed publication remain open
-([R5 completion](04-build/evidence/current-upstream-release-20261101/g03-sdk0101-r3-manifest-continuation/r5-completion.md)).
+A fresh local-development Truss 0.0.52 source has public acceptance, consumer
+and seven-operation seed evidence. Its first available page is a catalog/revision
+transaction, followed by the seed; the full ordered Delta publication and
+protected ACK path remains open. A bounded serverless Jobs task helper and
+Weft `.4.1` compiler route are on main, but no paid `client_dev` trial has run.
+The managed A/B source-prefix owner, live source/ACK custody and native pin
+composition remain open ([release closure](04-build/release-closure-20261101.md),
+[A1 source-owner gap](04-build/evidence/a1-managed-source-prefix-owner-gap-20261101.md)).
 
-The `truss-local` extra selects the public Truss 0.0.52 wheel with its
-`[native]` dependencies and verifies its immutable asset digest. Historical R16
-stopped during cold-backup restore; R17 refused at its selected-tree check; R19
-refused at an isolated SDK-bridge import. The approved
-R20 run then stopped before migration or publication because its retained PG18
-backup lacked required cluster directories. Each one-shot approval is spent.
-R21's effect-free check rejects that incomplete backup; no directory repair is
-assumed. A fresh local development source has since been established through
-Truss public APIs and migrated to 0.0.51 under the historical runtime, but its
-R12 accepted-document read stopped at a missing principal grant before consumer
-enrollment or the seed.
-The selected Truss feed/ACK lifecycle and production source authority remain
-unqualified ([R20 failure](04-build/evidence/current-upstream-release-20261031/truss051-r20-failure-evidence-20261031/README.md),
-[R21 backup check](04-build/evidence/current-upstream-release-20261031/truss051-r21-local-restore-candidate/README.md),
-[fresh-source packet](04-build/evidence/current-upstream-release-20261031/truss051-fresh-source-packet/README.md)).
-
-Local Spark 4.2.0/Delta 4.4.1 candidate checks include bounded Weft query and
-SDK paging; a separate native one-table Delta check accepted a candidate DDL
-shape. One bounded local GraphFrames 0.12.3 action over persisted 5-node/4-edge
-Delta fixtures passed with independent result and owned cleanup checks
-([R14 result](04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/README.md)).
-The current-core configured-local `.3` path completed a reviewed native
-initialize, three publication batches and exact replay, followed by one
-reviewed ordinal-1 live-alias continuation using Weft 0.4.53. That continuation
-matched its independent source oracle for the singleton, original and positive
-Backend03 grouped queries, and Backend02 page plus continuation. This is narrow
-local `.3` evidence only: it does not qualify `.4-xxhash64`, protected ACK,
-cloud execution, or production source custody
-([prepublication result](04-build/evidence/current-upstream-release-20261024/r02-native-prepublication-20261024/README.md),
-[continuation result](04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024/native-continuation-result-427287c7f6564985b1a947bea049158a.json)).
-A separate local `.4-xxhash64` installation completed six-role initialization,
-transaction-one effects and its manifest. Weft 0.4.56 then passed one bounded
-Spark 4.2.0 / Delta 4.4.1 native read of the exact singleton, both grouped
-queries, page and continuation against the frozen source oracle, with unchanged
-six-role heads and complete cleanup. This is local read qualification only; it
-does not establish Truss source/ACK or managed UC behavior
-([native consumer result](04-build/evidence/current-upstream-release-20261101/g03-weft-native-consumer/README.md)).
-Managed Unity Catalog and the full Truss lifecycle remain unqualified.
-A bounded probe confirmed create/read/delete authority for one empty owned
-schema under `client_dev`; that schema was deleted and verified absent. Managed
-A1 remains held: dedicated compute creation and task authority, exact runtime/access
-mode, live source/ACK custody, prior spend and a bounded total cost remain
-unproven. The owner selected a 15-minute operational-retention profile with
-exact reads at open, pre-ACK and close and explicit administrator/storage
-exclusions. A one-driver, zero-worker all-purpose shape is a candidate, not admission;
-no paid compute was created or started ([A1 admission packet](04-build/evidence/managed-a1-jobs-admission-packet-20261029.md),
-[selected operational profile](04-build/evidence/managed-a1-operational-retention-profile-proposal-20261031.md),
-[schema probe](04-build/evidence/current-upstream-release-20261023/managed-a1-schema-authority-probe-20261024.md),
-[A1 trial constraints](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
-The owner decision for the synthetic 1B-node/assumed-5B-edge trial is
-“Hold and redesign first.” The 45M/225M sample projects 28.206 minutes for
-setup, writes and one combined row/value plus endpoint-formula scan at 80% of
-measured throughput; the end-to-end estimate is 28.206 minutes + X, with the
-additional scan, lookups, graph action, startup, checks and cleanup unmeasured.
-No full run is authorized ([R05 redesign napkin](04-build/evidence/r05-redesign-napkin-math-20261029.md),
-[R05 packet](04-build/evidence/r05-one-shot-full-scale-run-packet-20261029.md)).
-Fabric activation is pending current source/ACK, capacity, path and cleanup
-admission. See the
-[toolkit delivery plan](04-build/toolkit-delivery-plan.md) for ordered work and
-acceptance criteria; detailed run results remain under [build evidence](04-build/).
+The owner held the 1B-node/5B-edge scale trial after the measured sample
+projected more than 15 minutes at 80% of observed throughput. The stable GitHub
+release has not been tagged or published. Claims remain limited to their exact
+source, runtime, model and evidence.
 
 ## Requirements navigation
 
