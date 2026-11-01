@@ -19,9 +19,9 @@ from ashlar_host.truss_current_catalog import (
     CURRENT_TRUSS_051_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_051_WHEEL_SHA256,
     CURRENT_052_CANDIDATE_EVIDENCE_PROFILE, CURRENT_TRUSS_052_CANDIDATE_VERSION,
     CURRENT_TRUSS_052_CANDIDATE_RUNTIME_MANIFEST_SHA256,
-    CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256,
+    CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256, CURRENT_052_CUSTODY_PROFILE,
     CurrentCatalogEvidence, interpret_current_catalog, require_current_truss_runtime,
-    require_installed_current_catalog_evidence,
+    require_installed_current_catalog_evidence, installed_truss_052_source_custody_profile,
 )
 
 
@@ -49,6 +49,15 @@ def receipt_inputs():
 
 
 class TrussCurrentCatalogTests(unittest.TestCase):
+    def test_052_custody_profile_requires_exact_wheel_and_manifest(self):
+        distribution = SimpleNamespace(version=CURRENT_TRUSS_052_CANDIDATE_VERSION)
+        with patch('ashlar_host.truss_current_catalog.installed_truss_distribution',
+                   return_value=distribution), \
+                patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',
+                      return_value=CURRENT_052_CANDIDATE_EVIDENCE_PROFILE):
+            self.assertEqual(installed_truss_052_source_custody_profile(),
+                             CURRENT_052_CUSTODY_PROFILE)
+
     def test_graph_admission_profiles_are_version_specific(self):
         from ashlar_host.truss_graph_admission import current_admission_profile
         self.assertEqual(current_admission_profile(CURRENT_TRUSS_VERSION),

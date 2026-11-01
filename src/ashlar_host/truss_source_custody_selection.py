@@ -170,7 +170,10 @@ class TrussSourceCustodySelection:
             from truss import CatalogRuntimeStatus
             from truss.contracts import ProfilePin
             from truss.feed import FeedSourceSelection
+            from .truss_current_catalog import (
+                CURRENT_052_CUSTODY_PROFILE, installed_truss_052_source_custody_profile)
             package_version = importlib.metadata.version("umf-truss")
+            installed_profile = installed_truss_052_source_custody_profile()
         except (ImportError, LookupError, ValueError) as error:
             raise TrussSourceSelectionError(
                 "Exact Truss source-custody candidate runtime unavailable") from error
@@ -183,6 +186,7 @@ class TrussSourceCustodySelection:
               and runtime_status.release_sha256 == _RELEASE_SHA256
               and type(runtime_status.layout_profile) is ProfilePin
               and package_version == "0.0.52"
+              and installed_profile == CURRENT_052_CUSTODY_PROFILE
               and getattr(FeedSourceSelection, "__name__", None) == "FeedSourceSelection",
               "Truss source custody is gated to the reviewed .75 candidate manifest")
         return FeedSourceSelection(

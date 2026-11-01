@@ -27,6 +27,7 @@ CURRENT_TRUSS_051_WHEEL_SHA256 = 'eb59141c48e94bb93ab7053e9e8725012eee1749e4432e
 CURRENT_TRUSS_051_RUNTIME_MANIFEST_SHA256 = '288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4'
 CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256 = '00d8b11abc83d9c84fa131ae6f3eef23ecad9d321d4b04a13641ed31c77e9747'
 CURRENT_TRUSS_052_CANDIDATE_RUNTIME_MANIFEST_SHA256 = '5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522'
+CURRENT_052_CUSTODY_PROFILE = 'ashlar-truss-052-source-custody/0.1'
 CURRENT_REPORT_VERSION = 'truss-catalog-registration-report/0.6'
 CURRENT_VIEW_VERSION = 'truss-catalog-view/0.2.0'
 CURRENT_VIEW_PROFILE = ('truss-complete-catalog-view', '0.4')
@@ -127,6 +128,15 @@ def installed_current_truss_profile():
         raise ValueError(f'Truss {version} installed runtime provenance required') from None
     return require_current_truss_runtime(version, runtime_manifest=manifest,
                                          direct_url=direct_url)
+
+
+def installed_truss_052_source_custody_profile():
+    """Require the shared exact .52 installed profile before custody selection."""
+    if installed_truss_distribution().version != CURRENT_TRUSS_052_CANDIDATE_VERSION:
+        raise ValueError('Installed Truss 0.0.52 custody runtime required')
+    if installed_current_truss_profile() != CURRENT_052_CANDIDATE_EVIDENCE_PROFILE:
+        raise ValueError('Installed Truss 0.0.52 custody runtime required')
+    return CURRENT_052_CUSTODY_PROFILE
 
 
 @dataclass(frozen=True)

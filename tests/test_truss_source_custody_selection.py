@@ -160,7 +160,7 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
         with patch.dict(sys.modules, {"truss": package,
                 "truss.contracts": contracts, "truss.feed": feed}), \
                 patch("importlib.metadata.version", return_value="0.0.51"):
-            with self.assertRaisesRegex(TrussSourceSelectionError, "gated"):
+            with self.assertRaisesRegex(TrussSourceSelectionError, "candidate runtime unavailable"):
                 bound.to_candidate_sdk()
 
     def test_direct_dataclass_construction_cannot_materialize_or_bind(self):
@@ -199,7 +199,9 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
             layout_profile=ProfilePin())
         with patch.dict(sys.modules, {"truss": package,
                 "truss.contracts": contracts, "truss.feed": feed}), \
-                patch("importlib.metadata.version", return_value="0.0.52"):
+                patch("importlib.metadata.version", return_value="0.0.52"), \
+                patch("ashlar_host.truss_current_catalog.installed_truss_052_source_custody_profile",
+                      return_value="ashlar-truss-052-source-custody/0.1"):
             with self.assertRaisesRegex(TrussSourceSelectionError, "gated"):
                 bound.to_candidate_sdk()
             drifted = CatalogRuntimeStatus(**{**status_fields,
@@ -209,6 +211,32 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
             status = CatalogRuntimeStatus(**status_fields)
             sdk_selection = bound.to_candidate_sdk(runtime_status=status)
             self.assertIs(type(sdk_selection), FeedSourceSelection)
+
+    def test_candidate_sdk_refuses_wrong_installed_wheel_provenance(self):
+        bound = self.bound()
+        package = types.ModuleType("truss")
+        package.__path__ = []
+        class CatalogRuntimeStatus:
+            def __init__(self, **kwargs): self.__dict__.update(kwargs)
+        package.CatalogRuntimeStatus = CatalogRuntimeStatus
+        contracts = types.ModuleType("truss.contracts")
+        class ProfilePin: pass
+        contracts.ProfilePin = ProfilePin
+        feed = types.ModuleType("truss.feed")
+        class FeedSourceSelection:
+            def __init__(self, **kwargs): self.__dict__.update(kwargs)
+        feed.FeedSourceSelection = FeedSourceSelection
+        status = CatalogRuntimeStatus(installed=True,
+            installation_id=self.identity["installation_id"],
+            release_id=_RELEASE_ID, release_sha256=_RELEASE_SHA256,
+            layout_profile=ProfilePin())
+        with patch.dict(sys.modules, {"truss": package,
+                "truss.contracts": contracts, "truss.feed": feed}), \
+                patch("importlib.metadata.version", return_value="0.0.52"), \
+                patch("ashlar_host.truss_current_catalog.installed_truss_052_source_custody_profile",
+                      side_effect=ValueError("Truss 0.0.52 installed wheel differs from the published release")):
+            with self.assertRaisesRegex(TrussSourceSelectionError, "candidate runtime unavailable"):
+                bound.to_candidate_sdk(runtime_status=status)
 
 
 if __name__ == "__main__":
