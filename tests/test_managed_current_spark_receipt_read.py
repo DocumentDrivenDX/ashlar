@@ -496,8 +496,22 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         self.assertTrue(any("unix_micros" in sql for sql in data_sql))
         self.assertIn(1025, self.spark.limits)
         self.reader.close()
+        closing_data_sql = [sql for sql in self.spark.calls if "LIMIT 1025" in sql]
+        self.assertEqual(len(closing_data_sql), 8)
         self.assertEqual(observation.runtime_identity["closing"]["sessionTimeZone"], "UTC")
         self.assertEqual(self.reader._approved_data_queries, set())
+
+    def test_close_repeats_source_derived_witness_and_refuses_data_drift(self):
+        oracle = _authored_adapter_oracle(self, {})
+        self.reader.reopen(request_bytes=_canonical(self.request).encode(),
+            manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+            source_oracle=oracle)
+        row = _native_test_row(self.reader.carriers, "object_current", "changed-at-close")
+        self.spark.role_rows["object_current"] = [row]
+        with self.assertRaisesRegex(ValueError, "bag differs"):
+            self.reader.close()
+        self.assertEqual(self.reader._approved_data_queries, set())
+        self.assertEqual(sum("LIMIT 1025" in sql for sql in self.spark.calls), 8)
 
     def test_source_oracle_anchor_mismatch_refuses_before_versioned_reads(self):
         oracle = _authored_adapter_oracle(self, {})
@@ -903,7 +917,7 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
         self.assertEqual([item.stage for item in self.sessions],
                          ["open", "pre_ack", "close"])
         self.assertTrue(all(item.closed for item in self.sessions))
-        self.assertTrue(all(sum("LIMIT 1025" in sql for sql in item.spark.calls) == 4
+        self.assertTrue(all(sum("LIMIT 1025" in sql for sql in item.spark.calls) == 8
                             for item in self.sessions))
         self.assertEqual([event for event in self.events if event[0] == "policy"],
                          [("policy", stage, 4) for stage in ("open", "pre_ack", "close")])
@@ -955,7 +969,7 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
         self.assertEqual([item.stage for item in self.sessions], ["open", "pre_ack", "close"])
         self.assertTrue(all(item.closed for item in self.sessions))
         self.assertEqual([sum("LIMIT 1025" in sql for sql in item.spark.calls)
-                          for item in self.sessions], [4, 4, 4])
+                          for item in self.sessions], [8, 8, 8])
 
     def test_pin_composition_holds_exact_vector_across_open_renew_and_close(self):
         context = object()

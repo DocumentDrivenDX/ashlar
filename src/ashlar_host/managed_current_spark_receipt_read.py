@@ -239,6 +239,7 @@ class ManagedCurrentSparkReceiptReader:
         self.carriers = load_current_managed_carriers(config.carrier_profile)
         self.started, self.statements, self.closed = time.monotonic(), 0, False
         self.closing = False
+        self._closing_bookend_complete = False
         self.context = object()
         self.opening = None
         self._approved_data_queries = set()
@@ -254,6 +255,10 @@ class ManagedCurrentSparkReceiptReader:
                  "Spark opening runtime/principal/namespace differs from explicit selection")
         self.opening = self._observe_inventory()
         self._manifest = self._request = self._publication_id = self._observation = None
+        # Retain the original byte inputs so close can independently repeat
+        # the resolver and source-derived data witness under the same session.
+        self._reopen_inputs = None
+        self._closing_witness = None
 
     def _observe_spark_environment(self):
         """Observe Spark Jobs identity without borrowing the SQL/serverless profile."""
@@ -663,6 +668,8 @@ class ManagedCurrentSparkReceiptReader:
 
     def _renew(self):
         self._check_deadline()
+        if self.closing and self._closing_bookend_complete:
+            return self.opening_runtime, self.opening
         runtime = self._observe_environment()
         _require(runtime == self.opening_runtime,
                  "Spark runtime/principal/namespace identity changed")
@@ -798,7 +805,79 @@ class ManagedCurrentSparkReceiptReader:
             source_oracle.prefix_sha256 if source_oracle is not None else None,
             bag_comparison_sha256, bag_comparison_summary)
         self._observation = observation
+        self._reopen_inputs = {
+            "request_bytes": request_bytes,
+            "manifest_bytes": manifest_bytes,
+            "expected_receipt": expected_receipt,
+            "source_oracle": source_oracle,
+            "source_prefix_bytes": source_prefix_bytes,
+            "source_prefix_sha256": source_prefix_sha256,
+            "source_core_config": source_core_config,
+        }
+        self._closing_witness = {
+            "request": request,
+            "manifest": manifest,
+            "expected_receipt": expected_receipt,
+            "source_oracle": source_oracle,
+            "versions": versions,
+            "role_tables": role_tables,
+            "uuids": uuids,
+        }
         return observation
+
+    def _close_resolver_and_data_witness(self):
+        """Reopen the exact manifest/vector and source-derived pinned bags."""
+        selected = self._closing_witness
+        _require(type(selected) is dict,
+                 "Exact original receipt reopen required before closing")
+        request, manifest = selected["request"], selected["manifest"]
+        quoted_manifest = quote_table_identifier(".".join((self.config.catalog,
+            self.config.schema, "publication_manifest")))
+        rows = self.executor.query(
+            "SELECT publication_id,profile_version,table_versions_json,source_progress_json,"
+            "schema_revisions_json,validation_report_json,"
+            "CAST(unix_micros(recorded_at) AS STRING) AS recorded_at FROM " + quoted_manifest
+            + " WHERE publication_id=:publication_id",
+            {"publication_id": manifest["publication_id"]}).rows
+        _require(len(rows) == 1 and dict(rows[0]) == manifest,
+                 "Exact task manifest changed at closing")
+        versions, role_tables, uuids = (selected["versions"], selected["role_tables"],
+                                        selected["uuids"])
+        from ashlar.publication import descriptor_from_manifest_row
+        descriptor = descriptor_from_manifest_row(dict(rows[0]))
+        vector = manifest_pin_vector(manifest, uuids,
+            authority="managed-current-spark:" + self.config.expected_principal)
+        from .truss_feed_sessions import encode_truss_destination_receipt
+        receipt_bytes = encode_truss_destination_receipt(
+            self._reopen_inputs["request_bytes"], self._reopen_inputs["manifest_bytes"], vector)
+        _require(vector == self._observation.vector
+                 and receipt_bytes == self._observation.source_receipt_bytes
+                 and selected["expected_receipt"].get("dataRoleVector") == {
+                     table: {"uuid": uuids[table], "version": versions[table]}
+                     for table in role_tables},
+                 "Exact four-role publication vector changed at closing")
+        revisions = json.loads(request["schema_revisions_json"],
+                               object_pairs_hook=self._unique_pairs)
+        native_types = {"STRING": "string", "BIGINT": "long", "BOOLEAN": "boolean",
+                        "TIMESTAMP": "timestamp"}
+        schemas = {table: tuple((name, native_types[kind])
+                                for name, kind, _nullable in self.carriers.ordered_fields(role))
+                   for table, role in role_tables.items()}
+        backend = _SparkReceiptBackend(self, _SparkReceiptPolicy(self, descriptor), schemas)
+        resolved = resolve_publication(backend, manifest["publication_id"], uuids,
+            context=self.context, supported_profiles=(self.config.carrier_profile,),
+            supported_revisions={key: (value,) for key, value in revisions.items()})
+        _require(dict(resolved.descriptor.raw) == manifest
+                 and all(snapshot.uuid == uuids[table] and snapshot.version == versions[table]
+                         for table, snapshot in resolved.snapshots.items()),
+                 "Closing native resolver differs from exact four-role publication")
+        oracle = selected["source_oracle"]
+        if oracle is not None:
+            comparison, summary = self._read_and_compare_source_bags(
+                oracle, request, manifest, versions, role_tables)
+            _require(comparison == self._observation.bag_comparison_sha256
+                     and summary == self._observation.bag_comparison_summary,
+                     "Closing source-derived data witness changed")
 
     def close(self):
         _require(not self.closed, "Spark receipt reader already closed")
@@ -817,10 +896,20 @@ class ManagedCurrentSparkReceiptReader:
             sc.setJobGroup(group, "bounded managed current receipt close", interruptOnCancel=True)
             timer.daemon = True
             timer.start()
+            original = self._observation
+            if original is None or self._reopen_inputs is None:
+                self._renew()
+                _require(not timeout_fired.is_set() and time.monotonic() - close_started < 30,
+                         "Spark closing deadline expired")
+                _require(False, "Exact original receipt reopen required before closing")
+            self._closing_bookend_complete = True
+            self._close_resolver_and_data_witness()
+            self._closing_bookend_complete = False
             runtime, inventory = self._renew()
             _require(not timeout_fired.is_set() and time.monotonic() - close_started < 30,
                      "Spark closing deadline expired")
         finally:
+            self._closing_bookend_complete = False
             timer.cancel()
             for key, value in previous.items():
                 sc.setLocalProperty(key, value)
