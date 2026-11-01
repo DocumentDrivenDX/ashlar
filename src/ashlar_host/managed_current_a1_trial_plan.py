@@ -33,7 +33,7 @@ class ManagedCurrentA1TrialPlan:
         )
         if schedule_bytes != self.selection.schedule_bytes:
             raise ValueError("Original selected R04 schedule bytes must be retained")
-        if type(pages) is not tuple or not pages or pages[0] is not self.delivery_page:
+        if type(pages) is not tuple or not pages or pages[0] != self.delivery_page:
             raise ValueError("First retained /0.2 page must be the selected original A page")
         return validate_managed_current_prefix_delivery(
             prefix_bytes, prefix_sha256=prefix_sha256, selected=selected,

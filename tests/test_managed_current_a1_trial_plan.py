@@ -4,6 +4,7 @@ import unittest
 import base64
 import hashlib
 import json
+from dataclasses import replace
 
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -85,7 +86,7 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
         self.assertEqual(plan.request['predecessor'], manifest['publication_id'])
         self.assertIs(plan.selection, selection)
 
-    def test_delivery_requires_retained_page_object_identity(self):
+    def test_delivery_accepts_reloaded_exact_page_and_refuses_changed_bytes(self):
         schedule = self._schedule()
         batch = self._truss_batch()
         page = SimpleNamespace(content=batch.begin,
@@ -103,10 +104,15 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
                 stream='source-stream', materialized_at='1', context=object())
         clone = ManagedCurrentPrefixPage(**plan.delivery_page.__dict__)
         with patch('ashlar_host.managed_current_prefix_delivery.validate_managed_current_prefix_delivery') as validate:
+            marker = object()
+            validate.return_value = marker
+            self.assertIs(plan.verify_delivery(b'prefix', prefix_sha256='0' * 64,
+                selected={}, schedule_bytes=schedule.raw, pages=(clone,)), marker)
             with self.assertRaisesRegex(ValueError, 'selected original A page'):
+                changed = replace(clone, page_bytes=clone.page_bytes + b' ')
                 plan.verify_delivery(b'prefix', prefix_sha256='0' * 64, selected={},
-                                     schedule_bytes=schedule.raw, pages=(clone,))
-            validate.assert_not_called()
+                                     schedule_bytes=schedule.raw, pages=(changed,))
+            self.assertEqual(validate.call_count, 1)
 
     def test_requires_same_owner_admitted_batch_before_manifest_or_request(self):
         batch = object()
