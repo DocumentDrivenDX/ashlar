@@ -47,6 +47,16 @@ class PublisherTests(unittest.TestCase):
         self.assertEqual(b.calls,['observe','prepare','start','apply','retain','validate','start-commit','commit','ack'])
         self.publish(b);self.assertEqual(b.calls[-2:],['observe','ack'])
         self.assertEqual(b.calls.count('apply'),1)
+    def test_deferred_ack_returns_only_after_commit_without_advancing_source(self):
+        b=Backend()
+        result=publish_batch(b,'stream',self.batch(),predecessor='old',schema_revisions_json='{"f":"1"}',
+            context='authorized',acknowledge_source=False)
+        self.assertEqual(result,'new')
+        self.assertEqual(b.calls,['observe','prepare','start','apply','retain','validate','start-commit','commit'])
+        self.assertEqual((b.visible,b.progress),('new','0'))
+        with self.assertRaises(PublicationError):
+            publish_batch(Backend(),'stream',self.batch(),predecessor='old',schema_revisions_json='{"f":"1"}',
+                context='authorized',acknowledge_source='false')
     def test_unknown_apply_recovers_original_without_reexecution(self):
         b=Backend();b.fail='apply'
         with self.assertRaises(RuntimeError):self.publish(b)

@@ -47,13 +47,16 @@ class PublisherBackend(Protocol):
 
 def publish_batch(backend: PublisherBackend, stream: str, batch: SourceBatch, *,
                   predecessor: str, schema_revisions_json: str, context: Any,
-                  source_checkpoint_json=None):
-    """Resume one durable attempt; acknowledge only the original committed descriptor.
+                  source_checkpoint_json=None, acknowledge_source=True):
+    """Resume one durable attempt; optionally defer ACK of its committed descriptor.
 
     Ports must implement native durable state, complete admission, source fencing,
-    original-handle recovery and immutable publication. No permissive native
-    implementation is provided by this coordinator.
+    original-handle recovery and immutable publication. When ACK is deferred, the
+    caller retains the original source and destination evidence for a later exact
+    ACK; this coordinator does not manufacture a substitute receipt.
     """
+    if type(acknowledge_source)is not bool:
+        raise PublicationError('Explicit source acknowledgement selection required')
     if any(not isinstance(x,str) or not x for x in [stream,predecessor,schema_revisions_json]):
         raise PublicationError('Explicit stream/predecessor/schema revision custody required')
     try: revisions=_json(schema_revisions_json.encode('utf-8'))
@@ -101,6 +104,7 @@ def publish_batch(backend: PublisherBackend, stream: str, batch: SourceBatch, *,
         if attempt.descriptor is None:raise PublicationError('Missing original committed descriptor')
         # A committed replay still requires current source/checkpoint authority;
         # acknowledge must verify descriptor/source correspondence independently.
-        if backend.acknowledge(stream,request,attempt.descriptor,context) is not None:
-            raise PublicationError('Source acknowledgement did not complete')
+        if acknowledge_source:
+            if backend.acknowledge(stream,request,attempt.descriptor,context) is not None:
+                raise PublicationError('Source acknowledgement did not complete')
         return attempt.descriptor

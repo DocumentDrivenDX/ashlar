@@ -306,16 +306,19 @@ class LocalCurrentXxhash64ProfileTests(unittest.TestCase):
 
     def test_umf_sdk_selection_dispatch_preserves_default_and_selects_sdk010(self):
         from ashlar_host.truss_note_publication import _create_current_graph_tables
-        sentinel=object();legacy_candidate=object()
+        sentinel=object();legacy_candidate=object();sdk0101_candidate=object()
         with patch('ashlar_host.local_current_carrier_profile.create_local_current_xxhash64_tables',return_value='historical') as old, \
              patch('ashlar_host.local_current_carrier_profile.create_local_current_xxhash64_sdk058_tables',return_value=legacy_candidate) as sdk058, \
-             patch('ashlar_host.local_current_carrier_profile.create_local_current_xxhash64_sdk010_tables',return_value=sentinel) as latest:
+             patch('ashlar_host.local_current_carrier_profile.create_local_current_xxhash64_sdk010_tables',return_value=sentinel) as latest, \
+             patch('ashlar_host.local_current_carrier_profile.create_local_current_xxhash64_sdk0101_tables',return_value=sdk0101_candidate) as sdk0101:
             self.assertEqual(_create_current_graph_tables('spark','out',{},'ashlar-delta/0.4-xxhash64',None),'historical')
             self.assertIs(_create_current_graph_tables('spark','out',{},'ashlar-delta/0.4-xxhash64','0.5.8'),legacy_candidate)
             self.assertIs(_create_current_graph_tables('spark','out',{},'ashlar-delta/0.4-xxhash64','0.10.0'),sentinel)
+            self.assertIs(_create_current_graph_tables('spark','out',{},'ashlar-delta/0.4-xxhash64','0.10.1'),sdk0101_candidate)
         old.assert_called_once_with('spark','out',{})
         sdk058.assert_called_once_with('spark','out',{})
         latest.assert_called_once_with('spark','out',{})
+        sdk0101.assert_called_once_with('spark','out',{})
         with self.assertRaises(ValueError):
             _create_current_graph_tables('spark','out',{},'ashlar-delta/0.4-xxhash64','0.9.0')
         with self.assertRaises(ValueError):

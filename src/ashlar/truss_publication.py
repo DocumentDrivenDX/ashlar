@@ -3,7 +3,7 @@
 from .source_checkpoint import truss_checkpoint
 
 
-def publish_truss_transaction(backend,stream,batch,*,predecessor,schema_revisions_json,context):
+def publish_truss_transaction(backend,stream,batch,*,predecessor,schema_revisions_json,context,acknowledge_source=True):
     """Keep opaque Truss checkpoints in every durable publication phase.
 
     The backend owns native source admission, serialized Delta effects, immutable
@@ -11,6 +11,7 @@ def publish_truss_transaction(backend,stream,batch,*,predecessor,schema_revision
     """
     from .publisher import publish_batch
     checkpoint=truss_checkpoint(batch)
+    options={'source_checkpoint_json':checkpoint}
+    if not acknowledge_source:options['acknowledge_source']=False
     return publish_batch(backend,stream,batch,predecessor=predecessor,
-        schema_revisions_json=schema_revisions_json,context=context,
-        source_checkpoint_json=checkpoint)
+        schema_revisions_json=schema_revisions_json,context=context,**options)

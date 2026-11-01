@@ -7,10 +7,24 @@ from types import SimpleNamespace
 from contextlib import nullcontext
 from unittest.mock import patch
 from ashlar_host.truss_note_cli import run_publish_truss_graph_command
-from ashlar_host.truss_note_publication import publish_graph_pages,publish_note_pages
+from ashlar_host.truss_note_publication import publish_graph_pages,publish_note_pages,validate_expected_first_page,validate_expected_first_page_shape
 from ashlar_host.truss_resume_setup import run_configure_truss_resume_command
 
 class Tests(unittest.TestCase):
+    def test_saved_first_page_binding_is_closed_and_checks_exact_public_page(self):
+        import hashlib
+        from types import SimpleNamespace
+        content=b'actual truss page';prior=b'{"consumerId":"c","registrationId":"r","nextXid":"0"}'
+        expected={'profile':'ashlar-truss-first-page-binding/0.1','page_sha256':hashlib.sha256(content).hexdigest(),
+            'page_bytes':len(content),'outcome':'transaction','writer_xid':'754','consumer_id':'c','registration_id':'r',
+            'prior_sha256':hashlib.sha256(prior).hexdigest()}
+        page=SimpleNamespace(content=content,sha256=expected['page_sha256'],prior=SimpleNamespace(content=prior),
+            outcome='transaction',writer_xid='754',consumer_id='c',registration_id='r')
+        self.assertIs(validate_expected_first_page_shape(expected),expected)
+        self.assertIsNone(validate_expected_first_page(page,expected))
+        with self.assertRaises(PermissionError):validate_expected_first_page(SimpleNamespace(**{**page.__dict__,'writer_xid':'755'}),expected)
+        with self.assertRaises(ValueError):validate_expected_first_page_shape({**expected,'unexpected':True})
+
     def config(self,root):
         jars=[root/'delta.jar',root/'storage.jar']
         for p in jars:p.write_bytes(b'existing')
@@ -49,3 +63,17 @@ class Tests(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError,'Page byte budget'):run_configure_truss_resume_command(config,intent,root/'reader')
                     parser.assert_not_called()
                 self.assertFalse((root/'output').exists());self.assertFalse((root/'reader').exists())
+    def test_deferred_ack_requires_one_page_receipt_and_destination_before_source_access(self):
+        from ashlar_host.truss_note_publication import publish_graph_pages
+        expected={'profile':'ashlar-truss-first-page-binding/0.1','page_sha256':'a'*64,'page_bytes':1,
+            'outcome':'transaction','writer_xid':'1','consumer_id':'c','registration_id':'r','prior_sha256':'b'*64}
+        with tempfile.TemporaryDirectory()as d:
+            root=Path(d).resolve()
+            with patch('ashlar_host.truss_note_publication.read_page')as read:
+                with self.assertRaisesRegex(ValueError,'one graph page'):
+                    publish_graph_pages(None,root/'out',connection_factory=lambda:None,consumer_id='c',feed='f',
+                        destination_id='d',maximum_pages=2,defer_source_acknowledgement=True,expected_first_page=expected)
+                with self.assertRaisesRegex(ValueError,'explicit destination receipt'):
+                    publish_graph_pages(None,root/'out',connection_factory=lambda:None,consumer_id='c',feed='f',
+                        maximum_pages=1,defer_source_acknowledgement=True,expected_first_page=expected)
+                read.assert_not_called()

@@ -5,9 +5,10 @@ from dataclasses import asdict
 from pathlib import Path
 from ashlar.apply import empty_state
 from ashlar.attempt_store import DeltaAttemptStore
-from ashlar.manifest import FIELDS
+from ashlar.manifest import FIELDS,manifest_pin_vector
 from ashlar.truss_publication import publish_truss_transaction
-from ashlar.source_checkpoint import truss_checkpoint
+from ashlar.source_checkpoint import truss_checkpoint,bind_source_descriptor
+from ashlar.attempt_store import verify_request_digest
 from ashlar.staging import batch_row
 from ashlar.stored_publisher import StoredPublisherBackend
 from .truss_backend import TrussPublisherBackend
@@ -35,6 +36,46 @@ def bind_ordinary_connection(connection_factory,context):
 def _native_scalar_profile(admission,graph):
     """Only graph admissions select typed scalar planning; Note stays STRING."""
     return 'typed'if graph and getattr(admission,'typed',False)else'string'
+
+
+def validate_expected_first_page_shape(expected):
+    """Check the exact durable no-ACK receipt fields before source access."""
+    fields={'profile','page_sha256','page_bytes','outcome','writer_xid','consumer_id','registration_id','prior_sha256'}
+    if type(expected)is not dict or set(expected)!=fields or expected.get('profile')!='ashlar-truss-first-page-binding/0.1':
+        raise ValueError('Exact closed previously observed first-page binding required')
+    for name in ('page_sha256','prior_sha256'):
+        value=expected[name]
+        if type(value)is not str or len(value)!=64 or any(c not in '0123456789abcdef' for c in value):
+            raise ValueError('Canonical first-page digest required')
+    if (type(expected['page_bytes'])is not int or expected['page_bytes']<1
+            or any(type(expected[name])is not str or not expected[name]
+                   for name in ('outcome','writer_xid','consumer_id','registration_id'))):
+        raise ValueError('Exact first-page metadata required')
+    return expected
+
+
+def validate_expected_first_page(page, expected):
+    """Bind a genuine public FeedPage to the prior immutable no-ACK receipt."""
+    expected=validate_expected_first_page_shape(expected)
+    prior=json.loads(page.prior.content)
+    if (len(page.content)!=expected['page_bytes'] or hashlib.sha256(page.content).hexdigest()!=page.sha256
+            or page.sha256!=expected['page_sha256'] or page.outcome!=expected['outcome']
+            or page.writer_xid!=expected['writer_xid'] or page.consumer_id!=expected['consumer_id']
+            or page.registration_id!=expected['registration_id']
+            or hashlib.sha256(page.prior.content).hexdigest()!=expected['prior_sha256']
+            or prior.get('consumerId')!=expected['consumer_id']
+            or prior.get('registrationId')!=expected['registration_id']
+            or prior.get('nextXid')!='0'):
+        raise PermissionError('Current Truss page no longer matches the previously observed first genesis page')
+
+
+def validate_deferred_ack_pair(request, descriptor, *, expected_publication_id):
+    """Bind the original request digest to its committed manifest before retaining an ACK intent."""
+    digest=verify_request_digest(dict(request))
+    if expected_publication_id!='truss-graph-'+digest:
+        raise PermissionError('Committed graph publication identity differs from original Truss request digest')
+    bind_source_descriptor(request,descriptor,expected_publication_id=expected_publication_id)
+    return digest
 
 
 def register_note_consumer(connection_factory,consumer_id,reader_role):
@@ -214,23 +255,24 @@ def _create_current_graph_tables(spark, output, tables, carrier_profile, umf_sdk
         if umf_sdk_version is not None:
             raise ValueError('UMF SDK realization selection applies only to local `.4` graph tables')
         return None
-    if umf_sdk_version not in (None, '0.5.8', '0.10.0'):
+    if umf_sdk_version not in (None, '0.5.8', '0.10.0', '0.10.1'):
         raise ValueError('Explicit supported local `.4` UMF SDK version required')
     from . import local_current_carrier_profile as carrier
     creators = {
         None: carrier.create_local_current_xxhash64_tables,
         '0.5.8': carrier.create_local_current_xxhash64_sdk058_tables,
         '0.10.0': carrier.create_local_current_xxhash64_sdk010_tables,
+        '0.10.1': carrier.create_local_current_xxhash64_sdk0101_tables,
     }
     return creators[umf_sdk_version](spark, output, tables)
 
 
-def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None):
+def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None,defer_source_acknowledgement=False,expected_first_page=None):
     """Publish accepted scalar objects/edges with real historical catalog admission."""
-    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,maximum_page_bytes=maximum_page_bytes,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id,carrier_profile=carrier_profile,umf_sdk_version=umf_sdk_version)
+    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,maximum_page_bytes=maximum_page_bytes,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id,carrier_profile=carrier_profile,umf_sdk_version=umf_sdk_version,defer_source_acknowledgement=defer_source_acknowledgement,expected_first_page=expected_first_page)
 
 
-def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None):
+def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3',umf_sdk_version=None,defer_source_acknowledgement=False,expected_first_page=None):
     """Read, publish and ACK up to eight pages in a fresh owned local destination.
 
     Registration must already exist at genesis. Partial effects remain on failure;
@@ -249,11 +291,21 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
         raise ValueError('Explicit supported local graph carrier profile required')
     if umf_sdk_version is not None and (not graph or carrier_profile!='ashlar-delta/0.4-xxhash64'):
         raise ValueError('UMF SDK version selection requires local `.4` graph publication')
+    if type(defer_source_acknowledgement)is not bool:
+        raise ValueError('Explicit source acknowledgement lifecycle selection required')
+    if defer_source_acknowledgement and (not graph or destination_id is None or maximum_pages!=1):
+        raise ValueError('Deferred ACK requires one graph page and an explicit destination receipt')
+    if defer_source_acknowledgement and expected_first_page is None:
+        raise ValueError('Deferred ACK requires the previous exact unacknowledged page receipt')
+    if expected_first_page is not None:
+        # Validate the closed field set before any source call or output creation.
+        validate_expected_first_page_shape(expected_first_page)
     if not output.is_absolute()or output.parent.resolve()!=output.parent or output.exists()or any(character in str(output)for character in ('`',"'",'\\','\0','\n','\r'))or type(maximum_pages)is not int or not 1<=maximum_pages<=8 or not callable(connection_factory):raise ValueError('Fresh canonical local output and finite ordinary source selection required')
     if any(type(value)is not str or not value for value in (consumer_id,feed)):raise ValueError('Explicit original consumer/feed required')
     # Source is observed before creating destination resources.
     selected=read_page(connection_factory,consumer_id,maximum_bytes=maximum_page_bytes)
     if selected.outcome!='transaction'or json.loads(selected.prior.content).get('nextXid')!='0':raise ValueError('Distinct consumer with pending actual transaction at genesis required')
+    if expected_first_page is not None:validate_expected_first_page(selected,expected_first_page)
     context=object();ordinary=bind_ordinary_connection(connection_factory,context);output.mkdir(mode=0o700);lease=PrivateFiniteLease(output,create=True)
     transport=None;primary=None;results=[];state=empty_state();progress={};predecessor='explicit-truss-genesis';expected=None;wait_deadline=None
     try:
@@ -334,8 +386,34 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
                 if graph else StoredPublisherBackend(attempts,driver,manifest_factory))
             # Concrete backend validates actual native effects/manifest/pins before its
             # TrussFeedSessions performs public ACK and caller commit.
-            descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context)
+            descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context,acknowledge_source=not defer_source_acknowledgement)
             result={'source_page':{'path':str(page_path),'sha256':hashlib.sha256(original_page).hexdigest()},'writer_xid':page.writer_xid,'page_sha256':page.sha256,'manifest':dict(descriptor.raw)}
+            if defer_source_acknowledgement:
+                retained_digest=validate_deferred_ack_pair(request,descriptor,expected_publication_id=publication_id)
+                row=dict(descriptor.raw)
+                target_uuids={table:transport.targets[table].uuid for table in json.loads(row['table_versions_json'])}
+                vector=manifest_pin_vector(row,target_uuids,authority='private-local-process')
+                request_raw=encoded(request).encode()
+                manifest_raw=encoded(row).encode()
+                deferred_intent={'profile':'ashlar-truss-deferred-destination-receipt-ack/0.1',
+                    'acknowledgement':'deferred_not_attempted','consumer_id':consumer_id,'feed':feed,
+                    'destination_id':destination_id,'request_digest':retained_digest,'publication_id':descriptor.publication_id,
+                    'source_page':{'path':str(page_path),'archive_sha256':hashlib.sha256(original_page).hexdigest(),
+                        'page_sha256':page.sha256,'content_sha256':hashlib.sha256(page.content).hexdigest(),
+                        'prior_sha256':hashlib.sha256(page.prior.content).hexdigest(),'next_sha256':hashlib.sha256(page.next.content).hexdigest(),
+                        'registration_id':page.registration_id,'writer_xid':page.writer_xid},
+                    'request_bytes_base64':base64.b64encode(request_raw).decode(),'request_sha256':hashlib.sha256(request_raw).hexdigest(),
+                    'manifest_bytes_base64':base64.b64encode(manifest_raw).decode(),'manifest_sha256':hashlib.sha256(manifest_raw).hexdigest(),
+                    'manifest':row,'publication_vector':{'authority':vector.authority,'scope_kind':vector.scope_kind,
+                        'scope_id':vector.scope_id,'custody_digest':vector.custody_digest,
+                        'targets':{table:list(target) for table,target in vector.targets.items()}}}
+                deferred_intent_path=output/('deferred-ack-'+request['request_digest']+'.json')
+                deferred_intent_raw=(encoded(deferred_intent)+'\n').encode()
+                with deferred_intent_path.open('xb') as stream:
+                    os.fchmod(stream.fileno(),0o600)
+                    if stream.write(deferred_intent_raw)!=len(deferred_intent_raw):raise OSError('Complete deferred ACK intent write required')
+                    stream.flush();os.fsync(stream.fileno())
+                result['deferred_ack_intent']={'path':str(deferred_intent_path),'sha256':hashlib.sha256(deferred_intent_raw).hexdigest()}
             if current_graph:result['publication_intent']={'path':str(intent_path),'sha256':hashlib.sha256(intent.encode()).hexdigest()}
             results.append(result)
             state=after;expected=following;progress=policy.active['progress'];predecessor=publication_id;lease.renew()
@@ -344,8 +422,8 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             release,custody=read_original_truss_graph_export(driver,with_custody=True)
     except BaseException as error:primary=error
     finish(primary,([transport.close]if transport is not None else [])+[lease.renew,lease.close])
-    result={'publications':results,'scope':('Fresh private local Delta scalar graph publication'if graph else'Fresh private local Delta Note publication')+' with actual public Truss source ACK; no Unity Catalog or restart recovery qualification.'}
-    if destination_id is not None:result['scope']='Fresh private local Delta publication with consumer-verified destination before exact source-retained receipt ACK; caller controls source commit; no history release or Unity Catalog qualification.'
+    result={'publications':results,'source_acknowledgement':'deferred_not_attempted' if defer_source_acknowledgement else 'completed_by_public_truss_api','scope':('Fresh private local Delta graph publication with exact original Truss page/request/manifest/vector retained for later protected receipt ACK; no source ACK was attempted, no Unity Catalog or restart recovery qualification.'if defer_source_acknowledgement else ('Fresh private local Delta scalar graph publication'if graph else'Fresh private local Delta Note publication')+' with actual public Truss source ACK; no Unity Catalog or restart recovery qualification.')}
+    if destination_id is not None and not defer_source_acknowledgement:result['scope']='Fresh private local Delta publication with consumer-verified destination before exact source-retained receipt ACK; caller controls source commit; no history release or Unity Catalog qualification.'
     if release is not None:
         path=output/'graph-release.json'
         with path.open('xb')as stream:
