@@ -13,8 +13,12 @@ from dataclasses import dataclass, field
 import hashlib
 import importlib.metadata
 import json
+import datetime
+import os
+from pathlib import Path
 import re
 import weakref
+from decimal import Decimal
 from types import MappingProxyType
 
 from ashlar.pins import PinVector
@@ -41,6 +45,12 @@ LOCAL_ROW_BAG_CANONICALIZATION = "ashlar-local-native-row-bag/0.1"
 LOCAL_EXPECTED_POST_STATE_PROFILE = "ashlar-local-native-expected-post-state/0.1"
 LOCAL_NATIVE_OBSERVATION_PROFILE = "ashlar-local-native-delta-publication-observation/0.1"
 _LOCAL_DATA_ROLES = ("object_current", "edge_current", "tombstone", "whole_source_history")
+_MAX_NATIVE_ROWS = 100_000
+_MAX_NATIVE_CELL_BYTES = 1 * 1024 * 1024
+_MAX_NATIVE_ROW_BAG_BYTES = 64 * 1024 * 1024
+_MAX_NATIVE_FILES = 4096
+_MAX_NATIVE_LOG_VERSIONS = 100_000
+_MAX_NATIVE_WALK_ENTRIES = 100_000
 
 
 class TrussSourceSelectionError(ValueError):
@@ -138,6 +148,8 @@ class LocalNativeDeltaRoleObservation:
     head_version: int
     head_json_sha256: str
     log_history: tuple
+    active_file_paths: tuple
+    physical_file_paths: tuple
     active_files: int
     physical_parquet_files: int
     row_bag_sha256: str
@@ -156,14 +168,276 @@ class LocalNativeDeltaPublicationObservation:
     roles: object = field(repr=False, compare=False)
 
 
-def _issue_local_native_delta_publication_observation(*, publication_id,
-        manifest_bytes, manifest_sha256, vector, receipt_bytes, receipt_sha256, roles):
-    """Issue the closed observation after the caller's independent native reads."""
+def _strict_local_json(raw, label):
+    def pairs(items):
+        result = {}
+        for key, value in items:
+            if key in result:
+                raise TrussSourceSelectionError(f"Duplicate {label} member")
+            result[key] = value
+        return result
+    try:
+        return json.loads(raw, object_pairs_hook=pairs,
+                          parse_constant=lambda _value: (_ for _ in ()).throw(
+                              TrussSourceSelectionError(f"Nonfinite {label} value")))
+    except (UnicodeDecodeError, json.JSONDecodeError, TypeError) as error:
+        raise TrussSourceSelectionError(f"Malformed {label}") from error
+
+
+def _local_safe_relative_path(value, label):
+    _need(type(value) is str and 0 < len(value.encode("utf-8")) <= 8192
+          and "\\" not in value and "\0" not in value,
+          f"Bounded local {label} required")
+    path = Path(value)
+    _need(not path.is_absolute() and all(part not in ("", ".", "..") for part in path.parts),
+          f"Safe relative local {label} required")
+    _need(path.as_posix() == value, f"Canonical relative local {label} required")
+    return value
+
+
+def _local_delta_log_inventory(root, version, expected_uuid):
+    log_dir = root / "_delta_log"
+    _need(log_dir.is_dir() and not log_dir.is_symlink(), "Exact local Delta log directory required")
+    _need(type(version) is int and 0 <= version <= _MAX_NATIVE_LOG_VERSIONS,
+          "Bounded selected local Delta version required")
+    log_entries = []
+    with os.scandir(log_dir) as entries:
+        for entry in entries:
+            _need(len(log_entries) < _MAX_NATIVE_WALK_ENTRIES,
+                  "Bounded local Delta log directory inventory required")
+            log_entries.append((entry.name, entry.is_file(follow_symlinks=False),
+                                entry.is_symlink()))
+    disk_versions = []
+    for name, is_file, is_symlink in log_entries:
+        if name.endswith(".json"):
+            match = re.fullmatch(r"([0-9]{20})\.json", name)
+            _need(match is not None and is_file and not is_symlink,
+                  "Canonical local Delta JSON log filename required")
+            disk_versions.append(int(match.group(1)))
+    _need(sorted(disk_versions) == list(range(version + 1)),
+          "Selected local Delta version must be the current contiguous log head")
+    history = []
+    active = set()
+    found_uuid = None
+    for item_version in range(version + 1):
+        path = log_dir / f"{item_version:020d}.json"
+        _need(path.is_file() and not path.is_symlink(),
+              "Contiguous local Delta JSON log history required")
+        _need(path.stat().st_size <= _MAX_BYTES,
+              "Bounded local Delta JSON action file required")
+        raw = path.read_bytes()
+        _need(0 < len(raw) <= _MAX_BYTES, "Bounded local Delta JSON action file required")
+        history.append((item_version, hashlib.sha256(raw).hexdigest()))
+        lines = raw.splitlines()
+        _need(0 < len(lines) <= 100_000, "Bounded local Delta action inventory required")
+        for line in lines:
+            action = _strict_local_json(line, "Delta action")
+            _need(type(action) is dict and len(action) == 1,
+                  "Closed single-action local Delta JSON line required")
+            if "metaData" in action:
+                metadata = action["metaData"]
+                _need(type(metadata) is dict and type(metadata.get("id")) is str,
+                      "Local Delta metadata UUID required")
+                if found_uuid is None:
+                    found_uuid = metadata["id"]
+                else:
+                    _need(found_uuid == metadata["id"], "Local Delta metadata UUID drift")
+            if "add" in action:
+                add = action["add"]
+                _need(type(add) is dict, "Local Delta add action required")
+                rel = _local_safe_relative_path(add.get("path"), "active data path")
+                active.add(rel)
+                _need(len(active) <= _MAX_NATIVE_FILES, "Bounded active Delta file set required")
+            if "remove" in action:
+                remove = action["remove"]
+                _need(type(remove) is dict, "Local Delta remove action required")
+                active.discard(_local_safe_relative_path(remove.get("path"), "removed data path"))
+        _need(len(active) <= _MAX_NATIVE_FILES, "Bounded active Delta file set required")
+    _need(found_uuid == expected_uuid, "Delta-log UUID differs from selected table UUID")
+
+    physical = set()
+    seen = 0
+    pending = [root]
+    while pending:
+        directory = pending.pop()
+        with os.scandir(directory) as entries:
+            for entry in entries:
+                seen += 1
+                _need(seen <= _MAX_NATIVE_WALK_ENTRIES,
+                      "Bounded local Delta file walk required")
+                _need(not entry.is_symlink(), "Symlink in local Delta target refused")
+                full = Path(entry.path)
+                if entry.is_dir(follow_symlinks=False):
+                    pending.append(full)
+                elif entry.is_file(follow_symlinks=False) and entry.name.endswith(".parquet"):
+                    rel = full.relative_to(root).as_posix()
+                    physical.add(_local_safe_relative_path(rel, "physical Parquet path"))
+                    _need(len(physical) <= _MAX_NATIVE_FILES,
+                          "Bounded physical local Parquet file set required")
+    _need(active <= physical, "Active local Delta files are not all physically present")
+    return tuple(history), tuple(sorted(active)), tuple(sorted(physical))
+
+
+def _native_cell(value, kind):
+    if value is None:
+        return None
+    if kind == "timestamp":
+        _need(isinstance(value, datetime.datetime), "Native timestamp cell required")
+        if value.tzinfo is None:
+            value = value.replace(tzinfo=datetime.timezone.utc)
+        delta = value.astimezone(datetime.timezone.utc) - datetime.datetime(1970, 1, 1,
+                                                                         tzinfo=datetime.timezone.utc)
+        return str((delta.days * 86400 + delta.seconds) * 1_000_000 + delta.microseconds)
+    if kind in ("tinyint", "smallint", "int", "bigint") or kind.startswith("decimal("):
+        _need(type(value) in (int, str) or isinstance(value, Decimal),
+              "Native integral/decimal cell required")
+        return str(value)
+    if kind == "string":
+        _need(type(value) is str, "Native string cell required")
+        return value
+    if kind == "boolean":
+        _need(type(value) is bool, "Native boolean cell required")
+        return value
+    raise TrussSourceSelectionError("Unsupported local native Delta value type")
+
+
+def _local_native_rows(spark, path, version):
+    frame = spark.read.format("delta").option("versionAsOf", version).load(str(path))
+    fields = frame.schema.fields
+    _need(type(fields) in (list, tuple) and 1 <= len(fields) <= 256,
+          "Bounded exact local native schema required")
+    schema = []
+    for item in fields:
+        name = getattr(item, "name", None)
+        kind = item.dataType.simpleString()
+        _need(type(name) is str and name and name not in {entry[0] for entry in schema},
+              "Unique native Delta field names required")
+        schema.append((name, kind))
+    rows = frame.limit(_MAX_NATIVE_ROWS + 1).collect()
+    _need(type(rows) is list and len(rows) <= _MAX_NATIVE_ROWS,
+          "Bounded complete local native row bag required")
+    mapped = []
+    total_bytes = 0
+    for row in rows:
+        values = row.asDict(recursive=True)
+        _need(type(values) is dict and set(values) == {name for name, _ in schema},
+              "Exact native Delta row fields required")
+        native = {name: _native_cell(values[name], kind) for name, kind in schema}
+        _need(all(value is None or len(_canonical_bytes(value)) <= _MAX_NATIVE_CELL_BYTES
+                  for value in native.values()),
+              "Bounded local native cell required")
+        row_bytes = len(_canonical_bytes(native))
+        _need(row_bytes <= _MAX_NATIVE_CELL_BYTES * max(1, len(schema)),
+              "Bounded local native row required")
+        total_bytes += row_bytes
+        _need(total_bytes <= _MAX_NATIVE_ROW_BAG_BYTES,
+              "Bounded complete local native row bytes required")
+        mapped.append(native)
+    return mapped
+
+
+def read_local_native_delta_publication_observation(*, anchor, spark, destination_transport,
+        manifest_bytes, vector, receipt_bytes, expected_post_state):
+    """Read and issue exact local Delta evidence; callers cannot supply observations.
+
+    The factory opens each selected snapshot with ``versionAsOf``, reads its
+    complete bounded row bag, checks Delta metadata and contiguous JSON actions,
+    and inventories active and physical files before issuing the observation.
+    """
+    _need(_issued(_ANCHORS, anchor) and anchor.authority_profile == "local-development",
+          "Validated local-development source anchor required")
+    from .delta_custody import DeltaTarget, LocalDeltaTransport
+    _need(type(destination_transport) is LocalDeltaTransport
+          and destination_transport is anchor.destination_transport
+          and getattr(destination_transport, "spark", None) is spark,
+          "Exact preselected local Delta transport instance required")
+    _need(type(manifest_bytes) is bytes and 0 < len(manifest_bytes) <= _MAX_BYTES
+          and type(vector) is PinVector and type(receipt_bytes) is bytes
+          and 0 < len(receipt_bytes) <= _MAX_BYTES,
+          "Exact local publication manifest, vector and receipt required")
+    _need(type(expected_post_state) is ExpectedNativePostState
+          and _issued(_EXPECTED_POST_STATES, expected_post_state),
+          "Exact publisher-issued expected native post-state required")
+    manifest = decode_retained_json(manifest_bytes)
+    publication_id = _bounded_text(manifest.get("publication_id"), "publication ID", 4096)
+    _need(_canonical_bytes(manifest) == manifest_bytes
+          and manifest.get("profile_version") == "ashlar-delta/0.4-xxhash64"
+          and vector.authority == "private-local-process"
+          and vector.scope_kind == "manifest" and vector.scope_id == publication_id
+          and vector.custody_digest == hashlib.sha256(manifest_bytes).hexdigest(),
+          "Exact canonical local manifest and vector binding required")
+    _need(publication_id == anchor.preselected_publication_id
+          and expected_post_state.publication_id == publication_id,
+          "Publisher post-state differs from selected publication")
+    request = decode_retained_json(anchor.request_bytes)
+    from ashlar.attempt_store import verify_request_digest
+    inner_digest = verify_request_digest(request)
+    _need(hashlib.sha256(anchor.request_bytes).hexdigest() == anchor.request_sha256
+          and expected_post_state.request_digest == inner_digest
+          and publication_id == "truss-graph-" + inner_digest,
+          "Selected request and publisher state differ")
+    from .truss_feed_sessions import encode_truss_destination_receipt
+    expected_receipt = encode_truss_destination_receipt(anchor.request_bytes, manifest_bytes, vector)
+    _need(receipt_bytes == expected_receipt,
+          "Destination receipt differs from exact request, manifest and vector")
+    versions = decode_retained_json(manifest["table_versions_json"].encode("utf-8"))
+    targets = destination_transport.targets
+    _need(type(versions) is dict and set(versions) == set(vector.targets)
+          and type(targets) is MappingProxyType and set(targets) == set(vector.targets)
+          and type(anchor.destination_target_bindings) is MappingProxyType
+          and set(anchor.destination_target_bindings) == set(targets),
+          "Preselected destination transport, vector and manifest versions required")
+    role_entries = {}
+    for table, target in vector.targets.items():
+        role = table.rsplit(".", 1)[-1]
+        _need(table == "local.trussgraph." + role and role in _LOCAL_DATA_ROLES
+              and role not in role_entries,
+              "Exact local.trussgraph role table required")
+        _need(type(target) is tuple and len(target) == 2
+              and type(target[0]) is str and target[0]
+              and type(target[1]) is int and target[1] == versions[table],
+              "Exact selected Delta UUID/version required")
+        selected_target = targets[table]
+        _need(type(selected_target) is DeltaTarget and selected_target.table == table
+              and selected_target.uuid == target[0]
+              and anchor.destination_target_bindings[table]
+                  == (str(selected_target.path), selected_target.uuid),
+              "Selected local Delta transport target differs from publication vector")
+        path = Path(selected_target.path)
+        _need(path.is_absolute() and path.exists() and path.is_dir()
+              and all(not ancestor.is_symlink() for ancestor in (path, *path.parents)),
+              "Canonical absolute local Delta target without symlink ancestors required")
+        root = path.resolve(strict=True)
+        _need((root / "_delta_log").is_dir(),
+              "Canonical local Delta target with log required")
+        rows = _local_native_rows(spark, root, target[1])
+        summary = local_native_row_bag_summary(rows)
+        expected = expected_post_state.roles.get(role)
+        _need(expected is not None
+              and expected["canonicalization"] == LOCAL_ROW_BAG_CANONICALIZATION
+              and summary == dict(expected),
+              "Native Delta row bag differs from exact publisher post-state")
+        detail_rows = spark.sql("DESCRIBE DETAIL delta.`" + str(root).replace("`", "``") + "`").limit(2).collect()
+        _need(type(detail_rows) is list and len(detail_rows) == 1,
+              "Unique exact local Delta table detail required")
+        detail = detail_rows[0].asDict(recursive=True)
+        _need(detail.get("id") == target[0], "Spark Delta UUID differs from selected vector")
+        history, active, physical = _local_delta_log_inventory(root, target[1], target[0])
+        role_entries[role] = LocalNativeDeltaRoleObservation(
+            role=role, table=table, uuid=target[0], version=target[1],
+            head_version=history[-1][0], head_json_sha256=history[-1][1],
+            log_history=history, active_file_paths=active, physical_file_paths=physical,
+            active_files=len(active), physical_parquet_files=len(physical),
+            row_bag_sha256=summary["row_bag_sha256"], row_count=summary["row_count"])
+    _need(set(role_entries) == set(_LOCAL_DATA_ROLES)
+          and set(expected_post_state.roles) == set(_LOCAL_DATA_ROLES),
+          "Complete exact four-role native publication required")
     value = LocalNativeDeltaPublicationObservation(
         profile=LOCAL_NATIVE_OBSERVATION_PROFILE, publication_id=publication_id,
-        manifest_bytes=manifest_bytes, manifest_sha256=manifest_sha256,
-        vector=vector, receipt_bytes=receipt_bytes, receipt_sha256=receipt_sha256,
-        roles=MappingProxyType(dict(roles)))
+        manifest_bytes=manifest_bytes, manifest_sha256=hashlib.sha256(manifest_bytes).hexdigest(),
+        vector=vector, receipt_bytes=receipt_bytes,
+        receipt_sha256=hashlib.sha256(receipt_bytes).hexdigest(),
+        roles=MappingProxyType(role_entries))
     return _issue(_LOCAL_NATIVE_OBSERVATIONS, value)
 
 
@@ -184,6 +458,8 @@ class TrussSourceCustodyAnchor:
     maximum_bytes: int = 8 * 1024 * 1024
     authority_profile: str = "r04-scheduled"
     preselected_publication_id: str | None = None
+    destination_transport: object = field(default=None, repr=False, compare=False)
+    destination_target_bindings: object = field(default=None, repr=False, compare=False)
 
     def bind_publication(self, *, manifest_bytes: bytes, vector: PinVector,
                          receipt_bytes: bytes, observation: object
@@ -341,6 +617,17 @@ class TrussSourceCustodyAnchor:
                   and type(native.active_files) is int and 0 <= native.active_files <= 1000000
                   and type(native.physical_parquet_files) is int
                   and native.active_files <= native.physical_parquet_files <= 1000000
+                  and type(native.active_file_paths) is tuple
+                  and type(native.physical_file_paths) is tuple
+                  and len(native.active_file_paths) == native.active_files
+                  and len(native.physical_file_paths) == native.physical_parquet_files
+                  and tuple(sorted(set(native.active_file_paths))) == native.active_file_paths
+                  and tuple(sorted(set(native.physical_file_paths))) == native.physical_file_paths
+                  and set(native.active_file_paths) <= set(native.physical_file_paths)
+                  and all(_local_safe_relative_path(item, "active data path") == item
+                          for item in native.active_file_paths)
+                  and all(_local_safe_relative_path(item, "physical Parquet path") == item
+                          for item in native.physical_file_paths)
                   and type(native.row_count) is int and 0 <= native.row_count <= 1000000
                   and type(native.row_bag_sha256) is str
                   and re.fullmatch(r"[0-9a-f]{64}", native.row_bag_sha256) is not None,
@@ -522,7 +809,8 @@ def select_truss_local_dev_source_custody_anchor(
         page: object, feed: str, source_holder_id: str, document_id: str,
         destination_id: str,
         ack_registration_id: str, ack_scope_id: str, publication_id: str,
-        request_bytes: bytes, predecessor_id: str) -> TrussSourceCustodyAnchor:
+        request_bytes: bytes, predecessor_id: str,
+        destination_transport: object) -> TrussSourceCustodyAnchor:
     """Freeze one new local-development source interval from public Truss results.
 
     This separate selector is deliberately not an R04 schedule path. The
@@ -541,6 +829,21 @@ def select_truss_local_dev_source_custody_anchor(
             or type(runtime_status) is not CatalogRuntimeStatus
             or type(page) is not FeedPage):
         raise TrussSourceSelectionError("Exact public Truss acceptance, consumer, status and page required")
+    from .delta_custody import DeltaTarget, LocalDeltaTransport
+    _need(type(destination_transport) is LocalDeltaTransport
+          and type(destination_transport.targets) is MappingProxyType
+          and set(destination_transport.targets) == {
+              "local.trussgraph." + role for role in _LOCAL_DATA_ROLES},
+          "Exact selected four-role local Delta transport required")
+    for table, target in destination_transport.targets.items():
+        _need(type(target) is DeltaTarget and target.table == table
+              and type(target.uuid) is str and target.uuid
+              and target.path.is_absolute() and target.path.is_dir()
+              and not target.path.is_symlink(),
+              "Exact existing local Delta transport target required")
+    destination_target_bindings = MappingProxyType({
+        table: (str(target.path), target.uuid)
+        for table, target in destination_transport.targets.items()})
     for value, label, maximum in (
             (feed, "feed", 1024), (source_holder_id, "source-holder ID", 1024),
             (document_id, "document ID", 4096),
@@ -691,4 +994,6 @@ def select_truss_local_dev_source_custody_anchor(
         page=page, destination_id=destination_id, request_bytes=request_bytes,
         request_sha256=request_sha, destination_registration_bytes=registration_bytes,
         ack_scope_bytes=scope_bytes, authority_profile="local-development",
-        preselected_publication_id=publication_id))
+        preselected_publication_id=publication_id,
+        destination_transport=destination_transport,
+        destination_target_bindings=destination_target_bindings))

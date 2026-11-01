@@ -3,11 +3,14 @@
 import base64
 import hashlib
 import json
+import tempfile
 import sys
 import types
 import unittest
 from dataclasses import replace
 from types import SimpleNamespace
+from pathlib import Path
+from types import MappingProxyType
 from unittest.mock import patch
 
 from ashlar.staging import batch_row
@@ -16,13 +19,13 @@ from ashlar.source_checkpoint import truss_checkpoint
 from ashlar.truss_native_feed import native_feed_batch
 from ashlar_host.publication_planning import truss_request_for
 from ashlar_host.truss_source_custody_selection import (
-    LOCAL_NATIVE_OBSERVATION_PROFILE, LocalNativeDeltaPublicationObservation,
-    LocalNativeDeltaRoleObservation, TrussSourceSelectionError,
-    _mint_expected_native_post_state, _issue_local_native_delta_publication_observation,
+    TrussSourceSelectionError, _mint_expected_native_post_state,
     local_native_row_bag_summary,
+    read_local_native_delta_publication_observation,
     select_truss_local_dev_source_custody_anchor,
 )
 from ashlar_host.truss_feed_sessions import encode_truss_destination_receipt
+from ashlar_host.delta_custody import DeltaTarget, LocalDeltaTransport
 
 
 def canonical(value):
@@ -30,8 +33,62 @@ def canonical(value):
                       ensure_ascii=False, allow_nan=False)
 
 
+class _NativeFrame:
+    def __init__(self, fields, rows):
+        self.schema = SimpleNamespace(fields=fields)
+        self._rows = rows
+    def limit(self, _count):
+        return self
+    def collect(self):
+        return [SimpleNamespace(asDict=lambda recursive=True, row=row: dict(row))
+                for row in self._rows]
+
+
+class _NativeReader:
+    def __init__(self, owner):
+        self.owner = owner
+        self._version = None
+    def format(self, _fmt):
+        return self
+    def option(self, key, value):
+        if key == "versionAsOf":
+            self._version = value
+        return self
+    def load(self, path):
+        self.owner.read_versions.append((path, self._version))
+        role = Path(path).name
+        rows = self.owner.rows[role]
+        names = tuple(rows[0]) if rows else ("role", "value")
+        fields = [SimpleNamespace(name=name,
+            dataType=SimpleNamespace(simpleString=lambda: "string")) for name in names]
+        return _NativeFrame(fields, rows)
+
+
+class _NativeSparkMock:
+    def __init__(self, rows, paths):
+        self.rows = rows
+        self.paths = paths
+        self.read_versions = []
+        self.read = _NativeReader(self)
+    def sql(self, statement):
+        root = statement.split("delta.`", 1)[1].rsplit("`", 1)[0]
+        role = Path(root).name
+        row = {"id": f"uuid-{role}"}
+        return _NativeFrame([SimpleNamespace(name="id",
+            dataType=SimpleNamespace(simpleString=lambda: "string"))], [row])
+
+
 class LocalDevSourceCustodySelectionTests(unittest.TestCase):
     def setUp(self):
+        self.native_tmp = tempfile.TemporaryDirectory()
+        targets = {}
+        for role in ("object_current", "edge_current", "tombstone", "whole_source_history"):
+            table = f"local.trussgraph.{role}"
+            path = Path(self.native_tmp.name) / role
+            path.mkdir()
+            targets[table] = DeltaTarget(table, path, f"uuid-{role}")
+        self.transport = LocalDeltaTransport.__new__(LocalDeltaTransport)
+        self.transport.targets = MappingProxyType(targets)
         self.feed = "ashlar-local-dev-typed-graph-r21-20261101"
         self.types = self._types()
         self.consumer_id = "ashlar-local-dev-typed-graph-consumer-r21-20261101"
@@ -81,6 +138,9 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
         self.status.release_id = "truss-catalog-runtime/0.75-candidate"
         self.status.release_sha256 = "5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522"
 
+    def tearDown(self):
+        self.native_tmp.cleanup()
+
     @staticmethod
     def _types():
         t = SimpleNamespace()
@@ -120,7 +180,8 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
             ack_scope_id="ashlar-local-dev-ack-scope-r21",
             publication_id=self.publication_id if publication_id is None else publication_id,
             request_bytes=self.request_bytes,
-            predecessor_id="explicit-truss-genesis")
+            predecessor_id="explicit-truss-genesis",
+            destination_transport=self.transport)
 
     def test_binds_public_registration_genesis_page_and_one_page_ack_scope(self):
         with patch.dict(sys.modules, self._modules()):
@@ -187,77 +248,102 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
             publication_id=self.publication_id,
             request_digest=json.loads(self.request_bytes)["request_digest"],
             following=following, carrier_profile="ashlar-delta/0.4-xxhash64")
-        native_roles = {}
         for role in roles:
             table = f"local.trussgraph.{role}"
-            digest = hashlib.sha256(("delta-log-" + role).encode()).hexdigest()
-            bag = local_native_row_bag_summary(following[role])
-            native_roles[role] = LocalNativeDeltaRoleObservation(
-                role=role, table=table, uuid=f"uuid-{role}", version=0,
-                head_version=0, head_json_sha256=digest,
-                log_history=((0, digest),), active_files=1,
-                physical_parquet_files=1, row_bag_sha256=bag["row_bag_sha256"],
-                row_count=bag["row_count"])
-        observation = _issue_local_native_delta_publication_observation(
-            publication_id=self.publication_id,
-            manifest_bytes=manifest_bytes,
-            manifest_sha256=hashlib.sha256(manifest_bytes).hexdigest(),
-            vector=vector, receipt_bytes=receipt,
-            receipt_sha256=hashlib.sha256(receipt).hexdigest(), roles=native_roles)
-        return manifest_bytes, vector, receipt, expected, observation, following
+            target = self.transport.targets[table].path
+            (target / "_delta_log").mkdir(parents=True)
+            (target / "data").mkdir()
+            (target / "data" / f"{role}.parquet").write_bytes(b"mock parquet")
+            lines = [json.dumps({"metaData": {"id": f"uuid-{role}"}}, separators=(",", ":"))]
+            if following[role]:
+                lines.append(json.dumps({"add": {"path": f"data/{role}.parquet"}}, separators=(",", ":")))
+            (target / "_delta_log" / f"{0:020d}.json").write_text("\n".join(lines) + "\n")
+        fake_spark = _NativeSparkMock(following, {})
+        self.transport.spark = fake_spark
+        return manifest_bytes, vector, receipt, expected, following, fake_spark
 
     def test_local_native_publication_binds_exact_manifest_vector_and_role_bags(self):
         with patch.dict(sys.modules, self._modules()):
             anchor = self.anchor()
-        manifest, vector, receipt, expected, observation, _ = self._local_publication_evidence()
+        manifest, vector, receipt, expected, _, spark = self._local_publication_evidence()
+        observation = read_local_native_delta_publication_observation(anchor=anchor,
+            spark=spark, destination_transport=self.transport,
+            manifest_bytes=manifest, vector=vector,
+            receipt_bytes=receipt, expected_post_state=expected)
+        self.assertEqual(set(spark.read_versions), {
+            (str(target.path), 0) for target in self.transport.targets.values()})
         selection = anchor.bind_local_native_publication(manifest_bytes=manifest,
             vector=vector, receipt_bytes=receipt, expected_post_state=expected,
             observation=observation)
         self.assertEqual(selection.authority_profile, "local-development")
         self.assertEqual(selection.publication_id, self.publication_id)
 
-    def test_local_native_publication_refuses_row_bag_or_log_drift(self):
-        from dataclasses import replace
+    def test_local_native_factory_refuses_row_bag_or_log_drift(self):
         with patch.dict(sys.modules, self._modules()):
             anchor = self.anchor()
-        manifest, vector, receipt, expected, observation, _ = self._local_publication_evidence()
-        changed = dict(observation.roles)
-        changed["edge_current"] = replace(changed["edge_current"], row_bag_sha256="0" * 64)
-        bad_bag = _issue_local_native_delta_publication_observation(
-            publication_id=observation.publication_id,
-            manifest_bytes=observation.manifest_bytes,
-            manifest_sha256=observation.manifest_sha256, vector=observation.vector,
-            receipt_bytes=observation.receipt_bytes,
-            receipt_sha256=observation.receipt_sha256, roles=changed)
+        manifest, vector, receipt, expected, following, spark = self._local_publication_evidence()
+        path = self.transport.targets["local.trussgraph.edge_current"].path / "_delta_log" / f"{0:020d}.json"
+        path.unlink()
+        with self.assertRaisesRegex(TrussSourceSelectionError, "current contiguous log head"):
+            read_local_native_delta_publication_observation(anchor=anchor, spark=spark,
+                destination_transport=self.transport, manifest_bytes=manifest, vector=vector,
+                receipt_bytes=receipt, expected_post_state=expected)
+        path.write_text(json.dumps({"metaData": {"id": "uuid-edge_current"}}) + "\n"
+                        + json.dumps({"add": {"path": "data/edge_current.parquet"}}) + "\n")
+        later = path.with_name(f"{1:020d}.json")
+        later.write_text(json.dumps({"commitInfo": {"operation": "WRITE"}}) + "\n")
+        with self.assertRaisesRegex(TrussSourceSelectionError, "current contiguous log head"):
+            read_local_native_delta_publication_observation(anchor=anchor, spark=spark,
+                destination_transport=self.transport, manifest_bytes=manifest, vector=vector,
+                receipt_bytes=receipt, expected_post_state=expected)
+        later.unlink()
+        spark.rows["edge_current"] = [{"role": "edge_current", "value": "forged"}]
         with self.assertRaisesRegex(TrussSourceSelectionError, "row bag"):
-            anchor.bind_local_native_publication(manifest_bytes=manifest, vector=vector,
-                receipt_bytes=receipt, expected_post_state=expected, observation=bad_bag)
-        changed = dict(observation.roles)
-        changed["edge_current"] = replace(changed["edge_current"], log_history=((1, "a" * 64),))
-        bad_log = _issue_local_native_delta_publication_observation(
-            publication_id=observation.publication_id,
-            manifest_bytes=observation.manifest_bytes,
-            manifest_sha256=observation.manifest_sha256, vector=observation.vector,
-            receipt_bytes=observation.receipt_bytes,
-            receipt_sha256=observation.receipt_sha256, roles=changed)
-        with self.assertRaisesRegex(TrussSourceSelectionError, "Delta log version"):
-            anchor.bind_local_native_publication(manifest_bytes=manifest, vector=vector,
-                receipt_bytes=receipt, expected_post_state=expected, observation=bad_log)
+            read_local_native_delta_publication_observation(anchor=anchor, spark=spark,
+                destination_transport=self.transport, manifest_bytes=manifest, vector=vector,
+                receipt_bytes=receipt, expected_post_state=expected)
 
     def test_local_native_publication_refuses_unissued_observation(self):
         from dataclasses import replace
         with patch.dict(sys.modules, self._modules()):
             anchor = self.anchor()
-        manifest, vector, receipt, expected, observation, _ = self._local_publication_evidence()
+        manifest, vector, receipt, expected, _, spark = self._local_publication_evidence()
+        observation = read_local_native_delta_publication_observation(anchor=anchor,
+            spark=spark, destination_transport=self.transport,
+            manifest_bytes=manifest, vector=vector,
+            receipt_bytes=receipt, expected_post_state=expected)
         forged = replace(observation)
         with self.assertRaisesRegex(TrussSourceSelectionError, "native readback"):
             anchor.bind_local_native_publication(manifest_bytes=manifest, vector=vector,
                 receipt_bytes=receipt, expected_post_state=expected, observation=forged)
 
+    def test_local_native_factory_refuses_replaced_transport_target(self):
+        with patch.dict(sys.modules, self._modules()):
+            anchor = self.anchor()
+        manifest, vector, receipt, expected, _, spark = self._local_publication_evidence()
+        old_targets = self.transport.targets
+        changed = dict(old_targets)
+        table = "local.trussgraph.edge_current"
+        rogue_path = Path(self.native_tmp.name) / "rogue-edge"
+        rogue_path.mkdir()
+        changed[table] = DeltaTarget(table, rogue_path, old_targets[table].uuid)
+        self.transport.targets = MappingProxyType(changed)
+        try:
+            with self.assertRaisesRegex(TrussSourceSelectionError, "target differs"):
+                read_local_native_delta_publication_observation(anchor=anchor, spark=spark,
+                    destination_transport=self.transport, manifest_bytes=manifest,
+                    vector=vector, receipt_bytes=receipt, expected_post_state=expected)
+        finally:
+            self.transport.targets = old_targets
+
     def test_local_native_publication_refuses_unissued_expected_post_state(self):
         with patch.dict(sys.modules, self._modules()):
             anchor = self.anchor()
-        manifest, vector, receipt, expected, observation, _ = self._local_publication_evidence()
+        manifest, vector, receipt, expected, _, spark = self._local_publication_evidence()
+        observation = read_local_native_delta_publication_observation(anchor=anchor,
+            spark=spark, destination_transport=self.transport,
+            manifest_bytes=manifest, vector=vector,
+            receipt_bytes=receipt, expected_post_state=expected)
         forged = replace(expected)
         with self.assertRaisesRegex(TrussSourceSelectionError, "publisher post-state"):
             anchor.bind_local_native_publication(manifest_bytes=manifest, vector=vector,
