@@ -27,6 +27,14 @@ no query timeout by default unless this property is set. See Microsoft's
 [serverless Spark configuration reference](https://learn.microsoft.com/en-us/azure/databricks/spark/conf)
 and [Jobs API reference](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/api/latest/jobs).
 
+`ashlar_host.managed_current_serverless_job.ManagedCurrentServerlessJobSpec`
+builds the declarative one-notebook-task Jobs settings, and
+`admit_serverless_job_readback` checks a subsequent Jobs GET response for that
+exact task, timeout, no-retry policy, dependency paths, unscheduled state and
+effective budget attribution. These functions make no API calls. Estimates and
+timeouts are admission controls, not a hard invoice cap; serverless wheel paths
+also need separate byte and architecture evidence before they are selected.
+
 This campaign worker is for the positive graph page after the catalog page has
 been published and ACKed. It publishes that positive page and runs all four
 selected Weft cases in the same task: grouped HAVING `> 0`, negative HAVING
