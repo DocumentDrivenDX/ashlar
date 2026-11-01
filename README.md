@@ -16,6 +16,10 @@ values through typed JSON staging and uses one last-wins index per fresh change
 page; focused tests and a small local Spark parser check passed. See the
 [bounded implementation evidence](docs/helix/04-build/evidence/current-upstream-release-20261021/local-current/xxhash64-typed-json-staging-20261022.json)
 for its limits; this does not qualify a managed Unity Catalog publication.
+One local 72-partition 45M/225M performance candidate projects 22.437 minutes
+for setup, writes and one combined witness at 80% of measured throughput. No
+further performance run has occurred; the full 1B/5B path remains held. See the
+[R05 target napkin](docs/helix/04-build/evidence/r05-few-minute-target-napkin-20261101.md).
 Use the [fresh original-commerce workflow](examples/original-commerce-local/README.md)
 for explicit fixture setup, six-table initialization, publication and all four
 unchanged Weft 0.4.2 queries. The [earlier indexed commerce guide](examples/end-to-end/COMMERCE-INDEXED-WEFT.md)
