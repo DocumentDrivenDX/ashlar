@@ -27,13 +27,7 @@ ddx:
 
 # G03 SDK 0.10.0 transaction 1 and Weft 0.4.56 packet candidate
 
-Status: **init-only packet independently reviewed; runtime initialization
-remains unapproved and unrun**. The packet includes SDK010
-timing hooks, an effect-free source/runtime preflight, and a one-shot R4 worker
-that can create a fresh SDK010 `.3` six-role install in a separate namespace.
-It has not created an attempt directory or started Spark. The retained R3
-SDK058 `.2` installation remains ineligible. No transaction, publication,
-Weft compilation/query, or ACK was run.
+Status: **R7's one-shot initializer ran and created the six local `.4` tables; its worker then failed in a post-initialize receipt predicate**. The original supervisor status remains `uncertain-after-dispatch`. A read-only verifier checked the exact runtime report, installation/carrier/reservation receipts, process-group closure, and all six Delta log heads; the independent [R7 reconciliation](r7-init-reconciliation/README.md) provides a usable initialization prerequisite receipt for a future reviewed transaction-one gate. The frozen [R7 packet](r7-sdk010-initialize-only/README.md) is retained unchanged. R6's earlier pre-Spark source-custody failure and original uncertain status remain in [R6 reconciliation](r7-sdk010-initialize-only/r6-attempt-reconciliation.md). R3's SDK058 `.2` installation remains ineligible. No transaction, publication, Weft compilation/query, or ACK was run.
 
 The SDK 0.10.0 source-admission change is present as commit `fe0ae9e0`
 (SDK010 source admission). The attempt must bind the admitted source profile to
@@ -176,48 +170,16 @@ conclusion from the traceback, empty worker stdout, absent native outputs, and
 empty group, without changing that conservative status. Exact receipt and log
 hashes are retained in [R4 failure reconciliation](r5-sdk010-initialize-only/r4-attempt-reconciliation.md).
 
-The [R5 init-only candidate](r5-sdk010-initialize-only/README.md) fixes the
-isolated-child packet import path and binds a distinct attempt parent. Its
-isolated-child import preflight and effect-free SDK010 admission pass. The
-effect-free `prepare` and `slot` steps created a fresh attempt at
-`/private/tmp/ashlar-g03-sdk010-delta4-init-r5-attempts-20261101/ashlar-g03-sdk010-init-2f44fbff52e74bd9a12ff1895847cf03`.
-The [prepared receipt](r5-init-prepared-receipt.json) has SHA-256
-`a7fe5797ba08419b66a5eb91058142df5497018007414811a42dc8bc623aa54d`;
-the [empty process-slot receipt](r5-init-process-slot-receipt.json) has SHA-256
-`4d4396a5e6e87795b9bb64cb30c31feb2d9aa6c0e0073c4ed069b7e392e19de2`.
-The approved R5 one-shot was dispatched and consumed. The worker failed before
-initialization because its producer fields used camelCase keys where the closed
-invocation parser requires snake_case. The supervisor retains
-`uncertain-after-dispatch`; the traceback, absent installation/output paths, and
-verified empty process group support a narrower pre-native-effect conclusion
-without changing that original status ([R5 reconciliation](r6-sdk010-initialize-only/r5-attempt-reconciliation.md)).
-Its packet tree digest is
-`48fb4e5a81f2b1f61189aee2fcfbc14503dc71dd9377b84b0ef1d3506b410b2a`.
+The [R5 init-only candidate](r5-sdk010-initialize-only/README.md) fixed the isolated-child import path and bound a fresh attempt parent. Its approved one-shot was consumed and failed before the initializer: the R5 producer map used camelCase keys where the closed parser requires snake_case. The supervisor retained `uncertain-after-dispatch`; read-only evidence supports pre-native refusal, and R5's original status remains unchanged. Its prepared and empty process-slot receipts are retained as [copies](r5-init-prepared-receipt.json) and [process-slot evidence](r5-init-process-slot-receipt.json). Exact failure hashes and no-effect evidence are in [R5 reconciliation](r6-sdk010-initialize-only/r5-attempt-reconciliation.md).
 
-The [R6 init-only candidate](r6-sdk010-initialize-only/README.md) maps the
-producer fields explicitly and passes an isolated-child parse of its generated
-invocation through the installed parser. The effect-free `prepare` and `slot`
-steps created the fresh attempt
-`/private/tmp/ashlar-g03-sdk010-delta4-init-r6-attempts-20261101/ashlar-g03-sdk010-init-af3d0ceee7724957b3f697a205456804`.
-Its [prepared receipt](r6-init-prepared-receipt.json) has SHA-256
-`86dfdcd41c5abafdf309ef6c8524c71a65e00c8409b0d3289379b329f5e50e4b`;
-the [empty process-slot receipt](r6-init-process-slot-receipt.json) has SHA-256
-`4b8fcba3bd2ab856e0a5791f815a4bc3390fa8af4e35f7feda9b6ad053f472d9`.
-The prepared invocation SHA-256 is
-`473981de2ad8d663e64bb7f10a926ab694a96c14f9279a613b11318d9159234a`;
-an isolated-child parse of those actual bytes passed. R6 has no approved permit or
-dispatch and has not initialized Spark. Its packet tree digest is
-`7b448c887f1ecb581fb9c944f398bd35f43ae21ae021ec271e6a6d39aa326b66`.
-A [proposed one-shot permit](r6-init-permit-proposal.json) with SHA-256
-`e420a613691248a861fd67181293f355fae7ad45453e996b6b160cb0348ca48f`
-binds only this prepared attempt, process slot, packet and main commit. It is
-not an execution approval.
+The [R6 init-only candidate](r6-sdk010-initialize-only/README.md) mapped the producer schema explicitly and passed an isolated-child parse of its generated invocation. Its approved one-shot was consumed; source admission then timed out during full-tree UMF Git custody before Spark startup. The separate [R6 reconciliation](r7-sdk010-initialize-only/r6-attempt-reconciliation.md) preserves its hashes and conservative status. [R7](r7-sdk010-initialize-only/README.md) bound a sparse checkout of the same UMF commit and required one full configured-source open/close preflight before preparation. Its attempt created the six tables and failed only after runtime initialization when the worker compared the carrier adapter-policy field to the distinct UMF policy revision. The independent [R7 receipt](r7-init-reconciliation/r7-init-reconciliation.json) verifies the six heads while preserving the original uncertain execution status.
 
 The effect-free [R4 transaction-one release gate](r4-transaction1-gate/README.md)
-binds the consumed R4 initializer and Weft 0.4.56 wheel, so it cannot admit an
-R5 or R6 result without a later reviewed rebinding. Its null publication vector is
-retained; exact `.4`-bound Weft requests and responses remain downstream
-consumer evidence. No transaction-one dispatch is authorized by that gate.
+binds the consumed R4 initializer and Weft 0.4.56 wheel; it remains dispatch-disabled
+and does not consume the independent R7 reconciliation. A reviewed gate update must bind that receipt before any transaction-one dispatch.
+The null publication vector is retained; exact `.4`-bound Weft requests and
+responses remain downstream consumer evidence. No transaction-one dispatch is
+authorized by that gate.
 
 ## r3 disposition and timeout finding
 
@@ -336,7 +298,6 @@ The separate SDK010 admission/source-routing/runtime and `.4` transaction,
 coordinator, and Weft consumer adapter tests remain the existing focused checks
 for the underlying route, as identified in the linked candidate receipts. Those
 checks and this instrumentation suite establish only pure admission and mocked
-control flow. No final executable R4 supervisor/worker, fresh six-role install
-receipt, final frozen hashes, native completion, publication creation, Weft
-execution, or timeout performance evidence exists. No additional stress or
-repeated native verification is proposed.
+control flow. The R7 six-role installation is independently reconciled, but no
+transaction-one completion, publication, Weft execution, or timeout performance
+evidence exists. No additional stress or repeated initialization is proposed.
