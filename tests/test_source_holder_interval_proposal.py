@@ -78,18 +78,17 @@ class SourceHolderIntervalProposalTests(unittest.TestCase):
             request_bytes=b"request", context=context,
         )
 
-    def test_opens_in_order_renews_all_before_body_and_closes_reverse(self):
+    def test_opens_in_order_checks_coverage_and_closes_reverse(self):
         events, _, ports = self.setup_ports()
         with self.hold(ports) as interval:
             self.assertEqual(events, [
                 "managed.open", "pins.open", "source.open",
-                "managed.renew", "pins.renew", "source.renew",
             ])
             self.assertFalse(hasattr(interval, "commit"))
             events.append("body")
         self.assertEqual(events, [
             "managed.open", "pins.open", "source.open",
-            "managed.renew", "pins.renew", "source.renew", "body",
+            "body",
             "source.close", "pins.close", "managed.close",
         ])
 
@@ -109,7 +108,8 @@ class SourceHolderIntervalProposalTests(unittest.TestCase):
             "source.close": OSError("close failed"),
         })
         with self.assertRaises(RuntimeError) as caught:
-            with self.hold(ports):
+            with self.hold(ports) as interval:
+                interval.renew_all()
                 self.fail("body must not run")
         self.assertIs(caught.exception, renew_error)
         self.assertEqual(
@@ -152,10 +152,10 @@ class SourceHolderIntervalProposalTests(unittest.TestCase):
     def test_explicit_renew_all_inside_body_rechecks_all_handles(self):
         events, _, ports = self.setup_ports()
         with self.hold(ports) as interval:
-            events.append("before-second-renewal")
+            events.append("before-renewal")
             interval.renew_all()
-        self.assertEqual(events[6:10], [
-            "before-second-renewal", "managed.renew", "pins.renew", "source.renew",
+        self.assertEqual(events[3:7], [
+            "before-renewal", "managed.renew", "pins.renew", "source.renew",
         ])
 
     def test_non_none_port_results_are_ignored(self):
@@ -200,7 +200,7 @@ class SourceHolderIntervalProposalTests(unittest.TestCase):
                 interval, Ack(), request_bytes=b"request", manifest_bytes=b"manifest",
                 receipt_bytes=b"receipt", context=context,
             )
-        self.assertEqual(events[6:12], [
+        self.assertEqual(events[3:9], [
             "managed.renew", "pins.renew", "source.renew",
             ("ack.commit", (b"request", b"manifest", b"receipt", context)),
             ("ack.reconcile", (b"request", b"manifest", b"receipt", context)),
@@ -293,7 +293,7 @@ class SourceHolderIntervalProposalTests(unittest.TestCase):
         context = object()
         with self.hold(ports, context=context) as interval:
             handles["managed"].remaining = float("inf")
-            with self.assertRaisesRegex(ValueError, "does not cover ACK window"):
+            with self.assertRaisesRegex(ValueError, "does not cover bounded ACK operating window"):
                 commit_and_reconcile_protected_ack_proposal(
                     interval, object(), request_bytes=b"request", manifest_bytes=b"manifest",
                     receipt_bytes=b"receipt", context=context,
@@ -315,7 +315,7 @@ class SourceHolderIntervalProposalTests(unittest.TestCase):
     def test_insufficient_coverage_refuses_before_body_and_closes(self):
         events, _, ports = self.setup_ports()
         ports[1].handle.remaining_lifetime_seconds = lambda: 29
-        with self.assertRaisesRegex(ValueError, "does not cover ACK window"):
+        with self.assertRaisesRegex(ValueError, "does not cover bounded ACK operating window"):
             with self.hold(ports):
                 self.fail("body must not run")
         self.assertEqual(events[-3:], ["source.close", "pins.close", "managed.close"])

@@ -36,6 +36,8 @@ class SourceHolderCloseError(SourceHolderIntervalError):
 class RenewableHandle(Protocol):
     def renew(self) -> object: ...
     def close(self) -> object: ...
+    # For the managed operational adapter this is time to its observation
+    # deadline, not proof of continuous Delta-file availability.
     def remaining_lifetime_seconds(self) -> float: ...
 
 
@@ -141,7 +143,12 @@ def _require_coverage(role: str, handle: object, minimum: float) -> None:
     remaining = coverage() if callable(coverage) else None
     if (type(remaining) not in (int, float) or not math.isfinite(remaining)
             or remaining < minimum):
-        raise SourceHolderIntervalError(f"Draft {role} does not cover ACK window")
+        raise SourceHolderIntervalError(f"Draft {role} does not cover bounded ACK operating window")
+
+
+def _require_all_coverage(handles: list[tuple[str, object]], minimum: float) -> None:
+    for role, handle in handles:
+        _require_coverage(role, handle, minimum)
 
 
 @contextmanager
@@ -157,12 +164,13 @@ def hold_source_holder_interval_proposal(
     context: object,
     ack_window_seconds: float = 30.0,
 ):
-    """Open, renew-all, yield and reverse-close the draft source-holder interval.
+    """Open, check interval coverage, yield and reverse-close the draft interval.
 
-    The API is deliberately disconnected from campaign code. An open/renew
-    success says only that injected ports returned without error at that
-    observation; it does not prove retention, authority, or continuous lease
-    coverage while the caller body runs.
+    Each port's ``open`` performs its opening admission. All three handles are
+    renewed by ``commit_and_reconcile_protected_ack_proposal`` immediately
+    before protected ACK. An open/renew success says only that injected ports
+    returned without error at that observation; it does not prove continuous
+    file retention or create source authority.
     """
     if (type(receipt_bytes) is not bytes or not receipt_bytes
             or type(request_bytes) is not bytes or not request_bytes
@@ -200,7 +208,7 @@ def hold_source_holder_interval_proposal(
             opened["managed_publication"], opened["native_pin"], opened["truss_source"],
             request_bytes, receipt_bytes, context, ack_window_seconds,
         )
-        interval.renew_all()
+        _require_all_coverage(handles, ack_window_seconds)
         yield interval
     except BaseException as error:
         primary = error

@@ -26,6 +26,9 @@ from ashlar_host.managed_operational_retention_interval import (
     ManagedOperationalRetentionSelection, OperationalRetentionInterval,
     OperationalRetentionIntervalError, SOURCE_CUSTODY_FIELDS,
 )
+from ashlar_host.managed_operational_read_port import (
+    ManagedOperationalReadPort, ManagedOperationalReadPortError,
+)
 from ashlar.manifest import manifest_pin_vector
 from ashlar_host.truss_note_publication import graph_expected_rows
 from test_managed_current_receipt_read import _fixture, _canonical
@@ -827,6 +830,7 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
             reader_config=self.config,
             request_bytes=_canonical(self.request).encode(),
             manifest_bytes=_canonical(self.manifest).encode(),
+            receipt_bytes=_canonical(self.receipt).encode(),
             expected_receipt=self.receipt,
             vector=manifest_pin_vector(self.manifest, {
                 f"{self.config.catalog}.{self.config.schema}.{role}": self.uuids[role]
@@ -913,6 +917,7 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
                 reader_config=self.config,
                 request_bytes=_canonical(self.request).encode(),
                 manifest_bytes=_canonical(self.manifest).encode(),
+                receipt_bytes=_canonical(self.receipt).encode(),
                 expected_receipt=self.receipt, vector=self.selection.vector,
                 expected_source_custody=dict(self.custody))
 
@@ -928,9 +933,95 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
         with self.assertRaisesRegex(OperationalRetentionIntervalError, "inventory changed"):
             interval.renew_pre_ack()
         self.assertTrue(all(item.closed for item in self.sessions))
-        with self.assertRaisesRegex(OperationalRetentionIntervalError, "did not complete"):
+        with self.assertRaisesRegex(OperationalRetentionIntervalError, "incomplete"):
             interval.close()
         self.assertFalse(hasattr(interval, "acknowledge"))
+
+    def test_port_binds_exact_receipt_vector_and_context_across_three_stages(self):
+        context = object()
+        port = ManagedOperationalReadPort(
+            self.selection, self.session_factory, self.source_observer,
+            self.policy_observer, context=context)
+        handle = port.open(self.selection.receipt_bytes, self.selection.vector, context)
+        self.assertEqual([item.stage for item in self.sessions], ["open"])
+        self.assertGreater(handle.remaining_lifetime_seconds(), 0)
+        handle.renew()
+        receipt = handle.close()
+        self.assertEqual(receipt.outcome, "observed_available_at_checks")
+        self.assertEqual(receipt.authority, "read_observation_only_no_source_ack")
+        self.assertEqual([item.stage for item in self.sessions], ["open", "pre_ack", "close"])
+        self.assertTrue(all(item.closed for item in self.sessions))
+        self.assertEqual([sum("LIMIT 1025" in sql for sql in item.spark.calls)
+                          for item in self.sessions], [4, 4, 4])
+
+    def test_port_refuses_changed_receipt_vector_context_and_reuse_before_sessions(self):
+        context = object()
+        port = ManagedOperationalReadPort(
+            self.selection, self.session_factory, self.source_observer,
+            self.policy_observer, context=context)
+        with self.assertRaisesRegex(ManagedOperationalReadPortError, "Exact selected"):
+            port.open(self.selection.receipt_bytes + b" ", self.selection.vector, context)
+        with self.assertRaisesRegex(ManagedOperationalReadPortError, "Exact selected"):
+            port.open(self.selection.receipt_bytes, self.selection.vector, object())
+        self.assertEqual(self.sessions, [])
+        handle = port.open(self.selection.receipt_bytes, self.selection.vector, context)
+        with self.assertRaisesRegex(ManagedOperationalReadPortError, "Exact selected"):
+            port.open(self.selection.receipt_bytes, self.selection.vector, context)
+        self.assertEqual([item.stage for item in self.sessions], ["open"])
+        handle.renew()
+        handle.close()
+
+    def test_port_refuses_a_second_pre_ack_renewal_and_attempts_close_observation(self):
+        context = object()
+        port = ManagedOperationalReadPort(
+            self.selection, self.session_factory, self.source_observer,
+            self.policy_observer, context=context)
+        handle = port.open(self.selection.receipt_bytes, self.selection.vector, context)
+        handle.renew()
+        with self.assertRaisesRegex(ManagedOperationalReadPortError, "pre-ACK observation refused"):
+            handle.renew()
+        self.assertEqual([item.stage for item in self.sessions], ["open", "pre_ack"])
+        with self.assertRaisesRegex(ManagedOperationalReadPortError, "closing observation incomplete"):
+            handle.close()
+        self.assertEqual([item.stage for item in self.sessions], ["open", "pre_ack", "close"])
+        self.assertTrue(all(item.closed for item in self.sessions))
+
+    def test_failed_pre_ack_source_observation_still_attempts_fresh_closing_read(self):
+        class DriftAtPreAck:
+            def observe(inner_self, *, stage, selection, vector):
+                value = dict(self.custody)
+                if stage == "pre_ack":
+                    value["checkpoint"] = "c" * 64
+                self.events.append(("source", stage))
+                return value
+
+        context = object()
+        port = ManagedOperationalReadPort(
+            self.selection, self.session_factory, DriftAtPreAck(),
+            self.policy_observer, context=context)
+        handle = port.open(self.selection.receipt_bytes, self.selection.vector, context)
+        with self.assertRaisesRegex(ManagedOperationalReadPortError, "pre-ACK observation refused"):
+            handle.renew()
+        with self.assertRaisesRegex(ManagedOperationalReadPortError, "closing observation incomplete"):
+            handle.close()
+        self.assertEqual([item.stage for item in self.sessions], ["open", "pre_ack", "close"])
+        self.assertTrue(all(item.closed for item in self.sessions))
+        self.assertEqual([event for event in self.events if event[0] == "source"],
+                         [("source", "open"), ("source", "pre_ack"), ("source", "close")])
+
+    def test_expired_interval_attempts_closing_read_but_never_reports_success(self):
+        now = [0.0]
+        interval = OperationalRetentionInterval.open(
+            self.selection, self.session_factory, self.source_observer,
+            self.policy_observer, clock=lambda: now[0])
+        interval.renew_pre_ack()
+        now[0] = 901.0
+        with self.assertRaisesRegex(OperationalRetentionIntervalError, "incomplete"):
+            interval.close()
+        self.assertEqual([item.stage for item in self.sessions], ["open", "pre_ack", "close"])
+        self.assertTrue(all(item.closed for item in self.sessions))
+        self.assertEqual(len(interval.observations), 3)
+        self.assertGreater(interval.observations[-1].elapsed_seconds, 900)
 
 
 if __name__ == "__main__":

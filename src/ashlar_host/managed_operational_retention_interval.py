@@ -76,6 +76,7 @@ class ManagedOperationalRetentionSelection:
     reader_config: ManagedCurrentSparkReceiptConfig = field(repr=False, compare=False)
     request_bytes: bytes = field(repr=False)
     manifest_bytes: bytes = field(repr=False)
+    receipt_bytes: bytes = field(repr=False)
     expected_receipt: dict = field(repr=False, compare=False)
     vector: PinVector = field(repr=False, compare=False)
     expected_source_custody: dict = field(repr=False, compare=False)
@@ -91,9 +92,11 @@ class ManagedOperationalRetentionSelection:
         if (type(self.request_bytes) is not bytes or not 0 < len(self.request_bytes) <= 4 * 1024 * 1024
                 or type(self.manifest_bytes) is not bytes
                 or not 0 < len(self.manifest_bytes) <= 4 * 1024 * 1024
+                or type(self.receipt_bytes) is not bytes
+                or not 0 < len(self.receipt_bytes) <= 4 * 1024 * 1024
                 or type(self.expected_receipt) is not dict
                 or type(self.vector) is not PinVector):
-            raise OperationalRetentionIntervalError("Frozen original request, manifest, receipt and vector required")
+            raise OperationalRetentionIntervalError("Frozen original request, manifest, exact receipt bytes and vector required")
         expected_tables = {
             f"{self.reader_config.catalog}.{self.reader_config.schema}.{role}"
             for role in DATA_ROLES
@@ -113,6 +116,20 @@ class ManagedOperationalRetentionSelection:
         except (TypeError, ValueError) as error:
             raise OperationalRetentionIntervalError("Closed finite task receipt required") from error
         object.__setattr__(self, "_expected_receipt_bytes", receipt_bytes)
+        def unique_members(items):
+            parsed = {}
+            for key, value in items:
+                if key in parsed:
+                    raise ValueError("duplicate receipt member")
+                parsed[key] = value
+            return parsed
+        try:
+            receipt_text = self.receipt_bytes.decode("utf-8")
+            if json.loads(receipt_text, object_pairs_hook=unique_members) != self.expected_receipt:
+                raise ValueError()
+        except (UnicodeDecodeError, json.JSONDecodeError, ValueError) as error:
+            raise OperationalRetentionIntervalError(
+                "Exact selected receipt bytes must decode to the retained receipt") from error
         if (self.reader_config.carrier_profile != CARRIER_PROFILE_XXHASH64
                 or self.source_oracle is not None
                 or type(self.source_prefix_bytes) is not bytes
@@ -235,10 +252,10 @@ class OperationalRetentionInterval:
         interval._capture("open")
         return interval
 
-    def _require_active(self):
-        if self._closed or self._invalid:
+    def _require_active(self, *, closing=False):
+        if self._closed or (self._invalid and not closing):
             raise OperationalRetentionIntervalError("Operational interval is closed or invalidated")
-        if self.clock() >= self.deadline:
+        if self.clock() >= self.deadline and not closing:
             self._invalid = True
             raise OperationalRetentionIntervalError("Operational interval exceeded 900 seconds")
 
@@ -253,7 +270,7 @@ class OperationalRetentionInterval:
                 "Original source registration, cursor, page, checkpoint or ACK-scope custody changed")
         return dict(observed)
 
-    def _reader_observation(self, stage):
+    def _reader_observation(self, stage, *, closing=False):
         session = self.session_factory.open(stage=stage, deadline_monotonic=self.deadline)
         reader = None
         primary = None
@@ -262,7 +279,7 @@ class OperationalRetentionInterval:
         policy_value = None
         close_error = None
         try:
-            if self.clock() >= self.deadline:
+            if self.clock() >= self.deadline and not closing:
                 raise OperationalRetentionIntervalError("Operational interval exceeded 900 seconds")
             if (session is None or type(getattr(session, "session_id", None)) is not str
                     or not session.session_id or session.session_id in self._session_ids
@@ -285,7 +302,7 @@ class OperationalRetentionInterval:
                               source_core_config=self.selection.source_core_config)
             result = reader.reopen(**kwargs)
             self._validate_reader_result(result)
-            if self.clock() >= self.deadline:
+            if self.clock() >= self.deadline and not closing:
                 raise OperationalRetentionIntervalError("Operational interval exceeded 900 seconds")
             policy_value = self.policy_observer.observe(
                 stage=stage, session=session, vector=self.selection.vector)
@@ -355,10 +372,10 @@ class OperationalRetentionInterval:
                 or normalized_bytes != summary["normalized_bytes"]):
             raise OperationalRetentionIntervalError("Role comparison summaries do not match aggregate bounds")
 
-    def _capture(self, stage):
-        self._require_active()
+    def _capture(self, stage, *, closing=False):
+        self._require_active(closing=closing)
         try:
-            result, policy_value = self._reader_observation(stage)
+            result, policy_value = self._reader_observation(stage, closing=closing)
             policy = _policy_observation(policy_value)
             source = self._source_custody(stage)
             runtime = _runtime_identity(result)
@@ -392,7 +409,7 @@ class OperationalRetentionInterval:
                 role_comparisons=copy.deepcopy(summary["roles"]),
                 comparison_sha256=summary["comparison_sha256"],
             )
-            if self.clock() >= self.deadline:
+            if self.clock() >= self.deadline and not closing:
                 raise OperationalRetentionIntervalError("Operational interval exceeded 900 seconds")
             self.observations.append(observation)
             return observation
@@ -410,14 +427,15 @@ class OperationalRetentionInterval:
     def close(self):
         if self._closed:
             raise OperationalRetentionIntervalError("Operational interval already closed")
+        if self.clock() >= self.deadline:
+            self._invalid = True
         was_invalid = self._invalid
         close_error = None
         try:
-            if not was_invalid and self.clock() < self.deadline:
-                self._capture("close")
-            else:
-                close_error = OperationalRetentionIntervalError(
-                    "No successful close observation after interval refusal or expiry")
+            # Always attempt an independent closing observation, including after
+            # refusal or deadline. A successful read cannot repair an invalid
+            # interval; it only supplies the required closing evidence.
+            self._capture("close", closing=True)
         except BaseException as error:
             close_error = error
         self._closed = True

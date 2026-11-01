@@ -35,36 +35,44 @@ optimization `ENABLE`, and role comparison results. The interval expires at
 900 seconds, exposes no ACK operation, and does not publish, register a pin, or
 mutate a source cursor.
 
-This is pre-existing Ashlar-side **offline choreography** for the owner-selected
-three-observation profile: one bounded owner orders the reads, policy
-observations and source-custody observations and refuses drift. This candidate
-records that boundary; it did not add or qualify a production adapter. It does
-not close the production adapter gap in the [A1 live port review](source-holder-a1-live-port-gap-20261024.md).
+This is Ashlar-side **offline choreography** for the owner-selected
+three-observation profile. The source-facing adapter in
+[`managed_operational_read_port.py`](../../../../src/ashlar_host/managed_operational_read_port.py)
+binds one exact receipt, full vector and caller context, then maps `open`, one
+`renew` and `close` to those three observations. It is a sampled operational
+read adapter: its remaining lifetime is only time to the 900-second profile
+deadline. It is not a file-retention lease, a continuous availability proof, a
+pin handle, or source/ACK authority.
+
 The injected Spark session factory, source custody observer and policy observer
-are authority boundaries. Passing protocol fakes or replaying report values is
-not managed qualification.
+remain authority boundaries. The adapter is not connected to a selected native
+owner or campaign/ACK orchestration; protocol fakes and saved report values do
+not qualify managed execution. It therefore narrows the Ashlar read-port code
+gap but does not close the broader gap in the [A1 live port review](source-holder-a1-live-port-gap-20261024.md).
 
 ## Adapter seam review
 
-The three source-holder ports remain `Protocol` declarations in
-[`_source_holder_interval_proposal.py`](../../../../src/ashlar_host/_source_holder_interval_proposal.py);
-that module provides fake-port choreography only. No safe production adapter
-can be assembled from current owners:
+The proposal module's three source-holder ports remain disconnected from
+campaign code. Ashlar now has a bounded read-observation adapter, but no current
+owner supplies all the native authority needed to use it as the full CONTRACT-001
+source-holder handle:
 
 - `ManagedPinReader.transaction` plus `PostgresPins.hold` can hold and recheck
   the exact native pin vector inside one transaction. They expose no renewable
   handle or bounded remaining-lifetime proof. A wrapper claiming either would
   overstate the owner semantics.
-- The operational interval performs substantive versioned UC reads, but closes
-  each fresh session after its observation. It does not retain a read lease or
-  prove continuous availability between observations.
+- The operational read adapter performs the selected exact-version observations
+  and closes each fresh session after that observation. It does not retain a
+  read lease or prove continuous availability between observations.
 - No selected Truss owner retains and renews exact source, destination and ACK
   custody across this interval. The source-holder gap review records that
   prerequisite as open.
 
-Implementing these authority-bearing ports needs new owner capabilities and
-native owner evidence. Fake-backed tests exercise refusal and choreography only;
-they cannot close this gap. No adapter was added in this candidate.
+Using the adapter for a managed trial still needs admitted native session,
+source, and policy owners. Implementing `NativePinPort`, `TrussSourceCustodyPort`,
+and protected ACK needs additional owner capabilities and native owner evidence.
+The adapter tests exercise binding, refusal, ordering and closing choreography
+only; they cannot close these gates.
 
 ## Focused evidence
 
@@ -73,9 +81,11 @@ The focused tests are in
 class `ManagedOperationalRetentionIntervalTests`. They exercise three fresh
 sessions, four substantive role reads per observation, seven-day data and log
 retention, predictive optimization enabled, close on failure, and refusal when
-the maintenance inventory changes before ACK. They are fake-owner tests and
-establish choreography only. No cloud connection, schema, compute, ACK, source
-mutation, or scale run was performed for this candidate.
+the maintenance inventory changes before ACK. Adapter tests also exercise exact
+receipt/vector/context binding, one pre-ACK renewal, and an independent close
+attempt after refusal or deadline. These are fake-owner tests and establish
+choreography only. No cloud connection, schema, compute, ACK, source mutation,
+or scale run was performed for this candidate.
 
 ## Live admission inputs still required
 
@@ -93,11 +103,12 @@ mutation, or scale run was performed for this candidate.
    retention values, predictive optimization state, and maintenance inventory
    natively. It must establish the agreed seven-day retention minimum and keep
    `ENABLE`; it cannot infer these from the earlier workspace refresh.
-4. Separate source-owned renewable `ManagedPublicationReadPort`, `NativePinPort`,
-   and `TrussSourceCustodyPort` handles, bound to the same original request and
-   full publication vector, kept live through protected ACK and independently
-   closed. The operational interval's `close()` is an observation receipt, not
-   a replacement for those holder ports.
+4. Source-owned ACK and custody authority. The Ashlar read adapter can supply
+   the sampled open/pre-ACK/close observations after its native observers are
+   admitted; it does not supply a continuous read lease. `NativePinPort`,
+   `TrussSourceCustodyPort` and protected ACK still require independent owners
+   bound to the same request and full publication vector, held through
+   reconciliation and independently closed.
 5. An admitted runtime/access mode, task and total-trial cost bound below $100
    (aim below $10), plus prior spend. No paid compute may start until those
    inputs and the owner’s cleanup plan are admitted. Cleanup remains limited to
