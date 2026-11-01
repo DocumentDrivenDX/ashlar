@@ -38,7 +38,15 @@ def _require(value):
 
 
 def _environment():
+    import tempfile
+    temporary_root = Path(tempfile.gettempdir())
+    temporary_info = temporary_root.lstat()
+    _require(temporary_root.is_absolute() and temporary_root.resolve() == temporary_root
+             and stat.S_ISDIR(temporary_info.st_mode)
+             and temporary_info.st_uid == os.getuid()
+             and not temporary_info.st_mode & 0o022)
     return {'LANG':'C.UTF-8','LC_ALL':'C.UTF-8','HOME':'/nonexistent',
+        'TMPDIR':str(temporary_root),
         'GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null','GIT_TERMINAL_PROMPT':'0','GIT_OPTIONAL_LOCKS':'0'}
 
 

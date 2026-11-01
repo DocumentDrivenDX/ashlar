@@ -14,6 +14,18 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class UmfSdk0101PinTests(unittest.TestCase):
+    def test_sdk0101_git_environment_uses_owned_private_temp_root(self):
+        import tempfile
+        from ashlar_host.typed_graph_admission_sdk0101 import _environment
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            root.chmod(0o700)
+            with patch('tempfile.gettempdir', return_value=str(root)):
+                self.assertEqual(_environment()['TMPDIR'], str(root))
+                root.chmod(0o777)
+                with self.assertRaisesRegex(ValueError, 'SDK 0.10.1 latest-source'):
+                    _environment()
+
     def test_sdk0101_delta_profile_custody_and_six_role_subset(self):
         manifest, bridge, sources, semantics = pinned_sdk0101_resources()
         self.assertEqual(UMF_REALIZATION_PROFILE,
