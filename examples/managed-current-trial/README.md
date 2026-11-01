@@ -39,7 +39,9 @@ also need separate byte and architecture evidence before they are selected.
 For the four-case worker, set the environment dependency to
 `-r /Workspace/<approved-path>/requirements-serverless.txt`. Databricks Jobs
 accepts this requirements-file reference for serverless task dependencies. The
-file pins Weft 0.4.56 Linux wheels for both serverless architectures by SHA-256.
+file pins Weft 0.4.56 Linux wheels for both serverless architectures and UMF
+Access by SHA-256. Its Pydantic dependencies are version-pinned; the installed
+environment still needs task readback because this is not a complete hash lock.
 The `.4.1` request contract uses Weft's explicit
 `compile_paths_keys_json` entry point; its flat compiled response is retained
 as the artifact. Generic `compile_json` remains the legacy composition API.

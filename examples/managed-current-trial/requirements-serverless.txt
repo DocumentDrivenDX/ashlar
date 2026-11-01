@@ -4,4 +4,8 @@
 umf-weft @ https://github.com/DocumentDrivenDX/weft/releases/download/v0.4.56/umf_weft-0.4.56-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=32f4c38d9a614dd4c3a367f8b24d5cd4ba41ec80c2a4a2e3423e2082a294dbdd ; sys_platform == "linux" and platform_machine == "x86_64"
 umf-weft @ https://github.com/DocumentDrivenDX/weft/releases/download/v0.4.56/umf_weft-0.4.56-cp39-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl#sha256=2de2156e283c34e45154f5d9fbc83a3eb1dd43fad497d787509d66cc96cfbe5a ; sys_platform == "linux" and platform_machine == "aarch64"
 umf_access @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.8/umf_access-0.1.0.dev8-py3-none-any.whl#sha256=1a21c1ddd59f6b23e9f0b33228280564af0e96bb4d13699b89616d5143e4fd23
-typing-extensions==4.16.0 --hash=sha256:481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8
+typing-extensions==4.16.0
+pydantic==2.14.2
+pydantic-core==2.50.2
+annotated-types==0.8.0
+typing-inspection==0.4.4
