@@ -1,0 +1,50 @@
+{
+  "profile": "ashlar-g03-delta4-synthetic-source-oracle-candidate/0.1",
+  "authority": "Derived only from the frozen first transaction in inputs/typed-graph-source.jsonl and inputs/typed-graph-model.umf.json. No destination rows or compiler/native results are used.",
+  "inputs": {
+    "model": "inputs/typed-graph-model.umf.json",
+    "modelSha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "configuredSource": "inputs/configured-typed-graph-source.json",
+    "configuredSourceSha256": "040545b8cc96701a158b8936750c89f97ce991df9652ceeacf6c66fb9d9fc168",
+    "sourceJsonl": "inputs/typed-graph-source.jsonl",
+    "sourceJsonlSha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+    "binding": "inputs/typed-graph-binding.json",
+    "bindingSha256": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863",
+    "modelVersion": "0.10.0",
+    "schemaRevision": "1",
+    "publicationTransaction": "typed-graph-1",
+    "publicationEventCount": 8,
+    "laterTransactionsExcluded": ["typed-graph-2", "typed-graph-3"]
+  },
+  "objects": [
+    {"sourceSystem": "typed-graph-source", "typeId": 17, "entityId": 1, "propertyJsonText": "{\"21\":\"person-1\",\"22\":\"Ada\",\"23\":9007199254740993}", "quantityJsonText": "9007199254740993", "retainedJsonText": "{\"fixture\":\"typed-graph\",\"unknown\":{\"preserved\":true}}"},
+    {"sourceSystem": "typed-graph-source", "typeId": 17, "entityId": 2, "propertyJsonText": "{\"21\":\"person-2\",\"22\":\"Ben\"}", "retainedJsonText": "{\"fixture\":\"typed-graph\",\"unknown\":{\"preserved\":true}}"},
+    {"sourceSystem": "typed-graph-source", "typeId": 17, "entityId": 3, "propertyJsonText": "{\"21\":\"person-3\",\"22\":\"雪\"}", "retainedJsonText": "{\"fixture\":\"typed-graph\",\"unknown\":{\"preserved\":true}}"},
+    {"sourceSystem": "typed-graph-source", "typeId": 18, "entityId": 1, "propertyJsonText": "{\"24\":\"place-1\",\"25\":\"Workshop\"}", "retainedJsonText": "{\"fixture\":\"typed-graph\",\"unknown\":{\"preserved\":true}}"}
+  ],
+  "directedEdges": [
+    {"sourceSystem": "typed-graph-source", "typeId": 31, "edgeId": 1, "from": {"sourceSystem": "typed-graph-source", "typeId": 17, "entityId": 1}, "to": {"sourceSystem": "typed-graph-source", "typeId": 17, "entityId": 2}, "retainedJsonText": "{\"fixture\":\"typed-graph\",\"unknown\":{\"preserved\":true}}"},
+    {"sourceSystem": "typed-graph-source", "typeId": 31, "edgeId": 2, "from": {"sourceSystem": "typed-graph-source", "typeId": 17, "entityId": 1}, "to": {"sourceSystem": "typed-graph-source", "typeId": 17, "entityId": 2}, "retainedJsonText": "{\"fixture\":\"typed-graph\",\"unknown\":{\"preserved\":true}}"},
+    {"sourceSystem": "typed-graph-source", "typeId": 31, "edgeId": 3, "from": {"sourceSystem": "typed-graph-source", "typeId": 17, "entityId": 1}, "to": {"sourceSystem": "typed-graph-source", "typeId": 17, "entityId": 1}, "retainedJsonText": "{\"fixture\":\"typed-graph\",\"unknown\":{\"preserved\":true}}"},
+    {"sourceSystem": "typed-graph-source", "typeId": 32, "edgeId": 1, "from": {"sourceSystem": "typed-graph-source", "typeId": 17, "entityId": 2}, "to": {"sourceSystem": "typed-graph-source", "typeId": 18, "entityId": 1}, "retainedJsonText": "{\"fixture\":\"typed-graph\",\"unknown\":{\"preserved\":true}}"}
+  ],
+  "queryExpected": {
+    "singletonPerson1": {"identity": {"sourceSystem": "typed-graph-source", "typeId": 17, "entityId": 1, "person_key": "person-1"}, "stringProperties": {"person_name": "Ada"}, "quantityJsonText": "9007199254740993", "propertyJsonText": "{\"21\":\"person-1\",\"22\":\"Ada\",\"23\":9007199254740993}", "retainedJsonText": "{\"fixture\":\"typed-graph\",\"unknown\":{\"preserved\":true}}"},
+    "backend03OriginalHavingGreaterThanZero": [["person-1", 2, 1]],
+    "backend03PositiveHavingGreaterThanOne": [["person-1", 2, 1]],
+    "backend02PageSize": 2,
+    "backend02Page1": [["person-1", "Ada"], ["person-2", "Ben"]],
+    "backend02ContinuationAfter": ["person-2"],
+    "backend02Page2": [["person-3", "雪"]],
+    "backend02HasFurtherContinuation": false
+  },
+  "bagRules": [
+    "Both edge_current occurrences with IDs 1 and 2 remain distinct even though their endpoint tuples match.",
+    "The person-1 to person-1 self-loop is retained and does not add a two-hop person-to-place path.",
+    "Missing property 23 on person-2 and person-3 stays absent; do not coerce it to a present null.",
+    "The source property token 9007199254740993 must remain exact; compare/carry its exact JSON text and never route it through binary floating point.",
+    "Retained source JSON must remain the exact text {\"fixture\":\"typed-graph\",\"unknown\":{\"preserved\":true}}; parsed-object equality alone is insufficient.",
+    "Every object identity and both edge endpoints include sourceSystem typed-graph-source as well as type and local ID.",
+    "Unicode code point 雪 is compared exactly without normalization."
+  ]
+}
