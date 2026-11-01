@@ -690,6 +690,8 @@ class TrussSourceCustodySelection:
             from .truss_current_catalog import (
                 CURRENT_052_CUSTODY_PROFILE, installed_truss_052_source_custody_profile)
             package_version = importlib.metadata.version("umf-truss")
+            if package_version != "0.0.52":
+                raise ValueError("Exact Truss 0.0.52 candidate package required")
             installed_profile = installed_truss_052_source_custody_profile()
         except (ImportError, LookupError, ValueError) as error:
             raise TrussSourceSelectionError(
