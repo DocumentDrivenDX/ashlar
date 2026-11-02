@@ -38,6 +38,19 @@ the source owner by its server-checked same-session lock witness and impose a
 real operation deadline across ACK and reconciliation; a host stopwatch or
 synthetic lease must not stand in for either property.
 
+Inspection of the pinned public API found that Truss `.52`'s private host
+runner accepts an absolute `operation_deadline`, and its cancellation path
+uses `connection.cancel_safe()` then joins the cancellation timer before
+cleanup. However, the public `acknowledge_feed_under_source_custody_in_transaction`,
+`reconcile_feed_ack_under_source_custody_in_transaction`, renew and close
+methods call the runner without forwarding such a deadline. The public session
+also commits each transaction outside that runner's deadline. A configured
+`operation_timeout_ms` is therefore per SDK operation and does not enforce one
+aggregate ACK plus reconciliation budget. Ashlar must not reach into Truss
+private runner state or claim the bridge's after-return elapsed check is a hard
+deadline. Until an approved adapter API can bound cancellation and transaction
+commit for the aggregate interval, these ports remain fail-closed.
+
 `src/ashlar_host/managed_a1_truss052_ports.py` therefore refuses both source
 open and ACK/reconciliation. It does not construct a Truss session, obtain a
 connection, or attempt ACK. A supplied host monotonic deadline is not presented
@@ -106,12 +119,13 @@ subsequent operations must fail closed. The 30-second A1 window is an operation
 deadline covering ACK and reconciliation; it is not source lifetime.
 
 This remains unimplemented at the managed bridge seam. The current Truss host
-has per-operation `operation_timeout_ms`, but no demonstrated aggregate
-deadline spanning multiple SDK operations and commits. Before composing these
-semantics, add a concrete adapter that propagates one monotonic deadline into
-every source and protected ACK call and refuses if it cannot enforce the
-remaining budget. Keep managed read-handle lifetime and native pin transaction
-lifetime as separate admissions; the session lock says nothing about either.
+has per-operation `operation_timeout_ms`, but the public source APIs do not
+forward a dynamic absolute deadline and transaction commits occur outside the
+runner's timed callback. A concrete aggregate deadline requires an admitted
+public adapter capability that can cancel and join the whole ACK/reconciliation
+sequence, including commits; if it cannot, source ACK remains unavailable.
+Keep managed read-handle lifetime and native pin transaction lifetime as
+separate admissions; the session lock says nothing about either.
 
 The separate owner would still need an issuer-bound A-side
 `TrussSourceCustodySelection` matched to exact A/B source state, request,
@@ -140,7 +154,9 @@ PostgreSQL, Truss, UC, cloud, source mutation or ACK action occurred.
 
 - Concrete Truss `.52` source and protected ACK adapters in the managed bridge,
   retaining the original connection and enforcing one aggregate ACK plus
-  reconciliation deadline while verifying the exact server-side session lock.
+  reconciliation deadline, including transaction commits, while verifying the
+  exact server-side session lock. The pinned Truss public API currently does
+  not expose this aggregate deadline.
 - Focused native PostgreSQL 18 proof for the Ashlar-owned first-statement
   `READ WRITE` setup under the selected role's effective read-only default.
 - Issued A-side publication-bound Truss source selection and current/retained

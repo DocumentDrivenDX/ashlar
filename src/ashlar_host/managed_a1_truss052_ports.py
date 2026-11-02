@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Fail-closed gate for the proposed managed A1 Truss .52 ports.
 
-The existing Truss session can ACK an exact publication receipt, but it does
-not expose a verified remaining source-custody lifetime. The current adapter
-also lacks native PostgreSQL qualification for its transaction setup. Until
-both proofs exist, this owner refuses before opening a Truss session or ACK.
+Truss .52 holds custody with a same-session advisory lock, not a TTL lease.
+Its public source methods do not accept one aggregate ACK/reconciliation
+deadline. Until Ashlar can enforce that interval and native PostgreSQL
+transaction setup is qualified, this owner refuses before session open/ACK.
 """
 from __future__ import annotations
 
@@ -15,12 +15,12 @@ PROFILE = "ashlar-managed-a1-truss052-ports/0.1"
 
 
 class ManagedA1Truss052PortError(RuntimeError):
-    """A1 Truss source lifetime or native transaction admission is absent."""
+    """A1 same-session deadline or native transaction admission is absent."""
 
 
 _REFUSAL = (
-    "Managed A1 Truss source custody is unavailable: verified live custody "
-    "lifetime and same-transaction PostgreSQL qualification are required")
+    "Managed A1 Truss source custody is unavailable: aggregate cancellable "
+    "ACK/reconciliation deadline and native PostgreSQL qualification are required")
 
 
 class _SourcePort:
@@ -60,7 +60,7 @@ class _AckPort:
 
 
 class ManagedA1Truss052PortOwner:
-    """Fail-closed source/ACK port pair pending native lifetime qualification."""
+    """Fail-closed source/ACK pair pending deadline and PG qualification."""
 
     def __init__(self, selection, *, context):
         if type(selection) is not TrussSourceCustodySelection or context is None:

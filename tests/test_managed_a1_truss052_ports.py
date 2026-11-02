@@ -33,22 +33,22 @@ class ManagedA1Truss052PortTests(unittest.TestCase):
                     request_bytes=b"request", manifest_bytes=b"manifest",
                     receipt_bytes=b"receipt", vector=object(), context=object())
 
-    def test_matching_context_still_refuses_without_live_custody_proof(self):
+    def test_matching_context_still_refuses_without_aggregate_deadline_proof(self):
         with patch("ashlar_host.truss052_source_custody.Truss052SourceCustodySession",
                    side_effect=AssertionError("must not construct Truss session")):
             with self.assertRaisesRegex(ManagedA1Truss052PortError,
-                                        "verified live custody lifetime"):
+                                        "aggregate cancellable"):
                 self.owner.source_custody_port.open(selection=object(),
                     request_bytes=b"request", manifest_bytes=b"manifest",
                     receipt_bytes=b"receipt", vector=object(), context=self.context)
 
     def test_ack_ports_refuse_without_source_handle_proof(self):
         with self.assertRaisesRegex(ManagedA1Truss052PortError,
-                                    "verified live custody lifetime"):
+                                    "aggregate cancellable"):
             self.owner.protected_ack_port.commit(b"request", b"manifest", b"receipt",
                 self.context, deadline_monotonic=100.0)
         with self.assertRaisesRegex(ManagedA1Truss052PortError,
-                                    "verified live custody lifetime"):
+                                    "aggregate cancellable"):
             self.owner.protected_ack_port.reconcile(b"request", b"manifest", b"receipt",
                 self.context, deadline_monotonic=100.0)
 
