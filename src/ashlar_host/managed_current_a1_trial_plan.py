@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
-"""Pure composition of the selected .52 A1 inputs for one managed trial.
+"""Pure composition of selected .52/.53 A1 inputs for one managed trial.
 
 This is a preparation record, not source, publication, native-runtime, or ACK
 authority. It only composes outputs from the Truss source owner and the
@@ -103,7 +103,7 @@ def prepare_managed_current_a1_trial(selection, genesis_manifest, *,
             prior_cursor_bytes=page.prior.content,
             next_cursor_bytes=page.next.content)
     except AttributeError as error:
-        raise ValueError("Original public Truss .52 A page and cursors required") from error
+        raise ValueError("Original public Truss .52 or .53 A page and cursors required") from error
     try:
         original_prior = base64.b64decode(batch.cursor_before, validate=True)
         original_next = base64.b64decode(batch.cursor_after, validate=True)

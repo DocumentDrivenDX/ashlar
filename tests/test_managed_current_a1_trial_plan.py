@@ -159,7 +159,7 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
             next=SimpleNamespace(content=base64.b64decode(batch.cursor_after)))
         admission = TrussGraphAdmission.__new__(TrussGraphAdmission)
         admission.batch = batch
-        selection = ManagedCurrentTruss052GenesisSelection(
+        selection = ManagedCurrentTruss053GenesisSelection(
             schedule.sha256, schedule.raw, {}, {}, {}, {},
             {'A': SimpleNamespace(batch=batch, page=page),
              'B': SimpleNamespace(batch=None)}, admission, batch)
@@ -204,7 +204,7 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
         admission.parsed = SimpleNamespace(event_bytes=(), edge_order_keys=())
         admission.admit = lambda _change: None
         admission.admit_transition = lambda _previous, _change: None
-        selection = ManagedCurrentTruss052GenesisSelection(
+        selection = ManagedCurrentTruss053GenesisSelection(
             schedule.sha256, schedule.raw, {}, {}, {}, {'catalog-rev': '1'},
             {'A': SimpleNamespace(batch=batch, page=page),
              'B': SimpleNamespace(batch=None)}, admission, batch)
@@ -272,7 +272,7 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
         )
         for pins in cases:
             with self.subTest(pins=tuple(pins)), self.assertRaisesRegex(
-                    ValueError, 'Truss .52 A1 reads require'):
+                    ValueError, 'Truss .52/.53 A1 reads require'):
                 reader.reopen(request_bytes=b'{}', manifest_bytes=b'{}',
                               expected_receipt={}, **pins)
 

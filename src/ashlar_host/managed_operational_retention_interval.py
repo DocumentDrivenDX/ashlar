@@ -155,10 +155,10 @@ class ManagedOperationalRetentionSelection:
         if self.a1_plan is not None:
             from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
             if (type(self.a1_plan) is not ManagedCurrentA1TrialPlan
-                    or self.reader_config.source_truss_version != "0.0.52"
+                    or self.reader_config.source_truss_version not in ("0.0.52", "0.0.53")
                     or type(self.a1_prefix_selected) is not dict):
                 raise OperationalRetentionIntervalError(
-                    "A1 operational read requires the exact `.52` plan and selected `/0.2` custody")
+                    "A1 operational read requires the exact `.52` or `.53` plan and selected `/0.2` custody")
             try:
                 from ashlar.schema import decode_retained_json
                 request = decode_retained_json(self.request_bytes)

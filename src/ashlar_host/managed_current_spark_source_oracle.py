@@ -309,10 +309,14 @@ def managed_current_a1_lookup_keys(plan, *, config):
     from .managed_current_truss052_genesis_owner import (
         ManagedCurrentTruss052GenesisSelection,
     )
+    from .managed_current_truss053_genesis_owner import (
+        ManagedCurrentTruss053GenesisSelection,
+    )
     from .truss_graph_admission import TrussGraphAdmission
 
     _require(type(plan) is ManagedCurrentA1TrialPlan
-             and type(plan.selection) is ManagedCurrentTruss052GenesisSelection
+             and type(plan.selection) in (ManagedCurrentTruss052GenesisSelection,
+                                          ManagedCurrentTruss053GenesisSelection)
              and type(plan.predecessor) is ManagedCurrentGenesisPredecessor
              and type(config) is ManagedCurrentCoreConfig
              and config.carrier_profile == CARRIER_PROFILE_XXHASH64,
@@ -354,7 +358,7 @@ def managed_current_a1_lookup_keys(plan, *, config):
 
 def build_managed_current_a1_source_oracle(plan, *, config, prefix_bytes,
         prefix_sha256, selected, manifest, lookup_hashes):
-    """Build bounded first-page bags from the selected `.52` source-owner result.
+    """Build bounded first-page bags from the selected `.52` or `.53` owner result.
 
     The complete `/0.2` prefix is independently selected and checked for exact
     schedule/page/request/publication correspondence. This helper adds no live
@@ -365,10 +369,14 @@ def build_managed_current_a1_source_oracle(plan, *, config, prefix_bytes,
     from .managed_current_truss052_genesis_owner import (
         ManagedCurrentTruss052GenesisSelection,
     )
+    from .managed_current_truss053_genesis_owner import (
+        ManagedCurrentTruss053GenesisSelection,
+    )
     from .truss_graph_admission import TrussGraphAdmission
 
     _require(type(plan) is ManagedCurrentA1TrialPlan
-             and type(plan.selection) is ManagedCurrentTruss052GenesisSelection
+             and type(plan.selection) in (ManagedCurrentTruss052GenesisSelection,
+                                          ManagedCurrentTruss053GenesisSelection)
              and type(config) is ManagedCurrentCoreConfig
              and config.carrier_profile == CARRIER_PROFILE_XXHASH64
              and type(manifest) is dict,
