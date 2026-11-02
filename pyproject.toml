@@ -13,7 +13,7 @@ requires-python = ">=3.9"
 dependencies = []
 
 [project.optional-dependencies]
-truss-local = ["umf-truss[native] @ https://github.com/DocumentDrivenDX/truss/releases/download/v0.0.53/umf_truss-0.0.53-py3-none-any.whl#sha256=a6c8568d676cd69675dc27d92fdfed2b85b69089ff0007d2b5bd2f5f48be6d89"]
+truss-local = ["umf-truss[native] @ https://github.com/DocumentDrivenDX/truss/releases/download/v0.0.54/umf_truss-0.0.54-py3-none-any.whl#sha256=4aebc56e92fdbde6714d9b811860707d2ffc9b0edbc63cc91e9dc3488c042b52"]
 local-delta = [
     "pyspark==4.2.0",
     "delta-spark==4.4.1",

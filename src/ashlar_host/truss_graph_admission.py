@@ -7,6 +7,7 @@ from .truss_current_catalog import (CurrentCatalogEvidence,
     CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION,
     CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION,
     CURRENT_TRUSS_052_CANDIDATE_VERSION, CURRENT_TRUSS_053_FRESH_VERSION,
+    CURRENT_TRUSS_054_FRESH_VERSION,
     CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE, CURRENT_048_EVIDENCE_PROFILE,
     CURRENT_049_EVIDENCE_PROFILE, CURRENT_050_EVIDENCE_PROFILE, CURRENT_051_EVIDENCE_PROFILE,
     CURRENT_052_CANDIDATE_EVIDENCE_PROFILE,
@@ -23,6 +24,7 @@ CURRENT_050_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.5'
 CURRENT_051_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.6'
 CURRENT_052_CANDIDATE_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.7-local-candidate'
 CURRENT_053_FRESH_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.8-fresh-baseline'
+CURRENT_054_FRESH_PROFILE=CURRENT_053_FRESH_PROFILE
 EMPTY_INTERVAL_PROFILE='ashlar-truss-empty-interval-semantic-admission/0.1'
 
 
@@ -39,7 +41,7 @@ class TrussEmptyIntervalAdmission:
         if parsed.changes or parsed.event_bytes or batch.cursor_before==batch.cursor_after:
             raise ValueError('Advancing no-effect Truss interval required')
         version=installed_truss_version()
-        if version not in (CURRENT_TRUSS_048_VERSION,CURRENT_TRUSS_049_VERSION,CURRENT_TRUSS_050_VERSION,CURRENT_TRUSS_051_VERSION,CURRENT_TRUSS_052_CANDIDATE_VERSION,CURRENT_TRUSS_053_FRESH_VERSION):
+        if version not in (CURRENT_TRUSS_048_VERSION,CURRENT_TRUSS_049_VERSION,CURRENT_TRUSS_050_VERSION,CURRENT_TRUSS_051_VERSION,CURRENT_TRUSS_052_CANDIDATE_VERSION,CURRENT_TRUSS_053_FRESH_VERSION,CURRENT_TRUSS_054_FRESH_VERSION):
             raise ValueError('Supported installed current Truss empty-interval runtime required')
         profile=installed_current_truss_profile()
         self.batch=batch;self.parsed=parsed;self.changes=();self.revisions={};self.typed=True
@@ -67,7 +69,8 @@ def current_admission_profile(version):
                 CURRENT_TRUSS_050_VERSION: CURRENT_050_PROFILE,
                 CURRENT_TRUSS_051_VERSION: CURRENT_051_PROFILE,
                 CURRENT_TRUSS_052_CANDIDATE_VERSION: CURRENT_052_CANDIDATE_PROFILE,
-                CURRENT_TRUSS_053_FRESH_VERSION: CURRENT_053_FRESH_PROFILE}[version]
+                CURRENT_TRUSS_053_FRESH_VERSION: CURRENT_053_FRESH_PROFILE,
+                CURRENT_TRUSS_054_FRESH_VERSION: CURRENT_054_FRESH_PROFILE}[version]
     except KeyError:
         raise ValueError('Supported versioned current Truss evidence required') from None
 
@@ -123,6 +126,7 @@ class TrussGraphAdmission:
                 CURRENT_TRUSS_051_VERSION: CURRENT_051_EVIDENCE_PROFILE,
                 CURRENT_TRUSS_052_CANDIDATE_VERSION: CURRENT_052_CANDIDATE_EVIDENCE_PROFILE,
                 CURRENT_TRUSS_053_FRESH_VERSION: CURRENT_053_FRESH_EVIDENCE_PROFILE,
+                CURRENT_TRUSS_054_FRESH_VERSION: CURRENT_053_FRESH_EVIDENCE_PROFILE,
             }[catalog_views.truss_version]
             if catalog_views.profile != expected_catalog_profile:
                 raise ValueError('Supported versioned current Truss evidence required')
@@ -237,6 +241,8 @@ class TrussGraphAdmission:
                 qualification='Published Truss 0.0.52 public wheel and runtime manifest are pinned; UMF 0.10.0 accepted-source report 0.6 and complete catalog-view wire 0.2.0/profile 0.4 are interpreted by the versioned Ashlar adapter. This remains a local candidate profile: native source/feed lifecycle, publication, ACK and production authority are not established by profile/admission code alone.'
             elif self.current_truss_version == CURRENT_TRUSS_053_FRESH_VERSION:
                 qualification='Published Truss 0.0.53 fresh-baseline wheel and runtime manifest are pinned; declared UMF model 0.10.0 accepted-source report 0.6 and complete catalog-view wire 0.2.0/profile 0.4 are interpreted by this versioned Ashlar adapter. Truss 0.0.53 cannot upgrade or recover historical installations; this admission profile grants no native source/feed, publication, ACK or production authority.'
+            elif self.current_truss_version == CURRENT_TRUSS_054_FRESH_VERSION:
+                qualification='Published Truss 0.0.54 wheel and unchanged .53 native runtime manifest are pinned; declared UMF model 0.10.0 accepted-source report 0.6 and complete catalog-view wire 0.2.0/profile 0.4 are interpreted by this versioned Ashlar adapter. This fresh-baseline profile grants no historical migration/recovery or production authority.'
             else:
                 qualification='Truss toolkit 0.0.45 public wheel and catalog runtime manifest are pinned; UMF 0.10.0 accepted source, report 0.6, complete catalog view wire 0.2.0/profile 0.4. Original source bytes are fetched and matched through the public accepted-document API. Supports this adapter’s scalar record, STRING key and directed independent binary relationship subset; semantic correspondence only. The 0.0.45 profile has effect-free public-interface qualification only; no native source acceptance, publication or ACK authority.'
         else:
@@ -248,7 +254,7 @@ class TrussGraphAdmission:
             'catalog_views':{revision:hashlib.sha256(raw).hexdigest()for revision,raw in self.catalog_views.items()},
             'declared_umf':{revision:{doc:model[0]['umf']for doc,model in value['models'].items()}
                             for revision,value in self.revisions.items()},'qualification':qualification}
-        if self.current_truss_version == CURRENT_TRUSS_053_FRESH_VERSION:
+        if self.current_truss_version in (CURRENT_TRUSS_053_FRESH_VERSION,CURRENT_TRUSS_054_FRESH_VERSION):
             facts.update(runtime_wheel_sha256=self.current_runtime_wheel_sha256,
                          runtime_manifest_sha256=self.current_runtime_manifest_sha256)
         return facts

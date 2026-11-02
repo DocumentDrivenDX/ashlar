@@ -735,8 +735,10 @@ class TrussSourceCustodyOpenSelection:
             from truss.feed import FeedSourceSelection
             from .truss_current_catalog import (
                 CURRENT_052_CUSTODY_PROFILE, CURRENT_053_FRESH_CUSTODY_PROFILE,
+                CURRENT_054_FRESH_CUSTODY_PROFILE,
                 installed_truss_052_source_custody_profile,
-                installed_truss_053_fresh_source_custody_profile)
+                installed_truss_053_fresh_source_custody_profile,
+                installed_truss_054_fresh_source_custody_profile)
             package_version = importlib.metadata.version("umf-truss")
             if package_version == "0.0.52":
                 installed_profile = installed_truss_052_source_custody_profile()
@@ -744,8 +746,11 @@ class TrussSourceCustodyOpenSelection:
             elif package_version == "0.0.53":
                 installed_profile = installed_truss_053_fresh_source_custody_profile()
                 expected_profile = CURRENT_053_FRESH_CUSTODY_PROFILE
+            elif package_version == "0.0.54":
+                installed_profile = installed_truss_054_fresh_source_custody_profile()
+                expected_profile = CURRENT_054_FRESH_CUSTODY_PROFILE
             else:
-                raise ValueError("Exact Truss 0.0.52 or 0.0.53 source-custody package required")
+                raise ValueError("Exact Truss 0.0.52, 0.0.53 or 0.0.54 source-custody package required")
         except (ImportError, LookupError, ValueError) as error:
             raise TrussSourceSelectionError(
                 "Exact Truss source-custody candidate runtime unavailable") from error
@@ -802,8 +807,10 @@ class TrussSourceCustodySelection:
             from truss.feed import FeedSourceSelection
             from .truss_current_catalog import (
                 CURRENT_052_CUSTODY_PROFILE, CURRENT_053_FRESH_CUSTODY_PROFILE,
+                CURRENT_054_FRESH_CUSTODY_PROFILE,
                 installed_truss_052_source_custody_profile,
-                installed_truss_053_fresh_source_custody_profile)
+                installed_truss_053_fresh_source_custody_profile,
+                installed_truss_054_fresh_source_custody_profile)
             package_version = importlib.metadata.version("umf-truss")
             if package_version == "0.0.52":
                 installed_profile = installed_truss_052_source_custody_profile()
@@ -811,8 +818,11 @@ class TrussSourceCustodySelection:
             elif package_version == "0.0.53":
                 installed_profile = installed_truss_053_fresh_source_custody_profile()
                 expected_profile = CURRENT_053_FRESH_CUSTODY_PROFILE
+            elif package_version == "0.0.54":
+                installed_profile = installed_truss_054_fresh_source_custody_profile()
+                expected_profile = CURRENT_054_FRESH_CUSTODY_PROFILE
             else:
-                raise ValueError("Exact Truss 0.0.52 custody or 0.0.53 fresh-baseline package required")
+                raise ValueError("Exact Truss 0.0.52 custody, 0.0.53 or 0.0.54 fresh-baseline package required")
         except (ImportError, LookupError, ValueError) as error:
             raise TrussSourceSelectionError(
                 "Exact Truss source-custody candidate runtime unavailable") from error
@@ -824,7 +834,7 @@ class TrussSourceCustodySelection:
               and runtime_status.release_id == _RELEASE_ID
               and runtime_status.release_sha256 == _RELEASE_SHA256
               and type(runtime_status.layout_profile) is ProfilePin
-              and package_version in ("0.0.52", "0.0.53")
+              and package_version in ("0.0.52", "0.0.53", "0.0.54")
               and installed_profile == expected_profile
               and getattr(FeedSourceSelection, "__name__", None) == "FeedSourceSelection",
               "Truss source custody gated by the exact selected release manifest")

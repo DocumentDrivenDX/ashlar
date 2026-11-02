@@ -23,6 +23,9 @@ from ashlar_host.truss_current_catalog import (
     CURRENT_053_FRESH_EVIDENCE_PROFILE, CURRENT_TRUSS_053_FRESH_VERSION,
     CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
     CURRENT_053_FRESH_CUSTODY_PROFILE, installed_truss_053_fresh_source_custody_profile,
+    CURRENT_054_FRESH_EVIDENCE_PROFILE, CURRENT_TRUSS_054_FRESH_VERSION,
+    CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+    CURRENT_054_FRESH_CUSTODY_PROFILE, installed_truss_054_fresh_source_custody_profile,
     CurrentCatalogEvidence, interpret_current_catalog, require_current_truss_runtime,
     require_installed_current_catalog_evidence, installed_truss_052_source_custody_profile,
 )
@@ -61,6 +64,24 @@ class TrussCurrentCatalogTests(unittest.TestCase):
             self.assertEqual(installed_truss_052_source_custody_profile(),
                              CURRENT_052_CUSTODY_PROFILE)
 
+    def test_054_fresh_profile_has_exact_wheel_pin_and_unchanged_native_manifest(self):
+        distribution = SimpleNamespace(version=CURRENT_TRUSS_054_FRESH_VERSION)
+        with patch('ashlar_host.truss_current_catalog.installed_truss_distribution',
+                   return_value=distribution), \
+                patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',
+                      return_value=CURRENT_054_FRESH_EVIDENCE_PROFILE):
+            self.assertEqual(installed_truss_054_fresh_source_custody_profile(),
+                             CURRENT_054_FRESH_CUSTODY_PROFILE)
+        self.assertEqual(CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+                         '4aebc56e92fdbde6714d9b811860707d2ffc9b0edbc63cc91e9dc3488c042b52')
+        self.assertEqual(CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
+                         CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256)
+        from ashlar_host.truss_current_catalog import CurrentCatalogEvidence
+        evidence = CurrentCatalogEvidence(CURRENT_TRUSS_054_FRESH_VERSION, {}, {}, {},
+            CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+            CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)
+        self.assertEqual(evidence.profile, CURRENT_054_FRESH_EVIDENCE_PROFILE)
+
     def test_graph_admission_profiles_are_version_specific(self):
         from ashlar_host.truss_graph_admission import current_admission_profile
         self.assertEqual(current_admission_profile(CURRENT_TRUSS_VERSION),
@@ -78,6 +99,8 @@ class TrussCurrentCatalogTests(unittest.TestCase):
         self.assertEqual(current_admission_profile(CURRENT_TRUSS_052_CANDIDATE_VERSION),
                          'ashlar-truss-current-umf010-graph-semantic-admission/0.7-local-candidate')
         self.assertEqual(current_admission_profile(CURRENT_TRUSS_053_FRESH_VERSION),
+                         'ashlar-truss-current-umf010-graph-semantic-admission/0.8-fresh-baseline')
+        self.assertEqual(current_admission_profile(CURRENT_TRUSS_054_FRESH_VERSION),
                          'ashlar-truss-current-umf010-graph-semantic-admission/0.8-fresh-baseline')
         with self.assertRaisesRegex(ValueError, 'versioned current Truss'):
             current_admission_profile('0.0.46')
@@ -214,6 +237,30 @@ class TrussCurrentCatalogTests(unittest.TestCase):
                    side_effect=AssertionError('historical evidence must remain unchanged')):
             self.assertEqual(require_installed_current_catalog_evidence(historical),
                              'ashlar-truss-current-catalog-evidence/0.1')
+
+    def test_053_and_054_evidence_cannot_cross_claim_shared_native_profile(self):
+        evidence_053 = CurrentCatalogEvidence(CURRENT_TRUSS_053_FRESH_VERSION, {}, {}, {},
+            CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
+            CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256)
+        evidence_054 = CurrentCatalogEvidence(CURRENT_TRUSS_054_FRESH_VERSION, {}, {}, {},
+            CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+            CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)
+        with patch('ashlar_host.truss_current_catalog.installed_truss_version',
+                   return_value=CURRENT_TRUSS_053_FRESH_VERSION), \
+                patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',
+                      return_value=CURRENT_053_FRESH_EVIDENCE_PROFILE):
+            self.assertEqual(require_installed_current_catalog_evidence(evidence_053),
+                             CURRENT_053_FRESH_EVIDENCE_PROFILE)
+            with self.assertRaisesRegex(ValueError, 'Installed Truss 0.0.54 runtime'):
+                require_installed_current_catalog_evidence(evidence_054)
+        with patch('ashlar_host.truss_current_catalog.installed_truss_version',
+                   return_value=CURRENT_TRUSS_054_FRESH_VERSION), \
+                patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',
+                      return_value=CURRENT_054_FRESH_EVIDENCE_PROFILE):
+            self.assertEqual(require_installed_current_catalog_evidence(evidence_054),
+                             CURRENT_054_FRESH_EVIDENCE_PROFILE)
+            with self.assertRaisesRegex(ValueError, 'Installed Truss 0.0.53 runtime'):
+                require_installed_current_catalog_evidence(evidence_053)
 
     def test_048_public_release_tuple_is_exact_and_separate_from_045(self):
         manifest = b'public 0.0.48 runtime manifest fixture'
