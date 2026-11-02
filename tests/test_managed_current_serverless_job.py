@@ -13,6 +13,8 @@ def _spec(**changes):
         "name": "managed-current-a1-candidate",
         "trial_id": "a1-client-dev-20261101-unique1",
         "notebook_path": "/Workspace/Shared/managed-current-trial",
+        "run_as_user_name": "trial-owner@example.invalid",
+        "run_as_service_principal_name": None,
         "environment_version": 4,
         "dependencies": ("/Volumes/client_dev/trial/wheels/ashlar.whl",),
         "timeout_seconds": 900,
@@ -27,6 +29,8 @@ def _spec(**changes):
 def _readback(spec):
     settings = spec.build_settings()
     return {"job_id": 123, "settings": settings,
+            "run_as_user_name": (spec.run_as_user_name or
+                                 spec.run_as_service_principal_name),
             "effective_budget_policy_id": spec.budget_policy_id}
 
 
@@ -45,8 +49,10 @@ class ManagedCurrentServerlessJobTests(unittest.TestCase):
         self.assertIs(settings["tasks"][0]["disable_auto_optimization"], True)
         self.assertNotIn("schedule", settings)
         self.assertNotIn("job_clusters", settings)
+        self.assertEqual(settings["run_as"], {"user_name": "trial-owner@example.invalid"})
         admitted = admit_serverless_job_readback(_readback(spec), spec)
         self.assertEqual(admitted["jobId"], 123)
+        self.assertEqual(admitted["runAs"], "trial-owner@example.invalid")
         self.assertEqual(admitted["dependencyPaths"], list(spec.dependencies))
 
     def test_accepts_hash_locked_requirements_path_for_architecture_marked_wheels(self):
@@ -74,9 +80,32 @@ class ManagedCurrentServerlessJobTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     spec.build_settings()
 
+    def test_requires_and_reads_back_one_explicit_run_as_identity(self):
+        for changes in (
+            {"run_as_user_name": None, "run_as_service_principal_name": None},
+            {"run_as_user_name": "user@example.invalid",
+             "run_as_service_principal_name": "550e8400-e29b-41d4-a716-446655440000"},
+            {"run_as_user_name": "  ", "run_as_service_principal_name": None},
+        ):
+            with self.subTest(changes=changes), self.assertRaises(ValueError):
+                _spec(**changes).build_settings()
+
+        spec = _spec(run_as_user_name=None,
+                     run_as_service_principal_name="550e8400-e29b-41d4-a716-446655440000")
+        self.assertEqual(spec.build_settings()["run_as"], {
+            "service_principal_name": "550e8400-e29b-41d4-a716-446655440000"})
+        self.assertEqual(admit_serverless_job_readback(_readback(spec), spec)["runAs"],
+                         "550e8400-e29b-41d4-a716-446655440000")
+
+        job = _readback(spec)
+        job["run_as_user_name"] = "different-identity"
+        with self.assertRaisesRegex(ValueError, "run-as identity"):
+            admit_serverless_job_readback(job, spec)
+
     def test_readback_rejects_schedule_retry_classic_compute_and_drift(self):
         spec = _spec()
         mutations = (
+            lambda settings: settings.update(run_as={"user_name": "different@example.invalid"}),
             lambda settings: settings.update(schedule={"quartz_cron_expression": "* * * * *"}),
             lambda settings: settings.update(max_retries=1),
             lambda settings: settings["tasks"][0].update(existing_cluster_id="cluster"),
@@ -111,6 +140,7 @@ class ManagedCurrentServerlessJobTests(unittest.TestCase):
                      preferred_budget_exception="Owner accepted the >$10 estimate")
         settings = spec.build_settings()
         job = {"job_id": 123, "settings": settings,
+               "run_as_user_name": spec.run_as_user_name,
                "effective_budget_policy_id": spec.budget_policy_id}
         self.assertEqual(admit_serverless_job_readback(job, spec)["budgetPolicyId"],
                          spec.budget_policy_id)

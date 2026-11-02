@@ -57,6 +57,8 @@ class ManagedCurrentServerlessJobSpec:
     name: str
     trial_id: str
     notebook_path: str
+    run_as_user_name: Optional[str]
+    run_as_service_principal_name: Optional[str]
     environment_version: int
     dependencies: tuple[str, ...]
     timeout_seconds: int = 900
@@ -72,6 +74,12 @@ class ManagedCurrentServerlessJobSpec:
                  "A unique managed trial ID is required for usage reconciliation")
         _require(_workspace_path(self.notebook_path),
                  "Notebook must resolve to an absolute Workspace path")
+        selected_run_as = (self.run_as_user_name, self.run_as_service_principal_name)
+        _require(sum(value is not None for value in selected_run_as) == 1
+                 and all(value is None or
+                         (type(value) is str and value.strip() and "\0" not in value)
+                         for value in selected_run_as),
+                 "Exactly one explicit Jobs run-as user or service principal is required")
         _require(type(self.environment_version) is int and self.environment_version > 0,
                  "A read-back-confirmed serverless environment version is required")
         _require(type(self.dependencies) is tuple and self.dependencies
@@ -101,6 +109,9 @@ class ManagedCurrentServerlessJobSpec:
                      "Preferred-budget rationale must be omitted at or below $10")
         settings = {
             "name": self.name,
+            "run_as": ({"user_name": self.run_as_user_name}
+                       if self.run_as_user_name is not None else
+                       {"service_principal_name": self.run_as_service_principal_name}),
             "tags": {"project": "ashlar", "purpose": "managed-current-a1",
                      "ashlar_trial_id": self.trial_id},
             "max_concurrent_runs": 1,
@@ -143,6 +154,7 @@ def admit_serverless_job_readback(job, spec):
     settings = job.get("settings")
     _require(type(settings) is dict, "Jobs GET response omitted settings")
     _require(settings.get("name") == expected["name"]
+             and settings.get("run_as") == expected["run_as"]
              and settings.get("max_concurrent_runs") == 1
              and settings.get("max_retries", 0) == 0
              and settings.get("retry_on_timeout", False) is False
@@ -178,7 +190,12 @@ def admit_serverless_job_readback(job, spec):
                  "Selected budget attribution policy is not effective on this job")
     _require(type(job.get("job_id")) is int and job["job_id"] > 0,
              "Jobs readback omitted a valid job ID for usage reconciliation")
+    expected_run_as = (spec.run_as_user_name if spec.run_as_user_name is not None
+                       else spec.run_as_service_principal_name)
+    _require(job.get("run_as_user_name") == expected_run_as,
+             "Effective Jobs run-as identity differs from the explicit selection")
     return {"jobId": job.get("job_id"), "trialId": spec.trial_id,
+            "runAs": expected_run_as,
             "taskKey": expected_task["task_key"], "taskCount": 1,
             "timeoutSeconds": expected["timeout_seconds"],
             "dependencyPaths": list(spec.dependencies),
