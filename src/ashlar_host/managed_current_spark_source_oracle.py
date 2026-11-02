@@ -400,8 +400,8 @@ def build_managed_current_a1_source_oracle(plan, *, config, prefix_bytes,
     correspondence = plan.verify_delivery(prefix_bytes, prefix_sha256=prefix_sha256,
         selected=selected, schedule_bytes=plan.selection.schedule_bytes,
         pages=(plan.delivery_page,))
-    from ashlar_host.managed_current_prefix_delivery import _decode as _decode_delivery
-    package = _decode_delivery(prefix_bytes)
+    from ashlar_host.managed_current_prefix_delivery import decode_prefix_payload
+    package = decode_prefix_payload(prefix_bytes)
     if plan.phase == "a0_metadata":
         selection = plan.selection
         admission = selection.admission

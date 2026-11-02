@@ -31,7 +31,7 @@ class ManagedCurrentA1TrialPlan:
         """
         from .managed_current_prefix_delivery import (
             validate_managed_current_prefix_delivery, ManagedCurrentPrefixPage,
-            _decode,
+            decode_prefix_payload,
         )
         if schedule_bytes != self.selection.schedule_bytes:
             raise ValueError("Original selected R04 schedule bytes must be retained")
@@ -54,7 +54,7 @@ class ManagedCurrentA1TrialPlan:
                 raise ValueError("A0 metadata page is outside the semantic R04 slot sequence")
             correspondence = validate_selected_managed_current_prefix_v2(
                 prefix_bytes, prefix_sha256=prefix_sha256, selected=selected)
-            package = _decode(prefix_bytes)
+            package = decode_prefix_payload(prefix_bytes)
             if (package.get("phase") != "a0_metadata" or package.get("scheduleStep") != 0
                     or package.get("entries") != []
                     or package.get("scheduleJson", "").encode("utf-8") != schedule_bytes):
@@ -81,7 +81,7 @@ class ManagedCurrentA1TrialPlan:
             from ashlar.truss_native_feed import native_feed_batch
             correspondence = validate_selected_managed_current_prefix_a0_continuation(
                 prefix_bytes, prefix_sha256=prefix_sha256, selected=selected)
-            package = _decode(prefix_bytes)
+            package = decode_prefix_payload(prefix_bytes)
             if package["scheduleJson"].encode("utf-8") != schedule_bytes:
                 raise ValueError("A1 continuation must retain the original R04 schedule bytes")
             if type(pages) is not tuple or len(pages) != 1:
@@ -95,7 +95,7 @@ class ManagedCurrentA1TrialPlan:
                 sha256=hashlib.sha256(page.page_bytes).hexdigest(),
                 prior=page.prior_cursor_bytes, next=page.next_cursor_bytes,
                 feed=identity["feed"])
-            request = _decode(package["entries"][0]["requestJson"].encode("utf-8"))
+            request = decode_prefix_payload(package["entries"][0]["requestJson"].encode("utf-8"))
             if (request["source_batch_json"] != __import__("ashlar.staging",
                     fromlist=["batch_row"]).batch_row(batch)["batch_json"]
                     or request["source_checkpoint_json"] != __import__(

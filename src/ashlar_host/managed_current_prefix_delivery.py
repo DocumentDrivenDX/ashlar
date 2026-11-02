@@ -42,7 +42,7 @@ class ManagedCurrentPrefixDelivery:
     page_sha256: tuple[str, ...]
 
 
-def _decode(raw: bytes):
+def decode_prefix_payload(raw: bytes):
     def pairs(items):
         result = {}
         for key, value in items:
@@ -72,7 +72,7 @@ def validate_managed_current_prefix_delivery(prefix_bytes, *, prefix_sha256,
 
     correspondence = validate_selected_managed_current_prefix_v2(
         prefix_bytes, prefix_sha256=prefix_sha256, selected=selected)
-    package = _decode(prefix_bytes)
+    package = decode_prefix_payload(prefix_bytes)
     schedule_text = schedule.raw.decode("utf-8")
     if package["scheduleJson"] != schedule_text:
         raise ValueError("Delivery schedule must equal the separately supplied original R04 bytes")
@@ -98,7 +98,7 @@ def validate_managed_current_prefix_delivery(prefix_bytes, *, prefix_sha256,
                 prior=page.prior_cursor_bytes, next=page.next_cursor_bytes,
                 feed=feed)
             row = batch_row(batch)
-            request = _decode(entry["requestJson"].encode("utf-8"))
+            request = decode_prefix_payload(entry["requestJson"].encode("utf-8"))
         except (KeyError, TypeError, UnicodeError, ValueError) as error:
             raise ValueError("Exact public Truss page, cursors, and retained request required") from error
         if (request.get("source_batch_json") != row["batch_json"]
@@ -125,8 +125,8 @@ def validate_managed_current_prefix_delivery(prefix_bytes, *, prefix_sha256,
             raise ValueError("Exact page cursors differ from separately selected source identity") from error
         if (base64.b64encode(page.prior_cursor_bytes).decode("ascii") != batch.cursor_before
                 or base64.b64encode(page.next_cursor_bytes).decode("ascii") != batch.cursor_after
-                or before.next_xid != _decode(page.prior_cursor_bytes).get("nextXid")
-                or after.next_xid != _decode(page.next_cursor_bytes).get("nextXid")):
+                or before.next_xid != decode_prefix_payload(page.prior_cursor_bytes).get("nextXid")
+                or after.next_xid != decode_prefix_payload(page.next_cursor_bytes).get("nextXid")):
             raise ValueError("Exact Truss page cursor transition differs from retained request")
         digests.append(hashlib.sha256(page.page_bytes).hexdigest())
 

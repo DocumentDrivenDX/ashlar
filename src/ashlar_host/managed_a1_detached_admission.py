@@ -28,7 +28,7 @@ def _member(value, *names):
     raise ValueError("Detached A/B evidence omitted " + "/".join(names))
 
 
-def _progress(source, evidence, *, expected_next_xid="0"):
+def admit_progress(source, evidence, *, expected_next_xid="0"):
     from .managed_current_genesis import (
         TrussSourceGenesisProgress, admit_truss_source_genesis_progress,
     )
@@ -188,7 +188,7 @@ def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
                 raise ValueError("A1 continuation prior cursor must be exact canonical Truss bytes") from error
             _need(type(expected_next_xid) is str and expected_next_xid.isdecimal(),
                   "A1 continuation cursor nextXid required")
-        progress = _progress(source, evidence, expected_next_xid=expected_next_xid)
+        progress = admit_progress(source, evidence, expected_next_xid=expected_next_xid)
         identity = _member(evidence, "identity")
         binding = schedule_doc["source_bindings"][source]
         _need(all(_member(identity, key) == progress_value for key, progress_value in (

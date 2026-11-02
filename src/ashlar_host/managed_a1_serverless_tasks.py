@@ -200,7 +200,7 @@ def initialize_genesis_task(spark, parameters):
     from .managed_current_publication import ManagedCurrentTargetOwner
     from .r04_schedule import R04Schedule
     from .truss_detached_a1_genesis_codec import decode_detached_a1_genesis_snapshot
-    from .managed_a1_detached_admission import _progress
+    from .managed_a1_detached_admission import admit_progress
 
     _need(type(parameters) is dict and set(parameters) == {
         "trial", "genesis_volume_uri", "genesis_sha256", "protocol_profile"},
@@ -213,7 +213,7 @@ def initialize_genesis_task(spark, parameters):
     raw = _load_volume(parameters["genesis_volume_uri"], parameters["genesis_sha256"])
     detached = decode_detached_a1_genesis_snapshot(raw)
     schedule = R04Schedule(detached.schedule_bytes)
-    progress = {source: _progress(source, detached.source_evidence(source))
+    progress = {source: admit_progress(source, detached.source_evidence(source))
                 for source in ("A", "B")}
 
     spark.sql("USE CATALOG `client_dev`").collect()

@@ -510,6 +510,270 @@
       "removal_trigger": "Move this structural codec/digest into an owned portable module or inject the operation; remove this exact runtime dependency in the same reviewed change."
     },
     {
+      "source": "src/ashlar_host/configured_local_delta4_publication.py",
+      "target": "ashlar.attempt_store",
+      "symbol": "_phase_records",
+      "reason": "private-cross-module",
+      "owner": "ashlar.attempt_store issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/configured_local_delta4_publication.py -> ashlar.attempt_store._phase_records private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/configured_local_delta4_publication.py",
+      "target": "ashlar_host.delta_custody",
+      "symbol": "_metadata_intent_from_reservation",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.delta_custody issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/configured_local_delta4_publication.py -> ashlar_host.delta_custody._metadata_intent_from_reservation private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/configured_local_delta4_publication.py",
+      "target": "ashlar_host.managed_source_oracle",
+      "symbol": "_original_inventory",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.managed_source_oracle issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/configured_local_delta4_publication.py -> ashlar_host.managed_source_oracle._original_inventory private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/configured_local_runtime.py",
+      "target": "ashlar_host.configured_local_delta4_publication",
+      "symbol": "_valid_installation_profile_identity",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.configured_local_delta4_publication issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/configured_local_runtime.py -> ashlar_host.configured_local_delta4_publication._valid_installation_profile_identity private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/configured_source_local.py",
+      "target": "ashlar_host.typed_graph_admission_sdk0101",
+      "symbol": "_custody",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.typed_graph_admission_sdk0101 issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/configured_source_local.py -> ashlar_host.typed_graph_admission_sdk0101._custody private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/configured_source_local.py",
+      "target": "ashlar_host.typed_graph_sdk010_admission",
+      "symbol": "_custody",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.typed_graph_sdk010_admission issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/configured_source_local.py -> ashlar_host.typed_graph_sdk010_admission._custody private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/configured_source_local.py",
+      "target": "ashlar_host.typed_graph_sdk058_admission",
+      "symbol": "_custody",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.typed_graph_sdk058_admission issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/configured_source_local.py -> ashlar_host.typed_graph_sdk058_admission._custody private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/delta_custody.py",
+      "target": "ashlar_host.configured_local_delta4_publication",
+      "symbol": "_delta4_profile_role",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.configured_local_delta4_publication issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/delta_custody.py -> ashlar_host.configured_local_delta4_publication._delta4_profile_role private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/delta_custody.py",
+      "target": "ashlar_host.configured_local_delta4_publication",
+      "symbol": "_delta4_profile_table_prefix",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.configured_local_delta4_publication issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/delta_custody.py -> ashlar_host.configured_local_delta4_publication._delta4_profile_table_prefix private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/delta_custody.py",
+      "target": "ashlar_host.configured_local_delta4_publication",
+      "symbol": "_observe_delta4_role",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.configured_local_delta4_publication issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/delta_custody.py -> ashlar_host.configured_local_delta4_publication._observe_delta4_role private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/delta_custody.py",
+      "target": "ashlar_host.configured_local_delta4_publication",
+      "symbol": "_valid_installation_profile_identity",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.configured_local_delta4_publication issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/delta_custody.py -> ashlar_host.configured_local_delta4_publication._valid_installation_profile_identity private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/managed_current_person_read.py",
+      "target": "ashlar_host.managed_current_query",
+      "symbol": "_canonical",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.managed_current_query issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/managed_current_person_read.py -> ashlar_host.managed_current_query._canonical private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/managed_current_person_read.py",
+      "target": "ashlar_host.managed_current_query",
+      "symbol": "_require",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.managed_current_query issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/managed_current_person_read.py -> ashlar_host.managed_current_query._require private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/managed_current_person_read.py",
+      "target": "ashlar_host.managed_current_weft_binding",
+      "symbol": "_target_for",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.managed_current_weft_binding issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/managed_current_person_read.py -> ashlar_host.managed_current_weft_binding._target_for private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/managed_current_person_read.py",
+      "target": "ashlar_host.managed_current_weft_binding",
+      "symbol": "_validated_inputs",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.managed_current_weft_binding issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/managed_current_person_read.py -> ashlar_host.managed_current_weft_binding._validated_inputs private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/managed_current_trial.py",
+      "target": "ashlar_host.managed_current_publication",
+      "symbol": "_managed_current_a1_task_inputs",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.managed_current_publication issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/managed_current_trial.py -> ashlar_host.managed_current_publication._managed_current_a1_task_inputs private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss052_source_custody.py",
+      "target": "ashlar_host.truss_source_custody_selection",
+      "symbol": "_OPEN_SELECTIONS",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.truss_source_custody_selection issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss052_source_custody.py -> ashlar_host.truss_source_custody_selection._OPEN_SELECTIONS private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss052_source_custody.py",
+      "target": "ashlar_host.truss_source_custody_selection",
+      "symbol": "_SELECTIONS",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.truss_source_custody_selection issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss052_source_custody.py -> ashlar_host.truss_source_custody_selection._SELECTIONS private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss052_source_custody.py",
+      "target": "ashlar_host.truss_source_custody_selection",
+      "symbol": "_issued",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.truss_source_custody_selection issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss052_source_custody.py -> ashlar_host.truss_source_custody_selection._issued private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss053_source_custody.py",
+      "target": "ashlar_host.truss052_source_custody",
+      "symbol": "_value",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.truss052_source_custody issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss053_source_custody.py -> ashlar_host.truss052_source_custody._value private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss_continue.py",
+      "target": "ashlar_host.truss_source_custody_selection",
+      "symbol": "_mint_expected_native_post_state",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.truss_source_custody_selection issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss_continue.py -> ashlar_host.truss_source_custody_selection._mint_expected_native_post_state private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss_detached_a1_genesis_codec.py",
+      "target": "ashlar_host.managed_current_truss053_genesis_owner",
+      "symbol": "_is_issued_source_observation",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.managed_current_truss053_genesis_owner issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss_detached_a1_genesis_codec.py -> ashlar_host.managed_current_truss053_genesis_owner._is_issued_source_observation private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss_detached_source_codec.py",
+      "target": "ashlar_host.truss_source_custody_selection",
+      "symbol": "_ANCHORS",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.truss_source_custody_selection issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss_detached_source_codec.py -> ashlar_host.truss_source_custody_selection._ANCHORS private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss_detached_source_codec.py",
+      "target": "ashlar_host.truss_source_custody_selection",
+      "symbol": "_issued",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.truss_source_custody_selection issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss_detached_source_codec.py -> ashlar_host.truss_source_custody_selection._issued private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss_detached_source_snapshot_codec.py",
+      "target": "ashlar_host.managed_current_truss053_genesis_owner",
+      "symbol": "_is_issued_source_observation",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.managed_current_truss053_genesis_owner issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss_detached_source_snapshot_codec.py -> ashlar_host.managed_current_truss053_genesis_owner._is_issued_source_observation private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss_detached_source_snapshot_codec.py",
+      "target": "ashlar_host.truss_source_custody_selection",
+      "symbol": "_ANCHORS",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.truss_source_custody_selection issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss_detached_source_snapshot_codec.py -> ashlar_host.truss_source_custody_selection._ANCHORS private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss_detached_source_snapshot_codec.py",
+      "target": "ashlar_host.truss_source_custody_selection",
+      "symbol": "_issued",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.truss_source_custody_selection issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss_detached_source_snapshot_codec.py -> ashlar_host.truss_source_custody_selection._issued private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss_local_publication_recovery.py",
+      "target": "ashlar_host.truss_source_custody_selection",
+      "symbol": "_mint_expected_native_post_state",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.truss_source_custody_selection issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss_local_publication_recovery.py -> ashlar_host.truss_source_custody_selection._mint_expected_native_post_state private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/truss_note_publication.py",
+      "target": "ashlar_host.truss_source_custody_selection",
+      "symbol": "_mint_expected_native_post_state",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.truss_source_custody_selection issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/truss_note_publication.py -> ashlar_host.truss_source_custody_selection._mint_expected_native_post_state private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/typed_graph_sdk010_admission.py",
+      "target": "ashlar_host.typed_graph_admission",
+      "symbol": "_KEYS",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.typed_graph_admission issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/typed_graph_sdk010_admission.py -> ashlar_host.typed_graph_admission._KEYS private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/typed_graph_sdk010_admission.py",
+      "target": "ashlar_host.typed_graph_admission",
+      "symbol": "_source_bytes",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.typed_graph_admission issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/typed_graph_sdk010_admission.py -> ashlar_host.typed_graph_admission._source_bytes private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/typed_graph_sdk058_admission.py",
+      "target": "ashlar_host.typed_graph_admission",
+      "symbol": "_KEYS",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.typed_graph_admission issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/typed_graph_sdk058_admission.py -> ashlar_host.typed_graph_admission._KEYS private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
+      "source": "src/ashlar_host/typed_graph_sdk058_admission.py",
+      "target": "ashlar_host.typed_graph_admission",
+      "symbol": "_source_bytes",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.typed_graph_admission issuer/helper boundary owner",
+      "removal_trigger": "Replace this exact src/ashlar_host/typed_graph_sdk058_admission.py -> ashlar_host.typed_graph_admission._source_bytes private helper edge with an owner-reviewed public contract; remove only this entry in the same change."
+    },
+    {
       "source": "tools/check_native_csv_artifact.py",
       "target": "ashlar.native",
       "symbol": "_quoted",
