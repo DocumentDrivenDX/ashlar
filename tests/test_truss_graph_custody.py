@@ -14,7 +14,9 @@ from ashlar_host.truss_current_catalog import (
     CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
     CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256,
     CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
-    CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)
+    CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
+    CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,
+    CURRENT_TRUSS_055_FRESH_RUNTIME_MANIFEST_SHA256)
 from ashlar_host.truss_graph_custody import (
     PROFILE, admit_truss_graph_custody, build_truss_graph_custody,
 )
@@ -125,6 +127,17 @@ class Tests(unittest.TestCase):
             runtime_manifest_sha256=CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)
         _validate_current_053_source(source)
         source['runtime_wheel_sha256'] = '0' * 64
+        with self.assertRaisesRegex(ValueError, 'fresh-baseline source metadata'):
+            _validate_current_053_source(source)
+
+    def test_fresh_055_source_custody_requires_its_exact_wheel_pin(self):
+        from ashlar_host.truss_graph_custody import _validate_current_053_source
+        _, source, _, _ = self.r59_pair()
+        source = dict(source, profile=CURRENT_053_FRESH_PROFILE,
+            runtime_wheel_sha256=CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,
+            runtime_manifest_sha256=CURRENT_TRUSS_055_FRESH_RUNTIME_MANIFEST_SHA256)
+        _validate_current_053_source(source)
+        source['runtime_manifest_sha256'] = '0' * 64
         with self.assertRaisesRegex(ValueError, 'fresh-baseline source metadata'):
             _validate_current_053_source(source)
 

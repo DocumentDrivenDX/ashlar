@@ -6,7 +6,7 @@ import json
 from .delta_custody import encoded
 from .truss_graph_admission import (
     PROFILE as SOURCE_PROFILE, TYPED_PROFILE, CURRENT_052_CANDIDATE_PROFILE,
-    CURRENT_053_FRESH_PROFILE, CURRENT_054_FRESH_PROFILE,
+    CURRENT_053_FRESH_PROFILE, CURRENT_054_FRESH_PROFILE, CURRENT_055_FRESH_PROFILE,
 )
 
 PROFILE = 'ashlar-immutable-truss-graph-capture/0.1'
@@ -49,25 +49,29 @@ def _validate_current_052_source(source):
 
 
 def _validate_current_053_source(source):
-    """Preserve exact .53/.54 fresh-baseline identity and native profile pins."""
+    """Preserve exact .53/.54/.55 fresh-baseline identity and native pins."""
     from .private_graph_custody import require_custody_digest
     from .truss_current_catalog import (
         CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
         CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256,
         CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
-        CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)
+        CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
+        CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,
+        CURRENT_TRUSS_055_FRESH_RUNTIME_MANIFEST_SHA256)
     selected_runtime = (source.get('runtime_wheel_sha256'), source.get('runtime_manifest_sha256')) if type(source) is dict else None
     allowed_runtimes = ((CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
                          CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256),
                         (CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
-                         CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256))
+                         CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256),
+                        (CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,
+                         CURRENT_TRUSS_055_FRESH_RUNTIME_MANIFEST_SHA256))
     if (type(source) is not dict or set(source) != _CURRENT_053_FIELDS
             or source.get('profile') != CURRENT_053_FRESH_PROFILE
             or source.get('source_profile') != 'truss-native-feed/0.1'
             or any(type(source.get(name)) is not str or not source[name]
                    for name in ('feed', 'epoch', 'qualification'))
             or selected_runtime not in allowed_runtimes):
-        raise ValueError('Exact current Truss .53/.54 fresh-baseline source metadata and pins required')
+        raise ValueError('Exact current Truss .53/.54/.55 fresh-baseline source metadata and pins required')
     require_custody_digest(source['source_transaction_sha256'])
     for name in ('accepted_reports', 'catalog_views'):
         values = source[name]
@@ -104,7 +108,7 @@ def admit_truss_graph_custody(release, payload, trusted_receipt_sha256, trusted_
         raise ValueError('Original Truss graph manifest/vector differs')
     source = json.loads(release['publication']['validation_report_json'])['source_admission']
     checkpoint = value['checkpoint']
-    if (type(source) is not dict or source != value['source'] or source.get('profile') not in (SOURCE_PROFILE,TYPED_PROFILE,CURRENT_052_CANDIDATE_PROFILE,CURRENT_053_FRESH_PROFILE,CURRENT_054_FRESH_PROFILE)
+    if (type(source) is not dict or source != value['source'] or source.get('profile') not in (SOURCE_PROFILE,TYPED_PROFILE,CURRENT_052_CANDIDATE_PROFILE,CURRENT_053_FRESH_PROFILE,CURRENT_054_FRESH_PROFILE,CURRENT_055_FRESH_PROFILE)
             or source.get('source_profile') != 'truss-native-feed/0.1'):
         raise ValueError('Actual Truss scalar graph metadata required')
     if source['profile'] == CURRENT_052_CANDIDATE_PROFILE:
