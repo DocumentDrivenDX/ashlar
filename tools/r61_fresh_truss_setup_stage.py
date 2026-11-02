@@ -250,9 +250,9 @@ def _preinitialize_postgres(pgdata: Path, root: Path) -> dict:
     if hashlib.sha256(manifest_bytes).hexdigest() != artifacts["postgresql_18_runtime_manifest_sha256"]:
         raise RuntimeError("Selected PostgreSQL runtime manifest hash differs from scope")
     manifest = json.loads(manifest_bytes)
-    if scope.get("postgres_bootstrap_policy", {}).get("resume_source_pgdata"):
-        return _resume_stopped_source(scope, pgdata,
-            Path(artifacts["postgresql_18_runtime"]))
+    bootstrap_policy = scope.get("postgres_bootstrap_policy", {})
+    if any(key.startswith("resume_") for key in bootstrap_policy):
+        raise RuntimeError("R61 Truss 0.0.54 qualification requires a fresh uninstalled baseline")
     initdb = Path(artifacts["postgresql_18_runtime"]) / "bin" / "initdb"
     if (not initdb.is_file() or not os.access(initdb, os.X_OK)
             or hashlib.sha256(initdb.read_bytes()).hexdigest() != manifest.get("initdb_sha256")):
