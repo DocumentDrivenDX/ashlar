@@ -26,6 +26,18 @@ class R57SupervisorPreflightTests(unittest.TestCase):
         self.assertEqual(binding["checkpoint_lsn"], "0/1F69180")
         self.assertEqual(binding["next_xid"], "0:856")
         self.assertEqual(result["worker_preflight"]["status"], "passed_effect_free_inplace_preflight")
+        helper_inventory = result["worker_preflight"]["native_helpers_preflight"]
+        matcher = helper_inventory["page_matcher"]
+        self.assertEqual(matcher["status"], "loaded_scope_bound_matcher")
+        self.assertEqual(pathlib.Path(matcher["path"]), pathlib.Path(json.loads(SCOPE.read_text())["page_match_helper"]["path"]))
+        self.assertEqual(matcher["required_callables"], [
+            "verify_publication_selection", "validate_public_page", "validate_seed_property_bindings"])
+        self.assertEqual({item["role"] for item in helper_inventory["files"]}, {
+            "R37 public page helpers", "R36 base source/catalog helpers",
+            "R41 report property projection", "committed R55 page matcher"})
+        self.assertEqual({item["module"] for item in helper_inventory["static_imports"]}, {
+            "ashlar_r57_committed_page_match", "ashlar_r37_page_helpers",
+            "ashlar_r41_report_projection", "ashlar_r36_helpers"})
         parser = result["worker_preflight"]["real_config_parser"]
         self.assertEqual(parser["status"], "passed_real_resume_config_parser")
         self.assertEqual(parser["intent_selector_keys"], ["path", "sha256"])

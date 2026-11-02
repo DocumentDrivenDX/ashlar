@@ -149,6 +149,12 @@
     "reason": "Truss CatalogDocument.content is bytes; R54 returned InvalidGroupInput with original_documents artifact after the R52/R54 JSON-object argument"
   },
   "native_dispatch": false,
+  "native_helper_bindings": {
+    "r37_local_worker": {
+      "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r37-local-worker.py",
+      "sha256": "75ec72308a182f5c8282d1364b33c4511acf51ebd13f94a0f607341fb03e1170"
+    }
+  },
   "open_questions": [],
   "page_match_helper": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r56_committed_page_match.py",
@@ -559,6 +565,6 @@
   },
   "worker": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r57-recovery-worker.py",
-    "sha256": "57969b96787a0f445589a43f45e485b07c3330adf5c734ee1e954b0d6c1bf284"
+    "sha256": "9fdebe95c86b5ed9996ea92ae4c9d712bf09d02d91d0cacf0b3b7684afb0c870"
   }
 }

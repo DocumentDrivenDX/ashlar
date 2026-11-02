@@ -12,6 +12,59 @@
   "journal_integrity": "ok",
   "journal_sha256": "6084db7eddfc116020b34d7a213dd2a8010cefbf0c2c6f6c0c58e60372842aec",
   "native_dispatch": false,
+  "native_helpers_preflight": {
+    "files": [
+      {
+        "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r37-local-worker.py",
+        "role": "R37 public page helpers",
+        "sha256": "75ec72308a182f5c8282d1364b33c4511acf51ebd13f94a0f607341fb03e1170"
+      },
+      {
+        "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r36-local-worker.py",
+        "role": "R36 base source/catalog helpers",
+        "sha256": "cc8facf22574bfff1be1985928cd648a86b65ff32366fb7b55402c4898ab9dfd"
+      },
+      {
+        "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r41-local-worker.py",
+        "role": "R41 report property projection",
+        "sha256": "f9fe57df5d9f8103a29b8e5033f5f118ca1124f74f54cae0c00dc40dbe5b0f54"
+      },
+      {
+        "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r56_committed_page_match.py",
+        "role": "committed R55 page matcher",
+        "sha256": "4639d118fbeb796fa977ea4cffbc0259a28a809323fc415d6ad8cf0640bf2cfd"
+      }
+    ],
+    "page_matcher": {
+      "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r56_committed_page_match.py",
+      "required_callables": [
+        "verify_publication_selection",
+        "validate_public_page",
+        "validate_seed_property_bindings"
+      ],
+      "sha256": "4639d118fbeb796fa977ea4cffbc0259a28a809323fc415d6ad8cf0640bf2cfd",
+      "status": "loaded_scope_bound_matcher"
+    },
+    "static_imports": [
+      {
+        "module": "ashlar_r37_page_helpers",
+        "target_variable": "r37_path"
+      },
+      {
+        "module": "ashlar_r41_report_projection",
+        "target_variable": "r41_path"
+      },
+      {
+        "module": "ashlar_r57_committed_page_match",
+        "target_variable": "path"
+      },
+      {
+        "module": "ashlar_r36_helpers",
+        "source": "r37-local-worker.py",
+        "target_variable": "BASE_WORKER"
+      }
+    ]
+  },
   "output_roots_absent": true,
   "pgdata_tree": {
     "bytes": 65626883,
@@ -59,7 +112,7 @@
     "truss_version": "0.0.52",
     "truss_wheel_sha256": "00d8b11abc83d9c84fa131ae6f3eef23ecad9d321d4b04a13641ed31c77e9747"
   },
-  "scope_sha256": "a742f533788a19b6bd181a4b93a3ddd160e4fd66b21527411b07e0f2892351f5",
+  "scope_sha256": "b2ee8214564f4518b45a7dd3e19cdc58d10e17163fa3048b24b253aedf3dc6f9",
   "source_ack_attempted": false,
   "spark_started": false,
   "sqlite_sidecars_after": {
@@ -99,5 +152,5 @@
     }
   },
   "status": "passed_effect_free_inplace_preflight",
-  "worker_sha256": "57969b96787a0f445589a43f45e485b07c3330adf5c734ee1e954b0d6c1bf284"
+  "worker_sha256": "9fdebe95c86b5ed9996ea92ae4c9d712bf09d02d91d0cacf0b3b7684afb0c870"
 }

@@ -5,7 +5,7 @@ Native execution is reachable only through the R37 Sol-reviewed dispatch
 handshake for this exact scope and worker. Preflight itself remains effect-free.
 """
 from __future__ import annotations
-import argparse, hashlib, importlib.metadata, importlib.util, json, os, sqlite3, stat, sys, tempfile
+import argparse, ast, hashlib, importlib.metadata, importlib.util, json, os, sqlite3, stat, sys, tempfile
 from pathlib import Path
 from urllib.parse import quote
 
@@ -80,6 +80,87 @@ def sidecar(path: Path):
     except FileNotFoundError:
         return {"present": False, "bytes": 0, "dev": None, "ino": None, "mode": None, "sha256": None}
 
+def load_python_module(module_name, path):
+    spec = importlib.util.spec_from_file_location(module_name, path)
+    if spec is None or spec.loader is None:
+        raise Refusal(f"scope-bound helper cannot be loaded: {module_name}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+def static_import_inventory():
+    expected_worker = {
+        "ashlar_r57_committed_page_match": "path",
+        "ashlar_r37_page_helpers": "r37_path",
+        "ashlar_r41_report_projection": "r41_path",
+    }
+    source = ast.parse(Path(__file__).read_text(encoding="utf-8"))
+    observed = {}; loader_implementation = 0
+    for node in ast.walk(source):
+        if not isinstance(node, ast.Call):
+            continue
+        called = node.func.attr if isinstance(node.func, ast.Attribute) else node.func.id if isinstance(node.func, ast.Name) else None
+        if called == "spec_from_file_location":
+            if (len(node.args) != 2 or not isinstance(node.args[0], ast.Name) or node.args[0].id != "module_name" or
+                    not isinstance(node.args[1], ast.Name) or node.args[1].id != "path"):
+                raise Refusal("generic Python source loader changed its explicit path arguments")
+            loader_implementation += 1
+        elif called == "load_python_module":
+            if len(node.args) != 2 or not isinstance(node.args[0], ast.Constant) or not isinstance(node.args[0].value, str) or not isinstance(node.args[1], ast.Name):
+                raise Refusal("R57 dynamic helper import is not a statically inventoried binding")
+            module_name = node.args[0].value
+            if module_name in observed: raise Refusal("duplicate R57 dynamic helper import name")
+            observed[module_name] = node.args[1].id
+    if observed != expected_worker:
+        raise Refusal("R57 dynamic helper import inventory differs from reviewed paths")
+    if loader_implementation != 1:
+        raise Refusal("R57 source loader implementation inventory differs")
+    r37_tree = ast.parse((HERE / "r37-local-worker.py").read_text(encoding="utf-8"))
+    nested = []
+    for node in ast.walk(r37_tree):
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute) and node.func.attr == "spec_from_file_location":
+            if (len(node.args) != 2 or not isinstance(node.args[0], ast.Constant) or
+                    node.args[0].value != "ashlar_r36_helpers" or not isinstance(node.args[1], ast.Name) or node.args[1].id != "BASE_WORKER"):
+                raise Refusal("nested R36 helper import path is not the reviewed R37 base-worker binding")
+            nested.append({"module": "ashlar_r36_helpers", "target_variable": "BASE_WORKER", "source": "r37-local-worker.py"})
+    if len(nested) != 1:
+        raise Refusal("nested R36 dynamic helper import inventory differs")
+    return ([{"module": name, "target_variable": variable} for name, variable in sorted(observed.items())] + nested)
+
+def load_page_matcher(binding):
+    path = Path(binding["path"])
+    module = load_python_module("ashlar_r57_committed_page_match", path)
+    required = ("verify_publication_selection", "validate_public_page", "validate_seed_property_bindings")
+    if any(not callable(getattr(module, name, None)) for name in required):
+        raise Refusal("scope-bound committed-page matcher API is incomplete")
+    return module, {"status": "loaded_scope_bound_matcher", "path": str(path),
+                    "sha256": binding["sha256"], "required_callables": list(required)}
+
+def load_native_helpers(scope):
+    r37_binding = scope["native_helper_bindings"]["r37_local_worker"]
+    r37_path = Path(r37_binding["path"])
+    if r37_path != HERE / "r37-local-worker.py" or sha(r37_path.read_bytes()) != r37_binding["sha256"]:
+        raise Refusal("R37 page-helper path/hash differs from the R57 native-helper binding")
+    helper = load_python_module("ashlar_r37_page_helpers", r37_path)
+    if Path(helper.BASE_WORKER).resolve(strict=True) != Path(scope["retained_r36"]["base_worker_path"]).resolve(strict=True):
+        raise Refusal("R37 helper nested R36 base-worker path differs from scope")
+    base = helper.load_base()
+    r41_path = Path(scope["r41_projection"]["path"])
+    r41_projection = load_python_module("ashlar_r41_report_projection", r41_path)
+    page_matcher, matcher_receipt = load_page_matcher(scope["page_match_helper"])
+    if (not callable(helper.parse_page) or
+            any(not callable(getattr(base, name, None)) for name in ("_transaction", "_value", "validate_retained_report", "ordinary_reader_connection_factory", "validate_group_page_against_frozen_request")) or
+            not callable(r41_projection.project_current_view_property_allocations)):
+        raise Refusal("one or more scope-bound R57 native helper APIs are incomplete")
+    inventory = static_import_inventory()
+    files = [
+        {"role": "R37 public page helpers", "path": str(r37_path), "sha256": r37_binding["sha256"]},
+        {"role": "R36 base source/catalog helpers", "path": str(Path(helper.BASE_WORKER)), "sha256": scope["retained_r36"]["base_worker_sha256"]},
+        {"role": "R41 report property projection", "path": str(r41_path), "sha256": scope["r41_projection"]["sha256"]},
+        {"role": "committed R55 page matcher", "path": str(Path(scope["page_match_helper"]["path"])), "sha256": scope["page_match_helper"]["sha256"]},
+    ]
+    return helper, base, page_matcher, r41_projection, {"static_imports": inventory, "files": files, "page_matcher": matcher_receipt}
+
 def preflight(scope_path: Path, *, require_absent=True, supervisor_root_created=None):
     raw = scope_path.read_bytes(); scope = read_json(scope_path)
     if scope.get("profile") != "ashlar-r57-committed-page-recovery/0.1" or scope.get("status") not in {"pending_sol_review", "sol_reviewed_and_dispatchable"}:
@@ -118,6 +199,7 @@ def preflight(scope_path: Path, *, require_absent=True, supervisor_root_created=
     page_match_binding = scope["page_match_helper"]
     if sha(Path(page_match_binding["path"]).read_bytes()) != page_match_binding["sha256"]:
         raise Refusal("R57 committed-page matcher hash differs from scope")
+    _, _, _, _, native_helpers_preflight = load_native_helpers(scope)
     if sha(Path(scope["supervisor"]["path"]).read_bytes()) != scope["supervisor"]["sha256"]:
         raise Refusal("R37 supervisor hash differs from scope")
     repo = HERE.parents[7]
@@ -334,6 +416,7 @@ def preflight(scope_path: Path, *, require_absent=True, supervisor_root_created=
             "r49_ack_checkpoint_sha256": ack["checkpoint_sha256"], "r49_publication_id": recon["publication"]["publication_id"],
             "continuation_request_sha256": sha(request_raw), "continuation_operations": 2,
             "pgdata_tree": pgt, "postmaster_stopped": True, "journal_sha256": sha(journal.read_bytes()),
+            "native_helpers_preflight": native_helpers_preflight,
             "journal_integrity": integrity, "journal_counts": counts, "sqlite_sidecars_before": before,
             "sqlite_sidecars_after": after, "postgres_opened": False, "spark_started": False,
             "delta_written": False, "source_ack_attempted": False, "native_dispatch": False,
@@ -344,15 +427,7 @@ def native(scope_path: Path, supervisor_root: Path):
     preflight(scope_path, require_absent=False, supervisor_root_created=supervisor_root)
     # R37's parser and public page matcher are reused; its seed-page and seed-ACK
     # stages are intentionally not called from this continuation-only path.
-    helper_path = HERE / "r37-local-worker.py"
-    spec = importlib.util.spec_from_file_location("ashlar_r37_page_helpers", helper_path)
-    if spec is None or spec.loader is None: raise Refusal("R37 bounded page helper is unavailable")
-    helper = importlib.util.module_from_spec(spec); spec.loader.exec_module(helper)
-    base = helper.load_base()
-    match_spec = importlib.util.spec_from_file_location("ashlar_r57_page_match", HERE / "r57_committed_page_match.py")
-    page_matcher = importlib.util.module_from_spec(match_spec); match_spec.loader.exec_module(page_matcher)
-    r41_spec = importlib.util.spec_from_file_location("ashlar_r41_report_projection", HERE / "r41-local-worker.py")
-    r41_projection = importlib.util.module_from_spec(r41_spec); r41_spec.loader.exec_module(r41_projection)
+    helper, base, page_matcher, r41_projection, _ = load_native_helpers(scope)
     runtime_selection = scope["runtime_candidate"]
     overlay = Path(runtime_selection["new_overlay_or_venv"]).resolve(strict=True) / "site-packages"
     extras = Path(runtime_selection["local_extra_overlay"]).resolve(strict=True)
