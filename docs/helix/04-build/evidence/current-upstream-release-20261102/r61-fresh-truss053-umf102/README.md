@@ -1,8 +1,8 @@
 # R61 fresh Truss / UMF local qualification packet
 
-Status: the fresh Truss setup stage is coded but has not been dispatched. No PostgreSQL,
-Truss source, Delta, ACK, Spark or GraphFrames action has been run. This packet
-does not qualify a release.
+Status: the fresh Truss setup stage and one-shot outer supervisor are coded but
+have not been dispatched. No PostgreSQL, Truss source, Delta, ACK, Spark or
+GraphFrames action has been run. This packet does not qualify a release.
 
 The next local qualification is intended to establish one fresh-baseline path
 with Truss 0.0.53, UMF SDK 0.10.2 and Core 0.10.6 while retaining the declared
@@ -13,8 +13,13 @@ reviewed.
 
 ## Bounded scope
 
-Planned bounds are one local attempt, at most 900 seconds including cleanup,
-4 GiB aggregate RSS and 512 MiB disposable output; they are not yet enforced.
+The supervisor enforces one attempt, at most 900 seconds including cleanup,
+4 GiB aggregate process-group RSS and 512 MiB disposable output. It captures at
+most 64 MiB of worker logs, terminates and reaps the process group, and checks
+the exact run-owned PostgreSQL pidfile/socket after cleanup. A worker completion
+receipt is required to assert owner closure and state reconciliation. These
+mechanisms have not yet had a native run; the exact candidate bindings and
+independent review are still missing.
 The estimated duration is 8–12 minutes. It uses a new PostgreSQL data directory
 and Delta root, never the retained R59 state.
 The callable first stage reuses Ashlar's public Truss setup/read helpers to
@@ -37,13 +42,16 @@ candidate. Candidate compatibility and all hashes remain required inputs.
 
 ## Readiness
 
-Run `python tools/r61_fresh_cohort_runner.py --preflight-only` from this source
-tree. The preflight checks the pinned source base, clean source hashes, packet shape, distinct
-fresh paths, and required artifact bindings without creating those paths or
-importing/starting external runtimes. It reports `blocked_pending_candidate`.
-There is deliberately no dispatch command in this skeleton. After exact pins
-and APIs are verified, the prepared first-stage function plus bounded runner and scope must be reviewed
-before any native action.
+Run `python tools/r61_fresh_cohort_runner.py --preflight-only` or
+`python tools/r61_fresh_cohort_supervisor.py --preflight-only` from this source
+tree. Both are effect-free. The supervisor's `--run-once` requires all exact
+runtime/artifact/worker hashes, an accepted upstream review state, a matching
+external dispatch receipt and a fresh output root. It launches only the bound
+worker with a closed environment. The CLI remains unavailable in practice
+because the candidate worker and runtime artifacts have not been supplied.
+The separate GraphFrames process must consume owner-captured canonical release
+and custody bytes with the exact new Ashlar wheel; it does not need to scan the
+new Delta tables.
 
 This packet uses HELIX `04-build` runtime-handoff mode. The governing boundaries
 are the Ashlar product requirements, publication/consumer/table/resolver

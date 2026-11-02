@@ -1,14 +1,16 @@
 {
   "packet": "ashlar-r61-fresh-truss053-umf102",
-  "status": "source_stage_coded_candidate_pending_review_no_dispatch",
+  "status": "bounded_supervisor_coded_candidate_pending_review_no_dispatch",
   "source": {
     "repository": "ashlar",
     "base_commit": "783f2f63491bf9e1ccca1e65c7254c5a9446402b",
     "worktree": "/private/tmp/ashlar-r61-fresh-cohort-plan",
     "runner_path": "tools/r61_fresh_cohort_runner.py",
-    "runner_sha256": "10215f1c95db6023a40650cc241a8f44a9f551735273b7efad03a438b2295d7d",
+    "runner_sha256": "0b318102e7c8d5de3b6c15f0f003d666d101d0c9f8b9f991601b41fbd40b7eb9",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
-    "setup_stage_sha256": "c367322fca557ce46eb23379e786e392004e385cbe17eedaef6c78fbdfadc61a"
+    "setup_stage_sha256": "c367322fca557ce46eb23379e786e392004e385cbe17eedaef6c78fbdfadc61a",
+    "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
+    "supervisor_sha256": "dddbaf49d85074d3b347a2f374d9c5dfd606d278cfbf611be7ba9a1f7b542c42"
   },
   "artifacts": {
     "truss_version": "0.0.53",
@@ -24,6 +26,10 @@
     "umf_core_platform_artifact": null,
     "umf_core_sha256": "e6219539dabcdfe9657bc09485ad991b3380ae306c658d0a51a35caac0196e36",
     "umf_core_linux_x86_64_sha256": "9a4fc6e739fb9c0c80e22916490484fb41b6f00985afc53fb81dcca2d72029b9",
+    "python_executable": null,
+    "python_sha256": null,
+    "runtime_manifest": null,
+    "runtime_manifest_sha256": null,
     "upstream_candidate_checkout": "/private/tmp/ashlar-upstream-0102-0053",
     "upstream_candidate_commits": [
       "626c1e33d41732601ba836fe4d8cd7c94cac85ed",
@@ -33,11 +39,16 @@
     "ashlar_candidate_commit": "fc708a966bf68abd6d388ce01a97ea8356ff19b9",
     "truss_adapter_profile": null,
     "bun_executable": null,
+    "bun_sha256": null,
     "postgresql_18_runtime": null,
+    "postgresql_18_runtime_manifest": null,
+    "postgresql_18_runtime_manifest_sha256": null,
     "ashlar_candidate_wheel": null,
     "ashlar_candidate_wheel_sha256": null,
     "graphframes_runtime_manifest": null,
-    "graphframes_runtime_manifest_sha256": null
+    "graphframes_runtime_manifest_sha256": null,
+    "worker_path": null,
+    "worker_sha256": null
   },
   "fresh_local_state": {
     "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102",
@@ -51,11 +62,14 @@
     ]
   },
   "limits": {
-    "enforcement_status": "planned_not_yet_enforced",
+    "enforcement_status": "implemented_in_supervisor_not_yet_independently_reviewed_or_dispatched",
     "wall_seconds_including_cleanup": 900,
     "aggregate_rss_bytes": 4294967296,
     "disposable_output_bytes": 536870912,
-    "estimated_duration_minutes": [8, 12],
+    "estimated_duration_minutes": [
+      8,
+      12
+    ],
     "attempts": 1,
     "local_only": true
   },
@@ -84,7 +98,7 @@
     "no native execution has occurred in this packet",
     "no release, tag, publish, cloud, scale, push or production authority is claimed",
     "the prior R59 GraphFrames runtime configuration is not candidate compatibility evidence",
-    "the planned bounds are not enforced by the effect-free skeleton"
+    "supervisor limits are implemented but have not yet been exercised against the candidate worker"
   ],
   "qualification_stage": {
     "status": "source_stage_implemented_not_dispatched",
@@ -105,5 +119,18 @@
       "directory_suffix": "first 24 hex characters of SHA256(os.fsencode(canonical PGDATA))",
       "precondition": "exact socket directory absent before any PostgreSQL setup"
     }
+  },
+  "supervisor": {
+    "mode": "one-shot local worker only",
+    "wall_deadline_includes_cleanup": true,
+    "process_group_rss_polling": true,
+    "worker_log_capture_limit_bytes": 67108864,
+    "aggregate_output_limit_bytes": 536870912,
+    "term_seconds": 8,
+    "kill_seconds": 4,
+    "owned_pg_ctl_stop_seconds": 22,
+    "completion_receipt_required": true,
+    "dispatch_requires_exact_external_review_receipt": true,
+    "native_dispatched": false
   }
 }

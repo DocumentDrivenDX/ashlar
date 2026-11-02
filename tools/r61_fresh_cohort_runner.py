@@ -23,11 +23,21 @@ PENDING = (
     "umf_core_sha256",
     "truss_adapter_profile",
     "bun_executable",
+    "bun_sha256",
     "postgresql_18_runtime",
+    "postgresql_18_runtime_manifest",
+    "postgresql_18_runtime_manifest_sha256",
     "ashlar_candidate_wheel",
     "ashlar_candidate_wheel_sha256",
     "graphframes_runtime_manifest",
     "graphframes_runtime_manifest_sha256",
+    "python_executable",
+    "python_sha256",
+    "runtime_manifest",
+    "runtime_manifest_sha256",
+    "worker_path",
+    "worker_sha256",
+    "upstream_candidate_review",
 )
 
 
@@ -58,6 +68,10 @@ def preflight() -> dict:
     stage_sha = hashlib.sha256(stage_path.read_bytes()).hexdigest()
     if stage_sha != scope["source"]["setup_stage_sha256"]:
         raise RuntimeError("fresh Truss setup stage source hash differs from scope")
+    supervisor_path = REPO / scope["source"]["supervisor_path"]
+    supervisor_sha = hashlib.sha256(supervisor_path.read_bytes()).hexdigest()
+    if supervisor_sha != scope["source"]["supervisor_sha256"]:
+        raise RuntimeError("outer one-shot supervisor source hash differs from scope")
 
     paths = scope["fresh_local_state"]
     root = Path(paths["root"])
@@ -87,8 +101,17 @@ def preflight() -> dict:
 
     artifacts = scope["artifacts"]
     missing = [key for key in PENDING if not artifacts.get(key)]
+    for candidate_commit in artifacts.get("upstream_candidate_commits", []):
+        if subprocess.run(["git", "merge-base", "--is-ancestor", candidate_commit, "HEAD"],
+                          cwd=REPO, stdout=subprocess.DEVNULL,
+                          stderr=subprocess.DEVNULL).returncode:
+            missing.append("upstream_candidate_not_integrated:" + candidate_commit[:12])
     for path_key, hash_key in (
         ("truss_wheel", "truss_wheel_sha256"),
+        ("runtime_manifest", "runtime_manifest_sha256"),
+        ("graphframes_runtime_manifest", "graphframes_runtime_manifest_sha256"),
+        ("bun_executable", "bun_sha256"),
+        ("postgresql_18_runtime_manifest", "postgresql_18_runtime_manifest_sha256"),
         ("umf_sdk_artifact", "umf_sdk_sha256"),
         ("umf_core_platform_artifact", "umf_core_sha256"),
         ("ashlar_candidate_wheel", "ashlar_candidate_wheel_sha256"),
@@ -107,6 +130,26 @@ def preflight() -> dict:
                     member_sha = hashlib.sha256(wheel.read("truss/local_runtime.py")).hexdigest()
                 if member_sha != scope["qualification_stage"]["truss_local_runtime_member_sha256"]:
                     raise RuntimeError("Truss .53 deterministic socket implementation hash differs")
+    python_executable = artifacts.get("python_executable")
+    if python_executable:
+        selected_python = Path(python_executable)
+        if (not selected_python.is_absolute() or not selected_python.exists()
+                or not selected_python.resolve().is_file() or not os.access(selected_python, os.X_OK)
+                or hashlib.sha256(selected_python.resolve().read_bytes()).hexdigest() != artifacts.get("python_sha256")):
+            raise RuntimeError("selected worker Python path/hash mismatch")
+    postgres_runtime = artifacts.get("postgresql_18_runtime")
+    if postgres_runtime:
+        runtime = Path(postgres_runtime)
+        manifest = json.loads(Path(artifacts["postgresql_18_runtime_manifest"]).read_text())
+        if not runtime.is_absolute() or runtime.resolve() != runtime or runtime.is_symlink() or not runtime.is_dir():
+            raise RuntimeError("canonical selected PostgreSQL 18 runtime directory required")
+        for binary, key in (("pg_ctl", "pg_ctl_sha256"), ("postgres", "postgres_sha256")):
+            binary_path = runtime / "bin" / binary
+            if (not binary_path.is_file() or not os.access(binary_path, os.X_OK)
+                    or hashlib.sha256(binary_path.read_bytes()).hexdigest() != manifest.get(key)):
+                raise RuntimeError(f"selected PostgreSQL runtime binary hash mismatch: {binary}")
+        if not str(manifest.get("postgresql_version", "")).startswith("18."):
+            raise RuntimeError("selected PostgreSQL runtime manifest is not major 18")
     source_model = REPO / scope["qualification_stage"]["source_model"]
     model_sha = hashlib.sha256(source_model.read_bytes()).hexdigest()
     if model_sha != scope["qualification_stage"]["source_model_sha256"]:
@@ -130,13 +173,14 @@ def preflight() -> dict:
         "r59_state_disjoint": True,
         "planned_bounds_enforced": False,
         "setup_stage_source_sha256": stage_sha,
+        "supervisor_source_sha256": supervisor_sha,
         "upstream_candidate_commits": artifacts.get("upstream_candidate_commits"),
         "upstream_candidate_review": review_status,
         "source_model_sha256": model_sha,
         "candidate_bindings_missing": missing,
         "limits": scope["limits"],
         "planned_workflow_steps": len(scope["workflow"]),
-        "note": "This skeleton has no native execution path; candidate binding and independent review remain mandatory.",
+        "note": "The separate one-shot supervisor is bounded; missing candidate bindings and independent review still disable dispatch.",
     }
 
 
