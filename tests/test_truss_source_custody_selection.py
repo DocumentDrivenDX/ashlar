@@ -160,6 +160,58 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
                 destination_id="selected-r04-destination",
                 preselected_publication_id="publisher-invented-id")
 
+    def test_prepublication_sdk_selection_uses_exact_052_or_fresh_053_gate(self):
+        from ashlar_host.truss_current_catalog import (
+            CURRENT_052_CUSTODY_PROFILE, CURRENT_053_FRESH_CUSTODY_PROFILE,
+        )
+
+        anchor = select_truss_source_custody_anchor(schedule=self.schedule,
+            source="A", page=self.page, request_bytes=self.request_bytes,
+            destination_id="selected-r04-destination",
+            preselected_publication_id=self.publication_id)
+        opening = anchor.open_selection()
+        package = types.ModuleType("truss")
+        package.__path__ = []
+
+        class CatalogRuntimeStatus:
+            def __init__(self, **kwargs): self.__dict__.update(kwargs)
+
+        package.CatalogRuntimeStatus = CatalogRuntimeStatus
+        contracts = types.ModuleType("truss.contracts")
+
+        class ProfilePin: pass
+
+        contracts.ProfilePin = ProfilePin
+        feed = types.ModuleType("truss.feed")
+
+        class FeedSourceSelection:
+            def __init__(self, **kwargs): self.__dict__.update(kwargs)
+
+        feed.FeedSourceSelection = FeedSourceSelection
+        status = CatalogRuntimeStatus(installed=True,
+            installation_id=self.identity["installation_id"],
+            release_id=_RELEASE_ID, release_sha256=_RELEASE_SHA256,
+            layout_profile=ProfilePin())
+        with patch.dict(sys.modules, {"truss": package,
+                "truss.contracts": contracts, "truss.feed": feed}), \
+                patch("ashlar_host.truss_current_catalog.installed_truss_052_source_custody_profile",
+                      return_value=CURRENT_052_CUSTODY_PROFILE), \
+                patch("ashlar_host.truss_current_catalog.installed_truss_053_fresh_source_custody_profile",
+                      return_value=CURRENT_053_FRESH_CUSTODY_PROFILE):
+            for version in ("0.0.52", "0.0.53"):
+                with self.subTest(version=version), \
+                        patch("importlib.metadata.version", return_value=version):
+                    selected = opening.to_candidate_sdk(runtime_status=status)
+                    self.assertIs(type(selected), FeedSourceSelection)
+                    self.assertEqual(selected.request_bytes, self.request_bytes)
+                    self.assertEqual(selected.publication_id, self.publication_id)
+
+            with patch("importlib.metadata.version", return_value="0.0.53"), \
+                    patch("ashlar_host.truss_current_catalog.installed_truss_053_fresh_source_custody_profile",
+                          return_value=CURRENT_052_CUSTODY_PROFILE):
+                with self.assertRaisesRegex(TrussSourceSelectionError, "gated"):
+                    opening.to_candidate_sdk(runtime_status=status)
+
     def test_candidate_sdk_materialization_refuses_051_metadata(self):
         bound = self.bound()
         package = types.ModuleType("truss")

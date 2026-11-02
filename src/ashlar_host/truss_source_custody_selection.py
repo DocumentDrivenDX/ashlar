@@ -734,11 +734,18 @@ class TrussSourceCustodyOpenSelection:
             from truss.contracts import ProfilePin
             from truss.feed import FeedSourceSelection
             from .truss_current_catalog import (
-                CURRENT_052_CUSTODY_PROFILE, installed_truss_052_source_custody_profile)
+                CURRENT_052_CUSTODY_PROFILE, CURRENT_053_FRESH_CUSTODY_PROFILE,
+                installed_truss_052_source_custody_profile,
+                installed_truss_053_fresh_source_custody_profile)
             package_version = importlib.metadata.version("umf-truss")
-            if package_version != "0.0.52":
-                raise ValueError("Exact Truss 0.0.52 candidate package required")
-            installed_profile = installed_truss_052_source_custody_profile()
+            if package_version == "0.0.52":
+                installed_profile = installed_truss_052_source_custody_profile()
+                expected_profile = CURRENT_052_CUSTODY_PROFILE
+            elif package_version == "0.0.53":
+                installed_profile = installed_truss_053_fresh_source_custody_profile()
+                expected_profile = CURRENT_053_FRESH_CUSTODY_PROFILE
+            else:
+                raise ValueError("Exact Truss 0.0.52 or 0.0.53 source-custody package required")
         except (ImportError, LookupError, ValueError) as error:
             raise TrussSourceSelectionError(
                 "Exact Truss source-custody candidate runtime unavailable") from error
@@ -748,7 +755,7 @@ class TrussSourceCustodyOpenSelection:
               and runtime_status.release_id == _RELEASE_ID
               and runtime_status.release_sha256 == _RELEASE_SHA256
               and type(runtime_status.layout_profile) is ProfilePin
-              and installed_profile == CURRENT_052_CUSTODY_PROFILE,
+              and installed_profile == expected_profile,
               "Truss source custody is gated to the reviewed candidate manifest")
         return FeedSourceSelection(
             page=self.page, maximum_facts=self.maximum_facts,
