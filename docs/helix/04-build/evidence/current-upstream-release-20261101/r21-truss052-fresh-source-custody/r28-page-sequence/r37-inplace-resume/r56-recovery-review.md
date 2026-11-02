@@ -1,0 +1,9 @@
+# R56 committed-page recovery review packet
+
+R56 recovers the already committed R55 two-create transaction without submitting a group again. The worker binds the R55 group commit, failure receipt, durable page, publication intent, R49 cursor, current stopped PGDATA tree, Delta journal, and all six Delta table heads. It refuses if the R55 publication already appears in a Delta head.
+
+Before publication, a fresh public FeedPage must match the committed R55 page content digest, prior and next cursor bytes, consumer and registration identities, and R49 checkpoint. R56 reuses R41's `.52` complete-view property projection, cross-checks those property IDs and definition pins against the retained R49 page, and passes the projected admission to R36's existing frozen-request matcher for the exact two creates. It does not compare raw event value shapes itself.
+
+The worker uses the exact R55 publication intent, then requires native Delta readback. It contains no group submission and no ACK call. It stops with ACK held; independent read-only PostgreSQL confirmation of the R55 request receipt and source page is a mandatory gate before any later ACK.
+
+Effect-free preflight passed: PostgreSQL unopened/stopped, Spark not started, Delta unchanged, no ACK, and both output roots absent. Focused tests passed: `test_r56_committed_page_match.py` and existing `test_r41_report_view_projection.py`. No native run was performed. Status remains `pending_sol_review`.
