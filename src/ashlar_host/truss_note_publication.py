@@ -109,9 +109,9 @@ def read_page(connection_factory,consumer_id,*,maximum_bytes=1048576):
     with connection_factory()as connection:
         connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED READ ONLY')
         connection.execute("SET LOCAL statement_timeout = '15000ms'")
-        host=adopt_psycopg_host(connection);assembly=None;primary=None;page=None
+        host=adopt_psycopg_host(connection,statement_timeout_ms=15000,operation_timeout_ms=15000);assembly=None;primary=None;page=None
         def value(result):
-            if not isinstance(result,Ok):raise ValueError('Public Truss read refused')
+            if not isinstance(result,Ok):raise ValueError(f'Public Truss read refused: {getattr(result,"error",None)!r}')
             return result.value
         try:
             tx=value(host.adopt_transaction(access_mode='read_only'));assembly=value(create_reference_assembly(CatalogRuntimeConfiguration(),host))
