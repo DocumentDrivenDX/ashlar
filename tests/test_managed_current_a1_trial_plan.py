@@ -225,12 +225,14 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
             catalog_registration_id='catalog-B', catalog_registration_bytes=b_reg,
             consumer_id='consumer-B', consumer_registration_id='consumer-reg-B',
             installation_id='install-B')
+        admission = TrussGraphAdmission.__new__(TrussGraphAdmission)
+        admission.batch = batch
         selection = ManagedCurrentTruss053GenesisSelection(schedule.sha256,
             schedule.raw, {'A': progress_a, 'B': progress_b}, {}, {},
             {'install-A': '1', 'install-B': '1'},
             {'A': SimpleNamespace(batch=batch, page=page),
              'B': SimpleNamespace(batch=None, page=None)},
-            SimpleNamespace(batch=batch), batch)
+            admission, batch)
         source_progress = {
             'feed-A': {'profile': 'ashlar-truss-checkpoint/0.1', 'feed': 'feed-A',
                 'epoch': 'epoch-A', 'position': base64.b64encode(prior).decode(),
@@ -246,6 +248,14 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
         self.assertEqual(plan.request['predecessor'], 'a0-publication')
         self.assertIsNone(plan.driver_inputs['managed_genesis_predecessor'])
         self.assertIsNone(plan.driver_inputs['source_owner_admitted_batch'])
+        admitted, genesis_predecessor, source_batch, rebuilt = _managed_current_a1_task_inputs(
+            plan, stream='source-stream', predecessor='a0-publication',
+            schema_revisions_json=json.dumps(selection.schema_revisions,
+                sort_keys=True, separators=(',', ':')), materialized_at='1')
+        self.assertIs(admitted, admission)
+        self.assertIsNone(genesis_predecessor)
+        self.assertIsNone(source_batch)
+        self.assertEqual(rebuilt, plan.request)
         changed = dict(source_progress)
         changed['feed-A'] = dict(source_progress['feed-A'], position='e30=')
         wrong = dict(predecessor, source_progress_json=json.dumps(changed,

@@ -1104,8 +1104,6 @@ def _managed_current_a1_task_inputs(a1_plan, *, stream, predecessor,
     _require(type(selection.admission) is TrussGraphAdmission
              and selection.admission.batch is selection.source_owner_admitted_batch
              and a1_plan.driver_inputs['admission'] is selection.admission
-             and a1_plan.driver_inputs['source_owner_admitted_batch']
-                 is selection.source_owner_admitted_batch
              and ((type(a1_plan.predecessor) is ManagedCurrentGenesisPredecessor
                    and a1_plan.driver_inputs['managed_genesis_predecessor'] is a1_plan.predecessor
                    and a1_plan.driver_inputs['source_owner_admitted_batch']

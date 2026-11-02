@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import base64
 import hashlib
+import json
 from types import SimpleNamespace
 
 
@@ -140,7 +141,24 @@ def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
     _need(type(genesis_snapshot_bytes) is bytes
           and 0 < len(genesis_snapshot_bytes) <= 4 * 1024 * 1024,
           "Owner-private bounded exact A/B genesis source package required")
-    detached = decode_detached_a1_genesis_snapshot(genesis_snapshot_bytes)
+    expected_a_prior_cursor = "0"
+    if continuation:
+        # The detached codec defaults to the literal Truss genesis cursor. For
+        # A1 continuation, derive only the numeric cursor bound from the closed
+        # package, then bind its exact bytes to the supplied A0 manifest below.
+        try:
+            package = json.loads(genesis_snapshot_bytes.decode("utf-8"))
+            prior_b64 = package["sources"]["A"]["page"]["prior_bytes_base64"]
+            prior_bytes = base64.b64decode(prior_b64, validate=True)
+            cursor_doc = json.loads(prior_bytes.decode("utf-8"))
+            expected_a_prior_cursor = cursor_doc["nextXid"]
+        except (UnicodeError, ValueError, KeyError, TypeError) as error:
+            raise ValueError("Exact A1 continuation prior cursor is required") from error
+        _need(type(expected_a_prior_cursor) is str
+              and expected_a_prior_cursor.isdecimal(),
+              "Canonical A1 continuation nextXid required")
+    detached = decode_detached_a1_genesis_snapshot(
+        genesis_snapshot_bytes, expected_a_prior_cursor=expected_a_prior_cursor)
     _need(detached.schedule_sha256 == hashlib.sha256(detached.schedule_bytes).hexdigest()
           and type(detached.schema_revisions) is dict and detached.schema_revisions,
           "Frozen original schedule and A/B schema revision pins required")
