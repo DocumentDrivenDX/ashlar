@@ -54,6 +54,21 @@ def candidate_seed_group(source: str) -> dict:
             "records": records, "edges": edges}
 
 
+def public_group_seed(seed: dict) -> dict:
+    """Encode plain schedule semantics as the committed Truss scalar carrier."""
+    _need(type(seed) is dict and set(seed) == {"profile", "records", "edges"}
+          and seed["profile"] == "ashlar-truss-record-group/0.1",
+          "Exact plain R28 seed semantics required")
+    encoded = deepcopy(seed)
+    for record in encoded["records"]:
+        _need(type(record["values"]) is dict
+              and all(type(value) is str for value in record["values"].values()),
+              "R28 group source authored values must be exact strings")
+        record["values"] = {key: {"kind": "string", "text": value}
+                            for key, value in record["values"].items()}
+    return encoded
+
+
 def example_private_config(*, root: Path, bun_path: Path) -> dict:
     """Create a concrete local-development config skeleton with no credentials."""
     from importlib.resources import files
@@ -452,13 +467,14 @@ def bootstrap_from_private_config(config_bytes: bytes):
             os.fsync(stream.fileno())
 
         a1 = config["a1_group"]
+        public_a1 = public_group_seed(a1)
         group_config = {"profile": "ashlar-truss-record-group/0.1",
             "connection_uri": selections["A"]["ordinary_uri"], "bun": str(bun),
             "document_path": str(model_path), "document_revision": MODEL_REVISION,
             "document_id": MODEL_ID, "source_version": "0.10.0",
             "origin_path": str(root / "origin-A.json"),
             "request_key": "ashlar-managed-a1-a1-seven-operation-group",
-            "records": a1["records"], "edges": a1["edges"]}
+            "records": public_a1["records"], "edges": public_a1["edges"]}
         group_path = root / "a1-group.json"
         fd = os.open(group_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
                      getattr(os, "O_NOFOLLOW", 0), 0o600)
@@ -478,7 +494,7 @@ def bootstrap_from_private_config(config_bytes: bytes):
             prior=page.prior.content, next=page.next.content, feed=a_ids["feed"])
         parsed_batch = typed_scalar_entity_changes(page.content, sha256=page.sha256,
             prior=page.prior.content, next=page.next.content, feed=a_ids["feed"])
-        _need(len(parsed_batch.changes) == 7 and batch.epoch == a_ids["epoch"],
+        _need(len(parsed_batch.changes) == 7 and batch.epoch == bindings["A"]["epoch"],
               "Exact public A1 seven-change typed feed page required")
         context = object()
         for source in ("A", "B"):
