@@ -476,13 +476,13 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     import psycopg
 
     require_truss_psycopg_runtime()
-    if distribution_version("umf-truss") != "0.0.53":
-        raise RuntimeError("Exact Truss 0.0.53 candidate required")
+    if distribution_version("umf-truss") != "0.0.54":
+        raise RuntimeError("Exact Truss 0.0.54 candidate required")
     candidate_profile = installed_current_truss_profile()
     if candidate_profile != expected_adapter_profile:
-        raise RuntimeError("Exact reviewed Truss 0.0.53 adapter profile required")
+        raise RuntimeError("Exact reviewed Truss 0.0.54 adapter profile required")
     if hashlib.sha256(Path(local_runtime.__file__).read_bytes()).hexdigest() != LOCAL_RUNTIME_SHA256:
-        raise RuntimeError("Truss .53 local runtime implementation hash differs")
+        raise RuntimeError("Truss .54 unchanged local runtime implementation hash differs")
     LocalPostgres = local_runtime.LocalPostgres
 
     if root.exists():
@@ -507,7 +507,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
         _require_owned_runtime_directory(socket_root)
     if (pgdata.exists() or pgdata.is_symlink() or lease_file.exists() or lease_file.is_symlink()
             or socket_directory.exists() or socket_directory.is_symlink()):
-        raise ValueError("Fresh PGDATA, runtime lease and deterministic Truss .53 socket required")
+        raise ValueError("Fresh PGDATA, runtime lease and deterministic Truss .54 socket required")
     postgres_bootstrap = _preinitialize_postgres(pgdata, root)
 
     model_path = root / "accepted-model.umf.json"
@@ -749,10 +749,10 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
         raise primary
     result["postgres_owner_closed_before_receipt"] = True
     result["qualification"] = (
-        ("Resumed exact stopped public Truss 0.0.53 installation and accepted UMF 0.10.0 "
+        ("Resumed exact stopped public Truss 0.0.54 installation and accepted UMF 0.10.0 "
          "source from the retained stopped state, without reinstall or reaccept; "
          if resuming_public_state else
-         "Fresh local public Truss 0.0.53 installation and declared UMF 0.10.0 acceptance; ")
+         "Fresh local public Truss 0.0.54 installation and declared UMF 0.10.0 acceptance; ")
         + "consumer registration and exact report/catalog/source/page readback after owner close. "
         "No Delta publication, continuation, ACK or graph export in this stage.")
     receipt = root / "setup-stage.json"

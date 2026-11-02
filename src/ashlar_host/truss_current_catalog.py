@@ -16,6 +16,7 @@ CURRENT_TRUSS_050_VERSION = '0.0.50'
 CURRENT_TRUSS_051_VERSION = '0.0.51'
 CURRENT_TRUSS_052_CANDIDATE_VERSION = '0.0.52'
 CURRENT_TRUSS_053_FRESH_VERSION = '0.0.53'
+CURRENT_TRUSS_054_FRESH_VERSION = '0.0.54'
 CURRENT_TRUSS_045_WHEEL_SHA256 = '1a1328a50415ae5e37d0d9b398d85b9c0700c0c8869208399773996feefb966c'
 CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256 = '71c4c3d4c05a2229c4cdec1643cabe0da7055965f0b0d23195e83ad780042a2e'
 CURRENT_TRUSS_048_WHEEL_SHA256 = '1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3'
@@ -30,8 +31,13 @@ CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256 = '00d8b11abc83d9c84fa131ae6f3eef23ecad
 CURRENT_TRUSS_052_CANDIDATE_RUNTIME_MANIFEST_SHA256 = '5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522'
 CURRENT_TRUSS_053_FRESH_WHEEL_SHA256 = 'a6c8568d676cd69675dc27d92fdfed2b85b69089ff0007d2b5bd2f5f48be6d89'
 CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256 = '5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522'
+CURRENT_TRUSS_054_FRESH_WHEEL_SHA256 = '4aebc56e92fdbde6714d9b811860707d2ffc9b0edbc63cc91e9dc3488c042b52'
+# .54 changes only public Python contract exports; its native catalog/feed and
+# LocalPostgres runtime members and installed manifest are byte-identical to .53.
+CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256 = CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256
 CURRENT_052_CUSTODY_PROFILE = 'ashlar-truss-052-local-candidate-source-custody/0.1'
 CURRENT_053_FRESH_CUSTODY_PROFILE = 'ashlar-truss-053-fresh-baseline-source-custody/0.1'
+CURRENT_054_FRESH_CUSTODY_PROFILE = 'ashlar-truss-054-fresh-baseline-source-custody/0.1'
 CURRENT_REPORT_VERSION = 'truss-catalog-registration-report/0.6'
 CURRENT_VIEW_VERSION = 'truss-catalog-view/0.2.0'
 CURRENT_VIEW_PROFILE = ('truss-complete-catalog-view', '0.4')
@@ -45,6 +51,7 @@ CURRENT_050_EVIDENCE_PROFILE = 'ashlar-truss-current-catalog-evidence/0.5'
 CURRENT_051_EVIDENCE_PROFILE = 'ashlar-truss-current-catalog-evidence/0.6'
 CURRENT_052_CANDIDATE_EVIDENCE_PROFILE = 'ashlar-truss-current-catalog-evidence/0.7-local-candidate'
 CURRENT_053_FRESH_EVIDENCE_PROFILE = 'ashlar-truss-current-catalog-evidence/0.8-fresh-baseline'
+CURRENT_054_FRESH_EVIDENCE_PROFILE = CURRENT_053_FRESH_EVIDENCE_PROFILE
 
 
 def require_current_truss_runtime(version, *, runtime_manifest=None, direct_url=None):
@@ -72,6 +79,9 @@ def require_current_truss_runtime(version, *, runtime_manifest=None, direct_url=
                                     CURRENT_052_CANDIDATE_EVIDENCE_PROFILE),
         CURRENT_TRUSS_053_FRESH_VERSION: (CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
                                     CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256,
+                                    CURRENT_053_FRESH_EVIDENCE_PROFILE),
+        CURRENT_TRUSS_054_FRESH_VERSION: (CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+                                    CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
                                     CURRENT_053_FRESH_EVIDENCE_PROFILE),
     }
     if version not in pins:
@@ -105,7 +115,8 @@ def installed_truss_distribution():
     name = (distribution.metadata.get('Name') or '').lower().replace('_', '-')
     expected = 'umf-truss' if distribution.version in (CURRENT_TRUSS_051_VERSION,
                                                         CURRENT_TRUSS_052_CANDIDATE_VERSION,
-                                                        CURRENT_TRUSS_053_FRESH_VERSION) else 'truss-toolkit'
+                                                        CURRENT_TRUSS_053_FRESH_VERSION,
+                                                        CURRENT_TRUSS_054_FRESH_VERSION) else 'truss-toolkit'
     if name != expected:
         raise ValueError(f'Truss {distribution.version} distribution identity differs')
     return distribution
@@ -128,7 +139,7 @@ def installed_current_truss_profile():
     if version not in (CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION,
                        CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION,
                        CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION,
-                       CURRENT_TRUSS_053_FRESH_VERSION):
+                       CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_VERSION):
         raise ValueError('Supported current Truss runtime profile required')
     try:
         manifest = importlib.resources.files('truss').joinpath(
@@ -147,6 +158,15 @@ def installed_truss_053_fresh_source_custody_profile():
     if installed_current_truss_profile() != CURRENT_053_FRESH_EVIDENCE_PROFILE:
         raise ValueError('Installed Truss 0.0.53 fresh-baseline runtime required')
     return CURRENT_053_FRESH_CUSTODY_PROFILE
+
+
+def installed_truss_054_fresh_source_custody_profile():
+    """Require exact .54 package identity with the unchanged .53 native profile."""
+    if installed_truss_distribution().version != CURRENT_TRUSS_054_FRESH_VERSION:
+        raise ValueError('Installed Truss 0.0.54 fresh-baseline runtime required')
+    if installed_current_truss_profile() != CURRENT_053_FRESH_EVIDENCE_PROFILE:
+        raise ValueError('Installed Truss 0.0.54 fresh-baseline runtime required')
+    return CURRENT_054_FRESH_CUSTODY_PROFILE
 
 
 def installed_truss_052_source_custody_profile():
@@ -172,7 +192,8 @@ class CurrentCatalogEvidence:
                                       CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION,
                                       CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION,
                                       CURRENT_TRUSS_052_CANDIDATE_VERSION,
-                                      CURRENT_TRUSS_053_FRESH_VERSION):
+                                      CURRENT_TRUSS_053_FRESH_VERSION,
+                                      CURRENT_TRUSS_054_FRESH_VERSION):
             raise ValueError('Supported versioned current Truss catalog evidence required')
         pins = {CURRENT_TRUSS_045_VERSION: (CURRENT_TRUSS_045_WHEEL_SHA256,
                                             CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256),
@@ -187,7 +208,9 @@ class CurrentCatalogEvidence:
                 CURRENT_TRUSS_052_CANDIDATE_VERSION: (CURRENT_TRUSS_052_CANDIDATE_WHEEL_SHA256,
                                             CURRENT_TRUSS_052_CANDIDATE_RUNTIME_MANIFEST_SHA256),
                 CURRENT_TRUSS_053_FRESH_VERSION: (CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-                                            CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256)}
+                                            CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256),
+                CURRENT_TRUSS_054_FRESH_VERSION: (CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+                                            CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)}
         if self.truss_version in pins and (self.runtime_wheel_sha256,
                 self.runtime_manifest_sha256) != pins[self.truss_version]:
             raise ValueError(f'Truss {self.truss_version} runtime-attested catalog evidence required')
@@ -201,7 +224,8 @@ class CurrentCatalogEvidence:
                 CURRENT_TRUSS_050_VERSION: CURRENT_050_EVIDENCE_PROFILE,
                 CURRENT_TRUSS_051_VERSION: CURRENT_051_EVIDENCE_PROFILE,
                 CURRENT_TRUSS_052_CANDIDATE_VERSION: CURRENT_052_CANDIDATE_EVIDENCE_PROFILE,
-                CURRENT_TRUSS_053_FRESH_VERSION: CURRENT_053_FRESH_EVIDENCE_PROFILE}[self.truss_version]
+                CURRENT_TRUSS_053_FRESH_VERSION: CURRENT_053_FRESH_EVIDENCE_PROFILE,
+                CURRENT_TRUSS_054_FRESH_VERSION: CURRENT_053_FRESH_EVIDENCE_PROFILE}[self.truss_version]
 
 
 def require_installed_current_catalog_evidence(evidence):
@@ -212,7 +236,8 @@ def require_installed_current_catalog_evidence(evidence):
                                   CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION,
                                   CURRENT_TRUSS_051_VERSION,
                                   CURRENT_TRUSS_052_CANDIDATE_VERSION,
-                                  CURRENT_TRUSS_053_FRESH_VERSION):
+                                  CURRENT_TRUSS_053_FRESH_VERSION,
+                                  CURRENT_TRUSS_054_FRESH_VERSION):
         if installed_current_truss_profile() != evidence.profile:
             raise ValueError(f'Installed Truss {evidence.truss_version} runtime profile required for graph admission')
     return evidence.profile

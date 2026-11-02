@@ -72,7 +72,7 @@ def write_private(path: Path, value: dict) -> str:
 def _install_runtime(scope: dict) -> dict:
     artifacts = scope["artifacts"]
     required = {
-        "umf-truss": "0.0.53", "umf-core": "0.10.6", "umf-access": "0.1.0.dev8",
+        "umf-truss": "0.0.54", "umf-core": "0.10.6", "umf-access": "0.1.0.dev8",
         "umf-weft": "0.4.56", "pyspark": "4.2.0", "delta-spark": "4.4.1",
         "pgserver-pg18": "18.6.1",
     }
@@ -105,17 +105,19 @@ def _install_runtime(scope: dict) -> dict:
                 raise RuntimeError(f"installed Ashlar module differs from candidate wheel: {relative}")
     from ashlar_host.truss_current_catalog import installed_current_truss_profile
     if installed_current_truss_profile() != artifacts["truss_adapter_profile"]:
-        raise RuntimeError("Truss .53 adapter profile origin differs")
+        raise RuntimeError("Truss .54 adapter profile origin differs")
     from ashlar_host.configured_local_runtime_profile import attest
     jars_dir = Path(artifacts["runtime_manifest"])
     runtime = json.loads(jars_dir.read_text())
     java_home = Path(runtime["java_home"])
     jar_directory = Path(runtime["jars_directory"])
     inventory = runtime["jar_inventory"]
-    config = type("SelectedRuntime", (), {
-        "java_home": java_home, "jars": jar_directory,
-        "jar_inventory": inventory,
-    })()
+    from ashlar_host.truss_resume_cli import _CurrentTrussRuntime
+    # Use the existing validated current-Truss runtime identity. This worker
+    # consumes its Spark/JAR identity only; no configured source fixture or
+    # configured-local installation is created for the public Truss feed.
+    config = _CurrentTrussRuntime(jar_directory, java_home, inventory,
+                                  ROOT / "spark-warehouse")
     _, spark_identity, jars = attest(config)
     os.environ["JAVA_HOME"] = str(java_home)
     os.environ["SPARK_LOCAL_IP"] = "127.0.0.1"

@@ -351,14 +351,15 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             else:admission=TrussNoteAdmission(batch)
             lookup_hash_profile='spark-xxhash64-typed-key/0.1' if carrier_profile=='ashlar-delta/0.4-xxhash64' else 'sha256-json-v1'
             if carrier_profile=='ashlar-delta/0.4-xxhash64':
-                from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION, CURRENT_TRUSS_053_FRESH_VERSION
+                from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION, CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_VERSION
                 if (not admission.current
                         or admission.current_truss_version not in (CURRENT_TRUSS_048_VERSION,
                                                                    CURRENT_TRUSS_049_VERSION,
                                                                    CURRENT_TRUSS_050_VERSION,
                                                                    CURRENT_TRUSS_051_VERSION,
                                                                    CURRENT_TRUSS_052_CANDIDATE_VERSION,
-                                                                   CURRENT_TRUSS_053_FRESH_VERSION)):
+                                                                   CURRENT_TRUSS_053_FRESH_VERSION,
+                                                                   CURRENT_TRUSS_054_FRESH_VERSION)):
                     raise PermissionError('Local `.4` requires exact supported current Truss catalog admission')
             driver=NativeDriver(transport,policy,context,tables,{},admission.changes,graph_columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions,lookup_hash_profile=lookup_hash_profile)
             materialized_at=datetime.datetime.now(datetime.timezone.utc).isoformat()
