@@ -386,6 +386,9 @@ def native(scope_path: Path, supervisor_root: Path):
         _, spark_identity, verified = attest(runtime_identity)
         if tuple(verified) != tuple(jars) or spark_identity.get("jdk") != "21": raise Refusal("R56 local Spark runtime attestation differs")
         def select_page(**kw):
+            request_raw = page_matcher.verify_publication_selection(kw.get("publication_id"), kw["request"],
+                expected_publication_id=scope["retained_r55"]["publication_id"],
+                expected_request_digest=scope["retained_r55"]["request_digest"])
             p = kw["page"]
             if p.sha256 != page.sha256 or p.prior.content != page.prior.content or p.next.content != page.next.content:
                 raise Refusal("R52 public page changed between selection and publication")
@@ -407,8 +410,10 @@ def native(scope_path: Path, supervisor_root: Path):
                 expected_content_sha256=scope["retained_r55"]["page_content_sha256"],
                 expected_consumer_id=p.consumer_id, expected_registration_id=p.registration_id,
                 expected_prior_sha256=scope["predecessor"]["checkpoint_sha256"], expected_next=p.next.content)
+            type_field_pins = {str(type_id): dict(record.get("fields", {}))
+                for type_id, record in selected.get("types", {}).items()}
             property_crosscheck = page_matcher.validate_seed_property_bindings(
-                base64.b64decode(seed_page["content"]), json.loads(model_raw), projected["properties"])
+                base64.b64decode(seed_page["content"]), json.loads(model_raw), projected["properties"], type_field_pins)
             projected_selected = dict(selected); projected_selected["report"] = projected_report
             revisions = dict(kw["admission"].revisions); revisions[str(acceptance["revision"])] = projected_selected
             projected_admission = type("ProjectedAdmission", (), {
@@ -418,8 +423,6 @@ def native(scope_path: Path, supervisor_root: Path):
                 revision=acceptance["revision"], expected_count=2)
             state["committed_page_match"] = {"page_custody":public_page_custody,
                 "r49_property_crosscheck":property_crosscheck,"r36_frozen_request_correspondence":correspondence}
-            request_raw = json.dumps(kw["request"], sort_keys=True, separators=(",", ":"),
-                ensure_ascii=False, allow_nan=False).encode()
             consumer = FeedConsumer(consumer_id=p.consumer_id, registration_id=p.registration_id, checkpoint=p.prior)
             anchor = select_truss_local_dev_source_custody_anchor(registration=registration,
                 accepted_document=document, consumer=consumer, runtime_status=status, page=p,
@@ -439,6 +442,8 @@ def native(scope_path: Path, supervisor_root: Path):
                     spark=post["destination_transport"].spark, destination_transport=post["destination_transport"],
                     manifest_bytes=post["manifest_bytes"], vector=post["vector"],
                     receipt_bytes=post["receipt_bytes"], expected_post_state=post["expected_post_state"])
+                if observation.publication_id != scope["retained_r55"]["publication_id"]:
+                    raise Refusal("native Delta readback publication ID differs from committed R55 intent")
                 selection = anchor.bind_local_native_publication(manifest_bytes=post["manifest_bytes"],
                     vector=post["vector"], receipt_bytes=post["receipt_bytes"],
                     expected_post_state=post["expected_post_state"], observation=observation)
@@ -469,10 +474,13 @@ def native(scope_path: Path, supervisor_root: Path):
         effects["delta_written"] = True
         result = run_continue_truss_graph_command(config_path, attempt / "continuation-result-r56.json",
             maximum_pages=1, wait_seconds=0, maximum_page_bytes=scope["publication"]["maximum_page_bytes"],
-            defer_source_acknowledgement=True, prepublication_source_custody=select_page)
+            defer_source_acknowledgement=True, prepublication_source_custody=select_page,
+            reuse_identical_prepublication_intent=True)
         if result.get("source_acknowledgement") != "deferred_not_attempted" or len(result.get("publications",())) != 1 or "selection" not in state:
             raise Refusal("R56 recovery did not produce one verified deferred-ACK publication")
         pub = result["publications"][0]; side = pub["deferred_ack_intent"]
+        if pub.get("manifest", {}).get("publication_id") != scope["retained_r55"]["publication_id"]:
+            raise Refusal("continuation result publication ID differs from committed R55 intent")
         if sha(Path(side["path"]).read_bytes()) != side["sha256"]: raise Refusal("R56 durable deferred ACK intent changed")
         write_json(receipts / "ack-held-for-source-reconciliation.json", {
             "profile":"ashlar-r56-no-ack-recovery/0.1", "status":"native_readback_complete_ack_not_attempted",

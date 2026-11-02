@@ -2,11 +2,11 @@
   "mandatory_pre_ack_gate": "independent read-only PostgreSQL request_receipt and source-page SQL confirmation",
   "native_dispatch": false,
   "native_run_performed": false,
-  "page_match_helper_sha256": "d38356723b10285f29f533d4be4dd718932dc3c7e507588819760ed16c69259b",
+  "page_match_helper_sha256": "c72d41f2e437433ee1982a23a5a6e9ff49d2d651e4db67895b3a39271bc2de7d",
   "profile": "ashlar-r37-inplace-dispatch/0.1",
-  "scope_sha256": "4aaa0b6e2299becd18ee750edbd80f1cc39ffa739440d5f9dc15724e6d94d893",
+  "scope_sha256": "280fc64e85419b314165b0e25c18772d2090341077fc085bb265dac5b9c9a2d3",
   "source_ack_attempted": false,
   "status": "pending_sol_review",
   "supervisor_sha256": "dbd2ac1563885eead43d6241c2d82013372ca83927e670705372bdcac8b2fece",
-  "worker_sha256": "cff5552aa2322447012b111d3edc814c14f98087cb7ebaf6dc0afa68586c1991"
+  "worker_sha256": "b5bbcd2e8c98716cce12f4bd5748fbbadd7ad69441755452da488e443c420c65"
 }

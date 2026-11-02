@@ -5,6 +5,20 @@ import base64, hashlib, json
 class MatchError(ValueError):
     pass
 
+def verify_publication_selection(publication_id: str, request: dict, *,
+                                 expected_publication_id: str, expected_request_digest: str) -> bytes:
+    if type(publication_id) is not str or publication_id != expected_publication_id:
+        raise MatchError("selected publication ID differs from committed R55 intent")
+    if type(request) is not dict or request.get("request_digest") != expected_request_digest:
+        raise MatchError("request's declared digest differs from committed R55 intent")
+    digest_input = dict(request); digest_input.pop("request_digest")
+    digest_raw = json.dumps(digest_input, sort_keys=True, separators=(",", ":"),
+                            ensure_ascii=False, allow_nan=False).encode()
+    if hashlib.sha256(digest_raw).hexdigest() != expected_request_digest:
+        raise MatchError("canonical publication request digest differs from committed R55 intent")
+    return json.dumps(request, sort_keys=True, separators=(",", ":"),
+                      ensure_ascii=False, allow_nan=False).encode()
+
 def _pairs(items):
     out = {}
     for key, value in items:
@@ -30,7 +44,8 @@ def validate_public_page(page_content: bytes, *, expected_content_sha256: str,
         raise MatchError("committed page lacks writer XID")
     return page
 
-def validate_seed_property_bindings(seed_page_content: bytes, model: dict, property_rows: list) -> dict:
+def validate_seed_property_bindings(seed_page_content: bytes, model: dict, property_rows: list,
+                                    type_field_pins: dict) -> dict:
     """Cross-check R41 complete-view allocations against retained R49 history.
 
     R41's accepted-view projection supplies property IDs. R49 event afterimages
@@ -62,6 +77,9 @@ def validate_seed_property_bindings(seed_page_content: bytes, model: dict, prope
             if len(candidates) != 1: raise MatchError("R49 property ID does not uniquely bind an accepted model member")
             key = candidates[0]
             binding = (str(prop["propertyId"]), str(prop["definitionPin"]))
+            selected_pin = type_field_pins.get(type_id, {}).get(binding[0])
+            if type(selected_pin) is not str or selected_pin != binding[1]:
+                raise MatchError("R49 definition pin differs from selected Truss type fields")
             if key in observed and observed[key] != binding: raise MatchError("R49 property definition pin changed")
             observed[key] = binding
     if set(observed) != set(refs): raise MatchError("R49 page does not bind every accepted property allocation")
