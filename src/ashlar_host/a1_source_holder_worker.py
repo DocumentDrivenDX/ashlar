@@ -163,7 +163,31 @@ def run_worker(channel: socket.socket, holder: Truss053A1SourceHolder):
                 "request_sha256": result.request_sha256,
                 "manifest_sha256": result.manifest_sha256,
                 "selection_sha256": result.selection_sha256}, maximum=2 * 1024 * 1024)
-            if holder.phase == "a0" and result.outcome == "matched":
+            if result.outcome == "matched":
+                continue
+            return
+        elif kind == "finish_ack" and set(command) == {
+                "type", "attempt_directory", "generation", "settlement"}:
+            value = command["settlement"]
+            if (type(value) is not dict or set(value) != {
+                    "outcome", "checkpoint_bytes_base64", "receipt_bytes_base64",
+                    "request_sha256", "manifest_sha256", "selection_sha256"}):
+                raise A1SourceHolderWorkerError("Exact matched settlement required to close source hold")
+            from .a1_ack_attempt import A1AckSettlement
+            checkpoint = _bytes(value["checkpoint_bytes_base64"], "settlement checkpoint", 1024 * 1024)
+            receipt = (None if value["receipt_bytes_base64"] is None else
+                _bytes(value["receipt_bytes_base64"], "settlement receipt", 1024 * 1024))
+            settlement = A1AckSettlement(value["outcome"], checkpoint, receipt,
+                value["request_sha256"], value["manifest_sha256"], value["selection_sha256"])
+            attempt_directory = command["attempt_directory"]
+            generation = command["generation"]
+            if (type(attempt_directory) is not str or not Path(attempt_directory).is_absolute()
+                    or type(generation) is not int):
+                raise A1SourceHolderWorkerError("Exact durable ACK attempt required")
+            holder.finish_ack(settlement=settlement,
+                attempt_directory=Path(attempt_directory), generation=generation)
+            send_frame(channel, {"type": "closed_ack"}, maximum=1024)
+            if holder.phase == "a0_closed":
                 continue
             return
         elif kind == "close" and set(command) == {"type"}:
@@ -387,22 +411,65 @@ class A1Truss053SourceHolderProcess:
                 generation=self._generation, reason="bad_settlement")
             raise A1SourceHolderWorkerError(
                 "Unknown ACK result; use fresh read-only reconciliation") from error
-        if settlement.outcome == "matched" and self.phase == "a0":
-            self.snapshot_bytes = None
-            self.custody_digests = None
-            self.phase = "a0_matched"
+        if settlement.outcome == "matched":
+            self.phase = "a0_matched" if self.phase == "a0" else "a1_matched"
             self._heartbeat = None
             self._heartbeat_stop = threading.Event()
+            # Keep the exact original source interval renewed while the
+            # controller performs its fresh post-ACK Unity Catalog close read.
+            self.start_heartbeat()
         else:
             self._reap_success()
         return settlement
+
+    def finish_ack(self, settlement, *, attempt_directory, deadline=None):
+        """Close the held source only after caller's post-ACK SQL close observation."""
+        from .a1_ack_attempt import A1AckSettlement
+        expected_phase = "a0_matched" if self.phase == "a0_matched" else "a1_matched"
+        if (type(settlement) is not A1AckSettlement or settlement.outcome != "matched"
+                or self.phase != expected_phase or self.snapshot_bytes is None
+                or self._generation is None):
+            raise A1SourceHolderWorkerError("Matched live ACK phase required before source close")
+        self._ensure_healthy()
+        self._heartbeat_stop.set()
+        if self._heartbeat is not None:
+            self._heartbeat.join(self.operation_timeout_seconds)
+            if self._heartbeat.is_alive():
+                raise A1SourceHolderWorkerError("Source heartbeat did not quiesce for source close")
+        previous_timeout = self.channel.gettimeout()
+        if deadline is not None:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise A1SourceHolderWorkerError("Trial deadline expired before source close")
+            self.channel.settimeout(min(self.operation_timeout_seconds, remaining))
+        payload = {"outcome": settlement.outcome,
+            "checkpoint_bytes_base64": base64.b64encode(settlement.checkpoint_bytes).decode("ascii"),
+            "receipt_bytes_base64": None if settlement.receipt_bytes is None else
+                base64.b64encode(settlement.receipt_bytes).decode("ascii"),
+            "request_sha256": settlement.request_sha256,
+            "manifest_sha256": settlement.manifest_sha256,
+            "selection_sha256": settlement.selection_sha256}
+        try:
+            self._rpc({"type": "finish_ack", "attempt_directory": str(Path(attempt_directory)),
+                "generation": self._generation, "settlement": payload},
+                response_type="closed_ack", maximum=MAX_COMMAND_BYTES)
+        finally:
+            if not self._closed:
+                self.channel.settimeout(previous_timeout)
+        self.snapshot_bytes = None
+        self.custody_digests = None
+        if expected_phase == "a0_matched":
+            self.phase = "a0_closed"
+        else:
+            self._reap_success()
+        return True
 
     def advance_after_a0_ack(self, settlement, deadline=None):
         """Keep the same source owner and apply A1 only after matched A0 ACK."""
         from .a1_ack_attempt import A1AckSettlement
         if (type(settlement) is not A1AckSettlement or settlement.outcome != "matched"
-                or self.phase != "a0_matched" or self.snapshot_bytes is not None):
-            raise A1SourceHolderWorkerError("Exact matched A0 settlement required")
+                or self.phase != "a0_closed" or self.snapshot_bytes is not None):
+            raise A1SourceHolderWorkerError("Exact closed matched A0 settlement required")
         previous_timeout = self.channel.gettimeout()
         if deadline is not None:
             remaining = deadline - time.monotonic()

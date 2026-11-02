@@ -3,13 +3,42 @@
 import socket
 import threading
 import unittest
+from unittest.mock import Mock
 
 from ashlar_host.a1_source_holder_worker import (
-    A1SourceHolderWorkerError, receive_frame, send_frame,
+    A1SourceHolderWorkerError, A1Truss053SourceHolderProcess, receive_frame, send_frame,
 )
+from ashlar_host.a1_ack_attempt import A1AckSettlement
 
 
 class A1SourceHolderWorkerTests(unittest.TestCase):
+    def test_matched_ack_hold_closes_only_after_explicit_close_rpc(self):
+        holder = A1Truss053SourceHolderProcess.__new__(A1Truss053SourceHolderProcess)
+        holder.phase = "a0_matched"
+        holder.snapshot_bytes = b"held-source-snapshot"
+        holder.custody_digests = {"current_page": "page-sha"}
+        holder._generation = 3
+        holder.operation_timeout_seconds = 2
+        holder._closed = False
+        holder.channel = Mock()
+        holder.channel.gettimeout.return_value = 2
+        calls = []
+        holder._rpc = lambda command, **kwargs: calls.append((command, kwargs))
+        holder._reap_success = Mock()
+        settlement = A1AckSettlement("matched", b'{"nextXid":759}', b"receipt",
+            "a" * 64, "b" * 64, "c" * 64)
+
+        holder.finish_ack(settlement, attempt_directory="/private/attempt", deadline=None)
+
+        self.assertEqual(calls[0][0]["type"], "finish_ack")
+        self.assertEqual(calls[0][0]["generation"], 3)
+        self.assertEqual(calls[0][0]["settlement"]["checkpoint_bytes_base64"],
+                         "eyJuZXh0WGlkIjo3NTl9")
+        self.assertEqual(holder.phase, "a0_closed")
+        self.assertIsNone(holder.snapshot_bytes)
+        self.assertIsNone(holder.custody_digests)
+        holder._reap_success.assert_not_called()
+
     def test_socketpair_round_trips_canonical_closed_frame(self):
         left, right = socket.socketpair()
         try:

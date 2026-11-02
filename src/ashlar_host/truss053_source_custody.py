@@ -56,9 +56,9 @@ class Truss053SourceCustodySession(Truss052SourceCustodySession):
     """Same-session feed custody gated to the exact fresh .53 public runtime."""
 
     def __post_init__(self):
-        from .truss_current_catalog import installed_truss_053_fresh_source_custody_profile
+        from .truss_current_catalog import installed_truss_054_fresh_source_custody_profile
         try:
-            installed_truss_053_fresh_source_custody_profile()
+            installed_truss_054_fresh_source_custody_profile()
             super().__post_init__()
         except (ImportError, ValueError, TypeError) as error:
             raise Truss053CustodyError(
@@ -101,6 +101,7 @@ class Truss053A1SourceHolder:
         self.phase = "a0"
         self._a0_settlement = None
         self._a0_page_next = None
+        self._matched_ack = None
         self._advance_a1_callback = None
         self._closed = False
 
@@ -109,10 +110,10 @@ class Truss053A1SourceHolder:
             ManagedCurrentTruss053GenesisSourceOwner,
         )
         from .truss_detached_a1_genesis_codec import encode_detached_a1_genesis_snapshot
-        from .truss_current_catalog import installed_truss_053_fresh_source_custody_profile
+        from .truss_current_catalog import installed_truss_054_fresh_source_custody_profile
         if self.genesis is not None:
             raise Truss053CustodyError("A/B genesis selection is one-shot")
-        installed_truss_053_fresh_source_custody_profile()
+        installed_truss_054_fresh_source_custody_profile()
         expected = (None if self.phase == "a0" else
                     json.loads(self._a0_page_next.decode("utf-8"))["nextXid"])
         self.genesis = ManagedCurrentTruss053GenesisSourceOwner(
@@ -130,14 +131,14 @@ class Truss053A1SourceHolder:
         from .truss_detached_source_snapshot_codec import encode_detached_source_snapshot
         from .truss_detached_source_snapshot_codec import decode_detached_source_snapshot
         from .truss_source_custody_selection import select_truss_source_custody_anchor
-        from .truss_current_catalog import installed_truss_053_fresh_source_custody_profile
+        from .truss_current_catalog import installed_truss_054_fresh_source_custody_profile
         if self.session is not None or self.genesis is None or self.genesis_bytes is None:
             raise Truss053CustodyError("Prepublication source holder opens once")
         if (type(request_bytes) is not bytes or not request_bytes
                 or type(destination_id) is not str or not destination_id
                 or type(publication_id) is not str or not publication_id):
             raise Truss053CustodyError("Exact frozen A1 request and publication binding required")
-        installed_truss_053_fresh_source_custody_profile()
+        installed_truss_054_fresh_source_custody_profile()
         expected = (None if self.phase == "a0" else
                     json.loads(self._a0_page_next.decode("utf-8"))["nextXid"])
         refreshed = ManagedCurrentTruss053GenesisSourceOwner(
@@ -255,22 +256,63 @@ class Truss053A1SourceHolder:
             receipt, attempt.request_sha256, attempt.manifest_sha256,
             attempt.selection_sha256)
         if value.outcome == "matched":
-            self.session.close()
-        self.session.dispose()
-        if value.outcome == "matched" and self.phase == "a0":
-            self._a0_settlement = settlement
-            self._a0_page_next = value.checkpoint.content
-            self.session = None
-            self.bound_selection = None
-            self.request_bytes = None
-            self.snapshot_bytes = None
-            self.anchor = None
-            self.genesis = None
-            self.genesis_bytes = None
+            self._matched_ack = (settlement, Path(attempt_directory).resolve(),
+                                 attempt.attempt_id, generation)
         else:
+            self.session.dispose()
+            self.session = None
             self._closed = True
             self._close_bootstrap_runtimes()
         return settlement
+
+    def finish_ack(self, *, settlement, attempt_directory, generation: int):
+        """Close a matched source interval only after the caller's post-ACK observation."""
+        from .a1_ack_attempt import DurableA1AckAttemptStore, A1AckSettlement
+        expected = self._matched_ack
+        if (self._closed or self.session is None or expected is None
+                or type(settlement) is not A1AckSettlement or settlement != expected[0]
+                or Path(attempt_directory).resolve() != expected[1]
+                or type(generation) is not int or generation != expected[3]
+                or settlement.outcome != "matched"):
+            raise Truss053CustodyError(
+                "Exact matched ACK and original durable attempt required to close source hold")
+        store = DurableA1AckAttemptStore(attempt_directory)
+        attempt = store.load()
+        record = store._read_record("worker-settlement.json")
+        dispatch = store._read_record("ack-command-dispatched.json")
+        if (attempt.attempt_id != expected[2] or record.get("attempt_id") != expected[2]
+                or dispatch.get("attempt_id") != expected[2]
+                or dispatch.get("generation") != generation
+                or dispatch.get("process_group_id") != os.getpgrp()
+                or dispatch.get("status") != "ack_command_may_have_been_sent"
+                or dispatch.get("ack_retry_permitted") is not False
+                or record.get("outcome") != "matched"
+                or record.get("checkpoint_bytes_base64") != base64.b64encode(
+                    settlement.checkpoint_bytes).decode("ascii")
+                or record.get("receipt_bytes_base64") != (None if settlement.receipt_bytes is None
+                    else base64.b64encode(settlement.receipt_bytes).decode("ascii"))
+                or record.get("request_sha256") != settlement.request_sha256
+                or record.get("manifest_sha256") != settlement.manifest_sha256
+                or record.get("selection_sha256") != settlement.selection_sha256):
+            raise Truss053CustodyError("Durable matched settlement changed before source close")
+        self.session.close()
+        self.session.dispose()
+        self.session = None
+        self.bound_selection = None
+        self.request_bytes = None
+        self.snapshot_bytes = None
+        self.anchor = None
+        self._matched_ack = None
+        if self.phase == "a0":
+            self._a0_settlement = settlement
+            self._a0_page_next = settlement.checkpoint_bytes
+            self.genesis = None
+            self.genesis_bytes = None
+            self.phase = "a0_closed"
+        else:
+            self._closed = True
+            self._close_bootstrap_runtimes()
+        return True
 
     def advance_after_a0_ack(self, *, settlement):
         """Apply the already-frozen A1 group only after exact matched A0 ACK."""
@@ -280,7 +322,7 @@ class Truss053A1SourceHolder:
             ManagedCurrentTruss053GenesisSourceOwner,
         )
         settled = self._a0_settlement
-        if (self.phase != "a0" or self._closed or settled is None
+        if (self.phase != "a0_closed" or self._closed or settled is None
                 or type(settlement) is not A1AckSettlement
                 or settlement != settled or settled.outcome != "matched"
                 or settlement.checkpoint_bytes != self._a0_page_next
@@ -348,14 +390,14 @@ class Truss053ReadOnlyAckReconciler:
         from .truss_detached_source_snapshot_codec import (
             decode_detached_source_snapshot,
         )
-        from .truss_current_catalog import installed_truss_053_fresh_source_custody_profile
+        from .truss_current_catalog import installed_truss_054_fresh_source_custody_profile
         from truss import (CatalogRuntimeConfiguration, CatalogRuntimeStatus,
                            FeedAckReconciled, FeedUnavailable,
                            adopt_psycopg_host, create_reference_assembly)
 
         if type(attempt) is not A1AckAttempt:
             raise Truss053CustodyError("Exact durable original A1 ACK attempt required")
-        installed_truss_053_fresh_source_custody_profile()
+        installed_truss_054_fresh_source_custody_profile()
         snapshot = decode_detached_source_snapshot(attempt.selection_bytes)
         if (attempt.request_bytes != snapshot.source_page.request_bytes
                 or attempt.page_sha256 != snapshot.source_page.page_fields["sha256"]
