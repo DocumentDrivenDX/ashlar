@@ -1,0 +1,95 @@
+{
+  "authority": "local-development-only",
+  "cloud": false,
+  "delta_read_only_reconciliation": {
+    "counts": {
+      "local_operation": 15,
+      "local_plan": 2,
+      "local_publication_artifact": 2,
+      "local_source_plan": 2
+    },
+    "integrity": "ok",
+    "journal_sha256_after": "6084db7eddfc116020b34d7a213dd2a8010cefbf0c2c6f6c0c58e60372842aec",
+    "journal_sha256_before": "6084db7eddfc116020b34d7a213dd2a8010cefbf0c2c6f6c0c58e60372842aec",
+    "matches_R51_preflight": true,
+    "sidecars_unchanged": true,
+    "sqlite_sidecars_after": {
+      "-shm": {
+        "bytes": 32768,
+        "dev": 16777231,
+        "ino": 314561522,
+        "mode": 384,
+        "present": true,
+        "sha256": null
+      },
+      "-wal": {
+        "bytes": 0,
+        "dev": 16777231,
+        "ino": 314561521,
+        "mode": 384,
+        "present": true,
+        "sha256": null
+      }
+    },
+    "sqlite_sidecars_before": {
+      "-shm": {
+        "bytes": 32768,
+        "dev": 16777231,
+        "ino": 314561522,
+        "mode": 384,
+        "present": true,
+        "sha256": null
+      },
+      "-wal": {
+        "bytes": 0,
+        "dev": 16777231,
+        "ino": 314561521,
+        "mode": 384,
+        "present": true,
+        "sha256": null
+      }
+    }
+  },
+  "delta_written": false,
+  "postgres_after_stop": {
+    "normal_start_stop_pgdata_delta": true,
+    "pg_control_sha256": "b287e23825f8d00bdcfc790f130d97ee21c72992a66be98be7d73442d6963e08",
+    "pgdata_tree_after": {
+      "bytes": 65530074,
+      "files": 1262,
+      "sha256": "8a9f7badffaebdc70538292fb5466bccec39c7cc67bd4f03c70e059fc4ff0b9f"
+    },
+    "pgdata_tree_before": {
+      "bytes": 65528793,
+      "files": 1262,
+      "sha256": "5704f0d0739c7366dde5a6accff079f197abe4f323835af0e6a765b6408f45c9"
+    },
+    "postmaster_pid_absent": true
+  },
+  "postgres_opened": true,
+  "profile": "ashlar-r51-read-only-truss-inspection/0.1",
+  "public_feed_page": {
+    "consumer_id": "ashlar-local-dev-typed-graph-consumer-r21-20261101",
+    "content_sha256": "9e81c6b73a244649699f0b310652160148b8b818675e898005224772456fcd2b",
+    "next_cursor_bytes": 302,
+    "next_cursor_sha256": "05723b6673a42eab83449a833bc6095a6163fb51652550518db638c3276632c4",
+    "outcome": "empty_interval",
+    "page_sha256": "9e81c6b73a244649699f0b310652160148b8b818675e898005224772456fcd2b",
+    "prior_cursor_bytes": 302,
+    "prior_cursor_matches_R49_ACK": true,
+    "prior_cursor_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+    "registration_id": "68efd137-eddf-46d3-9a06-5eb6406f2bd7",
+    "writer_xid": null
+  },
+  "read_only_sql": {
+    "current_user": "postgres",
+    "matching_request_receipts": [],
+    "request_key": "ashlar-local-dev-typed-graph-continuation-r21",
+    "transaction_read_only": "on"
+  },
+  "scope_sha256": "7154e6e7fcf2a7ff25d035745f757969de3d02dacac84dcf7cfaf8fcf7155ba5",
+  "source_ack_attempted": false,
+  "spark_started": false,
+  "status": "inspected",
+  "worker_sha256": "8cbd51f7634a395a663ff7f027fb6a1a4b01baf43616291e3ce0cf366daef908"
+}
