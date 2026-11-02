@@ -191,7 +191,7 @@ def recover_committed_truss_publication_and_ack(
             or intent.get("source_page_sha256") != source.get("archive_sha256")):
         raise TrussPublicationRecoveryError("Original R42 publication intent does not bind archived page")
     from .truss_page_archive import decode_truss_page
-    archived_page = decode_truss_page(archive_raw, source["page_sha256"], pending["feed"])
+    archived_page = decode_truss_page(archive_raw, source["archive_sha256"], pending["feed"])
     page_fields = ("content", "sha256", "prior", "next", "consumer_id", "registration_id", "writer_xid", "outcome")
     if any(getattr(archived_page, name, None) != getattr(page, name, None) for name in page_fields):
         raise TrussPublicationRecoveryError("Fresh public page differs from original archived Truss page")

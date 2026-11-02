@@ -1,0 +1,144 @@
+{
+  "ack_or_completion_markers": {
+    "ack_attempt": false,
+    "ack_reconciliation": false,
+    "readback_complete": false,
+    "recovery_result": false
+  },
+  "attempt_root": "/private/tmp/ashlar-r46-truss052-readback-recovery-20261101",
+  "cause": "Recovery called decode_truss_page with content page_sha256 (0248...) rather than archive_sha256 (fe63...). The decoder validates the archive carrier digest; the actual retained archive decodes with fe63 and yields page.sha256 0248. Exception occurred before restore, native Delta observation, completion marker, or custody open.",
+  "cloud": false,
+  "delta": {
+    "ack_row_added": false,
+    "counts": {
+      "local_operation": 15,
+      "local_plan": 2,
+      "local_publication_artifact": 2,
+      "local_source_plan": 2
+    },
+    "heads": {
+      "attempts": {
+        "head_json_sha256": "2cf3d51b4125d70f1efd1b0e6c09b909793fece6551bc020baab5886581235b8",
+        "head_version": 11,
+        "versions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "edge_current": {
+        "head_json_sha256": "802f63be8067edcbd8d54a172b08e7563b66ea12974ac5132f7015eb565b4e5a",
+        "head_version": 2,
+        "versions": [
+          0,
+          1,
+          2
+        ]
+      },
+      "manifest": {
+        "head_json_sha256": "591745658a0b3b79cb8c4b5a644ef244803f63b7612d75df756c05302f54f0ad",
+        "head_version": 3,
+        "versions": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "object_current": {
+        "head_json_sha256": "0fdb053381a2c6cf8be24fd0c2aac60a6fa30df6c676ebbeb54f5f4f32d7a37b",
+        "head_version": 2,
+        "versions": [
+          0,
+          1,
+          2
+        ]
+      },
+      "tombstone": {
+        "head_json_sha256": "4d9aec8a7e9b6183a137644fb087b3e9545029ad4a917a7fb2a14f2ecaff62d6",
+        "head_version": 1,
+        "versions": [
+          0,
+          1
+        ]
+      },
+      "whole_source_history": {
+        "head_json_sha256": "07e55114415792944566b423e7442eb4dbe3a686eedb6400f33e68678076f199",
+        "head_version": 2,
+        "versions": [
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    "integrity_check": "ok",
+    "journal_sha256": "6084db7eddfc116020b34d7a213dd2a8010cefbf0c2c6f6c0c58e60372842aec",
+    "new_delta_publication": false,
+    "new_journal_artifact": false,
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
+    "shm_bytes": 32768,
+    "wal_bytes": 0
+  },
+  "effect_boundary": "No publication/replay or Truss ACK. Existing R42 publication remains committed but unacknowledged. R47 must resume the exact same publication and page; it must not republish.",
+  "failure": {
+    "ack_outcome": "not_attempted",
+    "failure_type": "ValueError",
+    "path": "/private/tmp/ashlar-r46-truss052-readback-recovery-20261101/receipts/failure.json",
+    "receipt_names": [
+      "failure.json",
+      "recovery-started.json"
+    ],
+    "sha256": "e71026abe739350fb5eaf37d9104165e5a2b338595e6085b2b815961db376b08",
+    "source_ack_attempted": false,
+    "stage": "restore_readback_and_protected_ack"
+  },
+  "intent": {
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/publication-intent-8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea.json",
+    "sha256": "0ac8a41387eba0275695aff0e52628ff525be5a7e0a3befd023c8bdfb5aec34a"
+  },
+  "pending_receipt": {
+    "acknowledgement": "not_attempted",
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/publication-readback-pending-8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea.json",
+    "sha256": "74752eed6a4529de9ac87eb0c9cbc9ceff82fbf26e4d9fb88194607d1b5b4b88",
+    "status": "publication_returned_native_readback_pending"
+  },
+  "pgdata": {
+    "bytes": 65221268,
+    "files": 1261,
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
+    "postmaster_pid_present": false,
+    "tree_sha256": "88633479b20b2b7b5a40d87762b32723ba4984c6b61536fcd530ee9c2a29473a"
+  },
+  "profile": "ashlar-r46-read-only-reconciliation/0.1",
+  "publication_replayed": false,
+  "source_page": {
+    "archive_sha256": "fe63c1affe12bf60a15fdeb505aee09b925df74d0c40618646aa4b9835970cf6",
+    "content_sha256": "0248fd1607b971f267df71b1262668930a96925a767855dd3400fb0ecd1a6456",
+    "decode_with_archive_digest": "passed",
+    "decode_with_content_digest": "rejected_as_expected",
+    "feed": "ashlar-local-dev-typed-graph-feed-r21-20261101",
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/source-page-8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea.json",
+    "writer_xid": "768"
+  },
+  "status": "failed_before_restore_or_ack_with_unchanged_delta_baseline",
+  "supervisor": {
+    "path": "/private/tmp/ashlar-r46-truss052-readback-recovery-20261101-supervisor/supervisor-receipt.json",
+    "peak_rss_bytes": 874266624,
+    "postgres_cleanup_status": "absent",
+    "process_group_remaining": [],
+    "returncode": 1,
+    "sha256": "375ac3e0ed7161845e7934c6e02672d4a8111545027dfb4af15da6247d146448",
+    "wall_seconds": 46.415
+  },
+  "supervisor_root": "/private/tmp/ashlar-r46-truss052-readback-recovery-20261101-supervisor"
+}

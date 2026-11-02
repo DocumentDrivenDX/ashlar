@@ -73,6 +73,7 @@ class RecoveryTests(unittest.TestCase):
                 "prior_sha256": hashlib.sha256(prior).hexdigest(), "next_sha256": hashlib.sha256(following).hexdigest(),
                 "registration_id": "registration", "writer_xid": "768"}}
         archive = self.root / f"source-page-{self.request_digest}.json"
+        self.archive_path = archive
         archive_raw = b"original private page archive"
         archive.write_bytes(archive_raw); os.chmod(archive, 0o600)
         self.intent_path = self.root / f"publication-intent-{self.request_digest}.json"
@@ -116,7 +117,7 @@ class RecoveryTests(unittest.TestCase):
                 "whole_source_history": SimpleNamespace(table="local.trussgraph.whole_source_history", uuid="u4", version=2,
                 head_version=2, head_json_sha256="7"*64,row_bag_sha256="8"*64,row_count=7)})
 
-    def _call(self, *, readback=None, custody=None):
+    def _call(self, *, readback=None, custody=None, decode_page=None):
         selection = recovery_module.TrussSourceCustodySelection(
             page=self.anchor.page, maximum_facts=7, maximum_bytes=1048576,
             request_bytes=self.request_raw, destination_registration_bytes=b"{}", ack_scope_bytes=b"{}",
@@ -157,7 +158,8 @@ class RecoveryTests(unittest.TestCase):
              patch("ashlar_host.truss_local_publication_recovery.manifest_pin_vector", side_effect=vector), \
              patch("ashlar_host.truss_local_publication_recovery._mint_expected_native_post_state", side_effect=mint), \
              patch("ashlar_host.truss_local_publication_recovery.read_local_native_delta_publication_observation", side_effect=read), \
-             patch("ashlar_host.truss_page_archive.decode_truss_page", return_value=self.anchor.page), \
+             patch("ashlar_host.truss_page_archive.decode_truss_page", side_effect=decode_page) if decode_page else \
+                 patch("ashlar_host.truss_page_archive.decode_truss_page", return_value=self.anchor.page), \
              patch.object(TrussSourceCustodyAnchor, "bind_local_native_publication", return_value=selection), \
              patch("ashlar_host.truss_local_publication_recovery.Truss052SourceCustodySession", type(custody)):
             return recover_committed_truss_publication_and_ack(self.driver, self.request_digest,
@@ -166,6 +168,23 @@ class RecoveryTests(unittest.TestCase):
                 ack_reconciliation_path=self.root / "ack-reconciled.json",
                 publication_intent_path=self.intent_path,
                 publication_intent_sha256=hashlib.sha256(self.intent_raw).hexdigest())
+
+    def test_recovery_decodes_retained_archive_with_archive_digest(self):
+        # The archived byte digest differs from the Truss page content digest.
+        # Recovery must validate the carrier bytes first, then compare the
+        # decoded page's content SHA against the public page identity.
+        archive_raw = self.archive_path.read_bytes()
+        archive_sha = hashlib.sha256(archive_raw).hexdigest()
+        self.assertNotEqual(archive_sha, self.pending["source_page"]["page_sha256"])
+        observed = {}
+
+        def decode(raw, expected_sha256, feed):
+            observed.update(raw=raw, expected_sha256=expected_sha256, feed=feed)
+            self.assertEqual(hashlib.sha256(raw).hexdigest(), expected_sha256)
+            return self.anchor.page
+
+        self._call(decode_page=decode)
+        self.assertEqual(observed, {"raw": archive_raw, "expected_sha256": archive_sha, "feed": "feed"})
 
     def test_readback_refusal_prevents_marker_and_source_ack(self):
         def refusal(): raise ValueError("native row bag mismatch")

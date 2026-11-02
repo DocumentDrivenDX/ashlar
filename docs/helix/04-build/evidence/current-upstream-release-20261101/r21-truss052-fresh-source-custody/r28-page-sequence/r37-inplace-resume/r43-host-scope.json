@@ -585,7 +585,7 @@
       "present": false
     }
   },
-  "status": "pending_sol_review",
+  "status": "sol_reviewed_and_dispatchable",
   "supervisor": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r37_truss052_supervisor.py",
     "sha256": "dbd2ac1563885eead43d6241c2d82013372ca83927e670705372bdcac8b2fece"
