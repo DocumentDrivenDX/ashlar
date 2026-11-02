@@ -8,7 +8,7 @@
     "runner_path": "tools/r61_fresh_cohort_runner.py",
     "runner_sha256": "0b318102e7c8d5de3b6c15f0f003d666d101d0c9f8b9f991601b41fbd40b7eb9",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
-    "setup_stage_sha256": "b83c959ed1d2fced7da4eccf223e0e22230b6bb526c3552a5dec7c7f40a5b375",
+    "setup_stage_sha256": "d363287e9fa65e2c8556b3d86e70cba9bafc80bf389b2661977c3bd093580f79",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
     "supervisor_sha256": "8aad4b142854915928ec80232e082c0bbb940456070bd8722e35d59827724d80"
   },
@@ -182,6 +182,8 @@
     "resume_setup_sha256": "0f96469cf7d90c34083da7ed0b514bac12a72ce7d348de71936cfb647800d93b",
     "resume_origin_sha256": "715811b4e2993786411baf3dc7b4caad6de563ae287cd8a211edfb2ed34df43d",
     "resume_lease_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "resume_claim": "Attempt7 public Truss .53 install, model acceptance and consumer registration completed before read_page SQLSTATE 57014; exact supervisor proves PostgreSQL stopped and no Delta/ACK; copied only after receipt, model/setup/origin, PG18 control, tree, lease and socket validation."
+    "resume_claim": "Attempt7 public Truss .53 install, model acceptance and consumer registration completed before read_page SQLSTATE 57014; exact supervisor proves PostgreSQL stopped and no Delta/ACK; copied only after receipt, model/setup/origin, PG18 control, tree, lease and socket validation.",
+    "resume_revision_source": "selected Truss .53 CatalogRuntimeStatus.revision (runtime verified non-null int); installation identifier must also be present",
+    "resume_read_transaction": "READ WRITE with 15000ms adopted-host statement/operation bounds; public report/catalog/source read ends by rollback"
   }
 }
