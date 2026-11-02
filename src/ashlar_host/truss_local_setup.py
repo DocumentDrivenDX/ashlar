@@ -20,6 +20,13 @@ def _install_catalog_in_transaction(assembly,tx,truss_version):
         return assembly.install_in_transaction(tx,operation_timeout_ms=_INSTALL_OPERATION_TIMEOUT_MS)
     return assembly.install_in_transaction(tx)
 
+
+def _adopt_setup_host(connection,*,install_profile=False):
+    from truss import adopt_psycopg_host
+    if install_profile:
+        return adopt_psycopg_host(connection,statement_timeout_ms=60000,operation_timeout_ms=60000)
+    return adopt_psycopg_host(connection)
+
 def read(path,maximum):
     with path.open('rb')as stream:raw=stream.read(maximum+1)
     if len(raw)>maximum:raise ValueError('Selected input exceeds example bound')
@@ -76,12 +83,12 @@ def run_setup_truss_local_command(configuration,output):
         if not isinstance(result,Ok):raise RuntimeError('Public Truss setup operation refused')
         return result.value
     @contextmanager
-    def interval(connection,*,statement_timeout_ms=15000):
+    def interval(connection,*,statement_timeout_ms=15000,install_profile=False):
         if type(statement_timeout_ms)is not int or not 1<=statement_timeout_ms<=60000:
             raise ValueError('Bounded Truss statement timeout required')
         connection.execute('BEGIN ISOLATION LEVEL READ COMMITTED')
         connection.execute("SET LOCAL statement_timeout = '"+str(statement_timeout_ms)+"ms'")
-        host=adopt_psycopg_host(connection);assembly=None;primary=None
+        host=_adopt_setup_host(connection,install_profile=install_profile);assembly=None;primary=None
         try:
             tx=value(host.adopt_transaction());assembly=value(create_reference_assembly(CatalogRuntimeConfiguration(),host));yield assembly,tx
         except BaseException as error:primary=error
@@ -95,7 +102,9 @@ def run_setup_truss_local_command(configuration,output):
         admin=psycopg.connect(**parameters,autocommit=True,connect_timeout=5,options='-c statement_timeout=15000')
         admin.execute(sql.SQL('CREATE ROLE {} LOGIN').format(sql.Identifier(consumer)))
         for role in (reader,writer):admin.execute(sql.SQL('CREATE ROLE {} NOLOGIN').format(sql.Identifier(role)))
-        with interval(admin,statement_timeout_ms=_install_statement_timeout_ms(truss_version))as (assembly,tx):
+        install_profile=truss_version==_TRUSS_055_FRESH_VERSION
+        with interval(admin,statement_timeout_ms=_install_statement_timeout_ms(truss_version),
+                      install_profile=install_profile)as (assembly,tx):
             installed=value(_install_catalog_in_transaction(assembly,tx,truss_version))
         admin.commit()
         admin.execute(sql.SQL('GRANT {} TO {} WITH SET FALSE').format(sql.Identifier(installed.registrar_role),sql.Identifier(consumer)))
