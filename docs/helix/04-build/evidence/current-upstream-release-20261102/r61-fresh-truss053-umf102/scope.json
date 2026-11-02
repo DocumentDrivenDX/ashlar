@@ -1,6 +1,6 @@
 {
   "packet": "ashlar-r61-fresh-truss053-umf102",
-  "status": "attempt8-bound-resuming-attempt7-accepted-genesis-source",
+  "status": "attempt9-bound-publish-metadata-genesis-before-seed",
   "source": {
     "repository": "ashlar",
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
@@ -8,10 +8,10 @@
     "runner_path": "tools/r61_fresh_cohort_runner.py",
     "runner_sha256": "0b318102e7c8d5de3b6c15f0f003d666d101d0c9f8b9f991601b41fbd40b7eb9",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
-    "setup_stage_sha256": "d363287e9fa65e2c8556b3d86e70cba9bafc80bf389b2661977c3bd093580f79",
+    "setup_stage_sha256": "697f090a8f7bf2df80caf51b684278c985d13c0cee122ef3885197341c917264",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
     "supervisor_sha256": "8aad4b142854915928ec80232e082c0bbb940456070bd8722e35d59827724d80",
-    "worker_sha256": "95e020030598915107498ab1c080d6c7bb84433144acdce99b5f69417d713dba",
+    "worker_sha256": "de112d559f927c80a714727ef6a939b94ff52425a8a8c7ab2effab687ca58338",
     "worker_path": "tools/r61_fresh_cohort_worker.py"
   },
   "supervisor_runtime": {
@@ -57,7 +57,7 @@
     "graphframes_runtime_manifest": "/private/tmp/ashlar-r61-graphframes-68191905/r61-graphframes-runtime-manifest.json",
     "graphframes_runtime_manifest_sha256": "d0e9c16d8a3c236bda3fd3c898e186d93e74c08a1dec5f92477418a9c2e068f5",
     "worker_path": "/private/tmp/ashlar-r61-fresh-cohort-plan/tools/r61_fresh_cohort_worker.py",
-    "worker_sha256": "95e020030598915107498ab1c080d6c7bb84433144acdce99b5f69417d713dba",
+    "worker_sha256": "de112d559f927c80a714727ef6a939b94ff52425a8a8c7ab2effab687ca58338",
     "umf_sdk_tag_commit": "e35cd92b45e16816be2bdbf28e83ef9c53ac99a2",
     "truss_source_custody_profile": "ashlar-truss-053-fresh-baseline-source-custody/0.1",
     "delta_installation_profile": "ashlar-local-current-installation-profile/0.5",
@@ -69,10 +69,10 @@
     }
   },
   "fresh_local_state": {
-    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8",
-    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8/pgdata",
-    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8/delta",
-    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8/evidence",
+    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt9",
+    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt9/pgdata",
+    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt9/delta",
+    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt9/evidence",
     "must_be_absent_before_dispatch": true,
     "forbidden_state": [
       "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
@@ -93,19 +93,21 @@
   },
   "workflow": [
     "verify exact Truss, UMF, Ashlar and GraphFrames artifacts and runtime origins",
-    "copy the exact stopped fresh PG18 initdb cluster into new PGDATA, verify copy hash/control state, then use public Truss SDK installation and acceptance calls",
-    "use public Truss source and consumer APIs; accept the exact declared model/report/catalog",
-    "seed one seven-operation stream and verify the complete four-role publication vector plus separate six-role installation inventory",
-    "perform one bounded continuation and protected source ACK; verify checkpoint and ACK custody",
-    "restore the applied publication artifact read-only and call read_original_truss_graph_export(driver, with_custody=True)",
-    "close source, consumer, Spark and PostgreSQL owners successfully before persisting release/custody bytes",
+    "copy the exact stopped accepted attempt8 PG18 state and verify retained page receipt, tree/control identity, lease and socket before public readback",
+    "read the complete accepted report/catalog/source and exact metadata-only catalog page through public Truss APIs",
+    "publish and protected-ACK the metadata-only accepted-catalog transaction as graph genesis",
+    "apply one seven-operation public group, publish it as genesis continuation and protected-ACK it",
+    "run bounded native Weft reads against the seven-operation publication vector",
+    "apply one two-record continuation, publish and protected-ACK it while capturing original-owner release/custody",
+    "close source, consumer, Spark and PostgreSQL owners before persisting release/custody bytes",
     "install the exact Ashlar candidate wheel in the separate reviewed GraphFrames runtime and run one action over those bytes",
-    "reconcile source checkpoint, ACK, four-role publication vector, separate six-role installation inventory, process cleanup, output size and final hashes"
+    "reconcile source checkpoint, all protected ACKs, four-role publication vector, separate six-role installation inventory, process cleanup, output size and final hashes"
   ],
   "completion_receipts": [
     "artifact and module-origin manifest",
     "accepted model/report/catalog identity",
-    "seed and continuation request/result hashes",
+    "metadata-only source page bytes/outcome/cursors, catalog prerequisite/revision IDs, zero-entity event counts and genesis publication/ACK proof",
+    "seven-op seed continuation and protected ACK, native Weft request/response hashes and complete four-role publication vector",
     "complete four-role Delta publication vector and separate six-role installation inventory before and after, including schema and manifest identity",
     "source checkpoint and protected ACK receipts before and after",
     "owner release and custody canonical-byte hashes, only after successful owner close",
@@ -114,13 +116,13 @@
     "PG18 seed/copy tree hashes, initdb receipt, prior failure receipts, stopped-state/control identity, and observed SHOW fsync=on"
   ],
   "non_claims": [
-    "No successful end-to-end R61 qualification has completed; attempts 1-7 retain bounded refusal evidence.",
+    "No successful end-to-end R61 qualification has completed; attempts 1-8 retain bounded refusal or readback evidence.",
     "No release, tag, publish, cloud, scale, push or production authority is claimed.",
     "The prior R59 GraphFrames runtime configuration is not candidate compatibility evidence.",
-    "Attempt7 completed public Truss .53 installation, UMF 0.10.0 acceptance, and genesis consumer registration, but its bounded read timed out at 2 seconds; attempt8 will resume this exact stopped state without install/accept replay."
+    "Attempt8 captured the actual metadata-only accepted-catalog transaction but did not publish or ACK it; no Delta or Spark action occurred."
   ],
   "qualification_stage": {
-    "status": "resume_readback_stage_implemented_not_dispatched",
+    "status": "attempt9-metadata-genesis-and-seed-continuation-implemented-not-dispatched",
     "source_model": "docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json",
     "source_model_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
     "truss_local_runtime_member_sha256": "7a0fce2fd418a3c239e7f6e847ac952d152d1967638251a4ebba2f5f29b90728",
@@ -128,7 +130,7 @@
     "source_stage_outputs": [
       "public Truss accepted report and installed catalog status",
       "public complete catalog view and accepted source bytes",
-      "fresh consumer registration and exact initial public feed page with observed transaction or empty-interval outcome",
+      "Exact initial public page bytes, cursors, writer XID, catalog revision/prerequisites, and event counts; outcome is captured, not assumed.",
       "successful PostgreSQL owner close before stage receipt write"
     ],
     "source_stage_uses_fresh_local_postgres_data_and_owned_socket": true,
@@ -153,8 +155,8 @@
     "native_dispatched": false
   },
   "postgres_bootstrap_policy": {
-    "profile": "ashlar-r61-pg18-stopped-bootstrap-copy/0.1",
-    "method": "copy exact stopped attempt7 public Truss installation/accepted UMF source and genesis-only consumer into a new PGDATA; perform public readback only, no install/accept/registration replay",
+    "profile": "ashlar-r61-pg18-retained-accepted-source-copy/0.2",
+    "method": "copy exact stopped attempt8 public Truss installation/accepted UMF source and genesis-only consumer into attempt9; validate retained page receipt; publish and protected-ACK the actual metadata-only page before adding the seven-op seed",
     "seed_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4",
     "seed_pgdata": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/pgdata",
     "seed_tree_sha256": "76bced149f633e7b2b556aa489db88995881b31cfdf3a3ec079af8c81f108db4",
@@ -177,18 +179,28 @@
     ],
     "install_statement_timeout_ms": 60000,
     "install_statement_timeout_scope": "SET LOCAL plus Truss adopted-host statement_timeout_ms and operation_timeout_ms; install only; other operations retain 15000ms",
-    "resume_source_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt7",
-    "resume_source_pgdata": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt7/pgdata",
-    "resume_pgdata_tree_sha256": "b74e70d653f92658535afcf27a4da72832c7f56a8a61dd56c64093b2f74f3a92",
+    "resume_source_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8",
+    "resume_source_pgdata": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8/pgdata",
+    "resume_pgdata_tree_sha256": "3d2c39efdc30530ddcaa62c788a394e3aac868f5d27f7f9257aebe649a1679ca",
     "resume_system_identifier": "7703698260472019557",
-    "resume_failure_sha256": "1fc5dcd0927c0848c011b8a5405c6c6aae49a9f48cd63617cb008952b47793d7",
-    "resume_supervisor_sha256": "54f7d95adc99de6a9e29f5c7c9242884c5cdac89e1cf455cb66243624ffe10cc",
+    "resume_failure_sha256": "5453d9c1f2363bf8839ad839986a64ba9fe41abc228fcfdd1705f5e92eb82a82",
+    "resume_supervisor_sha256": "3734f0865fd79878b8e03bf943b62d9b7fef2dad1cd396992fc3e67904cbd2e2",
     "resume_model_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
-    "resume_setup_sha256": "0f96469cf7d90c34083da7ed0b514bac12a72ce7d348de71936cfb647800d93b",
+    "resume_setup_sha256": "581e3fb62f2915d89b42220d78db1296f4ca5b0fc9cc4e49e251fec80a29ed59",
     "resume_origin_sha256": "715811b4e2993786411baf3dc7b4caad6de563ae287cd8a211edfb2ed34df43d",
     "resume_lease_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "resume_claim": "Attempt7 public Truss .53 install, model acceptance and consumer registration completed before read_page SQLSTATE 57014; exact supervisor proves PostgreSQL stopped and no Delta/ACK; copied only after receipt, model/setup/origin, PG18 control, tree, lease and socket validation.",
+    "resume_claim": "Attempt8 resumed attempt7 public install/accept without replay; one exact public readback captured metadata-only catalog transaction writer 758, prior 0/next 759, two prerequisites/revision1, zero entity changes/sources/reservations. Public read and owner close are receipt-bound; no Delta/ACK/Spark. Attempt9 copies that exact stopped state and publishes/protected-ACKs this page as graph genesis before the seven-op seed.",
     "resume_revision_source": "selected Truss .53 CatalogRuntimeStatus.revision (runtime verified non-null int); installation identifier must also be present",
-    "resume_read_transaction": "READ WRITE with 15000ms adopted-host statement/operation bounds; public report/catalog/source read ends by rollback"
+    "resume_read_transaction": "READ WRITE with 15000ms adopted-host statement/operation bounds; public report/catalog/source read ends by rollback",
+    "resume_page_readback_path": "/private/tmp/ashlar-r61-attempt8-page-readback-20261102.json",
+    "resume_page_readback_sha256": "236e00f5cca21b87354e58104c7ff7ba99bcec28dfc39084fb53550bfbb1cdbb",
+    "resume_page_readback_evidence_path": "docs/helix/04-build/evidence/current-upstream-release-20261102/r61-fresh-truss053-umf102/attempt8-page-readback.json",
+    "resume_page_sha256": "7e9a8accf804a30746c9d7fd7f9b08c0ea1fe0cbe83089dcdbcccee00521cef0",
+    "resume_registration_id": "ac2e6524-d35f-40c2-b6f9-489a57809fed",
+    "resume_page_outcome": "transaction",
+    "resume_page_writer_xid": "758",
+    "resume_page_prior_xid": "0",
+    "resume_page_next_xid": "759",
+    "resume_page_safe_watermark_xid": "766"
   }
 }
