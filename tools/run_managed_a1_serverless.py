@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Submit, monitor, hand off, and clean up one bounded managed A1 trial.
 
-The JSON input is an explicit lock for the two notebook artifacts, their
+The JSON input is an explicit lock for three sequential notebook artifacts, their
 serverless environments and task parameters. Validation is inert. Network
 mutations require --launch; this program never selects a workspace, runtime,
 wheel, source page, or cost estimate on the caller's behalf.
@@ -15,8 +15,6 @@ import hashlib
 import json
 import os
 import re
-import socket
-import struct
 import subprocess
 import sys
 import tempfile
@@ -30,9 +28,12 @@ PROFILE = "aidev-cus"
 MAX_SECONDS = 900
 HARD_USD = 100.0
 PREFERRED_USD = 10.0
+SERVERLESS_USD_PER_DBUH = 0.47
+WORST_SERVERLESS_DBUH = 960.0
+MAX_PAID_TASK_SECONDS = 540
+MIN_DRIVER_AND_CLEANUP_RESERVE_USD = 20.0
 IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]{0,127}\Z")
 SHA = re.compile(r"[0-9a-f]{64}\Z")
-MAX_HOLDER_FRAME = 48 * 1024 * 1024
 
 
 def require(ok: bool, message: str) -> None:
@@ -94,8 +95,8 @@ def build_payload(config: object) -> tuple[dict, dict]:
     require(type(config) is dict and set(config) == {
         "host", "trial_id", "catalog", "schema", "expected_principal",
         "expected_runtime", "maximum_wall_seconds", "cleanup_reserve_seconds", "cost", "publisher",
-        "initializer", "verifier", "holder_command", "volume_name", "publisher_result_parameter",
-        "local_qualification", "evidence_dir",
+        "initializer", "verifier", "holder_bootstrap", "trial", "protocol_profile",
+        "volume_name", "local_qualification", "evidence_dir",
     }, "Closed managed A1 runner input required")
     require(config["host"] == HOST,
             "A1 runner is pinned to the approved dbw-aidev-cus workspace")
@@ -141,29 +142,51 @@ def build_payload(config: object) -> tuple[dict, dict]:
             and cost["estimated_total_dbu"] + cost["cleanup_reserve_dbu"]
                 <= cost["authorized_total_dbu"]
             and cost["includes_startup_driver_verifier_handoff_and_cleanup"] is True,
-            "DBU bound must include startup, both tasks, holder handoff, and cleanup")
-    total_usd = cost["estimated_total_usd"] + cost["cleanup_reserve_usd"]
+            "DBU bound must include all three runs, holder handoff, and cleanup")
+    expected_usd = cost["estimated_total_usd"]
+    worst_case_usd = cost["authorized_total_dbu"] * SERVERLESS_USD_PER_DBUH \
+        + cost["cleanup_reserve_usd"]
     require(cost["estimated_total_usd"] > 0 and cost["cleanup_reserve_usd"] >= 0
-            and total_usd <= HARD_USD,
-            "Estimated whole-trial spend plus cleanup reserve exceeds $100")
-    if total_usd > PREFERRED_USD:
+            and cost["estimated_total_usd"] + 1e-9 >=
+                cost["estimated_total_dbu"] * SERVERLESS_USD_PER_DBUH
+            and cost["cleanup_reserve_usd"] >= MIN_DRIVER_AND_CLEANUP_RESERVE_USD
+            and worst_case_usd <= HARD_USD,
+            "Worst-case 2XL DBU exposure plus driver/cleanup reserve exceeds $100")
+    if expected_usd > PREFERRED_USD:
         require(type(cost["preferred_budget_exception"]) is str
                 and cost["preferred_budget_exception"].strip(),
                 "Estimate above $10 needs an owner rationale")
     else:
         require(cost["preferred_budget_exception"] is None,
                 "Omit preferred-budget exception when total estimate is <=$10")
-    holder = config["holder_command"]
-    require(type(holder) is list and holder and all(
-        type(x) is str and x and "\0" not in x for x in holder),
-        "Local source-holder worker command required for inherited Unix IPC")
+    holder = config["holder_bootstrap"]
+    require(type(holder) is dict and set(holder) == {"bootstrap", "config_path", "python"}
+            and type(holder["bootstrap"]) is str and ":" in holder["bootstrap"]
+            and type(holder["config_path"]) is str and Path(holder["config_path"]).is_absolute()
+            and (holder["python"] is None or type(holder["python"]) is str),
+            "Owner-private source-holder bootstrap lock required")
+    trial = config["trial"]
+    require(type(trial) is dict and set(trial) == {"catalog", "schema", "expected_runtime",
+            "stream", "stage_id", "materialized_at", "destination_id", "cost",
+            "publisher_timeout_seconds", "verifier_timeout_seconds"}
+            and trial.get("catalog") == config["catalog"]
+            and trial.get("schema") == config["schema"]
+            and trial.get("expected_runtime") == runtime
+            and trial.get("cost") == cost and trial.get("publisher_timeout_seconds") ==
+                config["publisher"]["timeout_seconds"]
+            and trial.get("verifier_timeout_seconds") == config["verifier"]["timeout_seconds"]
+            and trial.get("destination_id") == "client_dev." + config["schema"]
+            and all(type(trial[k]) is str and trial[k] and "\0" not in trial[k]
+                    for k in ("stream", "stage_id", "materialized_at"))
+            and re.fullmatch(r"0|[1-9][0-9]{0,18}", trial["materialized_at"])
+            and int(trial["materialized_at"]) < 2**63,
+            "Closed A1 task contract must bind destination, runtime, cost and task deadline")
+    require(type(config["protocol_profile"]) is dict and set(config["protocol_profile"]) == {
+        "identity", "reader_versions", "writer_versions", "features"},
+        "Exact reader protocol profile required")
     require(type(config["volume_name"]) is str and IDENT.fullmatch(config["volume_name"])
             and config["volume_name"].startswith("ashlar_a1_"),
             "Unique owned managed-volume name required inside the per-run schema")
-    require(type(config["publisher_result_parameter"]) is str
-            and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]{0,127}", config["publisher_result_parameter"])
-            and config["publisher_result_parameter"] in config["verifier"]["base_parameters"],
-            "Verifier notebook must declare its publisher-result JSON parameter")
     gate = config["local_qualification"]
     require(type(gate) is dict and set(gate) == {"path", "sha256"}
             and type(gate["path"]) is str and type(gate["sha256"]) is str
@@ -180,6 +203,8 @@ def build_payload(config: object) -> tuple[dict, dict]:
     for key in ("initializer", "publisher", "verifier"):
         task_payload = _validate_task(config[key], key)
         task = config[key]
+        require(task["base_parameters"] == {"task_parameters_json": "{}"},
+                f"{key} notebook must accept only the closed JSON task payload widget")
         require(task["timeout_seconds"] + 15 <= wall - cleanup_seconds,
                 f"{key} task budget must fit with startup/holder/cleanup reserve")
         env = {"environment_key": key + "_env", "spec": {
@@ -187,21 +212,34 @@ def build_payload(config: object) -> tuple[dict, dict]:
             "dependencies": [item["path"] for item in task["dependencies"]],
         }}
         stage_payloads[key] = {"task": task_payload, "environment": env}
-    require(sum(config[k]["timeout_seconds"] for k in ("initializer", "publisher", "verifier")) + 45
+    paid_seconds = sum(config[k]["timeout_seconds"]
+                       for k in ("initializer", "publisher", "verifier"))
+    require(paid_seconds <= MAX_PAID_TASK_SECONDS
+            and cost["authorized_total_dbu"] >= paid_seconds * WORST_SERVERLESS_DBUH / 3600
+            and paid_seconds + 45
             <= wall - cleanup_seconds,
-            "All three bounded runs plus holder handoffs must fit before cleanup reserve")
+            "Three task budgets must total <=540s and fit their worst-case 2XL cost plus handoff bounds")
     return stage_payloads, config
 
 
 class DatabricksCLI:
     def __init__(self, profile: str):
         self.profile = profile
+        self.deadline = None
+
+    def _timeout(self) -> float:
+        if self.deadline is None:
+            return 30.0
+        remaining = self.deadline - time.monotonic()
+        require(remaining > 0, "Whole-trial deadline expired before Databricks CLI operation")
+        return min(60.0, remaining)
 
     def call(self, method: str, path: str, body: dict | None = None) -> dict:
         argv = ["databricks", "--profile", self.profile, "--output", "json", "api", method, path]
         if body is not None:
             argv += ["--json", json.dumps(body, sort_keys=True, separators=(",", ":"))]
-        cp = subprocess.run(argv, capture_output=True, text=True, check=False)
+        cp = subprocess.run(argv, capture_output=True, text=True, check=False,
+                            timeout=self._timeout())
         if cp.returncode:
             raise RuntimeError(f"Databricks API {method.upper()} {path} failed ({cp.returncode}): "
                                f"{cp.stderr.strip()[:1200]}")
@@ -214,22 +252,33 @@ class DatabricksCLI:
     def copy(self, source: str, target: str) -> None:
         cp = subprocess.run(["databricks", "--profile", self.profile,
                              "fs", "cp", source, target],
-                            capture_output=True, text=True, check=False)
+                            capture_output=True, text=True, check=False,
+                            timeout=self._timeout())
         if cp.returncode:
             raise RuntimeError("Databricks Files copy failed: " + cp.stderr.strip()[:1200])
+
+    def remove_file(self, path: str) -> None:
+        cp = subprocess.run(["databricks", "--profile", self.profile,
+                             "fs", "rm", path],
+                            capture_output=True, text=True, check=False,
+                            timeout=self._timeout())
+        if cp.returncode:
+            raise RuntimeError("Databricks Files removal failed: " + cp.stderr.strip()[:1200])
 
     def export_workspace(self, path: str, target: str, *, notebook: bool) -> None:
         fmt = "SOURCE" if notebook else "RAW"
         cp = subprocess.run(["databricks", "--profile", self.profile, "workspace", "export",
                              path, "--format", fmt, "--file", target],
-                            capture_output=True, text=True, check=False)
+                            capture_output=True, text=True, check=False,
+                            timeout=self._timeout())
         if cp.returncode:
             raise RuntimeError("Databricks Workspace export failed: " + cp.stderr.strip()[:1200])
 
     def auth_readback(self) -> dict:
         cp = subprocess.run(["databricks", "--profile", self.profile,
                              "--output", "json", "auth", "describe"],
-                            capture_output=True, text=True, check=False)
+                            capture_output=True, text=True, check=False,
+                            timeout=self._timeout())
         if cp.returncode:
             raise RuntimeError("Databricks CLI profile authentication refused: "
                                + cp.stderr.strip()[:1200])
@@ -239,123 +288,51 @@ class DatabricksCLI:
 
 
 class SourceHolderIPC:
-    """Framed inherited-FD parent for the source-owned long-lived holder."""
+    """Thin parent adapter over the source owner's inherited-FD process API."""
 
-    def __init__(self, process: subprocess.Popen, connection: socket.socket):
-        self.process = process
-        self.connection = connection
+    def __init__(self, process):
+        self.process = process.process
+        self.owner = process
 
     @classmethod
-    def start(cls, command: list[str], deadline: float) -> tuple["SourceHolderIPC", bytes]:
-        parent, child = socket.socketpair(socket.AF_UNIX, socket.SOCK_STREAM)
-        child_fd = child.fileno()
-        preexec = None if child_fd == 3 else (lambda: os.dup2(child_fd, 3))
+    def start(cls, spec: dict, deadline: float):
+        require(type(spec) is dict and set(spec) == {"bootstrap", "config_path", "python"}
+                and type(spec["bootstrap"]) is str and ":" in spec["bootstrap"]
+                and type(spec["config_path"]) is str and Path(spec["config_path"]).is_absolute()
+                and (spec["python"] is None or type(spec["python"]) is str),
+                "Closed holder bootstrap/config lock required")
+        src = str(Path(__file__).resolve().parents[1] / "src")
+        if src not in sys.path:
+            sys.path.insert(0, src)
+        from ashlar_host.a1_source_holder_worker import A1Truss053SourceHolderProcess
+        owner = A1Truss053SourceHolderProcess.spawn(bootstrap=spec["bootstrap"],
+            config_path=spec["config_path"], python=spec["python"])
+        ipc = cls(owner)
         try:
-            process = subprocess.Popen(command + ["--fd", "3"], pass_fds=(child_fd,),
-                preexec_fn=preexec, start_new_session=True, stdin=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, close_fds=True)
+            require(time.monotonic() < deadline, "Trial deadline expired before holder genesis")
+            return ipc, owner.wait_genesis()
         except BaseException:
-            parent.close(); child.close()
-            raise
-        child.close()
-        ipc = cls(process, parent)
-        try:
-            genesis = ipc.receive(deadline)
-            require(type(genesis) is dict and set(genesis) == {
-                "type", "genesis_bytes_base64"} and genesis["type"] == "genesis"
-                and type(genesis["genesis_bytes_base64"]) is str,
-                "Source holder did not provide its closed A/B genesis package")
-            package = base64.b64decode(genesis["genesis_bytes_base64"], validate=True)
-            require(base64.b64encode(package).decode("ascii") == genesis["genesis_bytes_base64"]
-                    and package and len(package) <= 36 * 1024 * 1024,
-                    "Source-holder A/B genesis package exceeds its canonical frame bound")
-            return ipc, package
-        except BaseException:
-            try: ipc.close(deadline, orderly=True)
-            except Exception: pass
+            try: owner.close_before_ack()
+            except Exception: owner.terminate()
             raise
 
-    def open_a1(self, request_bytes: bytes, publication_id: str,
-                destination_id: str, deadline: float) -> tuple[bytes, dict]:
-        response = self.rpc({"type": "open",
-            "request_bytes_base64": base64.b64encode(request_bytes).decode("ascii"),
-            "publication_id": publication_id, "destination_id": destination_id},
-            "ready", deadline)
-        require(set(response) == {"type", "snapshot_bytes_base64", "custody_digests"}
-                and type(response["snapshot_bytes_base64"]) is str
-                and type(response["custody_digests"]) is dict,
-                "Source-holder ready frame omitted exact opened custody anchors")
-        raw = base64.b64decode(response["snapshot_bytes_base64"], validate=True)
-        require(raw and base64.b64encode(raw).decode("ascii") == response["snapshot_bytes_base64"]
-                and len(raw) <= 36 * 1024 * 1024,
-                "Source-holder A1 page snapshot exceeds its canonical frame bound")
-        return raw, response["custody_digests"]
+    def renew(self, deadline):
+        require(time.monotonic() < deadline, "Deadline expired before same-session Truss renewal")
+        return self.owner.renew()
 
-    def send(self, message: dict, deadline: float) -> None:
-        payload = json.dumps(message, sort_keys=True, separators=(",", ":"),
-                             ensure_ascii=False, allow_nan=False).encode("utf-8")
-        require(len(payload) <= 24 * 1024 * 1024,
-                "Source-holder IPC command exceeds 24 MiB")
-        remaining = deadline - time.monotonic()
-        require(remaining > 0, "Whole-trial deadline expired before source-holder IPC")
-        self.connection.settimeout(remaining)
-        self.connection.sendall(struct.pack(">I", len(payload)) + payload)
+    def open_a1(self, request_bytes, publication_id, destination_id, deadline):
+        require(time.monotonic() < deadline, "Deadline expired before prepublication hold")
+        raw = self.owner.open_prepublication(request_bytes=request_bytes,
+            destination_id=destination_id, publication_id=publication_id)
+        return raw, self.owner.custody_digests
 
-    def receive(self, deadline: float) -> dict:
-        def exact(count: int) -> bytes:
-            parts = []
-            remaining = count
-            while remaining:
-                timeout = deadline - time.monotonic()
-                require(timeout > 0, "Whole-trial deadline expired waiting for source holder")
-                self.connection.settimeout(timeout)
-                chunk = self.connection.recv(remaining)
-                require(chunk, "Source-holder IPC closed before a complete frame")
-                parts.append(chunk); remaining -= len(chunk)
-            return b"".join(parts)
-        frame_size = struct.unpack(">I", exact(4))[0]
-        require(0 < frame_size <= MAX_HOLDER_FRAME,
-                "Source-holder IPC frame exceeds its 48 MiB bound")
-        raw = exact(frame_size)
-        def unique(items):
-            result = {}
-            for key, value in items:
-                require(key not in result, "Duplicate member in source-holder IPC frame")
-                result[key] = value
-            return result
-        message = json.loads(raw.decode("utf-8"), object_pairs_hook=unique,
-                             parse_constant=lambda _: (_ for _ in ()).throw(ValueError("non-finite")))
-        require(type(message) is dict and type(message.get("type")) is str,
-                "Source-holder IPC frame must be a typed JSON object")
-        return message
-
-    def rpc(self, message: dict, expected_type: str, deadline: float) -> dict:
-        self.send(message, deadline)
-        response = self.receive(deadline)
-        require(response.get("type") == expected_type,
-                f"Expected source-holder {expected_type} event after {message.get('type')}")
-        return response
-
-    def close(self, deadline: float, *, orderly: bool) -> dict | None:
-        response = None
-        try:
-            if orderly and self.process.poll() is None:
-                response = self.rpc({"type": "close"}, "closed", deadline)
-        finally:
-            self.connection.close()
-            if self.process.poll() is None:
-                try:
-                    self.process.wait(timeout=max(0.1, deadline - time.monotonic()))
-                except subprocess.TimeoutExpired:
-                    try: os.killpg(self.process.pid, signal.SIGTERM)
-                    except ProcessLookupError: pass
-                    try:
-                        self.process.wait(timeout=2)
-                    except subprocess.TimeoutExpired:
-                        try: os.killpg(self.process.pid, signal.SIGKILL)
-                        except ProcessLookupError: pass
-                        self.process.wait(timeout=2)
-        return response
+    def close(self, deadline, *, orderly):
+        del deadline
+        if orderly:
+            self.owner.close_before_ack()
+        else:
+            self.owner.terminate()
+        return None
 
 
 def _terminal(state: dict) -> bool:
@@ -457,9 +434,44 @@ def _task_output(api: DatabricksCLI, run_id: int) -> dict:
     result = notebook.get("result") if type(notebook) is dict else None
     require(type(result) is str and result,
             "Terminal task omitted its bounded notebook result")
-    value = json.loads(result)
+    require(len(result.encode("utf-8")) <= 4 * 1024 * 1024,
+            "Terminal task result exceeds the 4 MiB evidence bound")
+    def unique(items):
+        value = {}
+        for key, item in items:
+            require(key not in value, "Duplicate member in terminal task result")
+            value[key] = item
+        return value
+    value = json.loads(result, object_pairs_hook=unique,
+        parse_constant=lambda _: (_ for _ in ()).throw(ValueError("non-finite JSON")))
     require(type(value) is dict, "A1 task result must be a JSON object")
     return value
+
+
+def _put_volume_bytes(api: DatabricksCLI, volume_uri: str, raw: bytes) -> dict:
+    require(type(raw) is bytes and 0 < len(raw) <= 4 * 1024 * 1024,
+            "Private task artifact must be nonempty and at most 4 MiB")
+    fd, local = tempfile.mkstemp(prefix="ashlar-a1-volume-")
+    try:
+        os.fchmod(fd, 0o600)
+        with os.fdopen(fd, "wb") as stream:
+            stream.write(raw); stream.flush(); os.fsync(stream.fileno())
+        api.copy(local, "dbfs:" + volume_uri)
+        fd, check = tempfile.mkstemp(prefix="ashlar-a1-volume-readback-")
+        os.close(fd)
+        try:
+            api.copy("dbfs:" + volume_uri, check)
+            observed = Path(check).read_bytes()
+            require(observed == raw and hashlib.sha256(observed).digest()
+                    == hashlib.sha256(raw).digest(),
+                    "Private UC Volume artifact failed exact digest/readback")
+        finally:
+            try: os.unlink(check)
+            except FileNotFoundError: pass
+    finally:
+        try: os.unlink(local)
+        except FileNotFoundError: pass
+    return {"uri": volume_uri, "sha256": hashlib.sha256(raw).hexdigest(), "bytes": len(raw)}
 
 
 def _check_artifact_lock(api: DatabricksCLI, config: dict) -> None:
@@ -508,7 +520,14 @@ def _validate_task_runtime(value: dict, expected: dict, stage: str) -> None:
 
 
 def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict,
-               parameters: dict, deadline: float) -> tuple[int, int, dict, dict]:
+               parameters: dict, deadline: float, *, cleanup_deadline=None,
+               on_poll=None) -> tuple[int, int, dict, dict]:
+    cleanup_deadline = deadline if cleanup_deadline is None else cleanup_deadline
+    require(time.monotonic() < deadline,
+            f"Work deadline expired before {stage} Jobs creation")
+    require(type(parameters) is dict and all(type(key) is str and type(value) is str
+            and len(value.encode("utf-8")) <= 9000 for key, value in parameters.items()),
+            "Serverless task parameters exceed the closed 9,000-byte widget bound")
     task = dict(stage_payload["task"])
     notebook_task = dict(task["notebook_task"])
     notebook_task["base_parameters"] = parameters
@@ -538,6 +557,8 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
             snapshot = api.call("get", f"/api/2.2/jobs/runs/get?run_id={run_id}")
             if _terminal(snapshot.get("state", {})):
                 break
+            if callable(on_poll):
+                on_poll()
             time.sleep(min(3, max(0.2, deadline - time.monotonic())))
         require(snapshot.get("state", {}).get("result_state") == "SUCCESS",
                 f"{stage} task did not terminate successfully")
@@ -558,11 +579,11 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
                 snapshot = api.call("get", f"/api/2.2/jobs/runs/get?run_id={run_id}")
                 if not _terminal(snapshot.get("state", {})):
                     api.call("post", "/api/2.2/jobs/runs/cancel", {"run_id": run_id})
-                    while time.monotonic() < deadline:
+                    while time.monotonic() < cleanup_deadline:
                         snapshot = api.call("get", f"/api/2.2/jobs/runs/get?run_id={run_id}")
                         if _terminal(snapshot.get("state", {})):
                             break
-                        time.sleep(min(2, max(0.2, deadline - time.monotonic())))
+                        time.sleep(min(2, max(0.2, cleanup_deadline - time.monotonic())))
             except Exception:
                 pass
         if not run_attempted or (run_id is not None and _terminal(snapshot.get("state", {}))):
@@ -644,30 +665,207 @@ def _publisher_bundle(result: dict, authority: str) -> tuple[dict, bytes, bytes,
             hashlib.sha256(vector_raw).hexdigest())
 
 
+def _retention_bundle(*, trial, protocol_profile, plan, request_bytes,
+                      manifest_bytes, destination_receipt,
+                      task_receipt, prefix_bytes, prefix_sha, selected_prefix,
+                      source_snapshot, custody_digests):
+    from ashlar_host.managed_current_a1_retention_builder import (
+        build_managed_current_a1_retention_bundle,
+    )
+    from ashlar_host.managed_current_spark_receipt_read import (
+        CARRIER_PROFILE_XXHASH64, ManagedCurrentSparkReceiptConfig,
+    )
+    from ashlar_host.managed_current_trial import ManagedCurrentTrialConfig
+    reader = ManagedCurrentSparkReceiptConfig(catalog=trial["catalog"],
+        schema=trial["schema"], expected_principal=trial["expected_runtime"]["principal"],
+        expected_table_owner=trial["expected_runtime"]["principal"],
+        source_truss_version="0.0.53", protocol_profile=protocol_profile,
+        expected_runtime=trial["expected_runtime"], maximum_elapsed_seconds=300,
+        maximum_statements=128, maximum_rows=1024, maximum_result_bytes=4 * 1024 * 1024,
+        carrier_profile=CARRIER_PROFILE_XXHASH64)
+    cost = trial["cost"]
+    core = ManagedCurrentTrialConfig(catalog=trial["catalog"], schema=trial["schema"],
+        stream=trial["stream"], predecessor=plan.predecessor.manifest["publication_id"],
+        schedule_sha256=plan.selection.schedule_sha256, schedule_step=1,
+        stage_id=trial["stage_id"], schema_revisions_json=json.dumps(
+            plan.selection.schema_revisions, sort_keys=True, separators=(",", ":")),
+        materialized_at=trial["materialized_at"], expected_environment=trial["expected_runtime"],
+        maximum_task_seconds=trial["verifier_timeout_seconds"],
+        estimated_total_dbu=cost["estimated_total_dbu"],
+        authorized_total_dbu=cost["authorized_total_dbu"],
+        estimated_total_cost_usd=cost["estimated_total_usd"],
+        reserve_dbu_for_cleanup=cost["cleanup_reserve_dbu"],
+        reserve_usd_for_cleanup=cost["cleanup_reserve_usd"],
+        cost_estimate_includes_startup_driver_and_cleanup=True, create_schema=False,
+        preferred_budget_exception=cost["preferred_budget_exception"],
+        carrier_profile=CARRIER_PROFILE_XXHASH64).core_config()
+    return build_managed_current_a1_retention_bundle(plan=plan,
+        reader_config=reader, request_bytes=request_bytes, manifest_bytes=manifest_bytes,
+        task_receipt=task_receipt, destination_receipt_bytes=destination_receipt,
+        source_prefix_bytes=prefix_bytes, source_prefix_sha256=prefix_sha,
+        selected_prefix=selected_prefix, source_snapshot_bytes=source_snapshot,
+        source_custody_digests=custody_digests, source_core_config=core)
+
+
+class _LocalPinStages:
+    """Hold the native source-bound pin across the verifier's three RPC stages."""
+    def __init__(self, owner):
+        self.owner = owner
+        self.handle = None
+        self.stages = []
+
+    def __call__(self, stage):
+        require(stage in ("open", "pre_ack", "close"), "Closed pin stage required")
+        if stage == "open":
+            require(self.handle is None and not self.stages,
+                    "Native A1 pin may open only once")
+            self.handle = self.owner.open_native_pin(
+                bounded_lifetime_seconds=self.lifetime_seconds)
+        elif stage == "pre_ack":
+            require(self.handle is not None and self.stages == ["open"],
+                    "Native A1 pin pre-ACK renewal must follow its opening")
+            self.handle.renew()
+        else:
+            require(self.handle is not None and self.stages == ["open", "pre_ack"],
+                    "Native A1 pin close must follow open and pre-ACK")
+            self.handle.close()
+            self.handle = None
+        self.stages.append(stage)
+
+    def close_on_error(self):
+        if self.handle is not None:
+            try: self.handle.close()
+            finally: self.handle = None
+
+
 def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
                            request_bytes: bytes, manifest_bytes: bytes,
-                           receipt_bytes: bytes, vector_sha256: str) -> dict:
-    require(set(output) == {"profile", "runtimeIdentity", "verifierTerminalSuccess",
-                            "predictiveOptimization"}
+                           receipt_bytes: bytes, vector_sha256: str,
+                           vector_wire: dict) -> dict:
+    require(set(output) == {"profile", "runtimeIdentity", "predictiveOptimization",
+                            "managedObservation", "managedObservationSha256",
+                            "requestSha256", "manifestSha256",
+                            "destinationReceiptSha256", "vector"}
             and output.get("profile") == "ashlar-managed-a1-verifier-result/0.1",
             "Verifier output must use the closed independent A1 verifier result profile")
     require(output.get("predictiveOptimization") == "ENABLE",
             "Verifier did not observe Unity Catalog predictive optimization ENABLE")
-    proof = output["verifierTerminalSuccess"]
-    require(type(proof) is dict and proof.get("profile") ==
-            "ashlar-managed-a1-verifier-terminal-success/0.1"
-            and proof.get("run_id") == str(run_id)
-            and proof.get("task_id") == str(task_run_id)
-            and proof.get("terminal") is True and proof.get("status") == "SUCCEEDED"
-            and proof.get("outcome") == "durably_verified"
-            and proof.get("request_sha256") == hashlib.sha256(request_bytes).hexdigest()
-            and proof.get("manifest_sha256") == hashlib.sha256(manifest_bytes).hexdigest()
-            and proof.get("destination_receipt_sha256") == hashlib.sha256(receipt_bytes).hexdigest()
-            and proof.get("vector_sha256") == vector_sha256
-            and type(proof.get("result_sha256")) is str
-            and SHA.fullmatch(proof["result_sha256"]),
-            "Independent verifier terminal proof differs from exact publisher request/manifest/vector/receipt")
-    return proof
+    request_sha = hashlib.sha256(request_bytes).hexdigest()
+    manifest_sha = hashlib.sha256(manifest_bytes).hexdigest()
+    receipt_sha = hashlib.sha256(receipt_bytes).hexdigest()
+    observation = output["managedObservation"]
+    observation_raw = json.dumps(observation, sort_keys=True, separators=(",", ":"),
+        ensure_ascii=False, allow_nan=False).encode("utf-8")
+    require(output["requestSha256"] == request_sha
+            and output["manifestSha256"] == manifest_sha
+            and output["destinationReceiptSha256"] == receipt_sha
+            and output["vector"] == vector_wire
+            and output["managedObservationSha256"] == hashlib.sha256(observation_raw).hexdigest()
+            and type(observation) is dict
+            and observation.get("profile") == "ashlar-managed-operational-retention/0.1"
+            and observation.get("outcome") == "observed_available_at_checks"
+            and observation.get("authority") == "read_observation_only_no_source_ack"
+            and type(observation.get("observations")) is list
+            and [item.get("stage") for item in observation["observations"]]
+                == ["open", "pre_ack", "close"]
+            and all(item.get("predictive_optimization") == "ENABLE"
+                    and item.get("vector_targets") == {
+                        table: {"uuid": target[0], "version": target[1]}
+                        for table, target in vector_wire["targets"].items()}
+                    for item in observation["observations"]),
+            "Independent verifier managed observations differ from exact publication vector or PO state")
+    return {"profile": "ashlar-managed-a1-verifier-terminal-success/0.1",
+        "run_id": str(run_id), "task_id": str(task_run_id), "terminal": True,
+        "status": "SUCCEEDED", "outcome": "durably_verified",
+        "request_sha256": request_sha, "manifest_sha256": manifest_sha,
+        "destination_receipt_sha256": receipt_sha, "vector_sha256": vector_sha256,
+        "result_sha256": hashlib.sha256(observation_raw).hexdigest()}
+
+
+def _service_source_observer_rpc(api: DatabricksCLI, holder: SourceHolderIPC,
+                                 volume_rpc_uri: str, deadline: float,
+                                 *, expected_vector_sha256: str,
+                                 expected_custody_digests: dict, pin_stage=None) -> None:
+    """Renew original same-session Truss custody for a live verifier request."""
+    from urllib.parse import quote
+    directory = api.call("get", "/api/2.0/fs/directories/" + quote(volume_rpc_uri, safe="/"))
+    contents = directory.get("contents")
+    require(type(contents) is list and len(contents) <= 16,
+            "Bounded managed A1 source-observer RPC directory required")
+    requests = []
+    for item in contents:
+        path = item.get("path", "") if type(item) is dict else ""
+        name = path.rsplit("/", 1)[-1]
+        if name.startswith("request-") and name.endswith(".json"):
+            require(item.get("is_directory") is False,
+                    "Source-observer request must be a regular file")
+            requests.append((path, name))
+    require(len(requests) <= 1,
+            "Source observer RPC must be sequential with at most one outstanding request")
+    if not requests:
+        return
+    require(time.monotonic() < deadline,
+            "Trial deadline expired while servicing source-observer RPC")
+    request_path, name = requests[0]
+    token = name[len("request-"):-len(".json")]
+    require(re.fullmatch(r"[0-9a-f]{32}", token),
+            "Source-observer request filename nonce invalid")
+    fd, local_request = tempfile.mkstemp(prefix="ashlar-a1-source-rpc-")
+    os.close(fd)
+    try:
+        api.copy("dbfs:" + request_path, local_request)
+        request_raw = Path(local_request).read_bytes()
+    finally:
+        try: os.unlink(local_request)
+        except FileNotFoundError: pass
+    require(len(request_raw) <= 16384, "Source/pin RPC request exceeds its closed frame bound")
+    def unique(items):
+        out = {}
+        for key, value in items:
+            require(key not in out, "Duplicate member in source/pin RPC request")
+            out[key] = value
+        return out
+    request = json.loads(request_raw.decode("utf-8"), object_pairs_hook=unique,
+        parse_constant=lambda _: (_ for _ in ()).throw(ValueError("non-finite JSON")))
+    require(type(request) is dict and set(request) == {
+        "profile", "kind", "stage", "nonce", "expected", "vectorSha256"}
+        and request["profile"] == "ashlar-managed-a1-source-observer-rpc/0.1"
+        and request["nonce"] == token and request["stage"] in ("open", "pre_ack", "close")
+        and request["kind"] in ("source", "pin")
+        and (request["kind"] != "pin" or request["stage"] in ("open", "pre_ack"))
+        and type(request["expected"]) is dict
+        and request["expected"] == expected_custody_digests
+        and request["vectorSha256"] == expected_vector_sha256,
+        "Closed source-observer renewal request required")
+    if request["kind"] == "pin":
+        require(pin_stage is not None, "Parent native pin observer owner required")
+        holder.renew(deadline)
+        require(holder.owner.custody_digests == expected_custody_digests,
+                "Source custody drift before managed verifier read")
+        pin_stage(request["stage"])
+        custody = expected_custody_digests
+    else:
+        holder.renew(deadline)
+        custody = holder.owner.custody_digests
+        require(type(custody) is dict and custody == expected_custody_digests,
+                "Same-session Truss renewal differs from exact source custody selected by verifier")
+        if request["stage"] == "close" and pin_stage is not None:
+            pin_stage("close")
+    response_value = {"profile": "ashlar-managed-a1-source-observer-rpc/0.1",
+        "kind": request["kind"], "nonce": token,
+        "stage": request["stage"], "custodyDigests": custody}
+    fd, local_response = tempfile.mkstemp(prefix="ashlar-a1-source-rpc-response-")
+    try:
+        os.fchmod(fd, 0o600)
+        with os.fdopen(fd, "wb") as stream:
+            stream.write(json.dumps(response_value, sort_keys=True, separators=(",", ":")).encode())
+            stream.flush(); os.fsync(stream.fileno())
+        response_uri = "dbfs:" + volume_rpc_uri + "/response-" + token + ".json"
+        api.copy(local_response, response_uri)
+        api.remove_file("dbfs:" + request_path)
+    finally:
+        try: os.unlink(local_response)
+        except FileNotFoundError: pass
 
 
 def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
@@ -685,23 +883,38 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
     require(type(gate_result) is dict and gate_result.get("status") == "passed",
             "Managed A1 launch requires a successful exact local qualification receipt")
     api = DatabricksCLI(profile)
+    start = time.monotonic()
+    deadline = start + config["maximum_wall_seconds"]
+    api.deadline = deadline
     auth = api.auth_readback()
     require(auth.get("host", "").rstrip("/") == config["host"].rstrip("/"),
             "Selected Databricks CLI profile is not the admitted dbw-aidev-cus host")
     _check_artifact_lock(api, config)
-    start = time.monotonic()
-    deadline = start + config["maximum_wall_seconds"]
+    holder_config = Path(config["holder_bootstrap"]["config_path"])
+    require(not holder_config.is_symlink() and holder_config.is_file()
+            and holder_config.resolve(strict=True) == holder_config,
+            "Canonical private source-holder bootstrap file required before trial mutations")
+    holder_stat = holder_config.stat()
+    require(holder_stat.st_uid == os.getuid() and holder_stat.st_mode & 0o077 == 0
+            and holder_stat.st_size <= 4 * 1024 * 1024,
+            "Owner-private bounded holder bootstrap config required before trial mutations")
+    python = config["holder_bootstrap"]["python"]
+    if python is not None:
+        python_path = Path(python)
+        require(python_path.is_absolute() and python_path.is_file()
+                and os.access(python_path, os.X_OK),
+                "Exact executable local Python runtime required before trial mutations")
     work_deadline = deadline - config["cleanup_reserve_seconds"]
     full_schema = f"{config['catalog']}.{config['schema']}"
     from urllib.parse import quote
     schema_path = "/api/2.1/unity-catalog/schemas/" + quote(full_schema, safe="")
     volume_full = full_schema + "." + config["volume_name"]
     volume_path = f"/Volumes/{config['catalog']}/{config['schema']}/{config['volume_name']}"
-    volume_uri = volume_path + "/source-snapshot.bin"
-    volume_dbfs_uri = "dbfs:" + volume_uri
     volume_path_api = "/api/2.1/unity-catalog/volumes/" + quote(volume_full, safe="")
     existing = _list_schema(api, config["catalog"], config["schema"], deadline)
     require(existing is None, "The selected per-run schema already exists; refusing to reuse it")
+    require(time.monotonic() < work_deadline,
+            "Work deadline expired before creating the owned schema")
     # Catalog existence and permission are checked before any create or compute action.
     api.call("get", "/api/2.1/unity-catalog/catalogs/" + config["catalog"])
     schema = api.call("post", "/api/2.1/unity-catalog/schemas", {
@@ -712,6 +925,8 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
     require(schema.get("name") == config["schema"]
             and schema.get("catalog_name") == config["catalog"],
             "Created schema readback differs from the exact owned trial namespace")
+    require(time.monotonic() < work_deadline,
+            "Work deadline expired before creating the owned private Volume")
     volume = api.call("post", "/api/2.1/unity-catalog/volumes", {
         "name": config["volume_name"], "catalog_name": config["catalog"],
         "schema_name": config["schema"], "volume_type": "MANAGED",
@@ -735,118 +950,193 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
                   for name in ("initializer", "publisher", "verifier")},
               "expected_runtime": config["expected_runtime"], "cost": config["cost"]}
     holder = None
-    snapshot_file = None
+    pin_owner = None
+    pin_stages = None
+    pin_root = None
     run_ids = {}
     verified_ack = False
     ack_attempted = False
     try:
-        # Hold original A custody open before publication. The worker is a
-        # source-owner child process; the runner never receives its credentials.
-        holder, snapshot_bytes = SourceHolderIPC.start(config["holder_command"], work_deadline)
-        fd, snapshot_file = tempfile.mkstemp(prefix="ashlar-a1-snapshot-")
-        try:
-            os.fchmod(fd, 0o600)
-            with os.fdopen(fd, "wb") as stream:
-                stream.write(snapshot_bytes)
-                stream.flush()
-                os.fsync(stream.fileno())
-        except BaseException:
-            try: os.close(fd)
-            except OSError: pass
-            raise
-        snapshot_sha256 = hashlib.sha256(snapshot_bytes).hexdigest()
-        api.copy(snapshot_file, volume_dbfs_uri)
-        fd, roundtrip_file = tempfile.mkstemp(prefix="ashlar-a1-snapshot-check-")
-        os.close(fd)
-        try:
-            api.copy(volume_dbfs_uri, roundtrip_file)
-            roundtrip = Path(roundtrip_file).read_bytes()
-            require(hashlib.sha256(roundtrip).hexdigest() == snapshot_sha256
-                    and roundtrip == snapshot_bytes,
-                    "Uploaded private snapshot failed exact byte/digest readback")
-        finally:
-            try: os.unlink(roundtrip_file)
-            except FileNotFoundError: pass
-        os.unlink(snapshot_file); snapshot_file = None
-        del snapshot_bytes
-        result["snapshot"] = {"volume_uri": volume_uri, "sha256": snapshot_sha256,
-                              "bytes": len(roundtrip)}
-
-        publisher_parameters = dict(config["publisher"]["base_parameters"])
-        publisher_parameters.update({"trial_id": config["trial_id"], "catalog": config["catalog"],
-            "schema": config["schema"], "snapshot_volume_uri": volume_uri,
-            "snapshot_sha256": snapshot_sha256,
-            "expected_runtime_json": json.dumps(config["expected_runtime"], sort_keys=True,
-                                                  separators=(",", ":")),
-            "predictive_optimization_disabled": "false"})
-        holder.rpc({"type": "renew"}, "renewed", work_deadline)
-        publisher_id, publisher_task_id, publisher_run, publisher_result = _run_stage(
-            api, config, "publisher", payload["publisher"], publisher_parameters, work_deadline)
+        # The source child is started before the genesis initializer and retains
+        # the original source's issuers/credentials. Only detached exact bytes
+        # cross the process boundary.
+        holder, genesis_bytes = SourceHolderIPC.start(config["holder_bootstrap"], work_deadline)
+        genesis_uri = volume_path + "/genesis.bin"
+        genesis_artifact = _put_volume_bytes(api, genesis_uri, genesis_bytes)
+        trial = dict(config["trial"])
+        trial["expected_runtime"] = config["expected_runtime"]
+        trial["cost"] = config["cost"]
+        init_params = {"trial": trial, "genesis_volume_uri": genesis_uri,
+            "genesis_sha256": genesis_artifact["sha256"],
+            "protocol_profile": config["protocol_profile"]}
+        init_json = json.dumps(init_params, sort_keys=True, separators=(",", ":"),
+                               ensure_ascii=False)
+        init_id, init_task_id, _, init_result = _run_stage(api, config, "initializer",
+            payload["initializer"], {"task_parameters_json": init_json}, work_deadline,
+            cleanup_deadline=deadline)
+        run_ids["initializer"] = init_id
+        _validate_task_runtime(init_result, config["expected_runtime"], "initializer")
+        require(set(init_result) == {"profile", "runtimeIdentity", "predictiveOptimization",
+                    "genesisManifestBytesBase64", "manifestSha256", "installationInventory"}
+                and init_result["profile"] == "ashlar-managed-a1-initializer-result/0.1"
+                and init_result["predictiveOptimization"] == "ENABLE",
+                "Initializer must return the exact empty six-role genesis result")
+        initial_manifest = base64.b64decode(init_result["genesisManifestBytesBase64"], validate=True)
+        require(hashlib.sha256(initial_manifest).hexdigest() == init_result["manifestSha256"]
+                and len(initial_manifest) <= 4 * 1024 * 1024,
+                "Initializer exact genesis manifest digest/bound failed")
+        from ashlar_host.managed_a1_detached_admission import admit_detached_a1_plan
+        context = object()
+        plan = admit_detached_a1_plan(genesis_snapshot_bytes=genesis_bytes,
+            genesis_manifest=json.loads(initial_manifest), stream=trial["stream"],
+            materialized_at=trial["materialized_at"], context=context)
+        request_bytes = json.dumps(plan.request, sort_keys=True, separators=(",", ":"),
+                                   ensure_ascii=False, allow_nan=False).encode("utf-8")
+        publication_id = plan.request["publication_id"]
+        destination_id = trial.get("destination_id", "client_dev." + trial["schema"])
+        snapshot_bytes, custody_digests = holder.open_a1(
+            request_bytes, publication_id, destination_id, work_deadline)
+        from ashlar_host.truss_detached_source_snapshot_codec import decode_detached_source_snapshot
+        detached = decode_detached_source_snapshot(snapshot_bytes)
+        require(len(snapshot_bytes) <= 4 * 1024 * 1024,
+                "Held exact A1 source selection exceeds the durable 4 MiB bound")
+        holder.owner.start_heartbeat()
+        snapshot_uri = volume_path + "/a1-source-snapshot.bin"
+        snapshot_artifact = _put_volume_bytes(api, snapshot_uri, snapshot_bytes)
+        initial_uri = volume_path + "/genesis-manifest.json"
+        initial_artifact = _put_volume_bytes(api, initial_uri, initial_manifest)
+        task_trial = dict(trial)
+        task_trial["source_custody_digests"] = custody_digests
+        task_trial["destination_id"] = destination_id
+        common = {"trial": task_trial, "protocol_profile": config["protocol_profile"],
+            "genesis_volume_uri": genesis_uri,
+            "genesis_sha256": genesis_artifact["sha256"],
+            "genesis_manifest_volume_uri": initial_uri,
+            "genesis_manifest_sha256": initial_artifact["sha256"],
+            "a1_snapshot_volume_uri": snapshot_uri,
+            "a1_snapshot_sha256": snapshot_artifact["sha256"]}
+        publisher_params = dict(common)
+        publisher_id, publisher_task_id, _, publisher_result = _run_stage(api, config,
+            "publisher", payload["publisher"], {"task_parameters_json": json.dumps(
+                publisher_params, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},
+            work_deadline, cleanup_deadline=deadline)
         run_ids["publisher"] = publisher_id
         _validate_task_runtime(publisher_result, config["expected_runtime"], "publisher")
         receipt, request_bytes, manifest_bytes, receipt_bytes, vector, vector_sha256 = (
-            _publisher_bundle(publisher_result, config["expected_principal"]))
+            _publisher_bundle(publisher_result, "managed-current-spark:" + config["expected_principal"]))
+        require(request_bytes == json.dumps(plan.request, sort_keys=True, separators=(",", ":"),
+            ensure_ascii=False, allow_nan=False).encode("utf-8"),
+            "Publisher exact request differs from parent detached A/B admission")
         result["publisher"] = {"run_id": publisher_id, "task_run_id": publisher_task_id,
             "publication_id": receipt.get("publicationId"),
             "request_sha256": hashlib.sha256(request_bytes).hexdigest(),
             "manifest_sha256": hashlib.sha256(manifest_bytes).hexdigest(),
             "destination_receipt_sha256": hashlib.sha256(receipt_bytes).hexdigest(),
-            "vector_sha256": vector_sha256,
-            "runtime_identity": publisher_result["runtimeIdentity"]}
-
-        verifier_parameters = dict(config["verifier"]["base_parameters"])
-        verifier_parameters.update({"trial_id": config["trial_id"], "catalog": config["catalog"],
-            "schema": config["schema"], "snapshot_volume_uri": volume_uri,
-            "snapshot_sha256": snapshot_sha256,
-            "expected_runtime_json": json.dumps(config["expected_runtime"], sort_keys=True,
-                                                  separators=(",", ":")),
-            config["publisher_result_parameter"]: json.dumps(
-                publisher_result, sort_keys=True, separators=(",", ":"), ensure_ascii=False)})
-        require(len(verifier_parameters[config["publisher_result_parameter"]].encode("utf-8"))
-                <= 1024 * 1024, "Publisher receipt exceeds the bounded verifier parameter")
-        holder.rpc({"type": "renew"}, "renewed", work_deadline)
-        verifier_id, verifier_task_id, verifier_run, verifier_result = _run_stage(
-            api, config, "verifier", payload["verifier"], verifier_parameters, work_deadline)
+            "vector_sha256": vector_sha256, "runtime_identity": publisher_result["runtimeIdentity"]}
+        publisher_result_raw = json.dumps(publisher_result, sort_keys=True,
+            separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
+        publisher_result_uri = volume_path + "/publisher-result.json"
+        publisher_result_artifact = _put_volume_bytes(api, publisher_result_uri,
+                                                       publisher_result_raw)
+        from ashlar_host.managed_current_a1_prefix_builder import build_managed_current_a1_prefix_evidence
+        prefix_bytes, prefix_sha, selected_prefix = build_managed_current_a1_prefix_evidence(
+            genesis_bytes=genesis_bytes, source_snapshot_bytes=snapshot_bytes,
+            initial_manifest_bytes=initial_manifest, request_bytes=request_bytes,
+            publication_manifest_bytes=manifest_bytes,
+            destination={"catalog": config["catalog"], "schema": config["schema"]},
+            carrier_profile="ashlar-delta/0.4-xxhash64",
+            materialization_clock_us=trial["materialized_at"])
+        prefix_uri = volume_path + "/source-prefix.json"
+        prefix_artifact = _put_volume_bytes(api, prefix_uri, prefix_bytes)
+        selected_prefix_raw = json.dumps(selected_prefix, sort_keys=True,
+            separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
+        selected_prefix_uri = volume_path + "/selected-prefix.json"
+        selected_prefix_artifact = _put_volume_bytes(api, selected_prefix_uri,
+                                                       selected_prefix_raw)
+        bundle = _retention_bundle(trial=task_trial | {
+                "verifier_timeout_seconds": config["verifier"]["timeout_seconds"]},
+            protocol_profile=config["protocol_profile"], plan=plan, request_bytes=request_bytes,
+            manifest_bytes=manifest_bytes, destination_receipt=receipt_bytes,
+            task_receipt=receipt, prefix_bytes=prefix_bytes, prefix_sha=prefix_sha,
+            selected_prefix=selected_prefix, source_snapshot=snapshot_bytes,
+            custody_digests=custody_digests)
+        bundle_wire = {"authority": bundle.vector.authority,
+            "scope_kind": bundle.vector.scope_kind, "scope_id": bundle.vector.scope_id,
+            "custody_digest": bundle.vector.custody_digest,
+            "targets": {key: list(value) for key, value in bundle.vector.targets.items()}}
+        require(bundle_wire == vector,
+                "Parent retention builder and publisher vector differ")
+        pin_root = Path(tempfile.mkdtemp(prefix="ashlar-a1-pins-"))
+        os.chmod(pin_root, 0o700)
+        from ashlar_host.managed_a1_local_pin_owner import ManagedA1LocalPinOwner
+        pin_owner = ManagedA1LocalPinOwner(pin_root / "pgdata", bundle.selection,
+            bundle.vector, native_timeout_seconds=min(900, config["maximum_wall_seconds"]))
+        pin_owner.__enter__()
+        pin_registration = pin_owner.register()
+        pin_stages = _LocalPinStages(pin_owner)
+        result["local_pin_owner"] = pin_registration
+        rpc_dir = volume_path
+        verify_params = dict(common)
+        verify_params.update({"publisher_result_volume_uri": publisher_result_uri,
+            "publisher_result_sha256": publisher_result_artifact["sha256"],
+            "prefix_volume_uri": prefix_uri, "prefix_sha256": prefix_artifact["sha256"],
+            "selected_prefix_volume_uri": selected_prefix_uri,
+            "selected_prefix_sha256": selected_prefix_artifact["sha256"],
+            "source_rpc_directory": rpc_dir})
+        verifier_id, verifier_task_id, _, verifier_result = _run_stage(api, config,
+            "verifier", payload["verifier"], {"task_parameters_json": json.dumps(
+                verify_params, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},
+            work_deadline, on_poll=lambda: _service_source_observer_rpc(api, holder, rpc_dir,
+                work_deadline, expected_vector_sha256=vector_sha256,
+                expected_custody_digests=custody_digests, pin_stage=pin_stages),
+            cleanup_deadline=deadline)
         run_ids["verifier"] = verifier_id
         _validate_task_runtime(verifier_result, config["expected_runtime"], "verifier")
-        holder.rpc({"type": "renew"}, "renewed", work_deadline)
+        holder.renew(work_deadline)
+        require(pin_stages.stages == ["open", "pre_ack", "close"]
+                and pin_stages.handle is None,
+                "Local native pin interval did not complete all three managed observer stages")
+        pin_owner.__exit__(None, None, None)
+        pin_owner = None
         proof = _verify_terminal_proof(verifier_result, verifier_id, verifier_task_id,
-            request_bytes, manifest_bytes, receipt_bytes, vector_sha256)
+            request_bytes, manifest_bytes, receipt_bytes, vector_sha256, vector)
         result["verifier_terminal_proof"] = proof
         result["verifier"] = {"run_id": verifier_id, "task_run_id": verifier_task_id,
             "result_sha256": proof["result_sha256"],
             "runtime_identity": verifier_result["runtimeIdentity"],
             "predictive_optimization": verifier_result["predictiveOptimization"]}
 
-        # Holder validates its selected native PinVector against this exact
-        # publication before allowing the durable prepared ACK attempt.
-        bound = holder.rpc({"type": "bind",
-            "request_bytes_base64": base64.b64encode(request_bytes).decode("ascii"),
-            "manifest_bytes_base64": base64.b64encode(manifest_bytes).decode("ascii"),
-            "vector": vector,
-            "receipt_bytes_base64": base64.b64encode(receipt_bytes).decode("ascii"),
-            "verifier_terminal_success": proof},
-            "bound", work_deadline)
-        attempt_directory = bound.get("attempt_directory")
-        generation = bound.get("generation")
-        require(type(attempt_directory) is str and attempt_directory
-                and type(generation) is int and generation >= 0,
-                "Source-holder bind omitted durable ACK attempt custody")
+        holder.owner.bind_publication(manifest_bytes=manifest_bytes,
+            vector_payload=vector, receipt_bytes=receipt_bytes)
+        from ashlar_host.a1_ack_attempt import DurableA1AckAttemptStore
+        attempt_dir = pin_root / "attempts"
+        attempt_dir.mkdir(parents=True, exist_ok=False, mode=0o700)
+        os.chmod(attempt_dir, 0o700)
+        store = DurableA1AckAttemptStore(attempt_dir)
+        page = detached.source_page
+        store.begin(selection_bytes=snapshot_bytes, request_bytes=request_bytes,
+            manifest_bytes=manifest_bytes, receipt_bytes=receipt_bytes,
+            prior_checkpoint_bytes=page.prior_bytes, next_checkpoint_bytes=page.next_bytes,
+            page_sha256=page.page_fields["sha256"], destination_id=destination_id,
+            publication_id=publication_id)
+        prepared = store.load()
+        result["ack_attempt"] = {"selection_sha256": prepared.selection_sha256,
+            "request_sha256": prepared.request_sha256,
+            "manifest_sha256": prepared.manifest_sha256,
+            "receipt_sha256": prepared.receipt_sha256,
+            "publication_id": prepared.publication_id}
         ack_attempted = True
-        settlement = holder.rpc({"type": "ack", "attempt_directory": attempt_directory,
-                                 "generation": generation}, "settlement", deadline)
-        require(settlement.get("profile") == "ashlar-managed-a1-release-bridge/0.1"
-                and settlement.get("outcome") == "acknowledged_exactly_reconciled"
-                and settlement.get("publication_id") == receipt.get("publicationId")
-                and settlement.get("request_sha256") == hashlib.sha256(request_bytes).hexdigest()
-                and settlement.get("manifest_sha256") == hashlib.sha256(manifest_bytes).hexdigest()
-                and settlement.get("destination_receipt_sha256") == hashlib.sha256(receipt_bytes).hexdigest(),
-                "Protected A1 ACK did not reconcile as acknowledged; schema retained")
-        result["source_holder_settlement"] = settlement
+        settlement = holder.owner.acknowledge_once(store, attempt_directory=store.directory)
+        require(settlement.outcome == "acknowledged_exactly_reconciled"
+                and settlement.request_sha256 == hashlib.sha256(request_bytes).hexdigest()
+                and settlement.manifest_sha256 == hashlib.sha256(manifest_bytes).hexdigest()
+                and settlement.selection_sha256 == hashlib.sha256(snapshot_bytes).hexdigest(),
+                "Protected A1 ACK did not reconcile against durable exact attempt; schema retained")
+        result["source_holder_settlement"] = {"outcome": settlement.outcome,
+            "request_sha256": settlement.request_sha256,
+            "manifest_sha256": settlement.manifest_sha256,
+            "selection_sha256": settlement.selection_sha256}
         verified_ack = True
-        holder.close(deadline, orderly=False)
-        require(holder.process.returncode == 0,
-                "Source-holder did not close cleanly after reconciled ACK")
         result["source_holder_closed"] = True
 
         trial_result = repo_root / config["evidence_dir"] / (config["trial_id"] + "-managed-run.json")
@@ -860,12 +1150,13 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
                 and current_volume.get("owner") == config["expected_principal"]
                 and current_volume.get("volume_type") == "MANAGED",
                 "Trial volume ownership changed; refusing cleanup")
+        for uri in (genesis_uri, snapshot_uri, initial_uri, prefix_uri,
+                    publisher_result_uri, selected_prefix_uri):
+            api.remove_file("dbfs:" + uri)
         directory = api.call("get", "/api/2.0/fs/directories/"
                               + quote(volume_path, safe="/"))
         contents = directory.get("contents")
-        require(type(contents) is list and len(contents) == 1
-                and contents[0].get("path", "").rstrip("/") == volume_uri
-                and contents[0].get("is_directory") is False,
+        require(type(contents) is list and contents == [],
                 "Trial Volume contains unknown files; refusing cleanup")
         api.call("delete", volume_path_api)
         volume_list = api.call("get", "/api/2.1/unity-catalog/volumes?catalog_name="
@@ -903,21 +1194,26 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
         result["status"] = "acknowledged_and_cleaned"
         result["schema_absent_after_cleanup"] = True
         trial_result.write_text(json.dumps(result, sort_keys=True, indent=2) + "\n", encoding="utf-8")
+        import shutil
+        shutil.rmtree(pin_root)
+        pin_root = None
         return result
     except BaseException:
+        if pin_stages is not None:
+            try: pin_stages.close_on_error()
+            except Exception: pass
+        if pin_owner is not None:
+            try: pin_owner.__exit__(*sys.exc_info())
+            except Exception: pass
         if holder is not None:
             try:
-                if ack_attempted and holder.process.poll() is None:
-                    settlement = holder.receive(deadline)
-                    result["source_holder_settlement_after_error"] = settlement
-                    holder.close(deadline, orderly=False)
+                if ack_attempted:
+                    holder.owner.terminate()
                 else:
-                    holder.close(deadline, orderly=True)
+                    try: holder.owner.close_before_ack()
+                    except Exception: holder.owner.terminate()
             except Exception:
                 pass
-        if snapshot_file:
-            try: os.unlink(snapshot_file)
-            except FileNotFoundError: pass
         # Keep schema and volume if either run or source ACK has an unclear result.
         result["status"] = "recovery_required" if not verified_ack else "cleanup_incomplete"
         raise

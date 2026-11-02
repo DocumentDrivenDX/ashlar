@@ -191,7 +191,9 @@ def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
         if type(following) is str:
             following = base64.b64decode(following, validate=True)
         _need(type(content) is bytes and content and type(prior) is bytes
-              and type(following) is bytes and prior == progress.cursor_bytes,
+              and type(following) is bytes and prior == progress.cursor_bytes
+              and _member(page, "consumer_id") == progress.consumer_id
+              and _member(page, "registration_id") == progress.consumer_registration_id,
               f"Exact original {source} page and genesis cursor bytes required")
         page_record = SimpleNamespace(content=content, sha256=page_digest,
             prior=SimpleNamespace(content=prior), next=SimpleNamespace(content=following),
@@ -211,6 +213,12 @@ def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
             batch = None
         batches[source] = batch
         catalog = _catalog_evidence(evidence)
+        if source == "B":
+            # B has no A1 publication page, but its full accepted catalog and
+            # original documents still require the same .53 interpretation.
+            from .truss_current_catalog import interpret_current_catalog
+            interpret_current_catalog(evidence.catalog_revision, report, view,
+                catalog.sources, truss_version=catalog.truss_version)
         model_evidence = _member(evidence, "model_evidence", "model")
         if type(model_evidence) is dict and set(model_evidence) == {"pin", "content_base64"}:
             model_evidence = {"pin": model_evidence["pin"],
