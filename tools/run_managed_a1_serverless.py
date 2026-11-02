@@ -393,12 +393,23 @@ class SourceHolderIPC:
             owner.operation_timeout_seconds = min(30, owner.operation_timeout_seconds)
             owner.channel.settimeout(owner.operation_timeout_seconds)
             return ipc, genesis
-        except BaseException:
+        except BaseException as startup_error:
             # Bootstrap may not have completed far enough to service a close
             # command. Kill/reap the dedicated process group with a short bound.
             remaining = max(1, int(deadline - time.monotonic()))
             owner.operation_timeout_seconds = min(5, remaining)
-            owner.terminate()
+            try:
+                owner.terminate()
+                _wait_source_group_absent(ipc, deadline)
+                bootstrap = json.loads(Path(spec["config_path"]).read_text())
+                from ashlar_host.managed_a1_postgres_cleanup import inspect_pg_ctl
+                pg_ctl_lock = inspect_pg_ctl(Path(bootstrap["pg18_initdb"]).with_name("pg_ctl"))
+                _cleanup_source_pgdata(bootstrap, pg_ctl_lock, deadline)
+            except BaseException as cleanup_error:
+                add_note = getattr(startup_error, "add_note", None)
+                if callable(add_note):
+                    add_note("Escaped A/B PostgreSQL cleanup could not be proven: "
+                             + f"{type(cleanup_error).__name__}: {cleanup_error}")
             raise
 
     def renew(self, deadline):
@@ -447,6 +458,53 @@ class SourceHolderIPC:
         else:
             self.owner.terminate()
         return None
+
+
+def _process_group_absent(process_group_id: int) -> bool:
+    try:
+        os.killpg(process_group_id, 0)
+        return False
+    except ProcessLookupError:
+        return True
+    except PermissionError as error:
+        raise RuntimeError("Cannot prove source-holder worker process group is absent") from error
+
+
+def _wait_source_group_absent(holder, deadline: float) -> None:
+    while time.monotonic() < deadline:
+        if _process_group_absent(holder.owner.process_group_id):
+            return
+        time.sleep(min(0.05, max(0, deadline - time.monotonic())))
+    raise TimeoutError("Source-holder worker process group remains after bounded reap")
+
+
+def _cleanup_source_pgdata(holder_config: dict, pg_ctl_lock: dict,
+                           deadline: float) -> list[dict]:
+    from ashlar_host.managed_a1_postgres_cleanup import cleanup_owned_postgres
+    initdb = Path(holder_config["pg18_initdb"])
+    pg_bin = initdb.parent
+    results = []
+    for source in ("A", "B"):
+        pgdata = Path(holder_config["root"]) / f"pgdata-{source}"
+        if not pgdata.exists() and not pgdata.is_symlink():
+            results.append({"source": source, "state": "not_created"})
+            continue
+        result = cleanup_owned_postgres(pgdata, pg_ctl_lock,
+            deadline=deadline, pg_controldata=pg_bin / "pg_controldata")
+        result["source"] = source
+        results.append(result)
+    return results
+
+
+def _cleanup_pin_pgdata(pin_owner, pin_pg_ctl_lock: dict, deadline: float) -> dict:
+    if pin_owner is None:
+        return {"state": "not_started"}
+    pgdata = pin_owner.data_directory
+    if not pgdata.exists() and not pgdata.is_symlink():
+        return {"state": "not_created"}
+    from ashlar_host.managed_a1_postgres_cleanup import cleanup_owned_postgres
+    return cleanup_owned_postgres(pgdata, pin_pg_ctl_lock, deadline=deadline,
+        pg_controldata=Path(pin_pg_ctl_lock["path"]).with_name("pg_controldata"))
 
 
 def _terminal(state: dict) -> bool:
@@ -1010,6 +1068,22 @@ def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
         "result_sha256": hashlib.sha256(observation_raw).hexdigest()}
 
 
+def _validate_ack_settlement(settlement, *, request_bytes: bytes,
+                             manifest_bytes: bytes, snapshot_bytes: bytes,
+                             next_checkpoint_bytes: bytes,
+                             receipt_bytes: bytes) -> None:
+    """Accept only the holder's exact matched readback for this prepared attempt."""
+    from ashlar_host.a1_ack_attempt import A1AckSettlement
+    require(type(settlement) is A1AckSettlement
+            and settlement.outcome == "matched"
+            and settlement.request_sha256 == hashlib.sha256(request_bytes).hexdigest()
+            and settlement.manifest_sha256 == hashlib.sha256(manifest_bytes).hexdigest()
+            and settlement.selection_sha256 == hashlib.sha256(snapshot_bytes).hexdigest()
+            and settlement.checkpoint_bytes == next_checkpoint_bytes
+            and settlement.receipt_bytes == receipt_bytes,
+            "Protected A1 ACK did not reconcile against durable exact attempt; schema retained")
+
+
 def _service_source_observer_rpc(api: DatabricksCLI, holder: SourceHolderIPC,
                                  volume_rpc_uri: str, deadline: float,
                                  *, expected_vector_sha256: str,
@@ -1131,9 +1205,12 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
     holder_config_value = example_private_config(root=bootstrap_root, bun_path=bun_path)
     holder_config_path = recovery_root / "source-bootstrap.json"
     _write_private_json(holder_config_path, holder_config_value)
-    _validate_holder_bootstrap_config(holder_config_path)
+    holder_config = _validate_holder_bootstrap_config(holder_config_path)
+    from ashlar_host.managed_a1_postgres_cleanup import inspect_pg_ctl
+    source_pg_ctl_lock = inspect_pg_ctl(Path(holder_config["pg18_initdb"]).with_name("pg_ctl"))
     recovery_state["source_bootstrap_config_path"] = str(holder_config_path)
     recovery_state["source_supervisor_root"] = str(bootstrap_root)
+    recovery_state["source_pg_ctl_lock"] = source_pg_ctl_lock
     _write_private_json(recovery_path, recovery_state)
     holder_spec = {"bootstrap": config["holder_bootstrap"]["bootstrap"],
                    "config_path": str(holder_config_path), "python": python}
@@ -1195,6 +1272,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
     holder = None
     pin_owner = None
     pin_stages = None
+    pin_pg_ctl_lock = None
     pin_root = None
     run_ids = {}
     verified_ack = False
@@ -1341,6 +1419,11 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         require(pin_native_timeout >= 31,
                 "Insufficient outer-deadline coverage for a bounded native A1 pin")
         from ashlar_host.managed_a1_local_pin_owner import ManagedA1LocalPinOwner
+        from importlib.resources import files
+        pin_pg_bin = Path(str(files("pgserver"))) / "pginstall" / "bin"
+        pin_pg_ctl_lock = inspect_pg_ctl(pin_pg_bin / "pg_ctl")
+        recovery_state["pin_pg_ctl_lock"] = pin_pg_ctl_lock
+        _write_private_json(recovery_path, recovery_state)
         pin_owner = ManagedA1LocalPinOwner(pin_root / "pgdata", bundle.selection,
             bundle.vector, native_timeout_seconds=pin_native_timeout,
             deadline_monotonic=work_deadline - config["verifier"]["timeout_seconds"])
@@ -1372,6 +1455,9 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
                 and pin_stages.handle is None,
                 "Local native pin interval did not complete all three managed observer stages")
         pin_owner.__exit__(None, None, None)
+        recovery_state["pin_postgres_cleanup"] = _cleanup_pin_pgdata(
+            pin_owner, pin_pg_ctl_lock, deadline)
+        result["pin_postgres_cleanup"] = recovery_state["pin_postgres_cleanup"]
         pin_owner = None
         proof = _verify_terminal_proof(verifier_result, verifier_id, verifier_task_id,
             request_bytes, manifest_bytes, receipt_bytes, vector_sha256, vector)
@@ -1426,11 +1512,10 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         _write_private_json(recovery_path, recovery_state)
         settlement = holder.acknowledge_once(store, attempt_directory=store.directory,
                                              deadline=deadline)
-        require(settlement.outcome == "acknowledged_exactly_reconciled"
-                and settlement.request_sha256 == hashlib.sha256(request_bytes).hexdigest()
-                and settlement.manifest_sha256 == hashlib.sha256(manifest_bytes).hexdigest()
-                and settlement.selection_sha256 == hashlib.sha256(snapshot_bytes).hexdigest(),
-                "Protected A1 ACK did not reconcile against durable exact attempt; schema retained")
+        _validate_ack_settlement(settlement, request_bytes=request_bytes,
+            manifest_bytes=manifest_bytes, snapshot_bytes=snapshot_bytes,
+            next_checkpoint_bytes=detached.source_page.next_bytes,
+            receipt_bytes=receipt_bytes)
         result["source_holder_settlement"] = {"outcome": settlement.outcome,
             "request_sha256": settlement.request_sha256,
             "manifest_sha256": settlement.manifest_sha256,
@@ -1440,6 +1525,11 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         _write_private_json(recovery_path, recovery_state)
         verified_ack = True
         result["source_holder_closed"] = True
+        _wait_source_group_absent(holder, deadline)
+        recovery_state["source_postgres_cleanup"] = _cleanup_source_pgdata(
+            holder_config, source_pg_ctl_lock, deadline)
+        result["source_postgres_cleanup"] = recovery_state["source_postgres_cleanup"]
+        _write_private_json(recovery_path, recovery_state)
 
         trial_result = repo_root / config["evidence_dir"] / (config["trial_id"] + "-managed-run.json")
         trial_result.parent.mkdir(parents=True, exist_ok=True)
@@ -1501,12 +1591,24 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         pin_root = None
         return result
     except BaseException:
+        cleanup_evidence = recovery_state.setdefault("postgres_cleanup", [])
         if pin_stages is not None:
             try: pin_stages.close_on_error()
-            except Exception: pass
+            except Exception as error:
+                cleanup_evidence.append({"owner": "pin", "stage": "handle_close",
+                    "error": f"{type(error).__name__}: {error}"[:500]})
         if pin_owner is not None:
             try: pin_owner.__exit__(*sys.exc_info())
-            except Exception: pass
+            except Exception as error:
+                cleanup_evidence.append({"owner": "pin", "stage": "owner_exit",
+                    "error": f"{type(error).__name__}: {error}"[:500]})
+        if pin_owner is not None and pin_pg_ctl_lock is not None:
+            try:
+                cleanup_evidence.append({"owner": "pin", **_cleanup_pin_pgdata(
+                    pin_owner, pin_pg_ctl_lock, deadline)})
+            except Exception as error:
+                cleanup_evidence.append({"owner": "pin", "state": "unknown",
+                    "error": f"{type(error).__name__}: {error}"[:500]})
         if holder is not None:
             try:
                 if ack_attempted:
@@ -1514,8 +1616,12 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
                 else:
                     try: holder.owner.close_before_ack()
                     except Exception: holder.owner.terminate()
-            except Exception:
-                pass
+                _wait_source_group_absent(holder, deadline)
+                cleanup_evidence.extend({"owner": "source", **item}
+                    for item in _cleanup_source_pgdata(holder_config, source_pg_ctl_lock, deadline))
+            except Exception as error:
+                cleanup_evidence.append({"owner": "source", "state": "unknown",
+                    "error": f"{type(error).__name__}: {error}"[:500]})
         # Keep schema and volume if either run or source ACK has an unclear result.
         result["status"] = "recovery_required" if not verified_ack else "cleanup_incomplete"
         recovery_state["phase"] = result["status"]
@@ -1564,6 +1670,8 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
     except BaseException as error:
         recovery_state.setdefault("phase", "recovery_required")
         recovery_state["failure_type"] = type(error).__name__
+        recovery_state["failure"] = str(error)[:1500]
+        recovery_state["failure_notes"] = list(getattr(error, "__notes__", ()))[:16]
         recovery_state["known_run_ids"] = dict(recovery_state.get("known_run_ids", {}))
         try: _write_private_json(recovery_path, recovery_state)
         except Exception: pass

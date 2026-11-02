@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Focused local controller-protocol and uncertain-submit recovery checks."""
 import json
+import hashlib
 import os
 from pathlib import Path
 import tempfile
@@ -10,8 +11,10 @@ from unittest.mock import patch
 
 from tools.run_managed_a1_serverless import (
     _LocalPinStages, _recover_run_after_lost_response, _run_stage, run,
+    _validate_ack_settlement,
     _write_private_json,
 )
+from ashlar_host.a1_ack_attempt import A1AckSettlement
 
 
 class _PinHandle:
@@ -75,6 +78,29 @@ class _LostRunNowAPI:
 
 
 class ManagedA1ServerlessRunnerTests(unittest.TestCase):
+    def test_real_holder_settlement_matched_is_accepted_and_exact_bytes_are_checked(self):
+        request, manifest, snapshot, next_checkpoint, receipt = (
+            b"request", b"manifest", b"selection", b"next", b"receipt")
+        settlement = A1AckSettlement("matched", next_checkpoint, receipt,
+            hashlib.sha256(request).hexdigest(),
+            hashlib.sha256(manifest).hexdigest(),
+            hashlib.sha256(snapshot).hexdigest())
+        _validate_ack_settlement(settlement, request_bytes=request,
+            manifest_bytes=manifest, snapshot_bytes=snapshot,
+            next_checkpoint_bytes=next_checkpoint, receipt_bytes=receipt)
+        with self.assertRaisesRegex(ValueError, "did not reconcile"):
+            _validate_ack_settlement(settlement, request_bytes=request,
+                manifest_bytes=manifest, snapshot_bytes=snapshot,
+                next_checkpoint_bytes=b"different", receipt_bytes=receipt)
+
+    def test_ack_settlement_rejects_old_runner_only_outcome(self):
+        settlement = A1AckSettlement("acknowledged_exactly_reconciled", b"next", b"receipt",
+            "a", "b", "c")
+        with self.assertRaisesRegex(ValueError, "did not reconcile"):
+            _validate_ack_settlement(settlement, request_bytes=b"request",
+                manifest_bytes=b"manifest", snapshot_bytes=b"selection",
+                next_checkpoint_bytes=b"next", receipt_bytes=b"receipt")
+
     def test_parent_native_pin_stage_opens_renews_and_closes_exactly_once(self):
         owner = _PinOwner()
         stages = _LocalPinStages(owner, lifetime_seconds=60)
