@@ -2,6 +2,7 @@
 """Offline receipt-verifier tests; the fake Spark session performs no I/O."""
 import copy
 from contextlib import contextmanager
+from dataclasses import replace
 import hashlib
 import json
 import unittest
@@ -16,6 +17,7 @@ from ashlar.apply import EntityKey
 from ashlar.protocol import ReaderProtocolProfile
 from ashlar_host.managed_current_carriers import load_current_managed_carriers
 from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64, ROLES
+from ashlar_host.managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
 from ashlar_host.managed_current_spark_receipt_read import (
     ManagedCurrentSparkReceiptConfig, ManagedCurrentSparkReceiptReader, _native_json,
 )
@@ -892,6 +894,40 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
         self.session_factory = SessionFactory()
         self.source_observer = SourceObserver()
         self.policy_observer = PolicyObserver()
+
+    def test_a1_selected_prefix_anchors_are_snapshotted_as_original_bytes(self):
+        selected = {"sources": {"A": {"identity": {"feed": "feed-a"}}}}
+        plan = ManagedCurrentA1TrialPlan(
+            SimpleNamespace(schedule_bytes=b"original schedule"), None,
+            self.request, {}, None)
+        observed = []
+
+        def verify(_plan, prefix_bytes, *, prefix_sha256, selected, schedule_bytes, pages):
+            observed.append(selected)
+            return object()
+
+        with patch.object(ManagedCurrentA1TrialPlan, "verify_delivery", verify):
+            selection = ManagedOperationalRetentionSelection(
+                reader_config=replace(self.config, source_truss_version="0.0.52"),
+                request_bytes=_canonical(self.request).encode(),
+                manifest_bytes=_canonical(self.manifest).encode(),
+                receipt_bytes=_canonical(self.receipt).encode(),
+                expected_receipt=self.receipt, vector=self.selection.vector,
+                expected_source_custody=self.custody,
+                source_prefix_bytes=self.prefix_bytes,
+                source_prefix_sha256=hashlib.sha256(self.prefix_bytes).hexdigest(),
+                source_core_config=self.core_config,
+                a1_plan=plan,
+                a1_prefix_selected=selected)
+
+        selected["sources"]["A"]["identity"]["feed"] = "changed-after-admission"
+        self.assertEqual(selection.selected_a1_prefix()["sources"]["A"]["identity"]["feed"],
+                         "feed-a")
+        stage_copy = selection.selected_a1_prefix()
+        stage_copy["sources"]["A"]["identity"]["feed"] = "changed-stage-copy"
+        self.assertEqual(selection.selected_a1_prefix()["sources"]["A"]["identity"]["feed"],
+                         "feed-a")
+        self.assertEqual(observed[0]["sources"]["A"]["identity"]["feed"], "feed-a")
 
     @staticmethod
     def _policy():

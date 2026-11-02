@@ -92,6 +92,7 @@ class ManagedOperationalRetentionSelection:
     a1_plan: object | None = field(default=None, repr=False, compare=False)
     a1_prefix_selected: dict | None = field(default=None, repr=False, compare=False)
     _expected_receipt_bytes: bytes = field(init=False, repr=False, compare=False)
+    _a1_prefix_selected_bytes: bytes | None = field(init=False, repr=False, compare=False)
 
     def __post_init__(self):
         if type(self.reader_config) is not ManagedCurrentSparkReceiptConfig:
@@ -123,6 +124,7 @@ class ManagedOperationalRetentionSelection:
         except (TypeError, ValueError) as error:
             raise OperationalRetentionIntervalError("Closed finite task receipt required") from error
         object.__setattr__(self, "_expected_receipt_bytes", receipt_bytes)
+        object.__setattr__(self, "_a1_prefix_selected_bytes", None)
         def unique_members(items):
             parsed = {}
             for key, value in items:
@@ -161,6 +163,10 @@ class ManagedOperationalRetentionSelection:
                 from ashlar.schema import decode_retained_json
                 request = decode_retained_json(self.request_bytes)
                 manifest = decode_retained_json(self.manifest_bytes)
+                selected_bytes = _canonical(self.a1_prefix_selected).encode("utf-8")
+                if not 0 < len(selected_bytes) <= 4 * 1024 * 1024:
+                    raise ValueError("A1 selected custody exceeds the bounded carrier")
+                object.__setattr__(self, "_a1_prefix_selected_bytes", selected_bytes)
                 if (request != self.a1_plan.request
                         or _canonical(request).encode("utf-8") != self.request_bytes
                         or manifest != self.expected_receipt.get("manifest")
@@ -171,7 +177,7 @@ class ManagedOperationalRetentionSelection:
                 self.a1_plan.verify_delivery(
                     self.source_prefix_bytes,
                     prefix_sha256=self.source_prefix_sha256,
-                    selected=self.a1_prefix_selected,
+                    selected=decode_retained_json(selected_bytes),
                     schedule_bytes=self.a1_plan.selection.schedule_bytes,
                     pages=(self.a1_plan.delivery_page,))
             except (AttributeError, TypeError, ValueError) as error:
@@ -180,6 +186,13 @@ class ManagedOperationalRetentionSelection:
         elif self.a1_prefix_selected is not None:
             raise OperationalRetentionIntervalError(
                 "A1 `/0.2` anchors require the exact prepared A1 plan")
+
+    def selected_a1_prefix(self):
+        """Decode a fresh copy of the A1 anchors retained at admission time."""
+        if self._a1_prefix_selected_bytes is None:
+            return None
+        from ashlar.schema import decode_retained_json
+        return decode_retained_json(self._a1_prefix_selected_bytes)
 
 
 @dataclass(frozen=True)
@@ -339,7 +352,7 @@ class OperationalRetentionInterval:
                               source_core_config=self.selection.source_core_config)
                 if self.selection.a1_plan is not None:
                     kwargs.update(a1_plan=self.selection.a1_plan,
-                                  a1_prefix_selected=self.selection.a1_prefix_selected)
+                                  a1_prefix_selected=self.selection.selected_a1_prefix())
             result = reader.reopen(**kwargs)
             self._validate_reader_result(result)
             if self.clock() >= self.deadline and not closing:
