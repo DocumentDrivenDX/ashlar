@@ -1,6 +1,6 @@
 {
   "packet": "ashlar-r61-fresh-truss053-umf102",
-  "status": "attempt9-bound-publish-metadata-genesis-before-seed",
+  "status": "attempt10-bound-report-revision-type-fix",
   "source": {
     "repository": "ashlar",
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
@@ -8,7 +8,7 @@
     "runner_path": "tools/r61_fresh_cohort_runner.py",
     "runner_sha256": "0b318102e7c8d5de3b6c15f0f003d666d101d0c9f8b9f991601b41fbd40b7eb9",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
-    "setup_stage_sha256": "697f090a8f7bf2df80caf51b684278c985d13c0cee122ef3885197341c917264",
+    "setup_stage_sha256": "e8898eb892e42f8826cd334b8aa823d95604f432287c713cec20e06748367b0a",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
     "supervisor_sha256": "8aad4b142854915928ec80232e082c0bbb940456070bd8722e35d59827724d80",
     "worker_sha256": "de112d559f927c80a714727ef6a939b94ff52425a8a8c7ab2effab687ca58338",
@@ -69,10 +69,10 @@
     }
   },
   "fresh_local_state": {
-    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt9",
-    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt9/pgdata",
-    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt9/delta",
-    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt9/evidence",
+    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt10",
+    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt10/pgdata",
+    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt10/delta",
+    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt10/evidence",
     "must_be_absent_before_dispatch": true,
     "forbidden_state": [
       "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
@@ -93,7 +93,7 @@
   },
   "workflow": [
     "verify exact Truss, UMF, Ashlar and GraphFrames artifacts and runtime origins",
-    "copy the exact stopped accepted attempt8 PG18 state and verify retained page receipt, tree/control identity, lease and socket before public readback",
+    "copy the exact stopped accepted attempt8 PG18 state into attempt10 and verify retained page receipt, tree/control identity, lease and socket before public readback",
     "read the complete accepted report/catalog/source and exact metadata-only catalog page through public Truss APIs",
     "publish and protected-ACK the metadata-only accepted-catalog transaction as graph genesis",
     "apply one seven-operation public group, publish it as genesis continuation and protected-ACK it",
@@ -156,7 +156,7 @@
   },
   "postgres_bootstrap_policy": {
     "profile": "ashlar-r61-pg18-retained-accepted-source-copy/0.2",
-    "method": "copy exact stopped attempt8 public Truss installation/accepted UMF source and genesis-only consumer into attempt9; validate retained page receipt; publish and protected-ACK the actual metadata-only page before adding the seven-op seed",
+    "method": "copy exact stopped accepted attempt8 public Truss installation/accepted UMF source and genesis-only consumer into attempt10; validate retained page receipt; reread actual metadata-only page and publish/protected-ACK it before adding the seven-op seed",
     "seed_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4",
     "seed_pgdata": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/pgdata",
     "seed_tree_sha256": "76bced149f633e7b2b556aa489db88995881b31cfdf3a3ec079af8c81f108db4",
