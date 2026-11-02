@@ -467,6 +467,6 @@
   },
   "worker": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r53-diagnostic-probe-worker.py",
-    "sha256": "c74268c19c2d65b15eb99c3f4e1bf87eb42f6c523f4e7db4ab526f2ba272f395"
+    "sha256": "9cc22ab865529abbc4a87d8b72d171d85a2dfb5ceabec526b2e18db7b55a86eb"
   }
 }

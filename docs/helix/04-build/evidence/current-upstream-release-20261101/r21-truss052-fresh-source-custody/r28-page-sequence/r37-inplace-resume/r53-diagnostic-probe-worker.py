@@ -239,6 +239,7 @@ def preflight(scope_path: Path, *, require_absent=True, supervisor_root_created=
 
 def native(scope_path: Path, supervisor_root: Path):
     scope = read_json(scope_path); raw_scope = scope_path.read_bytes()
+    preflight(scope_path, require_absent=False, supervisor_root_created=supervisor_root)
     paths = scope["paths"]; attempt = Path(paths["output_root"])
     attempt.mkdir(mode=0o700); os.chmod(attempt, 0o700)
     receipts = attempt / "receipts"; receipts.mkdir(mode=0o700)
