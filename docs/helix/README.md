@@ -27,9 +27,9 @@ Spark 4.2 / Delta 4.4.1 singleton, grouped-query and page-read evidence
 [Weft result](04-build/evidence/current-upstream-release-20261101/g03-weft-native-consumer/README.md)).
 
 A fresh local-development Truss 0.0.52 source has public acceptance and consumer
-evidence. Genesis and the seven-change seed were published to Delta, read back
-natively, and protected-ACKed to their exact Truss checkpoints. The two-change
-continuation remains open. A bounded serverless Jobs task helper and
+evidence. Genesis, the seven-change seed and the two-change continuation were published
+to Delta, read back natively, and protected-ACKed to their exact Truss
+checkpoints under local-development authority. A bounded serverless Jobs task helper and
 Weft `.4.1` compiler route are on main, but no paid `client_dev` trial has run.
 The managed A/B source-prefix owner, live source/ACK custody and native pin
 composition remain open ([release closure](04-build/release-closure-20261101.md),
