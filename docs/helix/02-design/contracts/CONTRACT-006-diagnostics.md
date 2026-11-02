@@ -42,12 +42,12 @@ The OTel owner MUST NOT import checkout tools or rewrite compiler/native output.
 
 This version selects `ashlar-host-otel-http/0.1`: OTel specification **1.61.0**,
 resource semantic conventions **1.44.0**, and Python API/SDK/OTLP HTTP exporter
-**1.45.1** (semantic-conventions package **0.66b1**). These are distinct version
+**1.45.2** (semantic-conventions package **0.66b2**). These are distinct version
 namespaces. The integration uses direct SDK emission and OpenTelemetry Protocol
 (OTLP) HTTP Protobuf for logs, spans and metrics. See the pinned
 [logs model](https://github.com/open-telemetry/opentelemetry-specification/blob/v1.61.0/specification/logs/data-model.md),
 [resource conventions](https://github.com/open-telemetry/semantic-conventions/blob/v1.44.0/docs/resource/README.md),
-[Python release](https://github.com/open-telemetry/opentelemetry-python/releases/tag/v1.45.1)
+[Python release](https://github.com/open-telemetry/opentelemetry-python/releases/tag/v1.45.2)
 and [export rules](https://github.com/open-telemetry/opentelemetry-specification/blob/v1.61.0/specification/protocol/exporter.md).
 Receiver evidence qualifies the selected integration; schema validation alone
 does not. JSON Lines (JSONL) capture is a local projection, not OTLP.
@@ -208,7 +208,7 @@ additional fact. Failure is recorded once at this owning boundary.
 
 Resource schema URL is `https://opentelemetry.io/schemas/1.44.0`. `service.version`
 is the installed Ashlar distribution version; the SDK identity is independently
-`opentelemetry`/`python`/`1.45.1`. Only the four schema-listed environment names
+`opentelemetry`/`python`/`1.45.2`. Only the four schema-listed environment names
 are admitted. Run/attempt IDs are log/span attributes, never Resource values,
 metric dimensions or backend stream labels.
 
@@ -455,7 +455,7 @@ in the reviewed test evidence before an integration claim.
 An untraced event has no `trace` member:
 
 ```json
-{"schema_version":"ashlar.diagnostic.event/0.1","observed_timestamp_unix_nano":"1791590400000000000","severity_text":"INFO","severity_number":9,"event_name":"ashlar.operation.started","body":"Operation started","resource":{"service.name":"ashlar-host","service.version":"0.1.0.dev0","deployment.environment.name":"test","telemetry.sdk.name":"opentelemetry","telemetry.sdk.language":"python","telemetry.sdk.version":"1.45.1"},"scope":{"name":"ashlar.host.diagnostics","version":"0.1.0"},"attributes":{"ashlar.run.id":"11111111111111111111111111111111","ashlar.attempt.id":"22222222222222222222222222222222","ashlar.emitter.id":"host","ashlar.sequence":1,"ashlar.operation":"held-read"}}
+{"schema_version":"ashlar.diagnostic.event/0.1","observed_timestamp_unix_nano":"1791590400000000000","severity_text":"INFO","severity_number":9,"event_name":"ashlar.operation.started","body":"Operation started","resource":{"service.name":"ashlar-host","service.version":"0.1.0.dev0","deployment.environment.name":"test","telemetry.sdk.name":"opentelemetry","telemetry.sdk.language":"python","telemetry.sdk.version":"1.45.2"},"scope":{"name":"ashlar.host.diagnostics","version":"0.1.0"},"attributes":{"ashlar.run.id":"11111111111111111111111111111111","ashlar.attempt.id":"22222222222222222222222222222222","ashlar.emitter.id":"host","ashlar.sequence":1,"ashlar.operation":"held-read"}}
 ```
 
 For the traced case, the same shape additionally contains
