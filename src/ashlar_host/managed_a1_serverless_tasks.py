@@ -564,15 +564,15 @@ def verifier_task(spark, parameters):
         selected_prefix=selected_prefix, source_snapshot_bytes=snapshot,
         source_custody_digests=trial["source_custody_digests"],
         source_core_config=core_config)
-    selection = bundle["selection"]
+    selection = bundle.selection
     source_observer = VolumeSourceCustodyObserver(parameters["source_rpc_directory"])
     pin_observer = VolumeNativePinStageObserver(parameters["source_rpc_directory"])
     policy_observer = _ServerlessPolicyObserver(trial["catalog"], trial["schema"], ROLES)
     read_port = ManagedOperationalReadPort(selection,
-        _ServerlessSessionFactory(spark, pin_observer, selection, bundle["vector"]),
+        _ServerlessSessionFactory(spark, pin_observer, selection, bundle.vector),
         source_observer, policy_observer,
         context=context)
-    handle = read_port.open(bundle["destination_receipt_bytes"], bundle["vector"], context)
+    handle = read_port.open(bundle.destination_receipt_bytes, bundle.vector, context)
     handle.renew()
     interval = handle.close()
     closing = _environment(spark, protocol, trial["expected_runtime"])
@@ -609,9 +609,9 @@ def verifier_task(spark, parameters):
         "requestSha256": hashlib.sha256(request_bytes).hexdigest(),
         "manifestSha256": hashlib.sha256(manifest_bytes).hexdigest(),
         "destinationReceiptSha256": hashlib.sha256(destination_receipt).hexdigest(),
-        "vector": {"authority": bundle["vector"].authority,
-            "scope_kind": bundle["vector"].scope_kind,
-            "scope_id": bundle["vector"].scope_id,
-            "custody_digest": bundle["vector"].custody_digest,
-            "targets": {key: list(value) for key, value in bundle["vector"].targets.items()}}}
+        "vector": {"authority": bundle.vector.authority,
+            "scope_kind": bundle.vector.scope_kind,
+            "scope_id": bundle.vector.scope_id,
+            "custody_digest": bundle.vector.custody_digest,
+            "targets": {key: list(value) for key, value in bundle.vector.targets.items()}}}
 

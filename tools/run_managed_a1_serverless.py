@@ -18,6 +18,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 import signal
 from pathlib import Path
@@ -31,7 +32,76 @@ PREFERRED_USD = 10.0
 SERVERLESS_USD_PER_DBUH = 0.47
 WORST_SERVERLESS_DBUH = 960.0
 MAX_PAID_TASK_SECONDS = 540
+MAX_SOURCE_BOOTSTRAP_SECONDS = 240
 MIN_DRIVER_AND_CLEANUP_RESERVE_USD = 20.0
+ACK_REAP_RESERVE_SECONDS = 30
+POST_ACK_CLEANUP_RESERVE_SECONDS = 30
+
+
+class AmbiguousRunSubmissionError(RuntimeError):
+    """A Jobs run may exist but could not be safely found and cancelled."""
+
+
+def _write_private_json(path: Path, value: dict) -> None:
+    path = Path(path)
+    if (not path.is_absolute() or path.is_symlink() or not path.parent.is_dir()
+            or path.parent.stat().st_uid != os.getuid()
+            or path.parent.stat().st_mode & 0o077):
+        raise RuntimeError("Owner-private recovery receipt directory required")
+    raw = json.dumps(value, sort_keys=True, separators=(",", ":"),
+        ensure_ascii=False, allow_nan=False).encode("utf-8")
+    require(len(raw) <= 4 * 1024 * 1024, "Private recovery receipt exceeds 4 MiB")
+    temporary = path.with_name(path.name + ".tmp-" + os.urandom(8).hex())
+    fd = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
+                 getattr(os, "O_NOFOLLOW", 0), 0o600)
+    try:
+        view = memoryview(raw)
+        while view:
+            count = os.write(fd, view)
+            if count <= 0:
+                raise OSError("Recovery receipt write made no progress")
+            view = view[count:]
+        os.fsync(fd)
+    finally:
+        os.close(fd)
+    os.replace(temporary, path)
+    directory_fd = os.open(path.parent, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0))
+    try: os.fsync(directory_fd)
+    finally: os.close(directory_fd)
+
+
+def _validate_holder_bootstrap_config(path: Path) -> dict:
+    raw = path.read_bytes()
+    from ashlar_host.managed_a1_source_bootstrap import (
+        MODEL_RELATIVE_PATH, MODEL_SHA256, candidate_seed_group,
+        validate_private_bootstrap_config,
+    )
+    value = validate_private_bootstrap_config(raw)
+    root = Path(value["root"])
+    require(root.is_absolute() and root.is_dir() and not root.is_symlink()
+            and root.resolve(strict=True) == root and root.stat().st_uid == os.getuid()
+            and root.stat().st_mode & 0o077 == 0,
+            "Owner-private canonical source-supervisor root required")
+    model = Path(value["model_path"])
+    expected_model = Path(__file__).resolve().parents[1] / MODEL_RELATIVE_PATH
+    require(model == expected_model and model.is_file() and not model.is_symlink()
+            and value["model_sha256"] == MODEL_SHA256
+            and hashlib.sha256(model.read_bytes()).hexdigest() == MODEL_SHA256,
+            "Exact frozen R28 model artifact path and digest required")
+    for key, executable in (("bun_path", True), ("pg18_initdb", False)):
+        path_value = Path(value[key])
+        require(path_value.is_absolute() and path_value.is_file()
+                and not path_value.is_symlink()
+                and (not executable or os.access(path_value, os.X_OK)),
+                "Exact source bootstrap runtime artifact required: " + key)
+    from importlib.resources import files
+    expected_initdb = Path(str(files("pgserver"))) / "pginstall" / "bin" / "initdb"
+    require(Path(value["pg18_initdb"]) == expected_initdb
+            and expected_initdb.is_file() and os.access(expected_initdb, os.X_OK),
+            "Exact bundled PostgreSQL 18 initdb artifact required")
+    require(value["a1_group"] == candidate_seed_group("A"),
+            "Exact frozen R28 source A1 four-record/three-edge group required")
+    return value
 IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]{0,127}\Z")
 SHA = re.compile(r"[0-9a-f]{64}\Z")
 
@@ -126,8 +196,10 @@ def build_payload(config: object) -> tuple[dict, dict]:
     require(type(wall) is int and 1 <= wall <= MAX_SECONDS,
             "Whole-run deadline, including startup, handoff and cleanup, must be <=900s")
     cleanup_seconds = config["cleanup_reserve_seconds"]
-    require(type(cleanup_seconds) is int and 30 <= cleanup_seconds < wall,
-            "At least 30 seconds must be reserved within the whole-run deadline for cancel/cleanup")
+    require(type(cleanup_seconds) is int
+            and ACK_REAP_RESERVE_SECONDS + POST_ACK_CLEANUP_RESERVE_SECONDS
+                <= cleanup_seconds < wall,
+            "Reserve 30 seconds for ACK/reap and 30 more for cleanup within the whole-run deadline")
     cost = config["cost"]
     require(type(cost) is dict and set(cost) == {
         "estimated_total_dbu", "cleanup_reserve_dbu", "authorized_total_dbu",
@@ -160,11 +232,12 @@ def build_payload(config: object) -> tuple[dict, dict]:
         require(cost["preferred_budget_exception"] is None,
                 "Omit preferred-budget exception when total estimate is <=$10")
     holder = config["holder_bootstrap"]
-    require(type(holder) is dict and set(holder) == {"bootstrap", "config_path", "python"}
-            and type(holder["bootstrap"]) is str and ":" in holder["bootstrap"]
-            and type(holder["config_path"]) is str and Path(holder["config_path"]).is_absolute()
-            and (holder["python"] is None or type(holder["python"]) is str),
-            "Owner-private source-holder bootstrap lock required")
+    require(type(holder) is dict and set(holder) == {"bootstrap", "bun_path", "python"}
+            and holder["bootstrap"] ==
+                "ashlar_host.managed_a1_source_bootstrap:bootstrap_from_private_config"
+            and type(holder["bun_path"]) is str and Path(holder["bun_path"]).is_absolute()
+            and type(holder["python"]) is str and Path(holder["python"]).is_absolute(),
+            "Exact source bootstrap module and Bun/Python runtime locks required")
     trial = config["trial"]
     require(type(trial) is dict and set(trial) == {"catalog", "schema", "expected_runtime",
             "stream", "stage_id", "materialized_at", "destination_id", "cost",
@@ -216,9 +289,9 @@ def build_payload(config: object) -> tuple[dict, dict]:
                        for k in ("initializer", "publisher", "verifier"))
     require(paid_seconds <= MAX_PAID_TASK_SECONDS
             and cost["authorized_total_dbu"] >= paid_seconds * WORST_SERVERLESS_DBUH / 3600
-            and paid_seconds + 45
+            and paid_seconds + MAX_SOURCE_BOOTSTRAP_SECONDS + 45
             <= wall - cleanup_seconds,
-            "Three task budgets must total <=540s and fit their worst-case 2XL cost plus handoff bounds")
+            "540s task budget, 240s source bootstrap, and handoffs must fit before cleanup reserve")
     return stage_payloads, config
 
 
@@ -305,26 +378,67 @@ class SourceHolderIPC:
         if src not in sys.path:
             sys.path.insert(0, src)
         from ashlar_host.a1_source_holder_worker import A1Truss053SourceHolderProcess
+        available = deadline - time.monotonic()
+        require(available > POST_ACK_CLEANUP_RESERVE_SECONDS + 1,
+                "Whole-trial deadline lacks holder startup and cleanup reserve")
+        timeout = max(1, min(MAX_SOURCE_BOOTSTRAP_SECONDS,
+            int(available - POST_ACK_CLEANUP_RESERVE_SECONDS)))
         owner = A1Truss053SourceHolderProcess.spawn(bootstrap=spec["bootstrap"],
-            config_path=spec["config_path"], python=spec["python"])
+            config_path=spec["config_path"], python=spec["python"],
+            operation_timeout_seconds=timeout)
         ipc = cls(owner)
         try:
             require(time.monotonic() < deadline, "Trial deadline expired before holder genesis")
-            return ipc, owner.wait_genesis()
+            genesis = owner.wait_genesis()
+            owner.operation_timeout_seconds = min(30, owner.operation_timeout_seconds)
+            owner.channel.settimeout(owner.operation_timeout_seconds)
+            return ipc, genesis
         except BaseException:
-            try: owner.close_before_ack()
-            except Exception: owner.terminate()
+            # Bootstrap may not have completed far enough to service a close
+            # command. Kill/reap the dedicated process group with a short bound.
+            remaining = max(1, int(deadline - time.monotonic()))
+            owner.operation_timeout_seconds = min(5, remaining)
+            owner.terminate()
             raise
 
     def renew(self, deadline):
-        require(time.monotonic() < deadline, "Deadline expired before same-session Truss renewal")
+        remaining = deadline - time.monotonic()
+        require(remaining > POST_ACK_CLEANUP_RESERVE_SECONDS,
+                "Deadline lacks source-renewal and cleanup reserve")
+        self.owner.channel.settimeout(min(self.owner.operation_timeout_seconds,
+            remaining - POST_ACK_CLEANUP_RESERVE_SECONDS))
         return self.owner.renew()
 
     def open_a1(self, request_bytes, publication_id, destination_id, deadline):
-        require(time.monotonic() < deadline, "Deadline expired before prepublication hold")
+        remaining = deadline - time.monotonic()
+        require(remaining > POST_ACK_CLEANUP_RESERVE_SECONDS,
+                "Deadline lacks prepublication hold and cleanup reserve")
+        self.owner.channel.settimeout(min(self.owner.operation_timeout_seconds,
+            remaining - POST_ACK_CLEANUP_RESERVE_SECONDS))
         raw = self.owner.open_prepublication(request_bytes=request_bytes,
             destination_id=destination_id, publication_id=publication_id)
+        self.owner.operation_timeout_seconds = min(30, self.owner.operation_timeout_seconds)
+        self.owner.channel.settimeout(self.owner.operation_timeout_seconds)
         return raw, self.owner.custody_digests
+
+    def bind(self, *, manifest_bytes, vector, receipt_bytes, deadline):
+        remaining = deadline - time.monotonic()
+        require(remaining > POST_ACK_CLEANUP_RESERVE_SECONDS,
+                "Deadline lacks source bind and cleanup reserve")
+        self.owner.channel.settimeout(min(self.owner.operation_timeout_seconds,
+            remaining - POST_ACK_CLEANUP_RESERVE_SECONDS))
+        self.owner.bind_publication(manifest_bytes=manifest_bytes,
+            vector_payload=vector, receipt_bytes=receipt_bytes)
+
+    def acknowledge_once(self, store, *, attempt_directory, deadline):
+        remaining = deadline - time.monotonic()
+        require(remaining >= ACK_REAP_RESERVE_SECONDS + POST_ACK_CLEANUP_RESERVE_SECONDS,
+                "ACK must not dispatch without bounded ACK, reap and cleanup reserve")
+        operation_timeout = max(1, min(15,
+            int((remaining - POST_ACK_CLEANUP_RESERVE_SECONDS) / 2)))
+        self.owner.operation_timeout_seconds = operation_timeout
+        self.owner.channel.settimeout(operation_timeout)
+        return self.owner.acknowledge_once(store, attempt_directory=attempt_directory)
 
     def close(self, deadline, *, orderly):
         del deadline
@@ -448,6 +562,54 @@ def _task_output(api: DatabricksCLI, run_id: int) -> dict:
     return value
 
 
+def _job_runs(api: DatabricksCLI, job_id: int) -> list[dict]:
+    response = api.call("get", f"/api/2.2/jobs/runs/list?job_id={job_id}&limit=100")
+    rows = response.get("runs")
+    require(type(rows) is list and len(rows) <= 100
+            and response.get("next_page_token") in (None, ""),
+            "Bounded complete fresh-job run inventory required")
+    require(all(type(row) is dict and type(row.get("run_id")) is int for row in rows),
+            "Jobs run inventory omitted a native run ID")
+    return rows
+
+
+def _recover_run_after_lost_response(api: DatabricksCLI, job_id: int, token: str,
+        request_started_ms: int, deadline: float, baseline_ids: set[int], persist) -> int | None:
+    """Discover only the run added to this unique fresh job; never resubmit."""
+    last_rows = []
+    while time.monotonic() < deadline:
+        rows = _job_runs(api, job_id)
+        last_rows = rows
+        candidates = []
+        for row in rows:
+            if row["run_id"] in baseline_ids:
+                continue
+            row_job_id = row.get("job_id")
+            start_ms = row.get("start_time")
+            token_match = row.get("idempotency_token") == token
+            time_match = type(start_ms) is int and start_ms >= request_started_ms - 5000
+            if row_job_id in (None, job_id) and (token_match or time_match):
+                candidates.append(row)
+        if len(candidates) == 1:
+            run_id = candidates[0]["run_id"]
+            persist({"submission_state": "run_id_recovered_after_lost_response",
+                     "run_id": run_id, "recovered_by":
+                         "idempotency_token" if candidates[0].get("idempotency_token") == token
+                         else "unique_fresh_job_run"})
+            return run_id
+        if len(candidates) > 1:
+            for row in candidates:
+                try: api.call("post", "/api/2.2/jobs/runs/cancel", {"run_id": row["run_id"]})
+                except Exception: pass
+            persist({"submission_state": "multiple_runs_unknown_cancel_requested",
+                     "run_ids": [row["run_id"] for row in candidates]})
+            return None
+        time.sleep(min(1.0, max(0.1, deadline - time.monotonic())))
+    persist({"submission_state": "unknown_submission_exposure",
+             "run_ids_seen": [row["run_id"] for row in last_rows]})
+    return None
+
+
 def _put_volume_bytes(api: DatabricksCLI, volume_uri: str, raw: bytes) -> dict:
     require(type(raw) is bytes and 0 < len(raw) <= 4 * 1024 * 1024,
             "Private task artifact must be nonempty and at most 4 MiB")
@@ -521,8 +683,9 @@ def _validate_task_runtime(value: dict, expected: dict, stage: str) -> None:
 
 def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict,
                parameters: dict, deadline: float, *, cleanup_deadline=None,
-               on_poll=None) -> tuple[int, int, dict, dict]:
+               on_poll=None, recovery_state=None, recovery_path=None) -> tuple[int, int, dict, dict]:
     cleanup_deadline = deadline if cleanup_deadline is None else cleanup_deadline
+    original_api_deadline = api.deadline
     require(time.monotonic() < deadline,
             f"Work deadline expired before {stage} Jobs creation")
     require(type(parameters) is dict and all(type(key) is str and type(value) is str
@@ -534,27 +697,63 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
     task["notebook_task"] = notebook_task
     job_settings = _job_settings(config, stage,
                                  {"task": task, "environment": stage_payload["environment"]})
-    created = api.call("post", "/api/2.2/jobs/create", job_settings)
-    job_id = created.get("job_id")
-    require(type(job_id) is int and job_id > 0, f"{stage} Jobs create omitted job ID")
+    job_id = None
     run_id = None
     run_attempted = False
+    submission_recovery_attempted = False
     snapshot = {}
+    stage_record = {"stage": stage, "job_name": job_settings["name"],
+        "job_create_state": "intent", "run_now_state": "not_submitted"}
+    if recovery_state is not None:
+        recovery_state.setdefault("jobs", {})[stage] = stage_record
+
+    def persist(update=None):
+        if update:
+            stage_record.update(update)
+            if (recovery_state is not None and type(update.get("run_id")) is int):
+                recovery_state.setdefault("known_run_ids", {})[stage] = update["run_id"]
+        if recovery_path is not None:
+            _write_private_json(recovery_path, recovery_state)
+
     try:
+        api.deadline = deadline
+        persist()
+        created = api.call("post", "/api/2.2/jobs/create", job_settings)
+        job_id = created.get("job_id")
+        require(type(job_id) is int and job_id > 0, f"{stage} Jobs create omitted job ID")
+        persist({"job_create_state": "created", "job_id": job_id})
         readback = api.call("get", f"/api/2.2/jobs/get?job_id={job_id}")
         _admit_job_readback(readback, job_settings, config["trial_id"])
         require(time.monotonic() < deadline, f"Deadline expired before {stage} run-now")
-        run_attempted = True
+        baseline = _job_runs(api, job_id)
+        require(not baseline,
+                "Fresh unique one-run Jobs object unexpectedly has prior runs")
+        request_started_ms = int(time.time() * 1000)
         token = hashlib.sha256((config["trial_id"] + ":" + stage).encode()).hexdigest()
-        started = api.call("post", "/api/2.2/jobs/run-now", {
-            "job_id": job_id, "idempotency_token": token})
-        run_id = started.get("run_id")
-        require(type(run_id) is int and run_id > 0,
-                f"{stage} run-now response omitted run ID")
+        run_attempted = True
+        persist({"run_now_state": "submission_intent", "idempotency_token": token,
+                 "request_started_ms": request_started_ms, "baseline_run_ids": []})
+        try:
+            started = api.call("post", "/api/2.2/jobs/run-now", {
+                "job_id": job_id, "idempotency_token": token})
+            run_id = started.get("run_id")
+            if type(run_id) is not int or run_id <= 0:
+                raise RuntimeError("Jobs run-now response omitted native run ID")
+            persist({"run_now_state": "submitted", "run_id": run_id})
+        except BaseException as submit_error:
+            api.deadline = cleanup_deadline
+            submission_recovery_attempted = True
+            run_id = _recover_run_after_lost_response(api, job_id, token,
+                request_started_ms, cleanup_deadline, set(), persist)
+            if run_id is None:
+                raise AmbiguousRunSubmissionError(
+                    f"{stage} run-now outcome unknown; do not resubmit; recovery receipt retained") from submit_error
         while True:
             require(time.monotonic() < deadline,
                     f"{stage} work deadline reached; cancel requested")
+            api.deadline = deadline
             snapshot = api.call("get", f"/api/2.2/jobs/runs/get?run_id={run_id}")
+            persist({"run_state": snapshot.get("state"), "run_id": run_id})
             if _terminal(snapshot.get("state", {})):
                 break
             if callable(on_poll):
@@ -571,27 +770,53 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
                     f"{stage} terminal run omitted its single exact task identity")
             task_run_id = task_rows[0]["run_id"]
         output = _task_output(api, task_run_id)
+        persist({"run_now_state": "terminal_success", "run_id": run_id,
+                 "task_run_id": task_run_id, "result_state": snapshot.get("state", {}).get("result_state")})
+        api.deadline = cleanup_deadline
         api.call("delete", "/api/2.2/jobs/delete", {"job_id": job_id})
+        persist({"job_create_state": "deleted"})
         return run_id, task_run_id, snapshot, output
     except BaseException:
+        api.deadline = cleanup_deadline
+        if (run_attempted and run_id is None and job_id is not None
+                and not submission_recovery_attempted):
+            try:
+                submission_recovery_attempted = True
+                run_id = _recover_run_after_lost_response(api, job_id,
+                    stage_record.get("idempotency_token", ""),
+                    stage_record.get("request_started_ms", int(time.time() * 1000)),
+                    cleanup_deadline, set(), persist)
+            except Exception as recovery_error:
+                persist({"run_now_state": "unknown_submission_exposure",
+                         "recovery_error": type(recovery_error).__name__})
+        if run_attempted and run_id is None:
+            persist({"run_now_state": "unknown_submission_exposure"})
         if run_id is not None:
             try:
                 snapshot = api.call("get", f"/api/2.2/jobs/runs/get?run_id={run_id}")
+                persist({"run_id": run_id, "run_state": snapshot.get("state")})
                 if not _terminal(snapshot.get("state", {})):
                     api.call("post", "/api/2.2/jobs/runs/cancel", {"run_id": run_id})
+                    persist({"cancel_requested": True})
                     while time.monotonic() < cleanup_deadline:
                         snapshot = api.call("get", f"/api/2.2/jobs/runs/get?run_id={run_id}")
+                        persist({"run_state": snapshot.get("state")})
                         if _terminal(snapshot.get("state", {})):
                             break
                         time.sleep(min(2, max(0.2, cleanup_deadline - time.monotonic())))
             except Exception:
                 pass
-        if not run_attempted or (run_id is not None and _terminal(snapshot.get("state", {}))):
+        if (job_id is not None and
+                (not run_attempted or (run_id is not None and _terminal(snapshot.get("state", {}))))):
             try:
                 api.call("delete", "/api/2.2/jobs/delete", {"job_id": job_id})
+                persist({"job_create_state": "deleted"})
             except Exception:
                 pass
+        persist({"stage_error": "stage_failed"})
         raise
+    finally:
+        api.deadline = original_api_deadline
 
 
 def _publisher_bundle(result: dict, authority: str) -> tuple[dict, bytes, bytes, bytes, dict, str]:
@@ -709,8 +934,12 @@ def _retention_bundle(*, trial, protocol_profile, plan, request_bytes,
 
 class _LocalPinStages:
     """Hold the native source-bound pin across the verifier's three RPC stages."""
-    def __init__(self, owner):
+    def __init__(self, owner, *, lifetime_seconds):
         self.owner = owner
+        self.lifetime_seconds = lifetime_seconds
+        require(type(lifetime_seconds) is int and 31 <= lifetime_seconds <= 900
+                and owner.native_timeout_seconds <= lifetime_seconds,
+                "Parent A1 pin timeout must fit the bounded trial lifetime")
         self.handle = None
         self.stages = []
 
@@ -719,8 +948,7 @@ class _LocalPinStages:
         if stage == "open":
             require(self.handle is None and not self.stages,
                     "Native A1 pin may open only once")
-            self.handle = self.owner.open_native_pin(
-                bounded_lifetime_seconds=self.lifetime_seconds)
+            self.handle = self.owner.open_native_pin()
         elif stage == "pre_ack":
             require(self.handle is not None and self.stages == ["open"],
                     "Native A1 pin pre-ACK renewal must follow its opening")
@@ -868,11 +1096,8 @@ def _service_source_observer_rpc(api: DatabricksCLI, holder: SourceHolderIPC,
         except FileNotFoundError: pass
 
 
-def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
-    # Static mode deliberately does not even resolve CLI credentials.
-    if not launch:
-        return {"status": "validated_only", "profile": profile,
-                "workspace": config["host"], "payload": payload}
+def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: Path,
+                  recovery_state: dict, start: float) -> dict:
     require(profile == PROFILE, "Use the explicitly selected aidev-cus CLI profile")
     repo_root = Path(__file__).resolve().parents[1]
     gate_path = repo_root / config["local_qualification"]["path"]
@@ -883,28 +1108,42 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
     require(type(gate_result) is dict and gate_result.get("status") == "passed",
             "Managed A1 launch requires a successful exact local qualification receipt")
     api = DatabricksCLI(profile)
-    start = time.monotonic()
     deadline = start + config["maximum_wall_seconds"]
     api.deadline = deadline
     auth = api.auth_readback()
     require(auth.get("host", "").rstrip("/") == config["host"].rstrip("/"),
             "Selected Databricks CLI profile is not the admitted dbw-aidev-cus host")
     _check_artifact_lock(api, config)
-    holder_config = Path(config["holder_bootstrap"]["config_path"])
-    require(not holder_config.is_symlink() and holder_config.is_file()
-            and holder_config.resolve(strict=True) == holder_config,
-            "Canonical private source-holder bootstrap file required before trial mutations")
-    holder_stat = holder_config.stat()
-    require(holder_stat.st_uid == os.getuid() and holder_stat.st_mode & 0o077 == 0
-            and holder_stat.st_size <= 4 * 1024 * 1024,
-            "Owner-private bounded holder bootstrap config required before trial mutations")
     python = config["holder_bootstrap"]["python"]
-    if python is not None:
-        python_path = Path(python)
-        require(python_path.is_absolute() and python_path.is_file()
-                and os.access(python_path, os.X_OK),
-                "Exact executable local Python runtime required before trial mutations")
+    python_path = Path(python)
+    require(python_path.is_absolute() and python_path.is_file()
+            and os.access(python_path, os.X_OK)
+            and python_path.resolve(strict=True) == Path(sys.executable).resolve(strict=True),
+            "Runner and source-holder must use the same exact executable Python runtime")
+    bun_path = Path(config["holder_bootstrap"]["bun_path"])
+    require(bun_path.is_file() and not bun_path.is_symlink() and os.access(bun_path, os.X_OK),
+            "Exact executable local Bun runtime required before trial mutations")
+    # Generate the source bootstrap config from its checked-in owner factory;
+    # no credential-bearing callback or prebuilt caller JSON is accepted.
+    bootstrap_root = recovery_root / "truss-source"
+    bootstrap_root.mkdir(mode=0o700)
+    from ashlar_host.managed_a1_source_bootstrap import example_private_config
+    holder_config_value = example_private_config(root=bootstrap_root, bun_path=bun_path)
+    holder_config_path = recovery_root / "source-bootstrap.json"
+    _write_private_json(holder_config_path, holder_config_value)
+    _validate_holder_bootstrap_config(holder_config_path)
+    recovery_state["source_bootstrap_config_path"] = str(holder_config_path)
+    recovery_state["source_supervisor_root"] = str(bootstrap_root)
+    _write_private_json(recovery_path, recovery_state)
+    holder_spec = {"bootstrap": config["holder_bootstrap"]["bootstrap"],
+                   "config_path": str(holder_config_path), "python": python}
     work_deadline = deadline - config["cleanup_reserve_seconds"]
+    recovery_path = recovery_root / "recovery.json"
+    recovery_state.update({"phase": "pre_mutation", "workspace": config["host"],
+        "trial_id": config["trial_id"], "schema": config["catalog"] + "." + config["schema"],
+        "volume": config["volume_name"],
+        "cleanup_reserve_seconds": config["cleanup_reserve_seconds"]})
+    _write_private_json(recovery_path, recovery_state)
     full_schema = f"{config['catalog']}.{config['schema']}"
     from urllib.parse import quote
     schema_path = "/api/2.1/unity-catalog/schemas/" + quote(full_schema, safe="")
@@ -925,6 +1164,8 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
     require(schema.get("name") == config["schema"]
             and schema.get("catalog_name") == config["catalog"],
             "Created schema readback differs from the exact owned trial namespace")
+    recovery_state.update({"phase": "schema_created", "schema_id": schema.get("schema_id")})
+    _write_private_json(recovery_path, recovery_state)
     require(time.monotonic() < work_deadline,
             "Work deadline expired before creating the owned private Volume")
     volume = api.call("post", "/api/2.1/unity-catalog/volumes", {
@@ -937,6 +1178,8 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
             and volume.get("catalog_name") == config["catalog"]
             and volume.get("schema_name") == config["schema"],
             "Created UC Volume readback differs from the selected private snapshot target")
+    recovery_state.update({"phase": "volume_created", "volume_id": volume.get("volume_id")})
+    _write_private_json(recovery_path, recovery_state)
     require(type(schema.get("schema_id")) is str and schema["schema_id"],
             "Fresh schema create response omitted its native schema identity")
     result = {"status": "submitted", "trial_id": config["trial_id"],
@@ -956,11 +1199,17 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
     run_ids = {}
     verified_ack = False
     ack_attempted = False
+    recovery_state["phase"] = "trial_started"
+    _write_private_json(recovery_path, recovery_state)
     try:
         # The source child is started before the genesis initializer and retains
         # the original source's issuers/credentials. Only detached exact bytes
         # cross the process boundary.
-        holder, genesis_bytes = SourceHolderIPC.start(config["holder_bootstrap"], work_deadline)
+        holder, genesis_bytes = SourceHolderIPC.start(holder_spec, work_deadline)
+        recovery_state["source_bootstrap"] = {"worker_pid": holder.process.pid,
+            "genesis_sha256": hashlib.sha256(genesis_bytes).hexdigest(),
+            "genesis_bytes": len(genesis_bytes), "state": "source_A1_committed_and_genesis_selected"}
+        _write_private_json(recovery_path, recovery_state)
         genesis_uri = volume_path + "/genesis.bin"
         genesis_artifact = _put_volume_bytes(api, genesis_uri, genesis_bytes)
         trial = dict(config["trial"])
@@ -973,7 +1222,8 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
                                ensure_ascii=False)
         init_id, init_task_id, _, init_result = _run_stage(api, config, "initializer",
             payload["initializer"], {"task_parameters_json": init_json}, work_deadline,
-            cleanup_deadline=deadline)
+            cleanup_deadline=deadline, recovery_state=recovery_state,
+            recovery_path=recovery_path)
         run_ids["initializer"] = init_id
         _validate_task_runtime(init_result, config["expected_runtime"], "initializer")
         require(set(init_result) == {"profile", "runtimeIdentity", "predictiveOptimization",
@@ -985,6 +1235,9 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
         require(hashlib.sha256(initial_manifest).hexdigest() == init_result["manifestSha256"]
                 and len(initial_manifest) <= 4 * 1024 * 1024,
                 "Initializer exact genesis manifest digest/bound failed")
+        recovery_state["uc_genesis"] = {"manifest_sha256": hashlib.sha256(initial_manifest).hexdigest(),
+            "installation_inventory": init_result["installationInventory"]}
+        _write_private_json(recovery_path, recovery_state)
         from ashlar_host.managed_a1_detached_admission import admit_detached_a1_plan
         context = object()
         plan = admit_detached_a1_plan(genesis_snapshot_bytes=genesis_bytes,
@@ -993,9 +1246,16 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
         request_bytes = json.dumps(plan.request, sort_keys=True, separators=(",", ":"),
                                    ensure_ascii=False, allow_nan=False).encode("utf-8")
         publication_id = plan.request["publication_id"]
+        recovery_state["frozen_a1_request"] = {"request_sha256": hashlib.sha256(request_bytes).hexdigest(),
+            "publication_id": publication_id}
+        _write_private_json(recovery_path, recovery_state)
         destination_id = trial.get("destination_id", "client_dev." + trial["schema"])
         snapshot_bytes, custody_digests = holder.open_a1(
             request_bytes, publication_id, destination_id, work_deadline)
+        recovery_state["source_hold"] = {"selection_sha256": hashlib.sha256(snapshot_bytes).hexdigest(),
+            "selection_bytes": len(snapshot_bytes), "custody_digests": custody_digests,
+            "state": "same_session_prepublication_hold_open"}
+        _write_private_json(recovery_path, recovery_state)
         from ashlar_host.truss_detached_source_snapshot_codec import decode_detached_source_snapshot
         detached = decode_detached_source_snapshot(snapshot_bytes)
         require(len(snapshot_bytes) <= 4 * 1024 * 1024,
@@ -1019,7 +1279,8 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
         publisher_id, publisher_task_id, _, publisher_result = _run_stage(api, config,
             "publisher", payload["publisher"], {"task_parameters_json": json.dumps(
                 publisher_params, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},
-            work_deadline, cleanup_deadline=deadline)
+            work_deadline, cleanup_deadline=deadline, recovery_state=recovery_state,
+            recovery_path=recovery_path)
         run_ids["publisher"] = publisher_id
         _validate_task_runtime(publisher_result, config["expected_runtime"], "publisher")
         receipt, request_bytes, manifest_bytes, receipt_bytes, vector, vector_sha256 = (
@@ -1038,6 +1299,9 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
         publisher_result_uri = volume_path + "/publisher-result.json"
         publisher_result_artifact = _put_volume_bytes(api, publisher_result_uri,
                                                        publisher_result_raw)
+        recovery_state["publisher_result"] = {"volume_uri": publisher_result_uri,
+            "sha256": publisher_result_artifact["sha256"], "bytes": publisher_result_artifact["bytes"]}
+        _write_private_json(recovery_path, recovery_state)
         from ashlar_host.managed_current_a1_prefix_builder import build_managed_current_a1_prefix_evidence
         prefix_bytes, prefix_sha, selected_prefix = build_managed_current_a1_prefix_evidence(
             genesis_bytes=genesis_bytes, source_snapshot_bytes=snapshot_bytes,
@@ -1053,6 +1317,9 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
         selected_prefix_uri = volume_path + "/selected-prefix.json"
         selected_prefix_artifact = _put_volume_bytes(api, selected_prefix_uri,
                                                        selected_prefix_raw)
+        recovery_state["source_prefix"] = {"sha256": prefix_sha,
+            "volume_uri": prefix_uri, "selected_sha256": selected_prefix_artifact["sha256"]}
+        _write_private_json(recovery_path, recovery_state)
         bundle = _retention_bundle(trial=task_trial | {
                 "verifier_timeout_seconds": config["verifier"]["timeout_seconds"]},
             protocol_profile=config["protocol_profile"], plan=plan, request_bytes=request_bytes,
@@ -1066,14 +1333,21 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
             "targets": {key: list(value) for key, value in bundle.vector.targets.items()}}
         require(bundle_wire == vector,
                 "Parent retention builder and publisher vector differ")
-        pin_root = Path(tempfile.mkdtemp(prefix="ashlar-a1-pins-"))
+        pin_root = recovery_root / "pin-owner"
+        pin_root.mkdir(mode=0o700)
         os.chmod(pin_root, 0o700)
+        pin_native_timeout = min(900, config["maximum_wall_seconds"],
+            int(deadline - time.monotonic() - POST_ACK_CLEANUP_RESERVE_SECONDS))
+        require(pin_native_timeout >= 31,
+                "Insufficient outer-deadline coverage for a bounded native A1 pin")
         from ashlar_host.managed_a1_local_pin_owner import ManagedA1LocalPinOwner
         pin_owner = ManagedA1LocalPinOwner(pin_root / "pgdata", bundle.selection,
-            bundle.vector, native_timeout_seconds=min(900, config["maximum_wall_seconds"]))
+            bundle.vector, native_timeout_seconds=pin_native_timeout,
+            deadline_monotonic=work_deadline - config["verifier"]["timeout_seconds"])
         pin_owner.__enter__()
         pin_registration = pin_owner.register()
-        pin_stages = _LocalPinStages(pin_owner)
+        pin_stages = _LocalPinStages(pin_owner,
+            lifetime_seconds=pin_native_timeout)
         result["local_pin_owner"] = pin_registration
         rpc_dir = volume_path
         verify_params = dict(common)
@@ -1089,7 +1363,8 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
             work_deadline, on_poll=lambda: _service_source_observer_rpc(api, holder, rpc_dir,
                 work_deadline, expected_vector_sha256=vector_sha256,
                 expected_custody_digests=custody_digests, pin_stage=pin_stages),
-            cleanup_deadline=deadline)
+            cleanup_deadline=deadline, recovery_state=recovery_state,
+            recovery_path=recovery_path)
         run_ids["verifier"] = verifier_id
         _validate_task_runtime(verifier_result, config["expected_runtime"], "verifier")
         holder.renew(work_deadline)
@@ -1106,8 +1381,20 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
             "runtime_identity": verifier_result["runtimeIdentity"],
             "predictive_optimization": verifier_result["predictiveOptimization"]}
 
-        holder.owner.bind_publication(manifest_bytes=manifest_bytes,
-            vector_payload=vector, receipt_bytes=receipt_bytes)
+        require(deadline - time.monotonic() >= config["cleanup_reserve_seconds"],
+                "Do not bind or ACK without the full remaining ACK/reap/cleanup reserve")
+        recovery_state["phase"] = "verified_prepared_for_ack"
+        recovery_state["source"] = {"publication_id": publication_id,
+            "request_sha256": hashlib.sha256(request_bytes).hexdigest(),
+            "manifest_sha256": hashlib.sha256(manifest_bytes).hexdigest(),
+            "receipt_sha256": hashlib.sha256(receipt_bytes).hexdigest(),
+            "selection_sha256": hashlib.sha256(snapshot_bytes).hexdigest(),
+            "prior_checkpoint_sha256": hashlib.sha256(detached.source_page.prior_bytes).hexdigest(),
+            "next_checkpoint_sha256": hashlib.sha256(detached.source_page.next_bytes).hexdigest(),
+            "page_sha256": detached.source_page.page_fields["sha256"]}
+        _write_private_json(recovery_path, recovery_state)
+        holder.bind(manifest_bytes=manifest_bytes, vector=vector,
+            receipt_bytes=receipt_bytes, deadline=deadline)
         from ashlar_host.a1_ack_attempt import DurableA1AckAttemptStore
         attempt_dir = pin_root / "attempts"
         attempt_dir.mkdir(parents=True, exist_ok=False, mode=0o700)
@@ -1120,13 +1407,25 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
             page_sha256=page.page_fields["sha256"], destination_id=destination_id,
             publication_id=publication_id)
         prepared = store.load()
+        recovery_state["ack_attempt_directory"] = str(store.directory)
         result["ack_attempt"] = {"selection_sha256": prepared.selection_sha256,
             "request_sha256": prepared.request_sha256,
             "manifest_sha256": prepared.manifest_sha256,
             "receipt_sha256": prepared.receipt_sha256,
             "publication_id": prepared.publication_id}
+        attempt_raw = store.path.read_bytes()
+        recovery_state["ack"] = {"state": "durable_attempt_prepared",
+            "attempt_directory": str(store.directory),
+            "attempt_sha256": hashlib.sha256(attempt_raw).hexdigest(),
+            **result["ack_attempt"]}
+        _write_private_json(recovery_path, recovery_state)
+        require(deadline - time.monotonic() >= config["cleanup_reserve_seconds"],
+                "Do not dispatch ACK without the full reserved ACK/reap/cleanup window")
         ack_attempted = True
-        settlement = holder.owner.acknowledge_once(store, attempt_directory=store.directory)
+        recovery_state["ack"]["state"] = "dispatch_intent"
+        _write_private_json(recovery_path, recovery_state)
+        settlement = holder.acknowledge_once(store, attempt_directory=store.directory,
+                                             deadline=deadline)
         require(settlement.outcome == "acknowledged_exactly_reconciled"
                 and settlement.request_sha256 == hashlib.sha256(request_bytes).hexdigest()
                 and settlement.manifest_sha256 == hashlib.sha256(manifest_bytes).hexdigest()
@@ -1136,6 +1435,9 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
             "request_sha256": settlement.request_sha256,
             "manifest_sha256": settlement.manifest_sha256,
             "selection_sha256": settlement.selection_sha256}
+        recovery_state["ack"]["state"] = "acknowledged_exactly_reconciled"
+        recovery_state["phase"] = "acknowledged_cleanup_pending"
+        _write_private_json(recovery_path, recovery_state)
         verified_ack = True
         result["source_holder_closed"] = True
 
@@ -1216,7 +1518,61 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
                 pass
         # Keep schema and volume if either run or source ACK has an unclear result.
         result["status"] = "recovery_required" if not verified_ack else "cleanup_incomplete"
+        recovery_state["phase"] = result["status"]
+        recovery_state["known_run_ids"] = dict(run_ids)
+        recovery_state["pin_root"] = str(pin_root) if pin_root is not None else None
+        recovery_state["ack_attempted"] = ack_attempted
+        try: _write_private_json(recovery_root / "recovery.json", recovery_state)
+        except Exception: pass
         raise
+
+
+def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
+    # Static mode deliberately does not even resolve CLI credentials.
+    if not launch:
+        return {"status": "validated_only", "profile": profile,
+                "workspace": config["host"], "payload": payload}
+    require(threading.current_thread() is threading.main_thread(),
+            "Bounded launch must run on the main thread for outer-deadline supervision")
+    start = time.monotonic()
+    recovery_root = Path(tempfile.mkdtemp(prefix="ashlar-a1-recovery-"))
+    os.chmod(recovery_root, 0o700)
+    recovery_path = recovery_root / "recovery.json"
+    recovery_state = {"profile": "ashlar-managed-a1-local-recovery/0.1",
+        "trial_id": config["trial_id"], "workspace": config["host"],
+        "started_at_epoch_ms": int(time.time() * 1000), "phase": "launch_gate",
+        "deadline_epoch_ms": int(time.time() * 1000) +
+            config["maximum_wall_seconds"] * 1000,
+        "jobs": {}, "known_run_ids": {}, "ack_attempted": False,
+        "recovery_path": str(recovery_path)}
+    _write_private_json(recovery_path, recovery_state)
+    previous_handler = signal.getsignal(signal.SIGALRM)
+    previous_timer = signal.getitimer(signal.ITIMER_REAL)
+    def expired(_signum, _frame):
+        raise TimeoutError("Whole managed A1 wall deadline expired")
+    signal.signal(signal.SIGALRM, expired)
+    signal.setitimer(signal.ITIMER_REAL, config["maximum_wall_seconds"])
+    try:
+        result = _launch_trial(config, payload, profile, recovery_root=recovery_root,
+            recovery_state=recovery_state, start=start)
+        recovery_state.update({"phase": "complete", "status": result.get("status"),
+            "known_run_ids": dict(recovery_state.get("known_run_ids", {}))})
+        _write_private_json(recovery_path, recovery_state)
+        import shutil
+        shutil.rmtree(recovery_root)
+        return result
+    except BaseException as error:
+        recovery_state.setdefault("phase", "recovery_required")
+        recovery_state["failure_type"] = type(error).__name__
+        recovery_state["known_run_ids"] = dict(recovery_state.get("known_run_ids", {}))
+        try: _write_private_json(recovery_path, recovery_state)
+        except Exception: pass
+        raise RuntimeError(f"Managed A1 stopped; private recovery receipt retained at {recovery_path}") from error
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        signal.signal(signal.SIGALRM, previous_handler)
+        if previous_timer[0] > 0:
+            signal.setitimer(signal.ITIMER_REAL, previous_timer[0], previous_timer[1])
 
 
 def main(argv: list[str] | None = None) -> int:
