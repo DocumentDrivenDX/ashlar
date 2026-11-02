@@ -1,6 +1,6 @@
 {
   "packet": "ashlar-r61-fresh-truss053-umf102",
-  "status": "attempt7-bound-install-only-host-timeout-60s",
+  "status": "attempt8-bound-resuming-attempt7-accepted-genesis-source",
   "source": {
     "repository": "ashlar",
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
@@ -8,7 +8,7 @@
     "runner_path": "tools/r61_fresh_cohort_runner.py",
     "runner_sha256": "0b318102e7c8d5de3b6c15f0f003d666d101d0c9f8b9f991601b41fbd40b7eb9",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
-    "setup_stage_sha256": "4e3390770c04e8f1a0f33b67e212359df347fd4c14df20f5c1098262337cf85e",
+    "setup_stage_sha256": "b83c959ed1d2fced7da4eccf223e0e22230b6bb526c3552a5dec7c7f40a5b375",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
     "supervisor_sha256": "8aad4b142854915928ec80232e082c0bbb940456070bd8722e35d59827724d80"
   },
@@ -64,10 +64,10 @@
     "postgresql_18_pg_controldata_sha256": "9d4cff3fd9c003b471a767b1985cf1d1c46414b53486dd16934434c6e34c5d8e"
   },
   "fresh_local_state": {
-    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt7",
-    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt7/pgdata",
-    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt7/delta",
-    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt7/evidence",
+    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8",
+    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8/pgdata",
+    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8/delta",
+    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8/evidence",
     "must_be_absent_before_dispatch": true,
     "forbidden_state": [
       "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
@@ -109,12 +109,13 @@
     "PG18 seed/copy tree hashes, initdb receipt, prior failure receipts, stopped-state/control identity, and observed SHOW fsync=on"
   ],
   "non_claims": [
-    "No successful end-to-end R61 qualification has completed; attempts 1-4 retain bounded failure evidence.",
+    "No successful end-to-end R61 qualification has completed; attempts 1-7 retain bounded refusal evidence.",
     "No release, tag, publish, cloud, scale, push or production authority is claimed.",
-    "The prior R59 GraphFrames runtime configuration is not candidate compatibility evidence."
+    "The prior R59 GraphFrames runtime configuration is not candidate compatibility evidence.",
+    "Attempt7 completed public Truss .53 installation, UMF 0.10.0 acceptance, and genesis consumer registration, but its bounded read timed out at 2 seconds; attempt8 will resume this exact stopped state without install/accept replay."
   ],
   "qualification_stage": {
-    "status": "source_stage_implemented_not_dispatched",
+    "status": "resume_readback_stage_implemented_not_dispatched",
     "source_model": "docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json",
     "source_model_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
     "truss_local_runtime_member_sha256": "7a0fce2fd418a3c239e7f6e847ac952d152d1967638251a4ebba2f5f29b90728",
@@ -148,7 +149,7 @@
   },
   "postgres_bootstrap_policy": {
     "profile": "ashlar-r61-pg18-stopped-bootstrap-copy/0.1",
-    "method": "copy previously initialized clean PG18 cluster, then install Truss with public SDK operations",
+    "method": "copy exact stopped attempt7 public Truss installation/accepted UMF source and genesis-only consumer into a new PGDATA; perform public readback only, no install/accept/registration replay",
     "seed_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4",
     "seed_pgdata": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/pgdata",
     "seed_tree_sha256": "76bced149f633e7b2b556aa489db88995881b31cfdf3a3ec079af8c81f108db4",
@@ -170,6 +171,17 @@
       "report_in_transaction"
     ],
     "install_statement_timeout_ms": 60000,
-    "install_statement_timeout_scope": "SET LOCAL plus Truss adopted-host statement_timeout_ms and operation_timeout_ms; install only; other operations retain 15000ms"
+    "install_statement_timeout_scope": "SET LOCAL plus Truss adopted-host statement_timeout_ms and operation_timeout_ms; install only; other operations retain 15000ms",
+    "resume_source_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt7",
+    "resume_source_pgdata": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt7/pgdata",
+    "resume_pgdata_tree_sha256": "b74e70d653f92658535afcf27a4da72832c7f56a8a61dd56c64093b2f74f3a92",
+    "resume_system_identifier": "7703698260472019557",
+    "resume_failure_sha256": "1fc5dcd0927c0848c011b8a5405c6c6aae49a9f48cd63617cb008952b47793d7",
+    "resume_supervisor_sha256": "54f7d95adc99de6a9e29f5c7c9242884c5cdac89e1cf455cb66243624ffe10cc",
+    "resume_model_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
+    "resume_setup_sha256": "0f96469cf7d90c34083da7ed0b514bac12a72ce7d348de71936cfb647800d93b",
+    "resume_origin_sha256": "715811b4e2993786411baf3dc7b4caad6de563ae287cd8a211edfb2ed34df43d",
+    "resume_lease_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "resume_claim": "Attempt7 public Truss .53 install, model acceptance and consumer registration completed before read_page SQLSTATE 57014; exact supervisor proves PostgreSQL stopped and no Delta/ACK; copied only after receipt, model/setup/origin, PG18 control, tree, lease and socket validation."
   }
 }
