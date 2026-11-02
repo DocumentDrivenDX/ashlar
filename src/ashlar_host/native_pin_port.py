@@ -32,19 +32,26 @@ class NativePinPort:
     every registered UUID/version pair inside its held transaction.
     """
 
-    def __init__(self, pins: PostgresPins, retention: SourceBoundRetentionAdmission):
+    def __init__(self, pins: PostgresPins, retention: SourceBoundRetentionAdmission,
+                 *, native_pin_transaction_timeout_seconds=None):
         if (type(pins) is not PostgresPins
                 or not callable(getattr(retention, "remaining_lifetime_seconds", None))):
             raise NativePinPortError("Native pin owner and source-bound retention admission required")
+        if (native_pin_transaction_timeout_seconds is not None
+                and (type(native_pin_transaction_timeout_seconds) is not int
+                     or not 31 <= native_pin_transaction_timeout_seconds <= 900)):
+            raise NativePinPortError("Bounded native transaction timeout must be 31..900 seconds")
         self._pins = pins
         self._retention = retention
+        self._native_pin_timeout_seconds = native_pin_transaction_timeout_seconds
 
     def open(self, vector: PinVector, source_selection: object, context: object) -> "_NativePinHandle":
         if type(vector) is not PinVector or source_selection is None or context is None:
             raise NativePinPortError("Exact pin vector, source selection and context required")
         # The native owner acquires and checks the transaction before exposing
         # the handle. If separate retention admission refuses, release it.
-        native = self._pins.open_live(vector, source_selection, context=context)
+        native = self._pins.open_live(vector, source_selection, context=context,
+            bounded_lifetime_seconds=self._native_pin_timeout_seconds)
         handle = _NativePinHandle(self._retention, native, vector, source_selection, context)
         try:
             handle._coverage()
@@ -85,6 +92,17 @@ class _NativePinHandle:
         except BaseException as error:
             self._close_after(error)
             raise
+
+    def native_pin_transaction_remaining_lifetime_seconds(self) -> float:
+        """Expose PostgreSQL's independently enforced live transaction bound."""
+        self._require_active()
+        remaining = getattr(
+            self._native,
+            "native_pin_transaction_remaining_lifetime_seconds", None)
+        if not callable(remaining):
+            raise NativePinPortError(
+                "Native PostgreSQL transaction lifetime admission unavailable")
+        return remaining()
 
     def renew(self) -> None:
         self._require_active()

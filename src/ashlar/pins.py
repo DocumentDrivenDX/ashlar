@@ -8,10 +8,17 @@ Never use an autocommit query adapter for this interface.
 from contextlib import contextmanager
 from dataclasses import dataclass
 import hashlib,json,re
+import math,time
 from types import MappingProxyType
 from .publication import _name
 
 INVENTORY_SQL = "SELECT table_name,table_uuid,version::text AS version,encode(custody_digest,'hex') AS digest,released FROM ashlar_pins.pin WHERE authority=:authority AND scope_kind=:kind AND scope_id=:scope LIMIT 129"
+LIVE_PIN_TIMEOUT_SQL = "SELECT set_config(:setting, :timeout, true) AS applied"
+LIVE_PIN_LIFETIME_SQL = (
+    "SELECT extract(epoch FROM current_setting('idle_in_transaction_session_timeout')::interval)::double precision AS idle_timeout_seconds, "
+    "extract(epoch FROM current_setting('transaction_timeout')::interval)::double precision AS transaction_timeout_seconds, "
+    "extract(epoch FROM clock_timestamp() - transaction_timestamp())::double precision AS transaction_age_seconds"
+)
 
 class PinError(ValueError):
     pass
@@ -118,7 +125,8 @@ class PostgresPins:
                 raise PinError('Original native page pin admission unavailable')from error
             raise
 
-    def open_live(self,vector,source_selection,*,context):
+    def open_live(self,vector,source_selection,*,context,
+                  bounded_lifetime_seconds=None):
         """Open an explicitly source-bound transaction-scoped pin handle.
 
         The policy must implement ``authorize_source_bound_read(vector,
@@ -128,14 +136,27 @@ class PostgresPins:
         """
         if source_selection is None:
             raise PinError('Exact source selection required')
+        if (bounded_lifetime_seconds is not None
+                and (type(bounded_lifetime_seconds) is not int
+                     or not 31 <= bounded_lifetime_seconds <= 900)):
+            raise PinError('Bounded native pin transaction lifetime must be 31..900 seconds')
         authorize=getattr(self.policy,'authorize_source_bound_read',None)
         if not callable(authorize):
             raise PinError('Source-bound pin authorization unavailable')
         manager=self.executor.transaction(context)
         session=manager.__enter__()
-        handle=_LivePinHandle(self,manager,session,vector,source_selection,context,authorize)
+        handle=_LivePinHandle(self,manager,session,vector,source_selection,
+                              context,authorize,bounded_lifetime_seconds)
         try:
+            if bounded_lifetime_seconds is not None:
+                timeout=f'{bounded_lifetime_seconds * 1000}ms'
+                for setting in ('idle_in_transaction_session_timeout',
+                                'transaction_timeout'):
+                    session.query(LIVE_PIN_TIMEOUT_SQL,
+                                  {'setting':setting,'timeout':timeout})
             handle._check()
+            if bounded_lifetime_seconds is not None:
+                handle.native_pin_transaction_remaining_lifetime_seconds()
         except BaseException as error:
             handle._active=False
             _exit_preserving(manager,error,'Native pin open cleanup failed: ')
@@ -153,10 +174,12 @@ def _exit_preserving(manager,error,note_prefix):
 
 class _LivePinHandle:
     """Renewable checks on one original vector inside one held transaction."""
-    def __init__(self,pins,manager,session,vector,source_selection,context,authorize_source):
+    def __init__(self,pins,manager,session,vector,source_selection,context,
+                 authorize_source,bounded_lifetime_seconds):
         self._pins=pins;self._manager=manager;self._session=session
         self._vector=vector;self._source_selection=source_selection;self._context=context
         self._authorize_source=authorize_source;self._active=True
+        self._bounded_lifetime_seconds=bounded_lifetime_seconds
 
     def _require_active(self):
         if not self._active:raise PinError('Live native pin handle is closed')
@@ -171,6 +194,39 @@ class _LivePinHandle:
         for table in sorted(self._vector.targets):
             self._pins._call(self._session,'assert_active',self._vector,table)
         self._pins._inventory(self._session,self._vector)
+
+    def native_pin_transaction_remaining_lifetime_seconds(self):
+        """Read back effective PostgreSQL limits and transaction age in-session.
+
+        Host round-trip time is subtracted from both server-derived bounds as a
+        conservative allowance. An unconfigured or unsupported GUC refuses.
+        """
+        self._require_active()
+        if self._bounded_lifetime_seconds is None:
+            raise PinError('Native pin transaction lifetime admission unavailable')
+        started=time.monotonic()
+        rows=self._session.query(LIVE_PIN_LIFETIME_SQL,{}).rows
+        ended=time.monotonic()
+        elapsed=ended-started
+        if (type(started) not in (int,float) or type(ended) not in (int,float)
+                or not math.isfinite(started) or not math.isfinite(ended)
+                or elapsed<0 or type(rows) is not list or len(rows)!=1
+                or type(rows[0]) is not dict
+                or set(rows[0])!={'idle_timeout_seconds','transaction_timeout_seconds',
+                                  'transaction_age_seconds'}):
+            raise PinError('Native pin transaction lifetime clock is invalid')
+        idle=rows[0]['idle_timeout_seconds']
+        transaction=rows[0]['transaction_timeout_seconds']
+        age=rows[0]['transaction_age_seconds']
+        if (any(type(value) not in (int,float) or not math.isfinite(value)
+                for value in (idle,transaction,age))
+                or idle != self._bounded_lifetime_seconds
+                or transaction != self._bounded_lifetime_seconds
+                or age < 0):
+            raise PinError('Effective PostgreSQL transaction lifetime settings differ')
+        idle_remaining=max(0.0,idle-elapsed)
+        transaction_remaining=max(0.0,transaction-age-elapsed)
+        return min(idle_remaining,transaction_remaining)
 
     def renew(self):
         """Recheck source authority and every exact pin on the held session."""

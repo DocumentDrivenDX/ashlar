@@ -1023,6 +1023,15 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
                     events.append(("pin-transaction", "close"))
 
             def query(inner_self, sql, params):
+                from ashlar.pins import LIVE_PIN_TIMEOUT_SQL,LIVE_PIN_LIFETIME_SQL
+                if sql == LIVE_PIN_TIMEOUT_SQL:
+                    events.append(("pin-idle-timeout",))
+                    return SQLResult([{"applied":params["timeout"]}])
+                if sql == LIVE_PIN_LIFETIME_SQL:
+                    events.append(("pin-lifetime",))
+                    return SQLResult([{"idle_timeout_seconds":900.0,
+                        "transaction_timeout_seconds":900.0,
+                        "transaction_age_seconds":0.0}])
                 if "assert_uuid_available(" in sql or "assert_active(" in sql:
                     return SQLResult([])
                 if sql.startswith("SELECT table_name"):
@@ -1050,11 +1059,14 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
             self.selection, self.session_factory, self.source_observer,
             self.policy_observer, context=context)
         port = ManagedOperationalReadPinPort(
-            read_port, PostgresPins(Executor(), PinPolicy()), context=context)
+            read_port, PostgresPins(Executor(), PinPolicy()), context=context,
+            native_pin_transaction_timeout_seconds=900)
         handle = port.open(self.selection.receipt_bytes, vector, context)
         self.assertLess(events.index(("pin-transaction", "open")),
                         events.index(("session-open", "open")))
+        self.assertGreater(handle.native_pin_remaining_lifetime_seconds(),30)
         handle.renew()
+        self.assertGreater(handle.native_pin_remaining_lifetime_seconds(),30)
         self.assertEqual([item.stage for item in self.sessions], ["open", "pre_ack"])
         receipt = handle.close()
         self.assertEqual(receipt.outcome, "observed_available_at_checks")

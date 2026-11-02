@@ -146,9 +146,9 @@ class ManagedOperationalReadPinHandle:
     def native_pin_remaining_lifetime_seconds(self):
         """Return native pin-owner coverage, never the managed read deadline.
 
-        ``PostgresPins.open_live`` currently returns a transaction handle with
-        no duration admission. In that case the composed bridge must fail
-        closed before ACK; the read interval deadline is not a substitute.
+        ``PostgresPins.open_live`` applies a transaction-local PostgreSQL idle
+        timeout and reports its conservative remaining coverage. The read
+        interval deadline is not a substitute for that native bound.
         """
         self._require_open()
         remaining = getattr(
@@ -197,16 +197,23 @@ class ManagedOperationalReadPinPort:
     UC session authority by itself.
     """
 
-    def __init__(self, read_port, pins, *, context):
+    def __init__(self, read_port, pins, *, context,
+                 native_pin_transaction_timeout_seconds=None):
         if (type(read_port) is not ManagedOperationalReadPort
                 or type(pins) is not PostgresPins or context is not read_port.context
                 or not callable(getattr(pins.policy, "authorize_read", None))
                 or not callable(getattr(pins.policy, "authorize_source_bound_read", None))):
             raise ManagedOperationalReadPortError(
                 "Exact read owner, native pin owner, source-bound policy and caller context required")
+        if (native_pin_transaction_timeout_seconds is not None
+                and (type(native_pin_transaction_timeout_seconds) is not int
+                     or not 31 <= native_pin_transaction_timeout_seconds <= 900)):
+            raise ManagedOperationalReadPortError(
+                "Bounded native pin transaction timeout must be 31..900 seconds")
         self.read_port = read_port
         self.pins = pins
         self.context = context
+        self.native_pin_transaction_timeout_seconds = native_pin_transaction_timeout_seconds
         self._opened = False
 
     def open(self, receipt_bytes: bytes, vector: PinVector, context: object):
@@ -219,7 +226,8 @@ class ManagedOperationalReadPinPort:
         self._opened = True
         try:
             pin_handle = self.pins.open_live(
-                vector, self.read_port.selection, context=context)
+                vector, self.read_port.selection, context=context,
+                bounded_lifetime_seconds=self.native_pin_transaction_timeout_seconds)
         except Exception as error:
             raise ManagedOperationalReadPortError(
                 "Native source-bound pin opening refused") from error

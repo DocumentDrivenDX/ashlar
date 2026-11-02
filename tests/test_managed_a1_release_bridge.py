@@ -129,6 +129,7 @@ def managed_read_pin_port(events, *, context, request_bytes=REQUEST,
     port = object.__new__(ManagedOperationalReadPinPort)
     port.read_port = read_port
     port.context = context
+    port.native_pin_transaction_timeout_seconds = 900
 
     def open_port(receipt_bytes, vector, context):
         events.append(("managed.open", receipt_bytes, vector, context))
@@ -322,6 +323,19 @@ class ManagedA1ReleaseBridgeTests(unittest.TestCase):
                 vector=VECTOR, context=self.context)
         self.assertEqual(self.events, [])
 
+    def test_native_pin_timeout_must_cover_selected_holder_interval(self):
+        managed = managed_read_pin_port(self.events, context=self.context,
+            request_bytes=self.request_bytes, manifest_bytes=self.manifest_bytes,
+            receipt_bytes=self.receipt_bytes, vector=self.vector)
+        managed.native_pin_transaction_timeout_seconds = 60
+        bridge = self.make_bridge(managed=managed)
+        with self.assertRaisesRegex(ManagedA1BridgeError,
+                                    "must cover the selected holder interval"):
+            bridge.acknowledge(plan=self.plan, request_bytes=self.request_bytes,
+                manifest_bytes=self.manifest_bytes, receipt_bytes=self.receipt_bytes,
+                vector=self.vector, context=self.context)
+        self.assertEqual(self.events, [])
+
     def test_both_handles_must_cover_ack_and_reconciliation_at_open(self):
         source = SourcePort(self.events, coverage_values=(29.0,))
         with self.assertRaisesRegex(ManagedA1BridgeError, "does not cover"):
@@ -360,6 +374,16 @@ class ManagedA1ReleaseBridgeTests(unittest.TestCase):
         with self.assertRaisesRegex(ManagedOperationalReadPortError,
                                     "does not expose bounded live transaction"):
             handle.native_pin_remaining_lifetime_seconds()
+
+    def test_production_composite_reads_native_pin_bound_separately(self):
+        from ashlar_host.managed_operational_read_port import ManagedOperationalReadPinHandle
+        read = SimpleNamespace(remaining_lifetime_seconds=lambda: 900.0)
+        pin = SimpleNamespace(
+            native_pin_transaction_remaining_lifetime_seconds=lambda: 47.0,
+            renew=lambda: None, close=lambda: None)
+        handle = ManagedOperationalReadPinHandle(read, pin)
+        self.assertEqual(handle.remaining_lifetime_seconds(), 900.0)
+        self.assertEqual(handle.native_pin_remaining_lifetime_seconds(), 47.0)
 
     def test_native_pin_coverage_is_rechecked_after_renewal(self):
         managed = managed_read_pin_port(self.events, context=self.context,

@@ -23,6 +23,10 @@ class _Executor:
 
     def query(self, sql, params):
         self.calls.append((sql, dict(params)))
+        from ashlar.pins import LIVE_PIN_TIMEOUT_SQL,LIVE_PIN_LIFETIME_SQL
+        if sql==LIVE_PIN_TIMEOUT_SQL:return SQLResult([{"applied":params["timeout"]}])
+        if sql==LIVE_PIN_LIFETIME_SQL:return SQLResult([{"idle_timeout_seconds":60.0,
+            "transaction_timeout_seconds":60.0,"transaction_age_seconds":0.0}])
         if "assert_uuid_available" in sql:
             return SQLResult([])
         if "ashlar_pins.register(" in sql:
@@ -89,6 +93,14 @@ class NativePinPortTests(unittest.TestCase):
         self.assertEqual(sum("assert_active(" in sql for sql, _ in self.executor.calls), 12)
         with self.assertRaisesRegex(NativePinPortError, "closed"):
             handle.renew()
+
+    def test_bounded_native_transaction_admission_is_distinct_from_retention(self):
+        port=NativePinPort(self.pins,self.retention,
+            native_pin_transaction_timeout_seconds=60)
+        handle=port.open(self.vector,self.source,self.context)
+        self.assertEqual(handle.remaining_lifetime_seconds(),60.0)
+        self.assertGreater(handle.native_pin_transaction_remaining_lifetime_seconds(),30)
+        handle.close()
 
     def test_missing_or_invalid_independent_retention_refuses_and_releases_pin(self):
         self.retention.failure = PermissionError("denied")

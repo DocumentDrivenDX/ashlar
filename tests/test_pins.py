@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 from contextlib import contextmanager
 import unittest
+from unittest.mock import patch
 from ashlar.pins import PinVector,PostgresPins,PinError
 from ashlar.native import SQLResult
 class Policy:
@@ -8,7 +9,7 @@ class Policy:
         if c!='admitted':raise PermissionError('Denied')
     authorize_read=admit_registration
 class Executor:
-    def __init__(self):self.rows=[];self.open=False;self.calls=[];self.quarantined=False
+    def __init__(self):self.rows=[];self.open=False;self.calls=[];self.parameter_calls=[];self.quarantined=False;self.lifetime_result={'idle_timeout_seconds':60.0,'transaction_timeout_seconds':60.0,'transaction_age_seconds':0.0}
     @contextmanager
     def transaction(self,c):
         prior=list(self.rows);self.open=True
@@ -16,7 +17,10 @@ class Executor:
         except BaseException:self.rows=prior;raise
         finally:self.open=False
     def query(self,sql,p):
-        assert self.open;self.calls.append(sql)
+        assert self.open;self.calls.append(sql);self.parameter_calls.append((sql,dict(p)))
+        from ashlar.pins import LIVE_PIN_TIMEOUT_SQL,LIVE_PIN_LIFETIME_SQL
+        if sql==LIVE_PIN_TIMEOUT_SQL:return SQLResult([{'applied':p['timeout']}])
+        if sql==LIVE_PIN_LIFETIME_SQL:return SQLResult([dict(self.lifetime_result)])
         if 'assert_uuid_available(' in sql:
             if self.quarantined:raise PinError('Unresolved cleanup')
             return SQLResult([])
@@ -60,6 +64,8 @@ class PinTests(unittest.TestCase):
         p=PostgresPins(e,SourcePolicy());p.register(v,context=context)
         events.clear();e.calls.clear();handle=p.open_live(v,source,context=context)
         self.assertTrue(e.open)
+        from ashlar.pins import LIVE_PIN_TIMEOUT_SQL
+        self.assertNotIn(LIVE_PIN_TIMEOUT_SQL,e.calls)
         self.assertEqual(len(events),1)
         self.assertEqual(e.calls.count('SELECT ashlar_pins.assert_uuid_available(:uuid)'),2)
         handle.renew()
@@ -71,6 +77,38 @@ class PinTests(unittest.TestCase):
         self.assertEqual(len(events),3)
         self.assertEqual(e.calls.count('SELECT ashlar_pins.assert_uuid_available(:uuid)'),6)
         with self.assertRaises(PinError):handle.renew()
+
+    def test_live_pin_transaction_has_server_enforced_bounded_idle_lifetime(self):
+        e=Executor();v=self.vector();source=object();context='admitted'
+        class SourcePolicy(Policy):
+            def authorize_source_bound_read(self,actual,selection,supplied):return None
+        p=PostgresPins(e,SourcePolicy());p.register(v,context=context)
+        handle=p.open_live(v,source,context=context,bounded_lifetime_seconds=60)
+        from ashlar.pins import LIVE_PIN_TIMEOUT_SQL,LIVE_PIN_LIFETIME_SQL
+        self.assertIn(LIVE_PIN_TIMEOUT_SQL,e.calls)
+        self.assertEqual({params['setting'] for sql,params in e.parameter_calls
+                          if sql==LIVE_PIN_TIMEOUT_SQL},
+                         {'idle_in_transaction_session_timeout','transaction_timeout'})
+        # The server reports both effective 60-second GUCs and transaction age.
+        e.lifetime_result={'idle_timeout_seconds':60.0,
+            'transaction_timeout_seconds':60.0,'transaction_age_seconds':10.0}
+        with patch('ashlar.pins.time.monotonic',side_effect=(100.0,102.0)):
+            self.assertEqual(handle.native_pin_transaction_remaining_lifetime_seconds(),48.0)
+        e.lifetime_result['transaction_age_seconds']=61.0
+        with patch('ashlar.pins.time.monotonic',side_effect=(110.0,111.0)):
+            self.assertEqual(handle.native_pin_transaction_remaining_lifetime_seconds(),0.0)
+        handle.close()
+
+    def test_live_pin_transaction_refuses_mismatched_effective_server_settings(self):
+        e=Executor();e.lifetime_result={'idle_timeout_seconds':60.0,
+            'transaction_timeout_seconds':45.0,'transaction_age_seconds':0.0}
+        v=self.vector();source=object();context='admitted'
+        class SourcePolicy(Policy):
+            def authorize_source_bound_read(self,actual,selection,supplied):return None
+        p=PostgresPins(e,SourcePolicy());p.register(v,context=context)
+        with self.assertRaisesRegex(PinError,'settings differ'):
+            p.open_live(v,source,context=context,bounded_lifetime_seconds=60)
+        self.assertFalse(e.open)
 
     def test_live_handle_refuses_missing_source_authority_and_vector_drift(self):
         e=Executor();v=self.vector();source=object();context='admitted'

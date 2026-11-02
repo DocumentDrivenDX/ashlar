@@ -136,7 +136,8 @@ def _vector_sha(vector: PinVector) -> str:
 
 
 def _validate_managed_selection(port, request_bytes, manifest_bytes,
-                                receipt_bytes, vector, context) -> None:
+                                receipt_bytes, vector, context,
+                                minimum_pin_interval_seconds) -> None:
     from .managed_operational_read_port import (
         ManagedOperationalReadPort,
         ManagedOperationalReadPinPort,
@@ -151,6 +152,11 @@ def _validate_managed_selection(port, request_bytes, manifest_bytes,
             or context is not getattr(port.read_port, "context", None)):
         raise ManagedA1BridgeError(
             "Original managed operational read/pin owner and exact holder context required")
+    pin_timeout = getattr(port, "native_pin_transaction_timeout_seconds", None)
+    if (type(pin_timeout) is not int
+            or pin_timeout < minimum_pin_interval_seconds):
+        raise ManagedA1BridgeError(
+            "Native pin transaction timeout must cover the selected holder interval")
     selected = getattr(port.read_port, "selection", None)
     if (type(selected) is not ManagedOperationalRetentionSelection
             or getattr(selected, "request_bytes", None) != request_bytes
@@ -320,7 +326,8 @@ class ManagedA1ReleaseBridge:
         if type(receipt_bytes) is not bytes or not 0 < len(receipt_bytes) <= 1024 * 1024:
             raise ManagedA1BridgeError("Exact bounded original destination receipt bytes required")
         _validate_managed_selection(self._managed, request_bytes, manifest_bytes,
-                                    receipt_bytes, vector, context)
+                                    receipt_bytes, vector, context,
+                                    self._maximum_interval_seconds)
         source_slot, publication_id = _validate_plan(
             plan, request_bytes, manifest_bytes, receipt_bytes, vector)
         selection = plan.selection

@@ -25,6 +25,11 @@ class ReaderTests(unittest.TestCase):
                     events.append('observe');self.rows=[dict(row)]
                 elif sql.startswith('SELECT table_name'):
                     events.append('inventory');self.rows=[dict(r) for r in inventory]
+                elif sql.startswith('SELECT set_config'):
+                    events.append('pin-timeout:'+args['setting']);self.rows=[{'applied':args['timeout']}]
+                elif "current_setting('idle_in_transaction_session_timeout')" in sql:
+                    events.append('pin-lifetime');self.rows=[{'idle_timeout_seconds':60.0,
+                        'transaction_timeout_seconds':60.0,'transaction_age_seconds':0.0}]
                 else:
                     events.append('assert-active' if 'assert_active' in sql else 'available')
                     self.rows=[{'guard':None}]
@@ -132,3 +137,37 @@ class ReaderTests(unittest.TestCase):
                         consume();self.assertEqual(events.count('inventory'),2);self.assertIn('commit',events)
                     self.assertIn('close',events);self.assertFalse(owner.active)
                 self.run_owner(body)
+
+    def test_live_pin_transaction_installs_bounded_server_idle_timeout(self):
+        from ashlar.pins import PostgresPins,PinVector
+        vector=PinVector('native-owner','manifest','original-publication','a'*64,
+            {'client_dev.original.object_current':('uuid-object',1)})
+        def body(owner,ctx,conn,row,events,selected):
+            conn.inventory.extend(dict(table_name=t,table_uuid=u,version=str(v),
+                digest=vector.custody_digest,released=False)
+                for t,(u,v) in vector.targets.items())
+            class Policy:
+                def authorize_read(self,actual,context):
+                    if actual is not vector or context is not ctx:raise AssertionError()
+                def authorize_source_bound_read(self,actual,source,context):
+                    if actual is not vector or context is not ctx or source is None:raise AssertionError()
+            handle=PostgresPins(owner,Policy()).open_live(vector,object(),context=ctx,
+                bounded_lifetime_seconds=60)
+            self.assertIn('pin-timeout:idle_in_transaction_session_timeout',events)
+            self.assertIn('pin-timeout:transaction_timeout',events)
+            self.assertIn('pin-lifetime',events)
+            self.assertGreater(handle.native_pin_transaction_remaining_lifetime_seconds(),30)
+            handle.close()
+        self.run_owner(body)
+
+    def test_pin_lifetime_setting_allowlist_rejects_other_gucs_and_bounds(self):
+        from ashlar_host.managed_pin_reader import ManagedPinSession
+        from ashlar.pins import LIVE_PIN_TIMEOUT_SQL
+        session=ManagedPinSession(None)
+        for parameters in (
+                {'setting':'statement_timeout','timeout':'900000ms'},
+                {'setting':'transaction_timeout','timeout':'900001ms'},
+                {'setting':'idle_in_transaction_session_timeout','timeout':'30000ms'}):
+            with self.subTest(parameters=parameters):
+                with self.assertRaisesRegex(ManagedPinReaderError,'managed-pin-reader-statement'):
+                    session.query(LIVE_PIN_TIMEOUT_SQL,parameters)

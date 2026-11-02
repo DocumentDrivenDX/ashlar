@@ -56,14 +56,15 @@ Each must cover the explicit 30-second ACK/reconciliation window. The ACK owner
 receives that same monotonic deadline on both commit and reconciliation; an
 overrun returns incomplete even when exact readback succeeded.
 
-The current `PostgresPins.open_live()` `_LivePinHandle` exposes no bounded
-transaction-lifetime admission named
-`native_pin_transaction_remaining_lifetime_seconds()`. Consequently, the production
-`ManagedOperationalReadPinHandle` raises when asked for native-pin lifetime,
-and this bridge refuses before ACK. That is an intentional fail-closed state;
-the managed read deadline does not prove pin transaction lifetime. A live ACK
-remains unqualified until the native pin owner supplies independent bounded
-lifetime or renewal coverage for the same held transaction.
+Follow-up evidence `a1-managed-native-pin-transaction-bound-20261102` adds an
+opt-in bounded native pin lifetime for A1. `PostgresPins.open_live()` only
+configures server timeouts when the A1 managed pin port explicitly supplies
+its 900-second interval; other existing callers keep their prior behavior.
+The live handle reads back both effective PostgreSQL timeouts and server-side
+transaction age on the same transaction. Local tests establish the bounded
+query path and fail-closed checks, not a real database setting or connection.
+Truss source custody, managed native observation and verifier completion still
+lack live independently admitted owners, so production ACK remains held.
 
 The existing managed read/pin composite opens both of its underlying handles;
 the bridge opens it and the separate source-custody handle, renews both
@@ -118,7 +119,9 @@ binding the returned observation to exact request, manifest, receipt and
 vector bytes. The managed side still needs an admitted serverless task/runtime and
 `client_dev` principal; the selected six-role managed target owner and exact
 four-role vector; a native full-row observer with independent source oracle;
-and a real native pin owner. The read-only workspace/Jobs inventory, task
+and the approved PostgreSQL pin endpoint, owner identity and source-bound
+authorization. The new server-enforced local idle bound does not admit any of
+those live inputs. The read-only workspace/Jobs inventory, task
 cost-meter, and total-spend admission must establish the selected task's exact
 runtime/access mode and stay under the existing `$100` total cap (aim below
 `$10`) before any paid execution. No such admission is made by this change.

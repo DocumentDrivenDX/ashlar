@@ -16,7 +16,7 @@ import re
 import stat
 from .lifecycle import finish,owned_context
 from .postgres import Session
-from ashlar.pins import INVENTORY_SQL
+from ashlar.pins import INVENTORY_SQL, LIVE_PIN_TIMEOUT_SQL, LIVE_PIN_LIFETIME_SQL
 
 PROFILE='ashlar-managed-pin-reader/0.1'
 
@@ -106,9 +106,17 @@ class ManagedPinSession(Session):
     def __init__(self,connection):super().__init__(_CursorConnection(connection))
     def query(self,sql,parameters):
         allowed=(INVENTORY_SQL,_ADMISSION,
+            LIVE_PIN_TIMEOUT_SQL,LIVE_PIN_LIFETIME_SQL,
             'SELECT ashlar_pins.assert_uuid_available(:uuid)',
             "SELECT ashlar_pins.assert_active(:id,:authority,:kind,:scope,:table,:uuid,CAST(:version AS bigint),decode(:digest,'hex'))")
         if type(sql)is not str or sql not in allowed:raise ManagedPinReaderError('managed-pin-reader-statement')
+        if (sql==LIVE_PIN_TIMEOUT_SQL
+                and (type(parameters)is not dict or set(parameters)!={'setting','timeout'}
+                     or type(parameters['setting'])is not str
+                     or parameters['setting'] not in ('idle_in_transaction_session_timeout','transaction_timeout')
+                     or type(parameters['timeout'])is not str
+                     or not re.fullmatch(r'(?:3[1-9]|[4-8][0-9]|9[0-9]|[1-8][0-9]{2}|900)000ms',parameters['timeout']))):
+            raise ManagedPinReaderError('managed-pin-reader-statement')
         return _safe(lambda:super(ManagedPinSession,self).query(sql,parameters))
 
 
