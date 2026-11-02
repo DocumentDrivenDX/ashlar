@@ -8,13 +8,23 @@ from ashlar_host.truss_local_setup import run_setup_truss_local_command
 class Tests(unittest.TestCase):
     def test_055_setup_forwards_bounded_install_deadline_only_to_install(self):
         from ashlar_host.truss_local_setup import (
-            _install_catalog_in_transaction, _install_statement_timeout_ms)
+            _adopt_setup_host, _install_catalog_in_transaction,
+            _install_statement_timeout_ms)
+        from unittest.mock import Mock
         assembly=type('Assembly',(),{'install_in_transaction':lambda self,tx,**kwargs:kwargs})()
         self.assertEqual(_install_statement_timeout_ms('0.0.55'),60000)
         self.assertEqual(_install_catalog_in_transaction(assembly,object(),'0.0.55'),
                          {'operation_timeout_ms':180000})
         self.assertEqual(_install_statement_timeout_ms('0.0.54'),15000)
         self.assertEqual(_install_catalog_in_transaction(assembly,object(),'0.0.54'),{})
+        connection=object()
+        with patch('truss.adopt_psycopg_host',return_value=Mock())as adopt:
+            _adopt_setup_host(connection,install_profile=True)
+            adopt.assert_called_once_with(connection,
+                statement_timeout_ms=60000,operation_timeout_ms=60000)
+            adopt.reset_mock()
+            _adopt_setup_host(connection)
+            adopt.assert_called_once_with(connection)
 
     def test_preflight_refuses_invalid_configuration_without_native_sdk(self):
         with tempfile.TemporaryDirectory()as directory:
