@@ -276,6 +276,29 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
                 reader.reopen(request_bytes=b'{}', manifest_bytes=b'{}',
                               expected_receipt={}, **pins)
 
+    def test_spark_reader_refuses_cross_version_a1_plan_before_sql(self):
+        from ashlar_host.managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
+        from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64
+        from ashlar_host.managed_current_spark_receipt_read import (
+            ManagedCurrentSparkReceiptReader,
+        )
+
+        admission = TrussGraphAdmission.__new__(TrussGraphAdmission)
+        admission.current_truss_version = "0.0.52"
+        selection = ManagedCurrentTruss052GenesisSelection(
+            "0" * 64, b"{}", {}, {}, {}, {}, {}, admission, object())
+        plan = ManagedCurrentA1TrialPlan(selection, None, {}, {}, None)
+        queries = []
+        reader = ManagedCurrentSparkReceiptReader.__new__(ManagedCurrentSparkReceiptReader)
+        reader.config = SimpleNamespace(source_truss_version="0.0.53",
+                                        carrier_profile=CARRIER_PROFILE_XXHASH64)
+        reader.executor = SimpleNamespace(query=lambda *args, **kwargs: queries.append(args))
+        with self.assertRaisesRegex(ValueError, "selection and graph admission"):
+            reader.reopen(request_bytes=b"{}", manifest_bytes=b"{}", expected_receipt={},
+                source_prefix_bytes=b"prefix", source_prefix_sha256="0" * 64,
+                source_core_config=object(), a1_plan=plan, a1_prefix_selected={})
+        self.assertEqual(queries, [])
+
 
 if __name__ == "__main__":
     unittest.main()

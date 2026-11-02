@@ -695,6 +695,24 @@ class ManagedCurrentSparkReceiptReader:
                          source_prefix_bytes, source_prefix_sha256, source_core_config))
                      and a1_plan is not None and type(a1_prefix_selected) is dict,
                      "Truss .52/.53 A1 reads require the exact `/0.2` plan, selected page and complete `.4` prefix pins")
+            from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
+            from .managed_current_truss052_genesis_owner import (
+                ManagedCurrentTruss052GenesisSelection,
+            )
+            from .managed_current_truss053_genesis_owner import (
+                ManagedCurrentTruss053GenesisSelection,
+            )
+            from .truss_graph_admission import TrussGraphAdmission
+            expected_selection = {
+                "0.0.52": ManagedCurrentTruss052GenesisSelection,
+                "0.0.53": ManagedCurrentTruss053GenesisSelection,
+            }[self.config.source_truss_version]
+            _require(type(a1_plan) is ManagedCurrentA1TrialPlan
+                     and type(a1_plan.selection) is expected_selection
+                     and type(a1_plan.selection.admission) is TrussGraphAdmission
+                     and a1_plan.selection.admission.current_truss_version
+                         == self.config.source_truss_version,
+                     "A1 plan selection and graph admission must match the configured Truss version")
         else:
             _require(not a1_args_supplied,
                      "A1 `/0.2` plan inputs require the exact Truss .52/.53 reader profile")
