@@ -112,16 +112,42 @@ def _postmaster_pid(pgdata: Path) -> int | None:
     if (not pidfile.is_file() or pidfile.is_symlink() or info.st_uid != os.getuid()
             or info.st_mode & 0o077):
         raise RuntimeError("owned regular private PostgreSQL pidfile required for RSS census")
-    lines = pidfile.read_text().splitlines()
-    if len(lines) < 2 or Path(lines[1]).resolve() != pgdata.resolve():
-        raise RuntimeError("PostgreSQL pidfile does not bind to R61 PGDATA")
-    try:
-        pid = int(lines[0])
-    except ValueError as exc:
-        raise RuntimeError("invalid owned PostgreSQL PID") from exc
-    if pid <= 1:
-        raise RuntimeError("unsafe PostgreSQL PID")
-    return pid
+    # PostgreSQL writes postmaster.pid in place during startup. While it is
+    # being populated, the first line can be temporarily empty or negative.
+    # Keep counting the worker process group in the meantime, and only use a
+    # PID after two identical, complete, PGDATA-bound reads.
+    deadline = time.monotonic() + 2.0
+    previous = None
+    last_value = "unreadable"
+    while time.monotonic() < deadline:
+        try:
+            before = pidfile.stat()
+            raw = pidfile.read_text()
+            after = pidfile.stat()
+        except FileNotFoundError:
+            return None
+        if (before.st_ino != after.st_ino or before.st_size != after.st_size
+                or before.st_mtime_ns != after.st_mtime_ns):
+            previous = None
+            time.sleep(0.025)
+            continue
+        lines = raw.splitlines()
+        last_value = lines[0] if lines else "empty"
+        if len(lines) >= 2 and Path(lines[1]).resolve() != pgdata.resolve():
+            raise RuntimeError("PostgreSQL pidfile does not bind to R61 PGDATA")
+        try:
+            pid = int(lines[0]) if lines else 0
+        except ValueError:
+            pid = 0
+        if pid > 1 and len(lines) >= 2:
+            stable = (after.st_ino, after.st_size, after.st_mtime_ns, pid, lines[1])
+            if stable == previous:
+                return pid
+            previous = stable
+        else:
+            previous = None
+        time.sleep(0.025)
+    raise RuntimeError(f"PostgreSQL pidfile did not reach a stable owned PID: {last_value!r}")
 
 
 def _group_snapshot(psutil, pgid: int, pgdata: Path) -> tuple[int, list[int], list[int]]:
@@ -140,6 +166,13 @@ def _group_snapshot(psutil, pgid: int, pgdata: Path) -> tuple[int, list[int], li
     if postmaster_pid is not None:
         try:
             postmaster = psutil.Process(postmaster_pid)
+            command = postmaster.cmdline()
+            has_data_directory = any(
+                argument == str(pgdata) and index > 0 and command[index - 1] == "-D"
+                for index, argument in enumerate(command)
+            ) or any(argument == f"-D{pgdata}" for argument in command)
+            if Path(postmaster.name()).name != "postgres" or not has_data_directory:
+                raise RuntimeError("stable PostgreSQL PID does not identify the exact owned PGDATA")
             owned_pg_pids.add(postmaster.pid)
             owned_pg_pids.update(child.pid for child in postmaster.children(recursive=True))
         except psutil.NoSuchProcess:
