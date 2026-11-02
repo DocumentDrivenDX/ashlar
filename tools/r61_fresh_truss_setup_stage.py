@@ -105,6 +105,101 @@ def _copy_verified_tree(source: Path, destination: Path) -> tuple[str, int, int]
     return digest.hexdigest(), copied_bytes, len(copied_hashes)
 
 
+def _tree_digest(root: Path) -> str:
+    digest = hashlib.sha256()
+    for path in sorted(root.rglob("*"), key=lambda item: item.relative_to(root).as_posix()):
+        if path.is_symlink():
+            raise RuntimeError("Symlink in retained PostgreSQL source state")
+        if path.is_file():
+            relative = path.relative_to(root).as_posix().encode()
+            digest.update(len(relative).to_bytes(4, "big"))
+            digest.update(relative)
+            digest.update(hashlib.sha256(path.read_bytes()).hexdigest().encode())
+    return digest.hexdigest()
+
+
+def _resume_stopped_source(scope: dict, destination: Path, runtime: Path) -> dict:
+    """Copy one exact stopped, genesis-only public Truss state for readback resume."""
+    policy = scope["postgres_bootstrap_policy"]
+    source = Path(policy["resume_source_pgdata"])
+    source_root = Path(policy["resume_source_root"])
+    if (not source.is_absolute() or source.resolve() != source or source.is_symlink()
+            or not source.is_dir() or source.stat().st_uid != os.getuid()
+            or stat.S_IMODE(source.stat().st_mode) != 0o700
+            or source != source_root / "pgdata"):
+        raise RuntimeError("Exact retained R61 PGDATA path/owner required")
+    failure_path = source_root / "worker-failure.json"
+    supervisor_path = source_root / "supervisor-result.json"
+    failure_raw, supervisor_raw = failure_path.read_bytes(), supervisor_path.read_bytes()
+    if (hashlib.sha256(failure_raw).hexdigest() != policy["resume_failure_sha256"]
+            or hashlib.sha256(supervisor_raw).hexdigest() != policy["resume_supervisor_sha256"]):
+        raise RuntimeError("Retained attempt7 failure/cleanup receipts changed")
+    retained_model = source_root / "accepted-model.umf.json"
+    retained_origin = source_root / "origin.json"
+    retained_setup = json.loads((source_root / "setup.json").read_text())
+    if (hashlib.sha256(retained_model.read_bytes()).hexdigest() != policy["resume_model_sha256"]
+            or retained_model.read_bytes() != MODEL.read_bytes()
+            or retained_origin.read_bytes() != b'{"operator":"ashlar-r61-local-fresh-baseline"}\n'
+            or retained_setup.get("request_key") != "ashlar-r61-fresh-accept-r1"
+            or retained_setup.get("document_id") != "ashlar-local-dev-typed-graph-r21-20261101"
+            or retained_setup.get("data_directory") != str(source)):
+        raise RuntimeError("Retained attempt7 accepted source/model identity differs")
+    failure, supervisor = json.loads(failure_raw), json.loads(supervisor_raw)
+    if (failure.get("source_ack_attempted") is not False
+            or failure.get("delta_write_state") != "not_attempted"
+            or failure.get("delta_written") is not False
+            or supervisor.get("status") != "failed_worker"
+            or supervisor.get("postgres_cleanup", {}).get("postgres_closed") is not True
+            or supervisor.get("postgres_cleanup", {}).get("postmaster_pid_absent") is not True
+            or supervisor.get("postgres_cleanup", {}).get("socket_absent") is not True
+            or (source_root / "delta").exists()):
+        raise RuntimeError("Retained attempt7 must be genesis-only, ACK-free and stopped")
+    if ((source / "postmaster.pid").exists() or (source / "postmaster.opts").is_symlink()):
+        raise RuntimeError("Retained source PostgreSQL cluster is not stopped")
+    _, old_socket = _local_postgres_socket(source)
+    socket_file = old_socket / ".s.PGSQL.5432"
+    if socket_file.exists() or socket_file.is_symlink():
+        raise RuntimeError("Retained source Truss socket is still present")
+    if old_socket.exists() or old_socket.is_symlink():
+        _require_owned_runtime_directory(old_socket)
+        if any(old_socket.iterdir()):
+            raise RuntimeError("Retained source Truss socket directory is not empty")
+    lease = Path(str(source) + ".truss-runtime.lock")
+    if (not lease.is_file() or lease.is_symlink() or lease.stat().st_uid != os.getuid()
+            or hashlib.sha256(lease.read_bytes()).hexdigest() != policy["resume_lease_sha256"]):
+        raise RuntimeError("Retained source Truss lease file required")
+    import fcntl
+    with lease.open("rb") as stream:
+        try:
+            fcntl.flock(stream.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            raise RuntimeError("Retained source Truss lease is held") from error
+        finally:
+            try:
+                fcntl.flock(stream.fileno(), fcntl.LOCK_UN)
+            except OSError:
+                pass
+    control = subprocess.run([str(runtime / "bin" / "pg_controldata"), str(source)],
+        capture_output=True, text=True, timeout=8, check=True)
+    control_lines = dict(line.split(":", 1) for line in control.stdout.splitlines() if ":" in line)
+    if (control_lines.get("Database system identifier", "").strip() != policy["resume_system_identifier"]
+            or control_lines.get("Database cluster state", "").strip() != "shut down"):
+        raise RuntimeError("Retained attempt7 PG18 control identity/state differs")
+    before_tree = _tree_digest(source)
+    if before_tree != policy["resume_pgdata_tree_sha256"]:
+        raise RuntimeError("Retained attempt7 PGDATA tree differs from pinned readback state")
+    copied_tree, copied_bytes, copied_files = _copy_verified_tree(source, destination)
+    if copied_tree != before_tree:
+        raise RuntimeError("Resumed PG18 copy differs from retained installed source state")
+    return {"profile": "ashlar-r61-attempt7-installed-source-copy/0.1",
+        "source_root": str(source_root), "source_pgdata": str(source),
+        "source_pgdata_tree_sha256": before_tree, "copied_pgdata_tree_sha256": copied_tree,
+        "copied_file_count": copied_files, "copied_bytes": copied_bytes,
+        "system_identifier": policy["resume_system_identifier"],
+        "source_control_state": "shut down", "copy_source_ack_attempted": False,
+        "copy_delta_write_state": "not_attempted", "copied_from_prior_accepted_public_install": True}
+
+
 def _preinitialize_postgres(pgdata: Path, root: Path) -> dict:
     """Copy only a stopped, exact, fresh initdb cluster before Truss opens it."""
     scope = json.loads(Path(os.environ["R61_SCOPE"]).read_text())
@@ -114,6 +209,9 @@ def _preinitialize_postgres(pgdata: Path, root: Path) -> dict:
     if hashlib.sha256(manifest_bytes).hexdigest() != artifacts["postgresql_18_runtime_manifest_sha256"]:
         raise RuntimeError("Selected PostgreSQL runtime manifest hash differs from scope")
     manifest = json.loads(manifest_bytes)
+    if scope.get("postgres_bootstrap_policy", {}).get("resume_source_pgdata"):
+        return _resume_stopped_source(scope, pgdata,
+            Path(artifacts["postgresql_18_runtime"]))
     initdb = Path(artifacts["postgresql_18_runtime"]) / "bin" / "initdb"
     if (not initdb.is_file() or not os.access(initdb, os.X_OK)
             or hashlib.sha256(initdb.read_bytes()).hexdigest() != manifest.get("initdb_sha256")):
@@ -388,13 +486,15 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     }
     _write_private(setup_path, (json.dumps(setup, sort_keys=True, separators=(",", ":")) + "\n").encode())
 
+    scope = json.loads(Path(os.environ["R61_SCOPE"]).read_text())
+    resuming_public_state = bool(scope.get("postgres_bootstrap_policy", {}).get("resume_source_pgdata"))
     primary = None
     result = None
     postgres_fsync = None
     try:
-        bootstrap = _run_public_truss_setup(config=setup, paths={"data_directory": pgdata,
-            "bun": bun}, source=model, origin=origin,
-            module_ids=tuple(module["id"] for module in parsed["modules"]))
+        bootstrap = None if resuming_public_state else _run_public_truss_setup(
+            config=setup, paths={"data_directory": pgdata, "bun": bun}, source=model,
+            origin=origin, module_ids=tuple(module["id"] for module in parsed["modules"]))
         _require_owned_runtime_directory(socket_root)
         _require_owned_runtime_directory(socket_directory)
         if ((pgdata / "postmaster.pid").exists()
@@ -415,41 +515,65 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
             socket_host = Path(parameters.get("host", ""))
             if runtime.info.socket_directory != socket_directory or socket_host != socket_directory:
                 raise RuntimeError("Truss LocalPostgres selected a different deterministic socket")
-            ordinary_parameters = dict(parameters, user=bootstrap["roles"]["consumer"])
+            consumer_id = "ashlar-r61-local-consumer"
+            ordinary_parameters = dict(parameters, user=consumer_id)
             ordinary_uri = psycopg.conninfo.make_conninfo(**ordinary_parameters)
             admin_factory = _connection_factory(psycopg, admin_uri)
             ordinary_factory = _connection_factory(psycopg, ordinary_uri)
-            registration = register_note_consumer(
-                admin_factory, consumer_id, bootstrap["roles"]["reader"])
+            registration = None
+            if not resuming_public_state:
+                registration = register_note_consumer(
+                    admin_factory, consumer_id, bootstrap["roles"]["reader"])
             page = read_page(ordinary_factory, consumer_id, maximum_bytes=1048576)
             if (page.outcome not in ("transaction", "empty_interval")
                     or page.consumer_id != consumer_id
                     or not page.prior.content or not page.next.content
                     or hashlib.sha256(page.content).hexdigest() != page.sha256):
                 raise RuntimeError("Exact original initial public source page required")
+            if resuming_public_state:
+                if (page.outcome != "empty_interval" or page.prior.content != page.next.content
+                        or page.registration_id is None):
+                    raise RuntimeError("Retained attempt7 must still be registered at unchanged genesis")
+                from types import SimpleNamespace
+                registration = SimpleNamespace(consumer_id=page.consumer_id,
+                    registration_id=page.registration_id)
 
             with ordinary_factory() as connection:
                 if connection.info.transaction_status != 0:
                     raise RuntimeError("Fresh catalog connection required")
-                connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED, READ WRITE")
-                connection.execute("SET LOCAL statement_timeout = '2000ms'")
-                host = adopt_psycopg_host(connection)
+                connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED, READ ONLY")
+                connection.execute("SET LOCAL statement_timeout = '15000ms'")
+                host = adopt_psycopg_host(connection, statement_timeout_ms=15000,
+                    operation_timeout_ms=15000)
                 assembly = None
                 failure = None
                 report_raw = view_raw = accepted_raw = None
                 try:
-                    tx_result = host.adopt_transaction(access_mode="read_write")
+                    tx_result = host.adopt_transaction(access_mode="read_only")
                     if not isinstance(tx_result, Ok):
                         raise RuntimeError("Public Truss catalog transaction refused")
                     assembly_result = create_reference_assembly(CatalogRuntimeConfiguration(), host)
                     if not isinstance(assembly_result, Ok):
                         raise RuntimeError("Public Truss catalog assembly refused")
                     assembly = assembly_result.value
-                    revision = str(bootstrap["revision"])
+                    if bootstrap is None:
+                        status_result = assembly.status_in_transaction(tx_result.value)
+                        if not isinstance(status_result, Ok) or not status_result.value.installed:
+                            raise RuntimeError("Retained accepted Truss installation status unavailable")
+                        status = status_result.value
+                        revision = str(status.revision)
+                    else:
+                        revision = str(bootstrap["revision"])
                     report_result = assembly.report_in_transaction(tx_result.value, revision)
                     if not isinstance(report_result, Ok):
                         raise RuntimeError("Public accepted report read refused")
                     report_raw = report_result.value.original_bytes
+                    if bootstrap is None:
+                        bootstrap = {"revision": status.revision,
+                            "installation": {"installation_id": status.installation_id},
+                            "roles": {"consumer": consumer_id, "reader": "ashlar_note_reader",
+                                "writer": "ashlar_note_writer", "registrar": None},
+                            "report_original_base64": base64.b64encode(report_raw).decode("ascii")}
                     request = assembly.catalog_view_request(definition_count="65536", encoded_bytes="16777216")
                     view_result = assembly.catalog_view_in_transaction(tx_result.value, request)
                     if not isinstance(view_result, Ok) or not hasattr(view_result.value, "view"):
@@ -540,8 +664,11 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
         raise primary
     result["postgres_owner_closed_before_receipt"] = True
     result["qualification"] = (
-        "Fresh local public Truss 0.0.53 installation, declared UMF 0.10.0 acceptance, "
-        "consumer registration and exact report/catalog/source/page readback after owner close. "
+        ("Resumed exact stopped public Truss 0.0.53 installation and accepted UMF 0.10.0 "
+         "source from the retained attempt7 state, without reinstall or reaccept; "
+         if resuming_public_state else
+         "Fresh local public Truss 0.0.53 installation and declared UMF 0.10.0 acceptance; ")
+        + "consumer registration and exact report/catalog/source/page readback after owner close. "
         "No Delta publication, continuation, ACK or graph export in this stage.")
     receipt = root / "setup-stage.json"
     _write_private(receipt, (json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n").encode())
