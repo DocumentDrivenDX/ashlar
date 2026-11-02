@@ -129,6 +129,22 @@ class A1AckAttemptTests(unittest.TestCase):
         with self.assertRaisesRegex(A1AckAttemptError, "Fresh bounded durable attempt path"):
             self.store.mark_ack_dispatched(process_group_id=pgid, generation=generation)
 
+    def test_dispatch_accepts_valid_attempt_record_larger_than_worker_marker_bound(self):
+        directory_temp = tempfile.TemporaryDirectory()
+        self.addCleanup(directory_temp.cleanup)
+        store = DurableA1AckAttemptStore(Path(directory_temp.name).resolve())
+        values = dict(self.values)
+        values.update(selection_bytes=b"s" * 6000, request_bytes=b"r" * 7000,
+                      manifest_bytes=b"m" * 8000)
+        attempt = store.begin(**values)
+        child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"],
+                                 start_new_session=True, close_fds=True)
+        self.workers.append(child)
+        generation = store.record_worker_started(process_group_id=child.pid,
+            selection_bytes=attempt.selection_bytes)
+        store.mark_ack_dispatched(process_group_id=child.pid, generation=generation)
+        self.assertTrue((store.directory / "ack-command-dispatched.json").is_file())
+
     def test_lost_worker_uses_only_exact_read_only_reconciliation(self):
         pgid, generation = self._dispatch()
         os.killpg(pgid, 9)

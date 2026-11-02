@@ -325,6 +325,19 @@ class Truss052SourceCustodyTests(unittest.TestCase):
             runtime_status_provider=lambda: self.runtime_status,
             selection=early, context=self.context)
         session.open()
+        session.observe_selected_page()
+        session.close()
+        self.assertFalse(self.assembly.closed_committed)
+
+    def test_observed_prepublication_hold_binds_then_closes_uncommitted_on_failure(self):
+        early = _open_selection(self.selection)
+        session = Truss052SourceCustodySession(
+            connection_factory=lambda _context: self.connection,
+            runtime_status_provider=lambda: self.runtime_status,
+            selection=early, context=self.context)
+        session.open()
+        session.observe_selected_page()
+        session.bind_publication(self.selection)
         session.close()
         self.assertFalse(self.assembly.closed_committed)
 

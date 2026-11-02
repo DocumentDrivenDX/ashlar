@@ -385,7 +385,8 @@ class DurableA1AckAttemptStore:
     def mark_ack_dispatched(self, *, process_group_id: int, generation: int):
         """Fsync the one-use marker immediately before writing the ACK command."""
         attempt = self.load()
-        if self._read_record("ack-attempt.json").get("status") != "prepared":
+        if self._read_record("ack-attempt.json", MAX_ATTEMPT_RECORD_BYTES).get(
+                "status") != "prepared":
             raise A1AckAttemptError("ACK attempt is already dispatched")
         started = self._read_record(f"worker-started-{generation:02d}.json")
         if (started.get("attempt_id") != attempt.attempt_id

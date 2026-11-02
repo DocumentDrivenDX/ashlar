@@ -431,7 +431,7 @@ class Truss052SourceCustodySession:
         selected = self._selection()
         if self._ack_attempted and self._phase != "ack_reconciled":
             raise Truss052CustodyError("Source ACK must be reconciled before custody close")
-        if self._phase not in ("open", "ack_reconciled"):
+        if self._phase not in ("open", "renewed", "ack_reconciled"):
             raise Truss052CustodyError("Source custody is not closable in this phase")
         committed = self._ack_matched
         with self._transaction("read_write") as transaction:
