@@ -2,7 +2,7 @@
 
 ## Decision boundary
 
-R59 is an ACK-only local-development recovery for the already committed R55 page. It does not submit a Truss group or write Delta. The worker is withheld from native dispatch until Sol reviews the scope and worker.
+R59 is an ACK-only local-development recovery for the already committed R55 page. It does not submit a Truss group or write Delta. The worker was held from native dispatch until independent Sol review of the scope, worker, supervisor, and pre-ACK SQL gate. Sol found the initial applied-intent selector mismatch; Luna corrected it in `e9bb4398`, and Sol re-reviewed the corrected candidate with no remaining actionable issue.
 
 R58 has durable native readback for publication `truss-graph-678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea`: 6 objects, 3 edges, 0 tombstones, and 9 whole-source history rows. The R58 held-ACK receipt states `source_ack_attempted=false`; the continuation result records `deferred_not_attempted`. Its durable deferred-ACK intent, R55 source page, original publication intent, R55 pending readback receipt, and R58 native-readback/page-selection receipts are individually hash-bound in [r59-host-scope.json](r59-host-scope.json).
 
@@ -30,4 +30,4 @@ The selected runtime's actual `parse_resume_truss_configuration` is exercised wi
 
 The scope binds the R58/R55 receipts, all six current Delta heads, the current stopped PGDATA digest, the R49 checkpoint `506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94`, the selected Truss 0.0.52 runtime, and exact helper/supervisor hashes. R59 is limited to one attempt, 900 seconds, 2 GiB RSS, 512 MiB aggregate local bytes, no cloud, and no automatic retries.
 
-No native R59 dispatch has occurred. Sol review must approve the exact scope/worker/supervisor and the pre-ACK SQL contract before the parent runs the supervised attempt.
+The exact reviewed dispatch is bound in [r59-sol-review-dispatch.json](r59-sol-review-dispatch.json). The reviewed scope SHA-256 is `d5c0fcf54f6f722dada24b0c046917574e93d2ff05732047c0ebd610e5f12e32`. No native R59 dispatch had occurred at this packet update; native outcome remains unproven until its supervised receipt is reconciled.

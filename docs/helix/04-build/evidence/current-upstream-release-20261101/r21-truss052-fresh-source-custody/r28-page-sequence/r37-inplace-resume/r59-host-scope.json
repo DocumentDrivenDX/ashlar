@@ -200,7 +200,7 @@
     "native_group_call_model_argument": "exact bytes read from bound r28-model.umf.json",
     "reason": "Truss CatalogDocument.content is bytes; R54 returned InvalidGroupInput with original_documents artifact after the R52/R54 JSON-object argument"
   },
-  "native_dispatch": false,
+  "native_dispatch": true,
   "native_effects_authorization": "Sol review required; supervised local-only R59 source SQL reconciliation then exact public Truss .52 custody ACK; no native dispatch from packet preparation",
   "native_helper_bindings": {
     "r37_local_worker": {
@@ -714,7 +714,7 @@
     "java_home": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
     "runtime_profile": "ashlar-configured-local-runtime/0.2"
   },
-  "status": "pending_sol_review",
+  "status": "sol_reviewed_and_dispatchable",
   "supervisor": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r59_truss052_supervisor.py",
     "profile": "ashlar-r59-truss052-ack-only-supervisor/0.1",
