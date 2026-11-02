@@ -6,6 +6,20 @@ from dataclasses import asdict
 from pathlib import Path
 from .lifecycle import finish
 
+_TRUSS_055_FRESH_VERSION='0.0.55'
+_INSTALL_OPERATION_TIMEOUT_MS=180000
+_INSTALL_STATEMENT_TIMEOUT_MS=60000
+
+
+def _install_statement_timeout_ms(truss_version):
+    return _INSTALL_STATEMENT_TIMEOUT_MS if truss_version==_TRUSS_055_FRESH_VERSION else 15000
+
+
+def _install_catalog_in_transaction(assembly,tx,truss_version):
+    if truss_version==_TRUSS_055_FRESH_VERSION:
+        return assembly.install_in_transaction(tx,operation_timeout_ms=_INSTALL_OPERATION_TIMEOUT_MS)
+    return assembly.install_in_transaction(tx)
+
 def read(path,maximum):
     with path.open('rb')as stream:raw=stream.read(maximum+1)
     if len(raw)>maximum:raise ValueError('Selected input exceeds example bound')
@@ -51,14 +65,22 @@ def run_setup_truss_local_command(configuration,output):
     from psycopg import sql
     from truss import (LocalPostgres,Ok,CatalogDocument,CatalogRuntimeConfiguration,create_reference_assembly,
         adopt_psycopg_host,CatalogRegistration,CatalogUnchanged,ModuleAccessGrant)
+    from .truss_current_catalog import installed_truss_version, installed_fresh_truss_runtime_pins
+    truss_version=installed_truss_version()
+    if truss_version==_TRUSS_055_FRESH_VERSION:
+        pins=installed_fresh_truss_runtime_pins()
+        if pins['version']!=truss_version:
+            raise ValueError('Exact installed Truss 0.0.55 fresh runtime pins required')
     consumer='ashlar_note_consumer';reader='ashlar_note_reader';writer='ashlar_note_writer'
     def value(result):
         if not isinstance(result,Ok):raise RuntimeError('Public Truss setup operation refused')
         return result.value
     @contextmanager
-    def interval(connection):
+    def interval(connection,*,statement_timeout_ms=15000):
+        if type(statement_timeout_ms)is not int or not 1<=statement_timeout_ms<=60000:
+            raise ValueError('Bounded Truss statement timeout required')
         connection.execute('BEGIN ISOLATION LEVEL READ COMMITTED')
-        connection.execute("SET LOCAL statement_timeout = '15000ms'")
+        connection.execute("SET LOCAL statement_timeout = '"+str(statement_timeout_ms)+"ms'")
         host=adopt_psycopg_host(connection);assembly=None;primary=None
         try:
             tx=value(host.adopt_transaction());assembly=value(create_reference_assembly(CatalogRuntimeConfiguration(),host));yield assembly,tx
@@ -73,7 +95,8 @@ def run_setup_truss_local_command(configuration,output):
         admin=psycopg.connect(**parameters,autocommit=True,connect_timeout=5,options='-c statement_timeout=15000')
         admin.execute(sql.SQL('CREATE ROLE {} LOGIN').format(sql.Identifier(consumer)))
         for role in (reader,writer):admin.execute(sql.SQL('CREATE ROLE {} NOLOGIN').format(sql.Identifier(role)))
-        with interval(admin)as (assembly,tx):installed=value(assembly.install_in_transaction(tx))
+        with interval(admin,statement_timeout_ms=_install_statement_timeout_ms(truss_version))as (assembly,tx):
+            installed=value(_install_catalog_in_transaction(assembly,tx,truss_version))
         admin.commit()
         admin.execute(sql.SQL('GRANT {} TO {} WITH SET FALSE').format(sql.Identifier(installed.registrar_role),sql.Identifier(consumer)))
         parameters['user']=consumer

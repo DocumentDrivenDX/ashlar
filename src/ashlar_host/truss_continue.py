@@ -148,11 +148,11 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         raise PermissionError('Actual restored Truss graph continuation owner required')
     if driver.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
         from .local_current_carrier_profile import XXHASH64_PROFILE,verify_local_current_profile
-        from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION, CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_VERSION
+        from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION, CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_VERSION, CURRENT_TRUSS_055_FRESH_VERSION
         profile=getattr(driver.transport,'installation_profile',None)
         if (not driver.source_admission.current
                 or driver.source_admission.current_truss_version not in (
-                    CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION, CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_VERSION)
+                    CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION, CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_VERSION, CURRENT_TRUSS_055_FRESH_VERSION)
                 or type(profile)is not dict or profile.get('physical_profile')!=XXHASH64_PROFILE
                 or profile.get('lookup_hash_profile')!=driver.lookup_hash_profile):
             raise PermissionError('Exact admitted local `.4` continuation profile required')
@@ -212,9 +212,9 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             admission=TrussGraphAdmission(batch,read_graph_catalog_evidence(
                 connection_factory,batch,archives,catalog_connection_factory=catalog_connection_factory))
         if driver.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
-            from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION, CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_VERSION
+            from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION, CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_VERSION, CURRENT_TRUSS_055_FRESH_VERSION
             if not admission.current or admission.current_truss_version not in (
-                    CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION, CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_VERSION):
+                    CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION, CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_VERSION, CURRENT_TRUSS_055_FRESH_VERSION):
                 raise PermissionError('Local `.4` continuation page requires exact supported current Truss catalog evidence')
         revisions=(current_revisions if page.outcome=='empty_interval' else
             {current['installationId']:str(max(int(value)for value in admission.revisions))}if admission.revisions else {current['installationId']:'0'})
