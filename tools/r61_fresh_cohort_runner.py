@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import subprocess
@@ -34,8 +35,23 @@ def preflight() -> dict:
         ["git", "rev-parse", "HEAD"], cwd=REPO, check=True,
         capture_output=True, text=True,
     ).stdout.strip()
-    if head != scope["source"]["base_commit"]:
-        raise RuntimeError(f"source HEAD differs from bound base: {head}")
+    base = scope["source"]["base_commit"]
+    ancestor = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", base, "HEAD"], cwd=REPO,
+        capture_output=True,
+    )
+    if ancestor.returncode != 0:
+        raise RuntimeError(f"pinned source base is not an ancestor of HEAD: {head}")
+    dirty = subprocess.run(
+        ["git", "status", "--porcelain"], cwd=REPO, check=True,
+        capture_output=True, text=True,
+    ).stdout
+    if dirty:
+        raise RuntimeError("source worktree is not clean")
+    runner_path = REPO / scope["source"]["runner_path"]
+    runner_sha = hashlib.sha256(runner_path.read_bytes()).hexdigest()
+    if runner_sha != scope["source"]["runner_sha256"]:
+        raise RuntimeError("runner source hash differs from scope")
 
     paths = scope["fresh_local_state"]
     root = Path(paths["root"])

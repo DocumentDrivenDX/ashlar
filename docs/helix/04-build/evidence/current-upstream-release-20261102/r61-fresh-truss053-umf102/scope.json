@@ -4,7 +4,9 @@
   "source": {
     "repository": "ashlar",
     "base_commit": "783f2f63491bf9e1ccca1e65c7254c5a9446402b",
-    "worktree": "/private/tmp/ashlar-r61-fresh-cohort-plan"
+    "worktree": "/private/tmp/ashlar-r61-fresh-cohort-plan",
+    "runner_path": "tools/r61_fresh_cohort_runner.py",
+    "runner_sha256": "7c6a55326cde8520193c26cc72e7c823ab1ca117bd9a2311127f98fa9d68d39c"
   },
   "artifacts": {
     "truss_version": "0.0.53",
