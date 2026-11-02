@@ -37,6 +37,7 @@ _MAX_BYTES = 4 * 1024 * 1024
 _RELEASE_ID = "truss-catalog-runtime/0.75-candidate"
 _RELEASE_SHA256 = "5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522"
 _ANCHORS = weakref.WeakValueDictionary()
+_OPEN_SELECTIONS = weakref.WeakValueDictionary()
 _SELECTIONS = weakref.WeakValueDictionary()
 _EXPECTED_POST_STATES = weakref.WeakValueDictionary()
 _LOCAL_NATIVE_OBSERVATIONS = weakref.WeakValueDictionary()
@@ -496,6 +497,23 @@ class TrussSourceCustodyAnchor:
     destination_target_bindings: object = field(default=None, repr=False, compare=False)
     destination_installation_bindings: object = field(default=None, repr=False, compare=False)
 
+    def open_selection(self):
+        """Issue the pre-publication source selection from this exact A/B anchor."""
+        _need(_issued(_ANCHORS, self),
+              "Source open selection must come from the validated A/B anchor")
+        _need(self.authority_profile == "r04-scheduled" and self.source in ("A", "B")
+              and self.preselected_publication_id is not None,
+              "Pre-publication source custody requires a frozen publication ID")
+        return _issue(_OPEN_SELECTIONS, TrussSourceCustodyOpenSelection(
+            page=self.page, maximum_facts=self.maximum_facts,
+            maximum_bytes=self.maximum_bytes, request_bytes=self.request_bytes,
+            destination_registration_bytes=self.destination_registration_bytes,
+            ack_scope_bytes=self.ack_scope_bytes, destination_id=self.destination_id,
+            request_sha256=self.request_sha256,
+            publication_id=self.preselected_publication_id,
+            schedule_sha256=self.schedule_sha256, source=self.source,
+            identity=MappingProxyType(dict(self.identity)), anchor=self))
+
     def bind_publication(self, *, manifest_bytes: bytes, vector: PinVector,
                          receipt_bytes: bytes, observation: object
                          ) -> "TrussSourceCustodySelection":
@@ -687,6 +705,59 @@ class TrussSourceCustodyAnchor:
             authority_profile="local-development"))
 
 
+@dataclass(frozen=True, eq=False)
+class TrussSourceCustodyOpenSelection:
+    """Issuer-bound pre-publication source open selection, with no receipt authority."""
+
+    page: object = field(repr=False, compare=False)
+    maximum_facts: int
+    maximum_bytes: int
+    request_bytes: bytes = field(repr=False)
+    destination_registration_bytes: bytes = field(repr=False)
+    ack_scope_bytes: bytes = field(repr=False)
+    destination_id: str
+    request_sha256: str
+    publication_id: str
+    schedule_sha256: str
+    source: str
+    identity: dict = field(repr=False, compare=False)
+    anchor: TrussSourceCustodyAnchor = field(repr=False, compare=False)
+
+    def to_candidate_sdk(self, *, runtime_status=None):
+        _need(_issued(_OPEN_SELECTIONS, self)
+              and _issued(_ANCHORS, self.anchor),
+              "Pre-publication Truss selection must come from its live A/B anchor")
+        _need(self.anchor.preselected_publication_id == self.publication_id,
+              "Preselected Truss publication ID changed")
+        try:
+            from truss import CatalogRuntimeStatus
+            from truss.contracts import ProfilePin
+            from truss.feed import FeedSourceSelection
+            from .truss_current_catalog import (
+                CURRENT_052_CUSTODY_PROFILE, installed_truss_052_source_custody_profile)
+            package_version = importlib.metadata.version("umf-truss")
+            if package_version != "0.0.52":
+                raise ValueError("Exact Truss 0.0.52 candidate package required")
+            installed_profile = installed_truss_052_source_custody_profile()
+        except (ImportError, LookupError, ValueError) as error:
+            raise TrussSourceSelectionError(
+                "Exact Truss source-custody candidate runtime unavailable") from error
+        _need(type(runtime_status) is CatalogRuntimeStatus
+              and runtime_status.installed is True
+              and runtime_status.installation_id == self.identity["installation_id"]
+              and runtime_status.release_id == _RELEASE_ID
+              and runtime_status.release_sha256 == _RELEASE_SHA256
+              and type(runtime_status.layout_profile) is ProfilePin
+              and installed_profile == CURRENT_052_CUSTODY_PROFILE,
+              "Truss source custody is gated to the reviewed candidate manifest")
+        return FeedSourceSelection(
+            page=self.page, maximum_facts=self.maximum_facts,
+            maximum_bytes=self.maximum_bytes, request_bytes=self.request_bytes,
+            destination_registration_bytes=self.destination_registration_bytes,
+            ack_scope_bytes=self.ack_scope_bytes, destination_id=self.destination_id,
+            request_sha256=self.request_sha256, publication_id=self.publication_id)
+
+
 @dataclass(frozen=True)
 class TrussSourceCustodySelection:
     """Exact, publication-bound candidate input; still not ACK authority."""
@@ -760,7 +831,8 @@ class TrussSourceCustodySelection:
 
 def select_truss_source_custody_anchor(*, schedule: R04Schedule, source: str,
                                        page: object, request_bytes: bytes,
-                                       destination_id: str) -> TrussSourceCustodyAnchor:
+                                       destination_id: str,
+                                       preselected_publication_id: str) -> TrussSourceCustodyAnchor:
     """Freeze Ashlar-owned canonical registration/scope bytes before publication.
 
     ``schedule`` and ``page`` are correspondence inputs. Their independent
@@ -771,6 +843,8 @@ def select_truss_source_custody_anchor(*, schedule: R04Schedule, source: str,
     _need(type(request_bytes) is bytes and 0 < len(request_bytes) <= _MAX_BYTES,
           "Exact bounded original request bytes required")
     destination_id = _bounded_text(destination_id, "selected destination ID", 1024)
+    preselected_publication_id = _bounded_text(
+        preselected_publication_id, "preselected publication ID", 4096)
     identity = schedule.document()["source_bindings"][source]
     _need(type(identity) is dict and set(_IDENTITY_FIELDS).issubset(identity)
           and all(type(identity[key]) is str and identity[key]
@@ -811,7 +885,11 @@ def select_truss_source_custody_anchor(*, schedule: R04Schedule, source: str,
           "Original request does not bind the actual selected Truss page")
     # Recheck the outer/inner request digest using the owner implementation.
     from ashlar.attempt_store import verify_request_digest
-    verify_request_digest(request)
+    digest = verify_request_digest(request)
+    expected_publication_id = "ashlar-current:" + hashlib.sha256(
+        digest.encode("ascii")).hexdigest()
+    _need(preselected_publication_id == expected_publication_id,
+          "Preselected publication ID must derive from the frozen managed request")
     request_sha = hashlib.sha256(request_bytes).hexdigest()
     selected = {
         "profile": "ashlar-truss-destination-registration/0.1",
@@ -845,7 +923,8 @@ def select_truss_source_custody_anchor(*, schedule: R04Schedule, source: str,
         schedule_sha256=schedule.sha256, source=source, identity=MappingProxyType(dict(identity)),
         page=page, destination_id=destination_id, request_bytes=request_bytes,
         request_sha256=request_sha, destination_registration_bytes=registration_bytes,
-        ack_scope_bytes=scope_bytes))
+        ack_scope_bytes=scope_bytes,
+        preselected_publication_id=preselected_publication_id))
 
 
 def select_truss_local_dev_source_custody_anchor(

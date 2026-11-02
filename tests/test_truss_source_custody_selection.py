@@ -62,14 +62,16 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
             "source_checkpoint_json": truss_checkpoint(batch)}
         request["request_digest"] = hashlib.sha256(canonical(request).encode()).hexdigest()
         self.request_bytes = canonical(request).encode()
-        self.vector = PinVector("authority", "manifest", "publication-A1", "a" * 64,
+        self.publication_id = "ashlar-current:" + hashlib.sha256(
+            request["request_digest"].encode("ascii")).hexdigest()
+        self.vector = PinVector("authority", "manifest", self.publication_id, "a" * 64,
             {f"local.graph.{role}": (f"uuid-{role}", 3) for role in
              ("object_current", "edge_current", "tombstone", "whole_source_history")})
-        self.manifest_bytes = canonical({"publication_id": "publication-A1"}).encode()
+        self.manifest_bytes = canonical({"publication_id": self.publication_id}).encode()
 
     def observation(self, receipt):
         return ManagedCurrentSparkReceiptReopenObservation(
-            profile=MANAGED_READ_PROFILE, publication_id="publication-A1",
+            profile=MANAGED_READ_PROFILE, publication_id=self.publication_id,
             manifest=json.loads(self.manifest_bytes),
             manifest_sha256=hashlib.sha256(self.manifest_bytes).hexdigest(),
             source_receipt_bytes=receipt,
@@ -79,7 +81,8 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
     def bound(self):
         anchor = select_truss_source_custody_anchor(schedule=self.schedule,
             source="A", page=self.page, request_bytes=self.request_bytes,
-            destination_id="selected-r04-destination")
+            destination_id="selected-r04-destination",
+            preselected_publication_id=self.publication_id)
         receipt = encode_truss_destination_receipt(
             self.request_bytes, self.manifest_bytes, self.vector)
         return anchor.bind_publication(manifest_bytes=self.manifest_bytes,
@@ -89,7 +92,8 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
     def test_freezes_schedule_page_and_destination_before_publication(self):
         anchor = select_truss_source_custody_anchor(schedule=self.schedule,
             source="A", page=self.page, request_bytes=self.request_bytes,
-            destination_id="selected-r04-destination")
+            destination_id="selected-r04-destination",
+            preselected_publication_id=self.publication_id)
         registration = json.loads(anchor.destination_registration_bytes)
         scope = json.loads(anchor.ack_scope_bytes)
         self.assertEqual(registration["ackRegistrationId"], self.identity["ack_registration_id"])
@@ -101,13 +105,14 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
     def test_binds_exact_manifest_vector_and_receipt(self):
         anchor = select_truss_source_custody_anchor(schedule=self.schedule,
             source="A", page=self.page, request_bytes=self.request_bytes,
-            destination_id="selected-r04-destination")
+            destination_id="selected-r04-destination",
+            preselected_publication_id=self.publication_id)
         receipt = encode_truss_destination_receipt(
             self.request_bytes, self.manifest_bytes, self.vector)
         bound = anchor.bind_publication(manifest_bytes=self.manifest_bytes,
             vector=self.vector, receipt_bytes=receipt,
             observation=self.observation(receipt))
-        self.assertEqual(bound.publication_id, "publication-A1")
+        self.assertEqual(bound.publication_id, self.publication_id)
         self.assertEqual(bound.request_sha256, hashlib.sha256(self.request_bytes).hexdigest())
         with self.assertRaisesRegex(TrussSourceSelectionError, "receipt differs"):
             anchor.bind_publication(manifest_bytes=self.manifest_bytes,
@@ -117,7 +122,8 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
     def test_managed_observation_drift_refuses(self):
         anchor = select_truss_source_custody_anchor(schedule=self.schedule,
             source="A", page=self.page, request_bytes=self.request_bytes,
-            destination_id="selected-r04-destination")
+            destination_id="selected-r04-destination",
+            preselected_publication_id=self.publication_id)
         receipt = encode_truss_destination_receipt(
             self.request_bytes, self.manifest_bytes, self.vector)
         changed = ManagedCurrentSparkReceiptReopenObservation(
@@ -136,13 +142,23 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
         with self.assertRaisesRegex(TrussSourceSelectionError, "page/cursor differs"):
             select_truss_source_custody_anchor(schedule=self.schedule, source="A",
                 page=changed, request_bytes=self.request_bytes,
-                destination_id="selected-r04-destination")
+                destination_id="selected-r04-destination",
+                preselected_publication_id=self.publication_id)
 
     def test_non_source_schedule_slot_refuses(self):
         with self.assertRaisesRegex(TrussSourceSelectionError, "source slot"):
             select_truss_source_custody_anchor(schedule=self.schedule, source="C",
                 page=self.page, request_bytes=self.request_bytes,
-                destination_id="selected-r04-destination")
+                destination_id="selected-r04-destination",
+                preselected_publication_id=self.publication_id)
+
+    def test_preselected_publication_id_must_derive_from_frozen_request(self):
+        with self.assertRaisesRegex(TrussSourceSelectionError,
+                                    "must derive from the frozen managed request"):
+            select_truss_source_custody_anchor(schedule=self.schedule, source="A",
+                page=self.page, request_bytes=self.request_bytes,
+                destination_id="selected-r04-destination",
+                preselected_publication_id="publisher-invented-id")
 
     def test_candidate_sdk_materialization_refuses_051_metadata(self):
         bound = self.bound()
@@ -166,7 +182,8 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
     def test_direct_dataclass_construction_cannot_materialize_or_bind(self):
         anchor = select_truss_source_custody_anchor(schedule=self.schedule,
             source="A", page=self.page, request_bytes=self.request_bytes,
-            destination_id="selected-r04-destination")
+            destination_id="selected-r04-destination",
+            preselected_publication_id=self.publication_id)
         from dataclasses import replace
         forged_anchor = replace(anchor)
         receipt = encode_truss_destination_receipt(
