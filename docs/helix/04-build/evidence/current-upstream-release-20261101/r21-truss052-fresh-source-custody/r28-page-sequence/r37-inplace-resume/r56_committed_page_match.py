@@ -12,8 +12,9 @@ def verify_publication_selection(publication_id: str, request: dict, *,
     if type(request) is not dict or request.get("request_digest") != expected_request_digest:
         raise MatchError("request's declared digest differs from committed R55 intent")
     digest_input = dict(request); digest_input.pop("request_digest")
-    digest_raw = json.dumps(digest_input, sort_keys=True, separators=(",", ":"),
-                            ensure_ascii=False, allow_nan=False).encode()
+    # Match publication_planning.truss_request_for exactly: default
+    # ensure_ascii=True, sorted keys, and compact separators.
+    digest_raw = json.dumps(digest_input, sort_keys=True, separators=(",", ":")).encode()
     if hashlib.sha256(digest_raw).hexdigest() != expected_request_digest:
         raise MatchError("canonical publication request digest differs from committed R55 intent")
     return json.dumps(request, sort_keys=True, separators=(",", ":"),

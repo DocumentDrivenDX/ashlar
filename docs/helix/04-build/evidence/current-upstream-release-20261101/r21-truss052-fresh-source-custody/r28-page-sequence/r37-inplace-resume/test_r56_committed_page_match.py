@@ -7,8 +7,10 @@ matcher = importlib.util.module_from_spec(spec); spec.loader.exec_module(matcher
 
 class MatchTests(unittest.TestCase):
     def test_publication_id_and_canonical_request_digest_are_exact(self):
-        request = {"predecessor":"r49","changes":[{"op":"create_object","type":"Person"}]}
-        digest_raw = json.dumps(request, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode()
+        request = {"predecessor":"r49","label":"café","changes":[{"op":"create_object","type":"Person"}]}
+        # publication_planning.truss_request_for uses json.dumps defaults,
+        # including ASCII escaping, with these sorted compact separators.
+        digest_raw = json.dumps(request, sort_keys=True, separators=(",", ":")).encode()
         digest = hashlib.sha256(digest_raw).hexdigest()
         request["request_digest"] = digest
         raw = json.dumps(request, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode()
