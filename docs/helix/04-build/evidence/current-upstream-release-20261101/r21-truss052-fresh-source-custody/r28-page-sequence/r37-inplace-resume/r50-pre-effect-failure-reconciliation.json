@@ -1,0 +1,65 @@
+{
+  "attempt_id": "ashlar-local-development-r50-two-change-continuation-20261101",
+  "attempt_root": "/private/tmp/ashlar-r50-truss052-two-change-continuation-20261101",
+  "attempt_root_absent": true,
+  "child_stdout_sha256": "c8465da07858c4bb75022fb65c342950f7f08d0b407aea2c575b957378fd5be4",
+  "cloud": false,
+  "delta_mutation_observed": false,
+  "failure": "UnboundLocalError: cannot access local variable Path where it is not associated with a value",
+  "failure_phase": "native entry before attempt-root creation, PostgreSQL startup, Spark startup, Delta publication, or source ACK",
+  "journal_counts": {
+    "local_operation": 15,
+    "local_plan": 2,
+    "local_publication_artifact": 2,
+    "local_source_plan": 2
+  },
+  "journal_integrity": "ok",
+  "journal_sha256": "6084db7eddfc116020b34d7a213dd2a8010cefbf0c2c6f6c0c58e60372842aec",
+  "pgdata_tree_matches_last_effect_free_preflight": true,
+  "postgres_postmaster_absent": true,
+  "production_authority": false,
+  "profile": "ashlar-r50-pre-effect-failure-reconciliation/0.1",
+  "qualifier": "This reconciles the observed startup failure and retained local state; it does not authorize retry or infer source effects beyond the read-only evidence.",
+  "scope_sha256": "3bcf6eec6215369859803e7e847bfb70643d63180b57dde7b711fd52034b46ab",
+  "source_ack_attempted": false,
+  "sqlite_sidecars_after": {
+    "-shm": {
+      "bytes": 32768,
+      "dev": 16777231,
+      "ino": 314561522,
+      "mode": 384,
+      "present": true,
+      "sha256": null
+    },
+    "-wal": {
+      "bytes": 0,
+      "dev": 16777231,
+      "ino": 314561521,
+      "mode": 384,
+      "present": true,
+      "sha256": null
+    }
+  },
+  "sqlite_sidecars_before": {
+    "-shm": {
+      "bytes": 32768,
+      "dev": 16777231,
+      "ino": 314561522,
+      "mode": 384,
+      "present": true,
+      "sha256": null
+    },
+    "-wal": {
+      "bytes": 0,
+      "dev": 16777231,
+      "ino": 314561521,
+      "mode": 384,
+      "present": true,
+      "sha256": null
+    }
+  },
+  "status": "reconciled_pre_effect_failure",
+  "supervisor_receipt_sha256": "ba5dc73866d10e43c110b6bb056ac26d83b626f6dcabfefdeb31e8c38b5b74e9",
+  "supervisor_root_preserved": "/private/tmp/ashlar-r50-truss052-two-change-continuation-20261101-supervisor",
+  "worker_sha256": "738e0b916c1e0752764509578a29747add28cab23a3f410df714742878bbef18"
+}

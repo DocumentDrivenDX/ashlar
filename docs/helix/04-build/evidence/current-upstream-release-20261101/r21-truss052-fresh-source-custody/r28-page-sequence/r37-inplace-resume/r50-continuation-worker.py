@@ -212,7 +212,6 @@ def native(scope_path: Path, supervisor_root: Path):
     if {name: importlib.metadata.version(name) for name in ("pgserver-pg18", "fasteners", "platformdirs", "psutil")} != {
             "pgserver-pg18":"18.6.1", "fasteners":"0.20", "platformdirs":"4.12.4", "psutil":"7.2.2"}:
         raise Refusal("selected Truss .52 local extra pins changed")
-    from pathlib import Path
     import base64, os
     import psycopg
     from truss import CatalogRuntimeStatus, LocalPostgres, create_reference_assembly
