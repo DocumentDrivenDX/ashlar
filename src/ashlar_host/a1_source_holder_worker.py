@@ -104,12 +104,28 @@ def run_worker(channel: socket.socket, holder: Truss053A1SourceHolder):
     if type(holder) is not Truss053A1SourceHolder:
         raise A1SourceHolderWorkerError("Exact .53 source holder required")
     genesis = holder.select_genesis()
-    send_frame(channel, {"type": "genesis",
+    send_frame(channel, {"type": "genesis", "phase": "a0",
         "genesis_bytes_base64": base64.b64encode(genesis).decode("ascii")},
         maximum=MAX_READY_BYTES)
     while True:
         command = receive_frame(channel)
         kind = command.get("type")
+        if kind == "advance_a1" and set(command) == {
+                "type", "outcome", "checkpoint_bytes_base64", "receipt_bytes_base64",
+                "request_sha256", "manifest_sha256", "selection_sha256"}:
+            from .a1_ack_attempt import A1AckSettlement
+            checkpoint = _bytes(command["checkpoint_bytes_base64"],
+                                 "A0 settlement checkpoint", 1024 * 1024)
+            receipt = (None if command["receipt_bytes_base64"] is None else
+                _bytes(command["receipt_bytes_base64"], "A0 receipt", 1024 * 1024))
+            settlement = A1AckSettlement(command["outcome"], checkpoint, receipt,
+                command["request_sha256"], command["manifest_sha256"],
+                command["selection_sha256"])
+            raw = holder.advance_after_a0_ack(settlement=settlement)
+            send_frame(channel, {"type": "a1_genesis", "phase": "a1",
+                "genesis_bytes_base64": base64.b64encode(raw).decode("ascii")},
+                maximum=MAX_READY_BYTES)
+            continue
         if kind == "open" and set(command) == {
                 "type", "request_bytes_base64", "destination_id", "publication_id"}:
             request = _bytes(command["request_bytes_base64"], "request", 4 * 1024 * 1024)
@@ -147,6 +163,8 @@ def run_worker(channel: socket.socket, holder: Truss053A1SourceHolder):
                 "request_sha256": result.request_sha256,
                 "manifest_sha256": result.manifest_sha256,
                 "selection_sha256": result.selection_sha256}, maximum=2 * 1024 * 1024)
+            if holder.phase == "a0" and result.outcome == "matched":
+                continue
             return
         elif kind == "close" and set(command) == {"type"}:
             holder.close_before_ack()
@@ -203,6 +221,7 @@ class A1Truss053SourceHolderProcess:
         self._closed = False
         self._generation = None
         self.snapshot_bytes = None
+        self.phase = None
         channel.settimeout(operation_timeout_seconds)
 
     @classmethod
@@ -258,12 +277,14 @@ class A1Truss053SourceHolderProcess:
 
     def wait_genesis(self):
         response = receive_frame(self.channel, maximum=MAX_READY_BYTES)
-        if set(response) != {"type", "genesis_bytes_base64"} or response["type"] != "genesis":
+        if (set(response) != {"type", "phase", "genesis_bytes_base64"}
+                or response["type"] != "genesis" or response["phase"] != "a0"):
             raise A1SourceHolderWorkerError("Exact detached A/B genesis event required")
         raw = _bytes(response["genesis_bytes_base64"], "A/B genesis", 64 * 1024 * 1024)
         from .truss_detached_a1_genesis_codec import decode_detached_a1_genesis_snapshot
         decode_detached_a1_genesis_snapshot(raw)
         self.genesis_bytes = raw
+        self.phase = "a0"
         return raw
 
     def open_prepublication(self, *, request_bytes: bytes, destination_id: str,
@@ -366,8 +387,53 @@ class A1Truss053SourceHolderProcess:
                 generation=self._generation, reason="bad_settlement")
             raise A1SourceHolderWorkerError(
                 "Unknown ACK result; use fresh read-only reconciliation") from error
-        self._reap_success()
+        if settlement.outcome == "matched" and self.phase == "a0":
+            self.snapshot_bytes = None
+            self.custody_digests = None
+            self.phase = "a0_matched"
+            self._heartbeat = None
+            self._heartbeat_stop = threading.Event()
+        else:
+            self._reap_success()
         return settlement
+
+    def advance_after_a0_ack(self, settlement, deadline=None):
+        """Keep the same source owner and apply A1 only after matched A0 ACK."""
+        from .a1_ack_attempt import A1AckSettlement
+        if (type(settlement) is not A1AckSettlement or settlement.outcome != "matched"
+                or self.phase != "a0_matched" or self.snapshot_bytes is not None):
+            raise A1SourceHolderWorkerError("Exact matched A0 settlement required")
+        previous_timeout = self.channel.gettimeout()
+        if deadline is not None:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise A1SourceHolderWorkerError("Trial deadline expired before A1 source transition")
+            self.channel.settimeout(min(self.operation_timeout_seconds, remaining))
+        try:
+            response = self._rpc({"type": "advance_a1",
+                "outcome": settlement.outcome,
+                "checkpoint_bytes_base64": base64.b64encode(
+                    settlement.checkpoint_bytes).decode("ascii"),
+                "receipt_bytes_base64": None if settlement.receipt_bytes is None else
+                    base64.b64encode(settlement.receipt_bytes).decode("ascii"),
+                "request_sha256": settlement.request_sha256,
+                "manifest_sha256": settlement.manifest_sha256,
+                "selection_sha256": settlement.selection_sha256},
+                response_type="a1_genesis", maximum=MAX_COMMAND_BYTES)
+        finally:
+            if not self._closed:
+                self.channel.settimeout(previous_timeout)
+        if (set(response) != {"type", "phase", "genesis_bytes_base64"}
+                or response["phase"] != "a1"):
+            raise A1SourceHolderWorkerError("Exact A1 genesis event required")
+        raw = _bytes(response["genesis_bytes_base64"], "A1 genesis", 64 * 1024 * 1024)
+        from .truss_detached_a1_genesis_codec import decode_detached_a1_genesis_snapshot
+        cursor = json.loads(settlement.checkpoint_bytes.decode("utf-8"))
+        decode_detached_a1_genesis_snapshot(raw,
+            expected_a_prior_cursor=cursor.get("nextXid"))
+        self.phase = "a1"
+        self.genesis_bytes = raw
+        return raw
 
     def close_before_ack(self):
         if self._closed:

@@ -98,6 +98,10 @@ class Truss053A1SourceHolder:
         self.snapshot_bytes = None
         self.bound_selection = None
         self.custody_digests = None
+        self.phase = "a0"
+        self._a0_settlement = None
+        self._a0_page_next = None
+        self._advance_a1_callback = None
         self._closed = False
 
     def select_genesis(self) -> bytes:
@@ -109,8 +113,11 @@ class Truss053A1SourceHolder:
         if self.genesis is not None:
             raise Truss053CustodyError("A/B genesis selection is one-shot")
         installed_truss_053_fresh_source_custody_profile()
+        expected = (None if self.phase == "a0" else
+                    json.loads(self._a0_page_next.decode("utf-8"))["nextXid"])
         self.genesis = ManagedCurrentTruss053GenesisSourceOwner(
-            self.schedule, self.source_selections).admit_a1()
+            self.schedule, self.source_selections).admit_a1(
+                expected_a_prior_cursor=expected)
         self.genesis_bytes = encode_detached_a1_genesis_snapshot(self.genesis)
         return self.genesis_bytes
 
@@ -131,8 +138,11 @@ class Truss053A1SourceHolder:
                 or type(publication_id) is not str or not publication_id):
             raise Truss053CustodyError("Exact frozen A1 request and publication binding required")
         installed_truss_053_fresh_source_custody_profile()
+        expected = (None if self.phase == "a0" else
+                    json.loads(self._a0_page_next.decode("utf-8"))["nextXid"])
         refreshed = ManagedCurrentTruss053GenesisSourceOwner(
-            self.schedule, self.source_selections).admit_a1()
+            self.schedule, self.source_selections).admit_a1(
+                expected_a_prior_cursor=expected)
         if encode_detached_a1_genesis_snapshot(refreshed) != self.genesis_bytes:
             raise Truss053CustodyError(
                 "A/B page, cursor, catalog, accepted document, or model changed since genesis admission")
@@ -247,9 +257,47 @@ class Truss053A1SourceHolder:
         if value.outcome == "matched":
             self.session.close()
         self.session.dispose()
-        self._closed = True
-        self._close_bootstrap_runtimes()
+        if value.outcome == "matched" and self.phase == "a0":
+            self._a0_settlement = settlement
+            self._a0_page_next = value.checkpoint.content
+            self.session = None
+            self.bound_selection = None
+            self.request_bytes = None
+            self.snapshot_bytes = None
+            self.anchor = None
+            self.genesis = None
+            self.genesis_bytes = None
+        else:
+            self._closed = True
+            self._close_bootstrap_runtimes()
         return settlement
+
+    def advance_after_a0_ack(self, *, settlement):
+        """Apply the already-frozen A1 group only after exact matched A0 ACK."""
+        from .truss_detached_a1_genesis_codec import encode_detached_a1_genesis_snapshot
+        from .a1_ack_attempt import A1AckSettlement
+        from .managed_current_truss053_genesis_owner import (
+            ManagedCurrentTruss053GenesisSourceOwner,
+        )
+        settled = self._a0_settlement
+        if (self.phase != "a0" or self._closed or settled is None
+                or type(settlement) is not A1AckSettlement
+                or settlement != settled or settled.outcome != "matched"
+                or settlement.checkpoint_bytes != self._a0_page_next
+                or self._advance_a1_callback is None):
+            raise Truss053CustodyError(
+                "Exact matched A0 settlement and next cursor required before A1 source effect")
+        self._advance_a1_callback(settlement.checkpoint_bytes)
+        self.phase = "a1"
+        self._a0_settlement = None
+        self.genesis = None
+        self.genesis_bytes = None
+        self.genesis = ManagedCurrentTruss053GenesisSourceOwner(
+            self.schedule, self.source_selections).admit_a1(
+                expected_a_prior_cursor=json.loads(
+                    settlement.checkpoint_bytes.decode("utf-8"))["nextXid"])
+        self.genesis_bytes = encode_detached_a1_genesis_snapshot(self.genesis)
+        return self.genesis_bytes
 
     def _close_bootstrap_runtimes(self):
         owner = getattr(self, "_bootstrap_runtimes", None)

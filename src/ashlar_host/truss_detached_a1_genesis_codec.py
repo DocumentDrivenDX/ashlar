@@ -207,7 +207,7 @@ class DetachedA1GenesisSnapshot:
         return self.sources[source]
 
 
-def decode_detached_a1_genesis_snapshot(raw: bytes) -> DetachedA1GenesisSnapshot:
+def decode_detached_a1_genesis_snapshot(raw: bytes, *, expected_a_prior_cursor="0") -> DetachedA1GenesisSnapshot:
     _need(type(raw) is bytes and 0 < len(raw) <= MAX_BYTES,
           "Bounded exact A/B genesis bytes required")
     value = _json(raw)
@@ -287,8 +287,10 @@ def decode_detached_a1_genesis_snapshot(raw: bytes) -> DetachedA1GenesisSnapshot
                   and cursor_doc.get("consumerId") == progress.get("consumer_id")
                   and cursor_doc.get("registrationId") == progress.get("consumer_registration_id"),
                   "A/B cursor differs from independently selected genesis identity")
-        _need(before_cursor.get("nextXid") == "0",
-              "A/B initial source cursor must remain at genesis")
+        expected_position = expected_a_prior_cursor if source == "A" else "0"
+        _need(type(expected_position) is str and expected_position.isdecimal()
+              and before_cursor.get("nextXid") == expected_position,
+              "A/B source cursor differs from exact phase predecessor")
         report = _read64(item.get("report_bytes_base64"), "report", 4 * 1024 * 1024)
         view = _read64(item.get("view_bytes_base64"), "complete view", 8 * 1024 * 1024)
         report_obj, view_obj = _json(report), _json(view)

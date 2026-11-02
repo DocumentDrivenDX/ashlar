@@ -121,7 +121,7 @@ class ManagedA1LocalPinOwner:
 
     def __init__(self, data_directory, selection, vector, *, native_timeout_seconds=900):
         from truss import LocalPostgres
-        if (type(data_directory) is not Path or not data_directory.is_absolute()
+        if (not isinstance(data_directory, Path) or not data_directory.is_absolute()
                 or data_directory.resolve() != data_directory
                 or data_directory.exists() or data_directory.is_symlink()
                 or type(selection) is not __import__(

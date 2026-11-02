@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 from types import MappingProxyType, SimpleNamespace
+import tempfile
 import unittest
 
 from ashlar.pins import PinVector
@@ -64,6 +65,18 @@ class ManagedA1LocalPinPolicyTests(unittest.TestCase):
                 "context": self.context, "bounded_lifetime_seconds": 60}))
         with self.assertRaises(ManagedA1LocalPinOwnerError):
             owner.open_native_pin()
+
+    def test_owner_accepts_concrete_posix_path_without_starting_postgres(self):
+        from pathlib import Path
+        from ashlar_host.managed_operational_retention_interval import (
+            ManagedOperationalRetentionSelection,
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            selected_path = Path(temporary).resolve() / "fresh-pgdata"
+            selection = object.__new__(ManagedOperationalRetentionSelection)
+            object.__setattr__(selection, "vector", self.vector)
+            owner = ManagedA1LocalPinOwner(selected_path, selection, self.vector)
+            self.assertIs(owner.data_directory, selected_path)
 
 
 if __name__ == "__main__":
