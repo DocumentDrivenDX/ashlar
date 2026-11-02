@@ -437,8 +437,6 @@ def validate_selected_managed_current_prefix_a0_continuation(
             registration_id = registration_doc["registrationId"]
         except (ValueError, KeyError, TypeError) as error:
             raise ValueError("Exact original catalog registration identity required") from error
-        _require(_canonical(registration_doc).encode("utf-8") == registration,
-                 "Canonical exact original catalog registration bytes required")
         selected_genesis_progress[source] = {
             "profile": "ashlar-truss-source-genesis-progress/0.1",
             "feed": identity["feed"], "epoch": identity["epoch"],

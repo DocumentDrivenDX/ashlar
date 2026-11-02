@@ -76,9 +76,9 @@ def _progress(source, evidence, *, expected_next_xid="0"):
 
 def _catalog_evidence(evidence):
     from .truss_current_catalog import (
-        CURRENT_TRUSS_053_FRESH_VERSION,
-        CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-        CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256,
+        CURRENT_TRUSS_054_FRESH_VERSION,
+        CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+        CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
         CurrentCatalogEvidence,
     )
 
@@ -114,9 +114,9 @@ def _catalog_evidence(evidence):
             catalog_revision=int(doc_catalog_revision), sha256=digest,
             content=content)
     return CurrentCatalogEvidence(
-        CURRENT_TRUSS_053_FRESH_VERSION, {revision: report}, {revision: view},
-        sources, CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-        CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256)
+        CURRENT_TRUSS_054_FRESH_VERSION, {revision: report}, {revision: view},
+        sources, CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+        CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)
 
 
 def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
@@ -248,7 +248,7 @@ def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
         catalog = _catalog_evidence(evidence)
         if source == "B":
             # B has no A1 publication page, but its full accepted catalog and
-            # original documents still require the same .53 interpretation.
+            # original documents still require the same .54 interpretation.
             from .truss_current_catalog import interpret_current_catalog
             interpret_current_catalog(evidence.catalog_revision, report, view,
                 catalog.sources, truss_version=catalog.truss_version)

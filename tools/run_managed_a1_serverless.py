@@ -214,7 +214,7 @@ def build_payload(config: object) -> tuple[dict, dict]:
             and cost["estimated_total_dbu"] + cost["cleanup_reserve_dbu"]
                 <= cost["authorized_total_dbu"]
             and cost["includes_startup_driver_verifier_handoff_and_cleanup"] is True,
-            "DBU bound must include the five sequential runs, holder handoffs, and cleanup")
+            "DBU bound must include the seven sequential runs, holder handoffs, and cleanup")
     expected_usd = cost["estimated_total_usd"]
     worst_case_usd = cost["authorized_total_dbu"] * SERVERLESS_USD_PER_DBUH \
         + cost["cleanup_reserve_usd"]
@@ -285,14 +285,17 @@ def build_payload(config: object) -> tuple[dict, dict]:
             "dependencies": [item["path"] for item in task["dependencies"]],
         }}
         stage_payloads[key] = {"task": task_payload, "environment": env}
+    require(all(config[key]["timeout_seconds"] == 60
+                for key in ("initializer", "publisher", "verifier")),
+            "Each serverless task must use the admitted 60-second timeout")
     paid_seconds = (config["initializer"]["timeout_seconds"]
-                    + 2 * (config["publisher"]["timeout_seconds"]
-                           + config["verifier"]["timeout_seconds"]))
+                    + 2 * config["publisher"]["timeout_seconds"]
+                    + 4 * config["verifier"]["timeout_seconds"])
     require(paid_seconds <= MAX_PAID_TASK_SECONDS
             and cost["authorized_total_dbu"] >= paid_seconds * WORST_SERVERLESS_DBUH / 3600
             and paid_seconds + MAX_SOURCE_BOOTSTRAP_SECONDS + 45
             <= wall - cleanup_seconds,
-            "Two publication cycles, <=540s paid tasks, 240s source bootstrap, and handoffs must fit before cleanup reserve")
+            "Two publication cycles plus post-ACK close verifiers, <=540s paid tasks, source bootstrap, and handoffs must fit before cleanup reserve")
     return stage_payloads, config
 
 
@@ -451,6 +454,14 @@ class SourceHolderIPC:
         self.owner.operation_timeout_seconds = operation_timeout
         self.owner.channel.settimeout(operation_timeout)
         return self.owner.acknowledge_once(store, attempt_directory=attempt_directory)
+
+    def finish_ack(self, settlement, *, attempt_directory, deadline):
+        remaining = deadline - time.monotonic()
+        require(remaining > POST_ACK_CLEANUP_RESERVE_SECONDS,
+                "Deadline lacks final source-close and cleanup reserve")
+        self.owner.channel.settimeout(min(self.owner.operation_timeout_seconds,
+            remaining - POST_ACK_CLEANUP_RESERVE_SECONDS))
+        return self.owner.finish_ack(settlement, attempt_directory=attempt_directory)
 
     def advance_after_a0_ack(self, settlement, deadline):
         remaining = deadline - time.monotonic()
@@ -1004,7 +1015,7 @@ def _retention_bundle(*, trial, protocol_profile, plan, request_bytes,
 
 
 class _LocalPinStages:
-    """Hold the native source-bound pin across the verifier's three RPC stages."""
+    """Keep one native source-bound pin through verifier and Truss ACK."""
     def __init__(self, owner, *, lifetime_seconds):
         self.owner = owner
         self.lifetime_seconds = lifetime_seconds
@@ -1013,9 +1024,17 @@ class _LocalPinStages:
                 "Parent A1 pin timeout must fit the bounded trial lifetime")
         self.handle = None
         self.stages = []
+        self.post_ack_observations = 0
+        self.post_ack_window = False
 
     def __call__(self, stage):
         require(stage in ("open", "pre_ack", "close"), "Closed pin stage required")
+        if self.post_ack_window:
+            require(self.handle is not None and stage in ("open", "pre_ack", "close"),
+                    "Post-ACK native observation requires the retained pin")
+            self.handle.renew()
+            self.post_ack_observations += 1
+            return
         if stage == "open":
             require(self.handle is None and not self.stages,
                     "Native A1 pin may open only once")
@@ -1027,9 +1046,34 @@ class _LocalPinStages:
         else:
             require(self.handle is not None and self.stages == ["open", "pre_ack"],
                     "Native A1 pin close must follow open and pre-ACK")
-            self.handle.close()
-            self.handle = None
+            self.handle.renew()
         self.stages.append(stage)
+
+    def renew_for_ack(self):
+        require(self.handle is not None and self.stages == ["open", "pre_ack", "close"],
+                "Native A1 pin must survive all three verifier stages before source ACK")
+        self.handle.renew()
+
+    def begin_post_ack_observation(self):
+        require(self.handle is not None and not self.post_ack_window
+                and self.stages == ["open", "pre_ack", "close"],
+                "Post-ACK close observation requires the retained pre-ACK pin")
+        self.post_ack_window = True
+        self.post_ack_observations = 0
+
+    def renew_after_post_ack_observation(self):
+        require(self.post_ack_window and self.handle is not None
+                and self.post_ack_observations == 3,
+                "Post-ACK close verifier must complete all three bounded pin observation points")
+        self.handle.renew()
+
+    def close_after_ack(self):
+        require(self.handle is not None and self.stages == ["open", "pre_ack", "close"],
+                "Native A1 pin closes only after exact source ACK reconciliation")
+        require(self.post_ack_window and self.post_ack_observations == 3,
+                "Native A1 pin closes only after exact post-ACK four-role close observation")
+        self.handle.close()
+        self.handle = None
 
     def close_on_error(self):
         if self.handle is not None:
@@ -1040,14 +1084,17 @@ class _LocalPinStages:
 def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
                            request_bytes: bytes, manifest_bytes: bytes,
                            receipt_bytes: bytes, vector_sha256: str,
-                           vector_wire: dict, *, phase: str) -> dict:
+                           vector_wire: dict, *, phase: str,
+                           observation_phase="pre_ack") -> dict:
     require(set(output) == {"profile", "runtimeIdentity", "predictiveOptimization",
                             "managedObservation", "managedObservationSha256",
-                            "requestSha256", "manifestSha256", "phase",
+                            "requestSha256", "manifestSha256", "phase", "observationPhase",
                             "destinationReceiptSha256", "vector"}
             and output.get("profile") == "ashlar-managed-a1-verifier-result/0.1"
             and output.get("phase") == phase,
             "Verifier output must use the closed independent phase-bound result profile")
+    require(output.get("observationPhase") == observation_phase,
+            "Verifier result is for the wrong source-ACK observation phase")
     require(output.get("predictiveOptimization") == "ENABLE",
             "Verifier did not observe Unity Catalog predictive optimization ENABLE")
     request_sha = hashlib.sha256(request_bytes).hexdigest()
@@ -1101,7 +1148,8 @@ def _validate_ack_settlement(settlement, *, request_bytes: bytes,
 def _service_source_observer_rpc(api: DatabricksCLI, holder: SourceHolderIPC,
                                  volume_rpc_uri: str, deadline: float,
                                  *, expected_vector_sha256: str,
-                                 expected_custody_digests: dict, pin_stage=None) -> None:
+                                 expected_custody_digests: dict, pin_stage=None,
+                                 post_ack: bool = False) -> None:
     """Renew original same-session Truss custody for a live verifier request."""
     from urllib.parse import quote
     directory = api.call("get", "/api/2.0/fs/directories/" + quote(volume_rpc_uri, safe="/"))
@@ -1155,16 +1203,26 @@ def _service_source_observer_rpc(api: DatabricksCLI, holder: SourceHolderIPC,
         "Closed source-observer renewal request required")
     if request["kind"] == "pin":
         require(pin_stage is not None, "Parent native pin observer owner required")
-        holder.renew(deadline)
-        require(holder.owner.custody_digests == expected_custody_digests,
-                "Source custody drift before managed verifier read")
-        pin_stage(request["stage"])
+        if post_ack:
+            require(holder.owner.custody_digests == expected_custody_digests,
+                    "Held source custody changed during post-ACK native close observation")
+            pin_stage(request["stage"])
+        else:
+            holder.renew(deadline)
+            require(holder.owner.custody_digests == expected_custody_digests,
+                    "Source custody drift before managed verifier read")
+            pin_stage(request["stage"])
         custody = expected_custody_digests
     else:
-        holder.renew(deadline)
-        custody = holder.owner.custody_digests
-        require(type(custody) is dict and custody == expected_custody_digests,
-                "Same-session Truss renewal differs from exact source custody selected by verifier")
+        if post_ack:
+            require(holder.owner.custody_digests == expected_custody_digests,
+                    "Held source custody changed during post-ACK close observation")
+            custody = expected_custody_digests
+        else:
+            holder.renew(deadline)
+            custody = holder.owner.custody_digests
+            require(type(custody) is dict and custody == expected_custody_digests,
+                    "Same-session Truss renewal differs from exact source custody selected by verifier")
         if request["stage"] == "close" and pin_stage is not None:
             pin_stage("close")
     response_value = {"profile": "ashlar-managed-a1-source-observer-rpc/0.1",
@@ -1182,6 +1240,32 @@ def _service_source_observer_rpc(api: DatabricksCLI, holder: SourceHolderIPC,
     finally:
         try: os.unlink(local_response)
         except FileNotFoundError: pass
+
+
+def _run_post_ack_close(api, config, verifier_payload, parameters, deadline, *,
+                        cleanup_deadline, stage,
+                        phase, request_bytes, manifest_bytes, receipt_bytes,
+                        vector_sha256, vector, holder, rpc_dir, custody_digests,
+                        pin_stages, recovery_state, recovery_path):
+    """Reopen and compare exact native versions after ACK while both owners remain live."""
+    pin_stages.begin_post_ack_observation()
+    close_params = dict(parameters)
+    close_params["post_ack_close"] = True
+    run_id, task_run_id, _, output = _run_stage(api, config, stage,
+        verifier_payload, {"task_parameters_json": json.dumps(close_params,
+            sort_keys=True, separators=(",", ":"), ensure_ascii=False)}, deadline,
+        on_poll=lambda: _service_source_observer_rpc(api, holder, rpc_dir, deadline,
+            expected_vector_sha256=vector_sha256,
+            expected_custody_digests=custody_digests, pin_stage=pin_stages,
+            post_ack=True),
+        cleanup_deadline=cleanup_deadline, recovery_state=recovery_state,
+        recovery_path=recovery_path, config_key="verifier")
+    _validate_task_runtime(output, config["expected_runtime"], "verifier")
+    proof = _verify_terminal_proof(output, run_id, task_run_id, request_bytes,
+        manifest_bytes, receipt_bytes, vector_sha256, vector, phase=phase,
+        observation_phase="post_ack_close")
+    pin_stages.renew_after_post_ack_observation()
+    return run_id, task_run_id, output, proof
 
 
 def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: Path,
@@ -1444,7 +1528,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         _write_private_json(recovery_path, recovery_state)
         pin_owner = ManagedA1LocalPinOwner(pin_root / "pgdata", bundle.selection,
             bundle.vector, native_timeout_seconds=pin_native_timeout,
-            deadline_monotonic=work_deadline - config["verifier"]["timeout_seconds"])
+            deadline_monotonic=work_deadline - 2 * config["verifier"]["timeout_seconds"])
         pin_owner.__enter__()
         pin_registration = pin_owner.register()
         pin_stages = _LocalPinStages(pin_owner,
@@ -1457,7 +1541,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             "prefix_volume_uri": prefix_uri, "prefix_sha256": prefix_artifact["sha256"],
             "selected_prefix_volume_uri": selected_prefix_uri,
             "selected_prefix_sha256": selected_prefix_artifact["sha256"],
-            "source_rpc_directory": rpc_dir})
+            "source_rpc_directory": rpc_dir, "post_ack_close": False})
         verifier_id, verifier_task_id, _, verifier_result = _run_stage(api, config,
             "a0-verifier", payload["verifier"], {"task_parameters_json": json.dumps(
                 verify_params, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},
@@ -1470,13 +1554,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         _validate_task_runtime(verifier_result, config["expected_runtime"], "verifier")
         holder.renew(work_deadline)
         require(pin_stages.stages == ["open", "pre_ack", "close"]
-                and pin_stages.handle is None,
+                and pin_stages.handle is not None,
                 "Local native pin interval did not complete all three managed observer stages")
-        pin_owner.__exit__(None, None, None)
-        recovery_state["pin_postgres_cleanup"] = _cleanup_pin_pgdata(
-            pin_owner, pin_pg_ctl_lock, deadline)
-        result["pin_postgres_cleanup"] = recovery_state["pin_postgres_cleanup"]
-        pin_owner = None
         proof = _verify_terminal_proof(verifier_result, verifier_id, verifier_task_id,
             request_bytes, manifest_bytes, receipt_bytes, vector_sha256, vector,
             phase=phase)
@@ -1529,17 +1608,37 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         ack_attempted = True
         recovery_state["ack"]["state"] = "dispatch_intent"
         _write_private_json(recovery_path, recovery_state)
+        pin_stages.renew_for_ack()
         settlement = holder.acknowledge_once(store, attempt_directory=store.directory,
                                              deadline=deadline)
         _validate_ack_settlement(settlement, request_bytes=request_bytes,
             manifest_bytes=manifest_bytes, snapshot_bytes=snapshot_bytes,
             next_checkpoint_bytes=detached.source_page.next_bytes,
             receipt_bytes=receipt_bytes)
+        recovery_state["ack"]["state"] = "acknowledged_matched_post_ack_close_pending"
+        _write_private_json(recovery_path, recovery_state)
+        close_id, close_task_id, _close_output, close_proof = _run_post_ack_close(
+            api, config, payload["verifier"], verify_params, work_deadline,
+            cleanup_deadline=deadline, stage="a0-post-ack-close", phase=phase,
+            request_bytes=request_bytes, manifest_bytes=manifest_bytes,
+            receipt_bytes=receipt_bytes, vector_sha256=vector_sha256, vector=vector,
+            holder=holder, rpc_dir=rpc_dir, custody_digests=custody_digests,
+            pin_stages=pin_stages, recovery_state=recovery_state,
+            recovery_path=recovery_path)
+        run_ids["a0-post-ack-close"] = close_id
+        pin_stages.close_after_ack()
+        pin_owner.__exit__(None, None, None)
+        recovery_state["pin_postgres_cleanup"] = _cleanup_pin_pgdata(
+            pin_owner, pin_pg_ctl_lock, deadline)
+        result["pin_postgres_cleanup"] = recovery_state["pin_postgres_cleanup"]
+        pin_owner = None
+        holder.finish_ack(settlement, attempt_directory=store.directory, deadline=deadline)
         result["source_holder_settlement"] = {"outcome": settlement.outcome,
             "request_sha256": settlement.request_sha256,
             "manifest_sha256": settlement.manifest_sha256,
             "selection_sha256": settlement.selection_sha256}
         recovery_state["ack"]["state"] = "acknowledged_exactly_reconciled"
+        recovery_state["ack"]["post_ack_close_proof"] = close_proof
         recovery_state["a0_ack"] = dict(recovery_state["ack"])
         recovery_state["phase"] = "a0_acknowledged_advancing_to_a1"
         _write_private_json(recovery_path, recovery_state)
@@ -1549,6 +1648,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             "receipt_sha256": hashlib.sha256(receipt_bytes).hexdigest(),
             "vector_sha256": vector_sha256,
             "publisher_run_id": publisher_id, "verifier_run_id": verifier_id,
+            "post_ack_close_run_id": close_id, "post_ack_close_proof": close_proof,
             "settlement": {"outcome": settlement.outcome,
                 "selection_sha256": settlement.selection_sha256}}
 
@@ -1558,10 +1658,11 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         a0_manifest_bytes = manifest_bytes
         a1_snapshot_bundle_bytes = holder.advance_after_a0_ack(settlement,
             deadline=work_deadline)
-        a1_genesis_uri = genesis_uri
+        a1_genesis_uri = volume_path + "/a1-source-bundle.bin"
+        a1_genesis_artifact = _put_volume_bytes(api, a1_genesis_uri,
+                                                a1_snapshot_bundle_bytes)
         a1_manifest_uri = volume_path + "/a0-manifest.json"
         a1_manifest_artifact = _put_volume_bytes(api, a1_manifest_uri, a0_manifest_bytes)
-        a1_genesis_artifact = genesis_artifact
         from ashlar_host.managed_a1_detached_admission import admit_detached_a1_plan
         a1_plan = admit_detached_a1_plan(genesis_snapshot_bytes=a1_snapshot_bundle_bytes,
             genesis_manifest=json.loads(a0_manifest_bytes), stream=trial["stream"],
@@ -1639,7 +1740,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
                 "Insufficient remaining wall deadline for the A1 native pin interval")
         pin_owner = ManagedA1LocalPinOwner(a1_pin_root / "pgdata", a1_bundle.selection,
             a1_bundle.vector, native_timeout_seconds=a1_pin_timeout,
-            deadline_monotonic=work_deadline - config["verifier"]["timeout_seconds"])
+            deadline_monotonic=work_deadline - 2 * config["verifier"]["timeout_seconds"])
         pin_owner.__enter__()
         result["a1_local_pin_owner"] = pin_owner.register()
         pin_stages = _LocalPinStages(pin_owner, lifetime_seconds=a1_pin_timeout)
@@ -1649,7 +1750,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             "prefix_volume_uri": a1_prefix_uri, "prefix_sha256": a1_prefix_artifact["sha256"],
             "selected_prefix_volume_uri": a1_selected_uri,
             "selected_prefix_sha256": a1_selected_artifact["sha256"],
-            "source_rpc_directory": rpc_dir})
+            "source_rpc_directory": rpc_dir, "post_ack_close": False})
         a1_ver_id, a1_ver_task_id, _, a1_ver_result = _run_stage(api, config,
             "a1-verifier", payload["verifier"], {"task_parameters_json": json.dumps(
                 a1_verify_params, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},
@@ -1661,12 +1762,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         run_ids["a1-verifier"] = a1_ver_id
         _validate_task_runtime(a1_ver_result, config["expected_runtime"], "verifier")
         holder.renew(work_deadline)
-        require(pin_stages.stages == ["open", "pre_ack", "close"] and pin_stages.handle is None,
+        require(pin_stages.stages == ["open", "pre_ack", "close"] and pin_stages.handle is not None,
                 "A1 local native pin interval did not complete all observer stages")
-        pin_owner.__exit__(None, None, None)
-        recovery_state["a1_pin_postgres_cleanup"] = _cleanup_pin_pgdata(
-            pin_owner, pin_pg_ctl_lock, deadline)
-        pin_owner = None
         a1_proof = _verify_terminal_proof(a1_ver_result, a1_ver_id, a1_ver_task_id,
             a1_request_bytes, a1_manifest_bytes, a1_receipt_bytes, a1_vector_sha,
             a1_vector, phase="a1")
@@ -1719,13 +1816,37 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         ack_attempted = True
         recovery_state["a1_ack"]["state"] = "dispatch_intent"
         _write_private_json(recovery_path, recovery_state)
+        pin_stages.renew_for_ack()
         a1_settlement = holder.acknowledge_once(a1_store,
             attempt_directory=a1_store.directory, deadline=deadline)
         _validate_ack_settlement(a1_settlement, request_bytes=a1_request_bytes,
             manifest_bytes=a1_manifest_bytes, snapshot_bytes=a1_snapshot_bytes,
             next_checkpoint_bytes=a1_detached.source_page.next_bytes,
             receipt_bytes=a1_receipt_bytes)
+        recovery_state["a1_ack"]["state"] = "acknowledged_matched_post_ack_close_pending"
+        _write_private_json(recovery_path, recovery_state)
+        a1_close_id, _a1_close_task_id, _a1_close_output, a1_close_proof = (
+            _run_post_ack_close(api, config, payload["verifier"], a1_verify_params,
+                work_deadline, cleanup_deadline=deadline, stage="a1-post-ack-close",
+                phase="a1", request_bytes=a1_request_bytes,
+                manifest_bytes=a1_manifest_bytes, receipt_bytes=a1_receipt_bytes,
+                vector_sha256=a1_vector_sha, vector=a1_vector, holder=holder,
+                rpc_dir=rpc_dir, custody_digests=a1_custody_digests,
+                pin_stages=pin_stages, recovery_state=recovery_state,
+                recovery_path=recovery_path))
+        run_ids["a1-post-ack-close"] = a1_close_id
+        result["a1"].update({"post_ack_close_run_id": a1_close_id,
+            "post_ack_close_proof": a1_close_proof})
+        pin_stages.close_after_ack()
+        pin_owner.__exit__(None, None, None)
+        recovery_state["a1_pin_postgres_cleanup"] = _cleanup_pin_pgdata(
+            pin_owner, pin_pg_ctl_lock, deadline)
+        result["a1_pin_postgres_cleanup"] = recovery_state["a1_pin_postgres_cleanup"]
+        pin_owner = None
+        holder.finish_ack(a1_settlement, attempt_directory=a1_store.directory,
+                          deadline=deadline)
         recovery_state["a1_ack"]["state"] = "acknowledged_exactly_reconciled"
+        recovery_state["a1_ack"]["post_ack_close_proof"] = a1_close_proof
         recovery_state["phase"] = "acknowledged_cleanup_pending"
         _write_private_json(recovery_path, recovery_state)
         result["source_holder_settlement"] = {"outcome": a1_settlement.outcome,
@@ -1752,7 +1873,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
                 and current_volume.get("volume_type") == "MANAGED",
                 "Trial volume ownership changed; refusing cleanup")
         for uri in (genesis_uri, snapshot_uri, initial_uri, prefix_uri,
-                    publisher_result_uri, selected_prefix_uri, a1_manifest_uri,
+                    publisher_result_uri, selected_prefix_uri, a1_genesis_uri, a1_manifest_uri,
                     a1_result_uri, a1_prefix_uri, a1_selected_uri):
             api.remove_file("dbfs:" + uri)
         directory = api.call("get", "/api/2.0/fs/directories/"

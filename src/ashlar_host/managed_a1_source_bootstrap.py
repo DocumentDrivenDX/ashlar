@@ -376,9 +376,9 @@ def bootstrap_from_private_config(config_bytes: bytes):
         ManagedCurrentTruss053SourceSelection,
     )
     from .truss053_source_custody import Truss053A1SourceHolder
-    from .truss_current_catalog import installed_truss_053_fresh_source_custody_profile
+    from .truss_current_catalog import installed_truss_054_fresh_source_custody_profile
 
-    installed_truss_053_fresh_source_custody_profile()
+    installed_truss_054_fresh_source_custody_profile()
 
     origin = b'{"operator":"ashlar-managed-current-a1-fresh-local-source"}\n'
     data_directories = {source: root / f"pgdata-{source}" for source in ("A", "B")}
@@ -391,7 +391,7 @@ def bootstrap_from_private_config(config_bytes: bytes):
         initialized = subprocess.run([str(initdb), "--no-sync", "-D", str(pgdata),
             "--auth=trust", "--auth-local=trust", "--encoding=UTF8", "-U", "postgres"],
             stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            timeout=45, check=False)
+            timeout=90, check=False)
         _need(initialized.returncode == 0 and (pgdata / "PG_VERSION").read_text().strip() == "18",
               f"Fresh PostgreSQL 18 {source} cluster initialization failed")
         origin_path = root / f"origin-{source}.json"

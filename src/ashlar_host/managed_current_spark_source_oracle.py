@@ -372,7 +372,7 @@ def managed_current_a1_lookup_keys(plan, *, config):
 
 def build_managed_current_a1_source_oracle(plan, *, config, prefix_bytes,
         prefix_sha256, selected, manifest, lookup_hashes):
-    """Build bounded first-page bags from the selected `.52` or `.53` owner result.
+    """Build bounded first-page bags from the selected `.52`, `.53` or `.54` owner result.
 
     The complete `/0.2` prefix is independently selected and checked for exact
     schedule/page/request/publication correspondence. This helper adds no live
@@ -421,7 +421,9 @@ def build_managed_current_a1_source_oracle(plan, *, config, prefix_bytes,
                      "schema_revisions_json"],
                  "A0 manifest must retain the exact A0 checkpoint and unchanged B vector")
         _require(package.get("phase") == "a0_metadata" and package.get("scheduleStep") == 0
-                 and package.get("entries") == [] and package.get("progress") == progress,
+                 and package.get("entries") == []
+                 and package.get("progress") == json.loads(package[
+                     "initialProgressJson"]),
                  "A0 verification must bypass R04 semantic slots")
         empty = {role: [] for role in _ROLES}
         return ManagedCurrentSourcePrefixOracle(

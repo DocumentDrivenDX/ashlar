@@ -12,6 +12,7 @@ from unittest.mock import patch
 from tools.run_managed_a1_serverless import (
     _LocalPinStages, _recover_run_after_lost_response, _run_stage, run,
     _validate_ack_settlement,
+    _verify_terminal_proof,
     _write_private_json,
 )
 from ashlar_host.a1_ack_attempt import A1AckSettlement
@@ -101,15 +102,58 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
                 manifest_bytes=b"manifest", snapshot_bytes=b"selection",
                 next_checkpoint_bytes=b"next", receipt_bytes=b"receipt")
 
-    def test_parent_native_pin_stage_opens_renews_and_closes_exactly_once(self):
+    def test_parent_native_pin_survives_verifier_until_source_ack(self):
         owner = _PinOwner()
         stages = _LocalPinStages(owner, lifetime_seconds=60)
         stages("open")
         stages("pre_ack")
         stages("close")
-        self.assertEqual(owner.events, ["open", "renew", "close"])
+        self.assertEqual(owner.events, ["open", "renew", "renew"])
         self.assertEqual(stages.stages, ["open", "pre_ack", "close"])
+        self.assertIsNotNone(stages.handle)
+        stages.renew_for_ack()
+        self.assertEqual(owner.events[-1], "renew")
+        stages.begin_post_ack_observation()
+        stages("open")
+        stages("pre_ack")
+        stages("close")
+        stages.renew_after_post_ack_observation()
+        stages.close_after_ack()
+        self.assertEqual(owner.events[-1], "close")
         self.assertIsNone(stages.handle)
+
+    def test_post_ack_close_requires_its_own_terminal_native_proof(self):
+        request, manifest, receipt = b"request", b"manifest", b"receipt"
+        vector = {"authority": "managed-current-spark:owner",
+            "scope_kind": "publication", "scope_id": "pub-1",
+            "custody_digest": "f" * 64,
+            "targets": {role: ["uuid-" + role, 1] for role in (
+                "object_current", "edge_current", "tombstone", "whole_source_history")}}
+        targets = {role: {"uuid": item[0], "version": item[1]}
+                   for role, item in vector["targets"].items()}
+        observation = {"profile": "ashlar-managed-operational-retention/0.1",
+            "interval_id": "interval", "outcome": "observed_available_at_checks",
+            "authority": "read_observation_only_no_source_ack",
+            "maximum_elapsed_seconds": 60,
+            "observations": [{"stage": stage, "predictive_optimization": "ENABLE",
+                "vector_targets": targets} for stage in ("open", "pre_ack", "close")]}
+        observation_raw = json.dumps(observation, sort_keys=True,
+            separators=(",", ":")).encode()
+        output = {"profile": "ashlar-managed-a1-verifier-result/0.1",
+            "phase": "a0", "observationPhase": "post_ack_close",
+            "runtimeIdentity": {"opening": {}, "closing": {}},
+            "predictiveOptimization": "ENABLE", "managedObservation": observation,
+            "managedObservationSha256": hashlib.sha256(observation_raw).hexdigest(),
+            "requestSha256": hashlib.sha256(request).hexdigest(),
+            "manifestSha256": hashlib.sha256(manifest).hexdigest(),
+            "destinationReceiptSha256": hashlib.sha256(receipt).hexdigest(),
+            "vector": vector}
+        proof = _verify_terminal_proof(output, 10, 11, request, manifest, receipt,
+            "a" * 64, vector, phase="a0", observation_phase="post_ack_close")
+        self.assertEqual(proof["outcome"], "durably_verified")
+        with self.assertRaisesRegex(ValueError, "wrong source-ACK observation phase"):
+            _verify_terminal_proof(output, 10, 11, request, manifest, receipt,
+                "a" * 64, vector, phase="a0", observation_phase="pre_ack")
 
     def test_lost_run_now_response_recovers_unique_run_from_fresh_job(self):
         api = _RunsAPI([{"runs": [{"run_id": 418, "job_id": 7,

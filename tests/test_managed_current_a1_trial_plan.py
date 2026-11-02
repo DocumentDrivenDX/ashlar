@@ -360,7 +360,7 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
         )
         for pins in cases:
             with self.subTest(pins=tuple(pins)), self.assertRaisesRegex(
-                    ValueError, 'Truss .52/.53 A1 reads require'):
+                    ValueError, 'Truss .52/.53/.54 A1 reads require'):
                 reader.reopen(request_bytes=b'{}', manifest_bytes=b'{}',
                               expected_receipt={}, **pins)
 

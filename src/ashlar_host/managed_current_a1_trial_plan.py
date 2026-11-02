@@ -30,7 +30,8 @@ class ManagedCurrentA1TrialPlan:
         by their owners after publication. This method confers no authority.
         """
         from .managed_current_prefix_delivery import (
-            validate_managed_current_prefix_delivery,
+            validate_managed_current_prefix_delivery, ManagedCurrentPrefixPage,
+            _decode,
         )
         if schedule_bytes != self.selection.schedule_bytes:
             raise ValueError("Original selected R04 schedule bytes must be retained")
@@ -40,7 +41,6 @@ class ManagedCurrentA1TrialPlan:
             from .managed_current_prefix_custody_v2 import (
                 validate_selected_managed_current_prefix_v2,
             )
-            from .managed_current_prefix_delivery import _decode
             from ashlar.truss_native_feed import native_feed_batch
             from ashlar.staging import batch_row
             from ashlar.source_checkpoint import truss_checkpoint
@@ -78,9 +78,7 @@ class ManagedCurrentA1TrialPlan:
             from .managed_current_prefix_custody_v2 import (
                 validate_selected_managed_current_prefix_a0_continuation,
             )
-            from .managed_current_prefix_delivery import _decode, ManagedCurrentPrefixPage
             from ashlar.truss_native_feed import native_feed_batch
-            import hashlib
             correspondence = validate_selected_managed_current_prefix_a0_continuation(
                 prefix_bytes, prefix_sha256=prefix_sha256, selected=selected)
             package = _decode(prefix_bytes)
@@ -134,7 +132,7 @@ def prepare_managed_current_a1_trial(selection, genesis_manifest, *,
 
     if type(selection) not in (ManagedCurrentTruss052GenesisSelection,
                                ManagedCurrentTruss053GenesisSelection):
-        raise ValueError("Independently selected Truss .52 or .53 A/B source-owner output required")
+        raise ValueError("Independently selected Truss .52, .53 or .54 A/B source-owner output required")
     if type(stream) is not str or not stream or "\0" in stream:
         raise ValueError("Exact managed source stream required")
     if (type(materialized_at) is not str or not materialized_at.isascii()

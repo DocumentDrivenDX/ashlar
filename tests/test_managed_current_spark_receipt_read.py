@@ -326,6 +326,12 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "runtime, UC namespace"):
             replace(self.config, source_truss_version="0.0.46")
 
+    def test_fresh_054_is_admitted_as_a_versioned_managed_reader_profile(self):
+        fresh = replace(self.config, source_truss_version="0.0.54")
+        self.assertEqual(fresh.source_truss_version, "0.0.54")
+        with self.assertRaisesRegex(ValueError, "runtime, UC namespace"):
+            replace(self.config, source_truss_version="0.0.55")
+
     def test_reopens_spark_native_inventory_and_closes_with_same_identity(self):
         observation = self.reopen()
         self.reader.close()

@@ -94,7 +94,7 @@ class ManagedCurrentSparkReceiptConfig:
                  and type(self.schema) is str and _IDENT.fullmatch(self.schema)
                  and all(type(v) is str and v and "\0" not in v and len(v.encode()) <= 1024
                          for v in (self.expected_principal, self.expected_table_owner))
-                 and self.source_truss_version in ("0.0.44", "0.0.45", "0.0.48", "0.0.49", "0.0.50", "0.0.52", "0.0.53")
+                 and self.source_truss_version in ("0.0.44", "0.0.45", "0.0.48", "0.0.49", "0.0.50", "0.0.52", "0.0.53", "0.0.54")
                  and type(self.protocol_profile) is ReaderProtocolProfile
                  and type(self.expected_runtime) is dict
                  and self.expected_runtime.get("principal") == self.expected_principal
@@ -686,7 +686,7 @@ class ManagedCurrentSparkReceiptReader:
             source_prefix_bytes, source_prefix_sha256, source_core_config))
         a1_args_supplied = any(value is not None for value in (
             a1_plan, a1_prefix_selected))
-        is_a1_reader = self.config.source_truss_version in ("0.0.52", "0.0.53")
+        is_a1_reader = self.config.source_truss_version in ("0.0.52", "0.0.53", "0.0.54")
         if is_a1_reader:
             _require(self.config.carrier_profile == CARRIER_PROFILE_XXHASH64
                      and source_oracle is None
@@ -694,7 +694,7 @@ class ManagedCurrentSparkReceiptReader:
                      and all(value is not None for value in (
                          source_prefix_bytes, source_prefix_sha256, source_core_config))
                      and a1_plan is not None and type(a1_prefix_selected) is dict,
-                     "Truss .52/.53 A1 reads require the exact `/0.2` plan, selected page and complete `.4` prefix pins")
+                     "Truss .52/.53/.54 A1 reads require the exact `/0.2` plan, selected page and complete `.4` prefix pins")
             from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
             from .managed_current_truss052_genesis_owner import (
                 ManagedCurrentTruss052GenesisSelection,
@@ -706,6 +706,7 @@ class ManagedCurrentSparkReceiptReader:
             expected_selection = {
                 "0.0.52": ManagedCurrentTruss052GenesisSelection,
                 "0.0.53": ManagedCurrentTruss053GenesisSelection,
+                "0.0.54": ManagedCurrentTruss053GenesisSelection,
             }[self.config.source_truss_version]
             _require(type(a1_plan) is ManagedCurrentA1TrialPlan
                      and type(a1_plan.selection) is expected_selection
@@ -715,7 +716,7 @@ class ManagedCurrentSparkReceiptReader:
                      "A1 plan selection and graph admission must match the configured Truss version")
         else:
             _require(not a1_args_supplied,
-                     "A1 `/0.2` plan inputs require the exact Truss .52/.53 reader profile")
+                     "A1 `/0.2` plan inputs require the exact Truss .52/.53/.54 reader profile")
         if self.config.carrier_profile == CARRIER_PROFILE_XXHASH64:
             _require(source_oracle is None,
                      "Prebuilt .4 source oracles cannot stand in for native-probed hashes")
@@ -757,9 +758,9 @@ class ManagedCurrentSparkReceiptReader:
                     expected_source_truss_version=self.config.source_truss_version)
             else:
                 _require(self.config.carrier_profile == CARRIER_PROFILE_XXHASH64
-                         and self.config.source_truss_version in ("0.0.52", "0.0.53")
+                         and self.config.source_truss_version in ("0.0.52", "0.0.53", "0.0.54")
                          and type(a1_prefix_selected) is dict,
-                         "A1 `/0.2` source selection requires exact Truss .52/.53 and `.4` pins")
+                         "A1 `/0.2` source selection requires exact Truss .52/.53/.54 and `.4` pins")
                 from .managed_current_spark_source_oracle import managed_current_a1_lookup_keys
                 frozen_prefix = a1_plan.verify_delivery(
                     source_prefix_bytes, prefix_sha256=source_prefix_sha256,

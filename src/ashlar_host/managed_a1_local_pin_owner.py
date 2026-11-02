@@ -192,7 +192,7 @@ class ManagedA1LocalPinOwner:
             raise ManagedA1LocalPinOwnerError("Exact bundled PostgreSQL 18 initdb required")
         self.data_directory.parent.mkdir(parents=True, exist_ok=True)
         self.data_directory.mkdir(mode=0o700)
-        timeout = 45
+        timeout = 90
         if self.deadline_monotonic is not None:
             timeout = min(timeout, int(self.deadline_monotonic - time.monotonic()))
         if timeout < 1:

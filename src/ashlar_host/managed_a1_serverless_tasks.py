@@ -486,7 +486,7 @@ def verifier_task(spark, parameters):
     from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
     from .managed_a1_detached_admission import admit_detached_a1_plan
 
-    required = {"trial", "protocol_profile", "phase", "genesis_volume_uri", "genesis_sha256",
+    required = {"trial", "protocol_profile", "phase", "post_ack_close", "genesis_volume_uri", "genesis_sha256",
         "genesis_manifest_volume_uri", "genesis_manifest_sha256",
         "a1_snapshot_volume_uri", "a1_snapshot_sha256", "publisher_result_volume_uri",
         "publisher_result_sha256", "prefix_volume_uri", "prefix_sha256",
@@ -497,6 +497,8 @@ def verifier_task(spark, parameters):
     _validate_trial(trial)
     phase = parameters["phase"]
     _need(phase in ("a0", "a1"), "Explicit A0 metadata or A1 semantic phase required")
+    _need(type(parameters["post_ack_close"]) is bool,
+          "Explicit verifier pre-ACK or post-ACK close-only mode required")
     protocol = _protocol_profile(parameters["protocol_profile"])
     spark.sql("USE CATALOG `" + trial["catalog"] + "`").collect()
     spark.sql("USE SCHEMA `" + trial["schema"] + "`").collect()
@@ -540,7 +542,7 @@ def verifier_task(spark, parameters):
         catalog=trial["catalog"], schema=trial["schema"],
         expected_principal=trial["expected_runtime"]["principal"],
         expected_table_owner=trial["expected_runtime"]["principal"],
-        source_truss_version="0.0.53", protocol_profile=protocol,
+        source_truss_version="0.0.54", protocol_profile=protocol,
         expected_runtime=trial["expected_runtime"],
         maximum_elapsed_seconds=300, maximum_statements=128,
         maximum_rows=1024, maximum_result_bytes=4 * 1024 * 1024,
@@ -612,6 +614,7 @@ def verifier_task(spark, parameters):
         "observations": observations}
     observed_bytes = _canonical(observation_value)
     return {"profile": "ashlar-managed-a1-verifier-result/0.1", "phase": phase,
+        "observationPhase": "post_ack_close" if parameters["post_ack_close"] else "pre_ack",
         "runtimeIdentity": {"opening": opening, "closing": closing},
         "predictiveOptimization": "ENABLE",
         "managedObservation": observation_value,
