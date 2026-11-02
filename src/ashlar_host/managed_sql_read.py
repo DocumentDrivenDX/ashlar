@@ -23,6 +23,7 @@ from ashlar.native import SQLResult
 from .lifecycle import finish
 
 SHARED_ENDPOINT=('https://adb-7405607548213398.18.azuredatabricks.net','2439e1f2e37ac563')
+DATABRICKS_SDK_VERSION = '0.159.0'
 
 class ManagedSQLReadError(ValueError):pass
 
@@ -154,7 +155,7 @@ class ManagedSQLReader:
         self.config=config;self.context=context;self.active=True;self.pending=set();self.observations=[];self.count=0;self.submission_outcome_unknown=False
         self._settings=tuple(getattr(config,n) for n in config.__dataclass_fields__)
         self._files=(_file(config.config_file,True),_file(config.cli,False))
-        if importlib.metadata.version('databricks-sdk')!='0.155.0':raise ManagedSQLReadError('managed-sql-sdk-version')
+        if importlib.metadata.version('databricks-sdk')!=DATABRICKS_SDK_VERSION:raise ManagedSQLReadError('managed-sql-sdk-version')
         sdk=importlib.import_module('databricks.sdk')
         self.workspace=_safe(lambda:sdk.WorkspaceClient(host=config.host,profile=config.profile,config_file=str(config.config_file),
             auth_type='databricks-cli',databricks_cli_path=str(config.cli),http_timeout_seconds=config.http_seconds,retry_timeout_seconds=1))

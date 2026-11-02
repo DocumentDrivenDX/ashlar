@@ -410,7 +410,7 @@ class SDKWorker:
         self.resource = {'service.name': 'ashlar-host', 'service.version': settings.service_version,
                          'deployment.environment.name': settings.environment,
                          'telemetry.sdk.name': 'opentelemetry', 'telemetry.sdk.language': 'python',
-                         'telemetry.sdk.version': '1.45.1'}
+                         'telemetry.sdk.version': SDK_VERSIONS['opentelemetry-api']}
         resource = Resource(self.resource, schema_url='https://opentelemetry.io/schemas/1.44.0')
         owner = self
         class Logs(LogRecordProcessor):
