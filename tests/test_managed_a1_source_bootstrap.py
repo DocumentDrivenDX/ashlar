@@ -1,8 +1,11 @@
 import json
+import tempfile
 import unittest
+from pathlib import Path
 
 from ashlar_host.managed_a1_source_bootstrap import (
-    MODEL_SHA256, candidate_r04_schedule, candidate_seed_group,
+    MODEL_ID, MODEL_RELATIVE_PATH, MODEL_REVISION, MODEL_SHA256,
+    candidate_r04_schedule, candidate_seed_group, public_group_seed,
     validate_private_bootstrap_config,
 )
 from ashlar_host.r04_schedule import SLOT_ORDER, STAGES
@@ -82,6 +85,28 @@ class ManagedA1SourceBootstrapTests(unittest.TestCase):
         raw = json.dumps(config, sort_keys=True, separators=(",", ":")).encode()
         with self.assertRaises(ValueError):
             validate_private_bootstrap_config(raw)
+
+    def test_public_group_preflight_receives_exact_typed_scalar_carriers(self):
+        from ashlar_host.truss_record_group import preflight
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            model_path = Path(__file__).resolve().parents[1] / MODEL_RELATIVE_PATH
+            origin_path = root / "origin.json"
+            origin_path.write_bytes(b'{"operator":"pure-preflight-test"}')
+            config = {"profile": "ashlar-truss-record-group/0.1",
+                "connection_uri": "postgresql://unused", "bun": str(Path(__file__).resolve()),
+                "document_path": str(model_path), "document_revision": MODEL_REVISION,
+                "document_id": MODEL_ID, "source_version": "0.10.0",
+                "origin_path": str(origin_path), "request_key": "pure-preflight",
+                **public_group_seed(candidate_seed_group("A"))}
+            config_path = root / "group.json"
+            config_path.write_bytes(json.dumps(config, sort_keys=True,
+                separators=(",", ":")).encode())
+            selected, _, _, _, _, _ = preflight(config_path, root / "result.json")
+            self.assertEqual(len(selected.records), 4)
+            self.assertEqual(len(selected.edges), 3)
+            self.assertIn(("person_key", "string", "a-ada"), selected.records[0].values)
+            self.assertIn(("place_name", "string", "New York"), selected.records[2].values)
 
 
 if __name__ == "__main__":
