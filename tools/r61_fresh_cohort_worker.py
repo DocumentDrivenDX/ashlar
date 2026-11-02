@@ -519,6 +519,82 @@ def run() -> dict:
                 if assembly is not None: assembly.dispose()
                 if not host.detach(): raise RuntimeError("public Truss host detach refused")
             connection.rollback()
+        from ashlar_host.truss_note_publication import read_page
+        genesis_page = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
+        initial_page = setup["initial_source_page"]
+        genesis_payload = json.loads(genesis_page.content)
+        genesis_counts = {key: len(genesis_payload.get(key, [])) for key in
+                          ("catalogPrerequisites", "revisions", "changes", "sources", "reservations")}
+        genesis_revision_ids = [str(item.get("revision")) for item in genesis_payload.get("revisions", [])]
+        prerequisite_revision_ids = [str(item.get("revision"))
+                                     for item in genesis_payload.get("catalogPrerequisites", [])]
+        if (genesis_page.outcome != "transaction" or genesis_page.consumer_id != CONSUMER
+                or genesis_page.registration_id != initial_page["registration_id"]
+                or genesis_page.writer_xid != "758"
+                or base64.b64decode(initial_page["prior_base64"], validate=True) != genesis_page.prior.content
+                or base64.b64decode(initial_page["next_base64"], validate=True) != genesis_page.next.content):
+            raise RuntimeError("The exact accepted-catalog genesis page changed before publication")
+        if (genesis_page.writer_xid != "758" or genesis_counts != {
+                "catalogPrerequisites": 2, "revisions": 1, "changes": 0,
+                "sources": 0, "reservations": 0}
+                or genesis_revision_ids != ["1"]
+                or prerequisite_revision_ids != ["0", "1"]):
+            raise RuntimeError("Accepted-catalog genesis page is not the reviewed metadata-only event")
+        runtime_config = type("SelectedRuntime", (), {"java_home": java_home,
+            "jars": jars[0].parent,
+            "jar_inventory": {item.name: sha(item.read_bytes()) for item in jars}})()
+        _, _, attested_jars = attest(runtime_config)
+        warehouse = root / "spark-warehouse"
+        genesis_state = {}
+        def selector_for(state):
+            def select_page(**kwargs):
+                holder = {"params": params, "connection_factory": source_factory}
+                return _custody_selector(page=kwargs["page"], request=kwargs["request"],
+                    publication_id=kwargs["publication_id"],
+                    destination_transport=kwargs["destination_transport"],
+                    source_sessions=kwargs["source_sessions"], registration=registration,
+                    runtime_status=runtime_status, accepted_document=accepted_document,
+                    context_holder=holder, state=state)
+            return select_page
+
+        # Publish and protectively acknowledge the accepted-catalog metadata
+        # transaction first. It has no entity rows, but it is a real public page.
+        EFFECTS["spark_started"] = True
+        spark = open_configured_local_spark(runtime_config, attested_jars, warehouse,
+                                            app_name="Ashlar R61 catalog genesis")
+        try:
+            verify_loaded_delta_class(spark, attested_jars)
+            EFFECTS["delta_write_state"] = "possible_catalog_genesis_publication"
+            genesis_publication = publish_graph_pages(spark, delta,
+                connection_factory=source_factory, catalog_connection_factory=lambda:
+                    psycopg.connect(registrar_uri, autocommit=False, connect_timeout=5),
+                consumer_id=CONSUMER, feed=FEED, maximum_pages=1,
+                maximum_page_bytes=1048576, destination_id=DESTINATION,
+                carrier_profile="ashlar-delta/0.4-xxhash64", umf_sdk_version="0.10.2",
+                defer_source_acknowledgement=True,
+                prepublication_source_custody=selector_for(genesis_state))
+        finally:
+            spark.stop()
+            EFFECTS["spark_closed"] = True
+        EFFECTS["delta_write_state"] = "confirmed_catalog_genesis_publication"
+        if len(genesis_publication.get("publications", ())) != 1 or "selection" not in genesis_state:
+            raise RuntimeError("one accepted-catalog genesis publication and native custody bind required")
+        genesis_result = genesis_publication["publications"][0]
+        genesis_ack = _acknowledge(genesis_state)
+        genesis_cursor = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
+        if (genesis_cursor.outcome != "empty_interval"
+                or sha(genesis_cursor.prior.content) != genesis_ack["checkpoint_sha256"]):
+            raise RuntimeError("metadata-only genesis ACK does not match the saved next checkpoint")
+        phase_receipts.append({"phase": "accepted_catalog_metadata_genesis_and_protected_ack",
+            "source_writer_xid": genesis_page.writer_xid,
+            "source_page_sha256": genesis_page.sha256,
+            "source_event_counts": genesis_counts,
+            "revision_ids": genesis_revision_ids,
+            "catalog_prerequisite_revision_ids": prerequisite_revision_ids,
+            "publication_id": genesis_result["manifest"]["publication_id"],
+            "publication_vector": {k: list(v) for k, v in genesis_state["observation"].vector.targets.items()},
+            "ack": genesis_ack})
+
         group_records, group_edges = _seed_records()
         seed_config = root / "seed-group.json"
         _group_config(seed_config, root / "seed-group-result.json", uri=source_uri,
@@ -527,57 +603,70 @@ def run() -> dict:
         phase_receipts.append({"phase": "seven_operation_public_seed", "records": 4,
                                "edges": 3, "event_count": 7,
                                "receipt_sha256": sha((root / "seed-group-result.json").read_bytes())})
-
-        from ashlar_host.truss_note_publication import read_page
         page = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
-        if page.outcome != "transaction" or page.consumer_id != CONSUMER:
-            raise RuntimeError("public Truss did not expose the seven-op seed page")
-        runtime_config = type("SelectedRuntime", (), {"java_home": java_home,
-            "jars": jars[0].parent,
-            "jar_inventory": {item.name: sha(item.read_bytes()) for item in jars}})()
-        _, _, attested_jars = attest(runtime_config)
-        warehouse = root / "spark-warehouse"
+        seed_payload = json.loads(page.content)
+        if (page.outcome != "transaction" or page.consumer_id != CONSUMER
+                or len(seed_payload.get("changes", [])) != 7):
+            raise RuntimeError("public Truss did not expose the exact seven-operation seed page")
+
+        from ashlar_host.truss_continue_cli import run_continue_truss_graph_command
+        genesis_intent = genesis_result.get("publication_intent")
+        if type(genesis_intent) is not dict or set(genesis_intent) != {"path", "sha256"}:
+            raise RuntimeError("Exact metadata-genesis publication intent required")
+        def continuation_config_for(path, intent):
+            value = {
+                "connection_uri": source_uri,
+                "catalog_connection_uri": registrar_uri,
+                "publication_directory": str(delta),
+                "jars": [str(item) for item in jars],
+                "publication_intent": intent,
+                "destination_id": DESTINATION,
+                "carrier_profile": "ashlar-delta/0.4-xxhash64",
+                "runtime_profile": {"profile": runtime_identity["spark"]["profile"]
+                    if isinstance(runtime_identity["spark"], dict) and "profile" in runtime_identity["spark"]
+                    else "ashlar-configured-local-runtime/0.2",
+                    "java_home": str(java_home),
+                    "jar_inventory": {item.name: sha(item.read_bytes()) for item in jars}},
+                "archived_acceptance_files": [],
+            }
+            path.write_bytes(canonical(value) + b"\n")
+            os.chmod(path, 0o600)
+            return value
+        seed_continuation_path = root / "seed-continuation-config.json"
+        continuation_config_for(seed_continuation_path, genesis_intent)
+        seed_state = {}
+        seed_result_path = root / "seed-continuation-result.json"
+        EFFECTS["delta_write_state"] = "possible_seed_continuation_publication"
+        continued_seed = run_continue_truss_graph_command(
+            seed_continuation_path, seed_result_path, maximum_pages=1,
+            wait_seconds=0, maximum_page_bytes=1048576,
+            defer_source_acknowledgement=True,
+            prepublication_source_custody=selector_for(seed_state), export_graph=False)
+        EFFECTS["delta_write_state"] = "confirmed_seed_continuation_publication"
+        if (continued_seed.get("source_acknowledgement") != "deferred_not_attempted"
+                or len(continued_seed.get("publications", ())) != 1
+                or "selection" not in seed_state):
+            raise RuntimeError("one seven-op seed publication and native custody bind required")
+        seed_result = continued_seed["publications"][0]
+        seed_ack = _acknowledge(seed_state)
+        seed_cursor = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
+        if (seed_cursor.outcome != "empty_interval"
+                or sha(seed_cursor.prior.content) != seed_ack["checkpoint_sha256"]):
+            raise RuntimeError("seven-op seed ACK does not match the saved next checkpoint")
+
         EFFECTS["spark_started"] = True
         spark = open_configured_local_spark(runtime_config, attested_jars, warehouse,
-                                            app_name="Ashlar R61 fresh cohort")
+                                            app_name="Ashlar R61 native Weft reads")
         try:
             verify_loaded_delta_class(spark, attested_jars)
-            state = {}
-            def select(**kwargs):
-                holder = {"params": params, "connection_factory": source_factory}
-                return _custody_selector(page=kwargs["page"], request=kwargs["request"],
-                    publication_id=kwargs["publication_id"],
-                    destination_transport=kwargs["destination_transport"],
-                    source_sessions=kwargs["source_sessions"], registration=registration,
-                    runtime_status=runtime_status, accepted_document=accepted_document,
-                    context_holder=holder, state=state)
-            EFFECTS["delta_write_state"] = "possible_seed_publication"
-            publication = publish_graph_pages(spark, delta,
-                connection_factory=source_factory, catalog_connection_factory=lambda:
-                    psycopg.connect(registrar_uri, autocommit=False, connect_timeout=5),
-                consumer_id=CONSUMER, feed=FEED, maximum_pages=1,
-                maximum_page_bytes=1048576, destination_id=DESTINATION,
-                carrier_profile="ashlar-delta/0.4-xxhash64", umf_sdk_version="0.10.2",
-                defer_source_acknowledgement=True, prepublication_source_custody=select)
-            weft_receipt = _run_weft_reads(spark, state, setup)
+            weft_receipt = _run_weft_reads(spark, seed_state, setup)
         finally:
             spark.stop()
             EFFECTS["spark_closed"] = True
-        EFFECTS["delta_write_state"] = "confirmed_seed_publication"
-        if len(publication.get("publications", ())) != 1 or "selection" not in state:
-            raise RuntimeError("one seed publication and native source-custody binding required")
-        seed_ack = _acknowledge(state)
-        seed_cursor = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
-        if (seed_cursor.outcome != "empty_interval"
-                or sha(seed_cursor.prior.content) != seed_ack["checkpoint_sha256"]
-                or seed_cursor.prior.content != seed_cursor.next.content):
-            raise RuntimeError("seed protected ACK does not match the public next checkpoint")
-        seed_result = publication["publications"][0]
-        phase_receipts.append({"phase": "seed_publication_and_protected_ack",
+        phase_receipts.append({"phase": "seven_operation_seed_continuation_and_protected_ack",
             "publication_id": seed_result["manifest"]["publication_id"],
-            "publication_vector": {k: list(v) for k, v in state["observation"].vector.targets.items()},
-            "ack": seed_ack, "weft": weft_receipt,
-            "owner_export": "pending_continuation"})
+            "publication_vector": {k: list(v) for k, v in seed_state["observation"].vector.targets.items()},
+            "ack": seed_ack, "weft": weft_receipt, "owner_export": "pending_final_continuation"})
 
         # Apply two isolated Persons and read the exact public continuation page.
         two = [{"alias": alias, "module_id": "m", "record_id": "Person",

@@ -143,11 +143,38 @@ def _resume_stopped_source(scope: dict, destination: Path, runtime: Path) -> dic
         if (not stat.S_ISREG(info.st_mode) or stat.S_ISLNK(info.st_mode)
                 or info.st_uid != os.getuid() or info.st_mode & 0o077
                 or info.st_size > maximum_bytes):
-            raise RuntimeError("Retained attempt7 evidence file owner/mode/size differs")
+            raise RuntimeError("Retained source evidence file owner/mode/size differs")
     failure_raw, supervisor_raw = failure_path.read_bytes(), supervisor_path.read_bytes()
     if (hashlib.sha256(failure_raw).hexdigest() != policy["resume_failure_sha256"]
             or hashlib.sha256(supervisor_raw).hexdigest() != policy["resume_supervisor_sha256"]):
-        raise RuntimeError("Retained attempt7 failure/cleanup receipts changed")
+        raise RuntimeError("Retained source failure/cleanup receipts changed")
+    page_receipt_path = Path(policy["resume_page_readback_path"])
+    if not page_receipt_path.is_absolute() or page_receipt_path.resolve() != page_receipt_path:
+        raise RuntimeError("Canonical retained public-page readback path required")
+    page_receipt_info = page_receipt_path.lstat()
+    if (stat.S_ISLNK(page_receipt_info.st_mode) or not stat.S_ISREG(page_receipt_info.st_mode)
+            or page_receipt_info.st_uid != os.getuid() or page_receipt_info.st_mode & 0o077
+            or page_receipt_info.st_size > 1048576):
+        raise RuntimeError("Exact private native page readback receipt required")
+    page_receipt_raw = page_receipt_path.read_bytes()
+    if hashlib.sha256(page_receipt_raw).hexdigest() != policy["resume_page_readback_sha256"]:
+        raise RuntimeError("Retained native page readback receipt changed")
+    page_receipt = json.loads(page_receipt_raw)
+    if (page_receipt.get("status") != "readback_complete"
+            or page_receipt.get("pgdata") != str(source)
+            or page_receipt.get("postgres_closed_before_receipt") is not True
+            or page_receipt.get("postgres_control_state") != "shut down"
+            or page_receipt.get("system_identifier") != policy["resume_system_identifier"]
+            or page_receipt.get("read_only_ack") != "not_attempted"
+            or page_receipt.get("delta_write") != "not_attempted"
+            or page_receipt.get("outcome") != "transaction"
+            or page_receipt.get("writer_xid") != "758"
+            or page_receipt.get("page_sha256") != policy["resume_page_sha256"]
+            or page_receipt.get("consumer_id") != "ashlar-r61-local-consumer"
+            or page_receipt.get("registration_id") != policy["resume_registration_id"]
+            or page_receipt.get("event_counts") != {"catalogPrerequisites": 2,
+                "revisions": 1, "changes": 0, "sources": 0, "reservations": 0}):
+        raise RuntimeError("Native page receipt does not prove the metadata-only genesis transaction")
     retained_setup_raw = setup_path.read_bytes()
     retained_setup = json.loads(retained_setup_raw)
     if (hashlib.sha256(retained_model.read_bytes()).hexdigest() != policy["resume_model_sha256"]
@@ -158,7 +185,7 @@ def _resume_stopped_source(scope: dict, destination: Path, runtime: Path) -> dic
             or retained_setup.get("request_key") != "ashlar-r61-fresh-accept-r1"
             or retained_setup.get("document_id") != "ashlar-local-dev-typed-graph-r21-20261101"
             or retained_setup.get("data_directory") != str(source)):
-        raise RuntimeError("Retained attempt7 accepted source/model identity differs")
+        raise RuntimeError("Retained accepted source/model identity differs")
     failure, supervisor = json.loads(failure_raw), json.loads(supervisor_raw)
     if (failure.get("source_ack_attempted") is not False
             or failure.get("delta_write_state") != "not_attempted"
@@ -167,8 +194,9 @@ def _resume_stopped_source(scope: dict, destination: Path, runtime: Path) -> dic
             or supervisor.get("postgres_cleanup", {}).get("postgres_closed") is not True
             or supervisor.get("postgres_cleanup", {}).get("postmaster_pid_absent") is not True
             or supervisor.get("postgres_cleanup", {}).get("socket_absent") is not True
-            or (source_root / "delta").exists()):
-        raise RuntimeError("Retained attempt7 must be genesis-only, ACK-free and stopped")
+            or (source_root / "delta").exists()
+            or (source_root / "evidence").exists()):
+        raise RuntimeError("Retained source must be genesis-only, ACK-free and stopped")
     if ((source / "postmaster.pid").exists() or (source / "postmaster.opts").is_symlink()):
         raise RuntimeError("Retained source PostgreSQL cluster is not stopped")
     _, old_socket = _local_postgres_socket(source)
@@ -195,16 +223,16 @@ def _resume_stopped_source(scope: dict, destination: Path, runtime: Path) -> dic
             control_lines = dict(line.split(":", 1) for line in control.stdout.splitlines() if ":" in line)
             if (control_lines.get("Database system identifier", "").strip() != policy["resume_system_identifier"]
                     or control_lines.get("Database cluster state", "").strip() != "shut down"):
-                raise RuntimeError("Retained attempt7 PG18 control identity/state differs")
+                raise RuntimeError("Retained PG18 control identity/state differs")
             before_tree = _tree_digest(source)
             if before_tree != policy["resume_pgdata_tree_sha256"]:
-                raise RuntimeError("Retained attempt7 PGDATA tree differs from pinned readback state")
+                raise RuntimeError("Retained PGDATA tree differs from pinned readback state")
             copied_tree, copied_bytes, copied_files = _copy_verified_tree(source, destination)
             if copied_tree != before_tree:
                 raise RuntimeError("Resumed PG18 copy differs from retained installed source state")
         finally:
             fcntl.lockf(stream.fileno(), fcntl.LOCK_UN)
-    return {"profile": "ashlar-r61-attempt7-installed-source-copy/0.1",
+    return {"profile": "ashlar-r61-retained-installed-source-copy/0.1",
         "source_root": str(source_root), "source_pgdata": str(source),
         "source_pgdata_tree_sha256": before_tree, "copied_pgdata_tree_sha256": copied_tree,
         "copied_file_count": copied_files, "copied_bytes": copied_bytes,
@@ -548,13 +576,36 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
             page = read_page(ordinary_factory, consumer_id, maximum_bytes=1048576)
             if (page.outcome not in ("transaction", "empty_interval")
                     or page.consumer_id != consumer_id
+                    or not page.registration_id
                     or not page.prior.content or not page.next.content
                     or hashlib.sha256(page.content).hexdigest() != page.sha256):
                 raise RuntimeError("Exact original initial public source page required")
+            source_payload = json.loads(page.content)
+            if not isinstance(source_payload, dict):
+                raise RuntimeError("Original public page payload must be an object")
+            source_event_counts = {key: len(source_payload.get(key, [])) for key in
+                ("catalogPrerequisites", "revisions", "changes", "sources", "reservations")}
             if resuming_public_state:
-                if (page.outcome != "empty_interval" or page.prior.content != page.next.content
-                        or page.registration_id is None):
-                    raise RuntimeError("Retained attempt7 must still be registered at unchanged genesis")
+                readback_path = Path(scope["postgres_bootstrap_policy"]["resume_page_readback_path"])
+                readback_raw = readback_path.read_bytes()
+                if hashlib.sha256(readback_raw).hexdigest() != scope["postgres_bootstrap_policy"]["resume_page_readback_sha256"]:
+                    raise RuntimeError("Retained page readback receipt hash differs")
+                readback = json.loads(readback_raw)
+                if (readback.get("status") != "readback_complete"
+                        or readback.get("postgres_closed_before_receipt") is not True
+                        or readback.get("read_only_ack") != "not_attempted"
+                        or readback.get("delta_write") != "not_attempted"
+                        or readback.get("page_sha256") != page.sha256
+                        or readback.get("page_content_base64") != base64.b64encode(page.content).decode("ascii")
+                        or readback.get("prior_base64") != base64.b64encode(page.prior.content).decode("ascii")
+                        or readback.get("next_base64") != base64.b64encode(page.next.content).decode("ascii")
+                        or readback.get("outcome") != page.outcome
+                        or readback.get("writer_xid") != page.writer_xid
+                        or readback.get("registration_id") != page.registration_id
+                        or page.outcome != "transaction" or page.writer_xid != "758"
+                        or source_event_counts != {"catalogPrerequisites": 2, "revisions": 1,
+                                      "changes": 0, "sources": 0, "reservations": 0}):
+                    raise RuntimeError("Retained accepted-catalog genesis page differs from exact readback")
                 from types import SimpleNamespace
                 registration = SimpleNamespace(consumer_id=page.consumer_id,
                     registration_id=page.registration_id)
@@ -643,6 +694,9 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
                 "registration_id": page.registration_id,
                 "writer_xid": page.writer_xid,
                 "safe_watermark_xid": page.safe_watermark_xid,
+                "payload_interface_version": source_payload.get("interfaceVersion"),
+                "event_counts": source_event_counts,
+                "revision_ids": [str(item.get("revision")) for item in source_payload.get("revisions", [])],
                 "qualification": "Exact original public initial page captured before later continuation; outcome is recorded without assumption.",
             }
             report = json.loads(report_raw)
@@ -688,7 +742,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     result["postgres_owner_closed_before_receipt"] = True
     result["qualification"] = (
         ("Resumed exact stopped public Truss 0.0.53 installation and accepted UMF 0.10.0 "
-         "source from the retained attempt7 state, without reinstall or reaccept; "
+         "source from the retained stopped state, without reinstall or reaccept; "
          if resuming_public_state else
          "Fresh local public Truss 0.0.53 installation and declared UMF 0.10.0 acceptance; ")
         + "consumer registration and exact report/catalog/source/page readback after owner close. "
