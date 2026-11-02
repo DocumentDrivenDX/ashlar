@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One bounded fresh Truss .54 / UMF .10.2 native qualification worker.
+"""One bounded fresh Truss .55 / UMF .10.2 native qualification worker.
 
 The outer R61 supervisor owns the wall, aggregate RSS and output limits. This
 worker owns the selected Truss/Spark lifecycles and emits a completion receipt
@@ -72,13 +72,20 @@ def write_private(path: Path, value: dict) -> str:
 def _install_runtime(scope: dict) -> dict:
     artifacts = scope["artifacts"]
     required = {
-        "umf-truss": "0.0.54", "umf-core": "0.10.6", "umf-access": "0.1.0.dev8",
+        "umf-truss": "0.0.55", "umf-core": "0.10.6", "umf-access": "0.1.0.dev8",
         "umf-weft": "0.4.56", "pyspark": "4.2.0", "delta-spark": "4.4.1",
         "pgserver-pg18": "18.6.1",
     }
     observed = {name: importlib.metadata.version(name) for name in required}
     if observed != required:
         raise RuntimeError(f"installed native cohort differs: {observed}")
+    from ashlar_host.truss_current_catalog import installed_fresh_truss_runtime_pins
+    truss_pins = installed_fresh_truss_runtime_pins()
+    if (truss_pins["version"] != artifacts["truss_version"]
+            or truss_pins["wheel_sha256"] != artifacts["truss_wheel_sha256"]
+            or truss_pins["manifest_sha256"] != artifacts["truss_release_manifest_sha256"]
+            or truss_pins["source_custody_profile"] != artifacts["truss_source_custody_profile"]):
+        raise RuntimeError("installed fresh Truss runtime pins/profile differ from the selected cohort")
     if sys.version_info[:2] != (3, 12):
         raise RuntimeError("selected native worker Python 3.12 required")
     candidate = Path(artifacts["ashlar_candidate_wheel"])
@@ -105,7 +112,7 @@ def _install_runtime(scope: dict) -> dict:
                 raise RuntimeError(f"installed Ashlar module differs from candidate wheel: {relative}")
     from ashlar_host.truss_current_catalog import installed_current_truss_profile
     if installed_current_truss_profile() != artifacts["truss_adapter_profile"]:
-        raise RuntimeError("Truss .54 adapter profile origin differs")
+        raise RuntimeError("Truss .55 adapter profile origin differs")
     from ashlar_host.configured_local_runtime_profile import attest
     jars_dir = Path(artifacts["runtime_manifest"])
     runtime = json.loads(jars_dir.read_text())

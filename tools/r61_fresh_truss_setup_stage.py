@@ -38,7 +38,7 @@ def _connection_factory(psycopg, uri):
 
 
 def _local_postgres_socket(data_directory: Path) -> tuple[Path, Path]:
-    """Match the Truss 0.0.54 LocalPostgres deterministic socket policy."""
+    """Match the unchanged Truss 0.0.55 LocalPostgres deterministic socket policy."""
     base = Path("/private/tmp") if os.sys.platform == "darwin" else Path("/tmp")
     runtime_root = base / f"truss-pg18-{os.getuid()}"
     identity = hashlib.sha256(os.fsencode(data_directory)).hexdigest()[:24]
@@ -252,7 +252,7 @@ def _preinitialize_postgres(pgdata: Path, root: Path) -> dict:
     manifest = json.loads(manifest_bytes)
     bootstrap_policy = scope.get("postgres_bootstrap_policy", {})
     if any(key.startswith("resume_") for key in bootstrap_policy):
-        raise RuntimeError("R61 Truss 0.0.54 qualification requires a fresh uninstalled baseline")
+        raise RuntimeError("R61 Truss 0.0.55 qualification requires a fresh uninstalled baseline")
     initdb = Path(artifacts["postgresql_18_runtime"]) / "bin" / "initdb"
     if (not initdb.is_file() or not os.access(initdb, os.X_OK)
             or hashlib.sha256(initdb.read_bytes()).hexdigest() != manifest.get("initdb_sha256")):
@@ -346,7 +346,7 @@ def _preinitialize_postgres(pgdata: Path, root: Path) -> dict:
 
 def _run_public_truss_setup(*, config: dict, paths: dict, source: bytes,
                             origin: bytes, module_ids: tuple[str, ...],
-                            install_timeout_ms: int) -> dict:
+                            install_operation_timeout_ms: int) -> dict:
     """Use public Truss install, acceptance, access, and report operations."""
     from contextlib import contextmanager
     from dataclasses import asdict
@@ -398,8 +398,9 @@ def _run_public_truss_setup(*, config: dict, paths: dict, source: bytes,
         admin.execute(sql.SQL("CREATE ROLE {} LOGIN").format(sql.Identifier(consumer)))
         for role in (reader, writer):
             admin.execute(sql.SQL("CREATE ROLE {} NOLOGIN").format(sql.Identifier(role)))
-        with interval(admin, timeout_ms=install_timeout_ms) as (assembly, tx):
-            installed = value(assembly.install_in_transaction(tx))
+        with interval(admin, timeout_ms=60000) as (assembly, tx):
+            installed = value(assembly.install_in_transaction(
+                tx, operation_timeout_ms=install_operation_timeout_ms))
         admin.commit()
         admin.execute(sql.SQL("GRANT {} TO {} WITH SET FALSE").format(
             sql.Identifier(installed.registrar_role), sql.Identifier(consumer)))
@@ -477,13 +478,18 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     import psycopg
 
     require_truss_psycopg_runtime()
-    if distribution_version("umf-truss") != "0.0.54":
-        raise RuntimeError("Exact Truss 0.0.54 candidate required")
+    if distribution_version("umf-truss") != "0.0.55":
+        raise RuntimeError("Exact Truss 0.0.55 candidate required")
+    from ashlar_host.truss_current_catalog import installed_fresh_truss_runtime_pins
+    runtime_pins = installed_fresh_truss_runtime_pins()
+    if (runtime_pins["version"] != "0.0.55"
+            or runtime_pins["source_custody_profile"] != "ashlar-truss-055-fresh-baseline-source-custody/0.1"):
+        raise RuntimeError("Exact Truss 0.0.55 fresh source-custody profile required")
     candidate_profile = installed_current_truss_profile()
     if candidate_profile != expected_adapter_profile:
-        raise RuntimeError("Exact reviewed Truss 0.0.54 adapter profile required")
+        raise RuntimeError("Exact reviewed Truss 0.0.55 adapter profile required")
     if hashlib.sha256(Path(local_runtime.__file__).read_bytes()).hexdigest() != LOCAL_RUNTIME_SHA256:
-        raise RuntimeError("Truss .54 unchanged local runtime implementation hash differs")
+        raise RuntimeError("Truss .55 unchanged local runtime implementation hash differs")
     LocalPostgres = local_runtime.LocalPostgres
 
     if root.exists():
@@ -508,7 +514,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
         _require_owned_runtime_directory(socket_root)
     if (pgdata.exists() or pgdata.is_symlink() or lease_file.exists() or lease_file.is_symlink()
             or socket_directory.exists() or socket_directory.is_symlink()):
-        raise ValueError("Fresh PGDATA, runtime lease and deterministic Truss .54 socket required")
+        raise ValueError("Fresh PGDATA, runtime lease and deterministic Truss .55 socket required")
     postgres_bootstrap = _preinitialize_postgres(pgdata, root)
 
     model_path = root / "accepted-model.umf.json"
@@ -537,7 +543,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
         bootstrap = None if resuming_public_state else _run_public_truss_setup(
             config=setup, paths={"data_directory": pgdata, "bun": bun}, source=model,
             origin=origin, module_ids=tuple(module["id"] for module in parsed["modules"]),
-            install_timeout_ms=int(scope["postgres_bootstrap_policy"]["install_statement_timeout_ms"]))
+            install_operation_timeout_ms=int(scope["postgres_bootstrap_policy"]["install_operation_timeout_ms"]))
         if resuming_public_state:
             if socket_root.exists() or socket_root.is_symlink():
                 _require_owned_runtime_directory(socket_root)
@@ -637,7 +643,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
                                 or not status_result.value.installation_id):
                             raise RuntimeError("Retained accepted Truss installation status unavailable")
                         status = status_result.value
-                        # The public .53 API takes the accepted catalog revision
+                        # The public .55 API takes the accepted catalog revision
                         # as an integer.  Keep the SDK value typed end to end;
                         # stringifying it produces a local invalid-input Err.
                         revision = status.revision
@@ -751,10 +757,10 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
         raise primary
     result["postgres_owner_closed_before_receipt"] = True
     result["qualification"] = (
-        ("Resumed exact stopped public Truss 0.0.54 installation and accepted UMF 0.10.0 "
+        ("Resumed exact stopped public Truss 0.0.55 installation and accepted UMF 0.10.0 "
          "source from the retained stopped state, without reinstall or reaccept; "
          if resuming_public_state else
-         "Fresh local public Truss 0.0.54 installation and declared UMF 0.10.0 acceptance; ")
+         "Fresh local public Truss 0.0.55 installation and declared UMF 0.10.0 acceptance; ")
         + "consumer registration and exact report/catalog/source/page readback after owner close. "
         "No Delta publication, continuation, ACK or graph export in this stage.")
     receipt = root / "setup-stage.json"

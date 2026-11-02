@@ -21,7 +21,7 @@ import time
 import zipfile
 
 REPO = Path(__file__).resolve().parents[1]
-SCOPE = REPO / "docs/helix/04-build/evidence/current-upstream-release-20261102/r61-fresh-truss054-umf102/scope.json"
+SCOPE = REPO / "docs/helix/04-build/evidence/current-upstream-release-20261102/r61-fresh-truss055-umf102/scope.json"
 PENDING = (
     "truss_wheel", "truss_wheel_sha256", "truss_release_manifest_sha256",
     "umf_sdk_artifact", "umf_sdk_sha256", "umf_sdk_tag_commit",
@@ -408,23 +408,23 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
         if _sha(REPO / relative) != expected:
             raise RuntimeError(f"source hash differs from scope: {relative}")
     artifacts = scope["artifacts"]
-    if (artifacts.get("truss_version") != "0.0.54"
+    if (artifacts.get("truss_version") != "0.0.55"
             or artifacts.get("umf_sdk_version") != "0.10.2"
             or artifacts.get("umf_core_version") != "0.10.6"
             or artifacts.get("umf_model_version") != "0.10.0"):
         raise RuntimeError("R61 Truss/UMF declared versions differ from reviewed cohort")
     if (artifacts.get("umf_sdk_tag_commit") != "e35cd92b45e16816be2bdbf28e83ef9c53ac99a2"
             or artifacts.get("truss_adapter_profile") != "ashlar-truss-current-catalog-evidence/0.8-fresh-baseline"
-            or artifacts.get("truss_source_custody_profile") != "ashlar-truss-054-fresh-baseline-source-custody/0.1"
+            or artifacts.get("truss_source_custody_profile") != "ashlar-truss-055-fresh-baseline-source-custody/0.1"
             or artifacts.get("delta_installation_profile") != "ashlar-local-current-installation-profile/0.5"):
         raise RuntimeError("R61 Truss/UMF adapter profiles or SDK tag differ from candidate")
     platform_hashes = ({
-        "truss_wheel_sha256": "4aebc56e92fdbde6714d9b811860707d2ffc9b0edbc63cc91e9dc3488c042b52",
+        "truss_wheel_sha256": "156df20641d8c4fee6d836c6b29266a0a7eb3b1299c407e430ce0d2c07a79805",
         "truss_release_manifest_sha256": "5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522",
         "umf_sdk_sha256": "785de2c4db18b030c9462c7f55f52d012db50a4d4b3c608a4dc3aa6f5fa0d39b",
         "umf_core_sha256": "e6219539dabcdfe9657bc09485ad991b3380ae306c658d0a51a35caac0196e36"}
         if sys.platform == "darwin" else {
-        "truss_wheel_sha256": "4aebc56e92fdbde6714d9b811860707d2ffc9b0edbc63cc91e9dc3488c042b52",
+        "truss_wheel_sha256": "156df20641d8c4fee6d836c6b29266a0a7eb3b1299c407e430ce0d2c07a79805",
         "truss_release_manifest_sha256": "5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522",
         "umf_sdk_sha256": "0e210969dc6d585d73b0e70d35660421b40c141746389118f7181c54bfcff943",
         "umf_core_sha256": "9a4fc6e739fb9c0c80e22916490484fb41b6f00985afc53fb81dcca2d72029b9"})
@@ -448,7 +448,7 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
                 with zipfile.ZipFile(path) as wheel:
                     runtime_sha = hashlib.sha256(wheel.read("truss/local_runtime.py")).hexdigest()
                 if runtime_sha != scope["qualification_stage"]["truss_local_runtime_member_sha256"]:
-                    raise RuntimeError("Truss .53 deterministic socket runtime hash differs")
+                    raise RuntimeError("Truss .55 deterministic socket runtime hash differs")
     if artifacts.get("bun_executable"):
         bun = Path(artifacts["bun_executable"])
         if not bun.is_file() or not os.access(bun, os.X_OK):

@@ -15,7 +15,7 @@ import zipfile
 
 
 REPO = Path(__file__).resolve().parents[1]
-SCOPE = REPO / "docs/helix/04-build/evidence/current-upstream-release-20261102/r61-fresh-truss054-umf102/scope.json"
+SCOPE = REPO / "docs/helix/04-build/evidence/current-upstream-release-20261102/r61-fresh-truss055-umf102/scope.json"
 PENDING = (
     "umf_sdk_artifact",
     "umf_sdk_sha256",
@@ -97,7 +97,7 @@ def preflight() -> dict:
             raise RuntimeError("Truss LocalPostgres runtime root ownership/mode differs")
     if (socket_directory.exists() or socket_directory.is_symlink()
             or runtime_lease.exists() or runtime_lease.is_symlink()):
-        raise RuntimeError("deterministic Truss .53 socket or PGDATA lease already exists")
+        raise RuntimeError("deterministic Truss .55 socket or PGDATA lease already exists")
 
     artifacts = scope["artifacts"]
     missing = [key for key in PENDING if not artifacts.get(key)]
@@ -129,7 +129,7 @@ def preflight() -> dict:
                 with zipfile.ZipFile(artifact_path) as wheel:
                     member_sha = hashlib.sha256(wheel.read("truss/local_runtime.py")).hexdigest()
                 if member_sha != scope["qualification_stage"]["truss_local_runtime_member_sha256"]:
-                    raise RuntimeError("Truss .53 deterministic socket implementation hash differs")
+                    raise RuntimeError("Truss .55 deterministic socket implementation hash differs")
     python_executable = artifacts.get("python_executable")
     if python_executable:
         selected_python = Path(python_executable)
