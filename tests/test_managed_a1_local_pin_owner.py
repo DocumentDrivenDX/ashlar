@@ -4,7 +4,7 @@ import unittest
 
 from ashlar.pins import PinVector
 from ashlar_host.managed_a1_local_pin_owner import (
-    _A1PinPolicy, ManagedA1LocalPinOwnerError,
+    _A1PinPolicy, ManagedA1LocalPinOwner, ManagedA1LocalPinOwnerError,
 )
 
 
@@ -48,6 +48,22 @@ class ManagedA1LocalPinPolicyTests(unittest.TestCase):
         self.selection.expected_source_custody = {"missing": "bad"}
         with self.assertRaises(ManagedA1LocalPinOwnerError):
             self.policy.authorize_read(self.vector, self.context)
+
+    def test_parent_native_pin_helper_opens_exact_one_shot_source_bound_handle(self):
+        owner = object.__new__(ManagedA1LocalPinOwner)
+        owner._active = True
+        owner._policy = SimpleNamespace(_registered=True)
+        owner._pins = SimpleNamespace(open_live=lambda vector, selection, **kw:
+            (vector, selection, kw))
+        owner.vector, owner.selection, owner.context = (
+            self.vector, self.selection, self.context)
+        owner.native_timeout_seconds = 60
+        owner._pin_opened = False
+        self.assertEqual(owner.open_native_pin(),
+            (self.vector, self.selection, {
+                "context": self.context, "bounded_lifetime_seconds": 60}))
+        with self.assertRaises(ManagedA1LocalPinOwnerError):
+            owner.open_native_pin()
 
 
 if __name__ == "__main__":

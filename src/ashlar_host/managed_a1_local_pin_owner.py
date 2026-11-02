@@ -139,6 +139,7 @@ class ManagedA1LocalPinOwner:
         self._active = False
         self._policy = _A1PinPolicy(selection, vector, self.context)
         self._pins = None
+        self._pin_opened = False
 
     def __enter__(self):
         if self._active:
@@ -235,6 +236,26 @@ class ManagedA1LocalPinOwner:
         return ManagedOperationalReadPinPort(read_port, self._pins,
             context=self.context,
             native_pin_transaction_timeout_seconds=self.native_timeout_seconds)
+
+    def open_native_pin(self):
+        """Open one parent-held pin around remote managed observation RPCs.
+
+        The returned handle guards native Ashlar pin identity only. A caller
+        composing verifier task observations must renew before pre-ACK and
+        close after the verifier's closing observation; this is not a managed
+        read or Delta file-retention lease.
+        """
+        if (not self._active or not self._policy._registered
+                or self._pins is None or self._pin_opened):
+            raise ManagedA1LocalPinOwnerError("Registered one-shot A1 pin owner required")
+        self._pin_opened = True
+        try:
+            return self._pins.open_live(self.vector, self.selection,
+                context=self.context,
+                bounded_lifetime_seconds=self.native_timeout_seconds)
+        except BaseException:
+            self._pin_opened = False
+            raise
 
     def __exit__(self, exc_type, exc, traceback):
         if not self._active:
