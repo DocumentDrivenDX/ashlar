@@ -248,15 +248,34 @@ class Truss053A1SourceHolder:
             self.session.close()
         self.session.dispose()
         self._closed = True
+        self._close_bootstrap_runtimes()
         return settlement
+
+    def _close_bootstrap_runtimes(self):
+        owner = getattr(self, "_bootstrap_runtimes", None)
+        if owner is not None:
+            self._bootstrap_runtimes = None
+            owner.close()
 
     def close_before_ack(self):
         if self.session is None or self._closed:
+            self._close_bootstrap_runtimes()
             return
-        if not self.session._ack_attempted:
-            self.session.close()
-        self.session.dispose()
+        primary = None
+        try:
+            if not self.session._ack_attempted:
+                self.session.close()
+            self.session.dispose()
+        except BaseException as error:
+            primary = error
         self._closed = True
+        try:
+            self._close_bootstrap_runtimes()
+        except BaseException as error:
+            if primary is None:
+                primary = error
+        if primary is not None:
+            raise primary
 
 
 class Truss053ReadOnlyAckReconciler:
