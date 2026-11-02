@@ -26,6 +26,11 @@ CONSUMER = "ashlar-r61-local-consumer"
 FEED = "ashlar-r61-local-feed"
 DESTINATION = "ashlar-r61-local-delta-0.4"
 PROFILE = "ashlar-r61-fresh-cohort-worker/0.1"
+EFFECTS = {"delta_write_state": "not_attempted", "source_ack_attempted": False,
+           "source_ack_state": "not_attempted", "spark_started": False,
+           "spark_closed": False, "postgres_started": False,
+           "postgres_closed": False, "graphframes_started": False,
+           "graphframes_closed": False, "custody_sessions": []}
 
 
 def sha(raw: bytes) -> str:
@@ -156,8 +161,11 @@ def _custody_selector(*, page, request, publication_id, destination_transport,
     session = Truss052SourceCustodySession(
         connection_factory=source_connection, selection=opened,
         context=selected_context)
-    session.open()
     state.update(anchor=anchor, session=session)
+    EFFECTS["custody_sessions"].append(session)
+    EFFECTS["source_custody_open_attempted"] = True
+    session.open()
+    EFFECTS["source_custody_opened"] = True
 
     def postpublication(**post):
         observation = read_local_native_delta_publication_observation(
@@ -189,13 +197,42 @@ def _custody_selector(*, page, request, publication_id, destination_transport,
 
 def _acknowledge(state: dict) -> dict:
     session = state["session"]
-    ack = session.acknowledge()
-    reconciled = session.reconcile()
-    result = {"outcome": ack.outcome, "checkpoint_sha256": sha(ack.checkpoint.content),
-              "receipt_outcome": reconciled.receipt_outcome,
-              "ack_matched": True}
-    session.close()
-    session.dispose()
+    primary = None
+    cleanup = []
+    result = None
+    EFFECTS["source_ack_attempted"] = True
+    EFFECTS["source_ack_state"] = "attempting"
+    try:
+        ack = session.acknowledge()
+        EFFECTS["source_ack_state"] = "ack_committed_unreconciled"
+        reconciled = session.reconcile()
+        if reconciled.receipt_outcome != "matched":
+            raise RuntimeError("Truss destination receipt reconciliation is not matched")
+        EFFECTS["source_ack_state"] = "reconciled_matched"
+        result = {"outcome": ack.outcome, "checkpoint_sha256": sha(ack.checkpoint.content),
+                  "receipt_outcome": reconciled.receipt_outcome, "ack_matched": True}
+    except BaseException as error:
+        primary = error
+        if EFFECTS["source_ack_state"] in ("attempting", "ack_committed_unreconciled"):
+            EFFECTS["source_ack_state"] = "unresolved"
+    try:
+        session.close()
+        EFFECTS["source_custody_closed"] = True
+    except BaseException as error:
+        cleanup.append({"close_error": f"{type(error).__name__}: {error}"[:500]})
+    try:
+        session.dispose()
+        EFFECTS["source_custody_disposed"] = True
+    except BaseException as error:
+        cleanup.append({"dispose_error": f"{type(error).__name__}: {error}"[:500]})
+    if session in EFFECTS["custody_sessions"]:
+        EFFECTS["custody_sessions"].remove(session)
+    if primary is not None:
+        setattr(primary, "r61_custody_cleanup", cleanup)
+        raise primary
+    if cleanup:
+        raise RuntimeError(f"Truss custody close/dispose incomplete: {cleanup}")
+    EFFECTS["source_ack_state"] = "closed_reconciled"
     return result
 
 
@@ -445,6 +482,7 @@ def run() -> dict:
     try:
         runtime.__enter__()
         runtime_open = True
+        EFFECTS["postgres_started"] = True
         params = psycopg.conninfo.conninfo_to_dict(runtime.info.connection_uri)
         admin_uri = runtime.info.connection_uri
         source_uri = psycopg.conninfo.make_conninfo(**dict(params, user=setup["roles"]["consumer"]))
@@ -490,6 +528,7 @@ def run() -> dict:
             "jar_inventory": {item.name: sha(item.read_bytes()) for item in jars}})()
         _, _, attested_jars = attest(runtime_config)
         warehouse = root / "spark-warehouse"
+        EFFECTS["spark_started"] = True
         spark = open_configured_local_spark(runtime_config, attested_jars, warehouse,
                                             app_name="Ashlar R61 fresh cohort")
         try:
@@ -503,6 +542,7 @@ def run() -> dict:
                     source_sessions=kwargs["source_sessions"], registration=registration,
                     runtime_status=runtime_status, accepted_document=accepted_document,
                     context_holder=holder, state=state)
+            EFFECTS["delta_write_state"] = "possible_seed_publication"
             publication = publish_graph_pages(spark, delta,
                 connection_factory=source_factory, catalog_connection_factory=lambda:
                     psycopg.connect(registrar_uri, autocommit=False, connect_timeout=5),
@@ -513,6 +553,8 @@ def run() -> dict:
             weft_receipt = _run_weft_reads(spark, state, setup)
         finally:
             spark.stop()
+            EFFECTS["spark_closed"] = True
+        EFFECTS["delta_write_state"] = "confirmed_seed_publication"
         if len(publication.get("publications", ())) != 1 or "selection" not in state:
             raise RuntimeError("one seed publication and native source-custody binding required")
         seed_ack = _acknowledge(state)
@@ -572,12 +614,16 @@ def run() -> dict:
                 runtime_status=runtime_status, accepted_document=accepted_document,
                 context_holder=holder, state=continuation_state)
         continuation_result_path = root / "continuation-result.json"
+        EFFECTS["delta_write_state"] = "possible_continuation_publication"
+        EFFECTS["spark_started"] = True
         continued = run_continue_truss_graph_command(
             continuation_path, continuation_result_path, maximum_pages=1,
             wait_seconds=0, maximum_page_bytes=1048576,
             defer_source_acknowledgement=True,
             prepublication_source_custody=select_continuation,
             export_graph=True)
+        EFFECTS["delta_write_state"] = "confirmed_continuation_publication"
+        EFFECTS["spark_closed"] = True
         if (continued.get("source_acknowledgement") != "deferred_not_attempted"
                 or len(continued.get("publications", ())) != 1
                 or "selection" not in continuation_state):
@@ -622,7 +668,9 @@ def run() -> dict:
         runtime_open = False
         delta_before_graphframes = tree_digest(delta)
         graphframes_output = evidence / "graphframes"
+        EFFECTS["graphframes_started"] = True
         graphframes = _run_graphframes(scope, release_path, custody_path, graphframes_output)
+        EFFECTS["graphframes_closed"] = True
         delta_after_graphframes = tree_digest(delta)
         if delta_before_graphframes != delta_after_graphframes:
             raise RuntimeError("GraphFrames action changed the original Delta root")
@@ -648,12 +696,11 @@ def run() -> dict:
             "publication_vector_reconciled": True, "ack_reconciled": True,
             "no_delta_write_after_close": True,
             "spark_closed": True, "postgres_closed": True}
-    except BaseException as error:
-        primary = error
-        raise
     finally:
         if runtime_open:
             runtime.__exit__(None, None, None)
+            runtime_open = False
+            EFFECTS["postgres_closed"] = True
 
 
 def main() -> int:
@@ -691,8 +738,32 @@ def main() -> int:
             "postgresql_18_runtime_manifest_sha256": sha(Path(os.environ["R61_POSTGRESQL_18_RUNTIME_MANIFEST"]).read_bytes()),
         }
     except BaseException as error:
+        cleanup = []
+        for session in list(EFFECTS["custody_sessions"]):
+            try:
+                session.close()
+                cleanup.append({"close": "confirmed"})
+            except BaseException as close_error:
+                cleanup.append({"close_error": f"{type(close_error).__name__}: {close_error}"[:500]})
+            try:
+                session.dispose()
+                cleanup.append({"dispose": "confirmed"})
+            except BaseException as dispose_error:
+                cleanup.append({"dispose_error": f"{type(dispose_error).__name__}: {dispose_error}"[:500]})
+            EFFECTS["custody_sessions"].remove(session)
         result.update({"failure_type": type(error).__name__, "failure": str(error)[:1500],
-                       "traceback": traceback.format_exc(limit=12)[-8000:]})
+                       "traceback": traceback.format_exc(limit=12)[-8000:],
+                       "source_ack_attempted": EFFECTS["source_ack_attempted"],
+                       "source_ack_state": EFFECTS["source_ack_state"],
+                       "delta_write_state": EFFECTS["delta_write_state"],
+                       "delta_written": EFFECTS["delta_write_state"] != "not_attempted",
+                       "spark_started": EFFECTS["spark_started"],
+                       "spark_closed": EFFECTS["spark_closed"],
+                       "postgres_started": EFFECTS["postgres_started"],
+                       "postgres_closed": EFFECTS["postgres_closed"],
+                       "graphframes_started": EFFECTS["graphframes_started"],
+                       "graphframes_closed": EFFECTS["graphframes_closed"],
+                       "custody_cleanup": cleanup})
         try:
             write_private(ROOT / "worker-failure.json", result)
         except Exception:
