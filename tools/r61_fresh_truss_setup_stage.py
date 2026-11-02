@@ -188,6 +188,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
 
     primary = None
     result = None
+    postgres_fsync = None
     try:
         bootstrap = run_setup_truss_local_command(setup_path, accepted_path)
         _require_owned_runtime_directory(socket_root)
@@ -198,6 +199,10 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
         consumer_id = "ashlar-r61-local-consumer"
         feed = "ashlar-r61-local-feed"
         with LocalPostgres(pgdata) as runtime:
+            with psycopg.connect(runtime.info.connection_uri, autocommit=True, connect_timeout=5) as health:
+                postgres_fsync = health.execute("SHOW fsync").fetchone()[0]
+            if postgres_fsync != "on":
+                raise RuntimeError("PostgreSQL server fsync must be enabled after bootstrap")
             if (runtime.info.data_directory.resolve() != pgdata
                     or runtime.info.server_version.split(".")[0] != "18"):
                 raise RuntimeError("Truss local runtime requires PostgreSQL 18")
@@ -304,6 +309,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
                           "sha256": hashlib.sha256(model).hexdigest()},
                 "installation": bootstrap["installation"],
                 "roles": bootstrap["roles"],
+                "postgres_fsync": postgres_fsync,
                 "postgres_server_version": runtime.info.server_version,
                 "postgres_runtime_version": runtime.info.runtime_version,
                 "postgres_socket_directory": str(socket_host),
