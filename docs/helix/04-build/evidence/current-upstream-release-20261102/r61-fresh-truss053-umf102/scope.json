@@ -1,6 +1,6 @@
 {
   "packet": "ashlar-r61-fresh-truss053-umf102",
-  "status": "one-shot-attempt3-bound-after-initdb-standalone-pid-fix",
+  "status": "attempt4-bound-for-review-pg18-no-sync-bootstrap-before-public-truss-open",
   "source": {
     "repository": "ashlar",
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
@@ -8,9 +8,9 @@
     "runner_path": "tools/r61_fresh_cohort_runner.py",
     "runner_sha256": "0b318102e7c8d5de3b6c15f0f003d666d101d0c9f8b9f991601b41fbd40b7eb9",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
-    "setup_stage_sha256": "f03bba94a9f6d083d724585e8e6a22416df7762124943729125993a68452840a",
+    "setup_stage_sha256": "b56308ba2eb75e104e3a0be5022d341c3ea043859ffc0a0bc1124c185c44d975",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
-    "supervisor_sha256": "b720cc5552dd316d444c1ee0c936e14dc53bbf958caf45b6233c02dafbdf40bf"
+    "supervisor_sha256": "0d7e6a9fa4cdae47915f213ab5135b50cb7a08406e2085e68947b857700b169a"
   },
   "supervisor_runtime": {
     "python_executable": "/Users/erik/.local/bin/python3.11",
@@ -48,24 +48,25 @@
     "bun_executable": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
     "bun_sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
     "postgresql_18_runtime": "/private/tmp/ashlar-r61-runtime-68191905/lib/python3.12/site-packages/pgserver/pginstall",
-    "postgresql_18_runtime_manifest": "/private/tmp/ashlar-r61-runtime-68191905/r61-postgres-runtime-manifest.json",
-    "postgresql_18_runtime_manifest_sha256": "2a6eb55da407d749b81cf276f4ae6e84a0ce344716fd38714d66d40fbca1302d",
+    "postgresql_18_runtime_manifest": "/private/tmp/ashlar-r61-runtime-68191905/r61-postgres-runtime-manifest-bootstrap.json",
+    "postgresql_18_runtime_manifest_sha256": "afce5b9f53b1e628e65e88f825d2d0138c9ee19808de27da0543d603e5fc93bf",
     "ashlar_candidate_wheel": "/private/tmp/ashlar-68191905-local-wheel/umf_ashlar-0.1.0.dev1-py3-none-any.whl",
     "ashlar_candidate_wheel_sha256": "03e548503b86a660b32b03ea5b478427a971afce672da2e5ba442843d9bc7517",
     "graphframes_runtime_manifest": "/private/tmp/ashlar-r61-graphframes-68191905/r61-graphframes-runtime-manifest.json",
     "graphframes_runtime_manifest_sha256": "d0e9c16d8a3c236bda3fd3c898e186d93e74c08a1dec5f92477418a9c2e068f5",
     "worker_path": "/private/tmp/ashlar-r61-fresh-cohort-plan/tools/r61_fresh_cohort_worker.py",
-    "worker_sha256": "48d717dc2dcf3e361523ad0461d0f35e0d223ad427e9c50ddb2f6a361141a9b3",
+    "worker_sha256": "bcba38e8b45e07ced5f2572ec058a520db7fc9bdcd76e73a889b07ea8b11630f",
     "umf_sdk_tag_commit": "e35cd92b45e16816be2bdbf28e83ef9c53ac99a2",
     "truss_source_custody_profile": "ashlar-truss-053-fresh-baseline-source-custody/0.1",
     "delta_installation_profile": "ashlar-local-current-installation-profile/0.5",
-    "bun_version": "1.4.3"
+    "bun_version": "1.4.3",
+    "postgresql_18_initdb_sha256": "e5793da2ccfef3a99a19e689e47e02b0688232fd52f149da4d3741ebeff3a5d0"
   },
   "fresh_local_state": {
-    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt3",
-    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt3/pgdata",
-    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt3/delta",
-    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt3/evidence",
+    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4",
+    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/pgdata",
+    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/delta",
+    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/evidence",
     "must_be_absent_before_dispatch": true,
     "forbidden_state": [
       "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
@@ -143,5 +144,14 @@
     "completion_receipt_required": true,
     "dispatch_requires_exact_external_review_receipt": true,
     "native_dispatched": false
+  },
+  "postgres_bootstrap_policy": {
+    "profile": "ashlar-r61-pg18-dev-no-sync-bootstrap/0.1",
+    "initdb_path": "/private/tmp/ashlar-r61-runtime-68191905/lib/python3.12/site-packages/pgserver/pginstall/bin/initdb",
+    "initdb_sha256": "e5793da2ccfef3a99a19e689e47e02b0688232fd52f149da4d3741ebeff3a5d0",
+    "no_sync_applies_to": "fresh local initdb bootstrap only",
+    "postgresql_server_fsync": "PostgreSQL default remains enabled after server start",
+    "maximum_seconds": 180,
+    "stdout_stderr_retained": true
   }
 }
