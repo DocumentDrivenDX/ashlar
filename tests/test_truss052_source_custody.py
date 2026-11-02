@@ -193,11 +193,17 @@ class Truss052SourceCustodyTests(unittest.TestCase):
 
     def test_lifecycle_uses_one_connection_and_exact_registration_scope(self):
         self.session.open()
+        self.assertEqual(self.connection.calls[0],
+            "SET TRANSACTION ISOLATION LEVEL READ COMMITTED, READ WRITE")
+        self.assertEqual(self.connection.calls[1],
+            "SET LOCAL statement_timeout = '10000ms'")
         self.assertEqual(self.order[:2], ["registrar_status", "reader_connection"])
         self.assertIs(self.materialized_status, self.runtime_status)
         self.assertEqual(self.assembly.open_selection.destination_registration_bytes, b"registration")
         self.assertEqual(self.assembly.open_selection.ack_scope_bytes, b"scope")
         page = self.session.observe_selected_page()
+        self.assertEqual(self.connection.calls[2],
+            "SET TRANSACTION ISOLATION LEVEL READ COMMITTED, READ ONLY")
         self.assertIs(page, self.selection.page)
         self.assertEqual(self.assembly.read_arguments, ("consumer", 10, 1000))
         self.assertEqual(self.connection.info.transaction_status, 0)

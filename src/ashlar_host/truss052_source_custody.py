@@ -135,9 +135,14 @@ class Truss052SourceCustodySession:
         self._ensure_host()
         connection = self._connection
         try:
-            connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED")
-            if access_mode == "read_only":
-                connection.execute("SET TRANSACTION READ ONLY")
+            mode = {"read_only": "READ ONLY", "read_write": "READ WRITE"}.get(access_mode)
+            if mode is None:
+                raise Truss052CustodyError("Exact Truss transaction access mode required")
+            # Set access mode together with isolation in the first statement
+            # of every transaction. A session's default_transaction_read_only
+            # may otherwise make later host adoption too late to enable writes.
+            connection.execute(
+                f"SET TRANSACTION ISOLATION LEVEL READ COMMITTED, {mode}")
             # The timeout is an integer bounded in __post_init__; PostgreSQL's
             # SET grammar does not accept a bind parameter in this position.
             connection.execute(
