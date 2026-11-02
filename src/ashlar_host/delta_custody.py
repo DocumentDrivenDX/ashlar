@@ -90,13 +90,15 @@ _LOCAL_INSTALLATION_PROFILES = frozenset((
     'ashlar-local-current-installation-profile/0.2',
     'ashlar-local-current-installation-profile/0.3',
     'ashlar-local-current-installation-profile/0.4',
+    'ashlar-local-current-installation-profile/0.5',
 ))
 
 
 def _retained_installation_profile(profile, targets=None):
     """Validate and freeze a supported local installation profile.
 
-    The SDK 0.10.1 `/0.4` profile has a closed, version-specific identity and
+    The SDK 0.10.1 `/0.4` and Rust Core 0.10.6 `/0.5` profiles have closed,
+    version-specific identities and
     six carrier-role aliases. Its semantic schema/UMF checks remain owned by
     `verify_local_current_profile`; this transport gate binds its exact role
     aliases to the six registered native targets and retains the complete bytes.
@@ -105,7 +107,8 @@ def _retained_installation_profile(profile, targets=None):
             or profile.get('profile') not in _LOCAL_INSTALLATION_PROFILES):
         raise LocalDeltaError('Exact bounded local current installation profile required')
     original = json.loads(encoded(profile))
-    if original['profile'] == 'ashlar-local-current-installation-profile/0.4':
+    if original['profile'] in ('ashlar-local-current-installation-profile/0.4',
+                               'ashlar-local-current-installation-profile/0.5'):
         from .configured_local_delta4_publication import (
             INSTALLATION_ROLES, LOCAL_ROLE_BY_CARRIER, _delta4_profile_role,
             _delta4_profile_table_prefix,
@@ -113,28 +116,28 @@ def _retained_installation_profile(profile, targets=None):
         )
         try:
             if not _valid_installation_profile_identity(original):
-                raise LocalDeltaError('Exact SDK 0.10.1 local `.4` installation profile required')
+                raise LocalDeltaError('Exact versioned SDK local `.4` installation profile required')
             table_prefix = _delta4_profile_table_prefix(original)
             for role in INSTALLATION_ROLES:
                 selected = _delta4_profile_role(original, role, table_prefix=table_prefix)
                 alias = LOCAL_ROLE_BY_CARRIER[role]
                 if selected.get('table') != table_prefix + '.' + alias:
-                    raise LocalDeltaError('SDK 0.10.1 `.4` role alias differs from the closed local profile')
+                    raise LocalDeltaError('Versioned SDK `.4` role alias differs from the closed local profile')
             if targets is not None:
                 by_table = {target.table: target for target in targets}
                 expected = {table_prefix + '.' + local for local in LOCAL_ROLE_BY_CARRIER.values()}
                 if set(by_table) != expected:
-                    raise LocalDeltaError('Complete six-role SDK 0.10.1 `.4` target registry required')
+                    raise LocalDeltaError('Complete six-role versioned SDK `.4` target registry required')
                 for role in INSTALLATION_ROLES:
                     selected = _delta4_profile_role(original, role, table_prefix=table_prefix)
                     target = by_table.get(selected['table'])
                     if (target is None or selected.get('path') != str(target.path)
                             or selected.get('uuid') != target.uuid):
-                        raise LocalDeltaError('SDK 0.10.1 `.4` role profile differs from its native target')
+                        raise LocalDeltaError('Versioned SDK `.4` role profile differs from its native target')
         except LocalDeltaError:
             raise
         except (ValueError, TypeError, KeyError) as error:
-            raise LocalDeltaError('Malformed SDK 0.10.1 `.4` installation profile') from error
+            raise LocalDeltaError('Malformed versioned SDK `.4` installation profile') from error
     return original
 
 def child_operation(operation, statement, parameters):

@@ -255,7 +255,7 @@ def _create_current_graph_tables(spark, output, tables, carrier_profile, umf_sdk
         if umf_sdk_version is not None:
             raise ValueError('UMF SDK realization selection applies only to local `.4` graph tables')
         return None
-    if umf_sdk_version not in (None, '0.5.8', '0.10.0', '0.10.1'):
+    if umf_sdk_version not in (None, '0.5.8', '0.10.0', '0.10.1', '0.10.2'):
         raise ValueError('Explicit supported local `.4` UMF SDK version required')
     from . import local_current_carrier_profile as carrier
     creators = {
@@ -263,6 +263,7 @@ def _create_current_graph_tables(spark, output, tables, carrier_profile, umf_sdk
         '0.5.8': carrier.create_local_current_xxhash64_sdk058_tables,
         '0.10.0': carrier.create_local_current_xxhash64_sdk010_tables,
         '0.10.1': carrier.create_local_current_xxhash64_sdk0101_tables,
+        '0.10.2': carrier.create_local_current_xxhash64_sdk0102_tables,
     }
     return creators[umf_sdk_version](spark, output, tables)
 
@@ -350,13 +351,14 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             else:admission=TrussNoteAdmission(batch)
             lookup_hash_profile='spark-xxhash64-typed-key/0.1' if carrier_profile=='ashlar-delta/0.4-xxhash64' else 'sha256-json-v1'
             if carrier_profile=='ashlar-delta/0.4-xxhash64':
-                from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION
+                from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION, CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION, CURRENT_TRUSS_053_FRESH_VERSION
                 if (not admission.current
                         or admission.current_truss_version not in (CURRENT_TRUSS_048_VERSION,
                                                                    CURRENT_TRUSS_049_VERSION,
                                                                    CURRENT_TRUSS_050_VERSION,
                                                                    CURRENT_TRUSS_051_VERSION,
-                                                                   CURRENT_TRUSS_052_CANDIDATE_VERSION)):
+                                                                   CURRENT_TRUSS_052_CANDIDATE_VERSION,
+                                                                   CURRENT_TRUSS_053_FRESH_VERSION)):
                     raise PermissionError('Local `.4` requires exact supported current Truss catalog admission')
             driver=NativeDriver(transport,policy,context,tables,{},admission.changes,graph_columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions,lookup_hash_profile=lookup_hash_profile)
             materialized_at=datetime.datetime.now(datetime.timezone.utc).isoformat()
