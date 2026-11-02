@@ -1,6 +1,6 @@
 {
   "packet": "ashlar-r61-fresh-truss053-umf102",
-  "status": "attempt4-bound-with-observed-post-bootstrap-fsync-check",
+  "status": "attempt5-bound-for-sol-review-public-truss-setup-over-cold-copied-clean-pg18",
   "source": {
     "repository": "ashlar",
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
@@ -8,9 +8,9 @@
     "runner_path": "tools/r61_fresh_cohort_runner.py",
     "runner_sha256": "0b318102e7c8d5de3b6c15f0f003d666d101d0c9f8b9f991601b41fbd40b7eb9",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
-    "setup_stage_sha256": "7fd393739cac1b88e152a8c2067af8c9718f6ff2761e9ad46e51356a15632133",
+    "setup_stage_sha256": "69a7a70f703aba38f2840ac09929f2e3d8f6fa9c57b9f3b3ef043331578265c3",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
-    "supervisor_sha256": "0d7e6a9fa4cdae47915f213ab5135b50cb7a08406e2085e68947b857700b169a"
+    "supervisor_sha256": "8aad4b142854915928ec80232e082c0bbb940456070bd8722e35d59827724d80"
   },
   "supervisor_runtime": {
     "python_executable": "/Users/erik/.local/bin/python3.11",
@@ -48,8 +48,8 @@
     "bun_executable": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
     "bun_sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
     "postgresql_18_runtime": "/private/tmp/ashlar-r61-runtime-68191905/lib/python3.12/site-packages/pgserver/pginstall",
-    "postgresql_18_runtime_manifest": "/private/tmp/ashlar-r61-runtime-68191905/r61-postgres-runtime-manifest-bootstrap.json",
-    "postgresql_18_runtime_manifest_sha256": "afce5b9f53b1e628e65e88f825d2d0138c9ee19808de27da0543d603e5fc93bf",
+    "postgresql_18_runtime_manifest": "/private/tmp/ashlar-r61-runtime-68191905/r61-postgres-runtime-manifest-seed-copy.json",
+    "postgresql_18_runtime_manifest_sha256": "056f3da9dab9df3bea1b4364946efb5c67ea16b92b98fbb6757bbf967b2793f4",
     "ashlar_candidate_wheel": "/private/tmp/ashlar-68191905-local-wheel/umf_ashlar-0.1.0.dev1-py3-none-any.whl",
     "ashlar_candidate_wheel_sha256": "03e548503b86a660b32b03ea5b478427a971afce672da2e5ba442843d9bc7517",
     "graphframes_runtime_manifest": "/private/tmp/ashlar-r61-graphframes-68191905/r61-graphframes-runtime-manifest.json",
@@ -60,13 +60,14 @@
     "truss_source_custody_profile": "ashlar-truss-053-fresh-baseline-source-custody/0.1",
     "delta_installation_profile": "ashlar-local-current-installation-profile/0.5",
     "bun_version": "1.4.3",
-    "postgresql_18_initdb_sha256": "e5793da2ccfef3a99a19e689e47e02b0688232fd52f149da4d3741ebeff3a5d0"
+    "postgresql_18_initdb_sha256": "e5793da2ccfef3a99a19e689e47e02b0688232fd52f149da4d3741ebeff3a5d0",
+    "postgresql_18_pg_controldata_sha256": "9d4cff3fd9c003b471a767b1985cf1d1c46414b53486dd16934434c6e34c5d8e"
   },
   "fresh_local_state": {
-    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4",
-    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/pgdata",
-    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/delta",
-    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/evidence",
+    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt5",
+    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt5/pgdata",
+    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt5/delta",
+    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt5/evidence",
     "must_be_absent_before_dispatch": true,
     "forbidden_state": [
       "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
@@ -87,7 +88,7 @@
   },
   "workflow": [
     "verify exact Truss, UMF, Ashlar and GraphFrames artifacts and runtime origins",
-    "create fresh local PostgreSQL and Delta roots under the single outer deadline",
+    "copy the exact stopped fresh PG18 initdb cluster into new PGDATA, verify copy hash/control state, then use public Truss SDK installation and acceptance calls",
     "use public Truss source and consumer APIs; accept the exact declared model/report/catalog",
     "seed one seven-operation stream and verify the complete four-role publication vector plus separate six-role installation inventory",
     "perform one bounded continuation and protected source ACK; verify checkpoint and ACK custody",
@@ -104,13 +105,13 @@
     "source checkpoint and protected ACK receipts before and after",
     "owner release and custody canonical-byte hashes, only after successful owner close",
     "GraphFrames runtime identity and one action result bound to those hashes",
-    "bounded wall/RSS/output observations and stopped-owner census"
+    "bounded wall/RSS/output observations and stopped-owner census",
+    "PG18 seed/copy tree hashes, initdb receipt, prior failure receipts, stopped-state/control identity, and observed SHOW fsync=on"
   ],
   "non_claims": [
-    "no native execution has occurred in this packet",
-    "no release, tag, publish, cloud, scale, push or production authority is claimed",
-    "the prior R59 GraphFrames runtime configuration is not candidate compatibility evidence",
-    "supervisor limits are implemented but have not yet been exercised against the candidate worker"
+    "No successful end-to-end R61 qualification has completed; attempts 1-4 retain bounded failure evidence.",
+    "No release, tag, publish, cloud, scale, push or production authority is claimed.",
+    "The prior R59 GraphFrames runtime configuration is not candidate compatibility evidence."
   ],
   "qualification_stage": {
     "status": "source_stage_implemented_not_dispatched",
@@ -146,12 +147,27 @@
     "native_dispatched": false
   },
   "postgres_bootstrap_policy": {
-    "profile": "ashlar-r61-pg18-dev-no-sync-bootstrap/0.1",
-    "initdb_path": "/private/tmp/ashlar-r61-runtime-68191905/lib/python3.12/site-packages/pgserver/pginstall/bin/initdb",
-    "initdb_sha256": "e5793da2ccfef3a99a19e689e47e02b0688232fd52f149da4d3741ebeff3a5d0",
-    "no_sync_applies_to": "fresh local initdb bootstrap only",
-    "postgresql_server_fsync": "PostgreSQL default remains enabled after server start",
-    "maximum_seconds": 180,
-    "stdout_stderr_retained": true
+    "profile": "ashlar-r61-pg18-stopped-bootstrap-copy/0.1",
+    "method": "copy previously initialized clean PG18 cluster, then install Truss with public SDK operations",
+    "seed_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4",
+    "seed_pgdata": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/pgdata",
+    "seed_tree_sha256": "76bced149f633e7b2b556aa489db88995881b31cfdf3a3ec079af8c81f108db4",
+    "seed_system_identifier": "7703698260472019557",
+    "seed_initdb_receipt": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/pg-initdb.json",
+    "seed_initdb_receipt_sha256": "cd3787cbc76d546fcae37df18893687a5d6ea1f501f25a59ec095f20fe708fa7",
+    "seed_worker_failure_receipt": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/worker-failure.json",
+    "seed_worker_failure_sha256": "a518badc946fb830157c8afe557ddf6c3c23344abd81eafcee7191ebb21cbc35",
+    "seed_supervisor_receipt": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/supervisor-result.json",
+    "seed_supervisor_receipt_sha256": "7dc3ddf15666793ebdcfdd639b32518345c18958ca10750fc59666dcae657052",
+    "source_claim": "attempt4 fresh initdb completed; Truss setup rejected before PostgreSQL owner/API; worker receipt confirms no source ACK/Spark/Delta; supervisor reconciled PG stopped",
+    "initdb_mode": "--no-sync applies only to initdb bootstrap; PostgreSQL fsync must be observed on before source operations",
+    "public_truss_apis": [
+      "install_in_transaction",
+      "prepare_catalog",
+      "accept_in_transaction",
+      "configure_module_access_in_transaction",
+      "status_in_transaction",
+      "report_in_transaction"
+    ]
   }
 }
