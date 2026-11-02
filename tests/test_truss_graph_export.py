@@ -7,7 +7,7 @@ from ashlar.graph_release import GraphRelease
 from ashlar_host.driver import NativeDriver
 from ashlar_host.truss_feed_sessions import TrussFeedSessions
 from ashlar_host.truss_graph_admission import TrussGraphAdmission
-from ashlar_host.truss_graph_export import read_original_truss_graph_export
+from ashlar_host.truss_graph_export import _selected_graph_profile, read_original_truss_graph_export
 
 
 class Tests(unittest.TestCase):
@@ -18,12 +18,16 @@ class Tests(unittest.TestCase):
         driver.ack_sessions = driver.source_sessions
         driver.context = object()
         driver.tables = {'object_current': 'nodes', 'edge_current': 'edges'}
-        manifest = {'publication_id': 'p', 'table_versions_json': '{"nodes":1,"edges":2}',
+        manifest = {'publication_id': 'p', 'profile_version': 'ashlar-delta/0.4-xxhash64',
+                    'table_versions_json': '{"nodes":1,"edges":2}',
                     'schema_revisions_json': '{"schema":"r1"}'}
         row = {'id': '1', 'published_at': '123456'}
         driver.policy = SimpleNamespace(active={'request': {'stream': 'feed'}, 'manifest': manifest,
             'publication_id': 'p', 'expected': {'object_current': [row], 'edge_current': []}})
-        driver.transport = SimpleNamespace(targets={name: SimpleNamespace(uuid=name+'-uuid') for name in ('nodes', 'edges')})
+        driver.transport = SimpleNamespace(targets={name: SimpleNamespace(uuid=name+'-uuid') for name in ('nodes', 'edges')},
+            installation_profile={'physical_profile': 'ashlar-delta/0.4-xxhash64',
+                                  'lookup_hash_profile': 'spark-xxhash64-typed-key/0.1'})
+        driver.lookup_hash_profile = 'spark-xxhash64-typed-key/0.1'
         life = []
         @contextmanager
         def writer(stream, context):
@@ -37,6 +41,7 @@ class Tests(unittest.TestCase):
         release = GraphRelease(b'original\n', 'digest')
         def read(executor, backend, pins, supplied, policy, **kwargs):
             self.assertIs(backend, driver); self.assertIs(pins, driver); self.assertIs(supplied, vector)
+            self.assertEqual(kwargs['supported_profiles'], ['ashlar-delta/0.4-xxhash64'])
             self.assertEqual(kwargs['max_nodes'], 1); self.assertEqual(kwargs['max_edges'], 0)
             descriptor = SimpleNamespace(raw=manifest)
             policy.authorize_graph_row(descriptor, 'nodes', row, driver.context)
@@ -47,3 +52,20 @@ class Tests(unittest.TestCase):
         with patch('ashlar_host.truss_graph_export.manifest_pin_vector', return_value=vector), patch('ashlar_host.truss_graph_export.read_graph_release', side_effect=read):
             self.assertIs(read_original_truss_graph_export(driver), release)
         self.assertEqual(life, ['open', 'closed'])
+
+    def test_graph_profile_is_bound_to_restored_carrier_hash_profile(self):
+        driver = SimpleNamespace(
+            policy=SimpleNamespace(active={'manifest': {'profile_version': 'ashlar-delta/0.3'}}),
+            transport=SimpleNamespace(), lookup_hash_profile='sha256-json-v1')
+        self.assertEqual(_selected_graph_profile(driver), 'ashlar-delta/0.3')
+
+        driver.policy.active['manifest']['profile_version'] = 'ashlar-delta/0.4-xxhash64'
+        driver.lookup_hash_profile = 'spark-xxhash64-typed-key/0.1'
+        driver.transport.installation_profile = {
+            'physical_profile': 'ashlar-delta/0.4-xxhash64',
+            'lookup_hash_profile': 'spark-xxhash64-typed-key/0.1'}
+        self.assertEqual(_selected_graph_profile(driver), 'ashlar-delta/0.4-xxhash64')
+
+        driver.transport.installation_profile['lookup_hash_profile'] = 'sha256-json-v1'
+        with self.assertRaisesRegex(PermissionError, 'installation profile differs'):
+            _selected_graph_profile(driver)

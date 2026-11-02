@@ -176,7 +176,8 @@ def read_graph_release(executor,backend,pins,vector,policy,*,publication_id,node
                 projection+=',cast(xxhash64(CAST(source_system AS STRING),CAST('+typed+' AS BIGINT),CAST(id AS BIGINT)) AS STRING) AS native_lookup_hash'
             projection+=',cast(unix_micros(published_at) AS STRING) AS published_at'
             result=executor.query('SELECT '+projection+' FROM '+_quoted(table)+' VERSION AS OF '+str(resolved.snapshots[table].version)+' LIMIT '+str(budget+1),{})
-            expected_columns=names+('native_lookup_hash',) if hash_profile=='spark-xxhash64-typed-key/0.1' else names
+            expected_columns=(ints+texts+('native_lookup_hash','published_at')
+                              if hash_profile=='spark-xxhash64-typed-key/0.1' else names)
             if tuple(result.columns)!=tuple((n,'STRING') for n in expected_columns) or len(result.rows)>budget:
                 raise ResolutionError('Exact complete graph carriers exceed profile or row budget')
             rows=[]

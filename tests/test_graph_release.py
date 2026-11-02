@@ -59,7 +59,9 @@ class Executor:
             typed='type_id' if kind=='node' else 'rel_type_id'
             self.calls[-1] += ' xxhash64(CAST(source_system AS STRING),CAST('+typed+' AS BIGINT),CAST(id AS BIGINT))'
             rows=[dict(row,native_lookup_hash=('0' if self.bad_native_hash else row['lookup_hash']))for row in rows]
-            columns=names+('native_lookup_hash',)
+            ints=NODE_INTS if kind=='node' else EDGE_INTS
+            texts=NODE_TEXT if kind=='node' else EDGE_TEXT
+            columns=ints+texts+('native_lookup_hash','published_at')
         return SQLResult(rows,tuple((n,'STRING') for n in columns))
 
 
@@ -103,6 +105,8 @@ class GraphReleaseTests(unittest.TestCase):
         self.assertTrue(all(set(row)==set(NODE_INTS+NODE_TEXT+('published_at',))
                             or set(row)==set(EDGE_INTS+EDGE_TEXT+('published_at',))
                             for row in policy.rows))
+        self.assertTrue(any('AS native_lookup_hash,cast(unix_micros(published_at) AS STRING) AS published_at' in sql
+                            for sql in e.calls))
         self.assertTrue(any('xxhash64(CAST(source_system AS STRING),CAST(type_id AS BIGINT),CAST(id AS BIGINT))' in sql for sql in e.calls))
         self.assertTrue(any('xxhash64(CAST(source_system AS STRING),CAST(rel_type_id AS BIGINT),CAST(id AS BIGINT))' in sql for sql in e.calls))
         p,e,b,policy,v=self.setup();b.rows[0]['profile_version']='ashlar-delta/0.4-xxhash64'

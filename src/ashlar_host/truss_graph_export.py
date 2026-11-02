@@ -5,13 +5,30 @@ No protected ACK custody or fresh post-ACK source reopening is implied.
 """
 from collections import Counter
 import json
-from ashlar.graph_release import read_graph_release
+from ashlar.graph_release import lookup_hash_profile, read_graph_release
 from ashlar.manifest import manifest_pin_vector
 from .delta_custody import encoded
 from .driver import NativeDriver
 from .lifecycle import owned_context
 from .truss_feed_sessions import TrussFeedSessions
 from .truss_graph_admission import TrussGraphAdmission
+
+
+def _selected_graph_profile(driver):
+    """Select the one graph layout admitted by the restored publication owner."""
+    manifest = driver.policy.active['manifest']
+    profile = manifest.get('profile_version')
+    hash_profile = lookup_hash_profile(profile)
+    if getattr(driver, 'lookup_hash_profile', None) != hash_profile:
+        raise PermissionError('Original Truss graph carrier/hash profile differs')
+    installation = getattr(driver.transport, 'installation_profile', None)
+    if profile == 'ashlar-delta/0.4-xxhash64' and (
+        type(installation) is not dict
+        or installation.get('physical_profile') != profile
+        or installation.get('lookup_hash_profile') != hash_profile
+    ):
+        raise PermissionError('Original Truss graph installation profile differs')
+    return profile
 
 
 class _TrussGraphPolicy:
@@ -56,6 +73,7 @@ def read_original_truss_graph_export(driver, *, with_custody=False):
             or type(driver.source_sessions) is not TrussFeedSessions
             or driver.ack_sessions is not driver.source_sessions):
         raise PermissionError('Original actual Truss graph publication owner required')
+    profile = _selected_graph_profile(driver)
     context = driver.context
     with owned_context(driver.writer(driver.policy.active['request']['stream'], context)):
         manifest = driver.policy.active['manifest']
@@ -64,7 +82,7 @@ def read_original_truss_graph_export(driver, *, with_custody=False):
         policy = _TrussGraphPolicy(driver, vector)
         release = read_graph_release(driver.transport, driver, driver, vector, policy,
             publication_id=manifest['publication_id'], node_table=driver.tables['object_current'],
-            edge_table=driver.tables['edge_current'], context=context, supported_profiles=['ashlar-delta/0.3'],
+            edge_table=driver.tables['edge_current'], context=context, supported_profiles=[profile],
             supported_revisions={k: [v] for k, v in json.loads(manifest['schema_revisions_json']).items()},
             max_nodes=len(policy.expected['object_current']), max_edges=len(policy.expected['edge_current']))
 

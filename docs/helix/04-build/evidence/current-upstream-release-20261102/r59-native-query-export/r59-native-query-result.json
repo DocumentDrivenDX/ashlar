@@ -1,0 +1,109 @@
+{
+  "carrier_profile": "ashlar-delta/0.4-xxhash64",
+  "closing_heads": {
+    "edge_current": 2,
+    "object_current": 3,
+    "tombstone": 1,
+    "whole_source_history": 3
+  },
+  "compiled_bundle_sha256": "15706b8d0f8e3111315e8c92751f78910c3d7ea078285fbebc7a93ed50153bd8",
+  "model_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
+  "opening_heads": {
+    "edge_current": 2,
+    "object_current": 3,
+    "tombstone": 1,
+    "whole_source_history": 3
+  },
+  "page": {
+    "continuation_after": "local-ben-20261101",
+    "lookahead_row": "local-cy-20261101",
+    "page_size": 2
+  },
+  "profile": "ashlar-r59-native-weft-read/0.1",
+  "publication_id": "truss-graph-678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
+  "queries": {
+    "continuation": {
+      "compiled_sql_sha256": "8969d83aa76d7e61c0d863d7fa468e63df4f08b7953430776c3dfafada842587",
+      "request_sha256": "1cbafb4e06fc4d42dc627cad74492fc9d762579f78120ea706c6a18445151792",
+      "response_sha256": "66286b254e3d4dc979a0ca04e13e551a8c05c40aaa805153979f751cddeb0239",
+      "rows": [
+        {
+          "person_key": "local-cy-20261101",
+          "person_name": "R21 Cy"
+        },
+        {
+          "person_key": "local-dana-r21-20261101",
+          "person_name": "R21 Dana"
+        }
+      ]
+    },
+    "grouped": {
+      "compiled_sql_sha256": "5e4fd4f9f35c6f9101107e863b18eace4d6bb1475ae37b3be1bbc4e8a5f8683f",
+      "request_sha256": "325caf03e6cb9b3547af23d14f9a3ea6d392a88288fc9779a6eacd9c0566de26",
+      "response_sha256": "c6df55c9c54a839956c39f7fd8584ee072761fa9f67699ddbd69a8513beee4b1",
+      "rows": [
+        {
+          "paths": "2",
+          "person_key": "local-ada-20261101",
+          "targets": "1"
+        }
+      ]
+    },
+    "page": {
+      "compiled_sql_sha256": "29303cd2697081ed7ad74f9305b093cc228dcabdcbfae35f8e252440e1f475d1",
+      "request_sha256": "706287b2c09ecabd7a43f5504bac7810a6151352d9d0031071a8f88265c6c727",
+      "response_sha256": "d6355e7eaf3c9f264174c6a88177d4052e577dfcd0e13ba5c017fbeab5b0657b",
+      "rows": [
+        {
+          "person_key": "local-ada-20261101",
+          "person_name": "R21 Ada"
+        },
+        {
+          "person_key": "local-ben-20261101",
+          "person_name": "R21 Ben"
+        },
+        {
+          "person_key": "local-cy-20261101",
+          "person_name": "R21 Cy"
+        }
+      ]
+    },
+    "singleton": {
+      "compiled_sql_sha256": "7fa1ef95e8354c9ad81c7556857fc18ca5ab3ea9264562842b5bfe54433302c6",
+      "request_sha256": "412e66b6b304a061b74bfa40b4df39eb17092bcfaae485e46311201ccfe64c9b",
+      "response_sha256": "cf4345dd1ca0343a34a235942fbcb7fa5ca7ac878016f10cd228d9ddd97d4f29",
+      "rows": [
+        {
+          "person_key": "local-dana-r21-20261101",
+          "person_name": "R21 Dana"
+        }
+      ]
+    }
+  },
+  "runtime": {
+    "application_id": "local-1793641821845",
+    "delta": "4.4.1",
+    "master": "local[1]",
+    "parameter_substitution_setting": "spark.sql.legacy.parameterSubstitution.constantsOnly=true",
+    "spark": "4.2.0",
+    "weft": "0.4.56",
+    "weft_wheel_sha256": "68f9297b4b55df483b86d3041040991c4dadfb9b4d63afcff1420c43f93ae41d"
+  },
+  "scope": "Local native Weft read only; no source/ACK interaction, Delta mutation, cloud, managed Unity Catalog, or engine execution.",
+  "setup_attempts": [
+    {
+      "cause": "First local Spark attempt omitted spark.sql.legacy.parameterSubstitution.constantsOnly=true.",
+      "classification": "Runtime setup refusal; no publication data result was produced.",
+      "failure": "UNBOUND_SQL_PARAMETER p1",
+      "outcome": "refused before native query results"
+    }
+  ],
+  "source_oracle": "Decoded exact retained R59 source page event bytes; no old G03 row oracle reused.",
+  "source_page_sha256": {
+    "source-page-678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea.json": "019934546d5e0ca6c15cb4dbea0430c17c74d929effd263a5d81ccdca9088253",
+    "source-page-8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea.json": "fe63c1affe12bf60a15fdeb505aee09b925df74d0c40618646aa4b9835970cf6",
+    "source-page-cbf69ea847e30930ec586b2a3d508745f0430da3e9e1628f6b81149b9d58230b.json": "68b9453d306126ccfee4b08c3073c411361a974994b8a50ab27d8cea9914be0b"
+  },
+  "status": "passed",
+  "vector_observation_sha256": "d35cd006d001d4c41ab8b1bf3c51e4749dbe1c882e8b737c4e2ccb6ccf631b50"
+}
