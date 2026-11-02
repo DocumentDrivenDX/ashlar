@@ -55,6 +55,16 @@ The current Rust-backed bridge is versioned separately and binds proposals to
 all six original carrier roles. This is proposal compatibility evidence only;
 no Spark or Delta DDL was executed, and no source/ACK authority is established.
 
+The follow-up native initializer is now selectable from the Truss graph
+publisher with `umf_sdk_version="0.10.2"`. It writes a distinct
+`ashlar-local-current-installation-profile/0.5`, records the selected SDK/Core
+artifact and semantic-resource digests without describing them as an IIFE
+bridge, and binds the resulting six target aliases through journal retention
+and restore validation. Existing `/0.4` verification remains unchanged. The
+initializer uses the same six Core proposal outputs before issuing Spark DDL;
+the focused initializer test uses a recording Spark double, so live native
+table creation and restore remain unqualified.
+
 Focused Python 3.12 checks passed: `test_truss_current_catalog` (14 tests),
 `test_truss_catalog_reader`, `test_truss_source_custody_selection`, and
 `test_truss_graph_admission` (16 tests total). `git diff --check` passed.

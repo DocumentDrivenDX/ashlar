@@ -28,6 +28,7 @@ CORE_WHEEL_SHA256 = {
 }
 RESOURCE_ROOT = 'local-current-delta4-sdk0102'
 MANIFEST_SHA256 = '4db01b6a3bef4ce2cf898910ff2316ab130e38a1634e9e9f5138c2b47ccf51c5'
+ROLE_SEMANTICS_SHA256 = '148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d'
 SOURCE_POLICY_SHA256 = '0c53f26b9a75fde90a269d0cc6fd7d5166e31fd320f86d6484630e709c2e64ea'
 
 
@@ -124,6 +125,14 @@ def _selected_core_wheel_sha256():
         raise ValueError('UMF Core wheel provenance required') from None
     _require(actual == expected, 'UMF Python Core wheel differs from the selected release')
     return expected
+
+
+def selected_platform_artifacts():
+    key = (sys.platform, platform.machine())
+    _require(key in CORE_WHEEL_SHA256 and key in SDK_ARCHIVE_SHA256,
+             'Supported UMF SDK 0.10.2 platform required')
+    return {'sdk_archive_sha256': SDK_ARCHIVE_SHA256[key],
+            'core_wheel_sha256': _selected_core_wheel_sha256()}
 
 
 class LocalUmfDelta4Sdk0102Bridge:
