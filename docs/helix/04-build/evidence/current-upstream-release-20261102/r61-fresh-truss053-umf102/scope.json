@@ -1,6 +1,6 @@
 {
   "packet": "ashlar-r61-fresh-truss053-umf102",
-  "status": "attempt5-bound-for-sol-review-public-truss-setup-over-cold-copied-clean-pg18",
+  "status": "attempt6-bound-after-public-truss-read-write-transaction-fix",
   "source": {
     "repository": "ashlar",
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
@@ -8,7 +8,7 @@
     "runner_path": "tools/r61_fresh_cohort_runner.py",
     "runner_sha256": "0b318102e7c8d5de3b6c15f0f003d666d101d0c9f8b9f991601b41fbd40b7eb9",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
-    "setup_stage_sha256": "69a7a70f703aba38f2840ac09929f2e3d8f6fa9c57b9f3b3ef043331578265c3",
+    "setup_stage_sha256": "ea759bdde9d7cdb60d89aeb107eed55aa434913633577626b3485867a339ed03",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
     "supervisor_sha256": "8aad4b142854915928ec80232e082c0bbb940456070bd8722e35d59827724d80"
   },
@@ -64,10 +64,10 @@
     "postgresql_18_pg_controldata_sha256": "9d4cff3fd9c003b471a767b1985cf1d1c46414b53486dd16934434c6e34c5d8e"
   },
   "fresh_local_state": {
-    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt5",
-    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt5/pgdata",
-    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt5/delta",
-    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt5/evidence",
+    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt6",
+    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt6/pgdata",
+    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt6/delta",
+    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt6/evidence",
     "must_be_absent_before_dispatch": true,
     "forbidden_state": [
       "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
