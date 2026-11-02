@@ -478,7 +478,8 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
         manifest = json.loads(Path(artifacts["postgresql_18_runtime_manifest"]).read_text())
         if not runtime.is_absolute() or runtime.resolve() != runtime or runtime.is_symlink() or not runtime.is_dir():
             raise RuntimeError("canonical selected PostgreSQL 18 runtime directory required")
-        for binary, key in (("pg_ctl", "pg_ctl_sha256"), ("postgres", "postgres_sha256")):
+        for binary, key in (("pg_ctl", "pg_ctl_sha256"), ("postgres", "postgres_sha256"),
+                            ("initdb", "initdb_sha256")):
             binary_path = runtime / "bin" / binary
             if (not binary_path.is_file() or not os.access(binary_path, os.X_OK)
                     or _sha(binary_path) != manifest.get(key)):
@@ -711,7 +712,8 @@ def run_once(dispatch_path: Path) -> int:
                     worker_result = json.loads(worker_result_path.read_text())
                     required_true = ("all_owners_closed", "source_state_reconciled",
                                      "publication_vector_reconciled", "ack_reconciled",
-                                     "no_delta_write_after_close")
+                                     "no_delta_write_after_close", "postgres_started",
+                                     "postgres_start_attempted")
                     graph_hashes = (worker_result.get("graph_release_sha256"),
                                     worker_result.get("graph_custody_sha256"),
                                     worker_result.get("graphframes_action_sha256")) if isinstance(worker_result, dict) else ()

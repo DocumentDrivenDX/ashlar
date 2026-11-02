@@ -9,6 +9,8 @@ import json
 import os
 from pathlib import Path
 import stat
+import subprocess
+import time
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -47,6 +49,59 @@ def _require_owned_runtime_directory(path: Path) -> None:
     if (not stat.S_ISDIR(info.st_mode) or stat.S_ISLNK(info.st_mode)
             or info.st_uid != os.getuid() or stat.S_IMODE(info.st_mode) != 0o700):
         raise RuntimeError("Truss LocalPostgres directory ownership/mode differs")
+
+
+def _preinitialize_postgres(pgdata: Path, root: Path) -> dict:
+    """Initialize only the fresh cluster with exact PG18 initdb before Truss opens it."""
+    scope = json.loads(Path(os.environ["R61_SCOPE"]).read_text())
+    artifacts = scope["artifacts"]
+    manifest_path = Path(artifacts["postgresql_18_runtime_manifest"])
+    manifest_bytes = manifest_path.read_bytes()
+    if hashlib.sha256(manifest_bytes).hexdigest() != artifacts["postgresql_18_runtime_manifest_sha256"]:
+        raise RuntimeError("Selected PostgreSQL runtime manifest hash differs from scope")
+    manifest = json.loads(manifest_bytes)
+    initdb = Path(artifacts["postgresql_18_runtime"]) / "bin" / "initdb"
+    if (not initdb.is_file() or not os.access(initdb, os.X_OK)
+            or hashlib.sha256(initdb.read_bytes()).hexdigest() != manifest.get("initdb_sha256")):
+        raise RuntimeError("Exact selected PostgreSQL 18 initdb binary required")
+    if pgdata.exists() or pgdata.is_symlink():
+        raise RuntimeError("Pre-bootstrap PGDATA must be absent")
+    pgdata.mkdir(mode=0o700)
+    stdout_path, stderr_path = root / "pg-initdb.stdout.log", root / "pg-initdb.stderr.log"
+    receipt_path = root / "pg-initdb.json"
+    argv = [str(initdb), "-D", str(pgdata), "--no-sync", "--auth=trust",
+            "--auth-local=trust", "--encoding=UTF8", "-U", "postgres"]
+    environment = {key: value for key, value in os.environ.items() if not key.startswith("PG")}
+    result = {"profile": "ashlar-r61-pg18-dev-no-sync-bootstrap/0.1",
+              "status": "failed", "argv": argv, "initdb_sha256": manifest["initdb_sha256"],
+              "server_fsync_after_start": "PostgreSQL default remains enabled"}
+    started = time.monotonic()
+    stdout_fd = os.open(stdout_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
+                        getattr(os, "O_NOFOLLOW", 0), 0o600)
+    stderr_fd = os.open(stderr_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
+                        getattr(os, "O_NOFOLLOW", 0), 0o600)
+    try:
+        with os.fdopen(stdout_fd, "wb") as stdout, os.fdopen(stderr_fd, "wb") as stderr:
+            try:
+                completed = subprocess.run(argv, stdin=subprocess.DEVNULL, stdout=stdout,
+                    stderr=stderr, cwd=str(root), env=environment, timeout=180, check=False)
+                result["returncode"] = completed.returncode
+            except subprocess.TimeoutExpired:
+                result["status"] = "timeout"
+                raise
+    finally:
+        result["elapsed_seconds"] = round(time.monotonic() - started, 3)
+        result["stdout_sha256"] = hashlib.sha256(stdout_path.read_bytes()).hexdigest()
+        result["stdout_bytes"] = stdout_path.stat().st_size
+        result["stderr_sha256"] = hashlib.sha256(stderr_path.read_bytes()).hexdigest()
+        result["stderr_bytes"] = stderr_path.stat().st_size
+        if result.get("returncode") == 0 and (pgdata / "PG_VERSION").is_file() \
+                and (pgdata / "PG_VERSION").read_text().strip() == "18":
+            result["status"] = "completed"
+        _write_private(receipt_path, (json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n").encode())
+    if result["status"] != "completed":
+        raise RuntimeError(f"Bounded PG18 initdb bootstrap failed; receipt={receipt_path}")
+    return result
 
 
 def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profile: str) -> dict:
@@ -111,6 +166,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     if (pgdata.exists() or pgdata.is_symlink() or lease_file.exists() or lease_file.is_symlink()
             or socket_directory.exists() or socket_directory.is_symlink()):
         raise ValueError("Fresh PGDATA, runtime lease and deterministic Truss .53 socket required")
+    postgres_bootstrap = _preinitialize_postgres(pgdata, root)
 
     model_path = root / "accepted-model.umf.json"
     origin_path = root / "origin.json"
@@ -241,6 +297,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
                 raise RuntimeError("Accepted report and complete catalog view revision differ")
             result = {
                 "profile": PROFILE,
+                "postgres_bootstrap": postgres_bootstrap,
                 "truss_version": distribution_version("umf-truss"),
                 "catalog_adapter_profile": candidate_profile,
                 "model": {"id": parsed["id"], "revision": "r1", "umf": parsed["umf"],

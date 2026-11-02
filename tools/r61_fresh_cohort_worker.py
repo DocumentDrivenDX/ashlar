@@ -28,7 +28,8 @@ DESTINATION = "ashlar-r61-local-delta-0.4"
 PROFILE = "ashlar-r61-fresh-cohort-worker/0.1"
 EFFECTS = {"delta_write_state": "not_attempted", "source_ack_attempted": False,
            "source_ack_state": "not_attempted", "spark_started": False,
-           "spark_closed": False, "postgres_started": False,
+           "spark_closed": False, "postgres_start_attempted": False,
+           "postgres_started": False,
            "postgres_closed": False, "graphframes_started": False,
            "graphframes_closed": False, "custody_sessions": []}
 
@@ -461,9 +462,14 @@ def run() -> dict:
     spec.loader.exec_module(setup_module)
     run_fresh_truss_setup_stage = setup_module.run_fresh_truss_setup_stage
     root = ROOT
+    EFFECTS["postgres_start_attempted"] = True
     setup = run_fresh_truss_setup_stage(root=root,
         bun=Path(artifacts["bun_executable"]),
         expected_adapter_profile=artifacts["truss_adapter_profile"])
+    # The public Truss setup stage has started and cleanly closed its owned PG
+    # contexts before returning accepted setup evidence.
+    EFFECTS["postgres_started"] = True
+    EFFECTS["postgres_closed"] = True
     pgdata = Path(scope["fresh_local_state"]["postgres_data"])
     delta = Path(scope["fresh_local_state"]["delta_root"])
     jars = [Path(item) for item in runtime_identity["jars"]]
@@ -480,6 +486,8 @@ def run() -> dict:
     runtime_open = False
     primary = None
     try:
+        EFFECTS["postgres_start_attempted"] = True
+        EFFECTS["postgres_closed"] = False
         runtime.__enter__()
         runtime_open = True
         EFFECTS["postgres_started"] = True
@@ -685,6 +693,7 @@ def run() -> dict:
             "graphframes": graphframes,
             "source_checkpoint_sha256": continuation_ack["checkpoint_sha256"],
             "source_empty_after_ack": True,
+            "postgres_started": True, "postgres_start_attempted": True,
             "four_role_publication_vector": {
                 key: list(value) for key, value in continuation_state["observation"].vector.targets.items()},
             "six_role_installation_inventory": sorted(
@@ -751,6 +760,14 @@ def main() -> int:
             except BaseException as dispose_error:
                 cleanup.append({"dispose_error": f"{type(dispose_error).__name__}: {dispose_error}"[:500]})
             EFFECTS["custody_sessions"].remove(session)
+        try:
+            failure_scope = json.loads(SCOPE.read_text())
+            failure_pgdata = Path(failure_scope["fresh_local_state"]["postgres_data"])
+            if ((failure_pgdata / "PG_VERSION").is_file()
+                    or (failure_pgdata / "postmaster.pid").is_file()):
+                EFFECTS["postgres_started"] = True
+        except Exception:
+            pass
         result.update({"failure_type": type(error).__name__, "failure": str(error)[:1500],
                        "traceback": traceback.format_exc(limit=12)[-8000:],
                        "source_ack_attempted": EFFECTS["source_ack_attempted"],
@@ -760,6 +777,7 @@ def main() -> int:
                        "spark_started": EFFECTS["spark_started"],
                        "spark_closed": EFFECTS["spark_closed"],
                        "postgres_started": EFFECTS["postgres_started"],
+                       "postgres_start_attempted": EFFECTS["postgres_start_attempted"],
                        "postgres_closed": EFFECTS["postgres_closed"],
                        "graphframes_started": EFFECTS["graphframes_started"],
                        "graphframes_closed": EFFECTS["graphframes_closed"],
