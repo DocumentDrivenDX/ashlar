@@ -1,0 +1,196 @@
+{
+  "delta": {
+    "heads": [
+      {
+        "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/attempts/_delta_log/00000000000000000016.json",
+        "sha256": "c3f394f27ae45f4a9143c09e837cc8cf43a161820cb7cd60e2403cea6801d95e",
+        "table": "attempts",
+        "version": 16
+      },
+      {
+        "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/edge_current/_delta_log/00000000000000000002.json",
+        "sha256": "802f63be8067edcbd8d54a172b08e7563b66ea12974ac5132f7015eb565b4e5a",
+        "table": "edge_current",
+        "version": 2
+      },
+      {
+        "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/manifest/_delta_log/00000000000000000004.json",
+        "sha256": "61c448ec0a664a0e0e9d7e3ad131ff92794a9127a5ddc2c7bbfafa8a0be97ad4",
+        "table": "manifest",
+        "version": 4
+      },
+      {
+        "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/object_current/_delta_log/00000000000000000003.json",
+        "sha256": "089c525a392a0afc5de129b4d7a2c302ef04926f98d728952e075c01218297f3",
+        "table": "object_current",
+        "version": 3
+      },
+      {
+        "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/tombstone/_delta_log/00000000000000000001.json",
+        "sha256": "4d9aec8a7e9b6183a137644fb087b3e9545029ad4a917a7fb2a14f2ecaff62d6",
+        "table": "tombstone",
+        "version": 1
+      },
+      {
+        "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/whole_source_history/_delta_log/00000000000000000003.json",
+        "sha256": "7ec3993ba6a2b799be5b34a5f3c43651ef55f4df5057ec82d0301092dc4d2c43",
+        "table": "whole_source_history",
+        "version": 3
+      }
+    ],
+    "integrity_check": "ok",
+    "journal_counts": {
+      "local_operation": 23,
+      "local_plan": 3,
+      "local_publication_artifact": 3,
+      "local_source_plan": 3
+    },
+    "journal_path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/operations.sqlite",
+    "journal_sha256": "f2564fd084adc238c60c3d11c9f6d7b4a39a20accf9f385ac09ac47821c6bbb4",
+    "matching_r55_rows": {
+      "local_plan": 1,
+      "local_publication_artifact": 1,
+      "local_source_plan": 1
+    },
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
+    "sqlite_sidecars": {
+      "shm": {
+        "bytes": 0,
+        "present": false,
+        "sha256": null
+      },
+      "wal": {
+        "bytes": 0,
+        "present": false,
+        "sha256": null
+      }
+    }
+  },
+  "native_dispatch": false,
+  "native_effects": false,
+  "profile": "ashlar-r59-pre-ack-read-only-reconciliation/0.1",
+  "r55_custody": {
+    "next_cursor_sha256": "fe12149820d422595351bc1024e269cd7432b8225307243866828466be849ba3",
+    "page_archive_path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/source-page-678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea.json",
+    "page_archive_sha256": "019934546d5e0ca6c15cb4dbea0430c17c74d929effd263a5d81ccdca9088253",
+    "page_sha256": "8c292e2950cdf507bfa3801c68f188cdc29d9d739ddf3585792a08115ab59f35",
+    "pending_receipt_path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/publication-readback-pending-678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea.json",
+    "pending_receipt_sha256": "9fc3d18662cbb0495b518da44e658f504f9e98c746102b8791df0cb30b5a63b5",
+    "prior_cursor_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+    "publication_id": "truss-graph-678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
+    "publication_intent_path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/publication-intent-678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea.json",
+    "publication_intent_sha256": "c5dfd4abb1fb330f020ddf985159c8dafefc4c256f018efd70693124c6cbbeed",
+    "request_digest": "678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
+    "writer_xid": "847"
+  },
+  "r58": {
+    "ack_attempted": false,
+    "attempt_root": "/private/tmp/ashlar-r58-truss052-r55-page-recovery-20261102",
+    "held_ack_receipt_sha256": "c50c1fd9f5e21c63edd95dee1303d2964b0def49db47be322a80bb8f020ba28e",
+    "native_readback": {
+      "manifest_sha256": "9abfbd9a12c030979077347d19396a9f9168d64650a9184a6b91e91180e193a8",
+      "receipt_sha256": "ce5ea32f302b6e2f7735f619cc7edf4615ff4acb489d9fe7fb5671858dd33c74",
+      "roles": {
+        "edge_current": {
+          "head_json_sha256": "802f63be8067edcbd8d54a172b08e7563b66ea12974ac5132f7015eb565b4e5a",
+          "head_version": 2,
+          "row_bag_sha256": "de2569fd0cafc1995666ae02119916022f5df06c7873f876b590497a80416821",
+          "row_count": 3,
+          "table": "local.trussgraph.edge_current",
+          "uuid": "b78564df-d9ed-4d65-9f4e-89fe81ef3aaa",
+          "version": 2
+        },
+        "object_current": {
+          "head_json_sha256": "089c525a392a0afc5de129b4d7a2c302ef04926f98d728952e075c01218297f3",
+          "head_version": 3,
+          "row_bag_sha256": "eefe236d308c1c74839e874c300f34d16d5f5114b2eb08525969fda65032760d",
+          "row_count": 6,
+          "table": "local.trussgraph.object_current",
+          "uuid": "a8770dc6-2f0d-4d19-b6c6-217e2fd4d983",
+          "version": 3
+        },
+        "tombstone": {
+          "head_json_sha256": "4d9aec8a7e9b6183a137644fb087b3e9545029ad4a917a7fb2a14f2ecaff62d6",
+          "head_version": 1,
+          "row_bag_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "row_count": 0,
+          "table": "local.trussgraph.tombstone",
+          "uuid": "5b37f47e-c3a6-4e7b-a3b9-bac8f4807ba3",
+          "version": 1
+        },
+        "whole_source_history": {
+          "head_json_sha256": "7ec3993ba6a2b799be5b34a5f3c43651ef55f4df5057ec82d0301092dc4d2c43",
+          "head_version": 3,
+          "row_bag_sha256": "7ce3b1ecca612271269d2cc0a97ddd4ac92f4d5f652161b5fc1ee27e66b4aed8",
+          "row_count": 9,
+          "table": "local.trussgraph.whole_source_history",
+          "uuid": "c471362d-dab9-43c6-b18b-7cb9da97578f",
+          "version": 3
+        }
+      },
+      "vector": {
+        "local.trussgraph.edge_current": [
+          "b78564df-d9ed-4d65-9f4e-89fe81ef3aaa",
+          2
+        ],
+        "local.trussgraph.object_current": [
+          "a8770dc6-2f0d-4d19-b6c6-217e2fd4d983",
+          3
+        ],
+        "local.trussgraph.tombstone": [
+          "5b37f47e-c3a6-4e7b-a3b9-bac8f4807ba3",
+          1
+        ],
+        "local.trussgraph.whole_source_history": [
+          "c471362d-dab9-43c6-b18b-7cb9da97578f",
+          3
+        ]
+      }
+    },
+    "native_readback_sha256": "7bbb7fda591b2edf9911c028224cf5bd9a508213e5be3a6cb985dce1b67d2bf7",
+    "page_selection_sha256": "dee1d272658ef794175d8d46e49fc2a4cc7ab59f20ca839ee0bb6000b544fb41",
+    "process_group_remaining": [],
+    "publication_id": "truss-graph-678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
+    "request_digest": "678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
+    "result_sha256": "15922ca72b9ccca04684b0b5189df956ec3818e291394f6e795e6e2e874c8645",
+    "scope_path": "docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r58-host-scope.json",
+    "scope_sha256": "27de3c86265c045af2e10a459a23c6eaa9ad59c0e18f6204a719cd3f3bab3efb",
+    "source_ack_attempted": false,
+    "supervisor_receipt_sha256": "f01b3899d69281dfe123a8229eca055baf96734d82eb7ec04274391f078cb6e7",
+    "supervisor_returncode": 0,
+    "supervisor_root": "/private/tmp/ashlar-r58-truss052-r55-page-recovery-20261102-supervisor",
+    "supervisor_status": "succeeded",
+    "wall_seconds": 56.627,
+    "worker_path": "docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r58-recovery-worker.py",
+    "worker_sha256": "89402263dd6d809d1989241e36335a5218541e31d98e24d9cb69b234206ae88e"
+  },
+  "replay_boundary": {
+    "acknowledgement_attempted": false,
+    "cloud": false,
+    "delta_republication": false,
+    "group_resubmission": false,
+    "production_authority": false,
+    "publication_replay": false
+  },
+  "source_sql_and_feed": {
+    "reason": "PostgreSQL startup for read-only inspection is prohibited in this sandbox after prior shmget refusal; R59 supervisor must reconcile one exact request_receipt and current consumer/feed page in an explicit read-only SQL transaction, then protected .52 custody must reread/lock exact page/checkpoint before the one ACK.",
+    "required_before_protected_ack": true,
+    "status": "not_read_in_this_executor"
+  },
+  "status": "destination_and_local_journal_reconciled_source_sql_required_in_supervised_r59",
+  "stopped_pgdata": {
+    "checkpoint_lsn": "0/1F69548",
+    "cluster_state": "shut down",
+    "next_xid": "0:862",
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
+    "pg_control_sha256": "efe57f9d4a5c0bfe8b5387afcb4d3622142cd9394bf1a66f8c855a63abfcf6eb",
+    "postmaster_pid_present": false,
+    "source_sql_read": false,
+    "system_identifier": "7703148769689564565",
+    "tree": {
+      "bytes": 65790675,
+      "files": 1265,
+      "sha256": "90636c7b1dae157477eb72587286408f45c6f8560e0240d29083b9f6f0599ef1"
+    }
+  }
+}
