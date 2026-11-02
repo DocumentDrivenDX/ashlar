@@ -5,7 +5,7 @@ from .truss_recovery import restore_applied_truss_publication
 from .truss_resume_cli import run_selected_truss_command
 
 
-def run_continue_truss_graph_command(configuration,output,*,maximum_pages=1,wait_seconds=0,maximum_page_bytes=1048576,defer_source_acknowledgement=False,prepublication_source_custody=None,reuse_identical_prepublication_intent=False):
+def run_continue_truss_graph_command(configuration,output,*,maximum_pages=1,wait_seconds=0,maximum_page_bytes=1048576,defer_source_acknowledgement=False,prepublication_source_custody=None,reuse_identical_prepublication_intent=False,export_graph=False):
     if (type(maximum_pages)is not int or not 1<=maximum_pages<=8
             or type(wait_seconds)is not int or not 0<=wait_seconds<=60
             or type(maximum_page_bytes)is not int or not 1<=maximum_page_bytes<=2097152
@@ -31,7 +31,8 @@ def run_continue_truss_graph_command(configuration,output,*,maximum_pages=1,wait
             defer_source_acknowledgement=defer_source_acknowledgement,
             catalog_connection_factory=catalog_connection,
             prepublication_source_custody=prepublication_source_custody,
-            reuse_identical_prepublication_intent=reuse_identical_prepublication_intent)
+            reuse_identical_prepublication_intent=reuse_identical_prepublication_intent,
+            export_graph=export_graph)
     try:
         return run_selected_truss_command(configuration,output,advance)
     except BaseException as error:

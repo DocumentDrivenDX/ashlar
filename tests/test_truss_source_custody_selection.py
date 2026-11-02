@@ -6,7 +6,8 @@ import json
 import sys
 import types
 import unittest
-from types import SimpleNamespace
+from dataclasses import replace
+from types import MappingProxyType, SimpleNamespace
 from unittest.mock import patch
 
 from ashlar.pins import PinVector
@@ -18,7 +19,8 @@ from ashlar_host.managed_current_spark_receipt_read import (
     PROFILE as MANAGED_READ_PROFILE, ManagedCurrentSparkReceiptReopenObservation,
 )
 from ashlar_host.truss_source_custody_selection import (
-    _RELEASE_ID, _RELEASE_SHA256, TrussSourceSelectionError,
+    _ANCHORS, _RELEASE_ID, _RELEASE_SHA256, TrussSourceCustodyAnchor,
+    TrussSourceSelectionError, _issue,
     select_truss_source_custody_anchor,
 )
 from test_r04_schedule import schedule
@@ -211,6 +213,35 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
                           return_value=CURRENT_052_CUSTODY_PROFILE):
                 with self.assertRaisesRegex(TrussSourceSelectionError, "gated"):
                     opening.to_candidate_sdk(runtime_status=status)
+
+    def test_local_development_open_selection_requires_exact_six_role_destination(self):
+        from ashlar_host.delta_custody import LocalDeltaTransport
+
+        transport = object.__new__(LocalDeltaTransport)
+        roles = ("object_current", "edge_current", "tombstone", "whole_source_history",
+                 "attempts", "manifest")
+        targets = {f"local.trussgraph.{role}": (f"/tmp/{role}", f"uuid-{role}")
+                   for role in roles}
+        anchor = TrussSourceCustodyAnchor(
+            schedule_sha256="", source="local-development",
+            identity=MappingProxyType({"installation_id": "installation"}),
+            page=self.page, destination_id="r61-destination", request_bytes=self.request_bytes,
+            request_sha256=hashlib.sha256(self.request_bytes).hexdigest(),
+            destination_registration_bytes=b"registration", ack_scope_bytes=b"scope",
+            authority_profile="local-development", preselected_publication_id="truss-graph-abc",
+            destination_transport=transport,
+            destination_target_bindings=MappingProxyType({k: v for k, v in targets.items() if k.endswith(("object_current", "edge_current", "tombstone", "whole_source_history"))}),
+            destination_installation_bindings=MappingProxyType(targets))
+        _issue(_ANCHORS, anchor)
+        opening = anchor.open_selection()
+        self.assertEqual(opening.source, "local-development")
+        self.assertEqual(opening.publication_id, "truss-graph-abc")
+        self.assertIs(opening.anchor, anchor)
+
+        invalid = replace(anchor, destination_installation_bindings=MappingProxyType({}))
+        _issue(_ANCHORS, invalid)
+        with self.assertRaisesRegex(TrussSourceSelectionError, "exact local publication"):
+            invalid.open_selection()
 
     def test_candidate_sdk_materialization_refuses_051_metadata(self):
         bound = self.bound()

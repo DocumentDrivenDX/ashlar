@@ -498,12 +498,21 @@ class TrussSourceCustodyAnchor:
     destination_installation_bindings: object = field(default=None, repr=False, compare=False)
 
     def open_selection(self):
-        """Issue the pre-publication source selection from this exact A/B anchor."""
+        """Issue an issuer-bound prepublication source selection for R04 or local dev."""
         _need(_issued(_ANCHORS, self),
-              "Source open selection must come from the validated A/B anchor")
-        _need(self.authority_profile == "r04-scheduled" and self.source in ("A", "B")
-              and self.preselected_publication_id is not None,
-              "Pre-publication source custody requires a frozen publication ID")
+              "Source open selection must come from a validated source anchor")
+        r04 = (self.authority_profile == "r04-scheduled" and self.source in ("A", "B"))
+        local = False
+        if self.authority_profile == "local-development" and self.source == "local-development":
+            from .delta_custody import LocalDeltaTransport
+            local = (type(self.destination_transport) is LocalDeltaTransport
+                     and type(self.destination_target_bindings) is MappingProxyType
+                     and type(self.destination_installation_bindings) is MappingProxyType
+                     and len(self.destination_target_bindings) == 4
+                     and len(self.destination_installation_bindings) == 6)
+        _need((r04 or local) and type(self.preselected_publication_id) is str
+              and bool(self.preselected_publication_id),
+              "Pre-publication source custody requires a frozen R04 or exact local publication")
         return _issue(_OPEN_SELECTIONS, TrussSourceCustodyOpenSelection(
             page=self.page, maximum_facts=self.maximum_facts,
             maximum_bytes=self.maximum_bytes, request_bytes=self.request_bytes,
