@@ -13,6 +13,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import secrets
 import stat
 
 
@@ -92,7 +93,8 @@ def _write_exclusive(path: Path, raw: bytes):
     parent = path.parent.stat()
     if parent.st_uid != os.getuid() or parent.st_mode & 0o077:
         raise A1AckAttemptError("Owner-private attempt directory required")
-    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
+    temporary = path.parent / f".{path.name}.{secrets.token_hex(16)}.tmp"
+    fd = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
                  getattr(os, "O_NOFOLLOW", 0), 0o600)
     try:
         info = os.fstat(fd)
@@ -105,8 +107,25 @@ def _write_exclusive(path: Path, raw: bytes):
                 raise A1AckAttemptError("Attempt write made no progress")
             view = view[count:]
         os.fsync(fd)
+    except BaseException:
+        try:
+            os.unlink(temporary)
+        except FileNotFoundError:
+            pass
+        raise
     finally:
         os.close(fd)
+    try:
+        # Hard-link publication is atomic and refuses replacement. The final
+        # name never points at a partially written transition record.
+        os.link(temporary, path, follow_symlinks=False)
+    except BaseException:
+        try:
+            temporary.unlink()
+        except FileNotFoundError:
+            pass
+        raise
+    temporary.unlink()
     dfd = os.open(path.parent, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0))
     try:
         os.fsync(dfd)
@@ -326,6 +345,12 @@ class DurableA1AckAttemptStore:
         attempt = self.load()
         if type(selection_bytes) is not bytes or selection_bytes != attempt.selection_bytes:
             raise A1AckAttemptError("Worker exact selection differs from prepared attempt")
+        if os.name != "posix":
+            raise A1AckAttemptError("POSIX source-worker process group required")
+        try:
+            os.killpg(process_group_id, 0)
+        except (ProcessLookupError, PermissionError, TypeError, ValueError) as error:
+            raise A1AckAttemptError("Live selected source-worker group required") from error
         if (self.directory / "ack-command-dispatched.json").exists():
             raise A1AckAttemptError("Dispatched ACK attempt cannot start another worker")
         generation = 1
@@ -368,6 +393,19 @@ class DurableA1AckAttemptStore:
                 or started.get("process_group_id") != process_group_id
                 or started.get("status") != "worker_spawned_no_ack_command_yet"):
             raise A1AckAttemptError("Exact active prepared worker required for ACK dispatch")
+        latest = 0
+        while (self.directory / f"worker-started-{latest + 1:02d}.json").exists():
+            latest += 1
+        if generation != latest:
+            raise A1AckAttemptError("Only the latest live prepared worker may receive ACK")
+        if (self.directory / f"worker-lost-{generation:02d}.json").exists():
+            raise A1AckAttemptError("Lost pre-dispatch worker cannot receive ACK")
+        if os.name != "posix":
+            raise A1AckAttemptError("POSIX source-worker group liveness required")
+        try:
+            os.killpg(process_group_id, 0)
+        except (ProcessLookupError, PermissionError, TypeError, ValueError) as error:
+            raise A1AckAttemptError("Live original worker group required for ACK dispatch") from error
         value = {"profile": PROFILE, "attempt_id": attempt.attempt_id,
                  "generation": generation, "process_group_id": process_group_id,
                  "status": "ack_command_may_have_been_sent",
@@ -393,6 +431,7 @@ class DurableA1AckAttemptStore:
 
     def mark_worker_lost(self, *, process_group_id: int, generation: int, reason: str):
         if (type(process_group_id) is not int or process_group_id <= 1
+                or type(generation) is not int or not 1 <= generation <= MAX_PRE_DISPATCH_WORKERS
                 or type(reason) is not str or not reason or len(reason) > 128):
             raise A1AckAttemptError("Bounded original worker-loss observation required")
         attempt = self.load()
@@ -409,6 +448,16 @@ class DurableA1AckAttemptStore:
             dispatch = self._read_record("ack-command-dispatched.json")
             if dispatch.get("generation") != generation:
                 raise A1AckAttemptError("Worker loss must bind dispatched generation")
+        if os.name != "posix":
+            raise A1AckAttemptError("POSIX source-worker group loss observation required")
+        try:
+            os.killpg(process_group_id, 0)
+        except ProcessLookupError:
+            pass
+        except (PermissionError, TypeError, ValueError) as error:
+            raise A1AckAttemptError("Cannot prove source-worker group is absent") from error
+        else:
+            raise A1AckAttemptError("Source-worker process group remains live")
         value = {"profile": PROFILE, "attempt_id": attempt.attempt_id,
                  "generation": generation,
                  "status": ("worker_lost_ack_may_have_committed" if dispatched

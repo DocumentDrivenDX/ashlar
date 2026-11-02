@@ -30,6 +30,8 @@ class A1AckAttemptTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name).resolve()
         self.store = DurableA1AckAttemptStore(self.root)
+        self.workers = []
+        self.addCleanup(self._stop_all_workers)
         self.values = dict(
             selection_bytes=b"exact selection wire bytes",
             request_bytes=b"exact request bytes",
@@ -50,28 +52,35 @@ class A1AckAttemptTests(unittest.TestCase):
             self.attempt.selection_sha256)
 
     def _lost_worker_record(self):
-        child = subprocess.Popen([sys.executable, "-c", "pass"],
+        child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"],
                                  start_new_session=True, close_fds=True)
+        self.workers.append(child)
         pgid = child.pid
-        child.wait(timeout=3)
-        # Ensure this test's PID is not reused as a live process group.
-        with self.assertRaises(ProcessLookupError):
-            os.killpg(pgid, 0)
         generation = self.store.record_worker_started(
             process_group_id=pgid, selection_bytes=self.attempt.selection_bytes)
+        os.killpg(pgid, 9)
+        child.wait(timeout=3)
+        with self.assertRaises(ProcessLookupError): os.killpg(pgid, 0)
         self.store.mark_worker_lost(process_group_id=pgid, generation=generation,
                                     reason="ack_or_reconcile_unresolved")
         return pgid, generation
 
     def _dispatch(self):
-        child = subprocess.Popen([sys.executable, "-c", "pass"],
+        child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"],
                                  start_new_session=True, close_fds=True)
+        self.workers.append(child)
         pgid = child.pid
-        child.wait(timeout=3)
         generation = self.store.record_worker_started(
             process_group_id=pgid, selection_bytes=self.attempt.selection_bytes)
         self.store.mark_ack_dispatched(process_group_id=pgid, generation=generation)
         return pgid, generation
+
+    def _stop_all_workers(self):
+        for child in self.workers:
+            if child.poll() is None:
+                try: os.killpg(child.pid, 9)
+                except ProcessLookupError: pass
+                child.wait(timeout=3)
 
     def test_persists_exact_bytes_before_any_worker_and_refuses_reuse(self):
         raw = self.store.path.read_bytes()
@@ -101,9 +110,9 @@ class A1AckAttemptTests(unittest.TestCase):
         other = Path(other_temp.name).resolve()
         store = DurableA1AckAttemptStore(other)
         attempt = store.begin(**self.values)
-        child = subprocess.Popen([sys.executable, "-c", "pass"],
+        child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"],
                                  start_new_session=True, close_fds=True)
-        child.wait(timeout=3)
+        self.workers.append(child)
         generation = store.record_worker_started(process_group_id=child.pid,
                                                    selection_bytes=attempt.selection_bytes)
         store.mark_ack_dispatched(process_group_id=child.pid, generation=generation)
@@ -122,6 +131,8 @@ class A1AckAttemptTests(unittest.TestCase):
 
     def test_lost_worker_uses_only_exact_read_only_reconciliation(self):
         pgid, generation = self._dispatch()
+        os.killpg(pgid, 9)
+        self.workers[-1].wait(timeout=3)
         self.store.mark_worker_lost(process_group_id=pgid, generation=generation,
                                     reason="ack_or_reconcile_unresolved")
         observation = self.settlement()
@@ -137,10 +148,8 @@ class A1AckAttemptTests(unittest.TestCase):
         generation = self.store.record_worker_started(process_group_id=os.getpgrp(),
                                                        selection_bytes=self.attempt.selection_bytes)
         self.store.mark_ack_dispatched(process_group_id=os.getpgrp(), generation=generation)
-        self.store.mark_worker_lost(process_group_id=os.getpgrp(), generation=generation,
-                                    reason="timeout")
         owner = _ReadOnlyReconciler(self.settlement())
-        with self.assertRaisesRegex(A1AckAttemptError, "process group remains live"):
+        with self.assertRaisesRegex(A1AckAttemptError, "durable record is absent"):
             recover_lost_a1_ack(self.store, owner)
         self.assertEqual(owner.calls, [])
 
@@ -158,14 +167,15 @@ class A1AckAttemptTests(unittest.TestCase):
             directory = Path(directory_temp.name).resolve()
             store = DurableA1AckAttemptStore(directory)
             attempt = store.begin(**self.values)
-            child = subprocess.Popen([sys.executable, "-c", "pass"],
+            child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"],
                                      start_new_session=True, close_fds=True)
-            child.wait(timeout=3)
-            with self.assertRaises(ProcessLookupError):
-                os.killpg(child.pid, 0)
+            self.workers.append(child)
             generation = store.record_worker_started(process_group_id=child.pid,
                                                        selection_bytes=attempt.selection_bytes)
             store.mark_ack_dispatched(process_group_id=child.pid, generation=generation)
+            os.killpg(child.pid, 9)
+            child.wait(timeout=3)
+            with self.assertRaises(ProcessLookupError): os.killpg(child.pid, 0)
             store.mark_worker_lost(process_group_id=child.pid, generation=generation,
                                     reason="timeout")
             settlement = A1AckSettlement(outcome, b"prior-or-current", None,
@@ -179,9 +189,9 @@ class A1AckAttemptTests(unittest.TestCase):
 
     def test_pre_dispatch_worker_loss_allows_same_prepared_attempt_to_retry(self):
         pgid, first = self._lost_worker_record()
-        second_child = subprocess.Popen([sys.executable, "-c", "pass"],
+        second_child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"],
                                         start_new_session=True, close_fds=True)
-        second_child.wait(timeout=3)
+        self.workers.append(second_child)
         second = self.store.record_worker_started(
             process_group_id=second_child.pid,
             selection_bytes=self.attempt.selection_bytes)
@@ -190,14 +200,27 @@ class A1AckAttemptTests(unittest.TestCase):
 
     def test_dispatched_attempt_cannot_retry_even_after_worker_loss(self):
         pgid, generation = self._dispatch()
+        os.killpg(pgid, 9)
+        self.workers[-1].wait(timeout=3)
         self.store.mark_worker_lost(process_group_id=pgid, generation=generation,
                                     reason="timeout")
-        child = subprocess.Popen([sys.executable, "-c", "pass"],
+        child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"],
                                  start_new_session=True, close_fds=True)
-        child.wait(timeout=3)
+        self.workers.append(child)
         with self.assertRaisesRegex(A1AckAttemptError, "cannot start another worker"):
             self.store.record_worker_started(process_group_id=child.pid,
                 selection_bytes=self.attempt.selection_bytes)
+
+    def test_only_current_live_worker_can_be_dispatched_after_pre_dispatch_retry(self):
+        old_pgid, first = self._lost_worker_record()
+        child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"],
+                                 start_new_session=True, close_fds=True)
+        self.workers.append(child)
+        second = self.store.record_worker_started(
+            process_group_id=child.pid, selection_bytes=self.attempt.selection_bytes)
+        with self.assertRaisesRegex(A1AckAttemptError, "latest live prepared worker"):
+            self.store.mark_ack_dispatched(process_group_id=old_pgid, generation=first)
+        self.store.mark_ack_dispatched(process_group_id=child.pid, generation=second)
 
 
 if __name__ == "__main__":
