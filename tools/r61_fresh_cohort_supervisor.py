@@ -21,7 +21,7 @@ import time
 import zipfile
 
 REPO = Path(__file__).resolve().parents[1]
-SCOPE = REPO / "docs/helix/04-build/evidence/current-upstream-release-20261102/r61-fresh-truss053-umf102/scope.json"
+SCOPE = REPO / "docs/helix/04-build/evidence/current-upstream-release-20261102/r61-fresh-truss054-umf102/scope.json"
 PENDING = (
     "truss_wheel", "truss_wheel_sha256", "truss_release_manifest_sha256",
     "umf_sdk_artifact", "umf_sdk_sha256", "umf_sdk_tag_commit",

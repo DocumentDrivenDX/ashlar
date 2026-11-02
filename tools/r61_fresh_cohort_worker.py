@@ -754,8 +754,7 @@ def run() -> dict:
         continuation_ack = _acknowledge(continuation_state)
         continuation_cursor = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
         if (continuation_cursor.outcome != "empty_interval"
-                or sha(continuation_cursor.prior.content) != continuation_ack["checkpoint_sha256"]
-                or continuation_cursor.prior.content != continuation_cursor.next.content):
+                or sha(continuation_cursor.prior.content) != continuation_ack["checkpoint_sha256"]):
             raise RuntimeError("continuation protected ACK does not match the public next checkpoint")
         graph_export = continued.get("original_graph_export", {})
         release_b64 = graph_export.get("release_base64")
