@@ -154,8 +154,11 @@ def release_report(destination: Path, raw: bytes) -> None:
     finish(primary,[lambda:os.unlink(stage)])
 
 
-def run_create_truss_record_group_command(configuration: str | Path, output: str | Path, *, require_fresh: bool = False) -> dict:
+def run_create_truss_record_group_command(configuration: str | Path, output: str | Path, *, require_fresh: bool = False, freeze_request_path: str | Path | None = None, schedule_sha256: str | None = None, slot: str | None = None) -> dict:
     if type(require_fresh) is not bool:raise ValueError('Exact fresh-apply selection required')
+    freeze_requested = freeze_request_path is not None or schedule_sha256 is not None or slot is not None
+    if freeze_requested and (freeze_request_path is None or type(schedule_sha256)is not str or type(slot)is not str):
+        raise ValueError('R04 request freeze path, exact schedule digest and slot must be selected together')
     config,destination,original,model,origin,origin_map=preflight(configuration,output)
     import psycopg
     from truss import Ok,CatalogDocument,CatalogRuntimeConfiguration,create_reference_assembly,adopt_psycopg_host,ObjectFound,EdgeFound
@@ -202,6 +205,12 @@ def run_create_truss_record_group_command(configuration: str | Path, output: str
                 if ref is None:raise RuntimeError('Current authorized relationship required')
                 operations.append(CreateEdge(relationship_definition_pin=ref.definition_pin,source=reference(edge.source),target=reference(edge.target),values=authored(edge.values),order_key=NullOrderKey()if edge.order_key[0]=='null'else TextOrderKey(text=edge.order_key[1]),alias=edge.alias))
             context=value(assembly.group_context_in_transaction(tx));semantic=context.input(tuple(operations),asserted);request=context.request(config.request_key)
+            if freeze_requested:
+                from .truss_group_request_freeze import freeze_public_truss_group_request
+                freeze_public_truss_group_request(freeze_request_path,
+                    original_invocation_bytes=original.raw,
+                    schedule_sha256=schedule_sha256, source=slot[0], slot=slot,
+                    semantic=semantic, request=request, documents=documents)
             renew();applied=value(assembly.apply_in_transaction(tx,semantic,request,documents=documents,bun_executable=str(config.bun)))
             if not isinstance(applied,GroupSuccess):raise PublicTrussOutcomeError(applied)
             if require_fresh and not isinstance(applied.response,AppliedPending):raise PublicTrussOutcomeError(applied)
