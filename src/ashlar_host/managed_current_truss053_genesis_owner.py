@@ -98,6 +98,24 @@ class ManagedCurrentTruss053GenesisSelection:
     source_owner_admitted_batch: object = field(repr=False, compare=False)
 
 
+_ISSUED_SOURCE_OBSERVATIONS = {}
+_MAX_ISSUED_SOURCE_OBSERVATIONS = 8
+
+
+def _issue_source_observation(observation):
+    """Retain a bounded process-local marker for a public-owner result."""
+    if (type(observation) is not ManagedCurrentTruss053SourceObservation
+            or len(_ISSUED_SOURCE_OBSERVATIONS) >= _MAX_ISSUED_SOURCE_OBSERVATIONS):
+        raise ManagedCurrentTruss053GenesisError(
+            "Bounded exact .53 public source observation required")
+    _ISSUED_SOURCE_OBSERVATIONS[id(observation)] = observation
+    return observation
+
+
+def _is_issued_source_observation(observation):
+    return _ISSUED_SOURCE_OBSERVATIONS.get(id(observation)) is observation
+
+
 class ManagedCurrentTruss053GenesisSourceOwner:
     """Read selected A/B registrations, accepted catalogs, cursors and A1 page.
 
@@ -339,9 +357,9 @@ class ManagedCurrentTruss053GenesisSourceOwner:
                   and batch.feed == selection.feed and batch.epoch == selection.epoch
                   and batch.cursor_before == progress.position,
                   "First A native batch differs from its selected genesis cursor")
-        return ManagedCurrentTruss053SourceObservation(source, progress,
-            report.original_bytes, view_bytes, accepted_documents, model_evidence,
-            catalog_evidence, page, batch)
+        return _issue_source_observation(ManagedCurrentTruss053SourceObservation(
+            source, progress, report.original_bytes, view_bytes, accepted_documents,
+            model_evidence, catalog_evidence, page, batch))
 
     def admit_a1(self):
         """Read A/B evidence and return exact arguments for existing owners.
