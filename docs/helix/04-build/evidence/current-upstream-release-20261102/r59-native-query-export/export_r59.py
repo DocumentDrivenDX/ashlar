@@ -10,6 +10,8 @@ obs=json.loads((pathlib.Path(__file__).parent/'r59-vector-observation.json').rea
 roles=('object_current','edge_current','tombstone','whole_source_history')
 paths={r:str(D/r) for r in roles}; table_names={r:'local.trussgraph.'+r for r in roles}; name_to_path={table_names[r]:paths[r] for r in roles}
 name_to_path['local.trussgraph.manifest']=str(D/'manifest')
+out=pathlib.Path('/private/tmp/ashlar-local-release-native-read/r59-graph-release.json')
+out.unlink(missing_ok=True)
 JARS='/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-spark_4.2_2.13-4.4.1.jar,/private/tmp/ashlar-r16-delta4-native-smoke-20261029/attempt-84c7b6002712486495c5dd66bfa0b8d6/jars/delta-storage-4.4.1.jar'
 spark=(SparkSession.builder.master('local[1]').appName('ashlar-r59-graph-release-readonly').config('spark.ui.enabled','false').config('spark.sql.extensions','io.delta.sql.DeltaSparkSessionExtension').config('spark.sql.catalog.spark_catalog','org.apache.spark.sql.delta.catalog.DeltaCatalog').config('spark.jars',JARS).config('spark.sql.warehouse.dir','/private/tmp/ashlar-local-release-native-read/warehouse-export').config('spark.sql.session.timeZone','UTC').config('spark.sql.ansi.enabled','true').config('spark.sql.decimalOperations.allowPrecisionLoss','false').config('spark.sql.legacy.parameterSubstitution.constantsOnly','true').getOrCreate());spark.sparkContext.setLogLevel('ERROR')
 def replace_tables(sql):
@@ -83,7 +85,17 @@ def source_bags():
     edges.append((installation,str(identity['typeId']),str(identity['id']),str(src['typeId']),str(src['id']),str(dst['typeId']),str(dst['id']),str(after['recordVersion']),'1',raw,'{}',order.get('text') if order.get('state')=='text' else None))
  if (len(nodes),len(edges))!=(6,3): raise RuntimeError('source page inventory not exact (6 objects / 3 edges)')
  return {'nodes':nodes,'edges':edges}
-release=read_graph_release(executor,backend,Pins(),vector,policy,publication_id=PUB,node_table=table_names['object_current'],edge_table=table_names['edge_current'],context=context,supported_profiles=['ashlar-delta/0.4-xxhash64'],supported_revisions={next(iter(json.loads(manifest['schema_revisions_json']))):['1']},max_nodes=6,max_edges=3)
-result=json.loads(release.payload)
-out=pathlib.Path('/private/tmp/ashlar-local-release-native-read/r59-graph-release.json');out.write_bytes(release.payload)
-print(json.dumps({'profile':manifest['profile_version'],'release_sha256':release.sha256,'release_bytes':len(release.payload),'nodes':len(result['nodes']),'edges':len(result['edges']),'four_role_snapshots':len(result['snapshots']),'capabilities':result['mapping']['capabilities'],'lookup_hash_profile':result['mapping'].get('lookupHashProfile'),'engine_execution':result['mapping']['capabilities']['engineExecution'],'source_page_hashes':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(D.glob('source-page-*.json'))},'native_heads':current_heads(),'output':str(out)},sort_keys=True));spark.stop()
+release=None
+closing_heads=None
+try:
+ release=read_graph_release(executor,backend,Pins(),vector,policy,publication_id=PUB,node_table=table_names['object_current'],edge_table=table_names['edge_current'],context=context,supported_profiles=['ashlar-delta/0.4-xxhash64'],supported_revisions={next(iter(json.loads(manifest['schema_revisions_json']))):['1']},max_nodes=6,max_edges=3)
+ result=json.loads(release.payload)
+ closing_heads=current_heads()
+except BaseException:
+ raise
+finally:
+ # Do not leave a release artifact or success receipt if session close fails.
+ spark.stop()
+out.write_bytes(release.payload)
+receipt={'profile':manifest['profile_version'],'release_sha256':release.sha256,'release_bytes':len(release.payload),'nodes':len(result['nodes']),'edges':len(result['edges']),'four_role_snapshots':len(result['snapshots']),'capabilities':result['mapping']['capabilities'],'lookup_hash_profile':result['mapping'].get('lookupHashProfile'),'engine_execution':result['mapping']['capabilities']['engineExecution'],'source_page_hashes':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(D.glob('source-page-*.json'))},'native_heads':closing_heads,'session_closed_before_artifact':True,'output':str(out)}
+print(json.dumps(receipt,sort_keys=True))

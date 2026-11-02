@@ -1,6 +1,8 @@
 {
-  "observation_sha256": "76d2363a2bc1d8c8c67711b9c5e508b5c3d3fcc11b5fa45dc93aa0af74dc3d6d",
+  "observation_sha256": "502c27502fd89e691cfff0adc4b8ece2666cf899085d893886c60a75d0baaa01",
   "publication": {
+    "manifest_uuid": "168368b0-0e76-4567-8110-6c081dabf8a1",
+    "manifest_version": 4,
     "profile_version": "ashlar-delta/0.4-xxhash64",
     "publication_id": "truss-graph-678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
     "recorded_at": "2026-11-02 12:04:56.882088",

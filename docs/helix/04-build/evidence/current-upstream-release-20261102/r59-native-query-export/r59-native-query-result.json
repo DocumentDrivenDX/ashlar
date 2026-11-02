@@ -6,6 +6,7 @@
     "tombstone": 1,
     "whole_source_history": 3
   },
+  "closing_state_sha256": "955873a8ec7e6af547072c4bc4d31ca110994b80523c824b6cfe361b0439482f",
   "compiled_bundle_sha256": "15706b8d0f8e3111315e8c92751f78910c3d7ea078285fbebc7a93ed50153bd8",
   "model_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
   "opening_heads": {
@@ -14,6 +15,7 @@
     "tombstone": 1,
     "whole_source_history": 3
   },
+  "opening_state_sha256": "955873a8ec7e6af547072c4bc4d31ca110994b80523c824b6cfe361b0439482f",
   "page": {
     "continuation_after": "local-ben-20261101",
     "lookahead_row": "local-cy-20261101",
@@ -81,7 +83,7 @@
     }
   },
   "runtime": {
-    "application_id": "local-1793641821845",
+    "application_id": "local-1793642170062",
     "delta": "4.4.1",
     "master": "local[1]",
     "parameter_substitution_setting": "spark.sql.legacy.parameterSubstitution.constantsOnly=true",
@@ -96,6 +98,12 @@
       "classification": "Runtime setup refusal; no publication data result was produced.",
       "failure": "UNBOUND_SQL_PARAMETER p1",
       "outcome": "refused before native query results"
+    },
+    {
+      "cause": "The first strict live-vector check used DataType.typeName() (`long`) instead of Spark SQL simpleString() (`bigint`).",
+      "classification": "Evidence-runner representation defect; no publication data result was produced.",
+      "failure": "Spark SQL schema type labels differed from retained Delta schema labels",
+      "outcome": "refused by opening custody guard before native query results"
     }
   ],
   "source_oracle": "Decoded exact retained R59 source page event bytes; no old G03 row oracle reused.",
@@ -105,5 +113,5 @@
     "source-page-cbf69ea847e30930ec586b2a3d508745f0430da3e9e1628f6b81149b9d58230b.json": "68b9453d306126ccfee4b08c3073c411361a974994b8a50ab27d8cea9914be0b"
   },
   "status": "passed",
-  "vector_observation_sha256": "d35cd006d001d4c41ab8b1bf3c51e4749dbe1c882e8b737c4e2ccb6ccf631b50"
+  "vector_observation_sha256": "6a11806b3c45ed859343fa94e4ad193ff8b9487dcede8c8ba98f1d12cd5fd441"
 }

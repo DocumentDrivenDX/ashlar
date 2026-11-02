@@ -28,7 +28,7 @@ Catalog, or engine execution was involved.
 
 The exact pinned four-role vector is recorded in
 [`r59-vector-observation.json`](r59-vector-observation.json), with its bytes
-hashed as `d35cd006d001d4c41ab8b1bf3c51e4749dbe1c882e8b737c4e2ccb6ccf631b50`.
+hashed as `6a11806b3c45ed859343fa94e4ad193ff8b9487dcede8c8ba98f1d12cd5fd441`.
 Opening and closing versions matched: object current 3, edge current 2,
 tombstone 1, and whole-source history 3. The versioned R28 model SHA-256 is
 `b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2`.
@@ -44,7 +44,14 @@ application closed after the checks. The receipt preserves the first setup
 refusal (`UNBOUND_SQL_PARAMETER p1`) as a runtime setup issue: the initial
 attempt omitted
 `spark.sql.legacy.parameterSubstitution.constantsOnly=true`; the successful
-run included it. No native result was produced by the failed attempt.
+run included it. The packet also records an opening custody guard refusal caused
+by schema-label rendering (`long` versus `bigint`), corrected to Spark SQL
+`simpleString()` before the successful run. No native result was produced by
+either refused attempt. The successful receipt now includes matching hashes for
+full opening/closing table UUID, schema, version, manifest UUID/version and
+selected manifest row state. Each compiled request binding digest and its four
+role vector, model pin, layout and lookup hash profile are checked before SQL
+table-name substitution.
 
 ## `.4` graph release
 
@@ -55,7 +62,9 @@ three unique edges, and SHA-256
 `41c39394878978f6f0c161c8cc7adcbf39e8e89e82cd8e0133aae93f0b217237`.
 Every edge endpoint is present; three nodes are isolated; a repeated endpoint
 pair retains distinct edge identities and multiplicity. The export marks
-`engineExecution=false`.
+`engineExecution=false`. [`r59-graph-export-close-receipt.json`](r59-graph-export-close-receipt.json)
+records that the local Spark session closed successfully before the output file
+was written.
 
 This is a direct generic graph release readback. It does not establish the
 end-to-end `read_original_truss_graph_export` owner path, which requires a
