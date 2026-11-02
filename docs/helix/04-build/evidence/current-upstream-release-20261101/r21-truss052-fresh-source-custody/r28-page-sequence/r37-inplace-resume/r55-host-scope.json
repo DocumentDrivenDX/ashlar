@@ -114,7 +114,7 @@
     "native_group_call_model_argument": "exact bytes read from bound r28-model.umf.json",
     "reason": "Truss CatalogDocument.content is bytes; R54 returned InvalidGroupInput with original_documents artifact after the R52/R54 JSON-object argument"
   },
-  "native_dispatch": false,
+  "native_dispatch": true,
   "open_questions": [],
   "paths": {
     "data_directory": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
@@ -442,7 +442,7 @@
     "java_home": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
     "runtime_profile": "ashlar-configured-local-runtime/0.2"
   },
-  "status": "pending_sol_review",
+  "status": "sol_reviewed_and_dispatchable",
   "supervisor": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r37_truss052_supervisor.py",
     "profile": "ashlar-r37-truss052-inplace-resume-supervisor/0.1",
