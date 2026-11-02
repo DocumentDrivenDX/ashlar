@@ -22,7 +22,7 @@ Any mismatch before the protected ACK attempt stops without ACK. If an ACK attem
 
 ## Effect-free verification
 
-The selected runtime's actual `parse_resume_truss_configuration` is exercised with a scratch config: its `{path, sha256}` selector resolves the applied R49 predecessor intent, while the R55 pending intent remains the exact recovery binding. The R49 recovery operation also passes its effect-free input-shape sentinel for the R58 pending receipt and R55 page. These checks do not open PostgreSQL or Spark.
+The selected runtime's actual `parse_resume_truss_configuration` is exercised with a scratch config: its `{path, sha256}` selector resolves the applied R55 intent, which is the publication now committed by R58 and the source session required by the driver. Preflight confirms exactly one R55 source plan and applied artifact. R49 remains only the prior acknowledged checkpoint used by the owner when selecting the R55 page. The R49 recovery operation also passes its effect-free input-shape sentinel for the R58 pending receipt and R55 page. These checks do not open PostgreSQL or Spark.
 
 [Worker preflight](r59-worker-effect-free-preflight.json) and [supervisor preflight](r59-supervisor-effect-free-preflight.json) pass with no PostgreSQL open, Spark start, Delta write, or ACK. The focused [supervisor test](test_r59_ack_supervisor.py) exercises the reviewed/dispatchable scope handshake with the native dispatch function mocked; it confirms the worker preflight runs and the supervisor reaches only the mock dispatch call without creating either native root.
 

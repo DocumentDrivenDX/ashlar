@@ -56,12 +56,12 @@
         "sha256"
       ],
       "native_effects": false,
-      "selected_intent_sha256": "0ac8a41387eba0275695aff0e52628ff525be5a7e0a3befd023c8bdfb5aec34a",
-      "selected_request_digest": "8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea",
+      "selected_intent_sha256": "c5dfd4abb1fb330f020ddf985159c8dafefc4c256f018efd70693124c6cbbeed",
+      "selected_request_digest": "678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
       "status": "passed_effect_free_parser"
     },
     "request_digest": "678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
-    "scope_sha256": "38618c5b02d389cddd4ee5ec1714c3241c8c4f776ff240c36024605e746d1ce6",
+    "scope_sha256": "5dc0f8c7e2d7c8779165a9a454a9bbc8518faf2d4c32d319dca3e2c9eab802a1",
     "selected_truss_sql_contract_hashes": {
       "feed.sql": "542b25ea8ebee1d92457503f86c7e882dadbc6b7c7f80a148ddcf5a35dee3007",
       "group-recovery.sql": "a3fcbd45ea69595b88679903d20533e9bbe18c2f5864caa6a75f82985bdca300",
@@ -96,6 +96,6 @@
       }
     },
     "status": "passed_effect_free_ack_preflight",
-    "worker_sha256": "d46916159cb1100406b26470ee236e15002b1e768545737578a85a0aee390db3"
+    "worker_sha256": "6aadb2a4a409d674de70ad73c88473dc9f7daa7048b985bd92ce2b33175b6177"
   }
 }

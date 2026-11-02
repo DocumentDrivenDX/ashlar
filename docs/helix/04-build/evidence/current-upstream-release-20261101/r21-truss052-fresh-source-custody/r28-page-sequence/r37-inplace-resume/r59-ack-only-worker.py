@@ -139,8 +139,10 @@ def preflight(scope_path,*,require_absent=True,supervisor_root_created=None):
     if (owner_binding['worker_path']!=r49['worker_path'] or owner_binding['worker_sha256']!=r49['worker_sha256'] or
         file_sha(owner_binding['worker_path'])!=owner_binding['worker_sha256'] or file_sha(base_binding['path'])!=base_binding['sha256']):
         raise Refusal('exact R49 ACK owner and R37 helper import bindings required')
-    r49intent=s['predecessor']['publication_intent']
-    if file_sha(r49intent['path'])!=r49intent['sha256']: raise Refusal('applied R49 resume intent changed')
+    r55intent=s['retained_r55']['publication_intent']
+    if (file_sha(r55intent['path'])!=r55intent['sha256'] or
+        r55intent['request_digest']!=digest or r55intent['publication_id']!=pubid):
+        raise Refusal('exact applied R55 resume intent changed')
     runtime=s['runtime_candidate']; python=Path(runtime['local_runtime_base_python']); wheel=Path(runtime['wheel_path'])
     if Path(sys.executable).resolve(strict=True)!=python.resolve(strict=True) or file_sha(wheel)!=runtime['wheel_sha256']: raise Refusal('selected local Python/wheel binding differs')
     sys.path[:0]=[str(Path(runtime['new_overlay_or_venv']).resolve(strict=True)/'site-packages'),str(Path(runtime['local_extra_overlay']).resolve(strict=True))]
@@ -166,7 +168,7 @@ def preflight(scope_path,*,require_absent=True,supervisor_root_created=None):
     rt=s['spark_runtime']
     parser_config={'connection_uri':'postgresql://preflight.invalid/no-connect','catalog_connection_uri':'postgresql://preflight.invalid/no-connect',
       'publication_directory':str(delta),'jars':[item['path'] for item in rt['jars']],
-      'publication_intent':{'path':s['predecessor']['publication_intent']['path'],'sha256':s['predecessor']['publication_intent']['sha256']},
+      'publication_intent':{'path':r55intent['path'],'sha256':r55intent['sha256']},
       'destination_id':s['publication']['destination_id'],'carrier_profile':s['publication']['carrier_profile'],
       'runtime_profile':{'profile':rt['runtime_profile'],'java_home':rt['java_home'],'jar_inventory':{item['name']:item['sha256'] for item in rt['jars']}},
       'archived_acceptance_files':[]}
@@ -174,7 +176,7 @@ def preflight(scope_path,*,require_absent=True,supervisor_root_created=None):
         scratch=Path(scratch_name); config=scratch/'resume-config.json'; output=scratch/'resume-output.json'
         config.write_text(json.dumps(parser_config,sort_keys=True,separators=(',',':'))+'\n')
         parsed=parse_resume_truss_configuration(config,output)[0]
-        if parsed['request_digest']!=s['predecessor']['request_digest']: raise Refusal('native-shaped resume parser must select applied R49 predecessor')
+        if parsed['request_digest']!=digest: raise Refusal('native-shaped resume parser must select applied R55 publication')
     # Exercise the established R49 ACK-owner request/page shape path without
     # making public API calls, connecting to PostgreSQL, or opening Spark.
     owner=load_module('ashlar_r49_ack_owner_preflight',Path(s['r49_ack_owner_binding']['worker_path']))
@@ -197,7 +199,7 @@ def preflight(scope_path,*,require_absent=True,supervisor_root_created=None):
       'pgdata_tree':pg_tree,'postmaster_stopped':True,'journal_integrity':integrity,'journal_counts':counts,'sqlite_sidecars_before':before,'sqlite_sidecars_after':after,
       'r55_source_plan_count':r55_plan,'r55_applied_artifact_count':len(r55_art),'delta_head_tables':heads,'native_readback_role_count':len(role_heads),
       'publication_id':pubid,'request_digest':digest,'r49_checkpoint_sha256':s['predecessor']['checkpoint_sha256'],
-      'real_resume_parser':{'status':'passed_effect_free_parser','selected_request_digest':parsed['request_digest'],'intent_selector_keys':['path','sha256'],'selected_intent_sha256':s['predecessor']['publication_intent']['sha256'],'native_effects':False},
+      'real_resume_parser':{'status':'passed_effect_free_parser','selected_request_digest':parsed['request_digest'],'intent_selector_keys':['path','sha256'],'selected_intent_sha256':r55intent['sha256'],'native_effects':False},
       'selected_truss_sql_contract_hashes':sql_contract_hashes,
       'r49_ack_owner_shape':recovery_shape,
       'source_sql_confirmation':'mandatory_in_supervised_native_worker_before_ack','postgres_opened':False,'spark_started':False,'delta_written':False,'source_ack_attempted':False,'group_resubmitted':False,'native_dispatch':False,'cloud':False}
@@ -350,11 +352,14 @@ def native(scope_path,supervisor_root):
                 effects['source_ack_attempted']=(receipts/'protected-ack-attempt.json').exists()
                 raise
             finally: effects['source_ack_attempted']=(receipts/'protected-ack-attempt.json').exists()
-        predecessor_intent=scope['predecessor']['publication_intent']
+        # R58 has now applied R55. Select that applied intent so the driver
+        # opens the same source session/admission as the R55 pending receipt.
+        # R49 remains only the predecessor cursor in owner_scope above.
+        applied_r55_intent=scope['retained_r55']['publication_intent']
         config={'connection_uri':psycopg.conninfo.make_conninfo(**dict(params,user=source['ordinary_reader_role'])),
             'catalog_connection_uri':psycopg.conninfo.make_conninfo(**dict(params,user=source['registrar_login_role'])),
             'publication_directory':scope['paths']['publication_directory'],'jars':[str(j) for j in jars],
-            'publication_intent':{'path':predecessor_intent['path'],'sha256':predecessor_intent['sha256']},
+            'publication_intent':{'path':applied_r55_intent['path'],'sha256':applied_r55_intent['sha256']},
             'destination_id':scope['publication']['destination_id'],'carrier_profile':scope['publication']['carrier_profile'],
             'runtime_profile':{'profile':rt['runtime_profile'],'java_home':str(java_home),'jar_inventory':{i['name']:i['sha256'] for i in rt['jars']}},'archived_acceptance_files':[]}
         config_path=attempt/'resume-config-r59.json';write_private(config_path,config)

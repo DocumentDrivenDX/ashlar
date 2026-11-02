@@ -722,6 +722,6 @@
   },
   "worker": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r59-ack-only-worker.py",
-    "sha256": "d46916159cb1100406b26470ee236e15002b1e768545737578a85a0aee390db3"
+    "sha256": "6aadb2a4a409d674de70ad73c88473dc9f7daa7048b985bd92ce2b33175b6177"
   }
 }
