@@ -10,7 +10,9 @@
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
     "setup_stage_sha256": "d363287e9fa65e2c8556b3d86e70cba9bafc80bf389b2661977c3bd093580f79",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
-    "supervisor_sha256": "8aad4b142854915928ec80232e082c0bbb940456070bd8722e35d59827724d80"
+    "supervisor_sha256": "8aad4b142854915928ec80232e082c0bbb940456070bd8722e35d59827724d80",
+    "worker_sha256": "95e020030598915107498ab1c080d6c7bb84433144acdce99b5f69417d713dba",
+    "worker_path": "tools/r61_fresh_cohort_worker.py"
   },
   "supervisor_runtime": {
     "python_executable": "/Users/erik/.local/bin/python3.11",
@@ -43,25 +45,28 @@
       "0f109814091aa6da54f4278e7683a8c82338dd93"
     ],
     "upstream_candidate_review": "accepted",
-    "ashlar_candidate_commit": "68191905f75631d7f0059b6b514e45ced569acdb",
+    "ashlar_candidate_commit": "6a008d1cdaf0e6b82e63bc11ebc52c3a59002aab",
     "truss_adapter_profile": "ashlar-truss-current-catalog-evidence/0.8-fresh-baseline",
     "bun_executable": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
     "bun_sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
     "postgresql_18_runtime": "/private/tmp/ashlar-r61-runtime-68191905/lib/python3.12/site-packages/pgserver/pginstall",
     "postgresql_18_runtime_manifest": "/private/tmp/ashlar-r61-runtime-68191905/r61-postgres-runtime-manifest-seed-copy.json",
     "postgresql_18_runtime_manifest_sha256": "056f3da9dab9df3bea1b4364946efb5c67ea16b92b98fbb6757bbf967b2793f4",
-    "ashlar_candidate_wheel": "/private/tmp/ashlar-68191905-local-wheel/umf_ashlar-0.1.0.dev1-py3-none-any.whl",
-    "ashlar_candidate_wheel_sha256": "03e548503b86a660b32b03ea5b478427a971afce672da2e5ba442843d9bc7517",
+    "ashlar_candidate_wheel": "/private/tmp/ashlar-6a008d1c-local-wheel/umf_ashlar-0.1.0.dev1-py3-none-any.whl",
+    "ashlar_candidate_wheel_sha256": "b2f31bc58c7dff226f87075c6a5398e0a2056d9bbbf97e8ef7e3a12de6f81433",
     "graphframes_runtime_manifest": "/private/tmp/ashlar-r61-graphframes-68191905/r61-graphframes-runtime-manifest.json",
     "graphframes_runtime_manifest_sha256": "d0e9c16d8a3c236bda3fd3c898e186d93e74c08a1dec5f92477418a9c2e068f5",
     "worker_path": "/private/tmp/ashlar-r61-fresh-cohort-plan/tools/r61_fresh_cohort_worker.py",
-    "worker_sha256": "bcba38e8b45e07ced5f2572ec058a520db7fc9bdcd76e73a889b07ea8b11630f",
+    "worker_sha256": "95e020030598915107498ab1c080d6c7bb84433144acdce99b5f69417d713dba",
     "umf_sdk_tag_commit": "e35cd92b45e16816be2bdbf28e83ef9c53ac99a2",
     "truss_source_custody_profile": "ashlar-truss-053-fresh-baseline-source-custody/0.1",
     "delta_installation_profile": "ashlar-local-current-installation-profile/0.5",
     "bun_version": "1.4.3",
     "postgresql_18_initdb_sha256": "e5793da2ccfef3a99a19e689e47e02b0688232fd52f149da4d3741ebeff3a5d0",
-    "postgresql_18_pg_controldata_sha256": "9d4cff3fd9c003b471a767b1985cf1d1c46414b53486dd16934434c6e34c5d8e"
+    "postgresql_18_pg_controldata_sha256": "9d4cff3fd9c003b471a767b1985cf1d1c46414b53486dd16934434c6e34c5d8e",
+    "ashlar_candidate_module_sha256": {
+      "ashlar_host/truss_note_publication.py": "4c22e5b06a9938bdc068d38254a94d85ca6166ea9d8c4c35f796a3798537f47c"
+    }
   },
   "fresh_local_state": {
     "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8",
