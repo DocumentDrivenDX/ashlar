@@ -1,6 +1,6 @@
 {
   "packet": "ashlar-r61-fresh-truss053-umf102",
-  "status": "attempt4-bound-for-review-pg18-no-sync-bootstrap-before-public-truss-open",
+  "status": "attempt4-bound-with-observed-post-bootstrap-fsync-check",
   "source": {
     "repository": "ashlar",
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
@@ -8,7 +8,7 @@
     "runner_path": "tools/r61_fresh_cohort_runner.py",
     "runner_sha256": "0b318102e7c8d5de3b6c15f0f003d666d101d0c9f8b9f991601b41fbd40b7eb9",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
-    "setup_stage_sha256": "b56308ba2eb75e104e3a0be5022d341c3ea043859ffc0a0bc1124c185c44d975",
+    "setup_stage_sha256": "7fd393739cac1b88e152a8c2067af8c9718f6ff2761e9ad46e51356a15632133",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
     "supervisor_sha256": "0d7e6a9fa4cdae47915f213ab5135b50cb7a08406e2085e68947b857700b169a"
   },
