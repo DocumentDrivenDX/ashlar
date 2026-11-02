@@ -164,6 +164,31 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         self.assertEqual(recovery["jobs"]["initializer"]["run_now_state"],
                          "terminal_success")
 
+    def test_phase_jobs_reuse_role_timeout_but_get_distinct_job_identity(self):
+        api = _LostRunNowAPI()
+        config = {"trial_id": "a1-phases", "expected_principal": "owner@example.com",
+            "publisher": {"timeout_seconds": 120}}
+        task_payload = {"task": {"task_key": "publisher", "depends_on": [],
+            "timeout_seconds": 120, "max_retries": 0, "retry_on_timeout": False,
+            "disable_auto_optimization": True,
+            "notebook_task": {"notebook_path": "/Workspace/publisher",
+                              "base_parameters": {"task_parameters_json": "{}"}},
+            "environment_key": "publisher_env"},
+            "environment": {"environment_key": "publisher_env",
+                            "spec": {"environment_version": "1", "dependencies": ["/Volumes/x.whl"]}}}
+        recovery = {"jobs": {}, "known_run_ids": {}}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "private"
+            root.mkdir(mode=0o700); os.chmod(root, 0o700)
+            _run_stage(api, config, "a0-publisher", task_payload,
+                {"task_parameters_json": "{}"}, time.monotonic() + 10,
+                cleanup_deadline=time.monotonic() + 15,
+                recovery_state=recovery, recovery_path=root / "recovery.json",
+                config_key="publisher")
+        self.assertEqual(api.settings["name"], "ashlar-a1-a1-phases-a0-publisher")
+        self.assertEqual(api.settings["timeout_seconds"], 120)
+        self.assertEqual(api.run_now_count, 1)
+
     def test_unseen_lost_run_now_is_durably_marked_unknown_without_resubmit(self):
         api = _LostRunNowAPI(visible=False)
         config = {"trial_id": "a1-unknown", "expected_principal": "owner@example.com",

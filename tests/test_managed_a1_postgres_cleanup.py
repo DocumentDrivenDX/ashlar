@@ -5,15 +5,37 @@ from pathlib import Path
 import signal
 import tempfile
 import time
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
 from ashlar_host.managed_a1_postgres_cleanup import (
-    ManagedA1PostgresCleanupError, cleanup_owned_postgres,
+    ManagedA1PostgresCleanupError, _process_command, cleanup_owned_postgres,
 )
 
 
 class ManagedA1PostgresCleanupTests(unittest.TestCase):
+    def test_standalone_postgres_uses_exact_binary_and_private_pgdata_environment(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            pgdata = root / "pgdata-A"
+            pgdata.mkdir(mode=0o700)
+            postgres = root / "postgres"
+            postgres.write_text("pinned PostgreSQL executable")
+            outputs = iter((
+                SimpleNamespace(returncode=0, stdout="postgres --single\n"),
+                SimpleNamespace(returncode=0,
+                    stdout=f"postgres --single TOKEN=must-not-be-returned PGDATA={pgdata}\n"),
+            ))
+            with patch("ashlar_host.managed_a1_postgres_cleanup.subprocess.run",
+                       side_effect=lambda *args, **kwargs: next(outputs)), \
+                 patch("ashlar_host.managed_a1_postgres_cleanup._process_executable",
+                       return_value=postgres):
+                command = _process_command(42, pgdata=pgdata,
+                    standalone=True, postgres_path=postgres)
+            self.assertEqual(command, "postgres --single")
+            self.assertNotIn("TOKEN", command)
+
     def make_pgdata(self, root, pid):
         pgdata = root / "pgdata-A"
         pgdata.mkdir(mode=0o700)
@@ -34,8 +56,10 @@ class ManagedA1PostgresCleanupTests(unittest.TestCase):
             pg_ctl = root / "pg_ctl"
             pg_ctl.write_text("pinned tool")
             control_tool = root / "pg_controldata"
+            postgres_tool = root / "postgres"
             pg_ctl_lock = {"path": str(pg_ctl), "sha256": "fixed", "version": "18.6",
-                "tools": {"pg_controldata": {"path": str(control_tool)}}}
+                "tools": {"pg_controldata": {"path": str(control_tool)},
+                          "postgres": {"path": str(postgres_tool)}}}
             signal_calls = []
 
             def signal_verified(pid, sig):
@@ -67,8 +91,10 @@ class ManagedA1PostgresCleanupTests(unittest.TestCase):
             pg_ctl = root / "pg_ctl"
             pg_ctl.write_text("pinned tool")
             control_tool = root / "pg_controldata"
+            postgres_tool = root / "postgres"
             pg_ctl_lock = {"path": str(pg_ctl), "sha256": "fixed", "version": "18.6",
-                "tools": {"pg_controldata": {"path": str(control_tool)}}}
+                "tools": {"pg_controldata": {"path": str(control_tool)},
+                          "postgres": {"path": str(postgres_tool)}}}
             with patch("ashlar_host.managed_a1_postgres_cleanup.inspect_pg_control",
                        return_value={"pg_version": "18"}), \
                  patch("ashlar_host.managed_a1_postgres_cleanup.inspect_pg_ctl",

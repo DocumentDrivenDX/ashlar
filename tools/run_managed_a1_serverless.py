@@ -214,7 +214,7 @@ def build_payload(config: object) -> tuple[dict, dict]:
             and cost["estimated_total_dbu"] + cost["cleanup_reserve_dbu"]
                 <= cost["authorized_total_dbu"]
             and cost["includes_startup_driver_verifier_handoff_and_cleanup"] is True,
-            "DBU bound must include all three runs, holder handoff, and cleanup")
+            "DBU bound must include the five sequential runs, holder handoffs, and cleanup")
     expected_usd = cost["estimated_total_usd"]
     worst_case_usd = cost["authorized_total_dbu"] * SERVERLESS_USD_PER_DBUH \
         + cost["cleanup_reserve_usd"]
@@ -285,13 +285,14 @@ def build_payload(config: object) -> tuple[dict, dict]:
             "dependencies": [item["path"] for item in task["dependencies"]],
         }}
         stage_payloads[key] = {"task": task_payload, "environment": env}
-    paid_seconds = sum(config[k]["timeout_seconds"]
-                       for k in ("initializer", "publisher", "verifier"))
+    paid_seconds = (config["initializer"]["timeout_seconds"]
+                    + 2 * (config["publisher"]["timeout_seconds"]
+                           + config["verifier"]["timeout_seconds"]))
     require(paid_seconds <= MAX_PAID_TASK_SECONDS
             and cost["authorized_total_dbu"] >= paid_seconds * WORST_SERVERLESS_DBUH / 3600
             and paid_seconds + MAX_SOURCE_BOOTSTRAP_SECONDS + 45
             <= wall - cleanup_seconds,
-            "540s task budget, 240s source bootstrap, and handoffs must fit before cleanup reserve")
+            "Two publication cycles, <=540s paid tasks, 240s source bootstrap, and handoffs must fit before cleanup reserve")
     return stage_payloads, config
 
 
@@ -451,6 +452,14 @@ class SourceHolderIPC:
         self.owner.channel.settimeout(operation_timeout)
         return self.owner.acknowledge_once(store, attempt_directory=attempt_directory)
 
+    def advance_after_a0_ack(self, settlement, deadline):
+        remaining = deadline - time.monotonic()
+        require(remaining > POST_ACK_CLEANUP_RESERVE_SECONDS,
+                "Deadline lacks A0 reconciliation, A1 source transition and cleanup reserve")
+        self.owner.channel.settimeout(min(self.owner.operation_timeout_seconds,
+            remaining - POST_ACK_CLEANUP_RESERVE_SECONDS))
+        return self.owner.advance_after_a0_ack(settlement, deadline=deadline)
+
     def close(self, deadline, *, orderly):
         del deadline
         if orderly:
@@ -512,7 +521,8 @@ def _terminal(state: dict) -> bool:
     return life in {"TERMINATED", "SKIPPED", "INTERNAL_ERROR"}
 
 
-def _job_settings(config: dict, stage: str, task_payload: dict) -> dict:
+def _job_settings(config: dict, stage: str, task_payload: dict, *, config_key=None) -> dict:
+    config_key = stage if config_key is None else config_key
     return {
         "name": "ashlar-a1-" + config["trial_id"] + "-" + stage,
         "run_as": {"user_name": config["expected_principal"]},
@@ -521,7 +531,7 @@ def _job_settings(config: dict, stage: str, task_payload: dict) -> dict:
         "max_concurrent_runs": 1,
         "max_retries": 0,
         "retry_on_timeout": False,
-        "timeout_seconds": config[stage]["timeout_seconds"],
+        "timeout_seconds": config[config_key]["timeout_seconds"],
         "tasks": [task_payload["task"]],
         "environments": [task_payload["environment"]],
     }
@@ -741,7 +751,8 @@ def _validate_task_runtime(value: dict, expected: dict, stage: str) -> None:
 
 def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict,
                parameters: dict, deadline: float, *, cleanup_deadline=None,
-               on_poll=None, recovery_state=None, recovery_path=None) -> tuple[int, int, dict, dict]:
+               on_poll=None, recovery_state=None, recovery_path=None,
+               config_key=None) -> tuple[int, int, dict, dict]:
     cleanup_deadline = deadline if cleanup_deadline is None else cleanup_deadline
     original_api_deadline = api.deadline
     require(time.monotonic() < deadline,
@@ -754,7 +765,8 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
     notebook_task["base_parameters"] = parameters
     task["notebook_task"] = notebook_task
     job_settings = _job_settings(config, stage,
-                                 {"task": task, "environment": stage_payload["environment"]})
+        {"task": task, "environment": stage_payload["environment"]},
+        config_key=config_key)
     job_id = None
     run_id = None
     run_attempted = False
@@ -823,7 +835,7 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
         task_run_id = run_id
         if task_rows:
             require(type(task_rows) is list and len(task_rows) == 1
-                    and task_rows[0].get("task_key") == stage
+                    and task_rows[0].get("task_key") == task["task_key"]
                     and type(task_rows[0].get("run_id")) is int,
                     f"{stage} terminal run omitted its single exact task identity")
             task_run_id = task_rows[0]["run_id"]

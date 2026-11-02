@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import fcntl
 import errno
+import ctypes
 import hashlib
 import os
 from pathlib import Path
@@ -113,24 +114,61 @@ def _read_pidfile(pgdata: Path, *, stable_seconds: float = 0.15) -> int | None:
     raise ManagedA1PostgresCleanupError("postmaster.pid did not stabilize for owned PGDATA")
 
 
-def _process_command(pid: int, *, pgdata: Path, standalone: bool) -> str:
+def _process_executable(pid: int) -> Path:
+    if sys.platform.startswith("linux"):
+        try:
+            return Path(os.readlink(f"/proc/{pid}/exe")).resolve(strict=True)
+        except OSError as error:
+            raise ManagedA1PostgresCleanupError("PostgreSQL executable identity is unreadable") from error
+    if sys.platform == "darwin":
+        try:
+            libproc = ctypes.CDLL("/usr/lib/libproc.dylib")
+            buffer = ctypes.create_string_buffer(4096)
+            libproc.proc_pidpath.argtypes = (ctypes.c_int, ctypes.c_void_p, ctypes.c_uint32)
+            libproc.proc_pidpath.restype = ctypes.c_int
+            size = libproc.proc_pidpath(pid, buffer, len(buffer))
+            if size <= 0 or size >= len(buffer):
+                raise OSError("proc_pidpath refused")
+            return Path(os.fsdecode(buffer.raw[:size])).resolve(strict=True)
+        except (OSError, AttributeError) as error:
+            raise ManagedA1PostgresCleanupError("PostgreSQL executable identity is unreadable") from error
+    raise ManagedA1PostgresCleanupError("Supported process executable inspection is unavailable")
+
+
+def _process_command(pid: int, *, pgdata: Path, standalone: bool,
+                     postgres_path: Path) -> str:
     try:
-        result = subprocess.run(["ps", "-p", str(pid), "-o", "comm=", "-o", "command="],
+        result = subprocess.run(["ps", "-p", str(pid), "-o", "command="],
+            stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=3, check=False)
+        environment = subprocess.run(["ps", "eww", "-p", str(pid), "-o", "command="],
             stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=3, check=False)
     except (OSError, subprocess.TimeoutExpired) as error:
         raise ManagedA1PostgresCleanupError("PostgreSQL process identity probe failed") from error
     line = result.stdout.strip()
-    if result.returncode != 0 or not line:
+    environment_line = environment.stdout.strip()
+    if (result.returncode != 0 or environment.returncode != 0 or not line
+            or not environment_line):
         raise ManagedA1PostgresCleanupError("postmaster.pid process is not live/readable")
     try:
         fields = shlex.split(line)
     except ValueError as error:
         raise ManagedA1PostgresCleanupError("PostgreSQL process argv is malformed") from error
-    if not fields or Path(fields[0]).name != "postgres":
-        raise ManagedA1PostgresCleanupError("PID does not identify PostgreSQL")
-    bound = any((fields[index] == "-D" and index + 1 < len(fields)
+    if (not fields or _process_executable(pid) != postgres_path
+            or not postgres_path.is_absolute() or postgres_path.is_symlink()
+            or not postgres_path.is_file()):
+        raise ManagedA1PostgresCleanupError("PID executable differs from the pinned PostgreSQL binary")
+    argv_bound = any((fields[index] == "-D" and index + 1 < len(fields)
                  and Path(fields[index + 1]).resolve() == pgdata.resolve())
                 or fields[index] == f"-D{pgdata}" for index in range(1, len(fields)))
+    try:
+        environment_fields = shlex.split(environment_line)
+    except ValueError as error:
+        raise ManagedA1PostgresCleanupError("PostgreSQL process environment is malformed") from error
+    # ps eww includes the command followed by its environment. Only inspect the
+    # PGDATA token and never retain or report the other environment values.
+    env_pgdata = next((item.split("=", 1)[1] for item in environment_fields
+                       if item.startswith("PGDATA=")), None)
+    bound = argv_bound or env_pgdata == str(pgdata)
     single = "--single" in fields or "--boot" in fields
     if not bound or single != standalone:
         raise ManagedA1PostgresCleanupError("PostgreSQL process argv does not prove exact PGDATA/mode")
@@ -194,7 +232,9 @@ def cleanup_owned_postgres(pgdata: Path, pg_ctl_lock: dict, *, deadline: float,
         if time.monotonic() + 2 >= deadline:
             raise TimeoutError("Insufficient deadline for owned PostgreSQL stop")
         process_pid = abs(signed_pid)
-        _process_command(process_pid, pgdata=pgdata, standalone=signed_pid < 0)
+        postgres_path = Path(pg_ctl_lock["tools"]["postgres"]["path"])
+        _process_command(process_pid, pgdata=pgdata, standalone=signed_pid < 0,
+                         postgres_path=postgres_path)
         if signed_pid < 0:
             # Negative PID is PostgreSQL's standalone/initdb state marker.
             # Never pass a negative value to kill/killpg; only signal the
