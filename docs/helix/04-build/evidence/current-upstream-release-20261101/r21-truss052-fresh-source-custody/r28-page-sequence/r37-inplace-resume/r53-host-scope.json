@@ -127,7 +127,7 @@
     "source_path": "docs/helix/04-build/evidence/current-upstream-release-20261031/g03-sdk010-txn1-weft056-packet/r4-sdk010-initialize-only/inputs/typed-graph-model.umf.json",
     "source_sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b"
   },
-  "native_dispatch": false,
+  "native_dispatch": true,
   "open_questions": [],
   "paths": {
     "data_directory": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
@@ -459,7 +459,7 @@
     "writer_login_role": "ashlar_local_dev_writer_r21_20261101",
     "writer_module_role": "ashlar_local_dev_modwrite_r21_20261101"
   },
-  "status": "pending_sol_review",
+  "status": "sol_reviewed_and_dispatchable",
   "supervisor": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r37_truss052_supervisor.py",
     "profile": "ashlar-r37-truss052-inplace-resume-supervisor/0.1",
