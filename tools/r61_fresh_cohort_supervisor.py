@@ -139,7 +139,7 @@ def _postmaster_pid(pgdata: Path) -> int | None:
             pid = int(lines[0]) if lines else 0
         except ValueError:
             pid = 0
-        if pid > 1 and len(lines) >= 2:
+        if abs(pid) > 1 and len(lines) >= 2:
             stable = (after.st_ino, after.st_size, after.st_mtime_ns, pid, lines[1])
             if stable == previous:
                 return pid
@@ -150,7 +150,7 @@ def _postmaster_pid(pgdata: Path) -> int | None:
     raise RuntimeError(f"PostgreSQL pidfile did not reach a stable owned PID: {last_value!r}")
 
 
-def _group_snapshot(psutil, pgid: int, pgdata: Path) -> tuple[int, list[int], list[int]]:
+def _group_snapshot(psutil, pgid: int, pgdata: Path) -> tuple[int, list[int], list[int], bool]:
     rss = 0
     group_pids: set[int] = set()
     for pid in _pgids(psutil):
@@ -162,17 +162,11 @@ def _group_snapshot(psutil, pgid: int, pgdata: Path) -> tuple[int, list[int], li
         except (PermissionError, psutil.AccessDenied) as exc:
             raise RuntimeError("process-group census denied; refusing incomplete RSS") from exc
     owned_pg_pids: set[int] = set()
-    postmaster_pid = _postmaster_pid(pgdata)
-    if postmaster_pid is not None:
+    signed_pg_pid = _postmaster_pid(pgdata)
+    standalone_backend = signed_pg_pid is not None and signed_pg_pid < 0
+    if signed_pg_pid is not None:
         try:
-            postmaster = psutil.Process(postmaster_pid)
-            command = postmaster.cmdline()
-            has_data_directory = any(
-                argument == str(pgdata) and index > 0 and command[index - 1] == "-D"
-                for index, argument in enumerate(command)
-            ) or any(argument == f"-D{pgdata}" for argument in command)
-            if Path(postmaster.name()).name != "postgres" or not has_data_directory:
-                raise RuntimeError("stable PostgreSQL PID does not identify the exact owned PGDATA")
+            postmaster = _owned_postgres_process(psutil, signed_pg_pid, pgdata)
             owned_pg_pids.add(postmaster.pid)
             owned_pg_pids.update(child.pid for child in postmaster.children(recursive=True))
         except psutil.NoSuchProcess:
@@ -187,7 +181,26 @@ def _group_snapshot(psutil, pgid: int, pgdata: Path) -> tuple[int, list[int], li
             continue
         except (psutil.AccessDenied, PermissionError) as exc:
             raise RuntimeError("owned process RSS inaccessible; refusing incomplete bound") from exc
-    return rss, sorted(group_pids), sorted(owned_pg_pids)
+    return rss, sorted(group_pids), sorted(owned_pg_pids), standalone_backend
+
+
+def _owned_postgres_process(psutil, signed_pid: int, pgdata: Path):
+    """Resolve only a postgres process whose argv/environment proves its PGDATA/mode."""
+    process = psutil.Process(abs(signed_pid))
+    command = process.cmdline()
+    argv_data_directory = any(
+        argument == str(pgdata) and index > 0 and command[index - 1] == "-D"
+        for index, argument in enumerate(command)
+    ) or any(argument == f"-D{pgdata}" for argument in command)
+    environment = process.environ()
+    environment_data_directory = environment.get("PGDATA") == str(pgdata)
+    standalone_backend = signed_pid < 0
+    standalone_mode = any(argument in ("--single", "--boot") for argument in command)
+    if (Path(process.name()).name != "postgres"
+            or not (argv_data_directory or environment_data_directory)
+            or standalone_mode != standalone_backend):
+        raise RuntimeError("stable PostgreSQL PID does not identify the exact owned PGDATA/mode")
+    return process
 
 
 def _group_exists(pgid: int) -> bool:
@@ -298,7 +311,8 @@ def _write_reserved_receipt(fd: int, path: Path, result: dict) -> None:
             os.close(fallback_fd)
 
 
-def _close_owned_postgres(scope: dict, artifacts: dict, deadline: float) -> dict:
+def _close_owned_postgres(scope: dict, artifacts: dict, deadline: float,
+                          psutil, worker_pgid: int) -> dict:
     """Stop only the PGDATA pinned to this run, then verify pid/socket absence."""
     pgdata = Path(scope["fresh_local_state"]["postgres_data"])
     base = Path("/private/tmp" if sys.platform == "darwin" else "/tmp")
@@ -309,6 +323,7 @@ def _close_owned_postgres(scope: dict, artifacts: dict, deadline: float) -> dict
     lease_file = Path(str(pgdata) + ".truss-runtime.lock")
     stop_attempted = False
     stop_returncode = None
+    standalone_backend = False
     if pidfile.exists() or pidfile.is_symlink():
         info = pidfile.lstat()
         if (not pidfile.is_file() or pidfile.is_symlink() or info.st_uid != os.getuid()
@@ -317,22 +332,43 @@ def _close_owned_postgres(scope: dict, artifacts: dict, deadline: float) -> dict
         lines = pidfile.read_text().splitlines()
         if len(lines) < 2 or Path(lines[1]).resolve() != pgdata.resolve():
             raise RuntimeError("refusing to stop PostgreSQL with a foreign postmaster.pid")
+        try:
+            signed_pid = int(lines[0])
+        except ValueError as exc:
+            raise RuntimeError("refusing cleanup with invalid PostgreSQL pidfile") from exc
+        if abs(signed_pid) <= 1:
+            raise RuntimeError("refusing cleanup with unsafe PostgreSQL pidfile")
         if time.monotonic() + PG_STOP_SECONDS + FINAL_RESERVE_SECONDS >= deadline:
             raise TimeoutError("insufficient supervisor deadline reserved for PostgreSQL close")
-        runtime = Path(artifacts["postgresql_18_runtime"])
-        pg_ctl = runtime / "bin" / "pg_ctl" if runtime.is_dir() else runtime
-        if not pg_ctl.is_file() or not os.access(pg_ctl, os.X_OK):
-            raise RuntimeError("pinned PostgreSQL 18 pg_ctl unavailable for owned cleanup")
         stop_attempted = True
-        try:
-            stopped = subprocess.run([str(pg_ctl), "-D", str(pgdata), "-m", "fast", "-w",
-                                      "-t", str(PG_STOP_SECONDS), "stop"],
-                                     stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
-                                     stderr=subprocess.DEVNULL, cwd=str(pgdata.parent),
-                                     timeout=PG_STOP_SECONDS, check=False)
-            stop_returncode = stopped.returncode
-        except subprocess.TimeoutExpired:
-            stop_returncode = "timeout"
+        if signed_pid < 0:
+            standalone_backend = True
+            process = _owned_postgres_process(psutil, signed_pid, pgdata)
+            if os.getpgid(process.pid) != worker_pgid:
+                raise RuntimeError("standalone PostgreSQL backend escaped the owned worker process group")
+            # pg_ctl does not stop the single-user backend represented by a
+            # negative pidfile value. Signal only the verified positive PID.
+            process.send_signal(signal.SIGTERM)
+            stop_returncode = "standalone_sigterm_sent"
+            stop_deadline = min(deadline - FINAL_RESERVE_SECONDS,
+                                time.monotonic() + PG_STOP_SECONDS)
+            while time.monotonic() < stop_deadline and process.is_running():
+                time.sleep(min(RSS_POLL, max(0, stop_deadline - time.monotonic())))
+        else:
+            process = _owned_postgres_process(psutil, signed_pid, pgdata)
+            runtime = Path(artifacts["postgresql_18_runtime"])
+            pg_ctl = runtime / "bin" / "pg_ctl" if runtime.is_dir() else runtime
+            if not pg_ctl.is_file() or not os.access(pg_ctl, os.X_OK):
+                raise RuntimeError("pinned PostgreSQL 18 pg_ctl unavailable for owned cleanup")
+            try:
+                stopped = subprocess.run([str(pg_ctl), "-D", str(pgdata), "-m", "fast", "-w",
+                                          "-t", str(PG_STOP_SECONDS), "stop"],
+                                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                                         stderr=subprocess.DEVNULL, cwd=str(pgdata.parent),
+                                         timeout=PG_STOP_SECONDS, check=False)
+                stop_returncode = stopped.returncode
+            except subprocess.TimeoutExpired:
+                stop_returncode = "timeout"
     # A nonzero pg_ctl may mean another owner already stopped it; only the
     # exact post-state determines closure.
     pid_absent = not pidfile.exists() and not pidfile.is_symlink()
@@ -343,7 +379,8 @@ def _close_owned_postgres(scope: dict, artifacts: dict, deadline: float) -> dict
         if (not socket_dir.is_dir() or socket_dir.is_symlink()
                 or info.st_uid != os.getuid() or info.st_mode & 0o077):
             raise RuntimeError("Truss socket directory owner/mode changed during run")
-    return {"stop_attempted": stop_attempted, "pg_ctl_returncode": stop_returncode,
+    return {"stop_attempted": stop_attempted, "standalone_backend_detected": standalone_backend,
+            "pg_ctl_returncode": stop_returncode,
             "postmaster_pid_absent": pid_absent, "socket_absent": socket_absent,
             "runtime_lease": lease,
             "postgres_closed": pid_absent and socket_absent and (not lease["present"] or lease["unlocked"])}
@@ -598,8 +635,10 @@ def run_once(dispatch_path: Path) -> int:
             assert process.stdout is not None
             selector.register(process.stdout, selectors.EVENT_READ)
             while process.poll() is None or selector.get_map():
-                rss, group_pids, pg_pids = _group_snapshot(
+                rss, group_pids, pg_pids, standalone_backend = _group_snapshot(
                     psutil, process.pid, Path(scope["fresh_local_state"]["postgres_data"]))
+                result["standalone_postgres_backend_seen"] = (
+                    result.get("standalone_postgres_backend_seen", False) or standalone_backend)
                 peak_rss = max(peak_rss, rss)
                 if rss >= peak_rss:
                     result["peak_process_group_pids"] = group_pids[:256]
@@ -639,7 +678,7 @@ def run_once(dispatch_path: Path) -> int:
             except BaseException as error:
                 cleanup = {"group_empty": False, "cleanup_error": f"{type(error).__name__}: {error}"}
             try:
-                pg_cleanup = _close_owned_postgres(scope, artifacts, deadline)
+                pg_cleanup = _close_owned_postgres(scope, artifacts, deadline, psutil, process.pid)
             except BaseException as error:
                 pg_cleanup = {"postgres_closed": False,
                               "cleanup_error": f"{type(error).__name__}: {error}"}
@@ -710,7 +749,8 @@ def run_once(dispatch_path: Path) -> int:
                 result["cleanup"] = {"group_empty": False,
                                       "cleanup_error": f"{type(cleanup_error).__name__}: {cleanup_error}"}
             try:
-                result["postgres_cleanup"] = _close_owned_postgres(scope, artifacts, deadline)
+                result["postgres_cleanup"] = _close_owned_postgres(
+                    scope, artifacts, deadline, psutil, process.pid)
             except BaseException as cleanup_error:
                 result["postgres_cleanup"] = {"postgres_closed": False,
                                               "cleanup_error": f"{type(cleanup_error).__name__}: {cleanup_error}"}
