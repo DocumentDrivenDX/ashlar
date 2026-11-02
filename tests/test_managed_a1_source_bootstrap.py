@@ -6,7 +6,7 @@ from pathlib import Path
 from ashlar_host.managed_a1_source_bootstrap import (
     MODEL_ID, MODEL_RELATIVE_PATH, MODEL_REVISION, MODEL_SHA256,
     candidate_r04_schedule, candidate_seed_group, public_group_seed,
-    validate_private_bootstrap_config,
+    validate_catalog_only_page, validate_private_bootstrap_config,
 )
 from ashlar_host.r04_schedule import SLOT_ORDER, STAGES
 
@@ -107,6 +107,19 @@ class ManagedA1SourceBootstrapTests(unittest.TestCase):
             self.assertEqual(len(selected.edges), 3)
             self.assertIn(("person_key", "string", "a-ada"), selected.records[0].values)
             self.assertIn(("place_name", "string", "New York"), selected.records[2].values)
+
+    def test_public_catalog_page_is_a_transaction_without_graph_effects(self):
+        page = {"interfaceVersion": "truss-native-feed/0.1", "writerXid": "758",
+            "revisions": [{"revision": "1"}],
+            "catalogPrerequisites": [{}, {}], "changes": [], "sources": [],
+            "reservations": []}
+        raw = b'{ "writerXid": "758", "interfaceVersion": "truss-native-feed/0.1", "revisions": [{"revision":"1"}], "catalogPrerequisites": [{}, {}], "changes": [], "sources": [], "reservations": [] }'
+        self.assertEqual(validate_catalog_only_page(raw, "758"), page)
+        page["changes"] = [{"operation": "create"}]
+        with self.assertRaises(ValueError):
+            validate_catalog_only_page(json.dumps(page).encode(), "758")
+        with self.assertRaises(ValueError):
+            validate_catalog_only_page(raw.replace(b'"758"', b'"759"', 1), "758")
 
 
 if __name__ == "__main__":

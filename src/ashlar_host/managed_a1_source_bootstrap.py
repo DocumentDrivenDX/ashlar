@@ -18,7 +18,7 @@ from .r04_schedule import PROFILE as R04_PROFILE, R04Schedule, SLOT_ORDER, STAGE
 MODEL_ID = "ashlar-local-dev-typed-graph-r21-20261101"
 MODEL_REVISION = "r1"
 MODEL_SHA256 = "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2"
-PUBLIC_SETUP_HELPER_SHA256 = "4e3390770c04e8f1a0f33b67e212359df347fd4c14df20f5c1098262337cf85e"
+PUBLIC_SETUP_HELPER_SHA256 = "e8898eb892e42f8826cd334b8aa823d95604f432287c713cec20e06748367b0a"
 MODEL_RELATIVE_PATH = ("docs/helix/04-build/evidence/current-upstream-release-20261101/"
                        "r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json")
 
@@ -112,6 +112,36 @@ def decode_canonical_json(raw: bytes, label: str):
     value = json.loads(raw.decode("utf-8"), object_pairs_hook=pairs,
         parse_constant=lambda _: (_ for _ in ()).throw(ValueError()))
     _need(canonical_json(value) == raw, f"Canonical original {label} bytes required")
+    return value
+
+
+def decode_public_json(raw: bytes, label: str):
+    """Decode exact public Truss JSON without imposing Ashlar's byte encoding."""
+    def pairs(items):
+        result = {}
+        for key, value in items:
+            if key in result:
+                raise ValueError(f"Duplicate {label} JSON member")
+            result[key] = value
+        return result
+    value = json.loads(raw.decode("utf-8"), object_pairs_hook=pairs,
+        parse_constant=lambda _: (_ for _ in ()).throw(ValueError()))
+    _need(type(value) is dict, f"Public {label} JSON object required")
+    return value
+
+
+def validate_catalog_only_page(page_bytes: bytes, writer_xid: str):
+    """Admit the first public acceptance transaction as zero graph effects."""
+    value = decode_public_json(page_bytes, "catalog acceptance page")
+    _need(type(writer_xid) is str and writer_xid.isdecimal()
+          and value.get("interfaceVersion") == "truss-native-feed/0.1"
+          and value.get("writerXid") == writer_xid
+          and type(value.get("revisions")) is list and len(value["revisions"]) == 1
+          and type(value.get("catalogPrerequisites")) is list
+          and len(value["catalogPrerequisites"]) == 2
+          and value.get("changes") == [] and value.get("sources") == []
+          and value.get("reservations") == [],
+          "Exact catalog-only public transaction with no graph effects required")
     return value
 
 
@@ -413,21 +443,30 @@ def bootstrap_from_private_config(config_bytes: bytes):
             cursor_page = read_page(selection["ordinary_factory"],
                 config["source_ids"][source]["consumer_id"], maximum_bytes=1048576)
             try:
-                prior = decode_canonical_json(cursor_page.prior.content,
+                prior = decode_public_json(cursor_page.prior.content,
                                               f"{source} genesis cursor")
-                following = decode_canonical_json(cursor_page.next.content,
+                following = decode_public_json(cursor_page.next.content,
                                                   f"{source} next genesis cursor")
             except (UnicodeError, ValueError) as error:
                 raise ValueError("Public registered-consumer genesis cursor JSON required") from error
-            _need(cursor_page.outcome == "empty_interval"
-                  and cursor_page.prior.content == cursor_page.next.content
-                  and type(prior) is dict and prior == following
+            _need(type(prior) is dict
                   and prior.get("profile") == "truss-caller-asserted-feed/0.1"
                   and prior.get("installationId") == setups[source]["installation"]["installation_id"]
                   and prior.get("consumerId") == selection["registration"].consumer_id
                   and prior.get("registrationId") == selection["registration"].registration_id
                   and prior.get("nextXid") == "0",
                   f"Actual public {source} registered-consumer genesis cursor required")
+            _need(cursor_page.outcome == "transaction"
+                  and type(following) is dict
+                  and all(following.get(key) == prior.get(key) for key in (
+                      "profile", "installationId", "sourceEpoch", "consumerId",
+                      "registrationId"))
+                  and type(following.get("nextXid")) is str
+                  and following["nextXid"].isdecimal()
+                  and str(int(following["nextXid"])) == following["nextXid"]
+                  and int(following["nextXid"]) > 0,
+                  f"Actual committed {source} catalog acceptance transaction required")
+            validate_catalog_only_page(cursor_page.content, cursor_page.writer_xid)
             selected_cursors[source] = {"epoch": prior.get("sourceEpoch"),
                 "cursor_bytes": cursor_page.prior.content,
                 "consumer_id": prior.get("consumerId"),
@@ -482,20 +521,6 @@ def bootstrap_from_private_config(config_bytes: bytes):
             stream.write(canonical_json(group_config))
             stream.flush()
             os.fsync(fd := stream.fileno())
-        result_path = root / "a1-public-result.json"
-        freeze_path = root / "a1-truss-request-freeze.json"
-        run_create_truss_record_group_command(group_path, result_path, require_fresh=True,
-            freeze_request_path=freeze_path, schedule_sha256=schedule.sha256, slot="A1")
-        page = read_page(selections["A"]["ordinary_factory"], a_ids["consumer_id"],
-                         maximum_bytes=1048576)
-        _need(page.outcome == "transaction" and page.registration_id == bindings["A"]["registration_id"],
-              "Exact public A1 transaction page and consumer registration required")
-        batch = native_feed_batch(page.content, sha256=page.sha256,
-            prior=page.prior.content, next=page.next.content, feed=a_ids["feed"])
-        parsed_batch = typed_scalar_entity_changes(page.content, sha256=page.sha256,
-            prior=page.prior.content, next=page.next.content, feed=a_ids["feed"])
-        _need(len(parsed_batch.changes) == 7 and batch.epoch == bindings["A"]["epoch"],
-              "Exact public A1 seven-change typed feed page required")
         context = object()
         for source in ("A", "B"):
             bound = bindings[source]
@@ -508,5 +533,38 @@ def bootstrap_from_private_config(config_bytes: bytes):
         holder = Truss053A1SourceHolder(schedule=schedule,
             source_selections={source: selections[source] for source in ("A", "B")},
             context=context)
+        holder.phase = "a0"
+
+        def apply_a1_after_a0(checkpoint_bytes):
+            current_a = read_page(selections["A"].connection_factory,
+                a_ids["consumer_id"], maximum_bytes=1048576)
+            current_b = read_page(selections["B"].connection_factory,
+                b_ids["consumer_id"], maximum_bytes=1048576)
+            _need(current_a.prior.content == checkpoint_bytes
+                  and current_a.outcome == "empty_interval"
+                  and current_b.prior.content == selected_cursors["B"]["cursor_bytes"],
+                  "A0 ACK checkpoint and untouched B genesis cursor must remain exact")
+            result_path = root / "a1-public-result.json"
+            freeze_path = root / "a1-truss-request-freeze.json"
+            run_create_truss_record_group_command(group_path, result_path,
+                require_fresh=True, freeze_request_path=freeze_path,
+                schedule_sha256=schedule.sha256, slot="A1")
+            page = read_page(selections["A"].connection_factory,
+                a_ids["consumer_id"], maximum_bytes=1048576)
+            _need(page.outcome == "transaction"
+                  and page.registration_id == bindings["A"]["registration_id"]
+                  and page.prior.content == checkpoint_bytes,
+                  "Exact public A1 transaction page must continue the matched A0 cursor")
+            batch = native_feed_batch(page.content, sha256=page.sha256,
+                prior=page.prior.content, next=page.next.content, feed=a_ids["feed"])
+            parsed_batch = typed_scalar_entity_changes(page.content, sha256=page.sha256,
+                prior=page.prior.content, next=page.next.content, feed=a_ids["feed"])
+            _need(len(parsed_batch.changes) == 7 and batch.epoch == bindings["A"]["epoch"],
+                  "Exact public A1 seven-change typed feed page required")
+            holder._a0_page_next = checkpoint_bytes
+            holder.genesis = None
+            holder.genesis_bytes = None
+
+        holder._advance_a1_callback = apply_a1_after_a0
         holder._bootstrap_runtimes = stack.pop_all()
         return holder

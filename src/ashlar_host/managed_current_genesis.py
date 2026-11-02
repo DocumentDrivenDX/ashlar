@@ -85,7 +85,8 @@ class TrussSourceGenesisProgress:
 
 def admit_truss_source_genesis_progress(*, feed, epoch, cursor_bytes,
         cursor_sha256, catalog_registration_id, catalog_registration_bytes,
-        consumer_id, consumer_registration_id, installation_id):
+        consumer_id, consumer_registration_id, installation_id,
+        expected_next_xid="0"):
     """Build the marker from separate selected identities and exact source bytes.
 
     The selected registration bytes are retained by the caller. This function
@@ -106,7 +107,9 @@ def admit_truss_source_genesis_progress(*, feed, epoch, cursor_bytes,
                 "registration_id": consumer_registration_id}
     cursor = validate_selected_truss_cursor(cursor_bytes,
         cursor_sha256=cursor_sha256, selected_identity=selected)
-    _require(cursor.next_xid == "0", "Selected Truss cursor must remain at genesis")
+    _require(type(expected_next_xid) is str and expected_next_xid.isdecimal()
+             and cursor.next_xid == expected_next_xid,
+             "Selected Truss cursor differs from the frozen source predecessor")
     return TrussSourceGenesisProgress(feed, epoch,
         base64.b64encode(cursor.original).decode("ascii"), cursor.sha256,
         catalog_registration_id, registration_sha, consumer_id,

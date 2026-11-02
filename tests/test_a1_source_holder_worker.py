@@ -22,6 +22,21 @@ class A1SourceHolderWorkerTests(unittest.TestCase):
             left.close()
             right.close()
 
+    def test_socketpair_round_trips_realistic_page_snapshot_frame(self):
+        left, right = socket.socketpair()
+        try:
+            # R61's observed catalog transaction is 31,938 bytes before the
+            # detached bundle adds accepted model/catalog evidence.
+            payload = {"type": "a1_genesis", "phase": "a1",
+                       "genesis_bytes_base64": "A" * 48_000}
+            sender = threading.Thread(target=send_frame, args=(left, payload))
+            sender.start()
+            self.assertEqual(receive_frame(right), payload)
+            sender.join()
+        finally:
+            left.close()
+            right.close()
+
     def test_noncanonical_or_duplicate_json_is_refused(self):
         for raw in (b'{"type":"renew", "type":"close"}', b'{"type": "renew"}'):
             left, right = socket.socketpair()

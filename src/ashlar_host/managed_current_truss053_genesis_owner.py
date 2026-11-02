@@ -136,7 +136,7 @@ class ManagedCurrentTruss053GenesisSourceOwner:
         self.schedule = schedule
         self.selections = dict(selections)
 
-    def _observe_source(self, source):
+    def _observe_source(self, source, *, expected_next_xid="0"):
         from .managed_current_genesis import admit_truss_source_genesis_progress
         from .managed_current_truss_cursor import validate_selected_truss_cursor
         from .truss_current_catalog import (
@@ -322,7 +322,8 @@ class ManagedCurrentTruss053GenesisSourceOwner:
         except ValueError as error:
             raise ManagedCurrentTruss053GenesisError(
                 "Public current source cursor differs from selected A/B genesis identity") from error
-        _need(cursor.next_xid == "0", "Both selected source cursors must remain at genesis")
+        _need(cursor.next_xid == expected_next_xid,
+              "Selected source cursor differs from the exact phase predecessor")
         progress = admit_truss_source_genesis_progress(
             feed=selection.feed, epoch=selection.epoch,
             cursor_bytes=page.prior.content,
@@ -331,7 +332,8 @@ class ManagedCurrentTruss053GenesisSourceOwner:
             catalog_registration_bytes=report.original_bytes,
             consumer_id=selection.consumer_id,
             consumer_registration_id=selection.consumer_registration_id,
-            installation_id=selection.installation_id)
+            installation_id=selection.installation_id,
+            expected_next_xid=cursor.next_xid)
 
         pin = self.schedule.document()["accepted_model_pins"][source]
         matching = [document for document in accepted_documents.values()
@@ -361,13 +363,19 @@ class ManagedCurrentTruss053GenesisSourceOwner:
             source, progress, report.original_bytes, view_bytes, accepted_documents,
             model_evidence, catalog_evidence, page, batch))
 
-    def admit_a1(self):
+    def admit_a1(self, *, expected_a_prior_cursor=None):
         """Read A/B evidence and return exact arguments for existing owners.
 
         The A page is semantically admitted against its original report/view
         before a driver can construct effects. No native or ACK action occurs.
         """
-        observations = {source: self._observe_source(source) for source in ("A", "B")}
+        if expected_a_prior_cursor is None:
+            expected_a_prior_cursor = "0"
+        _need(type(expected_a_prior_cursor) is str and expected_a_prior_cursor.isdecimal(),
+              "Exact canonical A1 predecessor position required")
+        observations = {"A": self._observe_source(
+            "A", expected_next_xid=expected_a_prior_cursor),
+            "B": self._observe_source("B", expected_next_xid="0")}
         _need(len({item.progress.feed for item in observations.values()}) == 2
               and len({item.progress.installation_id for item in observations.values()}) == 2
               and len({item.progress.catalog_registration_id for item in observations.values()}) == 2
