@@ -6,6 +6,7 @@ import json
 from .delta_custody import encoded
 from .truss_graph_admission import (
     PROFILE as SOURCE_PROFILE, TYPED_PROFILE, CURRENT_052_CANDIDATE_PROFILE,
+    CURRENT_053_FRESH_PROFILE,
 )
 
 PROFILE = 'ashlar-immutable-truss-graph-capture/0.1'
@@ -15,6 +16,7 @@ _CURRENT_052_FIELDS = {
     'profile', 'source_profile', 'feed', 'epoch', 'source_transaction_sha256',
     'accepted_reports', 'catalog_views', 'declared_umf', 'qualification',
 }
+_CURRENT_053_FIELDS = _CURRENT_052_FIELDS | {'runtime_wheel_sha256', 'runtime_manifest_sha256'}
 
 
 def _validate_current_052_source(source):
@@ -46,6 +48,40 @@ def _validate_current_052_source(source):
         raise ValueError('Complete current Truss .52 declared-model inventory required')
 
 
+def _validate_current_053_source(source):
+    """Preserve the exact fresh-baseline `.53` graph and runtime pins."""
+    from .private_graph_custody import require_custody_digest
+    from .truss_current_catalog import (
+        CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
+        CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256)
+    if (type(source) is not dict or set(source) != _CURRENT_053_FIELDS
+            or source.get('profile') != CURRENT_053_FRESH_PROFILE
+            or source.get('source_profile') != 'truss-native-feed/0.1'
+            or any(type(source.get(name)) is not str or not source[name]
+                   for name in ('feed', 'epoch', 'qualification'))
+            or source.get('runtime_wheel_sha256') != CURRENT_TRUSS_053_FRESH_WHEEL_SHA256
+            or source.get('runtime_manifest_sha256') != CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256):
+        raise ValueError('Exact current Truss .53 fresh-baseline source metadata and pins required')
+    require_custody_digest(source['source_transaction_sha256'])
+    for name in ('accepted_reports', 'catalog_views'):
+        values = source[name]
+        if (type(values) is not dict or not values
+                or any(type(revision) is not str or not revision for revision in values)
+                or any(type(digest) is not str or len(digest) != 64
+                       or any(char not in '0123456789abcdef' for char in digest)
+                       for digest in values.values())):
+            raise ValueError('Complete current Truss .53 source revision digests required')
+    declared = source['declared_umf']
+    if (type(declared) is not dict or not declared
+            or any(type(revision) is not str or not revision
+                   or type(documents) is not dict or not documents
+                   or any(type(document) is not str or not document
+                          or version != '0.10.0'
+                          for document, version in documents.items())
+                   for revision, documents in declared.items())):
+        raise ValueError('Complete Truss .53 UMF model 0.10.0 inventory required')
+
+
 def admit_truss_graph_custody(release, payload, trusted_receipt_sha256, trusted_release_sha256):
     from .private_graph_custody import decode_custody_bytes, require_custody_digest
     require_custody_digest(trusted_receipt_sha256); require_custody_digest(trusted_release_sha256)
@@ -62,11 +98,13 @@ def admit_truss_graph_custody(release, payload, trusted_receipt_sha256, trusted_
         raise ValueError('Original Truss graph manifest/vector differs')
     source = json.loads(release['publication']['validation_report_json'])['source_admission']
     checkpoint = value['checkpoint']
-    if (type(source) is not dict or source != value['source'] or source.get('profile') not in (SOURCE_PROFILE,TYPED_PROFILE,CURRENT_052_CANDIDATE_PROFILE)
+    if (type(source) is not dict or source != value['source'] or source.get('profile') not in (SOURCE_PROFILE,TYPED_PROFILE,CURRENT_052_CANDIDATE_PROFILE,CURRENT_053_FRESH_PROFILE)
             or source.get('source_profile') != 'truss-native-feed/0.1'):
         raise ValueError('Actual Truss scalar graph metadata required')
     if source['profile'] == CURRENT_052_CANDIDATE_PROFILE:
         _validate_current_052_source(source)
+    elif source['profile'] == CURRENT_053_FRESH_PROFILE:
+        _validate_current_053_source(source)
     if (type(checkpoint) is not dict or set(checkpoint) != {'profile', 'feed', 'epoch', 'previous', 'position', 'payload_digest', 'batch_id'}
             or checkpoint['profile'] != source['source_profile'] or checkpoint['feed'] != source['feed']
             or checkpoint['epoch'] != source['epoch'] or checkpoint['payload_digest'] != source['source_transaction_sha256']

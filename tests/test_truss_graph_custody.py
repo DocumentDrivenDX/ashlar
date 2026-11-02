@@ -9,7 +9,10 @@ from ashlar.graph_release import GraphRelease
 from ashlar_host.delta_custody import encoded
 from ashlar.pins import PinVector
 from ashlar_host.truss_graph_admission import PROFILE as SOURCE_PROFILE
-from ashlar_host.truss_graph_admission import CURRENT_052_CANDIDATE_PROFILE
+from ashlar_host.truss_graph_admission import CURRENT_052_CANDIDATE_PROFILE, CURRENT_053_FRESH_PROFILE
+from ashlar_host.truss_current_catalog import (
+    CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
+    CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256)
 from ashlar_host.truss_graph_custody import (
     PROFILE, admit_truss_graph_custody, build_truss_graph_custody,
 )
@@ -73,6 +76,44 @@ class Tests(unittest.TestCase):
         self.assertEqual(admitted['checkpoint'], checkpoint)
         self.assertNotIn('ack', admitted)
         self.assertIn('no protected ACK receipt', admitted['qualification'])
+
+    def test_r61_current_053_fresh_baseline_graph_export_custody(self):
+        release, source, checkpoint, vector = self.r59_pair()
+        source = dict(source, profile=CURRENT_053_FRESH_PROFILE,
+                      runtime_wheel_sha256=CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
+                      runtime_manifest_sha256=CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256)
+        value = json.loads(release.payload)
+        report = json.loads(value['publication']['validation_report_json'])
+        report['source_admission'] = source
+        value['publication']['validation_report_json'] = encoded(report)
+        raw = (encoded(value)+'\n').encode()
+        fresh_release = GraphRelease(raw, hashlib.sha256(raw).hexdigest())
+        vector = PinVector(vector.authority, vector.scope_kind, vector.scope_id,
+            hashlib.sha256(encoded(value['publication']).encode()).hexdigest(),
+            {table: (snapshot['uuid'], snapshot['version'])
+             for table, snapshot in value['snapshots'].items()})
+        receipt = build_truss_graph_custody(
+            fresh_release, source=source, vector=vector, checkpoint=checkpoint)
+        loaded = load_private_graph_release(
+            raw, fresh_release.sha256, receipt, hashlib.sha256(receipt).hexdigest())
+        admitted = admit_truss_graph_custody(
+            loaded, receipt, hashlib.sha256(receipt).hexdigest(), fresh_release.sha256)
+        self.assertEqual(loaded['publication'], value['publication'])
+        self.assertEqual(admitted['source'], source)
+        self.assertEqual(admitted['checkpoint'], checkpoint)
+
+        wrong = dict(source, runtime_wheel_sha256='0' * 64)
+        bad_value = json.loads(raw)
+        bad_report = json.loads(bad_value['publication']['validation_report_json'])
+        bad_report['source_admission'] = wrong
+        bad_value['publication']['validation_report_json'] = encoded(bad_report)
+        bad_raw = (encoded(bad_value)+'\n').encode()
+        bad_release = GraphRelease(bad_raw, hashlib.sha256(bad_raw).hexdigest())
+        bad_vector = PinVector(vector.authority, vector.scope_kind, vector.scope_id,
+            hashlib.sha256(encoded(bad_value['publication']).encode()).hexdigest(), dict(vector.targets))
+        with self.assertRaisesRegex(ValueError, 'pins required'):
+            build_truss_graph_custody(
+                bad_release, source=wrong, vector=bad_vector, checkpoint=checkpoint)
 
     def test_r59_current_052_refuses_changed_source_checkpoint_vector_and_digests(self):
         release, source, checkpoint, vector = self.r59_pair()

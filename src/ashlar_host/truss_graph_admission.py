@@ -242,7 +242,16 @@ class TrussGraphAdmission:
         else:
             profile=TYPED_PROFILE if self.typed else PROFILE
             qualification=('Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.'if self.typed else 'Original accepted declared UMF0.7/0.8 rootless STRING records and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.')
-        return {'profile':profile,'source_profile':self.batch.profile,'feed':self.batch.feed,'epoch':self.batch.epoch,'source_transaction_sha256':hashlib.sha256(self.batch.begin).hexdigest(),'accepted_reports':{revision:hashlib.sha256(value['report']).hexdigest()for revision,value in self.revisions.items()},'catalog_views':{revision:hashlib.sha256(raw).hexdigest()for revision,raw in self.catalog_views.items()},'declared_umf':{revision:{doc:model[0]['umf']for doc,model in value['models'].items()}for revision,value in self.revisions.items()},'qualification':qualification}
+        facts = {'profile':profile,'source_profile':self.batch.profile,'feed':self.batch.feed,
+            'epoch':self.batch.epoch,'source_transaction_sha256':hashlib.sha256(self.batch.begin).hexdigest(),
+            'accepted_reports':{revision:hashlib.sha256(value['report']).hexdigest()for revision,value in self.revisions.items()},
+            'catalog_views':{revision:hashlib.sha256(raw).hexdigest()for revision,raw in self.catalog_views.items()},
+            'declared_umf':{revision:{doc:model[0]['umf']for doc,model in value['models'].items()}
+                            for revision,value in self.revisions.items()},'qualification':qualification}
+        if self.current_truss_version == CURRENT_TRUSS_053_FRESH_VERSION:
+            facts.update(runtime_wheel_sha256=self.current_runtime_wheel_sha256,
+                         runtime_manifest_sha256=self.current_runtime_manifest_sha256)
+        return facts
     def admit(self,change):
         if change not in self.changes:raise PermissionError('Exact original native change required')
         event=self.events[change.delivery_id];image=event['before']if event['operation']=='delete'else event['after'];selected=self.revisions.get(image['catalogRevision'])

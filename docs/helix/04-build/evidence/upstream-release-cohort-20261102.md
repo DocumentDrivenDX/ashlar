@@ -65,6 +65,13 @@ initializer uses the same six Core proposal outputs before issuing Spark DDL;
 the focused initializer test uses a recording Spark double, so live native
 table creation and restore remain unqualified.
 
+Graph export custody now has a separate `.53` source-admission profile that
+retains the exact published Truss wheel and runtime-manifest digests alongside
+the report/view/source revision digests and declared model versions. Its pure
+round-trip regression builds, loads and admits a `.53` export receipt from the
+retained graph manifest and rejects a substituted wheel digest. The older `.52`
+source validator and evidence remain unchanged.
+
 Focused Python 3.12 checks passed: `test_truss_current_catalog` (14 tests),
 `test_truss_catalog_reader`, `test_truss_source_custody_selection`, and
 `test_truss_graph_admission` (16 tests total). `git diff --check` passed.
