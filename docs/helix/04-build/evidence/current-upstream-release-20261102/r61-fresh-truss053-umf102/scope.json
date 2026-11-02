@@ -6,9 +6,9 @@
     "base_commit": "783f2f63491bf9e1ccca1e65c7254c5a9446402b",
     "worktree": "/private/tmp/ashlar-r61-fresh-cohort-plan",
     "runner_path": "tools/r61_fresh_cohort_runner.py",
-    "runner_sha256": "5f84fd3378219da688ecf9adb19148e1f41f97b46b87893a0b843b35e02c5f11",
+    "runner_sha256": "10215f1c95db6023a40650cc241a8f44a9f551735273b7efad03a438b2295d7d",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
-    "setup_stage_sha256": "902c17ba7ff6a051cf3f8fd92cb138e5f22d923547e008235b5b251824ebd83a"
+    "setup_stage_sha256": "c367322fca557ce46eb23379e786e392004e385cbe17eedaef6c78fbdfadc61a"
   },
   "artifacts": {
     "truss_version": "0.0.53",
@@ -90,14 +90,20 @@
     "status": "source_stage_implemented_not_dispatched",
     "source_model": "docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json",
     "source_model_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
+    "truss_local_runtime_member_sha256": "7a0fce2fd418a3c239e7f6e847ac952d152d1967638251a4ebba2f5f29b90728",
     "source_model_declared_version": "0.10.0",
     "source_stage_outputs": [
       "public Truss accepted report and installed catalog status",
       "public complete catalog view and accepted source bytes",
-      "fresh consumer registration and exact initial empty-interval feed page",
+      "fresh consumer registration and exact initial public feed page with observed transaction or empty-interval outcome",
       "successful PostgreSQL owner close before stage receipt write"
     ],
     "source_stage_uses_fresh_local_postgres_data_and_owned_socket": true,
-    "source_stage_socket_temp": "/private/tmp/ashlar-r61-truss053-umf102-20261102/socket-tmp"
+    "source_stage_socket_policy": {
+      "profile": "Truss LocalPostgres 0.0.53 deterministic owned socket",
+      "root": "/private/tmp/truss-pg18-{uid}",
+      "directory_suffix": "first 24 hex characters of SHA256(os.fsencode(canonical PGDATA))",
+      "precondition": "exact socket directory absent before any PostgreSQL setup"
+    }
   }
 }

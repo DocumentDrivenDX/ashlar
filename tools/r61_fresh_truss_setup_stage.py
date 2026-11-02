@@ -8,11 +8,13 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import stat
 
 
 REPO = Path(__file__).resolve().parents[1]
 MODEL = REPO / "docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json"
 MODEL_SHA256 = "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2"
+LOCAL_RUNTIME_SHA256 = "7a0fce2fd418a3c239e7f6e847ac952d152d1967638251a4ebba2f5f29b90728"
 PROFILE = "ashlar-r61-fresh-truss-source-setup/0.1"
 
 
@@ -30,6 +32,21 @@ def _connection_factory(psycopg, uri):
     def connect():
         return psycopg.connect(uri, autocommit=False, connect_timeout=5)
     return connect
+
+
+def _local_postgres_socket(data_directory: Path) -> tuple[Path, Path]:
+    """Match the Truss 0.0.53 LocalPostgres deterministic socket policy."""
+    base = Path("/private/tmp") if os.sys.platform == "darwin" else Path("/tmp")
+    runtime_root = base / f"truss-pg18-{os.getuid()}"
+    identity = hashlib.sha256(os.fsencode(data_directory)).hexdigest()[:24]
+    return runtime_root, runtime_root / identity
+
+
+def _require_owned_runtime_directory(path: Path) -> None:
+    info = path.lstat()
+    if (not stat.S_ISDIR(info.st_mode) or stat.S_ISLNK(info.st_mode)
+            or info.st_uid != os.getuid() or stat.S_IMODE(info.st_mode) != 0o700):
+        raise RuntimeError("Truss LocalPostgres directory ownership/mode differs")
 
 
 def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profile: str) -> dict:
@@ -56,7 +73,8 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     from ashlar_host.truss_current_catalog import installed_current_truss_profile
     from ashlar_host.truss_local_setup import run_setup_truss_local_command
     from ashlar_host.truss_note_publication import read_page, register_note_consumer
-    from truss import LocalPostgres, Ok, CatalogRuntimeConfiguration, create_reference_assembly, adopt_psycopg_host
+    from truss import Ok, CatalogRuntimeConfiguration, create_reference_assembly, adopt_psycopg_host
+    import truss.local_runtime as local_runtime
     from importlib.metadata import version as distribution_version
     import psycopg
 
@@ -66,10 +84,20 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     candidate_profile = installed_current_truss_profile()
     if candidate_profile != expected_adapter_profile:
         raise RuntimeError("Exact reviewed Truss 0.0.53 adapter profile required")
+    if hashlib.sha256(Path(local_runtime.__file__).read_bytes()).hexdigest() != LOCAL_RUNTIME_SHA256:
+        raise RuntimeError("Truss .53 local runtime implementation hash differs")
+    LocalPostgres = local_runtime.LocalPostgres
+
+    pgdata = (root / "pgdata").resolve()
+    socket_root, socket_directory = _local_postgres_socket(pgdata)
+    lease_file = Path(str(pgdata) + ".truss-runtime.lock")
+    if socket_root.exists() or socket_root.is_symlink():
+        _require_owned_runtime_directory(socket_root)
+    if (pgdata.exists() or pgdata.is_symlink() or lease_file.exists() or lease_file.is_symlink()
+            or socket_directory.exists() or socket_directory.is_symlink()):
+        raise ValueError("Fresh PGDATA, runtime lease and deterministic Truss .53 socket required")
 
     root.mkdir(mode=0o700)
-    socket_tmp = root / "socket-tmp"
-    socket_tmp.mkdir(mode=0o700)
     model_path = root / "accepted-model.umf.json"
     origin_path = root / "origin.json"
     setup_path = root / "setup.json"
@@ -88,23 +116,26 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     }
     _write_private(setup_path, (json.dumps(setup, sort_keys=True, separators=(",", ":")) + "\n").encode())
 
-    # The reviewed launch environment sets TMPDIR to this fresh directory so
-    # Truss LocalPostgres owns a distinct Unix socket alongside its fresh PGDATA.
-    old_tmpdir = os.environ.get("TMPDIR")
-    os.environ["TMPDIR"] = str(socket_tmp)
     primary = None
     result = None
     try:
         bootstrap = run_setup_truss_local_command(setup_path, accepted_path)
+        _require_owned_runtime_directory(socket_root)
+        _require_owned_runtime_directory(socket_directory)
+        if ((pgdata / "postmaster.pid").exists()
+                or (socket_directory / ".s.PGSQL.5432").exists()):
+            raise RuntimeError("Initial Truss PostgreSQL owner did not close cleanly")
         consumer_id = "ashlar-r61-local-consumer"
         feed = "ashlar-r61-local-feed"
-        with LocalPostgres(root / "pgdata") as runtime:
+        with LocalPostgres(pgdata) as runtime:
+            if (runtime.info.data_directory.resolve() != pgdata
+                    or runtime.info.server_version.split(".")[0] != "18"):
+                raise RuntimeError("Truss local runtime requires PostgreSQL 18")
             admin_uri = runtime.info.connection_uri
             parameters = psycopg.conninfo.conninfo_to_dict(admin_uri)
             socket_host = Path(parameters.get("host", ""))
-            if (not socket_host.is_absolute() or socket_host.resolve() != socket_host
-                    or not socket_host.is_relative_to(socket_tmp)):
-                raise RuntimeError("Truss LocalPostgres socket is outside the fresh owned socket directory")
+            if runtime.info.socket_directory != socket_directory or socket_host != socket_directory:
+                raise RuntimeError("Truss LocalPostgres selected a different deterministic socket")
             ordinary_parameters = dict(parameters, user=bootstrap["roles"]["consumer"])
             ordinary_uri = psycopg.conninfo.make_conninfo(**ordinary_parameters)
             admin_factory = _connection_factory(psycopg, admin_uri)
@@ -201,6 +232,8 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
                 "model": {"id": parsed["id"], "revision": "r1", "umf": parsed["umf"],
                           "sha256": hashlib.sha256(model).hexdigest()},
                 "installation": bootstrap["installation"],
+                "postgres_server_version": runtime.info.server_version,
+                "postgres_runtime_version": runtime.info.runtime_version,
                 "postgres_socket_directory": str(socket_host),
                 "registration": {"consumer_id": registration.consumer_id,
                                  "registration_id": registration.registration_id,
@@ -215,11 +248,12 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
             }
     except BaseException as error:
         primary = error
-    finally:
-        if old_tmpdir is None:
-            os.environ.pop("TMPDIR", None)
-        else:
-            os.environ["TMPDIR"] = old_tmpdir
+    if primary is None:
+        _require_owned_runtime_directory(socket_root)
+        _require_owned_runtime_directory(socket_directory)
+        if ((pgdata / "postmaster.pid").exists()
+                or (socket_directory / ".s.PGSQL.5432").exists()):
+            primary = RuntimeError("Truss PostgreSQL owner/socket was not fully closed")
     if primary is not None:
         raise primary
     result["postgres_owner_closed_before_receipt"] = True

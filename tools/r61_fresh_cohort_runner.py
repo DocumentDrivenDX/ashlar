@@ -6,9 +6,12 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import subprocess
+import stat
 import sys
+import zipfile
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -68,6 +71,20 @@ def preflight() -> dict:
     if existing:
         raise RuntimeError(f"fresh output paths already exist: {existing}")
 
+    runtime_base = Path("/private/tmp") if sys.platform == "darwin" else Path("/tmp")
+    socket_root = runtime_base / f"truss-pg18-{os.getuid()}"
+    socket_identity = hashlib.sha256(os.fsencode(Path(paths["postgres_data"]).resolve())).hexdigest()[:24]
+    socket_directory = socket_root / socket_identity
+    runtime_lease = Path(str(Path(paths["postgres_data"]).resolve()) + ".truss-runtime.lock")
+    if socket_root.exists() or socket_root.is_symlink():
+        details = socket_root.lstat()
+        if (stat.S_ISLNK(details.st_mode) or not stat.S_ISDIR(details.st_mode)
+                or details.st_uid != os.getuid() or stat.S_IMODE(details.st_mode) != 0o700):
+            raise RuntimeError("Truss LocalPostgres runtime root ownership/mode differs")
+    if (socket_directory.exists() or socket_directory.is_symlink()
+            or runtime_lease.exists() or runtime_lease.is_symlink()):
+        raise RuntimeError("deterministic Truss .53 socket or PGDATA lease already exists")
+
     artifacts = scope["artifacts"]
     missing = [key for key in PENDING if not artifacts.get(key)]
     for path_key, hash_key in (
@@ -85,6 +102,11 @@ def preflight() -> dict:
             observed = hashlib.sha256(artifact_path.read_bytes()).hexdigest()
             if observed != expected:
                 raise RuntimeError(f"selected artifact hash mismatch: {path_key}")
+            if path_key == "truss_wheel":
+                with zipfile.ZipFile(artifact_path) as wheel:
+                    member_sha = hashlib.sha256(wheel.read("truss/local_runtime.py")).hexdigest()
+                if member_sha != scope["qualification_stage"]["truss_local_runtime_member_sha256"]:
+                    raise RuntimeError("Truss .53 deterministic socket implementation hash differs")
     source_model = REPO / scope["qualification_stage"]["source_model"]
     model_sha = hashlib.sha256(source_model.read_bytes()).hexdigest()
     if model_sha != scope["qualification_stage"]["source_model_sha256"]:
@@ -100,6 +122,11 @@ def preflight() -> dict:
         "source_head": head,
         "scope_path": str(SCOPE),
         "fresh_paths_absent": True,
+        "pgdata_absent_and_unowned": True,
+        "truss_runtime_lease_absent": True,
+        "truss_socket_directory_absent": True,
+        "truss_socket_root": str(socket_root),
+        "truss_expected_socket_directory": str(socket_directory),
         "r59_state_disjoint": True,
         "planned_bounds_enforced": False,
         "setup_stage_source_sha256": stage_sha,
