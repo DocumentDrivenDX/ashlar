@@ -749,7 +749,7 @@ class TrussSourceCustodySelection:
               and package_version in ("0.0.52", "0.0.53")
               and installed_profile == expected_profile
               and getattr(FeedSourceSelection, "__name__", None) == "FeedSourceSelection",
-              "Truss source custody requires the exact selected release manifest")
+              "Truss source custody gated by the exact selected release manifest")
         return FeedSourceSelection(
             page=self.page, maximum_facts=self.maximum_facts,
             maximum_bytes=self.maximum_bytes, request_bytes=self.request_bytes,
