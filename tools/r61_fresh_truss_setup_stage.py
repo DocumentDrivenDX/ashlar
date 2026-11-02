@@ -123,20 +123,31 @@ def _resume_stopped_source(scope: dict, destination: Path, runtime: Path) -> dic
     policy = scope["postgres_bootstrap_policy"]
     source = Path(policy["resume_source_pgdata"])
     source_root = Path(policy["resume_source_root"])
-    if (not source.is_absolute() or source.resolve() != source or source.is_symlink()
+    if (not source_root.is_absolute() or source_root.resolve() != source_root
+            or source_root.is_symlink() or not source_root.is_dir()
+            or source_root.stat().st_uid != os.getuid()
+            or stat.S_IMODE(source_root.stat().st_mode) != 0o700
+            or not source.is_absolute() or source.resolve() != source or source.is_symlink()
             or not source.is_dir() or source.stat().st_uid != os.getuid()
             or stat.S_IMODE(source.stat().st_mode) != 0o700
             or source != source_root / "pgdata"):
         raise RuntimeError("Exact retained R61 PGDATA path/owner required")
     failure_path = source_root / "worker-failure.json"
     supervisor_path = source_root / "supervisor-result.json"
+    retained_model = source_root / "accepted-model.umf.json"
+    retained_origin = source_root / "origin.json"
+    setup_path = source_root / "setup.json"
+    for path, maximum_bytes in ((failure_path, 32768), (supervisor_path, 32768),
+            (retained_model, 1048576), (retained_origin, 4096), (setup_path, 4096)):
+        info = path.lstat()
+        if (not stat.S_ISREG(info.st_mode) or stat.S_ISLNK(info.st_mode)
+                or info.st_uid != os.getuid() or info.st_mode & 0o077
+                or info.st_size > maximum_bytes):
+            raise RuntimeError("Retained attempt7 evidence file owner/mode/size differs")
     failure_raw, supervisor_raw = failure_path.read_bytes(), supervisor_path.read_bytes()
     if (hashlib.sha256(failure_raw).hexdigest() != policy["resume_failure_sha256"]
             or hashlib.sha256(supervisor_raw).hexdigest() != policy["resume_supervisor_sha256"]):
         raise RuntimeError("Retained attempt7 failure/cleanup receipts changed")
-    retained_model = source_root / "accepted-model.umf.json"
-    retained_origin = source_root / "origin.json"
-    setup_path = source_root / "setup.json"
     retained_setup_raw = setup_path.read_bytes()
     retained_setup = json.loads(retained_setup_raw)
     if (hashlib.sha256(retained_model.read_bytes()).hexdigest() != policy["resume_model_sha256"]
@@ -173,28 +184,26 @@ def _resume_stopped_source(scope: dict, destination: Path, runtime: Path) -> dic
             or hashlib.sha256(lease.read_bytes()).hexdigest() != policy["resume_lease_sha256"]):
         raise RuntimeError("Retained source Truss lease file required")
     import fcntl
-    with lease.open("rb") as stream:
+    with lease.open("r+b") as stream:
         try:
-            fcntl.flock(stream.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+            fcntl.lockf(stream.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError as error:
             raise RuntimeError("Retained source Truss lease is held") from error
+        try:
+            control = subprocess.run([str(runtime / "bin" / "pg_controldata"), str(source)],
+                capture_output=True, text=True, timeout=8, check=True)
+            control_lines = dict(line.split(":", 1) for line in control.stdout.splitlines() if ":" in line)
+            if (control_lines.get("Database system identifier", "").strip() != policy["resume_system_identifier"]
+                    or control_lines.get("Database cluster state", "").strip() != "shut down"):
+                raise RuntimeError("Retained attempt7 PG18 control identity/state differs")
+            before_tree = _tree_digest(source)
+            if before_tree != policy["resume_pgdata_tree_sha256"]:
+                raise RuntimeError("Retained attempt7 PGDATA tree differs from pinned readback state")
+            copied_tree, copied_bytes, copied_files = _copy_verified_tree(source, destination)
+            if copied_tree != before_tree:
+                raise RuntimeError("Resumed PG18 copy differs from retained installed source state")
         finally:
-            try:
-                fcntl.flock(stream.fileno(), fcntl.LOCK_UN)
-            except OSError:
-                pass
-    control = subprocess.run([str(runtime / "bin" / "pg_controldata"), str(source)],
-        capture_output=True, text=True, timeout=8, check=True)
-    control_lines = dict(line.split(":", 1) for line in control.stdout.splitlines() if ":" in line)
-    if (control_lines.get("Database system identifier", "").strip() != policy["resume_system_identifier"]
-            or control_lines.get("Database cluster state", "").strip() != "shut down"):
-        raise RuntimeError("Retained attempt7 PG18 control identity/state differs")
-    before_tree = _tree_digest(source)
-    if before_tree != policy["resume_pgdata_tree_sha256"]:
-        raise RuntimeError("Retained attempt7 PGDATA tree differs from pinned readback state")
-    copied_tree, copied_bytes, copied_files = _copy_verified_tree(source, destination)
-    if copied_tree != before_tree:
-        raise RuntimeError("Resumed PG18 copy differs from retained installed source state")
+            fcntl.lockf(stream.fileno(), fcntl.LOCK_UN)
     return {"profile": "ashlar-r61-attempt7-installed-source-copy/0.1",
         "source_root": str(source_root), "source_pgdata": str(source),
         "source_pgdata_tree_sha256": before_tree, "copied_pgdata_tree_sha256": copied_tree,
@@ -499,8 +508,14 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
         bootstrap = None if resuming_public_state else _run_public_truss_setup(
             config=setup, paths={"data_directory": pgdata, "bun": bun}, source=model,
             origin=origin, module_ids=tuple(module["id"] for module in parsed["modules"]))
-        _require_owned_runtime_directory(socket_root)
-        _require_owned_runtime_directory(socket_directory)
+        if resuming_public_state:
+            if socket_root.exists() or socket_root.is_symlink():
+                _require_owned_runtime_directory(socket_root)
+            if socket_directory.exists() or socket_directory.is_symlink():
+                raise RuntimeError("Fresh resume target Truss socket path must be absent before start")
+        else:
+            _require_owned_runtime_directory(socket_root)
+            _require_owned_runtime_directory(socket_directory)
         if ((pgdata / "postmaster.pid").exists()
                 or (socket_directory / ".s.PGSQL.5432").exists()):
             raise RuntimeError("Initial Truss PostgreSQL owner did not close cleanly")
@@ -520,7 +535,9 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
             if runtime.info.socket_directory != socket_directory or socket_host != socket_directory:
                 raise RuntimeError("Truss LocalPostgres selected a different deterministic socket")
             consumer_id = "ashlar-r61-local-consumer"
-            ordinary_parameters = dict(parameters, user=consumer_id)
+            consumer_login = (bootstrap["roles"]["consumer"] if bootstrap is not None
+                              else "ashlar_note_consumer")
+            ordinary_parameters = dict(parameters, user=consumer_login)
             ordinary_uri = psycopg.conninfo.make_conninfo(**ordinary_parameters)
             admin_factory = _connection_factory(psycopg, admin_uri)
             ordinary_factory = _connection_factory(psycopg, ordinary_uri)
@@ -545,7 +562,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
             with ordinary_factory() as connection:
                 if connection.info.transaction_status != 0:
                     raise RuntimeError("Fresh catalog connection required")
-                connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED, READ ONLY")
+                connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED, READ WRITE")
                 connection.execute("SET LOCAL statement_timeout = '15000ms'")
                 host = adopt_psycopg_host(connection, statement_timeout_ms=15000,
                     operation_timeout_ms=15000)
@@ -553,7 +570,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
                 failure = None
                 report_raw = view_raw = accepted_raw = None
                 try:
-                    tx_result = host.adopt_transaction(access_mode="read_only")
+                    tx_result = host.adopt_transaction(access_mode="read_write")
                     if not isinstance(tx_result, Ok):
                         raise RuntimeError("Public Truss catalog transaction refused")
                     assembly_result = create_reference_assembly(CatalogRuntimeConfiguration(), host)
@@ -562,7 +579,9 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
                     assembly = assembly_result.value
                     if bootstrap is None:
                         status_result = assembly.status_in_transaction(tx_result.value)
-                        if not isinstance(status_result, Ok) or not status_result.value.installed:
+                        if (not isinstance(status_result, Ok) or not status_result.value.installed
+                                or type(status_result.value.revision) is not int
+                                or not status_result.value.installation_id):
                             raise RuntimeError("Retained accepted Truss installation status unavailable")
                         status = status_result.value
                         revision = str(status.revision)
@@ -575,7 +594,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
                     if bootstrap is None:
                         bootstrap = {"revision": status.revision,
                             "installation": {"installation_id": status.installation_id},
-                            "roles": {"consumer": consumer_id, "reader": "ashlar_note_reader",
+                            "roles": {"consumer": "ashlar_note_consumer", "reader": "ashlar_note_reader",
                                 "writer": "ashlar_note_writer", "registrar": None},
                             "report_original_base64": base64.b64encode(report_raw).decode("ascii")}
                     request = assembly.catalog_view_request(definition_count="65536", encoded_bytes="16777216")
