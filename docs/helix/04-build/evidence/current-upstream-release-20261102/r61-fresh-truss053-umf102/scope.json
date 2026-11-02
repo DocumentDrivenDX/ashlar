@@ -1,26 +1,39 @@
 {
   "packet": "ashlar-r61-fresh-truss053-umf102",
-  "status": "planning_skeleton_candidate_unbound",
+  "status": "source_stage_coded_candidate_pending_review_no_dispatch",
   "source": {
     "repository": "ashlar",
     "base_commit": "783f2f63491bf9e1ccca1e65c7254c5a9446402b",
     "worktree": "/private/tmp/ashlar-r61-fresh-cohort-plan",
     "runner_path": "tools/r61_fresh_cohort_runner.py",
-    "runner_sha256": "7c6a55326cde8520193c26cc72e7c823ab1ca117bd9a2311127f98fa9d68d39c"
+    "runner_sha256": "5f84fd3378219da688ecf9adb19148e1f41f97b46b87893a0b843b35e02c5f11",
+    "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
+    "setup_stage_sha256": "902c17ba7ff6a051cf3f8fd92cb138e5f22d923547e008235b5b251824ebd83a"
   },
   "artifacts": {
     "truss_version": "0.0.53",
-    "truss_wheel": null,
-    "truss_wheel_sha256": null,
-    "truss_release_manifest_sha256": null,
+    "truss_wheel": "/private/tmp/truss-0053-github-public-assets/umf_truss-0.0.53-py3-none-any.whl",
+    "truss_wheel_sha256": "a6c8568d676cd69675dc27d92fdfed2b85b69089ff0007d2b5bd2f5f48be6d89",
+    "truss_release_manifest_sha256": "5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522",
     "umf_model_version": "0.10.0",
     "umf_sdk_version": "0.10.2",
     "umf_sdk_artifact": null,
-    "umf_sdk_sha256": null,
+    "umf_sdk_sha256": "785de2c4db18b030c9462c7f55f52d012db50a4d4b3c608a4dc3aa6f5fa0d39b",
+    "umf_sdk_linux_x86_64_sha256": "0e210969dc6d585d73b0e70d35660421b40c141746389118f7181c54bfcff943",
     "umf_core_version": "0.10.6",
     "umf_core_platform_artifact": null,
-    "umf_core_sha256": null,
-    "ashlar_candidate_commit": null,
+    "umf_core_sha256": "e6219539dabcdfe9657bc09485ad991b3380ae306c658d0a51a35caac0196e36",
+    "umf_core_linux_x86_64_sha256": "9a4fc6e739fb9c0c80e22916490484fb41b6f00985afc53fb81dcca2d72029b9",
+    "upstream_candidate_checkout": "/private/tmp/ashlar-upstream-0102-0053",
+    "upstream_candidate_commits": [
+      "626c1e33d41732601ba836fe4d8cd7c94cac85ed",
+      "fc708a966bf68abd6d388ce01a97ea8356ff19b9"
+    ],
+    "upstream_candidate_review": "pending_independent_sol_review",
+    "ashlar_candidate_commit": "fc708a966bf68abd6d388ce01a97ea8356ff19b9",
+    "truss_adapter_profile": null,
+    "bun_executable": null,
+    "postgresql_18_runtime": null,
     "ashlar_candidate_wheel": null,
     "ashlar_candidate_wheel_sha256": null,
     "graphframes_runtime_manifest": null,
@@ -38,6 +51,7 @@
     ]
   },
   "limits": {
+    "enforcement_status": "planned_not_yet_enforced",
     "wall_seconds_including_cleanup": 900,
     "aggregate_rss_bytes": 4294967296,
     "disposable_output_bytes": 536870912,
@@ -49,18 +63,18 @@
     "verify exact Truss, UMF, Ashlar and GraphFrames artifacts and runtime origins",
     "create fresh local PostgreSQL and Delta roots under the single outer deadline",
     "use public Truss source and consumer APIs; accept the exact declared model/report/catalog",
-    "seed one seven-operation stream and verify the complete six-role publication vector",
+    "seed one seven-operation stream and verify the complete four-role publication vector plus separate six-role installation inventory",
     "perform one bounded continuation and protected source ACK; verify checkpoint and ACK custody",
     "restore the applied publication artifact read-only and call read_original_truss_graph_export(driver, with_custody=True)",
     "close source, consumer, Spark and PostgreSQL owners successfully before persisting release/custody bytes",
     "install the exact Ashlar candidate wheel in the separate reviewed GraphFrames runtime and run one action over those bytes",
-    "reconcile source checkpoint, ACK, all six Delta role heads, process cleanup, output size and final hashes"
+    "reconcile source checkpoint, ACK, four-role publication vector, separate six-role installation inventory, process cleanup, output size and final hashes"
   ],
   "completion_receipts": [
     "artifact and module-origin manifest",
     "accepted model/report/catalog identity",
     "seed and continuation request/result hashes",
-    "complete six-role Delta vector before and after, including schema and manifest identity",
+    "complete four-role Delta publication vector and separate six-role installation inventory before and after, including schema and manifest identity",
     "source checkpoint and protected ACK receipts before and after",
     "owner release and custody canonical-byte hashes, only after successful owner close",
     "GraphFrames runtime identity and one action result bound to those hashes",
@@ -69,6 +83,21 @@
   "non_claims": [
     "no native execution has occurred in this packet",
     "no release, tag, publish, cloud, scale, push or production authority is claimed",
-    "the prior R59 GraphFrames runtime configuration is not candidate compatibility evidence"
-  ]
+    "the prior R59 GraphFrames runtime configuration is not candidate compatibility evidence",
+    "the planned bounds are not enforced by the effect-free skeleton"
+  ],
+  "qualification_stage": {
+    "status": "source_stage_implemented_not_dispatched",
+    "source_model": "docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json",
+    "source_model_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
+    "source_model_declared_version": "0.10.0",
+    "source_stage_outputs": [
+      "public Truss accepted report and installed catalog status",
+      "public complete catalog view and accepted source bytes",
+      "fresh consumer registration and exact initial empty-interval feed page",
+      "successful PostgreSQL owner close before stage receipt write"
+    ],
+    "source_stage_uses_fresh_local_postgres_data_and_owned_socket": true,
+    "source_stage_socket_temp": "/private/tmp/ashlar-r61-truss053-umf102-20261102/socket-tmp"
+  }
 }

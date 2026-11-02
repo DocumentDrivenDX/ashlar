@@ -14,14 +14,13 @@ import sys
 REPO = Path(__file__).resolve().parents[1]
 SCOPE = REPO / "docs/helix/04-build/evidence/current-upstream-release-20261102/r61-fresh-truss053-umf102/scope.json"
 PENDING = (
-    "truss_wheel",
-    "truss_wheel_sha256",
-    "truss_release_manifest_sha256",
     "umf_sdk_artifact",
     "umf_sdk_sha256",
     "umf_core_platform_artifact",
     "umf_core_sha256",
-    "ashlar_candidate_commit",
+    "truss_adapter_profile",
+    "bun_executable",
+    "postgresql_18_runtime",
     "ashlar_candidate_wheel",
     "ashlar_candidate_wheel_sha256",
     "graphframes_runtime_manifest",
@@ -52,6 +51,10 @@ def preflight() -> dict:
     runner_sha = hashlib.sha256(runner_path.read_bytes()).hexdigest()
     if runner_sha != scope["source"]["runner_sha256"]:
         raise RuntimeError("runner source hash differs from scope")
+    stage_path = REPO / scope["source"]["setup_stage_path"]
+    stage_sha = hashlib.sha256(stage_path.read_bytes()).hexdigest()
+    if stage_sha != scope["source"]["setup_stage_sha256"]:
+        raise RuntimeError("fresh Truss setup stage source hash differs from scope")
 
     paths = scope["fresh_local_state"]
     root = Path(paths["root"])
@@ -67,14 +70,42 @@ def preflight() -> dict:
 
     artifacts = scope["artifacts"]
     missing = [key for key in PENDING if not artifacts.get(key)]
+    for path_key, hash_key in (
+        ("truss_wheel", "truss_wheel_sha256"),
+        ("umf_sdk_artifact", "umf_sdk_sha256"),
+        ("umf_core_platform_artifact", "umf_core_sha256"),
+        ("ashlar_candidate_wheel", "ashlar_candidate_wheel_sha256"),
+    ):
+        selected = artifacts.get(path_key)
+        expected = artifacts.get(hash_key)
+        if selected:
+            artifact_path = Path(selected)
+            if not artifact_path.is_absolute() or not artifact_path.is_file():
+                raise RuntimeError(f"selected artifact is not a local regular file: {path_key}")
+            observed = hashlib.sha256(artifact_path.read_bytes()).hexdigest()
+            if observed != expected:
+                raise RuntimeError(f"selected artifact hash mismatch: {path_key}")
+    source_model = REPO / scope["qualification_stage"]["source_model"]
+    model_sha = hashlib.sha256(source_model.read_bytes()).hexdigest()
+    if model_sha != scope["qualification_stage"]["source_model_sha256"]:
+        raise RuntimeError("accepted UMF source model hash differs from scope")
+    review_status = artifacts.get("upstream_candidate_review", "unbound")
+    ready_to_review = not missing and review_status == "accepted"
     return {
-        "status": "blocked_pending_candidate" if missing else "bindings_present_review_required",
+        "status": ("blocked_pending_candidate" if missing else
+                   "blocked_pending_independent_review" if not ready_to_review else
+                   "bindings_present_review_required"),
         "effect_free": True,
         "native_dispatch_available": False,
         "source_head": head,
         "scope_path": str(SCOPE),
         "fresh_paths_absent": True,
         "r59_state_disjoint": True,
+        "planned_bounds_enforced": False,
+        "setup_stage_source_sha256": stage_sha,
+        "upstream_candidate_commits": artifacts.get("upstream_candidate_commits"),
+        "upstream_candidate_review": review_status,
+        "source_model_sha256": model_sha,
         "candidate_bindings_missing": missing,
         "limits": scope["limits"],
         "planned_workflow_steps": len(scope["workflow"]),
