@@ -1,0 +1,72 @@
+{
+  "packet": "ashlar-r61-fresh-truss053-umf102",
+  "status": "planning_skeleton_candidate_unbound",
+  "source": {
+    "repository": "ashlar",
+    "base_commit": "783f2f63491bf9e1ccca1e65c7254c5a9446402b",
+    "worktree": "/private/tmp/ashlar-r61-fresh-cohort-plan"
+  },
+  "artifacts": {
+    "truss_version": "0.0.53",
+    "truss_wheel": null,
+    "truss_wheel_sha256": null,
+    "truss_release_manifest_sha256": null,
+    "umf_model_version": "0.10.0",
+    "umf_sdk_version": "0.10.2",
+    "umf_sdk_artifact": null,
+    "umf_sdk_sha256": null,
+    "umf_core_version": "0.10.6",
+    "umf_core_platform_artifact": null,
+    "umf_core_sha256": null,
+    "ashlar_candidate_commit": null,
+    "ashlar_candidate_wheel": null,
+    "ashlar_candidate_wheel_sha256": null,
+    "graphframes_runtime_manifest": null,
+    "graphframes_runtime_manifest_sha256": null
+  },
+  "fresh_local_state": {
+    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102",
+    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102/pgdata",
+    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102/delta",
+    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102/evidence",
+    "must_be_absent_before_dispatch": true,
+    "forbidden_state": [
+      "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
+      "/private/tmp/ashlar-r59-truss052-protected-ack-20261102"
+    ]
+  },
+  "limits": {
+    "wall_seconds_including_cleanup": 900,
+    "aggregate_rss_bytes": 4294967296,
+    "disposable_output_bytes": 536870912,
+    "estimated_duration_minutes": [8, 12],
+    "attempts": 1,
+    "local_only": true
+  },
+  "workflow": [
+    "verify exact Truss, UMF, Ashlar and GraphFrames artifacts and runtime origins",
+    "create fresh local PostgreSQL and Delta roots under the single outer deadline",
+    "use public Truss source and consumer APIs; accept the exact declared model/report/catalog",
+    "seed one seven-operation stream and verify the complete six-role publication vector",
+    "perform one bounded continuation and protected source ACK; verify checkpoint and ACK custody",
+    "restore the applied publication artifact read-only and call read_original_truss_graph_export(driver, with_custody=True)",
+    "close source, consumer, Spark and PostgreSQL owners successfully before persisting release/custody bytes",
+    "install the exact Ashlar candidate wheel in the separate reviewed GraphFrames runtime and run one action over those bytes",
+    "reconcile source checkpoint, ACK, all six Delta role heads, process cleanup, output size and final hashes"
+  ],
+  "completion_receipts": [
+    "artifact and module-origin manifest",
+    "accepted model/report/catalog identity",
+    "seed and continuation request/result hashes",
+    "complete six-role Delta vector before and after, including schema and manifest identity",
+    "source checkpoint and protected ACK receipts before and after",
+    "owner release and custody canonical-byte hashes, only after successful owner close",
+    "GraphFrames runtime identity and one action result bound to those hashes",
+    "bounded wall/RSS/output observations and stopped-owner census"
+  ],
+  "non_claims": [
+    "no native execution has occurred in this packet",
+    "no release, tag, publish, cloud, scale, push or production authority is claimed",
+    "the prior R59 GraphFrames runtime configuration is not candidate compatibility evidence"
+  ]
+}
