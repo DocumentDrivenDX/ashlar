@@ -38,7 +38,7 @@ def _connection_factory(psycopg, uri):
 
 
 def _local_postgres_socket(data_directory: Path) -> tuple[Path, Path]:
-    """Match the Truss 0.0.53 LocalPostgres deterministic socket policy."""
+    """Match the Truss 0.0.54 LocalPostgres deterministic socket policy."""
     base = Path("/private/tmp") if os.sys.platform == "darwin" else Path("/tmp")
     runtime_root = base / f"truss-pg18-{os.getuid()}"
     identity = hashlib.sha256(os.fsencode(data_directory)).hexdigest()[:24]

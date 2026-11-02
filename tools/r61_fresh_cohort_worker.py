@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One bounded fresh Truss .53 / UMF .10.2 native qualification worker.
+"""One bounded fresh Truss .54 / UMF .10.2 native qualification worker.
 
 The outer R61 supervisor owns the wall, aggregate RSS and output limits. This
 worker owns the selected Truss/Spark lifecycles and emits a completion receipt

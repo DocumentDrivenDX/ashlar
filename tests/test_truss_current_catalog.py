@@ -238,6 +238,30 @@ class TrussCurrentCatalogTests(unittest.TestCase):
             self.assertEqual(require_installed_current_catalog_evidence(historical),
                              'ashlar-truss-current-catalog-evidence/0.1')
 
+    def test_053_and_054_evidence_cannot_cross_claim_shared_native_profile(self):
+        evidence_053 = CurrentCatalogEvidence(CURRENT_TRUSS_053_FRESH_VERSION, {}, {}, {},
+            CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
+            CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256)
+        evidence_054 = CurrentCatalogEvidence(CURRENT_TRUSS_054_FRESH_VERSION, {}, {}, {},
+            CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+            CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)
+        with patch('ashlar_host.truss_current_catalog.installed_truss_version',
+                   return_value=CURRENT_TRUSS_053_FRESH_VERSION), \
+                patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',
+                      return_value=CURRENT_053_FRESH_EVIDENCE_PROFILE):
+            self.assertEqual(require_installed_current_catalog_evidence(evidence_053),
+                             CURRENT_053_FRESH_EVIDENCE_PROFILE)
+            with self.assertRaisesRegex(ValueError, 'Installed Truss 0.0.54 runtime'):
+                require_installed_current_catalog_evidence(evidence_054)
+        with patch('ashlar_host.truss_current_catalog.installed_truss_version',
+                   return_value=CURRENT_TRUSS_054_FRESH_VERSION), \
+                patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',
+                      return_value=CURRENT_054_FRESH_EVIDENCE_PROFILE):
+            self.assertEqual(require_installed_current_catalog_evidence(evidence_054),
+                             CURRENT_054_FRESH_EVIDENCE_PROFILE)
+            with self.assertRaisesRegex(ValueError, 'Installed Truss 0.0.53 runtime'):
+                require_installed_current_catalog_evidence(evidence_053)
+
     def test_048_public_release_tuple_is_exact_and_separate_from_045(self):
         manifest = b'public 0.0.48 runtime manifest fixture'
         direct_url = json.dumps({'archive_info': {'hashes': {

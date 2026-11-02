@@ -238,7 +238,8 @@ def require_installed_current_catalog_evidence(evidence):
                                   CURRENT_TRUSS_052_CANDIDATE_VERSION,
                                   CURRENT_TRUSS_053_FRESH_VERSION,
                                   CURRENT_TRUSS_054_FRESH_VERSION):
-        if installed_current_truss_profile() != evidence.profile:
+        if (installed_truss_version() != evidence.truss_version
+                or installed_current_truss_profile() != evidence.profile):
             raise ValueError(f'Installed Truss {evidence.truss_version} runtime profile required for graph admission')
     return evidence.profile
 
