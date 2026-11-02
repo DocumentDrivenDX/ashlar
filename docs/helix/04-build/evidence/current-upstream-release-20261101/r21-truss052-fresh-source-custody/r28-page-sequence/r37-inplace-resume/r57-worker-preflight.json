@@ -31,15 +31,35 @@
       "sha256"
     ],
     "jar_count": 2,
+    "local_extra_versions": {
+      "fasteners": "0.20",
+      "pgserver-pg18": "18.6.1",
+      "platformdirs": "4.12.4",
+      "psutil": "7.2.2"
+    },
+    "native_config_fields_exercised": [
+      "archived_acceptance_files",
+      "carrier_profile",
+      "catalog_connection_uri",
+      "connection_uri",
+      "destination_id",
+      "jars",
+      "publication_directory",
+      "publication_intent",
+      "runtime_profile"
+    ],
     "native_effects": false,
     "page_bytes": 44090,
     "publication_directory": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
     "request_digest": "678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
     "scratch_removed_on_return": true,
+    "selected_python": "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
     "source_page_sha256": "019934546d5e0ca6c15cb4dbea0430c17c74d929effd263a5d81ccdca9088253",
-    "status": "passed_real_resume_config_parser"
+    "status": "passed_real_resume_config_parser",
+    "truss_version": "0.0.52",
+    "truss_wheel_sha256": "00d8b11abc83d9c84fa131ae6f3eef23ecad9d321d4b04a13641ed31c77e9747"
   },
-  "scope_sha256": "0727220867f3e5343a18a47aca76ed9127182ff1428e01ed8d27237bdea573d7",
+  "scope_sha256": "a742f533788a19b6bd181a4b93a3ddd160e4fd66b21527411b07e0f2892351f5",
   "source_ack_attempted": false,
   "spark_started": false,
   "sqlite_sidecars_after": {
@@ -79,5 +99,5 @@
     }
   },
   "status": "passed_effect_free_inplace_preflight",
-  "worker_sha256": "1b6621084436007eb04133718bee3150351070634206898dc2a8f22a35666a63"
+  "worker_sha256": "57969b96787a0f445589a43f45e485b07c3330adf5c734ee1e954b0d6c1bf284"
 }

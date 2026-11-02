@@ -55,17 +55,17 @@
     "sha256": "52066d42c59c889d6b487cf42627c7cef6751c151a104b0b1a3a42430adf64e1"
   },
   "current_source_state_binding": {
-    "checkpoint_lsn": "0/1F31D30",
+    "checkpoint_lsn": "0/1F69180",
     "expected": {
       "bytes": 65626883,
       "files": 1264,
       "sha256": "c76e91d8d7116045a3ad432853cba69334c086e94117d1de035664948ad5b003"
     },
-    "next_xid": "0:847",
+    "next_xid": "0:856",
     "observation": "read-only stopped PGDATA tree after R56 failed before Spark/Delta/ACK; clean supervisor shutdown; no PostgreSQL startup during reconciliation",
     "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
-    "pg_control_sha256": "c90017de0f8211673b412dc34a395e560eb61d1d3d57bf8af38c2b169abccedb",
-    "status": "stopped_after_R54_rollback_diagnostic",
+    "pg_control_sha256": "d8533b47a2d3c17037d648d713ef9efd94c46bc5e5a6de797efe8e0f65ce35d0",
+    "status": "stopped_after_R56_pre_effect_failure",
     "system_identifier": "7703148769689564565"
   },
   "delta_head_bindings": [
@@ -559,6 +559,6 @@
   },
   "worker": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r57-recovery-worker.py",
-    "sha256": "1b6621084436007eb04133718bee3150351070634206898dc2a8f22a35666a63"
+    "sha256": "57969b96787a0f445589a43f45e485b07c3330adf5c734ee1e954b0d6c1bf284"
   }
 }

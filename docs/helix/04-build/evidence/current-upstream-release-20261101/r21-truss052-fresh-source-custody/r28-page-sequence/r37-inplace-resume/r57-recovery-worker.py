@@ -130,6 +130,25 @@ def preflight(scope_path: Path, *, require_absent=True, supervisor_root_created=
     wheel = Path(runtime["wheel_path"])
     if not python.is_file() or not os.access(python, os.X_OK) or sha(wheel.read_bytes()) != runtime["wheel_sha256"]:
         raise Refusal("selected Truss runtime executable or exact .52 wheel changed")
+    if Path(sys.executable).resolve(strict=True) != python.resolve(strict=True):
+        raise Refusal("preflight must run under the exact selected local Python interpreter")
+    overlay = Path(runtime["new_overlay_or_venv"]).resolve(strict=True) / "site-packages"
+    extras = Path(runtime["local_extra_overlay"]).resolve(strict=True)
+    if not overlay.is_dir() or not extras.is_dir():
+        raise Refusal("selected Truss and local-extra overlays must exist")
+    sys.path[:0] = [str(overlay), str(extras)]
+    if importlib.metadata.version("umf-truss") != "0.0.52":
+        raise Refusal("selected Truss 0.0.52 runtime required")
+    distribution = importlib.metadata.distribution("umf-truss")
+    direct = json.loads(distribution.read_text("direct_url.json") or "{}")
+    if (direct.get("url") != wheel.resolve(strict=True).as_uri() or
+            direct.get("archive_info", {}).get("hashes", {}).get("sha256") != runtime["wheel_sha256"]):
+        raise Refusal("selected Truss wheel origin/hash differs")
+    local_extra_versions = {name: importlib.metadata.version(name)
+                            for name in ("pgserver-pg18", "fasteners", "platformdirs", "psutil")}
+    if local_extra_versions != {"pgserver-pg18": "18.6.1", "fasteners": "0.20",
+                                "platformdirs": "4.12.4", "psutil": "7.2.2"}:
+        raise Refusal("selected Truss .52 local-extra pins changed")
     for jar in scope["spark_runtime"]["jars"]:
         path = Path(jar["path"])
         if not path.is_file() or sha(path.read_bytes()) != jar["sha256"]:
@@ -162,6 +181,15 @@ def preflight(scope_path: Path, *, require_absent=True, supervisor_root_created=
             r56_reconciliation.get("delta", {}).get("journal_sha256") != scope["retained_r49"]["journal"]["sha256"] or
             r56_reconciliation.get("delta", {}).get("all_six_heads_match_pre_r56") is not True):
         raise Refusal("R56 reconciliation does not bind current PGDATA and Delta journal")
+    reconciled_source = r56_reconciliation["source"]
+    binding = scope["current_source_state_binding"]
+    if (binding.get("status") != "stopped_after_R56_pre_effect_failure" or
+            binding.get("checkpoint_lsn") != reconciled_source.get("pg_control_checkpoint_lsn") or
+            binding.get("next_xid") != reconciled_source.get("pg_control_next_xid") or
+            binding.get("system_identifier") != reconciled_source.get("pg_control_system_identifier") or
+            sha((Path(binding["path"]) / "global" / "pg_control").read_bytes()) != binding.get("pg_control_sha256") or
+            reconciled_source.get("pg_control_state") != "shut down"):
+        raise Refusal("R57 current PGDATA metadata differs from the post-R56 stopped-source reconciliation")
     if (r56_failure.get("failure") != "Exact original publication intent selection required" or
             r56_failure.get("postgres_opened") is not True or r56_failure.get("spark_started") is not False or
             r56_failure.get("delta_written") is not False or r56_failure.get("source_ack_attempted") is not False or
@@ -278,16 +306,26 @@ def preflight(scope_path: Path, *, require_absent=True, supervisor_root_created=
     from ashlar_host.truss_resume_cli import parse_resume_truss_configuration
     with tempfile.TemporaryDirectory(prefix="ashlar-r57-parser-preflight-", dir="/private/tmp") as scratch_name:
         scratch = Path(scratch_name)
+        rt = scope["spark_runtime"]
         parser_config = {"connection_uri":"postgresql://preflight.invalid/no-connect",
+            "catalog_connection_uri":"postgresql://preflight.invalid/no-connect",
             "publication_directory":str(Path(scope["paths"]["publication_directory"])),
             "jars":[item["path"] for item in scope["spark_runtime"]["jars"]],
             "publication_intent":{"path":r55["publication_intent_path"],"sha256":r55["publication_intent_sha256"]},
-            "carrier_profile":scope["publication"]["carrier_profile"]}
+            "destination_id":scope["publication"]["destination_id"],
+            "carrier_profile":scope["publication"]["carrier_profile"],
+            "runtime_profile":{"profile":rt["runtime_profile"],"java_home":rt["java_home"],
+                "jar_inventory":{item["name"]:item["sha256"] for item in rt["jars"]}},
+            "archived_acceptance_files":[]}
         config_path = scratch / "resume-config.json"
         config_path.write_text(json.dumps(parser_config,sort_keys=True,separators=(",",":"))+"\n")
         parsed, publication_dir, page_raw, selected_jars, _, _, _ = parse_resume_truss_configuration(
             config_path, scratch / "resume-output")
         parser_preflight = {"status":"passed_real_resume_config_parser", "intent_selector_keys":sorted(parser_config["publication_intent"]),
+            "native_config_fields_exercised":sorted(parser_config),
+            "selected_python":str(python.resolve()), "truss_version":importlib.metadata.version("umf-truss"),
+            "truss_wheel_sha256":direct["archive_info"]["hashes"]["sha256"],
+            "local_extra_versions":local_extra_versions,
             "request_digest":parsed["request_digest"], "source_page_sha256":parsed["source_page_sha256"],
             "publication_directory":str(publication_dir), "jar_count":len(selected_jars),
             "page_bytes":len(page_raw), "scratch_removed_on_return":True, "native_effects":False}
@@ -364,7 +402,7 @@ def native(scope_path: Path, supervisor_root: Path):
         runtime.__enter__(); effects["postgres_opened"] = True
         info = runtime.info
         if info.server_version != "18.6" or Path(info.data_directory) != Path(paths["data_directory"]):
-            raise Refusal("R52 resumed PostgreSQL identity mismatch")
+            raise Refusal("R57 resumed PostgreSQL identity mismatch")
         params = psycopg.conninfo.conninfo_to_dict(info.connection_uri)
         names = scope["source"]
         def connect(role, autocommit=False):
@@ -417,12 +455,12 @@ def native(scope_path: Path, supervisor_root: Path):
         from ashlar_host.configured_local_runtime_profile import attest
         rt = scope["spark_runtime"]; java_home = Path(rt["java_home"]); jars = [Path(i["path"]) for i in rt["jars"]]
         for item, jar in zip(rt["jars"], jars):
-            if not jar.is_file() or sha(jar.read_bytes()) != item["sha256"]: raise Refusal("R52 pinned Spark/Delta JAR changed")
+            if not jar.is_file() or sha(jar.read_bytes()) != item["sha256"]: raise Refusal("R57 pinned Spark/Delta JAR changed")
         os.environ["JAVA_HOME"] = str(java_home)
         os.environ["SPARK_LOCAL_IP"] = "127.0.0.1"
         os.environ["PYSPARK_PYTHON"] = scope["runtime_candidate"]["local_runtime_base_python"]
         os.environ["PYSPARK_DRIVER_PYTHON"] = scope["runtime_candidate"]["local_runtime_base_python"]
-        runtime_identity = type("R52Runtime", (), {"java_home":java_home,"jars":jars[0].parent,
+        runtime_identity = type("R57Runtime", (), {"java_home":java_home,"jars":jars[0].parent,
             "jar_inventory":{i["name"]:i["sha256"] for i in rt["jars"]}})()
         _, spark_identity, verified = attest(runtime_identity)
         if tuple(verified) != tuple(jars) or spark_identity.get("jdk") != "21": raise Refusal("R57 local Spark runtime attestation differs")
@@ -432,10 +470,10 @@ def native(scope_path: Path, supervisor_root: Path):
                 expected_request_digest=scope["retained_r55"]["request_digest"])
             p = kw["page"]
             if p.sha256 != page.sha256 or p.prior.content != page.prior.content or p.next.content != page.next.content:
-                raise Refusal("R52 public page changed between selection and publication")
+                raise Refusal("R57 public page changed between selection and publication")
             typed_page, page_shape = helper.parse_page(base, p, names["feed_selection"])
             if page_shape.get("kind") != "entity" or len(typed_page.changes) != 2:
-                raise Refusal("R52 page changed from exact two-change shape")
+                raise Refusal("R57 page changed from exact two-change shape")
             if (p.consumer_id != committed_page["consumer_id"] or p.registration_id != committed_page["registration_id"] or
                     p.prior.content != base64.b64decode(committed_page["prior"]) or
                     p.next.content != base64.b64decode(committed_page["next"]) or
@@ -500,7 +538,7 @@ def native(scope_path: Path, supervisor_root: Path):
             return postpublication
         intent = {"path":scope["retained_r55"]["publication_intent_path"],
                   "sha256":scope["retained_r55"]["publication_intent_sha256"]}
-        if sha(Path(intent["path"]).read_bytes()) != intent["sha256"]: raise Refusal("R49 seed publication intent changed")
+        if sha(Path(intent["path"]).read_bytes()) != intent["sha256"]: raise Refusal("R55 original publication intent changed")
         config = {"connection_uri":psycopg.conninfo.make_conninfo(**dict(params,user=names["ordinary_reader_role"])),
             "catalog_connection_uri":psycopg.conninfo.make_conninfo(**dict(params,user=names["registrar_login_role"])),
             "publication_directory":paths["publication_directory"],"jars":[str(j) for j in jars],
