@@ -1,0 +1,75 @@
+{
+  "attempt_root": "/private/tmp/ashlar-r48-truss052-readback-recovery-20261101",
+  "attempt_root_absent": true,
+  "cloud": false,
+  "conclusion": "R48 never launched its worker: the supervisor failed while invoking /bin/ps before creating attempt output or PostgreSQL. Independent read-only process census confirms the PGDATA is stopped. The original R42 publication remains pending and unacknowledged; no source, Delta, or cloud effect occurred.",
+  "delta": {
+    "counts": {
+      "local_operation": 15,
+      "local_plan": 2,
+      "local_publication_artifact": 2,
+      "local_source_plan": 2
+    },
+    "heads": {
+      "attempts": 11,
+      "edge_current": 2,
+      "manifest": 3,
+      "object_current": 2,
+      "tombstone": 1,
+      "whole_source_history": 2
+    },
+    "integrity_check": "ok",
+    "journal_sha256": "6084db7eddfc116020b34d7a213dd2a8010cefbf0c2c6f6c0c58e60372842aec",
+    "new_ack_row": false,
+    "new_delta_publication": false,
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta"
+  },
+  "independent_custody": {
+    "matching_postgres_processes_for_pgdata": [],
+    "postmaster_pid_present": false,
+    "process_census": "escalated read-only /bin/ps excluding census process; no matching postgres/postmaster/pg_ctl"
+  },
+  "markers": {
+    "ack_attempt": false,
+    "ack_reconciliation": false,
+    "readback_complete": false,
+    "recovery_result": false
+  },
+  "profile": "ashlar-r48-read-only-reconciliation/0.1",
+  "scope": {
+    "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r48-host-scope.json",
+    "sha256": "43fe3687ad8ba16841f2303aef5bb30581bc2f089e1bdce13a323ab87f408509"
+  },
+  "source": {
+    "bytes": 65222549,
+    "files": 1261,
+    "pgdata_path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
+    "postmaster_pid_present": false,
+    "tree_sha256": "f936039c156cc3ee582b7cba02cf337e73209a0da06469d9bd7681233b7d7dfb"
+  },
+  "status": "supervisor_refused_before_worker_no_source_or_destination_effects",
+  "supervisor": {
+    "ownership_or_stop_unverified_in_original_receipt": true,
+    "process_group_remaining": [
+      -1
+    ],
+    "reason": "PermissionError /bin/ps access denied",
+    "receipt_path": "/private/tmp/ashlar-r48-truss052-readback-recovery-20261101-supervisor/supervisor-receipt.json",
+    "receipt_sha256": "8dd2bdfcc27ac5a39f2285040634e47831645ca35a80ad9337054889ecd124cd",
+    "returncode": -15,
+    "status": "supervisor_failed_or_stopped",
+    "stderr_bytes": 0,
+    "stderr_path": "/private/tmp/ashlar-r48-truss052-readback-recovery-20261101-supervisor/child.stderr.log",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_bytes": 0,
+    "stdout_path": "/private/tmp/ashlar-r48-truss052-readback-recovery-20261101-supervisor/child.stdout.log",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wall_seconds": 0.01
+  },
+  "supervisor_root": "/private/tmp/ashlar-r48-truss052-readback-recovery-20261101-supervisor",
+  "worker": {
+    "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r48-recovery-worker.py",
+    "sha256": "f5db5ed5be19f5104831c1d78c64be4985eafc0df6711de981466eb2abcfa7a7",
+    "started": false
+  }
+}
