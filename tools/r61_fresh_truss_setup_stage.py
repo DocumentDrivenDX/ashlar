@@ -635,12 +635,18 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
                                 or not status_result.value.installation_id):
                             raise RuntimeError("Retained accepted Truss installation status unavailable")
                         status = status_result.value
-                        revision = str(status.revision)
+                        # The public .53 API takes the accepted catalog revision
+                        # as an integer.  Keep the SDK value typed end to end;
+                        # stringifying it produces a local invalid-input Err.
+                        revision = status.revision
                     else:
-                        revision = str(bootstrap["revision"])
+                        revision = bootstrap["revision"]
+                        if type(revision) is not int:
+                            raise RuntimeError("Retained accepted catalog revision must be an integer")
                     report_result = assembly.report_in_transaction(tx_result.value, revision)
                     if not isinstance(report_result, Ok):
-                        raise RuntimeError("Public accepted report read refused")
+                        detail = getattr(report_result, "error", None)
+                        raise RuntimeError(f"Public accepted report read refused: {detail!r}")
                     report_raw = report_result.value.original_bytes
                     if bootstrap is None:
                         bootstrap = {"revision": status.revision,
@@ -651,12 +657,14 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
                     request = assembly.catalog_view_request(definition_count="65536", encoded_bytes="16777216")
                     view_result = assembly.catalog_view_in_transaction(tx_result.value, request)
                     if not isinstance(view_result, Ok) or not hasattr(view_result.value, "view"):
-                        raise RuntimeError("Public complete catalog view unavailable")
+                        detail = getattr(view_result, "error", None)
+                        raise RuntimeError(f"Public complete catalog view unavailable: {detail!r}")
                     view_raw = view_result.value.view.original_bytes
                     source_result = assembly.accepted_document_in_transaction(
                         tx_result.value, document_id=parsed["id"], maximum_bytes=1048576)
                     if not isinstance(source_result, Ok) or not hasattr(source_result.value, "content"):
-                        raise RuntimeError("Public accepted source read refused")
+                        detail = getattr(source_result, "error", None)
+                        raise RuntimeError(f"Public accepted source read refused: {detail!r}")
                     accepted_raw = source_result.value.content
                     if (accepted_raw != model or type(report_raw) is not bytes
                             or type(view_raw) is not bytes):
