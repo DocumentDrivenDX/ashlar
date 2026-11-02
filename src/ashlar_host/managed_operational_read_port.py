@@ -143,6 +143,22 @@ class ManagedOperationalReadPinHandle:
         self._require_open()
         return self._read_handle.remaining_lifetime_seconds()
 
+    def native_pin_remaining_lifetime_seconds(self):
+        """Return native pin-owner coverage, never the managed read deadline.
+
+        ``PostgresPins.open_live`` currently returns a transaction handle with
+        no duration admission. In that case the composed bridge must fail
+        closed before ACK; the read interval deadline is not a substitute.
+        """
+        self._require_open()
+        remaining = getattr(
+            self._pin_handle,
+            "native_pin_transaction_remaining_lifetime_seconds", None)
+        if not callable(remaining):
+            raise ManagedOperationalReadPortError(
+                "Native pin owner does not expose bounded live transaction coverage")
+        return remaining()
+
     def close(self):
         """Attempt final managed read and pin checks, preserving first failure."""
         self._require_open()
