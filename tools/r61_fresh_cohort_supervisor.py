@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -41,6 +42,25 @@ RECEIPT_NAME = "supervisor-result.json"
 
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _pinned_psutil(scope: dict):
+    pin = scope["supervisor_runtime"]
+    module_path = Path(pin["psutil_module_path"])
+    if (_sha(module_path) != pin["psutil_module_sha256"]
+            or not module_path.is_absolute() or module_path.is_symlink()):
+        raise RuntimeError("pinned supervisor psutil module path/hash differs")
+    name = "r61_pinned_psutil"
+    spec = importlib.util.spec_from_file_location(
+        name, module_path, submodule_search_locations=[str(module_path.parent)])
+    if spec is None or spec.loader is None:
+        raise RuntimeError("cannot load pinned supervisor psutil module")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    if module.__version__ != pin["psutil_version"] or Path(module.__file__).resolve() != module_path:
+        raise RuntimeError("loaded supervisor psutil origin/version differs")
+    return module
 
 
 def _tree_size(root: Path, *, stop_after: int, exclude: Path | None = None,
@@ -188,6 +208,13 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
     if subprocess.run(["git", "status", "--porcelain"], cwd=REPO,
                       capture_output=True, text=True, check=True).stdout:
         raise RuntimeError("source worktree is not clean")
+    supervisor_runtime = scope["supervisor_runtime"]
+    selected_manager = Path(supervisor_runtime["python_executable"])
+    if (not selected_manager.is_absolute() or not selected_manager.exists()
+            or Path(sys.executable).resolve() != selected_manager.resolve()
+            or _sha(selected_manager.resolve()) != supervisor_runtime["python_sha256"]
+            or ".".join(map(str, sys.version_info[:3])) != supervisor_runtime["python_version"]):
+        raise RuntimeError("exact pinned supervisor Python runtime required")
     checks = ((source["runner_path"], source["runner_sha256"]),
               (source["setup_stage_path"], source["setup_stage_sha256"]),
               (source["supervisor_path"], source["supervisor_sha256"]))
@@ -305,7 +332,7 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
 def preflight() -> dict:
     scope = json.loads(SCOPE.read_text())
     missing, _ = _validate_scope(scope)
-    import psutil
+    psutil = _pinned_psutil(scope)
     psutil_path = Path(psutil.__file__).resolve()
     return {"status": "blocked_pending_candidate" if missing else "review_gate_required",
             "effect_free": True, "native_dispatch_available": False,
@@ -337,10 +364,9 @@ def _verify_dispatch(path: Path, scope: dict, worker: Path) -> dict:
             "python_sha256", "runtime_manifest_sha256", "ashlar_candidate_wheel_sha256",
             "graphframes_runtime_manifest_sha256", "bun_sha256",
             "postgresql_18_runtime_manifest_sha256")}
-    import psutil
-    psutil_path = Path(psutil.__file__).resolve()
+    psutil = _pinned_psutil(scope)
     expected["supervisor_psutil"] = {"version": psutil.__version__,
-                                     "module_sha256": _sha(psutil_path)}
+                                     "module_sha256": _sha(Path(psutil.__file__).resolve())}
     for key, value in expected.items():
         if receipt.get(key) != value:
             raise RuntimeError(f"dispatch receipt binding mismatch: {key}")
@@ -359,7 +385,7 @@ def run_once(dispatch_path: Path) -> int:
             or _sha(worker) != artifacts["worker_sha256"]):
         raise RuntimeError("bound one-shot worker does not match scope")
     _verify_dispatch(dispatch_path, scope, worker)
-    import psutil
+    psutil = _pinned_psutil(scope)
     root = Path(scope["fresh_local_state"]["root"])
     if root.exists() or root.is_symlink():
         raise RuntimeError("fresh disposable root must be absent")

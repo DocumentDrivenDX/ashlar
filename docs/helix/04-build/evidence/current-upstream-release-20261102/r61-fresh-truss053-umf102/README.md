@@ -42,9 +42,9 @@ candidate. Candidate compatibility and all hashes remain required inputs.
 
 ## Readiness
 
-Run `python tools/r61_fresh_cohort_runner.py --preflight-only` or
-`python tools/r61_fresh_cohort_supervisor.py --preflight-only` from this source
-tree. Both are effect-free. The supervisor's `--run-once` requires all exact
+Run `python tools/r61_fresh_cohort_runner.py --preflight-only` or invoke the
+supervisor with the exact Python 3.11.17 pinned under `supervisor_runtime` in
+the scope. Both preflights are effect-free. The supervisor's `--run-once` requires all exact
 runtime/artifact/worker hashes, an accepted upstream review state, a matching
 external dispatch receipt and a fresh output root. It launches only the bound
 worker with a closed environment. The CLI remains unavailable in practice

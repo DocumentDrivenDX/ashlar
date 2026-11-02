@@ -10,7 +10,15 @@
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
     "setup_stage_sha256": "c367322fca557ce46eb23379e786e392004e385cbe17eedaef6c78fbdfadc61a",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
-    "supervisor_sha256": "dddbaf49d85074d3b347a2f374d9c5dfd606d278cfbf611be7ba9a1f7b542c42"
+    "supervisor_sha256": "ab8ab96890a698d68a71eb73ded618efdcb9bbf08030984efd15e2a3225d9215"
+  },
+  "supervisor_runtime": {
+    "python_executable": "/Users/erik/.local/bin/python3.11",
+    "python_version": "3.11.17",
+    "python_sha256": "5ebf120b62e8d02ab22485ca328da471db27fd278069df3de01c957cc02d9cd6",
+    "psutil_module_path": "/private/tmp/ashlar-r9-truss051-current-runtime-20261101/site-packages/psutil/__init__.py",
+    "psutil_version": "7.2.2",
+    "psutil_module_sha256": "d138a5786b163b56ba86ea0b2d5589dfca37e1bcdf8de1057fe1e933d6ab808a"
   },
   "artifacts": {
     "truss_version": "0.0.53",
