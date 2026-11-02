@@ -32,7 +32,8 @@ def _lineage(value,*,private_custody_admitted=False):
         text=publication[name]
         if type(text) is not str or not text or '\x00' in text:raise ValueError('Exact manifest text required')
         text.encode('utf-8')
-    if publication['profile_version']!='ashlar-delta/0.3':raise ValueError('Qualified canonical source profile required')
+    if publication['profile_version'] not in ('ashlar-delta/0.3', 'ashlar-delta/0.4-xxhash64'):
+        raise ValueError('Qualified canonical source profile required')
     decoded={}
     for name in ['table_versions_json','schema_revisions_json','source_progress_json','validation_report_json']:
         decoded[name]=json.loads(publication[name],object_pairs_hook=_object)

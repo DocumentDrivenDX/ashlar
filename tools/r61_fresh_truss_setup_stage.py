@@ -59,7 +59,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     root = Path(root)
     bun = Path(bun)
     if (type(expected_adapter_profile) is not str or not expected_adapter_profile
-            or not root.is_absolute() or root.resolve() != root or root.exists()
+            or not root.is_absolute() or root.resolve() != root
             or root.is_symlink() or not root.parent.is_dir() or not bun.is_file()
             or not MODEL.is_file() or hashlib.sha256(MODEL.read_bytes()).hexdigest() != MODEL_SHA256):
         raise ValueError("Fresh output, selected Bun, and exact R28 UMF 0.10 source required")
@@ -88,6 +88,21 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
         raise RuntimeError("Truss .53 local runtime implementation hash differs")
     LocalPostgres = local_runtime.LocalPostgres
 
+    if root.exists():
+        root_info = root.lstat()
+        if (not stat.S_ISDIR(root_info.st_mode) or root_info.st_uid != os.getuid()
+                or stat.S_IMODE(root_info.st_mode) != 0o700):
+            raise ValueError("Exact supervisor-created private run root required")
+        for child in root.iterdir():
+            info = child.lstat()
+            if child.name in ("home", "tmp"):
+                _require_owned_runtime_directory(child)
+            elif (child.name not in ("worker.log", "supervisor-result.json")
+                  or not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid()
+                  or info.st_mode & 0o077):
+                raise ValueError("Unexpected supervisor-created run-root entry")
+    else:
+        root.mkdir(mode=0o700)
     pgdata = (root / "pgdata").resolve()
     socket_root, socket_directory = _local_postgres_socket(pgdata)
     lease_file = Path(str(pgdata) + ".truss-runtime.lock")
@@ -97,7 +112,6 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
             or socket_directory.exists() or socket_directory.is_symlink()):
         raise ValueError("Fresh PGDATA, runtime lease and deterministic Truss .53 socket required")
 
-    root.mkdir(mode=0o700)
     model_path = root / "accepted-model.umf.json"
     origin_path = root / "origin.json"
     setup_path = root / "setup.json"
@@ -232,6 +246,7 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
                 "model": {"id": parsed["id"], "revision": "r1", "umf": parsed["umf"],
                           "sha256": hashlib.sha256(model).hexdigest()},
                 "installation": bootstrap["installation"],
+                "roles": bootstrap["roles"],
                 "postgres_server_version": runtime.info.server_version,
                 "postgres_runtime_version": runtime.info.runtime_version,
                 "postgres_socket_directory": str(socket_host),
