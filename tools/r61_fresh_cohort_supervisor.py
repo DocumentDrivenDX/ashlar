@@ -479,7 +479,8 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
         if not runtime.is_absolute() or runtime.resolve() != runtime or runtime.is_symlink() or not runtime.is_dir():
             raise RuntimeError("canonical selected PostgreSQL 18 runtime directory required")
         for binary, key in (("pg_ctl", "pg_ctl_sha256"), ("postgres", "postgres_sha256"),
-                            ("initdb", "initdb_sha256")):
+                            ("initdb", "initdb_sha256"),
+                            ("pg_controldata", "pg_controldata_sha256")):
             binary_path = runtime / "bin" / binary
             if (not binary_path.is_file() or not os.access(binary_path, os.X_OK)
                     or _sha(binary_path) != manifest.get(key)):

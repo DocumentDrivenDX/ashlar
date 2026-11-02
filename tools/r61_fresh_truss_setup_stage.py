@@ -8,6 +8,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import stat
 import subprocess
 import time
@@ -51,8 +52,21 @@ def _require_owned_runtime_directory(path: Path) -> None:
         raise RuntimeError("Truss LocalPostgres directory ownership/mode differs")
 
 
+def _tree_digest(root: Path) -> str:
+    digest = hashlib.sha256()
+    for path in sorted(root.rglob("*"), key=lambda item: item.relative_to(root).as_posix()):
+        if path.is_symlink():
+            raise RuntimeError("Symlink in retained PostgreSQL bootstrap seed")
+        if path.is_file():
+            relative = path.relative_to(root).as_posix().encode()
+            digest.update(len(relative).to_bytes(4, "big"))
+            digest.update(relative)
+            digest.update(hashlib.sha256(path.read_bytes()).hexdigest().encode())
+    return digest.hexdigest()
+
+
 def _preinitialize_postgres(pgdata: Path, root: Path) -> dict:
-    """Initialize only the fresh cluster with exact PG18 initdb before Truss opens it."""
+    """Copy only a stopped, exact, fresh initdb cluster before Truss opens it."""
     scope = json.loads(Path(os.environ["R61_SCOPE"]).read_text())
     artifacts = scope["artifacts"]
     manifest_path = Path(artifacts["postgresql_18_runtime_manifest"])
@@ -64,43 +78,184 @@ def _preinitialize_postgres(pgdata: Path, root: Path) -> dict:
     if (not initdb.is_file() or not os.access(initdb, os.X_OK)
             or hashlib.sha256(initdb.read_bytes()).hexdigest() != manifest.get("initdb_sha256")):
         raise RuntimeError("Exact selected PostgreSQL 18 initdb binary required")
+    controldata = Path(artifacts["postgresql_18_runtime"]) / "bin" / "pg_controldata"
+    if (not controldata.is_file() or not os.access(controldata, os.X_OK)
+            or hashlib.sha256(controldata.read_bytes()).hexdigest() != manifest.get("pg_controldata_sha256")):
+        raise RuntimeError("Exact selected PostgreSQL 18 pg_controldata binary required")
     if pgdata.exists() or pgdata.is_symlink():
         raise RuntimeError("Pre-bootstrap PGDATA must be absent")
-    pgdata.mkdir(mode=0o700)
-    stdout_path, stderr_path = root / "pg-initdb.stdout.log", root / "pg-initdb.stderr.log"
-    receipt_path = root / "pg-initdb.json"
-    argv = [str(initdb), "-D", str(pgdata), "--no-sync", "--auth=trust",
-            "--auth-local=trust", "--encoding=UTF8", "-U", "postgres"]
-    environment = {key: value for key, value in os.environ.items() if not key.startswith("PG")}
-    result = {"profile": "ashlar-r61-pg18-dev-no-sync-bootstrap/0.1",
-              "status": "failed", "argv": argv, "initdb_sha256": manifest["initdb_sha256"],
-              "server_fsync_after_start": "PostgreSQL default remains enabled"}
+    policy = scope["postgres_bootstrap_policy"]
+    seed = Path(policy["seed_pgdata"])
+    seed_receipt = Path(policy["seed_initdb_receipt"])
+    seed_root = Path(policy["seed_root"])
+    seed_worker_failure = Path(policy["seed_worker_failure_receipt"])
+    seed_supervisor_receipt = Path(policy["seed_supervisor_receipt"])
+    if (not seed.is_absolute() or seed.resolve() != seed or seed.is_symlink()
+            or not seed_root.is_absolute() or seed_root.resolve() != seed_root
+            or seed != seed_root / "pgdata" or not seed.is_dir()
+            or seed_root.is_symlink() or not seed_root.is_dir()
+            or seed_receipt != seed_root / "pg-initdb.json"
+            or seed_worker_failure != seed_root / "worker-failure.json"
+            or seed_supervisor_receipt != seed_root / "supervisor-result.json"
+            or any(path.is_symlink() or not path.is_file() for path in
+                   (seed_receipt, seed_worker_failure, seed_supervisor_receipt))
+            or hashlib.sha256(seed_receipt.read_bytes()).hexdigest() != policy["seed_initdb_receipt_sha256"]
+            or hashlib.sha256(seed_worker_failure.read_bytes()).hexdigest() != policy["seed_worker_failure_sha256"]
+            or hashlib.sha256(seed_supervisor_receipt.read_bytes()).hexdigest() != policy["seed_supervisor_receipt_sha256"]):
+        raise RuntimeError("Exact retained PG18 bootstrap source and failure receipts required")
+    receipt = json.loads(seed_receipt.read_text())
+    if (receipt.get("status") != "completed" or receipt.get("returncode") != 0
+            or receipt.get("initdb_sha256") != manifest["initdb_sha256"]
+            or "--no-sync" not in receipt.get("argv", [])):
+        raise RuntimeError("Retained PG18 bootstrap provenance differs")
+    worker_failure = json.loads(seed_worker_failure.read_text())
+    supervisor_failure = json.loads(seed_supervisor_receipt.read_text())
+    if (worker_failure.get("failure_type") != "ValueError"
+            or "Data directory and report must be fresh" not in worker_failure.get("failure", "")
+            or worker_failure.get("source_ack_attempted") is not False
+            or worker_failure.get("delta_write_state") != "not_attempted"
+            or worker_failure.get("spark_started") is not False
+            or supervisor_failure.get("status") != "failed_worker"
+            or supervisor_failure.get("postgres_cleanup", {}).get("postgres_closed") is not True):
+        raise RuntimeError("Retained seed failure evidence does not prove pre-Truss/source closure")
+    seed_pid = seed / "postmaster.pid"
+    seed_lease = Path(str(seed) + ".truss-runtime.lock")
+    _, seed_socket = _local_postgres_socket(seed)
+    if (seed_pid.exists() or seed_pid.is_symlink()
+            or seed_lease.exists() or seed_lease.is_symlink()
+            or seed_socket.exists() or seed_socket.is_symlink()
+            or (seed / "PG_VERSION").read_text().strip() != "18"):
+        raise RuntimeError("Retained bootstrap seed must be stopped and uninstalled")
+    control = subprocess.run([str(controldata), str(seed)], stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=5, check=True)
+    lines = control.stdout.splitlines()
+    system_id = next((line.split(":", 1)[1].strip() for line in lines
+                      if line.startswith("Database system identifier:")), None)
+    state = next((line.split(":", 1)[1].strip() for line in lines
+                  if line.startswith("Database cluster state:")), None)
+    if state != "shut down" or system_id != policy["seed_system_identifier"]:
+        raise RuntimeError("Retained PG18 seed is not the exact stopped fresh cluster")
+    seed_digest = _tree_digest(seed)
+    if seed_digest != policy["seed_tree_sha256"]:
+        raise RuntimeError("Retained PG18 seed tree differs from reviewed digest")
     started = time.monotonic()
-    stdout_fd = os.open(stdout_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
-                        getattr(os, "O_NOFOLLOW", 0), 0o600)
-    stderr_fd = os.open(stderr_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
-                        getattr(os, "O_NOFOLLOW", 0), 0o600)
+    shutil.copytree(seed, pgdata, copy_function=shutil.copy2)
+    copied_digest = _tree_digest(pgdata)
+    if copied_digest != seed_digest:
+        raise RuntimeError("Copied PG18 bootstrap tree digest differs")
+    result = {"profile": "ashlar-r61-pg18-stopped-bootstrap-copy/0.1",
+              "status": "completed", "source_pgdata": str(seed),
+              "source_tree_sha256": seed_digest, "copied_tree_sha256": copied_digest,
+              "system_identifier": system_id, "cluster_state_before_copy": state,
+              "initdb_sha256": manifest["initdb_sha256"],
+              "initdb_provenance_receipt_sha256": policy["seed_initdb_receipt_sha256"],
+              "source_worker_failure_receipt_sha256": policy["seed_worker_failure_sha256"],
+              "source_supervisor_receipt_sha256": policy["seed_supervisor_receipt_sha256"],
+              "initialization": "prior fresh PG18 initdb with --no-sync; no Truss installation/source state",
+              "server_fsync_after_start": "PostgreSQL default remains enabled",
+              "copy_elapsed_seconds": round(time.monotonic() - started, 3)}
+    _write_private(root / "pg-bootstrap-copy.json",
+        (json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n").encode())
+    return result
+
+
+def _run_public_truss_setup(*, config: dict, paths: dict, source: bytes,
+                            origin: bytes, module_ids: tuple[str, ...]) -> dict:
+    """Use public Truss install, acceptance, access, and report operations."""
+    from contextlib import contextmanager
+    from dataclasses import asdict
+    import psycopg
+    from psycopg import sql
+    from truss import (LocalPostgres, Ok, CatalogDocument, CatalogRuntimeConfiguration,
+        create_reference_assembly, adopt_psycopg_host, CatalogRegistration,
+        CatalogUnchanged, ModuleAccessGrant)
+    from ashlar_host.lifecycle import finish
+
+    consumer, reader, writer = "ashlar_note_consumer", "ashlar_note_reader", "ashlar_note_writer"
+    def value(result):
+        if not isinstance(result, Ok):
+            raise RuntimeError("Public Truss setup operation refused")
+        return result.value
+    @contextmanager
+    def interval(connection):
+        connection.execute("BEGIN ISOLATION LEVEL READ COMMITTED")
+        connection.execute("SET LOCAL statement_timeout = '15000ms'")
+        host = adopt_psycopg_host(connection)
+        assembly = None
+        primary = None
+        try:
+            tx = value(host.adopt_transaction())
+            assembly = value(create_reference_assembly(CatalogRuntimeConfiguration(), host))
+            yield assembly, tx
+        except BaseException as error:
+            primary = error
+        callbacks = ([assembly.dispose] if assembly is not None else [])
+        def detach():
+            if not host.detach():
+                raise RuntimeError("Host detach refused; recovery required")
+        callbacks.append(detach)
+        finish(primary, callbacks)
+
+    runtime = LocalPostgres(paths["data_directory"])
+    entered = False
+    admin = ordinary = None
+    primary = None
     try:
-        with os.fdopen(stdout_fd, "wb") as stdout, os.fdopen(stderr_fd, "wb") as stderr:
-            try:
-                completed = subprocess.run(argv, stdin=subprocess.DEVNULL, stdout=stdout,
-                    stderr=stderr, cwd=str(root), env=environment, timeout=180, check=False)
-                result["returncode"] = completed.returncode
-            except subprocess.TimeoutExpired:
-                result["status"] = "timeout"
-                raise
-    finally:
-        result["elapsed_seconds"] = round(time.monotonic() - started, 3)
-        result["stdout_sha256"] = hashlib.sha256(stdout_path.read_bytes()).hexdigest()
-        result["stdout_bytes"] = stdout_path.stat().st_size
-        result["stderr_sha256"] = hashlib.sha256(stderr_path.read_bytes()).hexdigest()
-        result["stderr_bytes"] = stderr_path.stat().st_size
-        if result.get("returncode") == 0 and (pgdata / "PG_VERSION").is_file() \
-                and (pgdata / "PG_VERSION").read_text().strip() == "18":
-            result["status"] = "completed"
-        _write_private(receipt_path, (json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n").encode())
-    if result["status"] != "completed":
-        raise RuntimeError(f"Bounded PG18 initdb bootstrap failed; receipt={receipt_path}")
+        runtime.__enter__()
+        entered = True
+        parameters = psycopg.conninfo.conninfo_to_dict(runtime.info.connection_uri)
+        admin = psycopg.connect(**parameters, autocommit=True, connect_timeout=5,
+                                options="-c statement_timeout=15000")
+        admin.execute(sql.SQL("CREATE ROLE {} LOGIN").format(sql.Identifier(consumer)))
+        for role in (reader, writer):
+            admin.execute(sql.SQL("CREATE ROLE {} NOLOGIN").format(sql.Identifier(role)))
+        with interval(admin) as (assembly, tx):
+            installed = value(assembly.install_in_transaction(tx))
+        admin.commit()
+        admin.execute(sql.SQL("GRANT {} TO {} WITH SET FALSE").format(
+            sql.Identifier(installed.registrar_role), sql.Identifier(consumer)))
+        ordinary_parameters = dict(parameters, user=consumer)
+        ordinary = psycopg.connect(**ordinary_parameters, autocommit=True, connect_timeout=5,
+                                   options="-c statement_timeout=15000")
+        with interval(ordinary) as (assembly, tx):
+            prepared = assembly.prepare_catalog(
+                (CatalogDocument(config["document_id"], config["document_revision"], source),),
+                bun_executable=str(paths["bun"]), source_version=json.loads(source)["umf"])
+            accepted = value(assembly.accept_in_transaction(
+                tx, prepared, request_key=config["request_key"], origin_bytes=origin))
+            if not isinstance(accepted, (CatalogRegistration, CatalogUnchanged)):
+                raise RuntimeError("Original document acceptance refused")
+        ordinary.commit()
+        with interval(admin) as (assembly, tx):
+            value(assembly.configure_module_access_in_transaction(
+                tx, tuple(ModuleAccessGrant(config["document_id"], module_id, reader, writer)
+                          for module_id in module_ids)))
+        admin.commit()
+        for role in (reader, writer):
+            admin.execute(sql.SQL("GRANT {} TO {} WITH SET FALSE").format(
+                sql.Identifier(role), sql.Identifier(consumer)))
+        with interval(ordinary) as (assembly, tx):
+            status = value(assembly.status_in_transaction(tx))
+            report = value(assembly.report_in_transaction(tx, accepted.revision))
+            if not status.installed:
+                raise RuntimeError("Current installed catalog required")
+            result = {"data_directory": str(paths["data_directory"]),
+                "installation": asdict(installed), "caller_commits_confirmed": True,
+                "catalog_status": asdict(status), "registration_id": accepted.registration_id,
+                "revision": accepted.revision, "roles": {"consumer": consumer, "reader": reader,
+                "writer": writer, "registrar": installed.registrar_role},
+                "report_original_base64": base64.b64encode(report.original_bytes).decode("ascii"),
+                "scope": "Fresh local PG18 public Truss install and declared UMF 0.10 acceptance; no remote/feed/ACK/schema-evolution qualification."}
+        ordinary.commit()
+    except BaseException as error:
+        primary = error
+    callbacks = []
+    for connection in (ordinary, admin):
+        if connection is not None:
+            callbacks.extend((connection.rollback, connection.close))
+    if entered:
+        callbacks.append(lambda: runtime.__exit__(None, None, None))
+    finish(primary, callbacks)
     return result
 
 
@@ -126,7 +281,6 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     # Complete selected-runtime admission before creating the disposable root.
     from ashlar_host.truss_runtime import require_truss_psycopg_runtime
     from ashlar_host.truss_current_catalog import installed_current_truss_profile
-    from ashlar_host.truss_local_setup import run_setup_truss_local_command
     from ashlar_host.truss_note_publication import read_page, register_note_consumer
     from truss import Ok, CatalogRuntimeConfiguration, create_reference_assembly, adopt_psycopg_host
     import truss.local_runtime as local_runtime
@@ -171,7 +325,6 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     model_path = root / "accepted-model.umf.json"
     origin_path = root / "origin.json"
     setup_path = root / "setup.json"
-    accepted_path = root / "accepted.json"
     _write_private(model_path, model)
     origin = b'{"operator":"ashlar-r61-local-fresh-baseline"}\n'
     _write_private(origin_path, origin)
@@ -190,7 +343,9 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     result = None
     postgres_fsync = None
     try:
-        bootstrap = run_setup_truss_local_command(setup_path, accepted_path)
+        bootstrap = _run_public_truss_setup(config=setup, paths={"data_directory": pgdata,
+            "bun": bun}, source=model, origin=origin,
+            module_ids=tuple(module["id"] for module in parsed["modules"]))
         _require_owned_runtime_directory(socket_root)
         _require_owned_runtime_directory(socket_directory)
         if ((pgdata / "postmaster.pid").exists()
