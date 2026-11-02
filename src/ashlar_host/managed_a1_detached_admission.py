@@ -27,7 +27,7 @@ def _member(value, *names):
     raise ValueError("Detached A/B evidence omitted " + "/".join(names))
 
 
-def _progress(source, evidence):
+def _progress(source, evidence, *, expected_next_xid="0"):
     from .managed_current_genesis import (
         TrussSourceGenesisProgress, admit_truss_source_genesis_progress,
     )
@@ -69,7 +69,8 @@ def _progress(source, evidence):
         }
     _need(type(cursor) is bytes and type(registration) is bytes,
           f"Original {source} cursor and catalog registration bytes required")
-    return admit_truss_source_genesis_progress(**args)
+    return admit_truss_source_genesis_progress(**args,
+        expected_next_xid=expected_next_xid)
 
 
 def _catalog_evidence(evidence):
@@ -118,7 +119,8 @@ def _catalog_evidence(evidence):
 
 
 def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
-                           stream, materialized_at, context):
+                           stream, materialized_at, context,
+                           continuation=False):
     """Revalidate the exact A/B genesis package and prepare its first-A plan.
 
     The genesis manifest must be the exact result read back from the separate
@@ -155,7 +157,20 @@ def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
     for source in ("A", "B"):
         evidence = detached.source_evidence(source) if callable(
             getattr(detached, "source_evidence", None)) else detached.sources[source]
-        progress = _progress(source, evidence)
+        expected_next_xid = "0"
+        if source == "A" and continuation:
+            page_prior = _member(_member(evidence, "page", "source_page"),
+                                 "prior_bytes", "prior_bytes_base64")
+            if type(page_prior) is str:
+                page_prior = base64.b64decode(page_prior, validate=True)
+            try:
+                cursor_doc = __import__("json").loads(page_prior)
+                expected_next_xid = cursor_doc["nextXid"]
+            except (TypeError, ValueError, KeyError) as error:
+                raise ValueError("A1 continuation prior cursor must be exact canonical Truss bytes") from error
+            _need(type(expected_next_xid) is str and expected_next_xid.isdecimal(),
+                  "A1 continuation cursor nextXid required")
+        progress = _progress(source, evidence, expected_next_xid=expected_next_xid)
         identity = _member(evidence, "identity")
         binding = schedule_doc["source_bindings"][source]
         _need(all(_member(identity, key) == progress_value for key, progress_value in (
@@ -254,6 +269,10 @@ def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
         detached.schedule_sha256, detached.schedule_bytes, source_progress,
         selected_models, catalog_acceptance, detached.schema_revisions,
         observations, admission, batches["A"])
-    return prepare_managed_current_a1_trial(
-        selection, genesis_manifest, stream=stream,
-        materialized_at=materialized_at, context=context)
+    if continuation:
+        from .managed_current_a1_trial_plan import prepare_managed_current_a1_continuation
+        return prepare_managed_current_a1_continuation(
+            selection, genesis_manifest, stream=stream,
+            materialized_at=materialized_at, context=context)
+    return prepare_managed_current_a1_trial(selection, genesis_manifest,
+        stream=stream, materialized_at=materialized_at, context=context)

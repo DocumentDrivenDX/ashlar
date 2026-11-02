@@ -1076,7 +1076,9 @@ def _managed_current_a1_task_inputs(a1_plan, *, stream, predecessor,
     ACK authority, while the managed task receives no ACK capability.
     """
     from .managed_current_a1_trial_plan import (
-        ManagedCurrentA1TrialPlan, prepare_managed_current_a1_trial,
+        ManagedCurrentA1TrialPlan, ManagedCurrentA1ContinuationPredecessor,
+        prepare_managed_current_a1_trial,
+        prepare_managed_current_a1_continuation,
     )
     from .managed_current_truss052_genesis_owner import (
         ManagedCurrentTruss052GenesisSelection,
@@ -1092,8 +1094,9 @@ def _managed_current_a1_task_inputs(a1_plan, *, stream, predecessor,
     selection = a1_plan.selection
     _require(type(selection) in (ManagedCurrentTruss052GenesisSelection,
                                  ManagedCurrentTruss053GenesisSelection)
-             and type(a1_plan.predecessor) is ManagedCurrentGenesisPredecessor,
-             'Exact Truss .52 or .53 A/B selection and verified genesis predecessor required')
+             and type(a1_plan.predecessor) in (ManagedCurrentGenesisPredecessor,
+                                               ManagedCurrentA1ContinuationPredecessor),
+             'Exact Truss .52 or .53 A/B selection and verified predecessor required')
     _require(type(a1_plan.driver_inputs) is dict and set(a1_plan.driver_inputs) == {
         'admission', 'stream', 'materialized_at', 'context',
         'managed_genesis_predecessor', 'source_owner_admitted_batch'},
@@ -1103,9 +1106,14 @@ def _managed_current_a1_task_inputs(a1_plan, *, stream, predecessor,
              and a1_plan.driver_inputs['admission'] is selection.admission
              and a1_plan.driver_inputs['source_owner_admitted_batch']
                  is selection.source_owner_admitted_batch
-             and a1_plan.driver_inputs['managed_genesis_predecessor']
-                 is a1_plan.predecessor,
-             'A1 plan must retain the exact source-owner admission, batch and genesis predecessor')
+             and ((type(a1_plan.predecessor) is ManagedCurrentGenesisPredecessor
+                   and a1_plan.driver_inputs['managed_genesis_predecessor'] is a1_plan.predecessor
+                   and a1_plan.driver_inputs['source_owner_admitted_batch']
+                       is selection.source_owner_admitted_batch)
+                  or (type(a1_plan.predecessor) is ManagedCurrentA1ContinuationPredecessor
+                      and a1_plan.driver_inputs['managed_genesis_predecessor'] is None
+                      and a1_plan.driver_inputs['source_owner_admitted_batch'] is None)),
+             'A1 plan must retain exact source-owner admission, batch and applicable predecessor authority')
     _require(a1_plan.driver_inputs['stream'] == stream
              and a1_plan.driver_inputs['materialized_at'] == materialized_at
              and predecessor == a1_plan.request.get('predecessor')
@@ -1114,13 +1122,17 @@ def _managed_current_a1_task_inputs(a1_plan, *, stream, predecessor,
 
     # Recompose from the retained owner outputs so mutable nested mappings in a
     # frozen dataclass cannot change request or page correspondence unnoticed.
-    rebuilt = prepare_managed_current_a1_trial(
-        selection, a1_plan.predecessor.manifest, stream=stream,
+    prepare = (prepare_managed_current_a1_trial
+        if type(a1_plan.predecessor) is ManagedCurrentGenesisPredecessor
+        else prepare_managed_current_a1_continuation)
+    rebuilt = prepare(selection, a1_plan.predecessor.manifest, stream=stream,
         materialized_at=materialized_at, context=a1_plan.driver_inputs['context'])
     _require(a1_plan.request == rebuilt.request
              and a1_plan.delivery_page == rebuilt.delivery_page
              and a1_plan.predecessor.manifest == rebuilt.predecessor.manifest,
              'Managed A1 plan differs from recomposed exact owner outputs')
+    if type(rebuilt.predecessor) is ManagedCurrentA1ContinuationPredecessor:
+        return (selection.admission, None, None, rebuilt.request)
     return (selection.admission, rebuilt.predecessor,
             selection.source_owner_admitted_batch, rebuilt.request)
 

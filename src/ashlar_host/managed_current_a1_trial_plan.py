@@ -20,6 +20,7 @@ class ManagedCurrentA1TrialPlan:
     request: dict
     driver_inputs: dict = field(repr=False, compare=False)
     delivery_page: object = field(repr=False, compare=False)
+    phase: str = "a1_genesis"
 
     def verify_delivery(self, prefix_bytes, *, prefix_sha256, selected,
                         schedule_bytes, pages):
@@ -125,3 +126,72 @@ def prepare_managed_current_a1_trial(selection, genesis_manifest, *,
     }
     return ManagedCurrentA1TrialPlan(selection, predecessor, request,
                                     driver_inputs, delivery_page)
+
+
+@dataclass(frozen=True)
+class ManagedCurrentA1ContinuationPredecessor:
+    """Exact previously published A0 manifest for the A1 continuation."""
+    manifest: dict
+
+
+def prepare_managed_current_a1_continuation(selection, predecessor_manifest, *,
+        stream, materialized_at, context):
+    """Prepare A1 against the exact committed A0 publication.
+
+    Unlike the initial A0 publication, this path deliberately supplies no
+    genesis predecessor pair to the publisher driver. The driver must reopen
+    and validate A0's committed publication attempt and its current six-role
+    table vector before applying this request.
+    """
+    from .managed_current_truss052_genesis_owner import ManagedCurrentTruss052GenesisSelection
+    from .managed_current_truss053_genesis_owner import ManagedCurrentTruss053GenesisSelection
+    from .managed_current_prefix_delivery import ManagedCurrentPrefixPage
+    from .publication_planning import truss_request_for
+    from .managed_current_core import CARRIER_PROFILE_XXHASH64
+
+    if type(selection) not in (ManagedCurrentTruss052GenesisSelection,
+                               ManagedCurrentTruss053GenesisSelection):
+        raise ValueError("Exact detached A/B source selection required")
+    if type(predecessor_manifest) is not dict:
+        raise ValueError("Exact read-back A0 manifest required")
+    if (predecessor_manifest.get("profile_version") != CARRIER_PROFILE_XXHASH64
+            or type(predecessor_manifest.get("publication_id")) is not str
+            or not predecessor_manifest["publication_id"]
+            or type(predecessor_manifest.get("source_progress_json")) is not str):
+        raise ValueError("A0 publication identity and physical profile are required")
+    try:
+        previous = __import__("json").loads(predecessor_manifest["source_progress_json"])
+        request_predecessor = predecessor_manifest["publication_id"]
+        batch = selection.source_owner_admitted_batch
+        progress_a = selection.source_progress
+        feed_a = progress_a["A"].feed
+        feed_b = progress_a["B"].feed
+        a0 = previous[feed_a]
+        b0 = previous[feed_b]
+        cursor_before = __import__("base64").b64decode(batch.cursor_before, validate=True)
+        cursor_after = __import__("base64").b64decode(batch.cursor_after, validate=True)
+    except (KeyError, TypeError, ValueError, AttributeError) as error:
+        raise ValueError("A0 full source progress and exact A1 page cursors required") from error
+    if (type(request_predecessor) is not str or not request_predecessor
+            or type(previous) is not dict or set(previous) != {feed_a, feed_b}
+            or type(a0) is not dict or a0.get("epoch") != progress_a["A"].epoch
+            or a0.get("position") != __import__("base64").b64encode(cursor_before).decode("ascii")
+            or a0.get("position_sha256") != __import__("hashlib").sha256(cursor_before).hexdigest()
+            or type(b0) is not dict or b0 != progress_a["B"].document()
+            or cursor_before != progress_a["A"].cursor_bytes
+            or selection.admission.batch is not batch):
+        raise ValueError("A1 prior cursor must equal A0 committed A progress while B remains genesis")
+    request = truss_request_for(stream, batch, request_predecessor,
+                                selection.schema_revisions)
+    page = selection.source_observations["A"].page
+    delivery_page = ManagedCurrentPrefixPage(ordinal=1, source="A",
+        page_bytes=page.content, prior_cursor_bytes=page.prior.content,
+        next_cursor_bytes=page.next.content)
+    if delivery_page.prior_cursor_bytes != cursor_before or delivery_page.next_cursor_bytes != cursor_after:
+        raise ValueError("A1 page differs from the exact A0 predecessor cursor")
+    predecessor = ManagedCurrentA1ContinuationPredecessor(dict(predecessor_manifest))
+    driver_inputs = {"admission": selection.admission, "stream": stream,
+        "materialized_at": materialized_at, "context": context,
+        "managed_genesis_predecessor": None, "source_owner_admitted_batch": None}
+    return ManagedCurrentA1TrialPlan(selection, predecessor, request,
+        driver_inputs, delivery_page, phase="a1_continuation")
