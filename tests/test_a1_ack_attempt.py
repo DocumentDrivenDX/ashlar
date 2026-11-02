@@ -57,10 +57,21 @@ class A1AckAttemptTests(unittest.TestCase):
         # Ensure this test's PID is not reused as a live process group.
         with self.assertRaises(ProcessLookupError):
             os.killpg(pgid, 0)
-        self.store.record_worker_started(process_group_id=pgid)
-        self.store.mark_worker_lost(process_group_id=pgid,
+        generation = self.store.record_worker_started(
+            process_group_id=pgid, selection_bytes=self.attempt.selection_bytes)
+        self.store.mark_worker_lost(process_group_id=pgid, generation=generation,
                                     reason="ack_or_reconcile_unresolved")
-        return pgid
+        return pgid, generation
+
+    def _dispatch(self):
+        child = subprocess.Popen([sys.executable, "-c", "pass"],
+                                 start_new_session=True, close_fds=True)
+        pgid = child.pid
+        child.wait(timeout=3)
+        generation = self.store.record_worker_started(
+            process_group_id=pgid, selection_bytes=self.attempt.selection_bytes)
+        self.store.mark_ack_dispatched(process_group_id=pgid, generation=generation)
+        return pgid, generation
 
     def test_persists_exact_bytes_before_any_worker_and_refuses_reuse(self):
         raw = self.store.path.read_bytes()
@@ -72,10 +83,17 @@ class A1AckAttemptTests(unittest.TestCase):
         self.assertEqual(loaded.request_bytes, self.values["request_bytes"])
         self.assertEqual(loaded.manifest_bytes, self.values["manifest_bytes"])
         self.assertEqual(loaded.receipt_bytes, self.values["receipt_bytes"])
+        self.assertIn(b'"status":"prepared"', raw)
+        with self.assertRaisesRegex(A1AckAttemptError, "differs from prepared"):
+            self.store.record_worker_started(process_group_id=99999,
+                                             selection_bytes=b"different")
         with self.assertRaisesRegex(A1AckAttemptError, "Fresh bounded durable attempt path"):
             self.store.begin(**self.values)
 
     def test_matched_settlement_requires_exact_receipt_and_next_checkpoint(self):
+        with self.assertRaisesRegex(A1AckAttemptError, "dispatch marker required"):
+            self.store.record_settlement(self.settlement())
+        self._dispatch()
         self.assertEqual(self.store.record_settlement(self.settlement()), "matched")
         self.assertTrue((self.root / "worker-settlement.json").is_file())
         other_temp = tempfile.TemporaryDirectory()
@@ -83,13 +101,29 @@ class A1AckAttemptTests(unittest.TestCase):
         other = Path(other_temp.name).resolve()
         store = DurableA1AckAttemptStore(other)
         attempt = store.begin(**self.values)
+        child = subprocess.Popen([sys.executable, "-c", "pass"],
+                                 start_new_session=True, close_fds=True)
+        child.wait(timeout=3)
+        generation = store.record_worker_started(process_group_id=child.pid,
+                                                   selection_bytes=attempt.selection_bytes)
+        store.mark_ack_dispatched(process_group_id=child.pid, generation=generation)
         mismatch = A1AckSettlement("matched", b"wrong cursor", b"wrong receipt",
             attempt.request_sha256, attempt.manifest_sha256, attempt.selection_sha256)
         with self.assertRaisesRegex(A1AckAttemptError, "exact original receipt/checkpoint"):
             store.record_settlement(mismatch)
 
+    def test_dispatch_marker_is_one_use_and_fsynced_before_command_stage(self):
+        pgid, generation = self._dispatch()
+        marker = self.root / "ack-command-dispatched.json"
+        self.assertTrue(marker.is_file())
+        self.assertIn(b'"status":"ack_command_may_have_been_sent"', marker.read_bytes())
+        with self.assertRaisesRegex(A1AckAttemptError, "Fresh bounded durable attempt path"):
+            self.store.mark_ack_dispatched(process_group_id=pgid, generation=generation)
+
     def test_lost_worker_uses_only_exact_read_only_reconciliation(self):
-        self._lost_worker_record()
+        pgid, generation = self._dispatch()
+        self.store.mark_worker_lost(process_group_id=pgid, generation=generation,
+                                    reason="ack_or_reconcile_unresolved")
         observation = self.settlement()
         owner = _ReadOnlyReconciler(observation)
         self.assertIs(recover_lost_a1_ack(self.store, owner), observation)
@@ -100,8 +134,11 @@ class A1AckAttemptTests(unittest.TestCase):
                       self.store.path.read_bytes())
 
     def test_recovery_refuses_live_process_group_before_calling_reconciler(self):
-        self.store.record_worker_started(process_group_id=os.getpgrp())
-        self.store.mark_worker_lost(process_group_id=os.getpgrp(), reason="timeout")
+        generation = self.store.record_worker_started(process_group_id=os.getpgrp(),
+                                                       selection_bytes=self.attempt.selection_bytes)
+        self.store.mark_ack_dispatched(process_group_id=os.getpgrp(), generation=generation)
+        self.store.mark_worker_lost(process_group_id=os.getpgrp(), generation=generation,
+                                    reason="timeout")
         owner = _ReadOnlyReconciler(self.settlement())
         with self.assertRaisesRegex(A1AckAttemptError, "process group remains live"):
             recover_lost_a1_ack(self.store, owner)
@@ -109,7 +146,8 @@ class A1AckAttemptTests(unittest.TestCase):
 
     def test_worker_loss_must_match_durable_original_worker_group(self):
         with self.assertRaisesRegex(A1AckAttemptError, "durable record is absent"):
-            self.store.mark_worker_lost(process_group_id=99999999, reason="timeout")
+            self.store.mark_worker_lost(process_group_id=99999999, generation=1,
+                                        reason="timeout")
         with self.assertRaisesRegex(A1AckAttemptError, "durable record is absent"):
             recover_lost_a1_ack(self.store, _ReadOnlyReconciler(self.settlement()))
 
@@ -125,8 +163,11 @@ class A1AckAttemptTests(unittest.TestCase):
             child.wait(timeout=3)
             with self.assertRaises(ProcessLookupError):
                 os.killpg(child.pid, 0)
-            store.record_worker_started(process_group_id=child.pid)
-            store.mark_worker_lost(process_group_id=child.pid, reason="timeout")
+            generation = store.record_worker_started(process_group_id=child.pid,
+                                                       selection_bytes=attempt.selection_bytes)
+            store.mark_ack_dispatched(process_group_id=child.pid, generation=generation)
+            store.mark_worker_lost(process_group_id=child.pid, generation=generation,
+                                    reason="timeout")
             settlement = A1AckSettlement(outcome, b"prior-or-current", None,
                 attempt.request_sha256, attempt.manifest_sha256,
                 attempt.selection_sha256)
@@ -135,6 +176,28 @@ class A1AckAttemptTests(unittest.TestCase):
             record = (directory / "read-only-reconciliation.json").read_bytes()
             self.assertIn(b'"status":"incomplete"', record)
             self.assertNotIn(b'"status":"matched"', record)
+
+    def test_pre_dispatch_worker_loss_allows_same_prepared_attempt_to_retry(self):
+        pgid, first = self._lost_worker_record()
+        second_child = subprocess.Popen([sys.executable, "-c", "pass"],
+                                        start_new_session=True, close_fds=True)
+        second_child.wait(timeout=3)
+        second = self.store.record_worker_started(
+            process_group_id=second_child.pid,
+            selection_bytes=self.attempt.selection_bytes)
+        self.assertEqual((first, second), (1, 2))
+        self.assertFalse((self.root / "ack-command-dispatched.json").exists())
+
+    def test_dispatched_attempt_cannot_retry_even_after_worker_loss(self):
+        pgid, generation = self._dispatch()
+        self.store.mark_worker_lost(process_group_id=pgid, generation=generation,
+                                    reason="timeout")
+        child = subprocess.Popen([sys.executable, "-c", "pass"],
+                                 start_new_session=True, close_fds=True)
+        child.wait(timeout=3)
+        with self.assertRaisesRegex(A1AckAttemptError, "cannot start another worker"):
+            self.store.record_worker_started(process_group_id=child.pid,
+                selection_bytes=self.attempt.selection_bytes)
 
 
 if __name__ == "__main__":

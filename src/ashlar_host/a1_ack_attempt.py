@@ -24,6 +24,7 @@ MAX_SELECTION_BYTES = 4 * 1024 * 1024
 MAX_ATTEMPT_RECORD_BYTES = 24 * 1024 * 1024
 MAX_WORKER_LINE = 65536
 MAX_WORKER_STDERR = 65536
+MAX_PRE_DISPATCH_WORKERS = 8
 
 
 class A1AckAttemptError(RuntimeError):
@@ -143,7 +144,7 @@ def _read_private(path: Path, maximum: int) -> bytes:
 
 @dataclass(frozen=True)
 class A1AckAttempt:
-    """Exact durable inputs marked dispatched before any worker can ACK."""
+    """Exact durable inputs for a single prepared ACK attempt."""
     path: Path
     attempt_id: str
     selection_bytes: bytes
@@ -216,7 +217,7 @@ class DurableA1AckAttemptStore:
                                destination_id, publication_id)
         value = {
             "profile": PROFILE,
-            "status": "dispatched_may_have_been_attempted",
+            "status": "prepared",
             "attempt_id": attempt_id,
             "selection_bytes_base64": _b64(selection_bytes),
             "selection_sha256": attempt.selection_sha256,
@@ -248,9 +249,9 @@ class DurableA1AckAttemptStore:
                     "next_checkpoint_bytes_base64", "page_sha256", "destination_id",
                     "publication_id", "ack_retry_permitted"}
         if (set(value) != expected or value["profile"] != PROFILE
-                or value["status"] != "dispatched_may_have_been_attempted"
+                or value["status"] not in ("prepared", "ack_command_may_have_been_sent")
                 or value["ack_retry_permitted"] is not False):
-            raise A1AckAttemptError("Exact one-use dispatched attempt required")
+            raise A1AckAttemptError("Exact prepared or dispatched attempt required")
         if (type(value["attempt_id"]) is not str
                 or type(value["destination_id"]) is not str
                 or type(value["publication_id"]) is not str
@@ -284,8 +285,24 @@ class DurableA1AckAttemptStore:
             attempt.publication_id.encode()))
         return _sha(b"ashlar-a1-one-use-ack/0.1\0" + binding)
 
+    def _read_record(self, name, maximum=4096):
+        raw = _read_private(self.directory / name, maximum)
+        if not raw.endswith(b"\n") or raw.endswith(b"\n\n"):
+            raise A1AckAttemptError("Single complete durable worker record required")
+        value = _json(raw[:-1])
+        return value
+
     def record_settlement(self, settlement: A1AckSettlement, *, recovery=False):
         attempt = self.load()
+        try:
+            dispatch = self._read_record("ack-command-dispatched.json")
+        except A1AckAttemptError as error:
+            raise A1AckAttemptError("ACK dispatch marker required before settlement") from error
+        if (dispatch.get("profile") != PROFILE
+                or dispatch.get("attempt_id") != attempt.attempt_id
+                or dispatch.get("status") != "ack_command_may_have_been_sent"
+                or dispatch.get("ack_retry_permitted") is not False):
+            raise A1AckAttemptError("ACK dispatch marker required before settlement")
         self._validate_settlement(attempt, settlement)
         name = "read-only-reconciliation.json" if recovery else "worker-settlement.json"
         value = {"profile": PROFILE,
@@ -301,16 +318,62 @@ class DurableA1AckAttemptStore:
         _write_exclusive(self.directory / name, _encoded(value) + b"\n")
         return value["status"]
 
-    def record_worker_started(self, *, process_group_id: int):
-        """Persist the group before sending it any source-open/ACK command."""
+    def record_worker_started(self, *, process_group_id: int,
+                              selection_bytes: bytes) -> int:
+        """Bind exact worker selection before any source-open or ACK command."""
         if type(process_group_id) is not int or process_group_id <= 1:
             raise A1AckAttemptError("Original spawned worker process group required")
         attempt = self.load()
+        if type(selection_bytes) is not bytes or selection_bytes != attempt.selection_bytes:
+            raise A1AckAttemptError("Worker exact selection differs from prepared attempt")
+        if (self.directory / "ack-command-dispatched.json").exists():
+            raise A1AckAttemptError("Dispatched ACK attempt cannot start another worker")
+        generation = 1
+        while (self.directory / f"worker-started-{generation:02d}.json").exists():
+            lost = self._read_record(f"worker-lost-{generation:02d}.json")
+            if (lost.get("attempt_id") != attempt.attempt_id
+                    or lost.get("generation") != generation
+                    or lost.get("status") != "worker_lost_before_ack_command"
+                    or lost.get("ack_retry_permitted") is not True):
+                raise A1AckAttemptError("Prior worker must be proven lost before ACK command")
+            pgid = lost.get("process_group_id")
+            try:
+                os.killpg(pgid, 0)
+            except ProcessLookupError:
+                pass
+            except (PermissionError, TypeError, ValueError) as error:
+                raise A1AckAttemptError("Cannot prove prior worker group is absent") from error
+            else:
+                raise A1AckAttemptError("Prior worker process group remains live")
+            generation += 1
+        if generation > MAX_PRE_DISPATCH_WORKERS:
+            raise A1AckAttemptError("Bounded pre-dispatch worker attempts exhausted")
         value = {"profile": PROFILE, "attempt_id": attempt.attempt_id,
-                 "status": "worker_spawned_no_command_yet",
+                 "generation": generation,
+                 "status": "worker_spawned_no_ack_command_yet",
                  "process_group_id": process_group_id,
                  "ack_retry_permitted": False}
-        _write_exclusive(self.directory / "worker-started.json", _encoded(value) + b"\n")
+        _write_exclusive(self.directory / f"worker-started-{generation:02d}.json",
+                         _encoded(value) + b"\n")
+        return generation
+
+    def mark_ack_dispatched(self, *, process_group_id: int, generation: int):
+        """Fsync the one-use marker immediately before writing the ACK command."""
+        attempt = self.load()
+        if self._read_record("ack-attempt.json").get("status") != "prepared":
+            raise A1AckAttemptError("ACK attempt is already dispatched")
+        started = self._read_record(f"worker-started-{generation:02d}.json")
+        if (started.get("attempt_id") != attempt.attempt_id
+                or started.get("generation") != generation
+                or started.get("process_group_id") != process_group_id
+                or started.get("status") != "worker_spawned_no_ack_command_yet"):
+            raise A1AckAttemptError("Exact active prepared worker required for ACK dispatch")
+        value = {"profile": PROFILE, "attempt_id": attempt.attempt_id,
+                 "generation": generation, "process_group_id": process_group_id,
+                 "status": "ack_command_may_have_been_sent",
+                 "ack_retry_permitted": False}
+        _write_exclusive(self.directory / "ack-command-dispatched.json",
+                         _encoded(value) + b"\n")
 
     @staticmethod
     def _validate_settlement(attempt, result):
@@ -328,45 +391,53 @@ class DurableA1AckAttemptStore:
         elif result.receipt_bytes is not None:
             raise A1AckAttemptError("Unmatched ACK must not claim retained receipt bytes")
 
-    def mark_worker_lost(self, *, process_group_id: int, reason: str):
+    def mark_worker_lost(self, *, process_group_id: int, generation: int, reason: str):
         if (type(process_group_id) is not int or process_group_id <= 1
                 or type(reason) is not str or not reason or len(reason) > 128):
             raise A1AckAttemptError("Bounded original worker-loss observation required")
         attempt = self.load()
-        started_raw = _read_private(self.directory / "worker-started.json", 4096)
-        if not started_raw.endswith(b"\n") or started_raw.endswith(b"\n\n"):
-            raise A1AckAttemptError("Single complete worker-start record required")
-        started = _json(started_raw[:-1])
+        started = self._read_record(f"worker-started-{generation:02d}.json")
         if (started.get("profile") != PROFILE
                 or started.get("attempt_id") != attempt.attempt_id
-                or started.get("status") != "worker_spawned_no_command_yet"
+                or started.get("generation") != generation
+                or started.get("status") != "worker_spawned_no_ack_command_yet"
                 or started.get("process_group_id") != process_group_id
                 or started.get("ack_retry_permitted") is not False):
             raise A1AckAttemptError("Worker loss must bind the recorded original group")
+        dispatched = (self.directory / "ack-command-dispatched.json").exists()
+        if dispatched:
+            dispatch = self._read_record("ack-command-dispatched.json")
+            if dispatch.get("generation") != generation:
+                raise A1AckAttemptError("Worker loss must bind dispatched generation")
         value = {"profile": PROFILE, "attempt_id": attempt.attempt_id,
-                 "status": "worker_lost_ack_may_have_committed",
+                 "generation": generation,
+                 "status": ("worker_lost_ack_may_have_committed" if dispatched
+                            else "worker_lost_before_ack_command"),
                  "process_group_id": process_group_id, "reason": reason,
-                 "ack_retry_permitted": False}
-        _write_exclusive(self.directory / "worker-lost.json", _encoded(value) + b"\n")
+                 "ack_retry_permitted": not dispatched}
+        _write_exclusive(self.directory / f"worker-lost-{generation:02d}.json",
+                         _encoded(value) + b"\n")
 
 
 def recover_lost_a1_ack(store: DurableA1AckAttemptStore, read_only_reconciler,
                         ) -> A1AckSettlement:
     """Settle only an original lost worker through a fresh read-only owner."""
     attempt = store.load()
-    lost_raw = _read_private(store.directory / "worker-lost.json", 4096)
-    if not lost_raw.endswith(b"\n") or lost_raw.endswith(b"\n\n"):
-        raise A1AckAttemptError("Single complete worker-loss record required")
-    lost = _json(lost_raw[:-1])
-    started_raw = _read_private(store.directory / "worker-started.json", 4096)
-    if not started_raw.endswith(b"\n") or started_raw.endswith(b"\n\n"):
-        raise A1AckAttemptError("Single complete worker-start record required")
-    started = _json(started_raw[:-1])
+    dispatch = store._read_record("ack-command-dispatched.json")
+    if (dispatch.get("profile") != PROFILE or dispatch.get("attempt_id") != attempt.attempt_id
+            or dispatch.get("status") != "ack_command_may_have_been_sent"
+            or dispatch.get("ack_retry_permitted") is not False):
+        raise A1AckAttemptError("Durable ACK dispatch marker required for recovery")
+    generation = dispatch.get("generation")
+    lost = store._read_record(f"worker-lost-{generation:02d}.json")
+    started = store._read_record(f"worker-started-{generation:02d}.json")
     if (started.get("profile") != PROFILE or started.get("attempt_id") != attempt.attempt_id
-            or started.get("status") != "worker_spawned_no_command_yet"
+            or started.get("generation") != generation
+            or started.get("status") != "worker_spawned_no_ack_command_yet"
             or started.get("ack_retry_permitted") is not False):
         raise A1AckAttemptError("Original worker start must be durable")
     if (lost.get("profile") != PROFILE or lost.get("attempt_id") != attempt.attempt_id
+            or lost.get("generation") != generation
             or lost.get("status") != "worker_lost_ack_may_have_committed"
             or lost.get("ack_retry_permitted") is not False
             or type(lost.get("process_group_id")) is not int
