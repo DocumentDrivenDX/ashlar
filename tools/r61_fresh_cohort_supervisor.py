@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+import errno
+import fcntl
 import hashlib
 import importlib.util
 import json
@@ -22,7 +24,8 @@ REPO = Path(__file__).resolve().parents[1]
 SCOPE = REPO / "docs/helix/04-build/evidence/current-upstream-release-20261102/r61-fresh-truss053-umf102/scope.json"
 PENDING = (
     "truss_wheel", "truss_wheel_sha256", "truss_release_manifest_sha256",
-    "umf_sdk_artifact", "umf_sdk_sha256", "umf_core_platform_artifact", "umf_core_sha256",
+    "umf_sdk_artifact", "umf_sdk_sha256", "umf_sdk_tag_commit",
+    "umf_core_platform_artifact", "umf_core_sha256",
     "truss_adapter_profile", "python_executable", "python_sha256",
     "runtime_manifest", "runtime_manifest_sha256",
     "bun_executable", "bun_sha256", "postgresql_18_runtime",
@@ -38,6 +41,8 @@ FINAL_RESERVE_SECONDS = 8
 RSS_POLL = 0.25
 MAX_LOG_BYTES = 64 * 1024**2
 RECEIPT_NAME = "supervisor-result.json"
+RUN_ONCE_STARTED = False
+RUN_RECEIPT_PATH: str | None = None
 
 
 def _sha(path: Path) -> str:
@@ -92,26 +97,77 @@ def _pgids(psutil) -> set[int]:
         try:
             if proc.info.get("pid") is not None:
                 result.add(proc.pid)
-        except (psutil.NoSuchProcess, psutil.AccessDenied):
+        except psutil.NoSuchProcess:
             continue
+        except (psutil.AccessDenied, PermissionError) as exc:
+            raise RuntimeError("process census denied; RSS bound cannot be proven") from exc
     return result
 
 
-def _group_snapshot(psutil, pgid: int) -> tuple[int, list[int]]:
+def _postmaster_pid(pgdata: Path) -> int | None:
+    pidfile = pgdata / "postmaster.pid"
+    if not pidfile.exists() and not pidfile.is_symlink():
+        return None
+    info = pidfile.lstat()
+    if (not pidfile.is_file() or pidfile.is_symlink() or info.st_uid != os.getuid()
+            or info.st_mode & 0o077):
+        raise RuntimeError("owned regular private PostgreSQL pidfile required for RSS census")
+    lines = pidfile.read_text().splitlines()
+    if len(lines) < 2 or Path(lines[1]).resolve() != pgdata.resolve():
+        raise RuntimeError("PostgreSQL pidfile does not bind to R61 PGDATA")
+    try:
+        pid = int(lines[0])
+    except ValueError as exc:
+        raise RuntimeError("invalid owned PostgreSQL PID") from exc
+    if pid <= 1:
+        raise RuntimeError("unsafe PostgreSQL PID")
+    return pid
+
+
+def _group_snapshot(psutil, pgid: int, pgdata: Path) -> tuple[int, list[int], list[int]]:
     rss = 0
-    pids: list[int] = []
+    group_pids: set[int] = set()
     for pid in _pgids(psutil):
         try:
             if os.getpgid(pid) == pgid:
-                proc = psutil.Process(pid)
-                rss += proc.memory_info().rss
-                pids.append(pid)
-        except (ProcessLookupError, PermissionError, psutil.NoSuchProcess, psutil.AccessDenied):
+                group_pids.add(pid)
+        except ProcessLookupError:
             continue
-    return rss, sorted(pids)
+        except (PermissionError, psutil.AccessDenied) as exc:
+            raise RuntimeError("process-group census denied; refusing incomplete RSS") from exc
+    owned_pg_pids: set[int] = set()
+    postmaster_pid = _postmaster_pid(pgdata)
+    if postmaster_pid is not None:
+        try:
+            postmaster = psutil.Process(postmaster_pid)
+            owned_pg_pids.add(postmaster.pid)
+            owned_pg_pids.update(child.pid for child in postmaster.children(recursive=True))
+        except psutil.NoSuchProcess:
+            pass
+        except (psutil.AccessDenied, PermissionError) as exc:
+            raise RuntimeError("owned PostgreSQL process tree inaccessible; refusing incomplete RSS") from exc
+    all_pids = group_pids | owned_pg_pids
+    for pid in all_pids:
+        try:
+            rss += psutil.Process(pid).memory_info().rss
+        except psutil.NoSuchProcess:
+            continue
+        except (psutil.AccessDenied, PermissionError) as exc:
+            raise RuntimeError("owned process RSS inaccessible; refusing incomplete bound") from exc
+    return rss, sorted(group_pids), sorted(owned_pg_pids)
 
 
-def _terminate_group(process: subprocess.Popen, psutil, deadline: float) -> dict:
+def _group_exists(pgid: int) -> bool:
+    try:
+        os.killpg(pgid, 0)
+        return True
+    except ProcessLookupError:
+        return False
+    except PermissionError as exc:
+        raise RuntimeError("cannot verify owned worker process group absence") from exc
+
+
+def _terminate_group(process: subprocess.Popen, deadline: float) -> dict:
     pgid = process.pid
     sent_term = False
     try:
@@ -121,13 +177,11 @@ def _terminate_group(process: subprocess.Popen, psutil, deadline: float) -> dict
         pass
     term_until = min(deadline, time.monotonic() + TERM_GRACE)
     while time.monotonic() < term_until:
-        _, pids = _group_snapshot(psutil, pgid)
-        if not pids:
+        if not _group_exists(pgid):
             break
         time.sleep(min(RSS_POLL, max(0, term_until - time.monotonic())))
-    _, pids = _group_snapshot(psutil, pgid)
     sent_kill = False
-    if pids:
+    if _group_exists(pgid):
         try:
             os.killpg(pgid, signal.SIGKILL)
             sent_kill = True
@@ -135,8 +189,7 @@ def _terminate_group(process: subprocess.Popen, psutil, deadline: float) -> dict
             pass
         kill_until = min(deadline, time.monotonic() + KILL_GRACE)
         while time.monotonic() < kill_until:
-            _, pids = _group_snapshot(psutil, pgid)
-            if not pids:
+            if not _group_exists(pgid):
                 break
             time.sleep(min(RSS_POLL, max(0, kill_until - time.monotonic())))
     if process.poll() is None:
@@ -144,9 +197,72 @@ def _terminate_group(process: subprocess.Popen, psutil, deadline: float) -> dict
             process.wait(timeout=max(0.01, min(1.0, deadline - time.monotonic())))
         except subprocess.TimeoutExpired:
             pass
-    _, remaining = _group_snapshot(psutil, pgid)
+    group_empty = not _group_exists(pgid)
     return {"sigterm_sent": sent_term, "sigkill_sent": sent_kill,
-            "remaining_process_group_pids": remaining, "group_empty": not remaining}
+            "process_group_empty": group_empty, "group_empty": group_empty}
+
+
+def _probe_runtime_lease(path: Path) -> dict:
+    if not path.exists() and not path.is_symlink():
+        return {"present": False, "unlocked": False}
+    info = path.lstat()
+    if not path.is_file() or path.is_symlink() or info.st_uid != os.getuid():
+        raise RuntimeError("Truss runtime lease must be an owned regular file")
+    parent_info = path.parent.lstat()
+    if (not stat.S_ISDIR(parent_info.st_mode) or parent_info.st_uid != os.getuid()
+            or stat.S_IMODE(parent_info.st_mode) != 0o700):
+        raise RuntimeError("Truss runtime lease must remain in the private run root")
+    fd = os.open(path, os.O_WRONLY | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_CLOEXEC", 0))
+    try:
+        try:
+            fcntl.lockf(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError as exc:
+            if exc.errno in (errno.EACCES, errno.EAGAIN):
+                return {"present": True, "unlocked": False}
+            raise
+        fcntl.lockf(fd, fcntl.LOCK_UN)
+        return {"present": True, "unlocked": True}
+    finally:
+        os.close(fd)
+
+
+def _write_reserved_receipt(fd: int, path: Path, result: dict) -> None:
+    info = os.fstat(fd)
+    try:
+        current = path.lstat()
+    except FileNotFoundError:
+        current = None
+    if (current is None or current.st_dev != info.st_dev or current.st_ino != info.st_ino
+            or current.st_uid != os.getuid() or stat.S_IMODE(current.st_mode) != 0o600):
+        result["status"] = "failed_receipt_path_replaced_state_uncertain"
+        result["receipt_path_replaced"] = True
+    encoded = (json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n").encode()
+    if len(encoded) > 65536:
+        result["status"] = "failed_receipt_size_limit_state_uncertain"
+        result["peak_process_group_pids"] = result.get("peak_process_group_pids", [])[:32]
+        result["peak_postgres_tree_pids"] = result.get("peak_postgres_tree_pids", [])[:32]
+        result["receipt_truncated"] = True
+        encoded = (json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n").encode()
+    os.ftruncate(fd, 0)
+    os.lseek(fd, 0, os.SEEK_SET)
+    view = memoryview(encoded)
+    while view:
+        view = view[os.write(fd, view):]
+    os.fsync(fd)
+    if result.get("receipt_path_replaced"):
+        fallback = path.with_name("supervisor-result-fallback.json")
+        try:
+            fallback_fd = os.open(fallback, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
+                                  getattr(os, "O_NOFOLLOW", 0), 0o600)
+        except OSError:
+            return
+        try:
+            remaining = memoryview(encoded)
+            while remaining:
+                remaining = remaining[os.write(fallback_fd, remaining):]
+            os.fsync(fallback_fd)
+        finally:
+            os.close(fallback_fd)
 
 
 def _close_owned_postgres(scope: dict, artifacts: dict, deadline: float) -> dict:
@@ -188,7 +304,7 @@ def _close_owned_postgres(scope: dict, artifacts: dict, deadline: float) -> dict
     # exact post-state determines closure.
     pid_absent = not pidfile.exists() and not pidfile.is_symlink()
     socket_absent = not socket_file.exists() and not socket_file.is_symlink()
-    lease_absent = not lease_file.exists() and not lease_file.is_symlink()
+    lease = _probe_runtime_lease(lease_file)
     if socket_dir.exists() or socket_dir.is_symlink():
         info = socket_dir.lstat()
         if (not socket_dir.is_dir() or socket_dir.is_symlink()
@@ -196,8 +312,8 @@ def _close_owned_postgres(scope: dict, artifacts: dict, deadline: float) -> dict
             raise RuntimeError("Truss socket directory owner/mode changed during run")
     return {"stop_attempted": stop_attempted, "pg_ctl_returncode": stop_returncode,
             "postmaster_pid_absent": pid_absent, "socket_absent": socket_absent,
-            "runtime_lease_absent": lease_absent,
-            "postgres_closed": pid_absent and socket_absent and lease_absent}
+            "runtime_lease": lease,
+            "postgres_closed": pid_absent and socket_absent and (not lease["present"] or lease["unlocked"])}
 
 
 def _validate_scope(scope: dict) -> tuple[list[str], dict]:
@@ -227,6 +343,11 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
             or artifacts.get("umf_core_version") != "0.10.6"
             or artifacts.get("umf_model_version") != "0.10.0"):
         raise RuntimeError("R61 Truss/UMF declared versions differ from reviewed cohort")
+    if (artifacts.get("umf_sdk_tag_commit") != "e35cd92b45e16816be2bdbf28e83ef9c53ac99a2"
+            or artifacts.get("truss_adapter_profile") != "ashlar-truss-current-catalog-evidence/0.8-fresh-baseline"
+            or artifacts.get("truss_source_custody_profile") != "ashlar-truss-053-fresh-baseline-source-custody/0.1"
+            or artifacts.get("delta_installation_profile") != "ashlar-local-current-installation-profile/0.5"):
+        raise RuntimeError("R61 Truss/UMF adapter profiles or SDK tag differ from candidate")
     platform_hashes = ({
         "truss_wheel_sha256": "a6c8568d676cd69675dc27d92fdfed2b85b69089ff0007d2b5bd2f5f48be6d89",
         "truss_release_manifest_sha256": "5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522",
@@ -258,6 +379,14 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
                     runtime_sha = hashlib.sha256(wheel.read("truss/local_runtime.py")).hexdigest()
                 if runtime_sha != scope["qualification_stage"]["truss_local_runtime_member_sha256"]:
                     raise RuntimeError("Truss .53 deterministic socket runtime hash differs")
+    if artifacts.get("bun_executable"):
+        bun = Path(artifacts["bun_executable"])
+        if not bun.is_file() or not os.access(bun, os.X_OK):
+            raise RuntimeError("selected Bun executable unavailable")
+        observed_version = subprocess.run([str(bun), "--version"], check=True, capture_output=True,
+                                          text=True, timeout=5).stdout.strip()
+        if observed_version != artifacts.get("bun_version"):
+            raise RuntimeError("selected Bun version differs from scope")
     python_path = artifacts.get("python_executable")
     if python_path:
         python_file = Path(python_path)
@@ -289,9 +418,8 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
     if artifacts.get("upstream_candidate_review") != "accepted":
         missing.append("accepted_upstream_candidate_review")
     if artifacts.get("upstream_candidate_commits") != [
-            "626c1e33d41732601ba836fe4d8cd7c94cac85ed",
-            "fc708a966bf68abd6d388ce01a97ea8356ff19b9"]:
-        raise RuntimeError("upstream candidate commit tuple differs")
+            "0f109814091aa6da54f4278e7683a8c82338dd93"]:
+        raise RuntimeError("reviewed upstream candidate commit differs")
     for candidate_commit in artifacts["upstream_candidate_commits"]:
         integrated = subprocess.run(["git", "merge-base", "--is-ancestor", candidate_commit, "HEAD"],
                                     cwd=REPO, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -389,17 +517,9 @@ def run_once(dispatch_path: Path) -> int:
     root = Path(scope["fresh_local_state"]["root"])
     if root.exists() or root.is_symlink():
         raise RuntimeError("fresh disposable root must be absent")
-    started = time.monotonic()
-    deadline = started + 900
-    root.mkdir(mode=0o700)
-    log = root / "worker.log"
-    receipt_path = root / RECEIPT_NAME
-    # Reserve the success/failure receipt before any worker effect.
-    receipt_fd = os.open(receipt_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
-    os.close(receipt_fd)
     selected_python = Path(artifacts["python_executable"])
     pg_runtime = Path(artifacts["postgresql_18_runtime"])
-    pg_bin = pg_runtime / "bin" if pg_runtime.is_dir() else pg_runtime.parent
+    pg_bin = pg_runtime / "bin"
     bun_parent = str(Path(artifacts["bun_executable"]).parent)
     env = {"PATH": os.pathsep.join((str(selected_python.parent), bun_parent,
                                     str(pg_bin), "/usr/bin", "/bin")),
@@ -408,16 +528,29 @@ def run_once(dispatch_path: Path) -> int:
            "LC_ALL": "C.UTF-8", "R61_SCOPE": str(SCOPE),
            "R61_OUTPUT_ROOT": str(root), "R61_DISPATCH_RECEIPT": str(dispatch_path)}
     for key in ("truss_wheel", "umf_sdk_artifact", "umf_core_platform_artifact",
-                "runtime_manifest", "python_executable",
-                "bun_executable", "postgresql_18_runtime", "ashlar_candidate_wheel",
-                "graphframes_runtime_manifest"):
+                "runtime_manifest", "python_executable", "bun_executable",
+                "postgresql_18_runtime", "postgresql_18_runtime_manifest",
+                "ashlar_candidate_wheel", "graphframes_runtime_manifest"):
         env["R61_" + key.upper()] = str(artifacts[key])
+    started = time.monotonic()
+    deadline = started + 900
+    log = root / "worker.log"
+    receipt_path = root / RECEIPT_NAME
+    receipt_fd = None
+    global RUN_ONCE_STARTED, RUN_RECEIPT_PATH
+    RUN_ONCE_STARTED = True
+    RUN_RECEIPT_PATH = str(receipt_path)
     process = None
     peak_rss = 0
     result = {"status": "failed", "scope_sha256": _sha(SCOPE),
               "dispatch_receipt_sha256": _sha(dispatch_path),
               "worker_sha256": _sha(worker), "native_started": False}
     try:
+        root.mkdir(mode=0o700)
+        # Keep this descriptor open so every post-dispatch outcome has a
+        # durable failure/success receipt even after the worker deadline.
+        receipt_fd = os.open(receipt_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
+                             getattr(os, "O_NOFOLLOW", 0), 0o600)
         (root / "home").mkdir(mode=0o700)
         (root / "tmp").mkdir(mode=0o700)
         log_fd = os.open(log, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
@@ -432,8 +565,14 @@ def run_once(dispatch_path: Path) -> int:
             assert process.stdout is not None
             selector.register(process.stdout, selectors.EVENT_READ)
             while process.poll() is None or selector.get_map():
-                rss, _ = _group_snapshot(psutil, process.pid)
+                rss, group_pids, pg_pids = _group_snapshot(
+                    psutil, process.pid, Path(scope["fresh_local_state"]["postgres_data"]))
                 peak_rss = max(peak_rss, rss)
+                if rss >= peak_rss:
+                    result["peak_process_group_pids"] = group_pids[:256]
+                    result["peak_process_group_pid_count"] = len(group_pids)
+                    result["peak_postgres_tree_pids"] = pg_pids[:256]
+                    result["peak_postgres_tree_pid_count"] = len(pg_pids)
                 if rss > 4 * 1024**3:
                     rss_exceeded = True
                     break
@@ -462,8 +601,15 @@ def run_once(dispatch_path: Path) -> int:
                         break
                 if output_exceeded:
                     break
-            cleanup = _terminate_group(process, psutil, deadline)
-            pg_cleanup = _close_owned_postgres(scope, artifacts, deadline)
+            try:
+                cleanup = _terminate_group(process, deadline)
+            except BaseException as error:
+                cleanup = {"group_empty": False, "cleanup_error": f"{type(error).__name__}: {error}"}
+            try:
+                pg_cleanup = _close_owned_postgres(scope, artifacts, deadline)
+            except BaseException as error:
+                pg_cleanup = {"postgres_closed": False,
+                              "cleanup_error": f"{type(error).__name__}: {error}"}
             result.update({"worker_returncode": process.returncode,
                            "timed_out": timed_out, "rss_exceeded": rss_exceeded,
                            "output_exceeded": output_exceeded, "peak_group_rss_bytes": peak_rss,
@@ -519,37 +665,62 @@ def run_once(dispatch_path: Path) -> int:
                         result["worker_completion_sha256"] = _sha(worker_result_path)
             result["log_sha256"] = _sha(log)
             result["log_bytes"] = log.stat().st_size
-            result["output_bytes_before_receipt"] = _tree_size(root, stop_after=512 * 1024**2)
+            result["output_bytes_before_receipt"] = _tree_size(root, stop_after=512 * 1024**2,
+                                                               exclude=receipt_path)
     except BaseException as exc:
         result["status"] = "failed_supervisor_exception"
         result["failure"] = f"{type(exc).__name__}: {exc}"
         if process is not None:
-            result["cleanup"] = _terminate_group(process, psutil, deadline)
+            try:
+                result["cleanup"] = _terminate_group(process, deadline)
+            except BaseException as cleanup_error:
+                result["cleanup"] = {"group_empty": False,
+                                      "cleanup_error": f"{type(cleanup_error).__name__}: {cleanup_error}"}
             try:
                 result["postgres_cleanup"] = _close_owned_postgres(scope, artifacts, deadline)
             except BaseException as cleanup_error:
-                result["postgres_cleanup_error"] = f"{type(cleanup_error).__name__}: {cleanup_error}"
-                pgdata = Path(scope["fresh_local_state"]["postgres_data"])
-                socket_root = Path("/private/tmp" if sys.platform == "darwin" else "/tmp") / f"truss-pg18-{os.getuid()}"
-                socket_dir = socket_root / hashlib.sha256(os.fsencode(pgdata)).hexdigest()[:24]
-                result["postgres_poststate"] = {
-                    "postmaster_pid_absent": not (pgdata / "postmaster.pid").exists(),
-                    "socket_absent": not (socket_dir / ".s.PGSQL.5432").exists()}
+                result["postgres_cleanup"] = {"postgres_closed": False,
+                                              "cleanup_error": f"{type(cleanup_error).__name__}: {cleanup_error}"}
         if log.exists():
             result["log_sha256"] = _sha(log)
             result["log_bytes"] = log.stat().st_size
     finally:
         result["elapsed_seconds"] = round(time.monotonic() - started, 3)
-        encoded = (json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n").encode()
-        if root.exists() and _tree_size(root, stop_after=512 * 1024**2,
-                                        deadline=deadline) + len(encoded) > 512 * 1024**2:
-            result["status"] = "failed_output_limit_receipt_reserve"
-            encoded = (json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n").encode()
-        fd = os.open(receipt_path, os.O_WRONLY | os.O_TRUNC | getattr(os, "O_NOFOLLOW", 0))
-        with os.fdopen(fd, "wb") as stream:
-            stream.write(encoded)
-            stream.flush()
-            os.fsync(stream.fileno())
+        try:
+            if root.exists() and time.monotonic() < deadline:
+                result["final_output_bytes"] = _tree_size(root, stop_after=512 * 1024**2,
+                                                          exclude=receipt_path, deadline=deadline)
+                if result["final_output_bytes"] > 512 * 1024**2 - 65536:
+                    result["status"] = "failed_output_limit_receipt_reserve"
+            elif root.exists():
+                result["final_output_census"] = "skipped_after_deadline"
+                if result["status"] == "worker_completed_reconciliation_required":
+                    result["status"] = "failed_deadline_during_final_census"
+        except BaseException as error:
+            result["final_output_census_error"] = f"{type(error).__name__}: {error}"
+            if result["status"] == "worker_completed_reconciliation_required":
+                result["status"] = "failed_final_census_indeterminate"
+        if receipt_fd is not None:
+            try:
+                _write_reserved_receipt(receipt_fd, receipt_path, result)
+            finally:
+                os.close(receipt_fd)
+        elif root.exists():
+            result["receipt_unavailable"] = True
+            fallback = root / "supervisor-result-unreserved.json"
+            try:
+                fallback_fd = os.open(fallback, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
+                                      getattr(os, "O_NOFOLLOW", 0), 0o600)
+                try:
+                    encoded = (json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n").encode()
+                    remaining = memoryview(encoded)
+                    while remaining:
+                        remaining = remaining[os.write(fallback_fd, remaining):]
+                    os.fsync(fallback_fd)
+                finally:
+                    os.close(fallback_fd)
+            except OSError:
+                result["receipt_unavailable"] = True
     return 0 if result["status"] == "worker_completed_reconciliation_required" else 1
 
 
@@ -572,6 +743,9 @@ if __name__ == "__main__":
     try:
         raise SystemExit(main())
     except Exception as exc:
-        print(json.dumps({"status": "refused", "effect_free": True, "reason": str(exc)},
+        print(json.dumps({"status": "refused" if not RUN_ONCE_STARTED else "indeterminate_after_dispatch_gate",
+                          "effect_free": not RUN_ONCE_STARTED, "reason": str(exc),
+                          "durable_receipt_expected": RUN_ONCE_STARTED,
+                          "receipt_path": RUN_RECEIPT_PATH},
                          sort_keys=True, separators=(",", ":")), file=sys.stderr)
         raise SystemExit(2)

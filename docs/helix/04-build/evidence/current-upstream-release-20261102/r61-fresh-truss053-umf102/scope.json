@@ -3,14 +3,14 @@
   "status": "bounded_supervisor_coded_candidate_pending_review_no_dispatch",
   "source": {
     "repository": "ashlar",
-    "base_commit": "783f2f63491bf9e1ccca1e65c7254c5a9446402b",
+    "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
     "worktree": "/private/tmp/ashlar-r61-fresh-cohort-plan",
     "runner_path": "tools/r61_fresh_cohort_runner.py",
     "runner_sha256": "0b318102e7c8d5de3b6c15f0f003d666d101d0c9f8b9f991601b41fbd40b7eb9",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
     "setup_stage_sha256": "c367322fca557ce46eb23379e786e392004e385cbe17eedaef6c78fbdfadc61a",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
-    "supervisor_sha256": "ab8ab96890a698d68a71eb73ded618efdcb9bbf08030984efd15e2a3225d9215"
+    "supervisor_sha256": "be808ab59a7f95e54cdee74dff34ad7912338913faa4db8d463a173f7b076c8e"
   },
   "supervisor_runtime": {
     "python_executable": "/Users/erik/.local/bin/python3.11",
@@ -27,11 +27,11 @@
     "truss_release_manifest_sha256": "5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522",
     "umf_model_version": "0.10.0",
     "umf_sdk_version": "0.10.2",
-    "umf_sdk_artifact": null,
+    "umf_sdk_artifact": "/private/tmp/umf-rust-v0.1.0-release-assets/umf-sdk-0.10.2-macos-aarch64.tgz",
     "umf_sdk_sha256": "785de2c4db18b030c9462c7f55f52d012db50a4d4b3c608a4dc3aa6f5fa0d39b",
     "umf_sdk_linux_x86_64_sha256": "0e210969dc6d585d73b0e70d35660421b40c141746389118f7181c54bfcff943",
     "umf_core_version": "0.10.6",
-    "umf_core_platform_artifact": null,
+    "umf_core_platform_artifact": "/private/tmp/umf-rust-v0.1.0-release-assets/umf_core-0.10.6-cp311-abi3-macosx_11_0_arm64.whl",
     "umf_core_sha256": "e6219539dabcdfe9657bc09485ad991b3380ae306c658d0a51a35caac0196e36",
     "umf_core_linux_x86_64_sha256": "9a4fc6e739fb9c0c80e22916490484fb41b6f00985afc53fb81dcca2d72029b9",
     "python_executable": null,
@@ -40,14 +40,13 @@
     "runtime_manifest_sha256": null,
     "upstream_candidate_checkout": "/private/tmp/ashlar-upstream-0102-0053",
     "upstream_candidate_commits": [
-      "626c1e33d41732601ba836fe4d8cd7c94cac85ed",
-      "fc708a966bf68abd6d388ce01a97ea8356ff19b9"
+      "0f109814091aa6da54f4278e7683a8c82338dd93"
     ],
-    "upstream_candidate_review": "pending_independent_sol_review",
-    "ashlar_candidate_commit": "fc708a966bf68abd6d388ce01a97ea8356ff19b9",
-    "truss_adapter_profile": null,
-    "bun_executable": null,
-    "bun_sha256": null,
+    "upstream_candidate_review": "accepted",
+    "ashlar_candidate_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
+    "truss_adapter_profile": "ashlar-truss-current-catalog-evidence/0.8-fresh-baseline",
+    "bun_executable": "/private/tmp/bun-node-26aa4e1a9/bun",
+    "bun_sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
     "postgresql_18_runtime": null,
     "postgresql_18_runtime_manifest": null,
     "postgresql_18_runtime_manifest_sha256": null,
@@ -56,7 +55,11 @@
     "graphframes_runtime_manifest": null,
     "graphframes_runtime_manifest_sha256": null,
     "worker_path": null,
-    "worker_sha256": null
+    "worker_sha256": null,
+    "umf_sdk_tag_commit": "e35cd92b45e16816be2bdbf28e83ef9c53ac99a2",
+    "truss_source_custody_profile": "ashlar-truss-053-fresh-baseline-source-custody/0.1",
+    "delta_installation_profile": "ashlar-local-current-installation-profile/0.5",
+    "bun_version": "1.4.3"
   },
   "fresh_local_state": {
     "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102",
