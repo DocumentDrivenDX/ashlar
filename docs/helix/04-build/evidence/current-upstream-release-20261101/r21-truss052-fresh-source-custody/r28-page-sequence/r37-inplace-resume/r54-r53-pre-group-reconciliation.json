@@ -1,0 +1,37 @@
+{
+  "cause": "R53 required prior and next FeedPage cursor bytes to be equal despite public empty_interval semantics",
+  "current_delta_unchanged": true,
+  "failure_receipt_path": "/private/tmp/ashlar-r53-truss052-group-diagnostic-20261101/receipts/failure.json",
+  "failure_receipt_sha256": "6132cd5d1e69d1d2589feb7d5b5c1521bb79720532358e6ba0050f6944f0a01a",
+  "native_retry_authorized": false,
+  "observed_public_page": {
+    "next_cursor_sha256": "05723b6673a42eab83449a833bc6095a6163fb51652550518db638c3276632c4",
+    "outcome": "empty_interval",
+    "prior_cursor_matches_R49_ACK": true,
+    "prior_cursor_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+    "writer_xid": null
+  },
+  "profile": "ashlar-r53-pre-group-refusal-reconciliation/0.1",
+  "r53_scope_path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r53-host-scope.json",
+  "r53_scope_sha256": "daf3ee37184f3c6d9b7a7bb8d6f06bb6c2b322cab6f12ee2285930ea856e3237",
+  "r53_worker_path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r53-diagnostic-probe-worker.py",
+  "r53_worker_sha256": "9cc22ab865529abbc4a87d8b72d171d85a2dfb5ceabec526b2e18db7b55a86eb",
+  "status": "pre_group_feed_cursor_check_refused",
+  "supervisor": {
+    "postgres_cleanup": "absent",
+    "process_group_remaining": [],
+    "returncode": 2,
+    "status": "child_failed"
+  },
+  "supervisor_receipt_path": "/private/tmp/ashlar-r53-truss052-group-diagnostic-20261101-supervisor/supervisor-receipt.json",
+  "supervisor_receipt_sha256": "c49872cb7fa0fd477bde161e9d0a69c8f0070cc9a936fd3471b387ea0a09866d",
+  "worker_effects": {
+    "cloud": false,
+    "delta_written": false,
+    "group_invoked": false,
+    "postgres_opened": true,
+    "source_ack_attempted": false,
+    "spark_started": false,
+    "transaction_rolled_back": false
+  }
+}
