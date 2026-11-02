@@ -1,11 +1,13 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
-"""Read-only Truss 0.0.53 source selection for managed-current A1 genesis.
+"""Rollback-only Truss 0.0.53 source selection for managed-current A1 genesis.
 
 The owner reads both independently selected source installations through the
-public Truss API. It returns original report, accepted-document, complete-view,
+public Truss API. The complete catalog view requires a row-lock-capable
+transaction, so the owner adopts READ WRITE access and always rolls back rather
+than committing. It returns original report, accepted-document, complete-view,
 consumer-cursor and page bytes for the existing genesis and driver boundaries.
-It does not register consumers, publish, mutate source state, hold ACK custody,
-or acknowledge a page.
+It does not register consumers, publish, hold ACK custody, or acknowledge a
+page; this code establishes no committed source mutation.
 """
 from __future__ import annotations
 
@@ -34,9 +36,24 @@ def _outcome(value, label):
     raise ManagedCurrentTruss053GenesisError(f"Public Truss {label} returned an unknown result")
 
 
-def _begin_public_read_only_transaction(connection):
-    """Set isolation and access mode in the first transaction statement."""
-    connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED, READ ONLY")
+def _begin_public_catalog_transaction(connection):
+    """Enable Truss catalog-view row locks in the first transaction statement."""
+    connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED, READ WRITE")
+
+
+def _rollback_and_close(connection):
+    """Attempt rollback and close independently; return every cleanup failure."""
+    failures = []
+    if not getattr(connection, "closed", False):
+        try:
+            connection.rollback()
+        except BaseException as error:
+            failures.append(error)
+        try:
+            connection.close()
+        except BaseException as error:
+            failures.append(error)
+    return failures
 
 
 @dataclass(frozen=True)
@@ -85,8 +102,8 @@ class ManagedCurrentTruss053GenesisSourceOwner:
     """Read selected A/B registrations, accepted catalogs, cursors and A1 page.
 
     The caller supplies independently selected connection factories and source
-    identity tuples. Each source is read under one original read-only Truss
-    connection. The R04 schedule binds feed/epoch/installation/consumer IDs;
+    identity tuples. Each source is read under one original rollback-only
+    Truss connection. The R04 schedule binds feed/epoch/installation/consumer IDs;
     the separately selected catalog registration/revision and consumer
     registration IDs are checked against the public readbacks.
     """
@@ -155,12 +172,12 @@ class ManagedCurrentTruss053GenesisSourceOwner:
         host = assembly = None
         primary = None
         try:
-            _begin_public_read_only_transaction(connection)
+            _begin_public_catalog_transaction(connection)
             connection.execute("SET LOCAL statement_timeout = '10000ms'")
             host = adopt_psycopg_host(connection, statement_timeout_ms=10000,
                                       operation_timeout_ms=30000)
-            transaction = _outcome(host.adopt_transaction(access_mode="read_only"),
-                                   "read-only source transaction")
+            transaction = _outcome(host.adopt_transaction(access_mode="read_write"),
+                                   "rollback-only source transaction")
             assembly = _outcome(create_reference_assembly(
                 CatalogRuntimeConfiguration(), host), "reference assembly")
             status = _outcome(assembly.status_in_transaction(transaction), "runtime status")
@@ -271,15 +288,10 @@ class ManagedCurrentTruss053GenesisSourceOwner:
                             "Truss owner host detach was not confirmed")
                 except BaseException as error:
                     failures.append(error)
-            try:
-                if not getattr(connection, "closed", False):
-                    connection.rollback()
-                    connection.close()
-            except BaseException as error:
-                failures.append(error)
+            failures.extend(_rollback_and_close(connection))
             if failures and primary is None:
                 raise ManagedCurrentTruss053GenesisError(
-                    "Truss read-only source owner cleanup failed") from failures[0]
+                    "Truss source owner cleanup failed") from failures[0]
 
         identity = {"installation_id": selection.installation_id,
                     "epoch": selection.epoch,
