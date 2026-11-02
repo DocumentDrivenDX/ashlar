@@ -107,7 +107,10 @@ def _owned_json(value):
   raise ValueError('Exact passive original JSON carriers required')
  return copy(value,0)
 
-from ashlar.graph_release import NODE_INTS, NODE_TEXT, EDGE_INTS, EDGE_TEXT, validate_release_carrier
+from ashlar.graph_release import (
+    NODE_INTS, NODE_TEXT, EDGE_INTS, EDGE_TEXT, lookup_hash_profile,
+    validate_release_carrier,
+)
 FORMAT="ashlar-graph-release/0.1"
 _object=_pairs
 def _release_lineage(value):
@@ -120,7 +123,10 @@ def _release_lineage(value):
         text=publication[name]
         if type(text) is not str or not text or '\x00' in text:raise ValueError('Exact manifest text required')
         text.encode('utf-8')
-    if publication['profile_version']!='ashlar-delta/0.3':raise ValueError('Qualified canonical source profile required')
+    profile=publication['profile_version']
+    hash_profile=lookup_hash_profile(profile)
+    if profile not in ('ashlar-delta/0.3','ashlar-delta/0.4-xxhash64'):
+        raise ValueError('Qualified canonical source profile required')
     decoded={}
     for name in ['table_versions_json','schema_revisions_json','source_progress_json','validation_report_json']:
         decoded[name]=json.loads(publication[name],object_pairs_hook=_pairs,parse_int=_integer,parse_float=lambda _:(_ for _ in ()).throw(ValueError('Floating original value')),parse_constant=lambda _:(_ for _ in ()).throw(ValueError('Nonfinite original value')))
@@ -138,20 +144,26 @@ def _release_lineage(value):
     if type(roles) is not dict or set(roles)!={'nodes','edges'} or any(type(t) is not str or t not in snapshots for t in roles.values()) or roles['nodes']==roles['edges']:
         raise ValueError('Distinct original snapshot graph roles required')
     expected={'reversibleIdentity':True,'independentEdges':True,'isolatedNodes':True,'exactCanonicalText':True,'selectedScalarPromotion':False,'nativeReleaseMaterialization':False,'engineExecution':False}
-    if type(mapping) is not dict or set(mapping)!={'identity','properties','residuals','capabilities','losses','engineSupport'}:
+    mapping_fields={'identity','properties','residuals','capabilities','losses','engineSupport'}
+    if profile=='ashlar-delta/0.4-xxhash64':
+        mapping_fields.add('lookupHashProfile')
+        if type(mapping) is not dict or mapping.get('lookupHashProfile')!=hash_profile:
+            raise ValueError('Exact native typed-key lookup-hash profile required')
+    if type(mapping) is not dict or set(mapping)!=mapping_fields:
         raise ValueError('Complete mapping capability/loss inventory required')
     if mapping['identity']!='ashlar-key/1' or type(mapping['properties']) is not str or not mapping['properties'] or type(mapping['residuals']) is not list or not mapping['residuals'] or any(type(t) is not str or not t for t in mapping['residuals']):
         raise ValueError('Named exact carrier mapping required')
     capabilities=mapping['capabilities']
     if type(capabilities) is not dict or capabilities!=expected or any(type(v) is not bool for v in capabilities.values()) or mapping['losses']!=[] or mapping['engineSupport']!=[]:
         raise ValueError('Supported lossless unexecuted release capability inventory required')
+    return profile
 
 def load_private_graph_release(payload, trusted_sha256, custody_payload, trusted_custody_sha256):
     if type(payload) is not bytes or len(payload)>16*1024*1024 or type(trusted_sha256) is not str or not re.fullmatch('[0-9a-f]{64}',trusted_sha256) or hashlib.sha256(payload).hexdigest()!=trusted_sha256:
         raise ValueError('Trusted release byte digest mismatch')
     value=json.loads(payload.decode('utf-8'),object_pairs_hook=_pairs,parse_int=_integer,parse_float=lambda _: (_ for _ in ()).throw(ValueError("Floating release value")),
                     parse_constant=lambda x: (_ for _ in ()).throw(ValueError('Nonfinite JSON')))
-    _release_lineage(value)
+    profile=_release_lineage(value)
     custody= _decode(custody_payload)
     from .finite_graph_custody import PROFILE as FINITE_PROFILE,admit_finite_graph_custody
     from .configured_graph_custody import PROFILE as CONFIGURED_PROFILE,admit_configured_graph_custody
@@ -175,7 +187,10 @@ def load_private_graph_release(payload, trusted_sha256, custody_payload, trusted
         for row in rows:
             if type(row) is not dict:raise ValueError('Object carrier required')
             original={name:row[name] for name in names if name in row}
-            if validate_release_carrier(original,kind)!=row:raise ValueError('Closed exact graph carrier mismatch')
+            # Offline `.4` custody validates signed64 carrier shape and
+            # reversible identity only. Native xxhash64 equality comes from
+            # the trusted live graph-release owner; never emulate Spark hashing.
+            if validate_release_carrier(original,kind,profile=profile)!=row:raise ValueError('Closed exact graph carrier mismatch')
         if len({row['graph_id'] for row in rows})!=len(rows):raise ValueError('Duplicate graph identity')
     nodes={row['graph_id'] for row in value['nodes']}
     if any(row['src'] not in nodes or row['dst'] not in nodes for row in value['edges']):
