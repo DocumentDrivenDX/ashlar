@@ -1,6 +1,6 @@
 {
   "packet": "ashlar-r61-fresh-truss053-umf102",
-  "status": "one-shot-reviewed-candidate-bound-awaiting-dispatch-receipt",
+  "status": "one-shot-attempt2-bound-after-attempt1-sandbox-process-census-refusal",
   "source": {
     "repository": "ashlar",
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
@@ -62,10 +62,10 @@
     "bun_version": "1.4.3"
   },
   "fresh_local_state": {
-    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102",
-    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102/pgdata",
-    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102/delta",
-    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102/evidence",
+    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt2",
+    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt2/pgdata",
+    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt2/delta",
+    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt2/evidence",
     "must_be_absent_before_dispatch": true,
     "forbidden_state": [
       "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
