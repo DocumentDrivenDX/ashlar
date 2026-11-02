@@ -70,6 +70,7 @@ class Truss052SourceCustodySession:
     _sdk_selection: object = field(default=None, init=False, repr=False, compare=False)
     _selected: object = field(default=None, init=False, repr=False, compare=False)
     _handle: object = field(default=None, init=False, repr=False, compare=False)
+    _runtime_status: object = field(default=None, init=False, repr=False, compare=False)
     _phase: str = field(default="new", init=False, repr=False)
     _ack_attempted: bool = field(default=False, init=False, repr=False)
     _ack_matched: bool = field(default=False, init=False, repr=False)
@@ -196,6 +197,7 @@ class Truss052SourceCustodySession:
                         self._phase = "refused"
                         raise Truss052CustodyError(
                             "Public Truss runtime status differs from selected installation")
+                self._runtime_status = status
                 self._sdk_selection = selected.to_candidate_sdk(runtime_status=status)
                 handle = _value(self._assembly.open_feed_source_custody_in_transaction(
                     transaction, self._sdk_selection))
@@ -224,10 +226,45 @@ class Truss052SourceCustodySession:
         with self._transaction("read_write") as transaction:
             value = _value(self._assembly.renew_feed_source_custody_in_transaction(
                 transaction, self._handle, phase=phase))
-            if type(value) is not _sdk()[5] or value.phase != phase:
-                raise Truss052CustodyError("Exact source custody renewal observation required")
+            self._validate_renewal_observation(value, phase)
         self._commit()
+        self._live()
         return value
+
+    def _validate_renewal_observation(self, value, phase):
+        """Bind successful server lock/row validation to the original page."""
+        selected = self._selection()
+        page = selected.page
+        identity = selected.identity
+        if type(value) is not _sdk()[5] or value.phase != phase:
+            raise Truss052CustodyError("Exact source custody renewal observation required")
+        expected_checkpoint = None
+        expected_receipt = None
+        if phase == "before_ack":
+            expected_checkpoint = page.prior.content
+            expected_receipt = "missing"
+        elif phase == "ack_unresolved":
+            if value.checkpoint.content == page.prior.content:
+                expected_checkpoint = page.prior.content
+                expected_receipt = "missing"
+            elif value.checkpoint.content == page.next.content:
+                expected_checkpoint = page.next.content
+                expected_receipt = "matched"
+        status = self._runtime_status
+        if (status is None or expected_checkpoint is None
+                or value.checkpoint.content != expected_checkpoint
+                or value.receipt_outcome != expected_receipt
+                or value.consumer_id != page.consumer_id
+                or value.registration_id != page.registration_id
+                or value.installation_id != identity.get("installation_id")
+                or value.source_epoch != identity.get("epoch")
+                or value.release_id != status.release_id
+                or value.release_sha256 != status.release_sha256
+                or value.prior.content != page.prior.content
+                or value.next.content != page.next.content
+                or value.feed_sha256 != page.sha256):
+            raise Truss052CustodyError(
+                "Server-verified Truss source custody differs from original selection")
 
     def observe_selected_page(self):
         """Reread the selected page on the held source session before effects.

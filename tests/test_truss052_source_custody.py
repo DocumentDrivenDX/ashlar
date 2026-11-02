@@ -19,9 +19,25 @@ class _RuntimeStatus:
     def __init__(self, installation_id="install", installed=True):
         self.installation_id = installation_id
         self.installed = installed
+        self.release_id = "release"
+        self.release_sha256 = "d" * 64
 
 class _Observation:
-    def __init__(self, phase): self.phase = phase
+    def __init__(self, phase, selected, status):
+        page = selected.page
+        self.phase = phase
+        self.checkpoint = SimpleNamespace(content=(page.prior.content
+            if phase == "before_ack" else page.next.content))
+        self.receipt_outcome = "missing" if phase == "before_ack" else "matched"
+        self.consumer_id = page.consumer_id
+        self.registration_id = page.registration_id
+        self.installation_id = selected.identity["installation_id"]
+        self.source_epoch = selected.identity["epoch"]
+        self.release_id = status.release_id
+        self.release_sha256 = status.release_sha256
+        self.prior = page.prior
+        self.next = page.next
+        self.feed_sha256 = page.sha256
 class _Closed:
     durability = "pending"
 class _Unavailable: pass
@@ -110,7 +126,10 @@ class _Assembly:
         return _Ok(self.selected.page)
     def renew_feed_source_custody_in_transaction(self, transaction, handle, *, phase):
         self.connection.last_op = "renew"
-        return _Ok(_Observation(phase))
+        value = _Observation(phase, self.selected, self.runtime_status)
+        if getattr(self, "observation_mutation", None) is not None:
+            self.observation_mutation(value)
+        return _Ok(value)
     def acknowledge_feed_under_source_custody_in_transaction(
             self, transaction, handle, selection, *, receipt_bytes):
         self.connection.last_op = "ack"
@@ -158,6 +177,7 @@ class Truss052SourceCustodyTests(unittest.TestCase):
         self.calls = []
         self.order = []
         self.runtime_status = _RuntimeStatus()
+        self.assembly.runtime_status = self.runtime_status
         def factory(context):
             self.calls.append(context)
             self.order.append("reader_connection")
@@ -259,6 +279,14 @@ class Truss052SourceCustodyTests(unittest.TestCase):
         self.session.open()
         self.session.selection = replace(self.selection, ack_scope_bytes=b"foreign-scope")
         with self.assertRaisesRegex(Truss052CustodyError, "selection changed"):
+            self.session.renew()
+
+    def test_renewal_observation_is_bound_to_exact_source_page_and_runtime(self):
+        self.session.open()
+        self.assembly.observation_mutation = lambda value: setattr(
+            value, "feed_sha256", "e" * 64)
+        with self.assertRaisesRegex(Truss052CustodyError,
+                                   "differs from original selection"):
             self.session.renew()
 
 
