@@ -1,0 +1,131 @@
+{
+  "delta_read_only": {
+    "counts": {
+      "local_operation": 15,
+      "local_plan": 2,
+      "local_publication_artifact": 2,
+      "local_source_plan": 2
+    },
+    "delta_receipt_or_publication_artifact_from_R51": false,
+    "integrity": "ok",
+    "journal_sha256": "6084db7eddfc116020b34d7a213dd2a8010cefbf0c2c6f6c0c58e60372842aec",
+    "matches_R51_preflight": true,
+    "sidecars_after": {
+      "-shm": {
+        "bytes": 32768,
+        "dev": 16777231,
+        "ino": 314561522,
+        "mode": 384,
+        "present": true,
+        "sha256": null
+      },
+      "-wal": {
+        "bytes": 0,
+        "dev": 16777231,
+        "ino": 314561521,
+        "mode": 384,
+        "present": true,
+        "sha256": null
+      }
+    },
+    "sidecars_before": {
+      "-shm": {
+        "bytes": 32768,
+        "dev": 16777231,
+        "ino": 314561522,
+        "mode": 384,
+        "present": true,
+        "sha256": null
+      },
+      "-wal": {
+        "bytes": 0,
+        "dev": 16777231,
+        "ino": 314561521,
+        "mode": 384,
+        "present": true,
+        "sha256": null
+      }
+    }
+  },
+  "postgres_read_only": {
+    "cluster_state": "              shut down",
+    "data_directory": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
+    "last_checkpoint_lsn": "          0/1F31468",
+    "next_xid": "         0:843",
+    "pg_control_sha256": "ae889699b6865cd071ee0feec67427bb3693991df0c448017624edeabe1b4f8d",
+    "postmaster_pid_absent": true,
+    "system_identifier": "          7703148769689564565",
+    "tree": {
+      "bytes": 65528221,
+      "files": 1262,
+      "sha256": "86ffa6c8044ded8198e5cbd9b2700afa3e443fdc722ed1ad36672bbb70bd57f2"
+    },
+    "wal_observation": "R51 shutdown WAL has transaction 841/subxid 842 commit with only two heap LOCK records and one FPI_FOR_HINT; no heap insert/update/delete records for these xids. This supports no newly applied group data in R51.",
+    "wal_record_count_for_xids_841_842": 4,
+    "wal_records_for_xids_841_842": [
+      "rmgr: Heap        len (rec/tot):     54/    54, tx:        842, lsn: 0/01F312E0, prev 0/01F31248, desc: LOCK xmax: 842, off: 2, infobits: [LOCK_ONLY, EXCL_LOCK, KEYSHR_LOCK], flags: 0x00, blkref #0: rel 1663/5/16424 blk 0",
+      "rmgr: XLOG        len (rec/tot):     49/   229, tx:        842, lsn: 0/01F31318, prev 0/01F312E0, desc: FPI_FOR_HINT , blkref #0: rel 1663/5/16399 blk 0 FPW",
+      "rmgr: Heap        len (rec/tot):     54/    54, tx:        842, lsn: 0/01F31400, prev 0/01F31318, desc: LOCK xmax: 842, off: 1, infobits: [LOCK_ONLY, EXCL_LOCK, KEYSHR_LOCK], flags: 0x00, blkref #0: rel 1663/5/16399 blk 0",
+      "rmgr: Transaction len (rec/tot):     46/    46, tx:        841, lsn: 0/01F31438, prev 0/01F31400, desc: COMMIT 2026-11-01 22:28:36.982794 EST; subxacts: 842"
+    ]
+  },
+  "profile": "ashlar-r51-read-only-failure-reconciliation/0.1",
+  "public_result": {
+    "code_location": "r27-local-worker.py `_apply_group` validates after `_transaction` returns",
+    "public_contract": {
+      "_value": "Error becomes a detailed Public Truss operation refused StopRun; this was not that path",
+      "exact_typed_result_persisted": false,
+      "guard": "Only GroupSuccess with response type AppliedPending and exactly 2 semantic results passes",
+      "other_possible_returns": [
+        "GroupFailed",
+        "GroupUnavailable",
+        "GroupSuccess with SameTransactionReplay",
+        "GroupSuccess with CommittedReceiptReplay",
+        "GroupSuccess with unexpected semantic result count"
+      ],
+      "reason": "worker stores only generic StopRun message and no group result shape/diagnostic"
+    },
+    "saved_error": "StopRun: Truss group did not return the exact committed operation count"
+  },
+  "r51": {
+    "attempt_root_contents": [
+      "receipts/failure.json"
+    ],
+    "child_stdout_sha256": "6e2df2bef8a9ebf8e4f60b4af51c10bc44f29c2802ba87452c8adaa3f693073d",
+    "failure": {
+      "ack_replayed": false,
+      "cloud": false,
+      "delta_written": false,
+      "failure": "Truss group did not return the exact committed operation count",
+      "failure_type": "StopRun",
+      "postgres_opened": true,
+      "production_authority": false,
+      "profile": "ashlar-r51-two-change-native-attempt/0.1",
+      "publication_replayed": false,
+      "source_ack_attempted": false,
+      "spark_started": false,
+      "status": "failed_or_interrupted"
+    },
+    "failure_receipt_sha256": "4b4307389eb631b88fa16c1087383096b6d58d53220c76c08b6d25fa78cd4554",
+    "scope_sha256": "7154e6e7fcf2a7ff25d035745f757969de3d02dacac84dcf7cfaf8fcf7155ba5",
+    "supervisor_cleanup_status": "absent",
+    "supervisor_receipt_sha256": "080b280da98f6ff3450cb815c0f825060ac7928cbbef8a9e92110f364489f7bb",
+    "worker_sha256": "15754f89961890ba4a5fea09ccd2961f6376502636b56237fa35106a5d66f1b0"
+  },
+  "safe_next_action": "Do not repeat group request or continue native flow. Preserve R51. Sol should authorize a separately bounded read-only Truss inspection to obtain the live group request outcome and consumer checkpoint without applying operations; then determine whether this exact request is pending, replayed, or failed. Improve _apply_group to preserve typed outcome and validate inside transaction before normal commit. No code change or redispatch was made.",
+  "source_cursor": {
+    "interpretation": "R51 failed before read_page; R49 remains the last verified cursor, but the live consumer row was not queried in this offline investigation.",
+    "last_verified_checkpoint_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+    "next_checkpoint_sha256": null,
+    "page_read_or_selected_in_R51": false,
+    "r49_ack_replayed": false,
+    "r49_ack_status": "matched_local_development_only",
+    "r51_source_ack_attempted": false
+  },
+  "status": "failed_before_feed_page_and_publication; no new R51 group write observed",
+  "transaction_boundary": {
+    "connection_autocommit": true,
+    "implication": "A malformed AppliedPending with non-2 result count could have committed before the guard; WAL evidence below is needed to assess R51",
+    "transaction_context": "_transaction uses connection.transaction(); successful context exit commits before `_apply_group` post-return validation"
+  }
+}
