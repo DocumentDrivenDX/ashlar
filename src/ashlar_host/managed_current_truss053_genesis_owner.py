@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
-"""Rollback-only Truss 0.0.53 source selection for managed-current A1 genesis.
+"""Rollback-only current-fresh Truss source selection for managed-current A1 genesis.
 
 The owner reads both independently selected source installations through the
 public Truss API. The complete catalog view requires a row-lock-capable
@@ -107,7 +107,7 @@ def _issue_source_observation(observation):
     if (type(observation) is not ManagedCurrentTruss053SourceObservation
             or len(_ISSUED_SOURCE_OBSERVATIONS) >= _MAX_ISSUED_SOURCE_OBSERVATIONS):
         raise ManagedCurrentTruss053GenesisError(
-            "Bounded exact .53 public source observation required")
+            "Bounded exact fresh public Truss source observation required")
     _ISSUED_SOURCE_OBSERVATIONS[id(observation)] = observation
     return observation
 
@@ -140,11 +140,8 @@ class ManagedCurrentTruss053GenesisSourceOwner:
         from .managed_current_genesis import admit_truss_source_genesis_progress
         from .managed_current_truss_cursor import validate_selected_truss_cursor
         from .truss_current_catalog import (
-            CURRENT_TRUSS_054_FRESH_VERSION,
-            CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
-            CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
             CurrentCatalogEvidence,
-            installed_truss_054_fresh_source_custody_profile,
+            installed_fresh_truss_runtime_pins,
         )
         from ashlar.truss_native_feed import native_feed_batch
 
@@ -167,7 +164,7 @@ class ManagedCurrentTruss053GenesisSourceOwner:
             ("consumer_id", selection.consumer_id),
             ("registration_id", selection.consumer_registration_id))),
             "Selected source owner identities differ from frozen R04 binding")
-        installed_truss_054_fresh_source_custody_profile()
+        runtime_pins = installed_fresh_truss_runtime_pins()
         try:
             from truss import (CatalogReport, CatalogRuntimeConfiguration,
                 CatalogRuntimeStatus, adopt_psycopg_host,
@@ -177,7 +174,7 @@ class ManagedCurrentTruss053GenesisSourceOwner:
             from truss.reader_catalog import AcceptedDocument
         except ImportError as error:
             raise ManagedCurrentTruss053GenesisError(
-                "Pinned public Truss 0.0.54 source/catalog API required") from error
+                "Pinned fresh public Truss source/catalog API required") from error
 
         connection = selection.connection_factory()
         if (getattr(connection, "autocommit", True)
@@ -276,11 +273,11 @@ class ManagedCurrentTruss053GenesisSourceOwner:
 
             from .truss_current_catalog import CurrentCatalogEvidence
             catalog_evidence = CurrentCatalogEvidence(
-                CURRENT_TRUSS_054_FRESH_VERSION,
+                runtime_pins["version"],
                 {selection.catalog_revision: report.original_bytes},
                 {selection.catalog_revision: view_bytes}, sources,
-                CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
-                CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)
+                runtime_pins["wheel_sha256"],
+                runtime_pins["manifest_sha256"])
 
             page = _outcome(assembly.read_feed_in_transaction(
                 transaction, consumer_id=selection.consumer_id,

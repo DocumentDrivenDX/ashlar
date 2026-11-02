@@ -25,7 +25,7 @@ def build_managed_current_a1_retention_bundle(*, plan, reader_config,
         source_prefix_sha256: str, selected_prefix: dict,
         source_snapshot_bytes: bytes, source_custody_digests: dict,
         source_core_config):
-    """Build an admitted .54 retention selection from exact live task outputs.
+    """Build an admitted current-fresh retention selection from exact task outputs.
 
     This performs no cloud/native read. The caller must still provide the real
     `ManagedOperationalReadPinPort` and its live session/source/policy owners.
@@ -36,6 +36,7 @@ def build_managed_current_a1_retention_bundle(*, plan, reader_config,
     from .managed_current_spark_receipt_read import (
         CARRIER_PROFILE_XXHASH64, ManagedCurrentSparkReceiptConfig,
     )
+    from .truss_current_catalog import installed_fresh_truss_runtime_pins
     from .managed_operational_retention_interval import (
         ManagedOperationalRetentionSelection, SOURCE_CUSTODY_FIELDS,
     )
@@ -43,13 +44,14 @@ def build_managed_current_a1_retention_bundle(*, plan, reader_config,
     from ashlar.manifest import manifest_pin_vector
     from ashlar.pins import PinVector
 
+    runtime_pins = installed_fresh_truss_runtime_pins()
     if (type(plan) is not ManagedCurrentA1TrialPlan
             or type(reader_config) is not ManagedCurrentSparkReceiptConfig
-            or reader_config.source_truss_version != "0.0.54"
+            or reader_config.source_truss_version != runtime_pins["version"]
             or reader_config.carrier_profile != CARRIER_PROFILE_XXHASH64
             or type(task_receipt) is not dict):
         raise ManagedA1RetentionBuildError(
-            "Exact .54 A1 plan and fresh-baseline Spark receipt profile required")
+            "Exact installed fresh Truss A1 plan and Spark receipt profile required")
     if (type(request_bytes) is not bytes or request_bytes != canonical(plan.request)
             or type(manifest_bytes) is not bytes or not manifest_bytes
             or type(destination_receipt_bytes) is not bytes
@@ -85,7 +87,7 @@ def build_managed_current_a1_retention_bundle(*, plan, reader_config,
                 or any(vector.targets[table] != (uuids[table], versions[table])
                        for table in table_names)
                 or task_receipt["sourceAuthority"] !=
-                    "development Truss 0.0.54 page on managed Unity Catalog; external source ACK required"):
+                    f"development Truss {runtime_pins['version']} page on managed Unity Catalog; external source ACK required"):
             raise ValueError("publisher/verifier vector, manifest or source identity differs")
         task_receipt_bytes = canonical(task_receipt)
         if json.loads(task_receipt_bytes.decode("utf-8")) != task_receipt:
