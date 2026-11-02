@@ -227,7 +227,9 @@ def _run_public_truss_setup(*, config: dict, paths: dict, source: bytes,
     def interval(connection, *, timeout_ms: int = 15000):
         connection.execute("BEGIN ISOLATION LEVEL READ COMMITTED, READ WRITE")
         connection.execute(f"SET LOCAL statement_timeout = '{timeout_ms}ms'")
-        host = adopt_psycopg_host(connection)
+        host = adopt_psycopg_host(
+            connection, statement_timeout_ms=timeout_ms,
+            operation_timeout_ms=timeout_ms)
         assembly = None
         primary = None
         try:
