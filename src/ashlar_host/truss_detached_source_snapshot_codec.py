@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
-"""Closed IPC codec for exact Truss .53 A1 page and accepted-source evidence.
+"""Closed IPC codec for exact fresh Truss A1 page and accepted-source evidence.
 
 The decoded snapshot contains plain evidence only. It cannot issue Truss
 selection, custody, publication, or ACK authority.
@@ -115,13 +115,17 @@ class DetachedTrussSourceSnapshot:
             CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
             CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256,
             CURRENT_TRUSS_054_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
-            CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
+            CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
+            CURRENT_TRUSS_055_FRESH_VERSION, CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,
+            CURRENT_TRUSS_055_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
         )
         pins = {
             CURRENT_TRUSS_053_FRESH_VERSION: (CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
                                                 CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256),
             CURRENT_TRUSS_054_FRESH_VERSION: (CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
                                                 CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256),
+            CURRENT_TRUSS_055_FRESH_VERSION: (CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,
+                                                CURRENT_TRUSS_055_FRESH_RUNTIME_MANIFEST_SHA256),
         }
         if self.truss_version not in pins:
             raise DetachedSourceSnapshotError("Unsupported detached Truss runtime pin")
@@ -151,7 +155,9 @@ def _extract(anchor, observation):
         CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
         CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256,
         CURRENT_TRUSS_054_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
-        CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
+        CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
+        CURRENT_TRUSS_055_FRESH_VERSION, CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,
+        CURRENT_TRUSS_055_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
         parse_current_catalog_json,
     )
     from truss.reader_catalog import AcceptedDocument
@@ -170,13 +176,15 @@ def _extract(anchor, observation):
                                            CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256),
         CURRENT_TRUSS_054_FRESH_VERSION: (CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
                                            CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256),
+        CURRENT_TRUSS_055_FRESH_VERSION: (CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,
+                                           CURRENT_TRUSS_055_FRESH_RUNTIME_MANIFEST_SHA256),
     }
     runtime_version = getattr(observation.catalog_evidence, "truss_version", None)
     _need(type(observation.catalog_evidence) is CurrentCatalogEvidence
           and runtime_version in runtime_pins
           and (observation.catalog_evidence.runtime_wheel_sha256,
                observation.catalog_evidence.runtime_manifest_sha256) == runtime_pins[runtime_version],
-          "Exact fresh Truss .53 or .54 catalog evidence required")
+          "Exact fresh Truss .53, .54, or .55 catalog evidence required")
     progress = observation.progress
     _need(type(progress) is TrussSourceGenesisProgress,
           "Exact admitted Truss .53 genesis progress required")
@@ -312,7 +320,7 @@ def decode_detached_source_snapshot(raw: bytes) -> DetachedTrussSourceSnapshot:
     value = _json(raw)
     _need(set(value) == _TOP_KEYS and canonical(value) == raw
           and value["profile"] == PROFILE
-          and value["truss_version"] in ("0.0.53", "0.0.54"),
+          and value["truss_version"] in ("0.0.53", "0.0.54", "0.0.55"),
           "Closed canonical detached source snapshot required")
     binding = value.pop("binding_sha256")
     _need(type(binding) is str and len(binding) == 64

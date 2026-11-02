@@ -538,11 +538,13 @@ def verifier_task(spark, parameters):
                                                parameters["selected_prefix_sha256"]))
     if type(selected_prefix) is not dict:
         raise ValueError("Exact separately selected prefix anchors required")
+    from .truss_current_catalog import installed_fresh_truss_runtime_pins
     reader_config = ManagedCurrentSparkReceiptConfig(
         catalog=trial["catalog"], schema=trial["schema"],
         expected_principal=trial["expected_runtime"]["principal"],
         expected_table_owner=trial["expected_runtime"]["principal"],
-        source_truss_version="0.0.54", protocol_profile=protocol,
+        source_truss_version=installed_fresh_truss_runtime_pins()["version"],
+        protocol_profile=protocol,
         expected_runtime=trial["expected_runtime"],
         maximum_elapsed_seconds=300, maximum_statements=128,
         maximum_rows=1024, maximum_result_bytes=4 * 1024 * 1024,

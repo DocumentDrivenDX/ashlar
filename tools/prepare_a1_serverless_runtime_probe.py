@@ -11,12 +11,13 @@ from pathlib import Path
 
 
 def build_payload(notebook_path: str, notebook_file: Path, environment_version: int,
-                  principal: str) -> dict:
+                  principal: str, protocol_identity: str) -> dict:
     if (notebook_file.is_symlink() or not notebook_file.is_file()
             or not notebook_path.startswith("/Workspace/")
             or type(environment_version) is not int or environment_version < 1
-            or not re.fullmatch(r"[^\s@]+@[^\s@]+", principal)):
-        raise ValueError("Exact Workspace notebook, read-back environment version, and principal required")
+            or not re.fullmatch(r"[^\s@]+@[^\s@]+", principal)
+            or not protocol_identity or "\0" in protocol_identity):
+        raise ValueError("Exact Workspace notebook, environment version, principal and protocol required")
     digest = hashlib.sha256(notebook_file.read_bytes()).hexdigest()
     return {
         "name": "ashlar-a1-serverless-runtime-probe",
@@ -32,7 +33,7 @@ def build_payload(notebook_path: str, notebook_file: Path, environment_version: 
             "max_retries": 0,
             "retry_on_timeout": False,
             "notebook_task": {"notebook_path": notebook_path,
-                               "base_parameters": {}},
+                               "base_parameters": {"protocol_identity": protocol_identity}},
             "environment_key": "probe_env",
         }],
         "environments": [{
@@ -55,9 +56,12 @@ def main() -> int:
                         help="Read-back-confirmed serverless environment version")
     parser.add_argument("--principal", required=True,
                         help="Exact workspace Jobs run_as principal")
+    parser.add_argument("--protocol-identity", required=True,
+                        help="Selected Ashlar ReaderProtocolProfile identity")
     args = parser.parse_args()
     print(json.dumps(build_payload(args.notebook_path, args.notebook_file,
-        args.environment_version, args.principal), sort_keys=True, indent=2))
+        args.environment_version, args.principal, args.protocol_identity),
+        sort_keys=True, indent=2))
     return 0
 
 

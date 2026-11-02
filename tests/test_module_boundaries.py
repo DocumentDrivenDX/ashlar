@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 from pathlib import Path
-from check_module_boundaries import check, scan, ROOT, POLICY
+from check_module_boundaries import check, imports, scan, ROOT, POLICY
 
 
 class BoundaryTests(unittest.TestCase):
@@ -101,6 +101,12 @@ class BoundaryTests(unittest.TestCase):
         with patch.object(Path, 'exists', side_effect=AssertionError('per-import stat')):
             edges = scan(root)
         self.assertTrue(any(edge[1] == 'ashlar.cli' for edge in edges))
+
+    def test_explicit_package_init_import_matches_old_module_probe(self):
+        root = self.tree('from . import __init__\n')
+        (root / 'src/ashlar/__init__.py').write_text('')
+        edges = list(imports(root))
+        self.assertTrue(any(edge[1:3] == ('ashlar.__init__', '*') for edge in edges))
 
     def test_compiler_installer_and_composition_roles(self):
         root = self.tree('')

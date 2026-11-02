@@ -16,7 +16,9 @@ from ashlar_host.truss_current_catalog import (
     CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
     CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256,
     CURRENT_TRUSS_054_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
-    CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
+    CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
+    CURRENT_TRUSS_055_FRESH_VERSION, CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,
+    CURRENT_TRUSS_055_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
 )
 from ashlar_host.truss_detached_source_snapshot_codec import (
     DetachedSourceSnapshotError, DetachedTrussSourceSnapshot,
@@ -140,15 +142,41 @@ class DetachedTrussSourceSnapshotCodecTests(unittest.TestCase):
         evidence = replace(self.evidence, truss_version=CURRENT_TRUSS_054_FRESH_VERSION,
             runtime_wheel_sha256=CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
             runtime_manifest_sha256=CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)
-        observation = _issue_source_observation(replace(self.observation,
-            catalog_evidence=evidence))
+        observation = self.observation
+        original_evidence = observation.catalog_evidence
+        object.__setattr__(observation, "catalog_evidence", evidence)
         with patch.dict("sys.modules", {"truss": public_truss,
                                         "truss.reader_catalog": accepted}):
-            snapshot = decode_detached_source_snapshot(
-                encode_detached_source_snapshot(self.anchor, observation))
+            try:
+                snapshot = decode_detached_source_snapshot(
+                    encode_detached_source_snapshot(self.anchor, observation))
+            finally:
+                object.__setattr__(observation, "catalog_evidence", original_evidence)
         self.assertEqual(snapshot.truss_version, CURRENT_TRUSS_054_FRESH_VERSION)
         self.assertEqual(snapshot.current_catalog_evidence().runtime_wheel_sha256,
                          CURRENT_TRUSS_054_FRESH_WHEEL_SHA256)
+
+    def test_snapshot_roundtrips_exact_055_runtime_pin(self):
+        public_truss = ModuleType("truss")
+        public_truss.__path__ = []
+        accepted = ModuleType("truss.reader_catalog")
+        accepted.AcceptedDocument = PublicAcceptedDocument
+        evidence = replace(self.evidence, truss_version=CURRENT_TRUSS_055_FRESH_VERSION,
+            runtime_wheel_sha256=CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,
+            runtime_manifest_sha256=CURRENT_TRUSS_055_FRESH_RUNTIME_MANIFEST_SHA256)
+        observation = self.observation
+        original_evidence = observation.catalog_evidence
+        object.__setattr__(observation, "catalog_evidence", evidence)
+        with patch.dict("sys.modules", {"truss": public_truss,
+                                        "truss.reader_catalog": accepted}):
+            try:
+                snapshot = decode_detached_source_snapshot(
+                    encode_detached_source_snapshot(self.anchor, observation))
+            finally:
+                object.__setattr__(observation, "catalog_evidence", original_evidence)
+        self.assertEqual(snapshot.truss_version, CURRENT_TRUSS_055_FRESH_VERSION)
+        self.assertEqual(snapshot.current_catalog_evidence().runtime_wheel_sha256,
+                         CURRENT_TRUSS_055_FRESH_WHEEL_SHA256)
 
     def test_encoder_refuses_document_registration_or_revision_drift(self):
         public_truss = ModuleType("truss")

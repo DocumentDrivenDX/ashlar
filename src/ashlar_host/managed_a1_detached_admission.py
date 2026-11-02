@@ -75,12 +75,9 @@ def admit_progress(source, evidence, *, expected_next_xid="0"):
 
 
 def _catalog_evidence(evidence):
-    from .truss_current_catalog import (
-        CURRENT_TRUSS_054_FRESH_VERSION,
-        CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
-        CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
-        CurrentCatalogEvidence,
-    )
+    from .truss_current_catalog import CurrentCatalogEvidence, installed_fresh_truss_runtime_pins
+
+    pins = installed_fresh_truss_runtime_pins()
 
     revision = _member(evidence, "catalog_revision")
     report = _member(evidence, "report_bytes", "report_bytes_base64")
@@ -114,9 +111,8 @@ def _catalog_evidence(evidence):
             catalog_revision=int(doc_catalog_revision), sha256=digest,
             content=content)
     return CurrentCatalogEvidence(
-        CURRENT_TRUSS_054_FRESH_VERSION, {revision: report}, {revision: view},
-        sources, CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
-        CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)
+        pins["version"], {revision: report}, {revision: view},
+        sources, pins["wheel_sha256"], pins["manifest_sha256"])
 
 
 def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,

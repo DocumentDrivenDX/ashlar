@@ -13,12 +13,12 @@ VENDORS = {'pyspark', 'delta', 'databricks', 'psycopg', 'psycopg2', 'gremlin_pyt
 def imports(root: Path):
     paths = sorted(list((root / 'src/ashlar').rglob('*.py')) + list((root / 'src/ashlar_host').rglob('*.py')) + list((root / 'tools').rglob('*.py')))
     # Match the old `<src>/<module>.py`.exists() probe without issuing one
-    # filesystem stat per imported member. `__init__.py` does not match that
-    # probe and is intentionally excluded.
+    # filesystem stat per imported member. Include package `__init__.py` paths
+    # because an explicit `from . import __init__` matched that old probe.
     source_root = root / 'src'
     source_modules = {
         path.relative_to(source_root).with_suffix('').as_posix().replace('/', '.')
-        for path in paths if path.is_relative_to(source_root) and path.stem != '__init__'
+        for path in paths if path.is_relative_to(source_root)
     }
     for path in paths:
         source = path.relative_to(root).as_posix()

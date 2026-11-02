@@ -32,6 +32,7 @@ PREFERRED_USD = 10.0
 SERVERLESS_USD_PER_DBUH = 0.47
 WORST_SERVERLESS_DBUH = 960.0
 MAX_PAID_TASK_SECONDS = 540
+RUNTIME_PROBE_TASK_SECONDS = 60
 MAX_SOURCE_BOOTSTRAP_SECONDS = 240
 MIN_DRIVER_AND_CLEANUP_RESERVE_USD = 20.0
 ACK_REAP_RESERVE_SECONDS = 30
@@ -291,8 +292,9 @@ def build_payload(config: object) -> tuple[dict, dict]:
     paid_seconds = (config["initializer"]["timeout_seconds"]
                     + 2 * config["publisher"]["timeout_seconds"]
                     + 4 * config["verifier"]["timeout_seconds"])
-    require(paid_seconds <= MAX_PAID_TASK_SECONDS
-            and cost["authorized_total_dbu"] >= paid_seconds * WORST_SERVERLESS_DBUH / 3600
+    require(paid_seconds + RUNTIME_PROBE_TASK_SECONDS <= MAX_PAID_TASK_SECONDS
+            and cost["authorized_total_dbu"] >=
+                (paid_seconds + RUNTIME_PROBE_TASK_SECONDS) * WORST_SERVERLESS_DBUH / 3600
             and paid_seconds + MAX_SOURCE_BOOTSTRAP_SECONDS + 45
             <= wall - cleanup_seconds,
             "Two publication cycles plus post-ACK close verifiers, <=540s paid tasks, source bootstrap, and handoffs must fit before cleanup reserve")
@@ -983,10 +985,12 @@ def _retention_bundle(*, trial, protocol_profile, plan, request_bytes,
         CARRIER_PROFILE_XXHASH64, ManagedCurrentSparkReceiptConfig,
     )
     from ashlar_host.managed_current_trial import ManagedCurrentTrialConfig
+    from ashlar_host.truss_current_catalog import installed_fresh_truss_runtime_pins
+    source_truss_version = installed_fresh_truss_runtime_pins()["version"]
     reader = ManagedCurrentSparkReceiptConfig(catalog=trial["catalog"],
         schema=trial["schema"], expected_principal=trial["expected_runtime"]["principal"],
         expected_table_owner=trial["expected_runtime"]["principal"],
-        source_truss_version="0.0.53", protocol_profile=protocol_profile,
+        source_truss_version=source_truss_version, protocol_profile=protocol_profile,
         expected_runtime=trial["expected_runtime"], maximum_elapsed_seconds=300,
         maximum_statements=128, maximum_rows=1024, maximum_result_bytes=4 * 1024 * 1024,
         carrier_profile=CARRIER_PROFILE_XXHASH64)

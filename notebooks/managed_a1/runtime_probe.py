@@ -3,13 +3,16 @@
 """Read-only Databricks serverless runtime identity probe; no catalog effects."""
 import json
 
+dbutils.widgets.text("protocol_identity", "")
+protocol_identity = dbutils.widgets.get("protocol_identity")
+
 version = spark.version
 try:
-    build_text = spark.conf.get("spark.databricks.clusterUsageTags.sparkVersion")
+    build_text = spark.sql("SELECT version() AS sparkBuildText").first()["sparkBuildText"]
 except Exception:
     build_text = None
 try:
-    runtime_tag = spark.conf.get("spark.databricks.clusterUsageTags.runtimeTag")
+    runtime_tag = spark.conf.get("spark.databricks.clusterUsageTags.sparkVersion")
 except Exception:
     runtime_tag = None
 try:
@@ -26,7 +29,7 @@ result = {
     "principal": None if identity is None else identity["principal"],
     "catalog": None if identity is None else identity["catalog"],
     "schema": None if identity is None else identity["schema"],
-    "capabilities": {"unityCatalog": True, "serverless": True},
+    "protocol": protocol_identity,
     "sideEffects": [],
 }
 dbutils.notebook.exit(json.dumps(result, sort_keys=True, separators=(",", ":")))
