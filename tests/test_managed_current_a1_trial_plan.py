@@ -264,6 +264,18 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
             prepare_managed_current_a1_continuation(selection, wrong,
                 stream='source-stream', materialized_at='1', context=object())
 
+        from ashlar_host.managed_current_spark_source_oracle import (
+            _validate_a1_continuation_progress,
+        )
+        oracle_plan = SimpleNamespace(predecessor=SimpleNamespace(manifest=predecessor),
+                                      selection=selection)
+        self.assertEqual(_validate_a1_continuation_progress(oracle_plan, batch)['feed-A'],
+                         json.loads(__import__('ashlar.source_checkpoint',
+                             fromlist=['truss_checkpoint']).truss_checkpoint(batch)))
+        oracle_plan.predecessor = SimpleNamespace(manifest=wrong)
+        with self.assertRaisesRegex(ValueError, 'A1 prior cursor must equal committed A0'):
+            _validate_a1_continuation_progress(oracle_plan, batch)
+
     def test_a1_native_oracle_binds_the_owner_page_and_complete_progress(self):
         from ashlar_host.managed_current_core import (
             CARRIER_PROFILE_XXHASH64, ManagedCurrentCoreConfig,
