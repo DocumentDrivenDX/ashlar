@@ -25,7 +25,7 @@
   "r49_publication_id": "truss-graph-8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea",
   "r55_committed_page": "8c292e2950cdf507bfa3801c68f188cdc29d9d739ddf3585792a08115ab59f35",
   "r55_publication_id": "truss-graph-678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
-  "scope_sha256": "41e43a75e06dd91540f4d635878e4b6b065ac7a1139d171f751496a0a395345f",
+  "scope_sha256": "137d4288ad055ba937a29e27170105d702b77df2ce94572b4f088f17537ab50b",
   "source_ack_attempted": false,
   "spark_started": false,
   "sqlite_sidecars_after": {

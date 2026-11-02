@@ -3,10 +3,10 @@
   "native_dispatch": false,
   "native_run_performed": false,
   "page_match_helper_sha256": "4639d118fbeb796fa977ea4cffbc0259a28a809323fc415d6ad8cf0640bf2cfd",
-  "profile": "ashlar-r37-inplace-dispatch/0.1",
-  "scope_sha256": "41e43a75e06dd91540f4d635878e4b6b065ac7a1139d171f751496a0a395345f",
+  "profile": "ashlar-r56-inplace-dispatch/0.1",
+  "scope_sha256": "137d4288ad055ba937a29e27170105d702b77df2ce94572b4f088f17537ab50b",
   "source_ack_attempted": false,
   "status": "pending_sol_review",
-  "supervisor_sha256": "dbd2ac1563885eead43d6241c2d82013372ca83927e670705372bdcac8b2fece",
+  "supervisor_sha256": "eaf4cc94fb76c1cb194b19b2854c6075d431c3e4b1189035384cdbc199bebc8b",
   "worker_sha256": "b5bbcd2e8c98716cce12f4bd5748fbbadd7ad69441755452da488e443c420c65"
 }

@@ -1,0 +1,80 @@
+{
+  "attempt_root": "/private/tmp/ashlar-r56-truss052-r55-page-recovery-20261101",
+  "monitored_existing_roots": [
+    "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
+    "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta"
+  ],
+  "native_effects": false,
+  "profile": "ashlar-r56-truss052-committed-page-supervisor/0.1",
+  "status": "preflight_ok",
+  "supervisor_root": "/private/tmp/ashlar-r56-truss052-r55-page-recovery-20261101-supervisor",
+  "worker_preflight": {
+    "cloud": false,
+    "continuation_operations": 2,
+    "continuation_request_sha256": "52066d42c59c889d6b487cf42627c7cef6751c151a104b0b1a3a42430adf64e1",
+    "delta_written": false,
+    "journal_counts": {
+      "local_operation": 15,
+      "local_plan": 2,
+      "local_publication_artifact": 2,
+      "local_source_plan": 2
+    },
+    "journal_integrity": "ok",
+    "journal_sha256": "6084db7eddfc116020b34d7a213dd2a8010cefbf0c2c6f6c0c58e60372842aec",
+    "native_dispatch": false,
+    "output_roots_absent": true,
+    "pgdata_tree": {
+      "bytes": 65625602,
+      "files": 1264,
+      "sha256": "713d6656cef0eb4d8d3185fabbc3a7c9d56c02654b397c1a0d7c7bbee0a2c8cc"
+    },
+    "postgres_opened": false,
+    "postmaster_stopped": true,
+    "profile": "ashlar-r56-committed-page-recovery-preflight/0.1",
+    "r49_ack_checkpoint_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+    "r49_publication_id": "truss-graph-8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea",
+    "r55_committed_page": "8c292e2950cdf507bfa3801c68f188cdc29d9d739ddf3585792a08115ab59f35",
+    "r55_publication_id": "truss-graph-678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
+    "scope_sha256": "137d4288ad055ba937a29e27170105d702b77df2ce94572b4f088f17537ab50b",
+    "source_ack_attempted": false,
+    "spark_started": false,
+    "sqlite_sidecars_after": {
+      "-shm": {
+        "bytes": 0,
+        "dev": null,
+        "ino": null,
+        "mode": null,
+        "present": false,
+        "sha256": null
+      },
+      "-wal": {
+        "bytes": 0,
+        "dev": null,
+        "ino": null,
+        "mode": null,
+        "present": false,
+        "sha256": null
+      }
+    },
+    "sqlite_sidecars_before": {
+      "-shm": {
+        "bytes": 0,
+        "dev": null,
+        "ino": null,
+        "mode": null,
+        "present": false,
+        "sha256": null
+      },
+      "-wal": {
+        "bytes": 0,
+        "dev": null,
+        "ino": null,
+        "mode": null,
+        "present": false,
+        "sha256": null
+      }
+    },
+    "status": "passed_effect_free_inplace_preflight",
+    "worker_sha256": "b5bbcd2e8c98716cce12f4bd5748fbbadd7ad69441755452da488e443c420c65"
+  }
+}

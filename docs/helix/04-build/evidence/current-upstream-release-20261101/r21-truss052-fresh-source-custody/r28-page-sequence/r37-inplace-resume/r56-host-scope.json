@@ -517,9 +517,9 @@
   },
   "status": "pending_sol_review",
   "supervisor": {
-    "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r37_truss052_supervisor.py",
-    "profile": "ashlar-r37-truss052-inplace-resume-supervisor/0.1",
-    "sha256": "dbd2ac1563885eead43d6241c2d82013372ca83927e670705372bdcac8b2fece"
+    "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r56_truss052_supervisor.py",
+    "profile": "ashlar-r56-truss052-committed-page-supervisor/0.1",
+    "sha256": "eaf4cc94fb76c1cb194b19b2854c6075d431c3e4b1189035384cdbc199bebc8b"
   },
   "worker": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r56-recovery-worker.py",
