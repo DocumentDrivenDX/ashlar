@@ -15,7 +15,8 @@ import hashlib
 from typing import Literal
 
 from .truss_source_custody_selection import (
-    TrussSourceCustodySelection, TrussSourceSelectionError,
+    TrussSourceCustodyOpenSelection, TrussSourceCustodySelection,
+    TrussSourceSelectionError, _OPEN_SELECTIONS, _SELECTIONS, _issued,
 )
 
 
@@ -69,6 +70,8 @@ class Truss052SourceCustodySession:
     _assembly: object = field(default=None, init=False, repr=False, compare=False)
     _sdk_selection: object = field(default=None, init=False, repr=False, compare=False)
     _selected: object = field(default=None, init=False, repr=False, compare=False)
+    _prepublication: bool = field(default=False, init=False, repr=False, compare=False)
+    _bound_selection: object = field(default=None, init=False, repr=False, compare=False)
     _handle: object = field(default=None, init=False, repr=False, compare=False)
     _runtime_status: object = field(default=None, init=False, repr=False, compare=False)
     _phase: str = field(default="new", init=False, repr=False)
@@ -77,7 +80,11 @@ class Truss052SourceCustodySession:
     _disposed: bool = field(default=False, init=False, repr=False)
 
     def __post_init__(self):
-        if (type(self.selection) is not TrussSourceCustodySelection
+        valid_post = (type(self.selection) is TrussSourceCustodySelection
+                      and _issued(_SELECTIONS, self.selection))
+        valid_pre = (type(self.selection) is TrussSourceCustodyOpenSelection
+                     and _issued(_OPEN_SELECTIONS, self.selection))
+        if (not (valid_post or valid_pre)
                 or type(self.context) is type(None)
                 or not callable(self.connection_factory)
                 or (self.runtime_status_provider is not None
@@ -86,6 +93,7 @@ class Truss052SourceCustodySession:
                 or not 1 <= self.statement_timeout_ms <= 60000):
             raise Truss052CustodyError("Exact .52 selection, context and bounded connection factory required")
         object.__setattr__(self, "_selected", self.selection)
+        object.__setattr__(self, "_prepublication", valid_pre)
 
     def __enter__(self):
         return self
@@ -110,6 +118,44 @@ class Truss052SourceCustodySession:
         if self.selection is not self._selected:
             raise Truss052CustodyError("Source/destination/ACK byte selection changed during custody")
         return self._selected
+
+    def bind_publication(self, selection: TrussSourceCustodySelection):
+        """Add receipt authority after publication without replacing the held selection."""
+        early = self._selection()
+        if (not self._prepublication or self._phase not in ("open", "renewed")
+                or type(selection) is not TrussSourceCustodySelection
+                or not _issued(_SELECTIONS, selection)
+                or self._bound_selection is not None):
+            raise Truss052CustodyError(
+                "One issuer-bound publication selection required after pre-publication open")
+        same = (
+            selection.page is early.page
+            and selection.maximum_facts == early.maximum_facts
+            and selection.maximum_bytes == early.maximum_bytes
+            and selection.request_bytes == early.request_bytes
+            and selection.destination_registration_bytes == early.destination_registration_bytes
+            and selection.ack_scope_bytes == early.ack_scope_bytes
+            and selection.destination_id == early.destination_id
+            and selection.request_sha256 == early.request_sha256
+            and selection.publication_id == early.publication_id
+            and selection.schedule_sha256 == early.schedule_sha256
+            and selection.source == early.source
+            and dict(selection.identity) == dict(early.identity))
+        if not same:
+            raise Truss052CustodyError(
+                "Post-publication ACK binding differs from retained pre-publication source")
+        self._bound_selection = selection
+        return True
+
+    def _ack_selection(self):
+        self._selection()
+        if not self._prepublication:
+            return self._selection()
+        if (self._bound_selection is None
+                or not _issued(_SELECTIONS, self._bound_selection)):
+            raise Truss052CustodyError(
+                "Exact post-publication managed/native observation must bind before ACK")
+        return self._bound_selection
 
     def _ensure_host(self):
         if self._connection is None:
@@ -307,7 +353,7 @@ class Truss052SourceCustodySession:
     def acknowledge(self):
         """Attempt the one exact-byte Truss source receipt ACK on the held page."""
         self._require_handle()
-        selected = self._selection()
+        selected = self._ack_selection()
         if self._ack_attempted or self._phase not in ("open", "renewed"):
             raise Truss052CustodyError("Source ACK is one-shot and requires a live pre-ACK hold")
         self.renew(phase="before_ack")
@@ -337,7 +383,7 @@ class Truss052SourceCustodySession:
     def reconcile(self):
         """Read exact ACK status in a new read-only transaction on same session."""
         self._require_handle()
-        selected = self._selection()
+        selected = self._ack_selection()
         if not self._ack_attempted or self._phase not in ("ack_unresolved", "ack_committed"):
             raise Truss052CustodyError("Only an attempted source ACK may be reconciled")
         self._live()
@@ -385,7 +431,7 @@ class Truss052SourceCustodySession:
         selected = self._selection()
         if self._ack_attempted and self._phase != "ack_reconciled":
             raise Truss052CustodyError("Source ACK must be reconciled before custody close")
-        if self._phase not in ("open", "ack_reconciled"):
+        if self._phase not in ("open", "renewed", "ack_reconciled"):
             raise Truss052CustodyError("Source custody is not closable in this phase")
         committed = self._ack_matched
         with self._transaction("read_write") as transaction:

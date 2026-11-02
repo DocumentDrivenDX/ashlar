@@ -107,7 +107,7 @@ def preflight(configuration: str | Path, output: str | Path) -> tuple:
         p=Path(name(value[key]))
         if not p.is_absolute()or p.resolve()!=p or not p.is_file()or any(q.is_symlink()for q in(p,*p.parents)):raise ValueError('Original canonical file required')
         selected.append(p)
-    if type(value['records'])is not list or not 1<=len(value['records'])<=16 or type(value['edges'])is not list or not 1<=len(value['edges'])<=32:raise ValueError('Bounded records and links required')
+    if type(value['records'])is not list or not 1<=len(value['records'])<=16 or type(value['edges'])is not list or not 0<=len(value['edges'])<=32:raise ValueError('Bounded nonempty records and optional links required')
     records=[];edges=[];aliases=set()
     for raw in value['records']:
         closed(raw,('alias','module_id','record_id','values'));alias=name(raw['alias'])

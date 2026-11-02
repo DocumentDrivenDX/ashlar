@@ -4,7 +4,9 @@ import unittest
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from ashlar_host.truss_source_custody_selection import TrussSourceCustodySelection
+from ashlar_host.truss_source_custody_selection import (
+    TrussSourceCustodyAnchor, TrussSourceCustodyOpenSelection,
+    TrussSourceCustodySelection, _ANCHORS, _SELECTIONS, _issue)
 from ashlar_host.truss052_source_custody import (
     Truss052AckUncertain, Truss052CustodyError, Truss052SourceCustodySession,
 )
@@ -158,14 +160,31 @@ def _selection():
     page = _Page(consumer_id="consumer", registration_id="registration-id",
         prior=SimpleNamespace(content=b"prior-cursor"),
         next=SimpleNamespace(content=b"next-cursor"), sha256="c" * 64)
-    return TrussSourceCustodySelection(
+    selection = TrussSourceCustodySelection(
         page=page, maximum_facts=10, maximum_bytes=1000,
         request_bytes=b"request", destination_registration_bytes=b"registration",
         ack_scope_bytes=b"scope", destination_id="destination",
         request_sha256="a" * 64, publication_id="publication",
         manifest_bytes=b"manifest", vector=object(), receipt_bytes=b"exact-receipt",
-        schedule_sha256="b" * 64, source="local-development",
+        schedule_sha256="b" * 64, source="A",
         identity={"installation_id": "install", "epoch": "epoch"})
+    _issue(_SELECTIONS, selection)
+    return selection
+
+
+def _open_selection(selection):
+    anchor = _issue(_ANCHORS, TrussSourceCustodyAnchor(
+        schedule_sha256=selection.schedule_sha256, source=selection.source,
+        identity=selection.identity, page=selection.page,
+        destination_id=selection.destination_id,
+        request_bytes=selection.request_bytes,
+        request_sha256=selection.request_sha256,
+        destination_registration_bytes=selection.destination_registration_bytes,
+        ack_scope_bytes=selection.ack_scope_bytes,
+        maximum_facts=selection.maximum_facts,
+        maximum_bytes=selection.maximum_bytes,
+        preselected_publication_id=selection.publication_id))
+    return anchor.open_selection()
 
 
 class Truss052SourceCustodyTests(unittest.TestCase):
@@ -199,6 +218,8 @@ class Truss052SourceCustodyTests(unittest.TestCase):
         self.patches = [
             patch("ashlar_host.truss052_source_custody._sdk", return_value=self.sdk),
             patch.object(TrussSourceCustodySelection, "to_candidate_sdk",
+                autospec=True, side_effect=materialize),
+            patch.object(TrussSourceCustodyOpenSelection, "to_candidate_sdk",
                 autospec=True, side_effect=materialize),
         ]
         for p in self.patches: p.start()
@@ -273,6 +294,52 @@ class Truss052SourceCustodyTests(unittest.TestCase):
             self.session.acknowledge()
         self.assertEqual(self.session.reconcile().outcome, "matched")
         self.session.close()
+
+    def test_prepublication_open_binds_publication_later_without_replacing_handle(self):
+        from dataclasses import replace
+        early = _open_selection(self.selection)
+        session = Truss052SourceCustodySession(
+            connection_factory=lambda _context: self.connection,
+            runtime_status_provider=lambda: self.runtime_status,
+            selection=early, context=self.context)
+        session.open()
+        held_handle = session._handle
+        with self.assertRaisesRegex(Truss052CustodyError, "must bind before ACK"):
+            session.acknowledge()
+        bad = replace(self.selection, publication_id="other-publication")
+        from ashlar_host.truss_source_custody_selection import _issue
+        _issue(_SELECTIONS, bad)
+        with self.assertRaisesRegex(Truss052CustodyError, "differs from retained"):
+            session.bind_publication(bad)
+        session.bind_publication(self.selection)
+        session.acknowledge()
+        self.assertIs(session._handle, held_handle)
+        self.assertIs(session._sdk_selection.selection, early)
+        self.assertEqual(session.reconcile().outcome, "matched")
+        session.close()
+
+    def test_prepublication_hold_closes_uncommitted_when_publication_fails(self):
+        early = _open_selection(self.selection)
+        session = Truss052SourceCustodySession(
+            connection_factory=lambda _context: self.connection,
+            runtime_status_provider=lambda: self.runtime_status,
+            selection=early, context=self.context)
+        session.open()
+        session.observe_selected_page()
+        session.close()
+        self.assertFalse(self.assembly.closed_committed)
+
+    def test_observed_prepublication_hold_binds_then_closes_uncommitted_on_failure(self):
+        early = _open_selection(self.selection)
+        session = Truss052SourceCustodySession(
+            connection_factory=lambda _context: self.connection,
+            runtime_status_provider=lambda: self.runtime_status,
+            selection=early, context=self.context)
+        session.open()
+        session.observe_selected_page()
+        session.bind_publication(self.selection)
+        session.close()
+        self.assertFalse(self.assembly.closed_committed)
 
     def test_selection_scope_cannot_be_replaced_after_open(self):
         from dataclasses import replace

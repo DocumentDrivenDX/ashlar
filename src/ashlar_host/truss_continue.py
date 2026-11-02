@@ -136,7 +136,7 @@ def _persist_or_reuse_exact_prepublication_pair(page_path,page_raw,intent_path,i
     return page_raw,intent_raw
 
 
-def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_seconds=0,maximum_page_bytes=1048576,archives=(),defer_source_acknowledgement=False,catalog_connection_factory=None,prepublication_source_custody=None,reuse_identical_prepublication_intent=False):
+def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_seconds=0,maximum_page_bytes=1048576,archives=(),defer_source_acknowledgement=False,catalog_connection_factory=None,prepublication_source_custody=None,reuse_identical_prepublication_intent=False,export_graph=False):
     """Continue a restored explicit committed predecessor; never initialize/reset.
 
     Caller holds the existing installation lease and outer transport/Spark/source
@@ -166,6 +166,8 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         raise ValueError('Explicit bounded continuation page bytes required')
     if type(defer_source_acknowledgement)is not bool:
         raise ValueError('Explicit boolean continuation ACK mode required')
+    if type(export_graph)is not bool:
+        raise ValueError('Explicit boolean original graph export selection required')
     if type(reuse_identical_prepublication_intent)is not bool:
         raise ValueError('Explicit boolean prepublication-intent recovery selection required')
     if defer_source_acknowledgement and maximum_pages!=1:
@@ -175,6 +177,9 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             or maximum_pages!=1 or not driver.source_sessions.destination_receipts
             or not driver.source_sessions.destination_id):
         raise ValueError('Per-page protected custody requires one deferred-ACK destination-backed continuation')
+    if export_graph and (maximum_pages != 1 or not defer_source_acknowledgement
+                         or prepublication_source_custody is None):
+        raise ValueError('Original graph export requires one protected deferred-ACK continuation page')
     if reuse_identical_prepublication_intent and (
             not defer_source_acknowledgement or maximum_pages!=1 or prepublication_source_custody is None
             or not driver.source_sessions.destination_receipts or not driver.source_sessions.destination_id
@@ -364,12 +369,25 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             except BaseException:
                 pass  # Diagnostic capture never replaces the original failure.
             raise
-    return {'predecessor':original_predecessor,'publications':results,
+    result={'predecessor':original_predecessor,'publications':results,
         'source_acknowledgement':('not_attempted_empty_interval' if not results else
             'deferred_not_attempted' if defer_source_acknowledgement else 'completed_by_public_truss_api'),
         'scope':('No continuation page was available; no source ACK was attempted.' if not results else
             'One contiguous page appended to the existing private local Delta installation; source ACK explicitly not attempted and no protected ACK is claimed.' if defer_source_acknowledgement else
             ('Contiguous public Truss pages appended with consumer-verified durable publication before exact source-retained destination receipt ACK; caller controls commit; no history release or Unity Catalog qualification.'if source.destination_receipts else'Contiguous public Truss pages appended to the existing private local Delta installation with publication-before-caller-asserted ACK; no reset/new registration or Unity Catalog qualification.'))}
+    if export_graph:
+        if not results or 'publication_readback_completion' not in results[-1]:
+            raise ValueError('Final continuation has no completed independent native readback')
+        from .truss_graph_export import read_original_truss_graph_export
+        release,custody=read_original_truss_graph_export(following_driver,with_custody=True)
+        result['original_graph_export']={
+            'release_base64':base64.b64encode(release.payload).decode('ascii'),
+            'release_sha256':release.sha256,
+            'custody_base64':base64.b64encode(custody).decode('ascii'),
+            'custody_sha256':hashlib.sha256(custody).hexdigest(),
+            'engine_execution':False,
+            'qualification':'Canonical immutable `.4` release and custody bytes read through the original live Truss owner; output is returned only after the caller closes its owners.'}
+    return result
 
 
 def _ready(driver):
