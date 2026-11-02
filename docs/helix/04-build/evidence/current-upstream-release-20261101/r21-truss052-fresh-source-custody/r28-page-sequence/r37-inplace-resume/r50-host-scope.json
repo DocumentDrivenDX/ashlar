@@ -388,6 +388,6 @@
   },
   "worker": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r50-continuation-worker.py",
-    "sha256": "ac34061fb737012bf512223c959bb514fcfd3f86318a6da23774f5027abd59fa"
+    "sha256": "738e0b916c1e0752764509578a29747add28cab23a3f410df714742878bbef18"
   }
 }

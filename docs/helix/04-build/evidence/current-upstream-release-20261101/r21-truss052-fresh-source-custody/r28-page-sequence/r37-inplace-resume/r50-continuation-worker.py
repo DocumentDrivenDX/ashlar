@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""R50 effect-free custody preflight for the post-R49 two-change page.
+"""R50 bounded continuation worker with effect-free preflight and gated native path.
 
-This worker deliberately has no native dispatch path. Sol review must supply
-an independently checked continuation-only worker before any source, Spark,
-Delta, or ACK operation is authorized.
+Native execution is reachable only through the R37 Sol-reviewed dispatch
+handshake for this exact scope and worker. Preflight itself remains effect-free.
 """
 from __future__ import annotations
 import argparse, hashlib, importlib.metadata, importlib.util, json, os, sqlite3, stat, sys
@@ -84,11 +83,13 @@ def sidecar(path: Path):
 def preflight(scope_path: Path, *, require_absent=True, supervisor_root_created=None):
     raw = scope_path.read_bytes(); scope = read_json(scope_path)
     if scope.get("profile") != "ashlar-r37-truss052-inplace-resume/0.1" or scope.get("status") not in {"pending_sol_review", "sol_reviewed_and_dispatchable"}:
-        raise Refusal("exact pending R50 scope required")
+        raise Refusal("exact R50 preflight/dispatchable scope required")
     limits = scope.get("limits", {})
     if (limits.get("wall_seconds"), limits.get("process_rss_bytes"), limits.get("attempt_root_bytes"), limits.get("attempts"), limits.get("automatic_retries"), limits.get("cloud")) != (900, 2147483648, 536870912, 1, 0, False):
         raise Refusal("R50 finite local bounds differ")
-    if scope.get("cloud") is not False or scope.get("production_authority") is not False or scope.get("native_dispatch") is not False:
+    dispatchable = scope.get("status") == "sol_reviewed_and_dispatchable"
+    if (scope.get("cloud") is not False or scope.get("production_authority") is not False or
+            type(scope.get("native_dispatch")) is not bool or scope.get("native_dispatch") is not dispatchable):
         raise Refusal("R50 local preflight boundary differs")
     paths = scope["paths"]
     attempt = Path(paths["output_root"]); supervisor = Path(paths["supervisor_root"])
