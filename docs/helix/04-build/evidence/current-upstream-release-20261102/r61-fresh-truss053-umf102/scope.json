@@ -1,6 +1,6 @@
 {
   "packet": "ashlar-r61-fresh-truss053-umf102",
-  "status": "attempt6-bound-after-public-truss-read-write-transaction-fix",
+  "status": "attempt7-bound-install-only-host-timeout-60s",
   "source": {
     "repository": "ashlar",
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
@@ -8,7 +8,7 @@
     "runner_path": "tools/r61_fresh_cohort_runner.py",
     "runner_sha256": "0b318102e7c8d5de3b6c15f0f003d666d101d0c9f8b9f991601b41fbd40b7eb9",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
-    "setup_stage_sha256": "ea759bdde9d7cdb60d89aeb107eed55aa434913633577626b3485867a339ed03",
+    "setup_stage_sha256": "4e3390770c04e8f1a0f33b67e212359df347fd4c14df20f5c1098262337cf85e",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
     "supervisor_sha256": "8aad4b142854915928ec80232e082c0bbb940456070bd8722e35d59827724d80"
   },
@@ -64,10 +64,10 @@
     "postgresql_18_pg_controldata_sha256": "9d4cff3fd9c003b471a767b1985cf1d1c46414b53486dd16934434c6e34c5d8e"
   },
   "fresh_local_state": {
-    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt6",
-    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt6/pgdata",
-    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt6/delta",
-    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt6/evidence",
+    "root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt7",
+    "postgres_data": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt7/pgdata",
+    "delta_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt7/delta",
+    "evidence_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt7/evidence",
     "must_be_absent_before_dispatch": true,
     "forbidden_state": [
       "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
@@ -159,7 +159,7 @@
     "seed_worker_failure_sha256": "a518badc946fb830157c8afe557ddf6c3c23344abd81eafcee7191ebb21cbc35",
     "seed_supervisor_receipt": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/supervisor-result.json",
     "seed_supervisor_receipt_sha256": "7dc3ddf15666793ebdcfdd639b32518345c18958ca10750fc59666dcae657052",
-    "source_claim": "attempt4 fresh initdb completed; Truss setup rejected before PostgreSQL owner/API; worker receipt confirms no source ACK/Spark/Delta; supervisor reconciled PG stopped",
+    "source_claim": "attempt4 fresh initdb completed; Truss setup rejected before PostgreSQL owner/API; worker receipt confirms no source ACK/Spark/Delta; supervisor reconciled PG stopped; attempt6 exact refusal retained as SQLSTATE 57014 under 15000ms, attempt7 raises only install bound",
     "initdb_mode": "--no-sync applies only to initdb bootstrap; PostgreSQL fsync must be observed on before source operations",
     "public_truss_apis": [
       "install_in_transaction",
@@ -168,6 +168,8 @@
       "configure_module_access_in_transaction",
       "status_in_transaction",
       "report_in_transaction"
-    ]
+    ],
+    "install_statement_timeout_ms": 60000,
+    "install_statement_timeout_scope": "SET LOCAL plus Truss adopted-host statement_timeout_ms and operation_timeout_ms; install only; other operations retain 15000ms"
   }
 }
