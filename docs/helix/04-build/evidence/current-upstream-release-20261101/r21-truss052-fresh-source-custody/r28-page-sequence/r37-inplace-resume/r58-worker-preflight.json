@@ -1,0 +1,167 @@
+{
+  "cloud": false,
+  "continuation_operations": 2,
+  "continuation_request_sha256": "52066d42c59c889d6b487cf42627c7cef6751c151a104b0b1a3a42430adf64e1",
+  "delta_written": false,
+  "journal_counts": {
+    "local_operation": 15,
+    "local_plan": 2,
+    "local_publication_artifact": 2,
+    "local_source_plan": 2
+  },
+  "journal_integrity": "ok",
+  "journal_sha256": "6084db7eddfc116020b34d7a213dd2a8010cefbf0c2c6f6c0c58e60372842aec",
+  "native_dispatch": false,
+  "native_helpers_preflight": {
+    "files": [
+      {
+        "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r37-local-worker.py",
+        "role": "R37 public page helpers",
+        "sha256": "75ec72308a182f5c8282d1364b33c4511acf51ebd13f94a0f607341fb03e1170"
+      },
+      {
+        "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r36-local-worker.py",
+        "role": "R36 base source/catalog helpers",
+        "sha256": "cc8facf22574bfff1be1985928cd648a86b65ff32366fb7b55402c4898ab9dfd"
+      },
+      {
+        "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r41-local-worker.py",
+        "role": "R41 report property projection",
+        "sha256": "f9fe57df5d9f8103a29b8e5033f5f118ca1124f74f54cae0c00dc40dbe5b0f54"
+      },
+      {
+        "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r56_committed_page_match.py",
+        "role": "committed R55 page matcher",
+        "sha256": "4639d118fbeb796fa977ea4cffbc0259a28a809323fc415d6ad8cf0640bf2cfd"
+      }
+    ],
+    "page_matcher": {
+      "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r56_committed_page_match.py",
+      "required_callables": [
+        "verify_publication_selection",
+        "validate_public_page",
+        "validate_seed_property_bindings"
+      ],
+      "sha256": "4639d118fbeb796fa977ea4cffbc0259a28a809323fc415d6ad8cf0640bf2cfd",
+      "status": "loaded_scope_bound_matcher"
+    },
+    "static_imports": [
+      {
+        "module": "ashlar_r37_page_helpers",
+        "target_variable": "r37_path"
+      },
+      {
+        "module": "ashlar_r41_report_projection",
+        "target_variable": "r41_path"
+      },
+      {
+        "module": "ashlar_r58_committed_page_match",
+        "target_variable": "path"
+      },
+      {
+        "module": "ashlar_r36_helpers",
+        "source": "r37-local-worker.py",
+        "target_variable": "BASE_WORKER"
+      }
+    ]
+  },
+  "output_roots_absent": true,
+  "pgdata_tree": {
+    "bytes": 65628450,
+    "files": 1264,
+    "sha256": "45275e24ef78d4f113f2b67c8f55568fb8bdc556f87ebf0e3a9f9b63e835ce21"
+  },
+  "postgres_opened": false,
+  "postmaster_stopped": true,
+  "profile": "ashlar-r58-committed-page-recovery-preflight/0.1",
+  "r49_ack_checkpoint_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
+  "r49_publication_id": "truss-graph-8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea",
+  "r55_committed_page": "8c292e2950cdf507bfa3801c68f188cdc29d9d739ddf3585792a08115ab59f35",
+  "r55_publication_id": "truss-graph-678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
+  "real_config_parser": {
+    "intent_selector_keys": [
+      "path",
+      "sha256"
+    ],
+    "jar_count": 2,
+    "local_extra_versions": {
+      "fasteners": "0.20",
+      "pgserver-pg18": "18.6.1",
+      "platformdirs": "4.12.4",
+      "psutil": "7.2.2"
+    },
+    "native_config_fields_exercised": [
+      "archived_acceptance_files",
+      "carrier_profile",
+      "catalog_connection_uri",
+      "connection_uri",
+      "destination_id",
+      "jars",
+      "publication_directory",
+      "publication_intent",
+      "runtime_profile"
+    ],
+    "native_effects": false,
+    "page_bytes": 82306,
+    "publication_directory": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
+    "request_digest": "8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea",
+    "resume_intent_path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta/publication-intent-8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea.json",
+    "resume_intent_sha256": "0ac8a41387eba0275695aff0e52628ff525be5a7e0a3befd023c8bdfb5aec34a",
+    "scratch_removed_on_return": true,
+    "selected_python": "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+    "source_page_sha256": "fe63c1affe12bf60a15fdeb505aee09b925df74d0c40618646aa4b9835970cf6",
+    "status": "passed_real_resume_config_parser",
+    "truss_version": "0.0.52",
+    "truss_wheel_sha256": "00d8b11abc83d9c84fa131ae6f3eef23ecad9d321d4b04a13641ed31c77e9747"
+  },
+  "resume_applied_custody": {
+    "applied_artifact_count": 1,
+    "continued_applied_artifact_count": 0,
+    "continued_request_digest": "678967ac3deeafa90b514ae8a5a1b05f78b0b32e5f89135f4c67205fede001ea",
+    "continued_source_plan_count": 0,
+    "publication_id": "truss-graph-8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea",
+    "request_digest": "8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea",
+    "source_plan_count": 1
+  },
+  "scope_sha256": "515fa8f1c1932aa85e9795bfa5300d98ddb50f2bf55093c59c176f5a9a676146",
+  "source_ack_attempted": false,
+  "spark_started": false,
+  "sqlite_sidecars_after": {
+    "-shm": {
+      "bytes": 0,
+      "dev": null,
+      "ino": null,
+      "mode": null,
+      "present": false,
+      "sha256": null
+    },
+    "-wal": {
+      "bytes": 0,
+      "dev": null,
+      "ino": null,
+      "mode": null,
+      "present": false,
+      "sha256": null
+    }
+  },
+  "sqlite_sidecars_before": {
+    "-shm": {
+      "bytes": 0,
+      "dev": null,
+      "ino": null,
+      "mode": null,
+      "present": false,
+      "sha256": null
+    },
+    "-wal": {
+      "bytes": 0,
+      "dev": null,
+      "ino": null,
+      "mode": null,
+      "present": false,
+      "sha256": null
+    }
+  },
+  "status": "passed_effect_free_inplace_preflight",
+  "worker_sha256": "89402263dd6d809d1989241e36335a5218541e31d98e24d9cb69b234206ae88e"
+}
