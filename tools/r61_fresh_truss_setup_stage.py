@@ -174,11 +174,12 @@ def _run_public_truss_setup(*, config: dict, paths: dict, source: bytes,
     consumer, reader, writer = "ashlar_note_consumer", "ashlar_note_reader", "ashlar_note_writer"
     def value(result):
         if not isinstance(result, Ok):
-            raise RuntimeError("Public Truss setup operation refused")
+            detail = getattr(result, "error", None)
+            raise RuntimeError(f"Public Truss setup operation refused: {detail!r}")
         return result.value
     @contextmanager
     def interval(connection):
-        connection.execute("BEGIN ISOLATION LEVEL READ COMMITTED")
+        connection.execute("BEGIN ISOLATION LEVEL READ COMMITTED, READ WRITE")
         connection.execute("SET LOCAL statement_timeout = '15000ms'")
         host = adopt_psycopg_host(connection)
         assembly = None
