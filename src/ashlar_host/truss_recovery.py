@@ -10,7 +10,7 @@ from .delta_custody import encoded, sha, LocalDeltaEffects
 from .driver import NativeDriver, progress_union
 from .private_graph_custody import decode_custody_bytes, require_custody_digest
 from .truss_graph_admission import TrussGraphAdmission,TrussEmptyIntervalAdmission
-from .truss_note_publication import graph_expected_rows
+from .truss_note_publication import graph_expected_rows, native_xxhash64
 
 
 def _retained_state(previous):
@@ -41,6 +41,16 @@ def _retained_state(previous):
             physical[key] = entity
     if physical != current: raise ValueError('Original complete prior history/current differs')
     return ApplyState(*[MappingProxyType(item) for item in (current,history,tombstones,deliveries)])
+
+
+def _restored_graph_oracle(driver, previous, after, admission, stamp):
+    """Recompute the original source oracle with its carrier's native hash basis."""
+    lookup_hashes = None
+    if getattr(driver, 'lookup_hash_profile', 'sha256-json-v1') == 'spark-xxhash64-typed-key/0.1':
+        lookup_hashes = native_xxhash64(driver.transport.spark, admission.changes, after)
+    return graph_expected_rows(previous, after, admission.changes, admission.batch,
+        driver.columns, stamp, admission.parsed.event_bytes, admission.parsed.edge_order_keys,
+        lookup_hashes=lookup_hashes)
 
 
 def restore_truss_apply_state(expected):
@@ -103,7 +113,7 @@ def _restore_truss_publication(driver, request_digest, *, interrupted=False, pre
     admission = driver.source_admission
     after = plan_apply(prior, admission.changes, schema_policy=admission.admit, schema_transition_policy=admission.admit_transition)
     stamp = datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc)+datetime.timedelta(microseconds=int(manifest['recorded_at']))
-    following = graph_expected_rows(previous,after,admission.changes,admission.batch,driver.columns,stamp.isoformat(),admission.parsed.event_bytes,admission.parsed.edge_order_keys)
+    following = _restored_graph_oracle(driver,previous,after,admission,stamp.isoformat())
     if report['source_oracle_sha256'] != sha(encoded(following)) or report['zero_match_elisions'] != plan['zero_match_elisions']:
         raise ValueError('Independently restored original source oracle differs')
     previous_progress = {}
