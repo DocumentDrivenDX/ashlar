@@ -186,7 +186,8 @@ class Truss053A1SourceHolder:
     def renew(self):
         if self.session is None or self._closed:
             raise Truss053CustodyError("Live original .53 source holder required")
-        observation = self.session.renew(phase="before_ack")
+        observation = self.session.renew(
+            phase="ack_unresolved" if self._matched_ack is not None else "before_ack")
         return observation
 
     def bind_publication(self, *, manifest_bytes: bytes, vector_payload: dict,

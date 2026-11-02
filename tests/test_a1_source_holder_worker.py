@@ -20,6 +20,11 @@ class A1SourceHolderWorkerTests(unittest.TestCase):
         holder._generation = 3
         holder.operation_timeout_seconds = 2
         holder._closed = False
+        holder._heartbeat_error = None
+        holder._heartbeat_stop = threading.Event()
+        holder._heartbeat = None
+        holder.process = Mock()
+        holder.process.poll.return_value = None
         holder.channel = Mock()
         holder.channel.gettimeout.return_value = 2
         calls = []

@@ -64,8 +64,8 @@ def _source_payload(selection, source):
     )
     from .managed_current_genesis import TrussSourceGenesisProgress
     from .truss_current_catalog import (
-        CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-        CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
+        CURRENT_TRUSS_054_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+        CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
     )
     from truss.feed import FeedPage
     from truss.reader_catalog import AcceptedDocument
@@ -79,11 +79,11 @@ def _source_payload(selection, source):
           "Original issued public Truss .53 A/B observation required")
     evidence = observation.catalog_evidence
     _need(type(evidence) is CurrentCatalogEvidence
-          and evidence.truss_version == CURRENT_TRUSS_053_FRESH_VERSION
+          and evidence.truss_version == CURRENT_TRUSS_054_FRESH_VERSION
           and (evidence.runtime_wheel_sha256, evidence.runtime_manifest_sha256)
-             == (CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-                 CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256),
-          "Exact fresh .53 catalog evidence required for both sources")
+             == (CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+                 CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256),
+          "Exact fresh .54 catalog evidence required for both sources")
     revision = next(iter(evidence.reports), "")
     _need(revision in evidence.reports and set(evidence.views) == {revision}
           and observation.report_bytes == evidence.reports[revision]

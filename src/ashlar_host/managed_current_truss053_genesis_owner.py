@@ -140,11 +140,11 @@ class ManagedCurrentTruss053GenesisSourceOwner:
         from .managed_current_genesis import admit_truss_source_genesis_progress
         from .managed_current_truss_cursor import validate_selected_truss_cursor
         from .truss_current_catalog import (
-            CURRENT_TRUSS_053_FRESH_VERSION,
-            CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-            CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256,
+            CURRENT_TRUSS_054_FRESH_VERSION,
+            CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+            CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
             CurrentCatalogEvidence,
-            installed_truss_053_fresh_source_custody_profile,
+            installed_truss_054_fresh_source_custody_profile,
         )
         from ashlar.truss_native_feed import native_feed_batch
 
@@ -167,7 +167,7 @@ class ManagedCurrentTruss053GenesisSourceOwner:
             ("consumer_id", selection.consumer_id),
             ("registration_id", selection.consumer_registration_id))),
             "Selected source owner identities differ from frozen R04 binding")
-        installed_truss_053_fresh_source_custody_profile()
+        installed_truss_054_fresh_source_custody_profile()
         try:
             from truss import (CatalogReport, CatalogRuntimeConfiguration,
                 CatalogRuntimeStatus, adopt_psycopg_host,
@@ -177,7 +177,7 @@ class ManagedCurrentTruss053GenesisSourceOwner:
             from truss.reader_catalog import AcceptedDocument
         except ImportError as error:
             raise ManagedCurrentTruss053GenesisError(
-                "Pinned public Truss 0.0.53 source/catalog API required") from error
+                "Pinned public Truss 0.0.54 source/catalog API required") from error
 
         connection = selection.connection_factory()
         if (getattr(connection, "autocommit", True)
@@ -276,11 +276,11 @@ class ManagedCurrentTruss053GenesisSourceOwner:
 
             from .truss_current_catalog import CurrentCatalogEvidence
             catalog_evidence = CurrentCatalogEvidence(
-                CURRENT_TRUSS_053_FRESH_VERSION,
+                CURRENT_TRUSS_054_FRESH_VERSION,
                 {selection.catalog_revision: report.original_bytes},
                 {selection.catalog_revision: view_bytes}, sources,
-                CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-                CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256)
+                CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+                CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)
 
             page = _outcome(assembly.read_feed_in_transaction(
                 transaction, consumer_id=selection.consumer_id,
