@@ -1,6 +1,6 @@
 {
   "packet": "ashlar-r61-fresh-truss054-umf102",
-  "status": "attempt11-fresh-truss054-scope-bound-not-dispatched",
+  "status": "attempt12-fresh-truss054-install-timeout-180s-not-dispatched",
   "source": {
     "repository": "ashlar",
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
@@ -8,7 +8,7 @@
     "runner_path": "tools/r61_fresh_cohort_runner.py",
     "runner_sha256": "1ba4989f168f26adef001796899fd6362ed376b30a82aa7764ab11db106b205c",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
-    "setup_stage_sha256": "244c5e8b70a91af51e9860c46fca27e5a2cf53d2a90e2e503440a4e97c4f7ced",
+    "setup_stage_sha256": "5e52adc50e4b5e1a16d08d2ee0a9149360a213d3ef28cf0a55dee61627c77e66",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
     "supervisor_sha256": "30a09c0613b771134f9dba6773fda9081090ff3cf957ee386afef2562b6fff17",
     "worker_sha256": "2c5fcc8275757caaf88ad3d85d52958afe635c5b7d42256735694bb7df155e35",
@@ -73,16 +73,17 @@
     }
   },
   "fresh_local_state": {
-    "root": "/private/tmp/ashlar-r61-truss054-umf102-20261102-attempt11",
-    "postgres_data": "/private/tmp/ashlar-r61-truss054-umf102-20261102-attempt11/pgdata",
-    "delta_root": "/private/tmp/ashlar-r61-truss054-umf102-20261102-attempt11/delta",
-    "evidence_root": "/private/tmp/ashlar-r61-truss054-umf102-20261102-attempt11/evidence",
+    "root": "/private/tmp/ashlar-r61-truss054-umf102-20261102-attempt12",
+    "postgres_data": "/private/tmp/ashlar-r61-truss054-umf102-20261102-attempt12/pgdata",
+    "delta_root": "/private/tmp/ashlar-r61-truss054-umf102-20261102-attempt12/delta",
+    "evidence_root": "/private/tmp/ashlar-r61-truss054-umf102-20261102-attempt12/evidence",
     "must_be_absent_before_dispatch": true,
     "forbidden_state": [
       "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
       "/private/tmp/ashlar-r59-truss052-protected-ack-20261102",
       "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8",
-      "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt10"
+      "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt10",
+      "/private/tmp/ashlar-r61-truss054-umf102-20261102-attempt11"
     ]
   },
   "limits": {
@@ -99,7 +100,7 @@
   },
   "workflow": [
     "verify exact Truss 0.0.54, UMF SDK 0.10.2/Core 0.10.6, Ashlar candidate and native/GraphFrames runtime origins",
-    "copy only the exact stopped uninstalled PostgreSQL 18 initdb seed into fresh attempt11 and create a new public Truss 0.0.54 installation/accepted model/consumer",
+    "copy only the exact stopped uninstalled PostgreSQL 18 initdb seed into fresh attempt12 and create a new public Truss 0.0.54 installation/accepted model/consumer",
     "read the complete accepted report/catalog/source and capture the actual metadata-only initial public page, binding its bytes, cursors, writer XID and identity before publication",
     "publish and protected-ACK the exact observed metadata-only accepted-catalog transaction as graph genesis",
     "apply one seven-operation public group, publish it as genesis continuation and protected-ACK it",
@@ -128,7 +129,7 @@
     "The retained R59 GraphFrames environment is not candidate evidence; attempt11 uses its isolated clone with the exact candidate wheel."
   ],
   "qualification_stage": {
-    "status": "attempt11-fresh-public-truss054-setup-and-metadata-page-before-graph-publication",
+    "status": "attempt12-fresh-public-truss054-setup-with-180s-install-only-timeout",
     "source_model": "docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json",
     "source_model_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
     "truss_local_runtime_member_sha256": "7a0fce2fd418a3c239e7f6e847ac952d152d1967638251a4ebba2f5f29b90728",
@@ -162,7 +163,7 @@
   },
   "postgres_bootstrap_policy": {
     "profile": "ashlar-r61-pg18-fresh-uninstalled-bootstrap-copy/0.1",
-    "method": "copy the exact stopped, uninstalled PG18 initdb seed into new attempt11; public Truss 0.0.54 install/accept/register creates all source state from a fresh cluster",
+    "method": "copy only the exact stopped, uninstalled PG18 initdb seed into new attempt12; public Truss 0.0.54 install/accept/register creates all source state from a fresh cluster",
     "seed_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4",
     "seed_pgdata": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/pgdata",
     "seed_tree_sha256": "76bced149f633e7b2b556aa489db88995881b31cfdf3a3ec079af8c81f108db4",
@@ -173,7 +174,7 @@
     "seed_worker_failure_sha256": "a518badc946fb830157c8afe557ddf6c3c23344abd81eafcee7191ebb21cbc35",
     "seed_supervisor_receipt": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/supervisor-result.json",
     "seed_supervisor_receipt_sha256": "7dc3ddf15666793ebdcfdd639b32518345c18958ca10750fc59666dcae657052",
-    "source_claim": "seed attempt4 is only a stopped initdb bootstrap cluster; it has no Truss installation, accepted model, source consumer, publication or ACK. Attempt11 is a fresh public .54 install.",
+    "source_claim": "seed attempt4 is only a stopped initdb bootstrap cluster; it has no Truss installation, accepted model, source consumer, publication or ACK. Attempt12 is a fresh public .54 install; attempt11 was a cleanly reconciled install-timeout refusal with no source consumer, Spark, Delta or ACK.",
     "initdb_mode": "--no-sync applies only to seed initdb bootstrap; PostgreSQL fsync must be observed on before source operations",
     "public_truss_apis": [
       "install_in_transaction",
@@ -183,7 +184,7 @@
       "status_in_transaction",
       "report_in_transaction"
     ],
-    "install_statement_timeout_ms": 60000,
-    "install_statement_timeout_scope": "SET LOCAL plus Truss adopted-host statement_timeout_ms and operation_timeout_ms; install only; other operations retain 15000ms"
+    "install_statement_timeout_ms": 180000,
+    "install_statement_timeout_scope": "SET LOCAL plus Truss adopted-host statement_timeout_ms and operation_timeout_ms; 180000ms applies only to public install_in_transaction after attempt11 native log showed the initial DDL canceled at the previous 60000ms bound. All accept/module-access/report/source/query operations retain 15000ms; outer supervisor remains 900 seconds."
   }
 }

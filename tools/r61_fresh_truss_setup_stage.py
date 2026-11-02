@@ -345,7 +345,8 @@ def _preinitialize_postgres(pgdata: Path, root: Path) -> dict:
 
 
 def _run_public_truss_setup(*, config: dict, paths: dict, source: bytes,
-                            origin: bytes, module_ids: tuple[str, ...]) -> dict:
+                            origin: bytes, module_ids: tuple[str, ...],
+                            install_timeout_ms: int) -> dict:
     """Use public Truss install, acceptance, access, and report operations."""
     from contextlib import contextmanager
     from dataclasses import asdict
@@ -397,7 +398,7 @@ def _run_public_truss_setup(*, config: dict, paths: dict, source: bytes,
         admin.execute(sql.SQL("CREATE ROLE {} LOGIN").format(sql.Identifier(consumer)))
         for role in (reader, writer):
             admin.execute(sql.SQL("CREATE ROLE {} NOLOGIN").format(sql.Identifier(role)))
-        with interval(admin, timeout_ms=60000) as (assembly, tx):
+        with interval(admin, timeout_ms=install_timeout_ms) as (assembly, tx):
             installed = value(assembly.install_in_transaction(tx))
         admin.commit()
         admin.execute(sql.SQL("GRANT {} TO {} WITH SET FALSE").format(
@@ -535,7 +536,8 @@ def run_fresh_truss_setup_stage(*, root: Path, bun: Path, expected_adapter_profi
     try:
         bootstrap = None if resuming_public_state else _run_public_truss_setup(
             config=setup, paths={"data_directory": pgdata, "bun": bun}, source=model,
-            origin=origin, module_ids=tuple(module["id"] for module in parsed["modules"]))
+            origin=origin, module_ids=tuple(module["id"] for module in parsed["modules"]),
+            install_timeout_ms=int(scope["postgres_bootstrap_policy"]["install_statement_timeout_ms"]))
         if resuming_public_state:
             if socket_root.exists() or socket_root.is_symlink():
                 _require_owned_runtime_directory(socket_root)
