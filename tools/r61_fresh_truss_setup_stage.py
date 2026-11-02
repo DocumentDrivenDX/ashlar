@@ -52,17 +52,57 @@ def _require_owned_runtime_directory(path: Path) -> None:
         raise RuntimeError("Truss LocalPostgres directory ownership/mode differs")
 
 
-def _tree_digest(root: Path) -> str:
+def _copy_verified_tree(source: Path, destination: Path) -> tuple[str, int, int]:
+    """Hash each source file while copying it once; bind the exact copied bytes."""
+    copied_hashes = {}
+    copied_bytes = 0
+    def copy_file(source_name, destination_name):
+        nonlocal copied_bytes
+        source_path, destination_path = Path(source_name), Path(destination_name)
+        before = source_path.lstat()
+        if (not stat.S_ISREG(before.st_mode) or stat.S_ISLNK(before.st_mode)
+                or before.st_uid != os.getuid()):
+            raise RuntimeError("PG18 bootstrap seed contains a non-owned regular file")
+        source_fd = os.open(source_path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+        destination_fd = os.open(destination_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
+                                 getattr(os, "O_NOFOLLOW", 0), stat.S_IMODE(before.st_mode))
+        file_hash = hashlib.sha256()
+        count = 0
+        try:
+            with os.fdopen(source_fd, "rb") as incoming, os.fdopen(destination_fd, "wb") as outgoing:
+                while True:
+                    block = incoming.read(1024 * 1024)
+                    if not block:
+                        break
+                    outgoing.write(block)
+                    file_hash.update(block)
+                    count += len(block)
+                outgoing.flush()
+                os.fsync(outgoing.fileno())
+            after = source_path.lstat()
+        except BaseException:
+            raise
+        if (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns) != \
+                (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns) or count != before.st_size:
+            raise RuntimeError("PG18 bootstrap seed changed during copy")
+        os.chmod(destination_path, stat.S_IMODE(before.st_mode))
+        os.utime(destination_path, ns=(before.st_atime_ns, before.st_mtime_ns))
+        relative = source_path.relative_to(source).as_posix()
+        copied_hashes[relative] = file_hash.hexdigest()
+        copied_bytes += count
+        return str(destination_path)
+    shutil.copytree(source, destination, copy_function=copy_file, symlinks=True)
     digest = hashlib.sha256()
-    for path in sorted(root.rglob("*"), key=lambda item: item.relative_to(root).as_posix()):
-        if path.is_symlink():
-            raise RuntimeError("Symlink in retained PostgreSQL bootstrap seed")
-        if path.is_file():
-            relative = path.relative_to(root).as_posix().encode()
-            digest.update(len(relative).to_bytes(4, "big"))
-            digest.update(relative)
-            digest.update(hashlib.sha256(path.read_bytes()).hexdigest().encode())
-    return digest.hexdigest()
+    for relative in sorted(copied_hashes):
+        if (destination / relative).is_symlink():
+            raise RuntimeError("Symlink in copied PostgreSQL bootstrap seed")
+        encoded = relative.encode()
+        digest.update(len(encoded).to_bytes(4, "big"))
+        digest.update(encoded)
+        digest.update(copied_hashes[relative].encode())
+    if any(path.is_symlink() for path in destination.rglob("*")):
+        raise RuntimeError("Symlink in copied PostgreSQL bootstrap seed")
+    return digest.hexdigest(), copied_bytes, len(copied_hashes)
 
 
 def _preinitialize_postgres(pgdata: Path, root: Path) -> dict:
@@ -135,17 +175,23 @@ def _preinitialize_postgres(pgdata: Path, root: Path) -> dict:
                   if line.startswith("Database cluster state:")), None)
     if state != "shut down" or system_id != policy["seed_system_identifier"]:
         raise RuntimeError("Retained PG18 seed is not the exact stopped fresh cluster")
-    seed_digest = _tree_digest(seed)
-    if seed_digest != policy["seed_tree_sha256"]:
-        raise RuntimeError("Retained PG18 seed tree differs from reviewed digest")
     started = time.monotonic()
-    shutil.copytree(seed, pgdata, copy_function=shutil.copy2)
-    copied_digest = _tree_digest(pgdata)
-    if copied_digest != seed_digest:
-        raise RuntimeError("Copied PG18 bootstrap tree digest differs")
+    copied_digest, copied_bytes, copied_files = _copy_verified_tree(seed, pgdata)
+    if copied_digest != policy["seed_tree_sha256"]:
+        raise RuntimeError("Copied PG18 bootstrap tree differs from reviewed digest")
+    copied_control = subprocess.run([str(controldata), str(pgdata)], stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=5, check=True)
+    copied_lines = copied_control.stdout.splitlines()
+    copied_system_id = next((line.split(":", 1)[1].strip() for line in copied_lines
+                             if line.startswith("Database system identifier:")), None)
+    copied_state = next((line.split(":", 1)[1].strip() for line in copied_lines
+                         if line.startswith("Database cluster state:")), None)
+    if copied_system_id != system_id or copied_state != "shut down":
+        raise RuntimeError("Copied PG18 control state differs from the stopped seed")
     result = {"profile": "ashlar-r61-pg18-stopped-bootstrap-copy/0.1",
               "status": "completed", "source_pgdata": str(seed),
-              "source_tree_sha256": seed_digest, "copied_tree_sha256": copied_digest,
+              "source_tree_sha256": policy["seed_tree_sha256"], "copied_tree_sha256": copied_digest,
+              "copied_file_count": copied_files, "copied_bytes": copied_bytes,
               "system_identifier": system_id, "cluster_state_before_copy": state,
               "initdb_sha256": manifest["initdb_sha256"],
               "initdb_provenance_receipt_sha256": policy["seed_initdb_receipt_sha256"],
@@ -178,9 +224,9 @@ def _run_public_truss_setup(*, config: dict, paths: dict, source: bytes,
             raise RuntimeError(f"Public Truss setup operation refused: {detail!r}")
         return result.value
     @contextmanager
-    def interval(connection):
+    def interval(connection, *, timeout_ms: int = 15000):
         connection.execute("BEGIN ISOLATION LEVEL READ COMMITTED, READ WRITE")
-        connection.execute("SET LOCAL statement_timeout = '15000ms'")
+        connection.execute(f"SET LOCAL statement_timeout = '{timeout_ms}ms'")
         host = adopt_psycopg_host(connection)
         assembly = None
         primary = None
@@ -210,7 +256,7 @@ def _run_public_truss_setup(*, config: dict, paths: dict, source: bytes,
         admin.execute(sql.SQL("CREATE ROLE {} LOGIN").format(sql.Identifier(consumer)))
         for role in (reader, writer):
             admin.execute(sql.SQL("CREATE ROLE {} NOLOGIN").format(sql.Identifier(role)))
-        with interval(admin) as (assembly, tx):
+        with interval(admin, timeout_ms=60000) as (assembly, tx):
             installed = value(assembly.install_in_transaction(tx))
         admin.commit()
         admin.execute(sql.SQL("GRANT {} TO {} WITH SET FALSE").format(
