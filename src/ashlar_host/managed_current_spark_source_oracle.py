@@ -341,6 +341,10 @@ def managed_current_a1_lookup_keys(plan, *, config):
              and type(inputs.get("materialized_at")) is str
              and config.catalog and config.schema,
              "A1 plan must retain its exact source-owner batch and verified predecessor")
+    if plan.phase == "a0_metadata":
+        _require(not admission.changes,
+                 "A0 catalog-only publication must have zero graph effects")
+        return ()
     from .publication_planning import truss_request_for
     expected_request = truss_request_for(inputs["stream"], batch,
         plan.predecessor.manifest["publication_id"], selection.schema_revisions)
@@ -398,6 +402,35 @@ def build_managed_current_a1_source_oracle(plan, *, config, prefix_bytes,
         pages=(plan.delivery_page,))
     from ashlar_host.managed_current_prefix_delivery import _decode as _decode_delivery
     package = _decode_delivery(prefix_bytes)
+    if plan.phase == "a0_metadata":
+        selection = plan.selection
+        admission = selection.admission
+        batch = selection.source_owner_admitted_batch
+        _require(not admission.changes and type(admission) is TrussGraphAdmission
+                 and admission.batch is batch
+                 and config.catalog == selected["destination"]["catalog"]
+                 and config.schema == selected["destination"]["schema"]
+                 and manifest.get("publication_id") != plan.predecessor.manifest.get("publication_id")
+                 and manifest.get("profile_version") == config.carrier_profile,
+                 "A0 must publish a distinct metadata-only manifest in the selected destination")
+        from .managed_current_genesis import transition_managed_current_first_a_page
+        progress = transition_managed_current_first_a_page(
+            plan.predecessor, source_owner_admitted_batch=batch)
+        _require(manifest.get("source_progress_json") == _canonical(progress)
+                 and manifest.get("schema_revisions_json") == plan.request[
+                     "schema_revisions_json"],
+                 "A0 manifest must retain the exact A0 checkpoint and unchanged B vector")
+        _require(package.get("phase") == "a0_metadata" and package.get("scheduleStep") == 0
+                 and package.get("entries") == [] and package.get("progress") == progress,
+                 "A0 verification must bypass R04 semantic slots")
+        empty = {role: [] for role in _ROLES}
+        return ManagedCurrentSourcePrefixOracle(
+            A1_PROFILE, config.carrier_profile, prefix_sha256,
+            plan.selection.schedule_sha256, 0,
+            _canonical({"catalog": config.catalog, "schema": config.schema}),
+            _canonical(progress), _canonical(plan.request),
+            _canonical({"source": "A", "phase": "a0_metadata"}),
+            _canonical(empty))
     entry = package["entries"][0]
     _require(type(entry) is dict
              and entry.get("requestJson") == _canonical(plan.request)
@@ -467,14 +500,14 @@ def _validate_a1_continuation_progress(plan, batch):
         source_a = plan.selection.source_progress["A"]
         source_b = plan.selection.source_progress["B"]
         old_a = progress[source_a.feed]
-        expected_prior = base64.b64decode(batch.cursor_before, validate=True)
         checkpoint = json.loads(truss_checkpoint(batch))
     except (KeyError, TypeError, ValueError) as error:
         raise ValueError("Exact A0 source progress and A1 page checkpoint required") from error
     _require(type(progress) is dict and set(progress) == {source_a.feed, source_b.feed}
              and type(old_a) is dict and old_a.get("epoch") == source_a.epoch
+             and old_a.get("profile") == "truss-native-feed/0.1"
              and old_a.get("position") == batch.cursor_before
-             and old_a.get("position_sha256") == hashlib.sha256(expected_prior).hexdigest()
+             and old_a.get("previous")
              and progress[source_b.feed] == source_b.document(),
              "A1 prior cursor must equal committed A0 A progress and preserve B genesis")
     progress[source_a.feed] = checkpoint

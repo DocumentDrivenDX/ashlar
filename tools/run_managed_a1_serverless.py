@@ -889,12 +889,13 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
         api.deadline = original_api_deadline
 
 
-def _publisher_bundle(result: dict, authority: str) -> tuple[dict, bytes, bytes, bytes, dict, str]:
+def _publisher_bundle(result: dict, authority: str, *, phase: str) -> tuple[dict, bytes, bytes, bytes, dict, str]:
     require(set(result) == {"profile", "runtimeIdentity", "predictiveOptimization",
                             "requestBytesBase64", "manifestBytesBase64",
-                            "destinationReceiptBytesBase64", "receipt"}
-            and result.get("profile") == "ashlar-managed-a1-publisher-result/0.1",
-            "Publisher output must use the closed A1 publisher result profile")
+                            "destinationReceiptBytesBase64", "receipt", "phase"}
+            and result.get("profile") == "ashlar-managed-a1-publisher-result/0.1"
+            and result.get("phase") == phase,
+            "Publisher output must use the closed phase-bound publisher result profile")
     require(result.get("predictiveOptimization") == "ENABLE",
             "Publisher did not observe Unity Catalog predictive optimization ENABLE")
     try:
@@ -1039,13 +1040,14 @@ class _LocalPinStages:
 def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
                            request_bytes: bytes, manifest_bytes: bytes,
                            receipt_bytes: bytes, vector_sha256: str,
-                           vector_wire: dict) -> dict:
+                           vector_wire: dict, *, phase: str) -> dict:
     require(set(output) == {"profile", "runtimeIdentity", "predictiveOptimization",
                             "managedObservation", "managedObservationSha256",
-                            "requestSha256", "manifestSha256",
+                            "requestSha256", "manifestSha256", "phase",
                             "destinationReceiptSha256", "vector"}
-            and output.get("profile") == "ashlar-managed-a1-verifier-result/0.1",
-            "Verifier output must use the closed independent A1 verifier result profile")
+            and output.get("profile") == "ashlar-managed-a1-verifier-result/0.1"
+            and output.get("phase") == phase,
+            "Verifier output must use the closed independent phase-bound result profile")
     require(output.get("predictiveOptimization") == "ENABLE",
             "Verifier did not observe Unity Catalog predictive optimization ENABLE")
     request_sha = hashlib.sha256(request_bytes).hexdigest()
@@ -1296,6 +1298,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         # the original source's issuers/credentials. Only detached exact bytes
         # cross the process boundary.
         holder, genesis_bytes = SourceHolderIPC.start(holder_spec, work_deadline)
+        phase = holder.owner.phase
+        require(phase == "a0", "Source holder must begin at the explicit A0 metadata phase")
         recovery_state["source_bootstrap"] = {"worker_pid": holder.process.pid,
             "genesis_sha256": hashlib.sha256(genesis_bytes).hexdigest(),
             "genesis_bytes": len(genesis_bytes), "state": "source_A1_committed_and_genesis_selected"}
@@ -1359,6 +1363,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         task_trial["source_custody_digests"] = custody_digests
         task_trial["destination_id"] = destination_id
         common = {"trial": task_trial, "protocol_profile": config["protocol_profile"],
+            "phase": phase,
             "genesis_volume_uri": genesis_uri,
             "genesis_sha256": genesis_artifact["sha256"],
             "genesis_manifest_volume_uri": initial_uri,
@@ -1367,14 +1372,15 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             "a1_snapshot_sha256": snapshot_artifact["sha256"]}
         publisher_params = dict(common)
         publisher_id, publisher_task_id, _, publisher_result = _run_stage(api, config,
-            "publisher", payload["publisher"], {"task_parameters_json": json.dumps(
+            "a0-publisher", payload["publisher"], {"task_parameters_json": json.dumps(
                 publisher_params, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},
             work_deadline, cleanup_deadline=deadline, recovery_state=recovery_state,
-            recovery_path=recovery_path)
+            recovery_path=recovery_path, config_key="publisher")
         run_ids["publisher"] = publisher_id
         _validate_task_runtime(publisher_result, config["expected_runtime"], "publisher")
         receipt, request_bytes, manifest_bytes, receipt_bytes, vector, vector_sha256 = (
-            _publisher_bundle(publisher_result, "managed-current-spark:" + config["expected_principal"]))
+            _publisher_bundle(publisher_result, "managed-current-spark:" + config["expected_principal"],
+                              phase=phase))
         require(request_bytes == json.dumps(plan.request, sort_keys=True, separators=(",", ":"),
             ensure_ascii=False, allow_nan=False).encode("utf-8"),
             "Publisher exact request differs from parent detached A/B admission")
@@ -1386,7 +1392,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             "vector_sha256": vector_sha256, "runtime_identity": publisher_result["runtimeIdentity"]}
         publisher_result_raw = json.dumps(publisher_result, sort_keys=True,
             separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
-        publisher_result_uri = volume_path + "/publisher-result.json"
+        publisher_result_uri = volume_path + "/a0-publisher-result.json"
         publisher_result_artifact = _put_volume_bytes(api, publisher_result_uri,
                                                        publisher_result_raw)
         recovery_state["publisher_result"] = {"volume_uri": publisher_result_uri,
@@ -1399,7 +1405,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             publication_manifest_bytes=manifest_bytes,
             destination={"catalog": config["catalog"], "schema": config["schema"]},
             carrier_profile="ashlar-delta/0.4-xxhash64",
-            materialization_clock_us=trial["materialized_at"])
+            materialization_clock_us=trial["materialized_at"], phase=phase)
         prefix_uri = volume_path + "/source-prefix.json"
         prefix_artifact = _put_volume_bytes(api, prefix_uri, prefix_bytes)
         selected_prefix_raw = json.dumps(selected_prefix, sort_keys=True,
@@ -1453,13 +1459,13 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             "selected_prefix_sha256": selected_prefix_artifact["sha256"],
             "source_rpc_directory": rpc_dir})
         verifier_id, verifier_task_id, _, verifier_result = _run_stage(api, config,
-            "verifier", payload["verifier"], {"task_parameters_json": json.dumps(
+            "a0-verifier", payload["verifier"], {"task_parameters_json": json.dumps(
                 verify_params, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},
             work_deadline, on_poll=lambda: _service_source_observer_rpc(api, holder, rpc_dir,
                 work_deadline, expected_vector_sha256=vector_sha256,
                 expected_custody_digests=custody_digests, pin_stage=pin_stages),
             cleanup_deadline=deadline, recovery_state=recovery_state,
-            recovery_path=recovery_path)
+            recovery_path=recovery_path, config_key="verifier")
         run_ids["verifier"] = verifier_id
         _validate_task_runtime(verifier_result, config["expected_runtime"], "verifier")
         holder.renew(work_deadline)
@@ -1472,7 +1478,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         result["pin_postgres_cleanup"] = recovery_state["pin_postgres_cleanup"]
         pin_owner = None
         proof = _verify_terminal_proof(verifier_result, verifier_id, verifier_task_id,
-            request_bytes, manifest_bytes, receipt_bytes, vector_sha256, vector)
+            request_bytes, manifest_bytes, receipt_bytes, vector_sha256, vector,
+            phase=phase)
         result["verifier_terminal_proof"] = proof
         result["verifier"] = {"run_id": verifier_id, "task_run_id": verifier_task_id,
             "result_sha256": proof["result_sha256"],
@@ -1533,8 +1540,198 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             "manifest_sha256": settlement.manifest_sha256,
             "selection_sha256": settlement.selection_sha256}
         recovery_state["ack"]["state"] = "acknowledged_exactly_reconciled"
+        recovery_state["a0_ack"] = dict(recovery_state["ack"])
+        recovery_state["phase"] = "a0_acknowledged_advancing_to_a1"
+        _write_private_json(recovery_path, recovery_state)
+        result["a0"] = {"publication_id": publication_id,
+            "request_sha256": hashlib.sha256(request_bytes).hexdigest(),
+            "manifest_sha256": hashlib.sha256(manifest_bytes).hexdigest(),
+            "receipt_sha256": hashlib.sha256(receipt_bytes).hexdigest(),
+            "vector_sha256": vector_sha256,
+            "publisher_run_id": publisher_id, "verifier_run_id": verifier_id,
+            "settlement": {"outcome": settlement.outcome,
+                "selection_sha256": settlement.selection_sha256}}
+
+        # The holder applies the frozen semantic A1 group only after A0's exact
+        # source ACK has reconciled. A1 then receives its own immutable request,
+        # publisher/verifier jobs, pin interval, durable ACK attempt and ACK.
+        a0_manifest_bytes = manifest_bytes
+        a1_snapshot_bundle_bytes = holder.advance_after_a0_ack(settlement,
+            deadline=work_deadline)
+        a1_genesis_uri = genesis_uri
+        a1_manifest_uri = volume_path + "/a0-manifest.json"
+        a1_manifest_artifact = _put_volume_bytes(api, a1_manifest_uri, a0_manifest_bytes)
+        a1_genesis_artifact = genesis_artifact
+        from ashlar_host.managed_a1_detached_admission import admit_detached_a1_plan
+        a1_plan = admit_detached_a1_plan(genesis_snapshot_bytes=a1_snapshot_bundle_bytes,
+            genesis_manifest=json.loads(a0_manifest_bytes), stream=trial["stream"],
+            materialized_at=trial["materialized_at"], context=object(), continuation=True)
+        a1_request_bytes = json.dumps(a1_plan.request, sort_keys=True, separators=(",", ":"),
+            ensure_ascii=False, allow_nan=False).encode("utf-8")
+        a1_publication_id = a1_plan.request["publication_id"]
+        a1_snapshot_bytes, a1_custody_digests = holder.open_a1(
+            a1_request_bytes, a1_publication_id, destination_id, work_deadline)
+        require(len(a1_snapshot_bytes) <= 4 * 1024 * 1024,
+                "Held A1 continuation selection exceeds the durable 4 MiB bound")
+        from ashlar_host.truss_detached_source_snapshot_codec import decode_detached_source_snapshot
+        a1_detached = decode_detached_source_snapshot(a1_snapshot_bytes)
+        holder.owner.start_heartbeat()
+        a1_snapshot_uri = volume_path + "/a1-source-snapshot.bin"
+        a1_snapshot_artifact = _put_volume_bytes(api, a1_snapshot_uri, a1_snapshot_bytes)
+        task_trial["source_custody_digests"] = a1_custody_digests
+        a1_common = {"trial": task_trial, "protocol_profile": config["protocol_profile"],
+            "phase": "a1", "genesis_volume_uri": a1_genesis_uri,
+            "genesis_sha256": a1_genesis_artifact["sha256"],
+            "genesis_manifest_volume_uri": a1_manifest_uri,
+            "genesis_manifest_sha256": a1_manifest_artifact["sha256"],
+            "a1_snapshot_volume_uri": a1_snapshot_uri,
+            "a1_snapshot_sha256": a1_snapshot_artifact["sha256"]}
+        a1_pub_id, a1_pub_task_id, _, a1_pub_result = _run_stage(api, config,
+            "a1-publisher", payload["publisher"], {"task_parameters_json": json.dumps(
+                a1_common, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},
+            work_deadline, cleanup_deadline=deadline, recovery_state=recovery_state,
+            recovery_path=recovery_path, config_key="publisher")
+        run_ids["a1-publisher"] = a1_pub_id
+        _validate_task_runtime(a1_pub_result, config["expected_runtime"], "publisher")
+        a1_receipt, a1_request_bytes, a1_manifest_bytes, a1_receipt_bytes, a1_vector, a1_vector_sha = (
+            _publisher_bundle(a1_pub_result,
+                "managed-current-spark:" + config["expected_principal"], phase="a1"))
+        require(a1_request_bytes == json.dumps(a1_plan.request, sort_keys=True,
+            separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8"),
+            "A1 publisher request differs from the exact post-A0 continuation plan")
+        a1_result_raw = json.dumps(a1_pub_result, sort_keys=True, separators=(",", ":"),
+            ensure_ascii=False, allow_nan=False).encode("utf-8")
+        a1_result_uri = volume_path + "/a1-publisher-result.json"
+        a1_result_artifact = _put_volume_bytes(api, a1_result_uri, a1_result_raw)
+        from ashlar_host.managed_current_a1_prefix_builder import build_managed_current_a1_prefix_evidence
+        a1_prefix, a1_prefix_sha, a1_selected_prefix = build_managed_current_a1_prefix_evidence(
+            genesis_bytes=genesis_bytes, source_snapshot_bytes=a1_snapshot_bytes,
+            initial_manifest_bytes=a0_manifest_bytes, request_bytes=a1_request_bytes,
+            publication_manifest_bytes=a1_manifest_bytes,
+            destination={"catalog": config["catalog"], "schema": config["schema"]},
+            carrier_profile="ashlar-delta/0.4-xxhash64",
+            materialization_clock_us=trial["materialized_at"])
+        a1_prefix_uri = volume_path + "/a1-source-prefix.json"
+        a1_prefix_artifact = _put_volume_bytes(api, a1_prefix_uri, a1_prefix)
+        a1_selected_raw = json.dumps(a1_selected_prefix, sort_keys=True,
+            separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
+        a1_selected_uri = volume_path + "/a1-selected-prefix.json"
+        a1_selected_artifact = _put_volume_bytes(api, a1_selected_uri, a1_selected_raw)
+        a1_bundle = _retention_bundle(trial=task_trial | {
+                "verifier_timeout_seconds": config["verifier"]["timeout_seconds"]},
+            protocol_profile=config["protocol_profile"], plan=a1_plan,
+            request_bytes=a1_request_bytes, manifest_bytes=a1_manifest_bytes,
+            destination_receipt=a1_receipt_bytes, task_receipt=a1_receipt,
+            prefix_bytes=a1_prefix, prefix_sha=a1_prefix_sha,
+            selected_prefix=a1_selected_prefix, source_snapshot=a1_snapshot_bytes,
+            custody_digests=a1_custody_digests)
+        a1_vector_wire = {"authority": a1_bundle.vector.authority,
+            "scope_kind": a1_bundle.vector.scope_kind, "scope_id": a1_bundle.vector.scope_id,
+            "custody_digest": a1_bundle.vector.custody_digest,
+            "targets": {key: list(value) for key, value in a1_bundle.vector.targets.items()}}
+        require(a1_vector_wire == a1_vector,
+                "A1 retention builder and publisher vector differ")
+        a1_pin_root = pin_root / "a1"
+        a1_pin_root.mkdir(mode=0o700)
+        a1_pin_timeout = min(900, int(deadline - time.monotonic()
+            - POST_ACK_CLEANUP_RESERVE_SECONDS))
+        require(a1_pin_timeout >= 31,
+                "Insufficient remaining wall deadline for the A1 native pin interval")
+        pin_owner = ManagedA1LocalPinOwner(a1_pin_root / "pgdata", a1_bundle.selection,
+            a1_bundle.vector, native_timeout_seconds=a1_pin_timeout,
+            deadline_monotonic=work_deadline - config["verifier"]["timeout_seconds"])
+        pin_owner.__enter__()
+        result["a1_local_pin_owner"] = pin_owner.register()
+        pin_stages = _LocalPinStages(pin_owner, lifetime_seconds=a1_pin_timeout)
+        a1_verify_params = dict(a1_common)
+        a1_verify_params.update({"publisher_result_volume_uri": a1_result_uri,
+            "publisher_result_sha256": a1_result_artifact["sha256"],
+            "prefix_volume_uri": a1_prefix_uri, "prefix_sha256": a1_prefix_artifact["sha256"],
+            "selected_prefix_volume_uri": a1_selected_uri,
+            "selected_prefix_sha256": a1_selected_artifact["sha256"],
+            "source_rpc_directory": rpc_dir})
+        a1_ver_id, a1_ver_task_id, _, a1_ver_result = _run_stage(api, config,
+            "a1-verifier", payload["verifier"], {"task_parameters_json": json.dumps(
+                a1_verify_params, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},
+            work_deadline, on_poll=lambda: _service_source_observer_rpc(api, holder, rpc_dir,
+                work_deadline, expected_vector_sha256=a1_vector_sha,
+                expected_custody_digests=a1_custody_digests, pin_stage=pin_stages),
+            cleanup_deadline=deadline, recovery_state=recovery_state,
+            recovery_path=recovery_path, config_key="verifier")
+        run_ids["a1-verifier"] = a1_ver_id
+        _validate_task_runtime(a1_ver_result, config["expected_runtime"], "verifier")
+        holder.renew(work_deadline)
+        require(pin_stages.stages == ["open", "pre_ack", "close"] and pin_stages.handle is None,
+                "A1 local native pin interval did not complete all observer stages")
+        pin_owner.__exit__(None, None, None)
+        recovery_state["a1_pin_postgres_cleanup"] = _cleanup_pin_pgdata(
+            pin_owner, pin_pg_ctl_lock, deadline)
+        pin_owner = None
+        a1_proof = _verify_terminal_proof(a1_ver_result, a1_ver_id, a1_ver_task_id,
+            a1_request_bytes, a1_manifest_bytes, a1_receipt_bytes, a1_vector_sha,
+            a1_vector, phase="a1")
+        result["a1"] = {"publication_id": a1_publication_id,
+            "request_sha256": hashlib.sha256(a1_request_bytes).hexdigest(),
+            "manifest_sha256": hashlib.sha256(a1_manifest_bytes).hexdigest(),
+            "receipt_sha256": hashlib.sha256(a1_receipt_bytes).hexdigest(),
+            "vector_sha256": a1_vector_sha, "publisher_run_id": a1_pub_id,
+            "verifier_run_id": a1_ver_id, "terminal_proof": a1_proof}
+        require(deadline - time.monotonic() >= config["cleanup_reserve_seconds"],
+                "Do not bind or ACK A1 without the full remaining ACK/reap/cleanup reserve")
+        holder.bind(manifest_bytes=a1_manifest_bytes, vector=a1_vector,
+            receipt_bytes=a1_receipt_bytes, deadline=deadline)
+        a1_attempt_dir = a1_pin_root / "attempts"
+        a1_attempt_dir.mkdir(parents=True, exist_ok=False, mode=0o700)
+        os.chmod(a1_attempt_dir, 0o700)
+        a1_store = DurableA1AckAttemptStore(a1_attempt_dir)
+        a1_page = a1_detached.source_page
+        recovery_state["a1_source"] = {"phase": "a1",
+            "publication_id": a1_publication_id,
+            "request_sha256": hashlib.sha256(a1_request_bytes).hexdigest(),
+            "manifest_sha256": hashlib.sha256(a1_manifest_bytes).hexdigest(),
+            "receipt_sha256": hashlib.sha256(a1_receipt_bytes).hexdigest(),
+            "selection_sha256": hashlib.sha256(a1_snapshot_bytes).hexdigest(),
+            "prior_checkpoint_sha256": hashlib.sha256(a1_page.prior_bytes).hexdigest(),
+            "next_checkpoint_sha256": hashlib.sha256(a1_page.next_bytes).hexdigest(),
+            "page_sha256": a1_page.page_fields["sha256"],
+            "custody_digests": a1_custody_digests}
+        recovery_state["phase"] = "a1_verified_prepared_for_ack"
+        _write_private_json(recovery_path, recovery_state)
+        a1_store.begin(selection_bytes=a1_snapshot_bytes, request_bytes=a1_request_bytes,
+            manifest_bytes=a1_manifest_bytes, receipt_bytes=a1_receipt_bytes,
+            prior_checkpoint_bytes=a1_page.prior_bytes, next_checkpoint_bytes=a1_page.next_bytes,
+            page_sha256=a1_page.page_fields["sha256"], destination_id=destination_id,
+            publication_id=a1_publication_id)
+        a1_prepared = a1_store.load()
+        recovery_state["a1_ack_attempt_directory"] = str(a1_store.directory)
+        recovery_state["a1_ack"] = {"state": "durable_attempt_prepared",
+            "attempt_directory": str(a1_store.directory),
+            "attempt_sha256": hashlib.sha256(a1_store.path.read_bytes()).hexdigest(),
+            "selection_sha256": a1_prepared.selection_sha256,
+            "request_sha256": a1_prepared.request_sha256,
+            "manifest_sha256": a1_prepared.manifest_sha256,
+            "receipt_sha256": a1_prepared.receipt_sha256,
+            "publication_id": a1_prepared.publication_id}
+        result["a1_ack_attempt"] = {key: recovery_state["a1_ack"][key]
+            for key in ("selection_sha256", "request_sha256", "manifest_sha256",
+                        "receipt_sha256", "publication_id")}
+        _write_private_json(recovery_path, recovery_state)
+        ack_attempted = True
+        recovery_state["a1_ack"]["state"] = "dispatch_intent"
+        _write_private_json(recovery_path, recovery_state)
+        a1_settlement = holder.acknowledge_once(a1_store,
+            attempt_directory=a1_store.directory, deadline=deadline)
+        _validate_ack_settlement(a1_settlement, request_bytes=a1_request_bytes,
+            manifest_bytes=a1_manifest_bytes, snapshot_bytes=a1_snapshot_bytes,
+            next_checkpoint_bytes=a1_detached.source_page.next_bytes,
+            receipt_bytes=a1_receipt_bytes)
+        recovery_state["a1_ack"]["state"] = "acknowledged_exactly_reconciled"
         recovery_state["phase"] = "acknowledged_cleanup_pending"
         _write_private_json(recovery_path, recovery_state)
+        result["source_holder_settlement"] = {"outcome": a1_settlement.outcome,
+            "request_sha256": a1_settlement.request_sha256,
+            "manifest_sha256": a1_settlement.manifest_sha256,
+            "selection_sha256": a1_settlement.selection_sha256}
         verified_ack = True
         result["source_holder_closed"] = True
         _wait_source_group_absent(holder, deadline)
@@ -1555,7 +1752,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
                 and current_volume.get("volume_type") == "MANAGED",
                 "Trial volume ownership changed; refusing cleanup")
         for uri in (genesis_uri, snapshot_uri, initial_uri, prefix_uri,
-                    publisher_result_uri, selected_prefix_uri):
+                    publisher_result_uri, selected_prefix_uri, a1_manifest_uri,
+                    a1_result_uri, a1_prefix_uri, a1_selected_uri):
             api.remove_file("dbfs:" + uri)
         directory = api.call("get", "/api/2.0/fs/directories/"
                               + quote(volume_path, safe="/"))

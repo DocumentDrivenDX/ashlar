@@ -292,5 +292,8 @@ def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
         return prepare_managed_current_a1_continuation(
             selection, genesis_manifest, stream=stream,
             materialized_at=materialized_at, context=context)
-    return prepare_managed_current_a1_trial(selection, genesis_manifest,
+    plan = prepare_managed_current_a1_trial(selection, genesis_manifest,
         stream=stream, materialized_at=materialized_at, context=context)
+    from dataclasses import replace
+    return replace(plan, phase="a0_metadata",
+        delivery_page=replace(plan.delivery_page, ordinal=0))

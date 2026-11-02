@@ -1125,6 +1125,10 @@ def _managed_current_a1_task_inputs(a1_plan, *, stream, predecessor,
         else prepare_managed_current_a1_continuation)
     rebuilt = prepare(selection, a1_plan.predecessor.manifest, stream=stream,
         materialized_at=materialized_at, context=a1_plan.driver_inputs['context'])
+    if a1_plan.phase == 'a0_metadata':
+        from dataclasses import replace
+        rebuilt = replace(rebuilt, phase='a0_metadata',
+            delivery_page=replace(rebuilt.delivery_page, ordinal=0))
     _require(a1_plan.request == rebuilt.request
              and a1_plan.delivery_page == rebuilt.delivery_page
              and a1_plan.predecessor.manifest == rebuilt.predecessor.manifest,

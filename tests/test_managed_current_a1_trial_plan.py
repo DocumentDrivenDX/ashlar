@@ -234,9 +234,9 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
              'B': SimpleNamespace(batch=None, page=None)},
             admission, batch)
         source_progress = {
-            'feed-A': {'profile': 'ashlar-truss-checkpoint/0.1', 'feed': 'feed-A',
+            'feed-A': {'profile': 'truss-native-feed/0.1', 'feed': 'feed-A',
                 'epoch': 'epoch-A', 'position': base64.b64encode(prior).decode(),
-                'position_sha256': hashlib.sha256(prior).hexdigest()},
+                'previous': base64.b64encode(b'{"nextXid":"0"}').decode()},
             'feed-B': progress_b.document()}
         predecessor = {'publication_id': 'a0-publication',
             'profile_version': CARRIER_PROFILE_XXHASH64,

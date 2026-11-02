@@ -36,7 +36,8 @@ def _decode(raw, label):
 def build_managed_current_a1_prefix_evidence(*, genesis_bytes: bytes,
         source_snapshot_bytes: bytes, initial_manifest_bytes: bytes,
         request_bytes: bytes, publication_manifest_bytes: bytes,
-        destination: dict, carrier_profile: str, materialization_clock_us: str):
+        destination: dict, carrier_profile: str, materialization_clock_us: str,
+        phase: str = "a1"):
     """Return exact canonical prefix bytes and separately selected anchors.
 
     The package is created only after publication has returned its exact
@@ -47,7 +48,9 @@ def build_managed_current_a1_prefix_evidence(*, genesis_bytes: bytes,
     try:
         from .truss_detached_a1_genesis_codec import decode_detached_a1_genesis_snapshot
         from .truss_detached_source_snapshot_codec import decode_detached_source_snapshot
-        from .managed_current_prefix_custody_v2 import PROFILE, validate_selected_managed_current_prefix_v2
+        from .managed_current_prefix_custody_v2 import (PROFILE,
+            validate_selected_managed_current_prefix_v2,
+            validate_selected_managed_current_prefix_a0_continuation)
         from .managed_current_prefix_delivery import (
             ManagedCurrentPrefixPage, validate_managed_current_prefix_delivery,
         )
@@ -63,6 +66,7 @@ def build_managed_current_a1_prefix_evidence(*, genesis_bytes: bytes,
             or any(type(value) is not str or not value for value in destination.values())
             or carrier_profile not in ("ashlar-delta/0.3", "ashlar-delta/0.4-xxhash64")
             or type(materialization_clock_us) is not str
+            or phase not in ("a0", "a1")
             or not materialization_clock_us.isascii() or not materialization_clock_us.isdecimal()
             or str(int(materialization_clock_us)) != materialization_clock_us
             or not -(1 << 63) <= int(materialization_clock_us) < (1 << 63)):
@@ -137,13 +141,24 @@ def build_managed_current_a1_prefix_evidence(*, genesis_bytes: bytes,
                 "installation_id": expected_identity["installation_id"],
                 "page": {"profile": "ashlar-source-page-absent/0.1"},
             }
-        initial_progress = _canonical(progress)
+        continuation = initial_manifest.get("profile_version") == carrier_profile and any(
+            type(item) is dict and item.get("page", {}).get("profile") !=
+                "ashlar-source-page-absent/0.1"
+            for item in json.loads(initial_manifest.get("source_progress_json", "{}")).values())
+        if continuation:
+            initial_progress = initial_manifest.get("source_progress_json")
+            if type(initial_progress) is not str or _canonical(_decode(
+                    initial_progress.encode("utf-8"), "A0 full source progress")) != initial_progress:
+                raise ValueError("Canonical A0 source progress required for A1 continuation")
+            progress = _decode(initial_progress.encode("utf-8"), "A0 full source progress")
+        else:
+            initial_progress = _canonical(progress)
         initial_publication = initial_manifest_bytes.decode("utf-8")
         initial_id = initial_manifest.get("publication_id")
         if (not type(initial_id) is str or not initial_id
-                or initial_manifest.get("source_progress_json") != initial_progress
+                or (not continuation and initial_manifest.get("source_progress_json") != initial_progress)
                 or request.get("predecessor") != initial_id):
-            raise ValueError("A1 request does not descend from exact selected genesis manifest")
+            raise ValueError("A1 request does not descend from exact selected predecessor manifest")
         source_a = held.source_page
         if (source_a.request_bytes != request_bytes
                 or source_a.publication_id != publication_manifest.get("publication_id")):
@@ -175,6 +190,14 @@ def build_managed_current_a1_prefix_evidence(*, genesis_bytes: bytes,
             "initialPublicationJson": initial_publication,
             "scheduleStep": 1, "entries": [entry], "progress": progress,
         }
+        if phase == "a0":
+            if continuation:
+                raise ValueError("A0 metadata phase cannot use an A0 continuation predecessor")
+            package["phase"] = "a0_metadata"
+            package["scheduleStep"] = 0
+            package["entries"] = []
+            package["progress"] = _decode(initial_progress.encode("utf-8"),
+                                            "initial A/B genesis progress")
         prefix_bytes = _canonical(package).encode("utf-8")
         prefix_sha256 = hashlib.sha256(prefix_bytes).hexdigest()
         selected = {
@@ -185,13 +208,18 @@ def build_managed_current_a1_prefix_evidence(*, genesis_bytes: bytes,
             "initialPublicationId": initial_id,
             "carrierProfile": carrier_profile, "destination": dict(destination),
         }
-        validate_selected_managed_current_prefix_v2(
-            prefix_bytes, prefix_sha256=prefix_sha256, selected=selected)
         pages = (ManagedCurrentPrefixPage(1, "A", source_a.page_content,
                     source_a.prior_bytes, source_a.next_bytes),)
-        validate_managed_current_prefix_delivery(
-            prefix_bytes, prefix_sha256=prefix_sha256, selected=selected,
-            schedule_bytes=genesis.schedule_bytes, pages=pages)
+        if continuation:
+            validate_selected_managed_current_prefix_a0_continuation(
+                prefix_bytes, prefix_sha256=prefix_sha256, selected=selected)
+        else:
+            validate_selected_managed_current_prefix_v2(
+                prefix_bytes, prefix_sha256=prefix_sha256, selected=selected)
+            if phase == "a1":
+                validate_managed_current_prefix_delivery(
+                    prefix_bytes, prefix_sha256=prefix_sha256, selected=selected,
+                    schedule_bytes=genesis.schedule_bytes, pages=pages)
     except (KeyError, TypeError, ValueError, AttributeError) as error:
         raise ManagedCurrentA1PrefixBuildError(
             "Original detached A/B, A page, genesis and publication outputs do not compose") from error

@@ -36,6 +36,75 @@ class ManagedCurrentA1TrialPlan:
             raise ValueError("Original selected R04 schedule bytes must be retained")
         if type(pages) is not tuple or not pages or pages[0] != self.delivery_page:
             raise ValueError("First retained /0.2 page must be the selected original A page")
+        if self.phase == "a0_metadata":
+            from .managed_current_prefix_custody_v2 import (
+                validate_selected_managed_current_prefix_v2,
+            )
+            from .managed_current_prefix_delivery import _decode
+            from ashlar.truss_native_feed import native_feed_batch
+            from ashlar.staging import batch_row
+            from ashlar.source_checkpoint import truss_checkpoint
+            if schedule_bytes != self.selection.schedule_bytes:
+                raise ValueError("A0 verifier must retain the exact original R04 schedule")
+            if type(pages) is not tuple or len(pages) != 1:
+                raise ValueError("A0 metadata verifier requires the exact held A0 source page")
+            page = pages[0]
+            if (type(page) is not ManagedCurrentPrefixPage or page.source != "A"
+                    or page.ordinal != 0):
+                raise ValueError("A0 metadata page is outside the semantic R04 slot sequence")
+            correspondence = validate_selected_managed_current_prefix_v2(
+                prefix_bytes, prefix_sha256=prefix_sha256, selected=selected)
+            package = _decode(prefix_bytes)
+            if (package.get("phase") != "a0_metadata" or package.get("scheduleStep") != 0
+                    or package.get("entries") != []
+                    or package.get("scheduleJson", "").encode("utf-8") != schedule_bytes):
+                raise ValueError("A0 zero-step prefix must not consume an R04 semantic slot")
+            batch = native_feed_batch(page.page_bytes,
+                sha256=hashlib.sha256(page.page_bytes).hexdigest(),
+                prior=page.prior_cursor_bytes, next=page.next_cursor_bytes,
+                feed=self.selection.source_progress["A"].feed)
+            selected_batch = self.selection.source_owner_admitted_batch
+            if (batch.batch_id != selected_batch.batch_id
+                    or batch.begin != selected_batch.begin
+                    or batch.cursor_before != selected_batch.cursor_before
+                    or batch.cursor_after != selected_batch.cursor_after
+                    or batch.cursor_before != self.selection.source_progress["A"].position
+                    or self.request.get("source_batch_json") != batch_row(batch)["batch_json"]
+                    or self.request.get("source_checkpoint_json") != truss_checkpoint(batch)
+                    or self.selection.admission.changes):
+                raise ValueError("A0 metadata-only page and empty graph admission must match exactly")
+            return correspondence
+        if self.phase == "a1_continuation":
+            from .managed_current_prefix_custody_v2 import (
+                validate_selected_managed_current_prefix_a0_continuation,
+            )
+            from .managed_current_prefix_delivery import _decode, ManagedCurrentPrefixPage
+            from ashlar.truss_native_feed import native_feed_batch
+            import hashlib
+            correspondence = validate_selected_managed_current_prefix_a0_continuation(
+                prefix_bytes, prefix_sha256=prefix_sha256, selected=selected)
+            package = _decode(prefix_bytes)
+            if package["scheduleJson"].encode("utf-8") != schedule_bytes:
+                raise ValueError("A1 continuation must retain the original R04 schedule bytes")
+            if type(pages) is not tuple or len(pages) != 1:
+                raise ValueError("A1 continuation requires exactly its original source page")
+            page = pages[0]
+            if (type(page) is not ManagedCurrentPrefixPage or page.ordinal != 1
+                    or page.source != "A"):
+                raise ValueError("A1 continuation page must occupy semantic slot one for A")
+            identity = selected["sources"]["A"]["identity"]
+            batch = native_feed_batch(page.page_bytes,
+                sha256=hashlib.sha256(page.page_bytes).hexdigest(),
+                prior=page.prior_cursor_bytes, next=page.next_cursor_bytes,
+                feed=identity["feed"])
+            request = _decode(package["entries"][0]["requestJson"].encode("utf-8"))
+            if (request["source_batch_json"] != __import__("ashlar.staging",
+                    fromlist=["batch_row"]).batch_row(batch)["batch_json"]
+                    or request["source_checkpoint_json"] != __import__(
+                        "ashlar.source_checkpoint", fromlist=["truss_checkpoint"]
+                        ).truss_checkpoint(batch)):
+                raise ValueError("A1 continuation source page bytes differ from its exact request")
+            return correspondence
         return validate_managed_current_prefix_delivery(
             prefix_bytes, prefix_sha256=prefix_sha256, selected=selected,
             schedule_bytes=schedule_bytes, pages=pages)
@@ -176,7 +245,8 @@ def prepare_managed_current_a1_continuation(selection, predecessor_manifest, *,
             or type(previous) is not dict or set(previous) != {feed_a, feed_b}
             or type(a0) is not dict or a0.get("epoch") != progress_a["A"].epoch
             or a0.get("position") != __import__("base64").b64encode(cursor_before).decode("ascii")
-            or a0.get("position_sha256") != __import__("hashlib").sha256(cursor_before).hexdigest()
+            or a0.get("profile") != "truss-native-feed/0.1"
+            or a0.get("previous") is None
             or type(b0) is not dict or b0 != progress_a["B"].document()
             or cursor_before != progress_a["A"].cursor_bytes
             or selection.admission.batch is not batch):

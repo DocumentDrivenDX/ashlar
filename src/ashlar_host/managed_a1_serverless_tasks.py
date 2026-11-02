@@ -385,13 +385,15 @@ def publisher_task(spark, parameters):
     from .managed_current_trial import ManagedCurrentTrialConfig, run_managed_current_trial_page
     from .managed_a1_detached_admission import admit_detached_a1_plan
 
-    required = {"trial", "protocol_profile", "genesis_volume_uri", "genesis_sha256",
+    required = {"trial", "protocol_profile", "phase", "genesis_volume_uri", "genesis_sha256",
         "genesis_manifest_volume_uri", "genesis_manifest_sha256",
         "a1_snapshot_volume_uri", "a1_snapshot_sha256"}
     _need(type(parameters) is dict and set(parameters) == required,
           "Closed managed A1 publisher inputs required")
     trial = parameters["trial"]
     _validate_trial(trial)
+    phase = parameters["phase"]
+    _need(phase in ("a0", "a1"), "Explicit A0 metadata or A1 semantic phase required")
     protocol = _protocol_profile(parameters["protocol_profile"])
     spark.sql("USE CATALOG `" + trial["catalog"] + "`").collect()
     spark.sql("USE SCHEMA `" + trial["schema"] + "`").collect()
@@ -404,7 +406,10 @@ def publisher_task(spark, parameters):
     context = object()
     plan = admit_detached_a1_plan(genesis_snapshot_bytes=genesis,
         genesis_manifest=initial_manifest, stream=trial["stream"],
-        materialized_at=trial["materialized_at"], context=context)
+        materialized_at=trial["materialized_at"], context=context,
+        continuation=phase == "a1")
+    _need(len(plan.selection.admission.changes) == (0 if phase == "a0" else 7),
+          "A0 must be metadata-only and A1 must contain the exact seven admitted graph changes")
     snapshot = _load_volume(parameters["a1_snapshot_volume_uri"],
                             parameters["a1_snapshot_sha256"])
     _need(len(snapshot) <= 4 * 1024 * 1024,
@@ -463,7 +468,7 @@ def publisher_task(spark, parameters):
           for role in ("object_current", "edge_current", "tombstone", "whole_source_history",
                        "publication_manifest", "publication_attempt_phase")}
     _need(po == {"ENABLE"}, "Predictive optimization must remain enabled for all six roles")
-    return {"profile": "ashlar-managed-a1-publisher-result/0.1",
+    return {"profile": "ashlar-managed-a1-publisher-result/0.1", "phase": phase,
         "runtimeIdentity": task["runtimeIdentity"],
         "predictiveOptimization": "ENABLE",
         "requestBytesBase64": base64.b64encode(_canonical(plan.request)).decode("ascii"),
@@ -481,7 +486,7 @@ def verifier_task(spark, parameters):
     from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
     from .managed_a1_detached_admission import admit_detached_a1_plan
 
-    required = {"trial", "protocol_profile", "genesis_volume_uri", "genesis_sha256",
+    required = {"trial", "protocol_profile", "phase", "genesis_volume_uri", "genesis_sha256",
         "genesis_manifest_volume_uri", "genesis_manifest_sha256",
         "a1_snapshot_volume_uri", "a1_snapshot_sha256", "publisher_result_volume_uri",
         "publisher_result_sha256", "prefix_volume_uri", "prefix_sha256",
@@ -490,6 +495,8 @@ def verifier_task(spark, parameters):
           "Closed managed A1 verifier inputs required")
     trial = parameters["trial"]
     _validate_trial(trial)
+    phase = parameters["phase"]
+    _need(phase in ("a0", "a1"), "Explicit A0 metadata or A1 semantic phase required")
     protocol = _protocol_profile(parameters["protocol_profile"])
     spark.sql("USE CATALOG `" + trial["catalog"] + "`").collect()
     spark.sql("USE SCHEMA `" + trial["schema"] + "`").collect()
@@ -501,13 +508,16 @@ def verifier_task(spark, parameters):
     context = object()
     plan = admit_detached_a1_plan(genesis_snapshot_bytes=genesis,
         genesis_manifest=genesis_manifest, stream=trial["stream"],
-        materialized_at=trial["materialized_at"], context=context)
+        materialized_at=trial["materialized_at"], context=context,
+        continuation=phase == "a1")
+    _need(len(plan.selection.admission.changes) == (0 if phase == "a0" else 7),
+          "Verifier phase must match the actual metadata-only A0 or seven-change A1 page")
     _need(type(plan) is ManagedCurrentA1TrialPlan,
           "Exact reconstructed A1 plan required by independent verifier")
     publisher = json.loads(_load_volume(parameters["publisher_result_volume_uri"],
                                          parameters["publisher_result_sha256"]))
     _need(type(publisher) is dict and publisher.get("profile") ==
-          "ashlar-managed-a1-publisher-result/0.1",
+          "ashlar-managed-a1-publisher-result/0.1" and publisher.get("phase") == phase,
           "Exact closed publisher receipt result required")
     try:
         request_bytes = base64.b64decode(publisher["requestBytesBase64"], validate=True)
@@ -601,7 +611,7 @@ def verifier_task(spark, parameters):
         "maximum_elapsed_seconds": interval.maximum_elapsed_seconds,
         "observations": observations}
     observed_bytes = _canonical(observation_value)
-    return {"profile": "ashlar-managed-a1-verifier-result/0.1",
+    return {"profile": "ashlar-managed-a1-verifier-result/0.1", "phase": phase,
         "runtimeIdentity": {"opening": opening, "closing": closing},
         "predictiveOptimization": "ENABLE",
         "managedObservation": observation_value,
