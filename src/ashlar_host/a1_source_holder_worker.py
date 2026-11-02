@@ -460,6 +460,11 @@ class A1Truss053SourceHolderProcess:
         self.custody_digests = None
         if expected_phase == "a0_matched":
             self.phase = "a0_closed"
+            # The matched settlement heartbeat is joined above. A1 is a new
+            # source interval on this same child, so give it a fresh event and
+            # permit exactly one new heartbeat.
+            self._heartbeat = None
+            self._heartbeat_stop = threading.Event()
         else:
             self._reap_success()
         return True

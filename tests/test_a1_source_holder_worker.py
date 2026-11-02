@@ -40,6 +40,8 @@ class A1SourceHolderWorkerTests(unittest.TestCase):
         self.assertEqual(calls[0][0]["settlement"]["checkpoint_bytes_base64"],
                          "eyJuZXh0WGlkIjo3NTl9")
         self.assertEqual(holder.phase, "a0_closed")
+        self.assertIsNone(holder._heartbeat)
+        self.assertFalse(holder._heartbeat_stop.is_set())
         self.assertIsNone(holder.snapshot_bytes)
         self.assertIsNone(holder.custody_digests)
         holder._reap_success.assert_not_called()

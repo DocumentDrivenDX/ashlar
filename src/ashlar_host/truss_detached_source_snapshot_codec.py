@@ -24,7 +24,7 @@ MAX_REPORT_BYTES = 4 * 1024 * 1024
 MAX_VIEW_BYTES = 8 * 1024 * 1024
 MAX_DOCUMENT_BYTES = 16 * 1024 * 1024
 MAX_SNAPSHOT_BYTES = 48 * 1024 * 1024
-_TOP_KEYS = {"profile", "source_page_bytes_base64", "catalog_revision",
+_TOP_KEYS = {"profile", "truss_version", "source_page_bytes_base64", "catalog_revision",
     "catalog_registration_id", "catalog_registration_bytes_base64",
     "report_bytes_base64", "view_bytes_base64", "progress", "documents",
     "binding_sha256"}
@@ -107,13 +107,24 @@ class DetachedTrussSourceSnapshot:
     view_bytes: bytes
     progress: object
     documents: tuple[DetachedAcceptedSourceDocument, ...]
+    truss_version: str = "0.0.53"
 
     def current_catalog_evidence(self):
-        """Recreate plain .53 evidence; this does not create source authority."""
+        """Recreate exact pinned catalog evidence without source authority."""
         from .truss_current_catalog import (
             CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-            CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
+            CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256,
+            CURRENT_TRUSS_054_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+            CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
         )
+        pins = {
+            CURRENT_TRUSS_053_FRESH_VERSION: (CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
+                                                CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256),
+            CURRENT_TRUSS_054_FRESH_VERSION: (CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+                                                CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256),
+        }
+        if self.truss_version not in pins:
+            raise DetachedSourceSnapshotError("Unsupported detached Truss runtime pin")
         sources = {}
         for item in self.documents:
             sources[(self.catalog_revision, item.document_id)] = SimpleNamespace(
@@ -125,11 +136,10 @@ class DetachedTrussSourceSnapshot:
                 sha256=item.sha256,
                 content=item.content)
         return CurrentCatalogEvidence(
-            CURRENT_TRUSS_053_FRESH_VERSION,
+            self.truss_version,
             {self.catalog_revision: self.report_bytes},
             {self.catalog_revision: self.view_bytes}, sources,
-            CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-            CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256)
+            *pins[self.truss_version])
 
 
 def _extract(anchor, observation):
@@ -139,7 +149,9 @@ def _extract(anchor, observation):
     from .managed_current_genesis import TrussSourceGenesisProgress
     from .truss_current_catalog import (
         CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-        CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
+        CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256,
+        CURRENT_TRUSS_054_FRESH_VERSION, CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+        CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
         parse_current_catalog_json,
     )
     from truss.reader_catalog import AcceptedDocument
@@ -150,16 +162,21 @@ def _extract(anchor, observation):
           "Issued prepublication source anchor required")
     _need(type(observation) is ManagedCurrentTruss053SourceObservation
           and _is_issued_source_observation(observation),
-          "Issued public Truss .53 source observation required")
+          "Issued public fresh Truss source observation required")
     _need(observation.source == anchor.source,
           "Detached source observation differs from issued A/B anchor")
+    runtime_pins = {
+        CURRENT_TRUSS_053_FRESH_VERSION: (CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
+                                           CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256),
+        CURRENT_TRUSS_054_FRESH_VERSION: (CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+                                           CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256),
+    }
+    runtime_version = getattr(observation.catalog_evidence, "truss_version", None)
     _need(type(observation.catalog_evidence) is CurrentCatalogEvidence
-          and observation.catalog_evidence.truss_version == CURRENT_TRUSS_053_FRESH_VERSION
+          and runtime_version in runtime_pins
           and (observation.catalog_evidence.runtime_wheel_sha256,
-               observation.catalog_evidence.runtime_manifest_sha256)
-             == (CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-                 CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256),
-          "Exact fresh Truss .53 catalog evidence required")
+               observation.catalog_evidence.runtime_manifest_sha256) == runtime_pins[runtime_version],
+          "Exact fresh Truss .53 or .54 catalog evidence required")
     progress = observation.progress
     _need(type(progress) is TrussSourceGenesisProgress,
           "Exact admitted Truss .53 genesis progress required")
@@ -254,6 +271,7 @@ def encode_detached_source_snapshot(anchor, observation) -> bytes:
     page_bytes = encode_detached_source_page(anchor)
     body = {
         "profile": PROFILE,
+        "truss_version": observation.catalog_evidence.truss_version,
         "source_page_bytes_base64": _b64(page_bytes),
         "catalog_revision": revision,
         "catalog_registration_id": progress.catalog_registration_id,
@@ -293,7 +311,8 @@ def decode_detached_source_snapshot(raw: bytes) -> DetachedTrussSourceSnapshot:
           "Bounded exact detached source snapshot bytes required")
     value = _json(raw)
     _need(set(value) == _TOP_KEYS and canonical(value) == raw
-          and value["profile"] == PROFILE,
+          and value["profile"] == PROFILE
+          and value["truss_version"] in ("0.0.53", "0.0.54"),
           "Closed canonical detached source snapshot required")
     binding = value.pop("binding_sha256")
     _need(type(binding) is str and len(binding) == 64
@@ -380,4 +399,4 @@ def decode_detached_source_snapshot(raw: bytes) -> DetachedTrussSourceSnapshot:
         catalog_registration_bytes=registration_bytes, cursor_bytes=cursor)
     return DetachedTrussSourceSnapshot(page, revision, registration_id,
         registration_bytes, report_bytes, view_bytes, progress_object,
-        tuple(documents))
+        tuple(documents), value["truss_version"])
