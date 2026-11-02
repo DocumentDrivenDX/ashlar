@@ -136,10 +136,14 @@ def _resume_stopped_source(scope: dict, destination: Path, runtime: Path) -> dic
         raise RuntimeError("Retained attempt7 failure/cleanup receipts changed")
     retained_model = source_root / "accepted-model.umf.json"
     retained_origin = source_root / "origin.json"
-    retained_setup = json.loads((source_root / "setup.json").read_text())
+    setup_path = source_root / "setup.json"
+    retained_setup_raw = setup_path.read_bytes()
+    retained_setup = json.loads(retained_setup_raw)
     if (hashlib.sha256(retained_model.read_bytes()).hexdigest() != policy["resume_model_sha256"]
             or retained_model.read_bytes() != MODEL.read_bytes()
+            or hashlib.sha256(retained_origin.read_bytes()).hexdigest() != policy["resume_origin_sha256"]
             or retained_origin.read_bytes() != b'{"operator":"ashlar-r61-local-fresh-baseline"}\n'
+            or hashlib.sha256(retained_setup_raw).hexdigest() != policy["resume_setup_sha256"]
             or retained_setup.get("request_key") != "ashlar-r61-fresh-accept-r1"
             or retained_setup.get("document_id") != "ashlar-local-dev-typed-graph-r21-20261101"
             or retained_setup.get("data_directory") != str(source)):
