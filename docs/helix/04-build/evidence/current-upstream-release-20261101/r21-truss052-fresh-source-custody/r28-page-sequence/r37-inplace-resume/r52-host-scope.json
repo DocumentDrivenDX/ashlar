@@ -36,8 +36,8 @@
     "tests/test_truss_local_publication_recovery.py": "ede2cf693de04fac8be39d1f1e7cfca32e22bda07f1bd5b95b9bcec003995d26",
     "tests/test_truss_recovery_xxhash64.py": "e0d43053c1877e9cf6aac271e5aaf67c0d097830cf18f7a13b76c5b76deadb81"
   },
-  "attempt_id": "ashlar-local-development-r51-two-change-continuation-20261101",
-  "attempt_namespace": "ashlar-r51-truss052-two-change-continuation-20261101",
+  "attempt_id": "ashlar-local-development-r52-two-change-continuation-20261101",
+  "attempt_namespace": "ashlar-r52-truss052-two-change-continuation-20261101",
   "authority_class": "local_development_authority",
   "authorization": "standing_user_local_release_authorization",
   "cloud": false,
@@ -54,13 +54,23 @@
     "seed_publication_replay": false,
     "sha256": "52066d42c59c889d6b487cf42627c7cef6751c151a104b0b1a3a42430adf64e1"
   },
+  "current_source_state_binding": {
+    "expected": {
+      "bytes": 65530074,
+      "files": 1262,
+      "sha256": "8a9f7badffaebdc70538292fb5466bccec39c7cc67bd4f03c70e059fc4ff0b9f"
+    },
+    "observation": "R51 read-only inspection stopped PGDATA digest, reverified packet-time for R52; postmaster absent; R51 attempt/supervisor roots preserved",
+    "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata",
+    "status": "stopped_post_R51_read_only_inspection"
+  },
   "failure_reconciliation": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r51-read-only-failure-reconciliation.json",
     "sha256": "bf6052e8bfc73c133ae7fd6db413978c68860df554fc81f1b03d5f19d3e54795"
   },
   "group_helper": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r52-group-helper.py",
-    "sha256": "170c3b9a33e1ecdaa16e1a1a18fa3d5352c87e7c7710c19861458331c90c33af"
+    "sha256": "ff13a1b11c9beb472e50c5aa9b6f061c1162f38af8d82c5f1e41c0b94c47f422"
   },
   "installation": {
     "installation_id": "87406914-c3f1-49d4-a687-d5dbec313389",
@@ -315,15 +325,6 @@
       },
       "wal": "absent"
     },
-    "pgdata_tree": {
-      "expected": {
-        "bytes": 65530074,
-        "files": 1262,
-        "sha256": "8a9f7badffaebdc70538292fb5466bccec39c7cc67bd4f03c70e059fc4ff0b9f"
-      },
-      "observation": "R51 read-only inspection stopped PGDATA digest, reverified packet-time for R52; postmaster absent; R51 attempt/supervisor roots preserved",
-      "path": "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/pgdata"
-    },
     "receipts": {
       "protected-ack-attempt.json": {
         "path": "/private/tmp/ashlar-r49-truss052-readback-recovery-20261101/receipts/protected-ack-attempt.json",
@@ -423,6 +424,6 @@
   },
   "worker": {
     "path": "/private/tmp/ashlar-r21-truss052-source-custody/docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r37-inplace-resume/r52-continuation-worker.py",
-    "sha256": "e779b5cfb503137dafe50333b7eb750e5a044542b75eb4d2204263c85153729b"
+    "sha256": "bca0fd1d2d1f385114c1558009d92ced8284bc5f79b6e121634f7805981fe1c7"
   }
 }

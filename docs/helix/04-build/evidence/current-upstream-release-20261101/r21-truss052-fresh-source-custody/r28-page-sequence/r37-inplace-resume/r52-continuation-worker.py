@@ -186,7 +186,7 @@ def preflight(scope_path: Path, *, require_absent=True, supervisor_root_created=
         if sha((resume_dir / name).read_bytes()) != digest: raise Refusal(f"retained R24 receipt changed: {name}")
     pg = Path(paths["data_directory"]); delta = Path(paths["publication_directory"])
     pgt = tree_digest(pg, 128 * 1024 * 1024)
-    expected_pg = scope["retained_r49"]["pgdata_tree"]["expected"]
+    expected_pg = scope["current_source_state_binding"]["expected"]
     if pgt != expected_pg or (pg / "postmaster.pid").exists():
         raise Refusal("current stopped PGDATA differs from R49 read-only binding")
     journal = Path(scope["retained_r49"]["journal"]["path"])

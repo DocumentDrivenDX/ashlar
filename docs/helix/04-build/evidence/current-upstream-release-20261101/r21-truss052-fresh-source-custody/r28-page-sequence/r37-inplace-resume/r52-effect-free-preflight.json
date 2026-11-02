@@ -1,6 +1,6 @@
 {
   "command": "r52-continuation-worker.py --preflight-only --scope r52-host-scope.json",
-  "group_helper_sha256": "170c3b9a33e1ecdaa16e1a1a18fa3d5352c87e7c7710c19861458331c90c33af",
+  "group_helper_sha256": "ff13a1b11c9beb472e50c5aa9b6f061c1162f38af8d82c5f1e41c0b94c47f422",
   "profile": "ashlar-r52-preflight-receipt/0.1",
   "result": {
     "cloud": false,
@@ -27,7 +27,7 @@
     "profile": "ashlar-r52-effect-free-two-change-preflight/0.1",
     "r49_ack_checkpoint_sha256": "506d67a8dc1f8af88beb73bcd2b899afda8e8bebc62604561b4246a934e88c94",
     "r49_publication_id": "truss-graph-8d6db42c4d167a36468e261cf2b495fdaefedf1a4a963dbd09cae91f39a3c9ea",
-    "scope_sha256": "2274b40b8636820a796bb8560083b54f97972bf7d81249dda647a83db5a201d3",
+    "scope_sha256": "1129e284dc4ebbd3bbeaeece4a29e8af1624796d9cd8e94adb955e5cbd3b2e05",
     "source_ack_attempted": false,
     "spark_started": false,
     "sqlite_sidecars_after": {
@@ -67,8 +67,8 @@
       }
     },
     "status": "passed_effect_free_inplace_preflight",
-    "worker_sha256": "e779b5cfb503137dafe50333b7eb750e5a044542b75eb4d2204263c85153729b"
+    "worker_sha256": "bca0fd1d2d1f385114c1558009d92ced8284bc5f79b6e121634f7805981fe1c7"
   },
-  "scope_sha256": "2274b40b8636820a796bb8560083b54f97972bf7d81249dda647a83db5a201d3",
-  "worker_sha256": "e779b5cfb503137dafe50333b7eb750e5a044542b75eb4d2204263c85153729b"
+  "scope_sha256": "1129e284dc4ebbd3bbeaeece4a29e8af1624796d9cd8e94adb955e5cbd3b2e05",
+  "worker_sha256": "bca0fd1d2d1f385114c1558009d92ced8284bc5f79b6e121634f7805981fe1c7"
 }

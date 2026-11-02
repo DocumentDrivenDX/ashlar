@@ -33,6 +33,18 @@ def _write_exclusive(path: Path, value):
         os.close(dfd)
 
 
+def _json_safe_field(value):
+    if value is None or type(value) in (int, bool):
+        return value
+    if type(value) is str:
+        return value[:160]
+    try:
+        rendered = str(value)
+    except BaseException:
+        rendered = f"<{type(value).__name__}>"
+    return rendered[:160]
+
+
 def _result_facts(wrapper, value=None, error=None):
     group = value
     response = getattr(group, "response", None) if group is not None else None
@@ -50,10 +62,10 @@ def _result_facts(wrapper, value=None, error=None):
         err = getattr(error, "error", None)
         facts["error"] = {
             "variant": type(err).__name__ if err is not None else None,
-            "code": getattr(err, "code", None),
-            "catalog_code": getattr(err, "catalog_code", None),
-            "sql_state": getattr(err, "sql_state", None),
-            "retry_scope": getattr(err, "retry_scope", None),
+            "code": _json_safe_field(getattr(err, "code", None)),
+            "catalog_code": _json_safe_field(getattr(err, "catalog_code", None)),
+            "sql_state": _json_safe_field(getattr(err, "sql_state", None)),
+            "retry_scope": _json_safe_field(getattr(err, "retry_scope", None)),
         }
     return facts
 
@@ -113,7 +125,6 @@ def apply_group(base, connection_factory, *, model, document_id, document_revisi
             try:
                 value = base._value(wrapper, "apply atomic typed group")
             except BaseException as exc:
-                error = getattr(wrapper, "error", None)
                 diagnostic = {"profile": "ashlar-r52-group-result-diagnostic/0.1",
                     "status": "result_refused_before_commit", "request_key": request_key,
                     **_result_facts(wrapper, error=wrapper),

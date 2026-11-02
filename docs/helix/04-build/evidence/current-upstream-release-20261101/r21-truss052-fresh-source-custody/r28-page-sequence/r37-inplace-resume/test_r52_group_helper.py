@@ -25,6 +25,12 @@ class AppliedPending:
     def __init__(self, count): self.semantic = types.SimpleNamespace(results=[object()] * count)
 class GroupSuccess:
     def __init__(self, response): self.response = response
+class StrangeCode:
+    def __str__(self): return "x" * 500
+class ErrorWrapper:
+    def __init__(self):
+        self.error = types.SimpleNamespace(code=StrangeCode(), catalog_code={"unknown":1},
+            sql_state=StrangeCode(), retry_scope=StrangeCode())
 
 
 def install_public_stubs(count):
@@ -56,7 +62,8 @@ class FakeAssembly:
     def prepare_group_in_transaction(self, *args, **kwargs):
         item = types.SimpleNamespace(authored_identity="Person", definition_pin="pin")
         return Ok(PreparedGroupWithContext(item))
-    def apply_in_transaction(self, *args, **kwargs): return Ok(GroupSuccess(AppliedPending(self.count)))
+    def apply_in_transaction(self, *args, **kwargs):
+        return ErrorWrapper() if self.count == -1 else Ok(GroupSuccess(AppliedPending(self.count)))
 
 
 class PreparedGroupWithContext(PreparedGroup):
@@ -83,7 +90,7 @@ def base_for(count, state):
 
 
 def main():
-    for count, expect_success in ((1, False), (2, True)):
+    for count, expect_success in ((1, False), (2, True), (-1, False)):
         old = install_public_stubs(count)
         try:
             connection = FakeConnection(); state = {"rolled_back":False,"committed":False}
@@ -120,9 +127,15 @@ def main():
                     assert state["rolled_back"] and not connection.committed
                     assert diagnostic["transaction_rolled_back"] is True
                     assert diagnostic["diagnostic_written_after_rollback"] is True
-                    assert diagnostic["group_variant"] == "GroupSuccess"
-                    assert diagnostic["response_variant"] == "AppliedPending"
-                    assert diagnostic["result_count"] == 1
+                    if count == -1:
+                        assert diagnostic["public_result_wrapper"] == "ErrorWrapper"
+                        assert diagnostic["group_variant"] is None
+                        assert len(diagnostic["error"]["code"]) <= 160
+                        assert diagnostic["error"]["catalog_code"] == "{'unknown': 1}"
+                    else:
+                        assert diagnostic["group_variant"] == "GroupSuccess"
+                        assert diagnostic["response_variant"] == "AppliedPending"
+                        assert diagnostic["result_count"] == 1
         finally:
             HELPER._write_exclusive = original_writer
             for name, prior in old.items():
