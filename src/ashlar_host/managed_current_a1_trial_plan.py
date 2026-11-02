@@ -56,11 +56,15 @@ def prepare_managed_current_a1_trial(selection, genesis_manifest, *,
     from .managed_current_truss052_genesis_owner import (
         ManagedCurrentTruss052GenesisSelection,
     )
+    from .managed_current_truss053_genesis_owner import (
+        ManagedCurrentTruss053GenesisSelection,
+    )
     from .managed_current_prefix_delivery import ManagedCurrentPrefixPage
     from .publication_planning import truss_request_for
 
-    if type(selection) is not ManagedCurrentTruss052GenesisSelection:
-        raise ValueError("Independently selected Truss .52 A/B source-owner output required")
+    if type(selection) not in (ManagedCurrentTruss052GenesisSelection,
+                               ManagedCurrentTruss053GenesisSelection):
+        raise ValueError("Independently selected Truss .52 or .53 A/B source-owner output required")
     if type(stream) is not str or not stream or "\0" in stream:
         raise ValueError("Exact managed source stream required")
     if (type(materialized_at) is not str or not materialized_at.isascii()

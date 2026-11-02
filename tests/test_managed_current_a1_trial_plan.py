@@ -23,6 +23,9 @@ from ashlar_host.managed_current_spark_source_oracle import (
 from ashlar_host.managed_current_truss052_genesis_owner import (
     ManagedCurrentTruss052GenesisSelection,
 )
+from ashlar_host.managed_current_truss053_genesis_owner import (
+    ManagedCurrentTruss053GenesisSelection,
+)
 from ashlar_host.truss_graph_admission import TrussGraphAdmission
 from ashlar_host.r04_schedule import R04Schedule, PROFILE, SLOT_ORDER, STAGES
 
@@ -73,24 +76,28 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
         source_a = SimpleNamespace(batch=batch, page=page)
         source_b = SimpleNamespace(batch=None, page=None)
         admission = SimpleNamespace(batch=batch)
-        selection = ManagedCurrentTruss052GenesisSelection(
-            schedule.sha256, schedule.raw, {}, {}, {}, {'install-A': '1', 'install-B': '1'},
-            {'A': source_a, 'B': source_b}, admission, batch)
         manifest = {'publication_id': 'genesis-manifest'}
         predecessor = ManagedCurrentGenesisPredecessor(manifest, {}, {})
-        with patch('ashlar_host.managed_current_genesis.verify_managed_current_genesis_predecessor',
-                   return_value=predecessor):
-            plan = prepare_managed_current_a1_trial(selection, manifest,
-                stream='source-stream', materialized_at='1762000000000000', context=object())
-        self.assertEqual(plan.delivery_page.page_bytes, batch.begin)
-        self.assertEqual(plan.delivery_page.prior_cursor_bytes,
-                         base64.b64decode(batch.cursor_before))
-        self.assertEqual(plan.delivery_page.next_cursor_bytes,
-                         base64.b64decode(batch.cursor_after))
-        self.assertIs(plan.driver_inputs['source_owner_admitted_batch'], batch)
-        self.assertEqual(plan.request['batch_id'], batch.batch_id)
-        self.assertEqual(plan.request['predecessor'], manifest['publication_id'])
-        self.assertIs(plan.selection, selection)
+        for selection_type in (ManagedCurrentTruss052GenesisSelection,
+                               ManagedCurrentTruss053GenesisSelection):
+            with self.subTest(selection_type=selection_type.__name__):
+                selection = selection_type(
+                    schedule.sha256, schedule.raw, {}, {}, {},
+                    {'install-A': '1', 'install-B': '1'},
+                    {'A': source_a, 'B': source_b}, admission, batch)
+                with patch('ashlar_host.managed_current_genesis.verify_managed_current_genesis_predecessor',
+                           return_value=predecessor):
+                    plan = prepare_managed_current_a1_trial(selection, manifest,
+                        stream='source-stream', materialized_at='1762000000000000', context=object())
+                self.assertEqual(plan.delivery_page.page_bytes, batch.begin)
+                self.assertEqual(plan.delivery_page.prior_cursor_bytes,
+                                 base64.b64decode(batch.cursor_before))
+                self.assertEqual(plan.delivery_page.next_cursor_bytes,
+                                 base64.b64decode(batch.cursor_after))
+                self.assertIs(plan.driver_inputs['source_owner_admitted_batch'], batch)
+                self.assertEqual(plan.request['batch_id'], batch.batch_id)
+                self.assertEqual(plan.request['predecessor'], manifest['publication_id'])
+                self.assertIs(plan.selection, selection)
 
     def test_delivery_accepts_reloaded_exact_page_and_refuses_changed_bytes(self):
         schedule = self._schedule()
