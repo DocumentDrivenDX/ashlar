@@ -148,7 +148,11 @@ def read_current_catalog_evidence(connection_factory,batch):
     with connection_factory()as connection:
         if connection.autocommit or connection.info.transaction_status!=0:
             raise ValueError('Fresh ordinary non-autocommit connection required')
-        connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED')
+        # This session can inherit default_transaction_read_only=on from the
+        # local server. Truss's catalog view takes a FOR SHARE lock, so it needs
+        # a READ WRITE transaction. This path only performs public catalog reads
+        # and always rolls back before closing the connection.
+        connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED, READ WRITE')
         connection.execute("SET LOCAL statement_timeout = '2000ms'" if version in (
             CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION,
             CURRENT_TRUSS_051_VERSION, CURRENT_TRUSS_052_CANDIDATE_VERSION)
@@ -184,8 +188,20 @@ def read_current_catalog_evidence(connection_factory,batch):
         except BaseException as error:primary=error
         def detach():
             if not host.detach():raise ValueError('Current catalog host detach refused')
-        finish(primary,([assembly.dispose]if assembly is not None else [])+[detach])
-        connection.rollback()
+        try:
+            finish(primary,([assembly.dispose]if assembly is not None else [])+[detach])
+        except BaseException as error:
+            primary = error
+        try:
+            connection.rollback()
+        except BaseException as error:
+            if primary is not None:
+                try: setattr(primary,'rollback_failed',True)
+                except BaseException: pass
+                raise primary
+            raise
+        if primary is not None:
+            raise primary
     return CurrentCatalogEvidence(version,reports,views,sources,
         runtime_wheel_sha256=({CURRENT_TRUSS_045_VERSION:CURRENT_TRUSS_045_WHEEL_SHA256,
                                CURRENT_TRUSS_048_VERSION:CURRENT_TRUSS_048_WHEEL_SHA256,

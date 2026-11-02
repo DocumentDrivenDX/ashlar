@@ -72,6 +72,7 @@ class Tests(unittest.TestCase):
             self.assertEqual(evidence.truss_version, version)
             self.assertEqual(evidence.runtime_wheel_sha256, wheel)
             self.assertEqual(evidence.runtime_manifest_sha256, manifest)
+            self.assertIn('SET TRANSACTION ISOLATION LEVEL READ COMMITTED, READ WRITE', calls)
             self.assertIn("SET LOCAL statement_timeout = '2000ms'", calls)
             self.assertIn(('transaction', {'access_mode': 'read_write'}), calls)
             source_transactions = [entry[1] for entry in calls if type(entry) is tuple and entry[0] == 'source']
@@ -79,6 +80,43 @@ class Tests(unittest.TestCase):
             self.assertEqual(source_transactions, ['tx'])
             self.assertEqual(view_transactions, source_transactions)
             self.assertEqual(calls[-4:], ['dispose', 'detach', 'rollback', 'connection-close'])
+
+    def test_current_catalog_adoption_refusal_uses_read_write_then_rolls_back(self):
+        from types import SimpleNamespace
+        from unittest.mock import patch
+        from test_managed_current_core import _current_admission
+        from ashlar_host.truss_catalog_reader import read_current_catalog_evidence
+
+        calls=[]
+        @dataclass
+        class Ok: value:object
+        class Host:
+            def adopt_transaction(self, **kwargs):
+                calls.append(('transaction', kwargs)); return object()
+            def detach(self): calls.append('detach'); return True
+        class Connection:
+            autocommit=False; info=SimpleNamespace(transaction_status=0)
+            def __enter__(self): return self
+            def __exit__(self,*_args): calls.append('connection-close')
+            def execute(self,sql): calls.append(sql)
+            def rollback(self): calls.append('rollback')
+
+        sdk=types.ModuleType('truss'); sdk.Ok=Ok
+        sdk.CatalogRuntimeConfiguration=lambda:None
+        sdk.CatalogViewAvailable=type('Available',(),{})
+        sdk.CatalogViewUnavailable=type('Unavailable',(),{})
+        sdk.adopt_psycopg_host=lambda _connection:Host()
+        sdk.create_reference_assembly=lambda *_args: (_ for _ in ()).throw(AssertionError('must not create assembly'))
+        batch=_current_admission().batch
+        with patch.dict(sys.modules,{'truss':sdk}), \
+             patch('ashlar_host.truss_catalog_reader.installed_truss_version',return_value='0.0.52'), \
+             patch('ashlar_host.truss_catalog_reader.installed_current_truss_profile',
+                   return_value='ashlar-truss-current-catalog-evidence/0.7-local-candidate'):
+            with self.assertRaisesRegex(ValueError,'Public current Truss transaction operation refused'):
+                read_current_catalog_evidence(Connection,batch)
+        self.assertLess(calls.index('SET TRANSACTION ISOLATION LEVEL READ COMMITTED, READ WRITE'),
+                        calls.index(('transaction',{'access_mode':'read_write'})))
+        self.assertEqual(calls[-3:],['detach','rollback','connection-close'])
 
     def test_selected_historical_revisions_preserve_bytes_and_rollback_catalog_lock_transaction(self):
         calls=[]
