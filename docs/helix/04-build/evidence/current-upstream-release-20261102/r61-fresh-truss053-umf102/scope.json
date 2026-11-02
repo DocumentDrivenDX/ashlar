@@ -45,7 +45,7 @@
     "upstream_candidate_review": "accepted",
     "ashlar_candidate_commit": "68191905f75631d7f0059b6b514e45ced569acdb",
     "truss_adapter_profile": "ashlar-truss-current-catalog-evidence/0.8-fresh-baseline",
-    "bun_executable": "/private/tmp/bun-node-26aa4e1a9/bun",
+    "bun_executable": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
     "bun_sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
     "postgresql_18_runtime": "/private/tmp/ashlar-r61-runtime-68191905/lib/python3.12/site-packages/pgserver/pginstall",
     "postgresql_18_runtime_manifest": "/private/tmp/ashlar-r61-runtime-68191905/r61-postgres-runtime-manifest.json",
