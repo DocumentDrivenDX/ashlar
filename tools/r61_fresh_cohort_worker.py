@@ -125,6 +125,7 @@ def _install_runtime(scope: dict) -> dict:
     os.environ["PYSPARK_DRIVER_PYTHON"] = str(Path(sys.executable).resolve())
     return {"versions": observed, "spark": spark_identity,
             "jars": [str(path) for path in jars], "java_home": str(java_home),
+            "runtime_config": config,
             "runtime_manifest_sha256": sha(Path(artifacts["runtime_manifest"]).read_bytes())}
 
 
@@ -524,6 +525,20 @@ def run() -> dict:
         from ashlar_host.truss_note_publication import read_page
         genesis_page = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
         initial_page = setup["initial_source_page"]
+        initial_content = base64.b64decode(initial_page["content_base64"], validate=True)
+        initial_prior = base64.b64decode(initial_page["prior_base64"], validate=True)
+        initial_next = base64.b64decode(initial_page["next_base64"], validate=True)
+        if (sha(initial_content) != initial_page["sha256"]
+                or sha(genesis_page.content) != genesis_page.sha256
+                or genesis_page.content != initial_content
+                or genesis_page.prior.content != initial_prior
+                or genesis_page.next.content != initial_next
+                or genesis_page.sha256 != initial_page["sha256"]
+                or genesis_page.writer_xid != initial_page["writer_xid"]
+                or genesis_page.outcome != initial_page["outcome"]
+                or genesis_page.consumer_id != initial_page["consumer_id"]
+                or genesis_page.registration_id != initial_page["registration_id"]):
+            raise RuntimeError("Fresh public genesis page differs from its exact setup-stage readback")
         genesis_payload = json.loads(genesis_page.content)
         genesis_counts = {key: len(genesis_payload.get(key, [])) for key in
                           ("catalogPrerequisites", "revisions", "changes", "sources", "reservations")}
@@ -532,19 +547,15 @@ def run() -> dict:
                                      for item in genesis_payload.get("catalogPrerequisites", [])]
         if (genesis_page.outcome != "transaction" or genesis_page.consumer_id != CONSUMER
                 or genesis_page.registration_id != initial_page["registration_id"]
-                or genesis_page.writer_xid != "758"
-                or base64.b64decode(initial_page["prior_base64"], validate=True) != genesis_page.prior.content
-                or base64.b64decode(initial_page["next_base64"], validate=True) != genesis_page.next.content):
+                or genesis_page.writer_xid != initial_page["writer_xid"]):
             raise RuntimeError("The exact accepted-catalog genesis page changed before publication")
-        if (genesis_page.writer_xid != "758" or genesis_counts != {
+        if (genesis_counts != {
                 "catalogPrerequisites": 2, "revisions": 1, "changes": 0,
                 "sources": 0, "reservations": 0}
                 or genesis_revision_ids != ["1"]
                 or prerequisite_revision_ids != ["0", "1"]):
             raise RuntimeError("Accepted-catalog genesis page is not the reviewed metadata-only event")
-        runtime_config = type("SelectedRuntime", (), {"java_home": java_home,
-            "jars": jars[0].parent,
-            "jar_inventory": {item.name: sha(item.read_bytes()) for item in jars}})()
+        runtime_config = runtime_identity["runtime_config"]
         _, _, attested_jars = attest(runtime_config)
         warehouse = root / "spark-warehouse"
         genesis_state = {}
@@ -567,6 +578,16 @@ def run() -> dict:
         try:
             verify_loaded_delta_class(spark, attested_jars)
             EFFECTS["delta_write_state"] = "possible_catalog_genesis_publication"
+            expected_first_page = {
+                "profile": "ashlar-truss-first-page-binding/0.1",
+                "page_sha256": initial_page["sha256"],
+                "page_bytes": len(initial_content),
+                "outcome": initial_page["outcome"],
+                "writer_xid": initial_page["writer_xid"],
+                "consumer_id": initial_page["consumer_id"],
+                "registration_id": initial_page["registration_id"],
+                "prior_sha256": sha(initial_prior),
+            }
             genesis_publication = publish_graph_pages(spark, delta,
                 connection_factory=source_factory, catalog_connection_factory=lambda:
                     psycopg.connect(registrar_uri, autocommit=False, connect_timeout=5),
@@ -574,6 +595,7 @@ def run() -> dict:
                 maximum_page_bytes=1048576, destination_id=DESTINATION,
                 carrier_profile="ashlar-delta/0.4-xxhash64", umf_sdk_version="0.10.2",
                 defer_source_acknowledgement=True,
+                expected_first_page=expected_first_page,
                 prepublication_source_custody=selector_for(genesis_state))
         finally:
             spark.stop()
