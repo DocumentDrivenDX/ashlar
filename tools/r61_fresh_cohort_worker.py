@@ -97,7 +97,8 @@ def _install_runtime(scope: dict) -> dict:
     with zipfile.ZipFile(candidate) as wheel:
         for relative in ("ashlar_host/truss_graph_export.py",
                          "ashlar_host/truss_source_custody_selection.py",
-                         "ashlar_host/truss_current_catalog.py"):
+                         "ashlar_host/truss_current_catalog.py",
+                         "ashlar_host/truss_note_publication.py"):
             installed = package_root / Path(relative).name
             member = hashlib.sha256(wheel.read(relative)).hexdigest()
             if not installed.is_file() or sha(installed.read_bytes()) != member:
