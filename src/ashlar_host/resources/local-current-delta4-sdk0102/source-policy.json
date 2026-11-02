@@ -1,0 +1,27 @@
+{
+  "coreVersion": "0.10.6",
+  "modelVersion": "0.10.0",
+  "platformArtifacts": {
+    "darwin-arm64": {
+      "coreWheelSha256": "e6219539dabcdfe9657bc09485ad991b3380ae306c658d0a51a35caac0196e36",
+      "sdkArchiveSha256": "785de2c4db18b030c9462c7f55f52d012db50a4d4b3c608a4dc3aa6f5fa0d39b"
+    },
+    "linux-x86_64": {
+      "coreWheelSha256": "9a4fc6e739fb9c0c80e22916490484fb41b6f00985afc53fb81dcca2d72029b9",
+      "sdkArchiveSha256": "0e210969dc6d585d73b0e70d35660421b40c141746389118f7181c54bfcff943"
+    }
+  },
+  "profile": "ashlar-local-current-delta4-sdk0102-source-policy/0.1",
+  "qualification": "Rust-backed Python Core Delta DDL proposal only; no Spark execution or source/ACK authority.",
+  "sdkRelease": "umf-rust-v0.1.0",
+  "sdkVersion": "0.10.2",
+  "selectedSourceProfile": "ashlar-delta/0.4-xxhash64",
+  "sourceRoles": [
+    "object_current",
+    "edge_current",
+    "tombstone",
+    "whole_source_history",
+    "publication_manifest",
+    "publication_attempt_phase"
+  ]
+}

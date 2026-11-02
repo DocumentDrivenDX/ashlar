@@ -723,11 +723,18 @@ class TrussSourceCustodySelection:
             from truss.contracts import ProfilePin
             from truss.feed import FeedSourceSelection
             from .truss_current_catalog import (
-                CURRENT_052_CUSTODY_PROFILE, installed_truss_052_source_custody_profile)
+                CURRENT_052_CUSTODY_PROFILE, CURRENT_053_FRESH_CUSTODY_PROFILE,
+                installed_truss_052_source_custody_profile,
+                installed_truss_053_fresh_source_custody_profile)
             package_version = importlib.metadata.version("umf-truss")
-            if package_version != "0.0.52":
-                raise ValueError("Exact Truss 0.0.52 candidate package required")
-            installed_profile = installed_truss_052_source_custody_profile()
+            if package_version == "0.0.52":
+                installed_profile = installed_truss_052_source_custody_profile()
+                expected_profile = CURRENT_052_CUSTODY_PROFILE
+            elif package_version == "0.0.53":
+                installed_profile = installed_truss_053_fresh_source_custody_profile()
+                expected_profile = CURRENT_053_FRESH_CUSTODY_PROFILE
+            else:
+                raise ValueError("Exact Truss 0.0.52 custody or 0.0.53 fresh-baseline package required")
         except (ImportError, LookupError, ValueError) as error:
             raise TrussSourceSelectionError(
                 "Exact Truss source-custody candidate runtime unavailable") from error
@@ -739,10 +746,10 @@ class TrussSourceCustodySelection:
               and runtime_status.release_id == _RELEASE_ID
               and runtime_status.release_sha256 == _RELEASE_SHA256
               and type(runtime_status.layout_profile) is ProfilePin
-              and package_version == "0.0.52"
-              and installed_profile == CURRENT_052_CUSTODY_PROFILE
+              and package_version in ("0.0.52", "0.0.53")
+              and installed_profile == expected_profile
               and getattr(FeedSourceSelection, "__name__", None) == "FeedSourceSelection",
-              "Truss source custody is gated to the reviewed .75 candidate manifest")
+              "Truss source custody requires the exact selected release manifest")
         return FeedSourceSelection(
             page=self.page, maximum_facts=self.maximum_facts,
             maximum_bytes=self.maximum_bytes, request_bytes=self.request_bytes,
