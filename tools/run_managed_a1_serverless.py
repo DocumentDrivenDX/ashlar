@@ -162,6 +162,11 @@ def _validate_holder_bootstrap_config(path: Path) -> dict:
     return value
 IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]{0,127}\Z")
 SHA = re.compile(r"[0-9a-f]{64}\Z")
+CLASSIC_TASK_REQUIREMENTS_PATH = (
+    "/Workspace/Users/erik.labianca@synaptiq.ai/"
+    ".ashlar-release-20261103/requirements-a1-serverless.txt")
+CLASSIC_TASK_REQUIREMENTS_SHA256 = (
+    "44204ac45c523a92975e2bcdda52e34cc2b9bbb89339f0bf43d1edb6dd93d6cf")
 
 
 def require(ok: bool, message: str) -> None:
@@ -209,6 +214,11 @@ def _validate_task(task: object, key: str) -> dict:
     deps = task["dependencies"]
     require(type(deps) is list and len(deps) > 0,
             f"Exact {key} wheel/environment artifacts required")
+    classic_requirements = {"path": "-r " + CLASSIC_TASK_REQUIREMENTS_PATH,
+                            "sha256": CLASSIC_TASK_REQUIREMENTS_SHA256}
+    if classic:
+        require(classic_requirements in deps,
+                f"{key} classic task requires the exact non-Spark requirements lock")
     paths = []
     for item in deps:
         require(type(item) is dict and set(item) == {"path", "sha256"}
@@ -224,10 +234,13 @@ def _validate_task(task: object, key: str) -> dict:
         require(filename.endswith((".whl", ".txt")),
                 f"{key} dependency must be a wheel or immutable requirements file")
         if classic:
-            require(item["path"].endswith(".whl")
+            requirements = item["path"] == "-r " + CLASSIC_TASK_REQUIREMENTS_PATH
+            require((item["path"].endswith(".whl") or requirements)
                     and not re.search(r"(?:^|[-_.])(pyspark|delta[-_]spark)(?:[-_.]|$)",
-                                      filename, re.IGNORECASE),
-                    f"{key} classic dependencies must be Ashlar wheels; DBR owns Spark/Delta")
+                                      filename, re.IGNORECASE)
+                    and (not requirements
+                         or item["sha256"] == CLASSIC_TASK_REQUIREMENTS_SHA256),
+                    f"{key} classic dependencies must use locked Ashlar wheels and the exact non-Spark requirements file")
     require(len(paths) == len(set(paths)), f"Duplicate {key} dependency path")
     params = task["base_parameters"]
     require(type(params) is dict and params and all(
@@ -241,7 +254,11 @@ def _validate_task(task: object, key: str) -> dict:
             "notebook_task": {"notebook_path": task["notebook_path"], "source": "WORKSPACE",
                               "base_parameters": params}}
     if classic:
-        result["libraries"] = [{"whl": item["path"]} for item in deps]
+        result["libraries"] = [
+            ({"requirements": item["path"][3:]}
+             if item["path"] == "-r " + CLASSIC_TASK_REQUIREMENTS_PATH
+             else {"whl": item["path"]})
+            for item in deps]
     else:
         # Jobs serverless auto-optimization control; UC predictive optimization
         # remains independently required to read back ENABLE on all four tables.

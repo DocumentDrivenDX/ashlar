@@ -95,7 +95,8 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
                     bun_path=Path(shutil.which("bun")), python=Path(sys.executable))
 
     def test_classic_config_locks_live_dedicated_cluster_and_jobs_payload(self):
-        from tools.run_managed_a1_serverless import HOST
+        from tools.run_managed_a1_serverless import (
+            HOST, CLASSIC_TASK_REQUIREMENTS_PATH, CLASSIC_TASK_REQUIREMENTS_SHA256)
         trial_id = "a1-classic-check"
         owner = "owner@example.test"
         cluster = {"cluster_id": "0712-123456-abc123", "cluster_name": "ashlar-release-classic-test",
@@ -119,7 +120,9 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
             config = build_config(runtime_result={"principal": owner}, trial_id=trial_id,
                 notebook_root="/Workspace/Users/owner@example.test/release",
                 environment_version=None,
-                dependencies=[{"path": "/Workspace/Shared/ashlar/ashlar.whl", "sha256": "b" * 64}],
+                dependencies=[{"path": "/Workspace/Shared/ashlar/ashlar.whl", "sha256": "b" * 64},
+                    {"path": "-r " + CLASSIC_TASK_REQUIREMENTS_PATH,
+                     "sha256": CLASSIC_TASK_REQUIREMENTS_SHA256}],
                 local_receipt=receipt, evidence_dir="docs/helix/04-build/evidence/test",
                 bun_path=Path(shutil.which("bun")), python=python,
                 execution_profile="classic_existing_cluster", classic_cluster_readback=cluster,
@@ -133,12 +136,22 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
             self.assertIsNone(payload[stage]["environment"])
             self.assertEqual(payload[stage]["task"]["existing_cluster_id"], cluster["cluster_id"])
             self.assertEqual(payload[stage]["task"]["libraries"], [
-                {"whl": "/Workspace/Shared/ashlar/ashlar.whl"}])
+                {"whl": "/Workspace/Shared/ashlar/ashlar.whl"},
+                {"requirements": CLASSIC_TASK_REQUIREMENTS_PATH}])
             self.assertNotIn("environment_key", payload[stage]["task"])
         expected = _job_settings(config, "initializer", payload["initializer"])
         actual = {"settings": copy.deepcopy(expected), "run_as_user_name": owner}
         actual["settings"]["tasks"][0]["notebook_task"]["source"] = "WORKSPACE"
         _admit_job_readback(actual, expected, trial_id)
+        changed_libraries = copy.deepcopy(actual)
+        changed_libraries["settings"]["tasks"][0]["libraries"][1]["requirements"] = (
+            "/Workspace/Shared/other-requirements.txt")
+        with self.assertRaisesRegex(ValueError, "artifact lock"):
+            _admit_job_readback(changed_libraries, expected, trial_id)
+        changed_config = copy.deepcopy(config)
+        changed_config["publisher"]["dependencies"][1]["sha256"] = "c" * 64
+        with self.assertRaisesRegex(ValueError, "exact non-Spark requirements lock"):
+            build_payload(changed_config)
         changed = copy.deepcopy(actual)
         changed["settings"]["tasks"][0]["existing_cluster_id"] = "shared-default"
         with self.assertRaisesRegex(ValueError, "artifact lock"):

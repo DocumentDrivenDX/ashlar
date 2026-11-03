@@ -18,7 +18,8 @@ sys.path.insert(0, str(REPOSITORY_ROOT))
 sys.path.insert(0, str(REPOSITORY_ROOT / "src"))
 from tools.run_managed_a1_serverless import (
     HOST, INITIALIZER_TIMEOUT_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
-    VERIFIER_TIMEOUT_SECONDS, build_payload,
+    VERIFIER_TIMEOUT_SECONDS, CLASSIC_TASK_REQUIREMENTS_PATH,
+    CLASSIC_TASK_REQUIREMENTS_SHA256, build_payload,
 )
 
 
@@ -83,8 +84,12 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
                 or type(cluster["custom_tags"].get("ashlar_nonce")) is not str
                 or not re.fullmatch(r"[0-9a-f]{32}", cluster["custom_tags"]["ashlar_nonce"])):
             raise ValueError("Live classic cluster readback differs from the approved dedicated cluster spec")
-        if not dependencies or any(not item["path"].endswith(".whl") for item in dependencies):
-            raise ValueError("Classic Jobs tasks require exact wheel libraries, not serverless requirements")
+        requirements_lock = {"path": "-r " + CLASSIC_TASK_REQUIREMENTS_PATH,
+                             "sha256": CLASSIC_TASK_REQUIREMENTS_SHA256}
+        if (not dependencies or requirements_lock not in dependencies
+                or any(not item["path"].endswith(".whl")
+                       and item != requirements_lock for item in dependencies)):
+            raise ValueError("Classic Jobs tasks require exact wheels and the locked non-Spark requirements artifact")
         principal = cluster["single_user_name"]
         profile = MANAGED_CLASSIC_PROFILE
         runtime = {"runtimeName": "databricks-jobs-cluster", "sparkVersion": "4.2.0",
