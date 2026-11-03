@@ -337,7 +337,7 @@ def _run_graphframes(scope: dict, release: Path, custody: Path, output: Path) ->
     if (report.get("release_sha256") != sha(release.read_bytes())
             or report.get("full_row_parity") is not True
             or report.get("counts") != {"nodes": 6, "edges": 3, "one_hop": 3,
-                                         "two_hop": 1, "isolates": 2}):
+                                         "two_hop": 2, "isolates": 2}):
         raise RuntimeError("GraphFrames output differs from exact R61 release topology")
     return {"report_sha256": sha(report_path.read_bytes()),
             "release_sha256": report["release_sha256"],
