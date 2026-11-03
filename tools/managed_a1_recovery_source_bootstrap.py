@@ -119,6 +119,9 @@ def _b64(raw):
 
 
 def _existing_genesis_and_selection(expected):
+    from ashlar_host.truss_detached_a1_genesis_codec import (
+        decode_detached_a1_genesis_snapshot,
+    )
     from ashlar_host.truss_detached_source_snapshot_codec import (
         decode_detached_source_snapshot,
     )
