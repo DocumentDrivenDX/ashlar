@@ -21,6 +21,11 @@ PROFILE = "ashlar-a1-protected-ack-attempt/0.1"
 MAX_REQUEST_BYTES = 4 * 1024 * 1024
 MAX_MANIFEST_BYTES = 4 * 1024 * 1024
 MAX_RECEIPT_BYTES = 1024 * 1024
+MAX_CHECKPOINT_BYTES = 1024 * 1024
+MAX_SETTLEMENT_RECORD_BYTES = (
+    4 * ((MAX_RECEIPT_BYTES + 2) // 3)
+    + 4 * ((MAX_CHECKPOINT_BYTES + 2) // 3) + 8192
+)
 MAX_SELECTION_BYTES = 4 * 1024 * 1024
 MAX_ATTEMPT_RECORD_BYTES = 24 * 1024 * 1024
 MAX_WORKER_LINE = 65536
@@ -217,7 +222,7 @@ class DurableA1AckAttemptStore:
         values = (selection_bytes, request_bytes, manifest_bytes, receipt_bytes,
                   prior_checkpoint_bytes, next_checkpoint_bytes)
         limits = (MAX_SELECTION_BYTES, MAX_REQUEST_BYTES, MAX_MANIFEST_BYTES,
-                  MAX_RECEIPT_BYTES, 1024 * 1024, 1024 * 1024)
+                  MAX_RECEIPT_BYTES, MAX_CHECKPOINT_BYTES, MAX_CHECKPOINT_BYTES)
         if (any(type(raw) is not bytes or not raw or len(raw) > maximum
                 for raw, maximum in zip(values, limits))
                 or type(page_sha256) is not str or len(page_sha256) != 64
@@ -282,8 +287,8 @@ class DurableA1AckAttemptStore:
             _unb64(value["request_bytes_base64"], "request", MAX_REQUEST_BYTES),
             _unb64(value["manifest_bytes_base64"], "manifest", MAX_MANIFEST_BYTES),
             _unb64(value["receipt_bytes_base64"], "receipt", MAX_RECEIPT_BYTES),
-            _unb64(value["prior_checkpoint_bytes_base64"], "prior checkpoint", 1024 * 1024),
-            _unb64(value["next_checkpoint_bytes_base64"], "next checkpoint", 1024 * 1024),
+            _unb64(value["prior_checkpoint_bytes_base64"], "prior checkpoint", MAX_CHECKPOINT_BYTES),
+            _unb64(value["next_checkpoint_bytes_base64"], "next checkpoint", MAX_CHECKPOINT_BYTES),
             value["page_sha256"], value["destination_id"], value["publication_id"])
         expected_id = self._attempt_id(attempt)
         if (attempt.attempt_id != expected_id
@@ -419,6 +424,7 @@ class DurableA1AckAttemptStore:
         if (type(result) is not A1AckSettlement
                 or result.outcome not in ("matched", "missing", "conflicting")
                 or type(result.checkpoint_bytes) is not bytes
+                or len(result.checkpoint_bytes) > MAX_CHECKPOINT_BYTES
                 or result.request_sha256 != attempt.request_sha256
                 or result.manifest_sha256 != attempt.manifest_sha256
                 or result.selection_sha256 != attempt.selection_sha256):

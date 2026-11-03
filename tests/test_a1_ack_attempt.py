@@ -10,6 +10,7 @@ import unittest
 
 from ashlar_host.a1_ack_attempt import (
     A1AckAttemptError, A1AckSettlement, DurableA1AckAttemptStore,
+    MAX_CHECKPOINT_BYTES, MAX_RECEIPT_BYTES, MAX_SETTLEMENT_RECORD_BYTES,
     recover_lost_a1_ack,
 )
 
@@ -120,6 +121,35 @@ class A1AckAttemptTests(unittest.TestCase):
             attempt.request_sha256, attempt.manifest_sha256, attempt.selection_sha256)
         with self.assertRaisesRegex(A1AckAttemptError, "exact original receipt/checkpoint"):
             store.record_settlement(mismatch)
+
+    def test_matched_settlement_reads_maximum_receipt_and_checkpoint_bytes(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        directory = Path(temporary.name).resolve()
+        store = DurableA1AckAttemptStore(directory)
+        values = dict(self.values)
+        values.update(receipt_bytes=b"r" * MAX_RECEIPT_BYTES,
+                      next_checkpoint_bytes=b"c" * MAX_CHECKPOINT_BYTES)
+        attempt = store.begin(**values)
+        child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"],
+                                 start_new_session=True, close_fds=True)
+        self.workers.append(child)
+        generation = store.record_worker_started(
+            process_group_id=child.pid, selection_bytes=attempt.selection_bytes)
+        store.mark_ack_dispatched(process_group_id=child.pid, generation=generation)
+        settlement = A1AckSettlement("matched", values["next_checkpoint_bytes"],
+            values["receipt_bytes"], attempt.request_sha256,
+            attempt.manifest_sha256, attempt.selection_sha256)
+        self.assertEqual(store.record_settlement(settlement), "matched")
+        record = store._read_record("worker-settlement.json", MAX_SETTLEMENT_RECORD_BYTES)
+        self.assertEqual(record["outcome"], "matched")
+        self.assertGreater((directory / "worker-settlement.json").stat().st_size, 4096)
+        self.assertLessEqual((directory / "worker-settlement.json").stat().st_size,
+                             MAX_SETTLEMENT_RECORD_BYTES)
+        oversized = A1AckSettlement("missing", b"c" * (MAX_CHECKPOINT_BYTES + 1), None,
+            attempt.request_sha256, attempt.manifest_sha256, attempt.selection_sha256)
+        with self.assertRaisesRegex(A1AckAttemptError, "Exact original"):
+            store._validate_settlement(attempt, oversized)
 
     def test_dispatch_marker_is_one_use_and_fsynced_before_command_stage(self):
         pgid, generation = self._dispatch()

@@ -309,7 +309,9 @@ class Truss053A1SourceHolder:
 
     def finish_ack(self, *, settlement, attempt_directory, generation: int):
         """Close a matched source interval only after the caller's post-ACK observation."""
-        from .a1_ack_attempt import DurableA1AckAttemptStore, A1AckSettlement
+        from .a1_ack_attempt import (
+            DurableA1AckAttemptStore, A1AckSettlement, MAX_SETTLEMENT_RECORD_BYTES,
+        )
         expected = self._matched_ack
         if (self._closed or self.session is None or expected is None
                 or type(settlement) is not A1AckSettlement or settlement != expected[0]
@@ -320,7 +322,7 @@ class Truss053A1SourceHolder:
                 "Exact matched ACK and original durable attempt required to close source hold")
         store = DurableA1AckAttemptStore(attempt_directory)
         attempt = store.load()
-        record = store._read_record("worker-settlement.json")
+        record = store._read_record("worker-settlement.json", MAX_SETTLEMENT_RECORD_BYTES)
         dispatch = store._read_record("ack-command-dispatched.json")
         if (attempt.attempt_id != expected[2] or record.get("attempt_id") != expected[2]
                 or dispatch.get("attempt_id") != expected[2]
