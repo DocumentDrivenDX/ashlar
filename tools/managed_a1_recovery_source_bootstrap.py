@@ -513,9 +513,12 @@ class RetainedA0SourceHold:
         if orderly:
             result = self.owner.close_before_ack()
             bootstrap_bytes = Path(self.worker_config_path).read_bytes()
-            value, source_config_bytes, _ = _decode_config(bootstrap_bytes)
+            _, source_config_bytes, _ = _decode_config(bootstrap_bytes)
             source_config = json.loads(source_config_bytes.decode("utf-8"),
                                        object_pairs_hook=_pairs)
+            if any((Path(source_config["root"]) / f"pgdata-{source}" / "postmaster.pid").exists()
+                    for source in ("A", "B")):
+                _cleanup_escaped_source_processes(source_config_bytes, deadline)
             for source in ("A", "B"):
                 _require_existing_pgdata(Path(source_config["root"]) / f"pgdata-{source}")
             _remove_worker_config(self.worker_config_path)
@@ -714,6 +717,8 @@ def open_retained_source_hold(*, bootstrap_config_path: Path,
                     add_note("Recovery source close also failed: " + type(close_error).__name__)
         if owner is None or owner._closed:
             try:
+                _cleanup_escaped_source_processes(source_config_bytes,
+                    deadline_monotonic)
                 for source in ("A", "B"):
                     _require_existing_pgdata(root / f"pgdata-{source}")
                 _remove_worker_config(worker_config_path)
