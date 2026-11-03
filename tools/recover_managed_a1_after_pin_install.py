@@ -25,8 +25,11 @@ import run_managed_a1_serverless as runner
 
 MAX_READONLY_ADMISSION_SECONDS = 120
 MAX_RECOVERY_SECONDS = 1230
-MAX_CUMULATIVE_ACTIVE_SECONDS = 1680
-PRIOR_ACTIVE_SECONDS_CEILING = 450
+ORIGINAL_CAMPAIGN_SECONDS = 1680
+RETIRED_FAILED_RECOVERY_SECONDS_CEILING = 90
+RETIRED_FAILED_RECOVERY_PROVIDER_SECONDS = 66.064
+PRIOR_ACTIVE_SECONDS_CEILING = 540
+MAX_CUMULATIVE_ACTIVE_SECONDS = 1770
 PROFILE = "ashlar-managed-a1-pin-install-recovery/0.1"
 
 
@@ -86,9 +89,18 @@ def _validate_recovery_inputs(config_path: Path, recovery_receipt_path: Path,
              and not config_path.is_symlink(), "Exact original private trial config required")
     config = json.loads(config_path.read_text(encoding="utf-8"))
     payload, config = runner.build_payload(config)
-    _require(config["maximum_wall_seconds"] == MAX_CUMULATIVE_ACTIVE_SECONDS
+    _require(config["maximum_wall_seconds"] == ORIGINAL_CAMPAIGN_SECONDS
              and config["trial_id"] == "a1-release-20261103-serverless-r1",
-             "Recovery must bind the exact 1,680-second original campaign config")
+             "Recovery must retain the original 1,680-second campaign clock")
+    cost = config.get("cost")
+    _require(type(cost) is dict and config.get("trial", {}).get("cost") == cost
+             and cost.get("estimated_total_dbu") == 165.0
+             and cost.get("authorized_total_dbu") == 165.0
+             and cost.get("estimated_total_usd") == 77.55
+             and cost.get("cleanup_reserve_usd") == 20.0
+             and cost.get("cleanup_reserve_dbu") == 0.0
+             and cost.get("includes_startup_driver_verifier_handoff_and_cleanup") is True,
+             "RC3 recovery cost envelope must bind 165 DBU plus the $20 cleanup reserve")
     _require(config["holder_bootstrap"]["python"] == sys.executable,
              "Run recovery under the exact original selected RC2 Python")
     _require(recovery_receipt_path.is_absolute() and recovery_receipt_path.is_file()
@@ -541,8 +553,15 @@ def _launch(config_path: Path, recovery_receipt_path: Path, output_root: Path,
         "private_artifacts": {}, "cleanup_errors": [],
         "maximum_readonly_admission_seconds": MAX_READONLY_ADMISSION_SECONDS,
         "maximum_active_recovery_seconds": MAX_RECOVERY_SECONDS,
+        "original_campaign_active_seconds_ceiling": ORIGINAL_CAMPAIGN_SECONDS,
+        "retired_failed_recovery_seconds_ceiling": RETIRED_FAILED_RECOVERY_SECONDS_CEILING,
+        "retired_failed_recovery_provider_seconds": RETIRED_FAILED_RECOVERY_PROVIDER_SECONDS,
         "cumulative_active_seconds_ceiling": MAX_CUMULATIVE_ACTIVE_SECONDS,
-        "prior_active_seconds_ceiling": PRIOR_ACTIVE_SECONDS_CEILING}
+        "prior_active_seconds_ceiling": PRIOR_ACTIVE_SECONDS_CEILING,
+        "cost_envelope": config["cost"],
+        "retired_failed_recovery": {"provider_seconds": RETIRED_FAILED_RECOVERY_PROVIDER_SECONDS,
+            "active_window_ceiling_seconds": RETIRED_FAILED_RECOVERY_SECONDS_CEILING,
+            "ack_attempted": False, "a1_seed_attempted": False}}
     _write_state(state_path, state)
 
     preflight_start = time.monotonic()
@@ -570,6 +589,12 @@ def _launch(config_path: Path, recovery_receipt_path: Path, output_root: Path,
         "schema_id": original["schema_id"], "volume_id": original["volume_id"],
         "a0_ack_replayed": False, "a0_publisher_replayed": False,
         "initializer_replayed": False, "delta_replay_or_write": False,
+        "original_campaign_active_seconds_ceiling": ORIGINAL_CAMPAIGN_SECONDS,
+        "retired_failed_recovery_seconds_ceiling": RETIRED_FAILED_RECOVERY_SECONDS_CEILING,
+        "prior_active_seconds_ceiling": PRIOR_ACTIVE_SECONDS_CEILING,
+        "remaining_active_recovery_seconds": MAX_RECOVERY_SECONDS,
+        "cumulative_active_seconds_ceiling": MAX_CUMULATIVE_ACTIVE_SECONDS,
+        "cost_envelope": config["cost"],
         "source_ack": [], "jobs": {}, "cleanup_errors": []}
 
     previous_handler = signal.getsignal(signal.SIGALRM)
@@ -1087,7 +1112,12 @@ def main(argv: list[str] | None = None) -> int:
                 "read_only_admission_cap_seconds": MAX_READONLY_ADMISSION_SECONDS,
                 "active_recovery_budget_seconds": MAX_RECOVERY_SECONDS,
                 "maximum_finite_wall_seconds": MAX_READONLY_ADMISSION_SECONDS + MAX_RECOVERY_SECONDS,
+                "original_campaign_active_seconds_ceiling": ORIGINAL_CAMPAIGN_SECONDS,
+                "retired_failed_recovery_seconds_ceiling": RETIRED_FAILED_RECOVERY_SECONDS_CEILING,
+                "retired_failed_recovery_provider_seconds": RETIRED_FAILED_RECOVERY_PROVIDER_SECONDS,
+                "prior_active_seconds_ceiling": PRIOR_ACTIVE_SECONDS_CEILING,
                 "cumulative_active_seconds_ceiling": MAX_CUMULATIVE_ACTIVE_SECONDS,
+                "cost_envelope": config["cost"],
                 "remaining_jobs": ["a0-verifier", "a0-post-ack-close", "a1-publisher",
                     "a1-verifier", "a1-post-ack-close"],
                 "retained_input_recomposition": inert,
