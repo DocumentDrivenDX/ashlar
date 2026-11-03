@@ -32,18 +32,24 @@ class ManagedTableObservation:
 
 class ManagedCurrentSparkTransport:
     """Parameter-bound SQL transport over the caller-owned SparkSession."""
-    def __init__(self,spark,*,maximum_rows=100000):
+    def __init__(self,spark,*,maximum_rows=100000,operation_runner=None):
         _require(spark is not None and type(maximum_rows)is int and 1<=maximum_rows<=1000000)
+        _require(operation_runner is None or callable(operation_runner),
+            'Optional bounded Spark operation runner must be callable')
         self.spark=spark;self.maximum_rows=maximum_rows
+        self.operation_runner=operation_runner
     def query(self,sql,parameters):
         _require(type(sql)is str and sql and type(parameters)is dict
             and all(type(k)is str and type(v)is str for k,v in parameters.items()),
             'Exact parameterized Spark SQL and string bindings required')
-        frame=self.spark.sql(sql,args=dict(parameters))
-        # Apply the limit in Spark before collecting. Checking len() after an
-        # unbounded collect protects neither the driver nor the result channel.
-        fields=tuple((field.name,field.dataType.simpleString()) for field in frame.schema.fields)
-        rows=frame.limit(self.maximum_rows+1).collect()
+        def read():
+            frame=self.spark.sql(sql,args=dict(parameters))
+            # Apply the limit in Spark before collecting. Checking len() after an
+            # unbounded collect protects neither the driver nor the result channel.
+            fields=tuple((field.name,field.dataType.simpleString()) for field in frame.schema.fields)
+            rows=frame.limit(self.maximum_rows+1).collect()
+            return fields,rows
+        fields,rows=(self.operation_runner(read) if self.operation_runner is not None else read())
         _require(len(rows)<=self.maximum_rows,'Managed Spark result exceeds explicit row bound')
         result=[]
         for row in rows:
@@ -1241,7 +1247,7 @@ def run_managed_current_publication_task(spark,*,binding=None,core_config,protoc
         'sourceAck':'external-holder-independent-reopen-required'}
 
 
-def observe_managed_current_environment(spark,protocol_profile):
+def observe_managed_current_environment(spark,protocol_profile,*,operation_runner=None):
     """Return the public bounded runtime/principal/catalog/schema/protocol receipt.
 
     Publication and query owners share this read-only observation so native
@@ -1249,7 +1255,7 @@ def observe_managed_current_environment(spark,protocol_profile):
     private publication helper.
     """
     """Capture public Spark/Databricks task identity without inventing a build ID."""
-    transport=ManagedCurrentSparkTransport(spark)
+    transport=ManagedCurrentSparkTransport(spark,operation_runner=operation_runner)
     identity=transport.query('SELECT current_user() AS principal,current_catalog() AS catalog,'
                             'current_schema() AS schema',{}).rows
     _require(len(identity)==1,'Unique public managed task identity required')

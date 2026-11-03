@@ -28,6 +28,8 @@ from ashlar_host.managed_current_spark_receipt_read import (
     ManagedCurrentSparkServerlessReceiptConfig,
     ManagedCurrentSparkServerlessReceiptReader,
     ManagedCurrentSparkReceiptReopenObservation,
+    BorrowedServerlessTaskSession,
+    SERVERLESS_TASK_SESSION_OWNERSHIP,
 )
 from ashlar.pins import PinVector
 
@@ -216,6 +218,9 @@ class ManagedOperationalObservation:
     normalized_bytes: int
     role_comparisons: dict
     comparison_sha256: str
+    session_ownership_profile: str = "host_owned_fresh_spark_session/0.1"
+    task_session_scope_id: str = ""
+    session_wrapper_id: str = ""
 
 
 @dataclass(frozen=True)
@@ -294,6 +299,10 @@ class OperationalRetentionInterval:
         self.observations = []
         self._session_ids = set()
         self._spark_sessions = []
+        self._session_wrappers = []
+        self._last_session_ownership_profile = None
+        self._last_task_session_scope_id = None
+        self._last_session_wrapper_id = None
         self._policy_baseline = None
         self._runtime_baseline = None
         self._invalid = False
@@ -335,18 +344,45 @@ class OperationalRetentionInterval:
         try:
             if self.clock() >= self.deadline and not closing:
                 raise OperationalRetentionIntervalError("Operational interval exceeded 900 seconds")
+            serverless_borrowed = (
+                type(self.selection.reader_config) is ManagedCurrentSparkServerlessReceiptConfig
+                and type(session) is BorrowedServerlessTaskSession)
             if (session is None or type(getattr(session, "session_id", None)) is not str
                     or not session.session_id or session.session_id in self._session_ids
                     or getattr(session, "spark", None) is None
-                    or any(session.spark is prior for prior in self._spark_sessions)
+                    or (type(self.selection.reader_config) is ManagedCurrentSparkServerlessReceiptConfig
+                        and not serverless_borrowed)
+                    or (type(self.selection.reader_config) is ManagedCurrentSparkReceiptConfig
+                        and type(session) is BorrowedServerlessTaskSession)
+                    or (serverless_borrowed and self._session_wrappers
+                        and any(type(previous) is not BorrowedServerlessTaskSession
+                                or previous.task_session_scope_id != session.task_session_scope_id
+                                or previous.spark is not session.spark
+                                for previous in self._session_wrappers))
+                    or (any(session.spark is prior for prior in self._spark_sessions)
+                        and (not serverless_borrowed
+                             or any(type(previous) is not BorrowedServerlessTaskSession
+                                    or previous.task_session_scope_id != session.task_session_scope_id
+                                    for previous in self._session_wrappers)))
                     or not callable(getattr(session, "close", None))):
                 raise OperationalRetentionIntervalError(
-                    "Fresh owned Spark session required at every stage")
+                    "Fresh owned session or exact task-scoped serverless borrowed wrapper required")
             self._session_ids.add(session.session_id)
             self._spark_sessions.append(session.spark)
+            if not hasattr(self, "_session_wrappers"):
+                self._session_wrappers = []
+            self._session_wrappers.append(session)
+            self._last_session_ownership_profile = (
+                SERVERLESS_TASK_SESSION_OWNERSHIP if serverless_borrowed
+                else "host_owned_fresh_spark_session/0.1")
+            self._last_task_session_scope_id = (
+                session.task_session_scope_id if serverless_borrowed else session.session_id)
+            self._last_session_wrapper_id = session.session_id
             if type(self.selection.reader_config) is ManagedCurrentSparkServerlessReceiptConfig:
                 reader = ManagedCurrentSparkServerlessReceiptReader(
-                    session.spark, self.selection.reader_config)
+                    session.spark, self.selection.reader_config,
+                    operation_deadline_monotonic=(session.deadline_monotonic
+                        if serverless_borrowed else None))
             else:
                 reader = ManagedCurrentSparkReceiptReader(session.spark, self.selection.reader_config)
             kwargs = {
@@ -469,6 +505,9 @@ class OperationalRetentionInterval:
                 normalized_bytes=summary["normalized_bytes"],
                 role_comparisons=copy.deepcopy(summary["roles"]),
                 comparison_sha256=summary["comparison_sha256"],
+                session_ownership_profile=self._last_session_ownership_profile,
+                task_session_scope_id=self._last_task_session_scope_id,
+                session_wrapper_id=self._last_session_wrapper_id,
             )
             if self.clock() >= self.deadline and not closing:
                 raise OperationalRetentionIntervalError("Operational interval exceeded 900 seconds")

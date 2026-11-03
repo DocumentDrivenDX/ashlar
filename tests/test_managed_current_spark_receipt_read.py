@@ -383,8 +383,9 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
             manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt)
         self.assertEqual(observation.runtime_identity["opening"]["runtimeName"],
                          "databricks-serverless")
-        self.assertEqual(observation.runtime_identity["opening"], reader.config.expected_runtime)
-        self.assertNotIn("sessionTimeZone", observation.runtime_identity["opening"])
+        self.assertEqual({key: observation.runtime_identity["opening"][key]
+                          for key in reader.config.expected_runtime}, reader.config.expected_runtime)
+        self.assertEqual(observation.runtime_identity["opening"]["sessionTimeZone"], "UTC")
         self.assertNotIn("sparkApplicationId", observation.runtime_identity["opening"])
         self.assertNotIn("clusterId", observation.runtime_identity["opening"])
         self.assertEqual(spark.getTags(), before | {reader._serverless_tag.tag})
@@ -407,8 +408,8 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
             "sparkBuildText": "Spark build", "runtimeTag": "serverless-4.2.0",
             "principal": "owner@example.test", "catalog": "client_dev", "schema": "trial_schema",
             "protocol": PROFILE.identity,
-            "serverlessApiProbe": {"profile": "ashlar-spark-connect-tag-api-probe/0.1",
-                "newSessionDistinct": True, "tagAddedAndObserved": True,
+            "serverlessApiProbe": {"profile": "ashlar-spark-connect-tag-api-probe/0.2",
+                "providedJobSessionBorrowed": True, "tagAddedAndObserved": True,
                 "taggedQueryRowCount": 1, "taggedQueryValue": 1,
                 "interruptTagResponseType": "list", "interruptTagResponseCount": 0,
                 "tagRemoved": True, "preexistingTagsRestored": True,
@@ -448,9 +449,10 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         reader = ManagedCurrentSparkServerlessReceiptReader(
             spark, bundle.selection.reader_config)
         try:
-            self.assertEqual(reader.opening_runtime, config["expected_runtime"])
+            self.assertEqual({key: reader.opening_runtime[key]
+                              for key in config["expected_runtime"]}, config["expected_runtime"])
             self.assertTrue(any("current_timezone()" in sql for sql in spark.calls))
-            self.assertNotIn("sessionTimeZone", reader.opening_runtime)
+            self.assertEqual(reader.opening_runtime["sessionTimeZone"], "UTC")
             self.assertIs(captured["reader_config"], bundle.selection.reader_config)
         finally:
             reader._serverless_tag.close()
@@ -1186,6 +1188,62 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
                 [event[0] for event in self.events if len(event) > 1 and event[1] == stage],
                 ["session-open", "policy", "session-close", "source"],
             )
+
+    def test_serverless_interval_allows_only_same_task_borrowed_session_wrappers(self):
+        from ashlar_host.managed_a1_serverless_tasks import _ServerlessSessionFactory
+        runtime = {"runtimeName": "databricks-serverless", "sparkVersion": "4.2.0",
+            "sparkBuildText": "Spark build", "runtimeTag": "serverless-4.2.0",
+            "principal": self.config.expected_principal, "catalog": self.config.catalog,
+            "schema": self.config.schema, "protocol": self.config.protocol_profile.identity}
+        config = ManagedCurrentSparkServerlessReceiptConfig(
+            self.config.catalog, self.config.schema, self.config.expected_principal,
+            self.config.expected_table_owner, self.config.source_truss_version,
+            self.config.protocol_profile, runtime,
+            carrier_profile=self.config.carrier_profile)
+        selection = ManagedOperationalRetentionSelection(
+            reader_config=config, request_bytes=self.selection.request_bytes,
+            manifest_bytes=self.selection.manifest_bytes, receipt_bytes=self.selection.receipt_bytes,
+            expected_receipt=self.selection.expected_receipt, vector=self.selection.vector,
+            expected_source_custody=dict(self.selection.expected_source_custody),
+            source_prefix_bytes=self.selection.source_prefix_bytes,
+            source_prefix_sha256=self.selection.source_prefix_sha256,
+            source_core_config=self.selection.source_core_config)
+        spark = _SparkConnect(self.manifest, self.receipt, self.uuids)
+        spark.request = self.request
+        spark.attempt_rows = _attempt_rows(self.request, self.manifest)
+        spark.owner = self.config.expected_principal
+        spark.catalog, spark.schema = self.config.catalog, self.config.schema
+        class PinObserver:
+            def prepare(self, **_): pass
+        factory = _ServerlessSessionFactory(spark, PinObserver(), selection,
+            selection.vector, task_scope_id="one-task", deadline_monotonic=time.monotonic() + 30)
+        interval = OperationalRetentionInterval.open(
+            selection, factory, self.source_observer, self.policy_observer)
+        interval.renew_pre_ack()
+        result = interval.close()
+        self.assertEqual([item.session_ownership_profile for item in result.observations],
+            ["databricks-serverless-provided-task-session/0.1"] * 3)
+        self.assertEqual({item.task_session_scope_id for item in result.observations},
+                         {"one-task"})
+        self.assertEqual(len({item.session_wrapper_id for item in result.observations}), 3)
+
+        classic_factory = self.session_factory
+        rejected = OperationalRetentionInterval(
+            selection, classic_factory, self.source_observer, self.policy_observer)
+        with self.assertRaisesRegex(ValueError, "borrowed wrapper"):
+            rejected._capture("open")
+
+        from ashlar_host.managed_current_spark_receipt_read import BorrowedServerlessTaskSession
+        class DriftingScopeFactory:
+            def open(self, *, stage, deadline_monotonic):
+                return BorrowedServerlessTaskSession(spark, stage=stage,
+                    task_session_scope_id=stage,
+                    deadline_monotonic=min(deadline_monotonic, time.monotonic() + 20))
+        drifting = OperationalRetentionInterval(
+            selection, DriftingScopeFactory(), self.source_observer, self.policy_observer)
+        drifting._capture("open")
+        with self.assertRaisesRegex(ValueError, "task-scoped serverless borrowed wrapper"):
+            drifting.renew_pre_ack()
         self.assertFalse(hasattr(interval, "acknowledge"))
 
     def test_changed_policy_at_pre_ack_invalidates_interval(self):
@@ -1389,27 +1447,41 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
 
 
 class ManagedA1ServerlessSessionTests(unittest.TestCase):
-    def test_serverless_newsession_factory_releases_only_connect_child_client(self):
+    def test_serverless_borrowed_factory_reuses_injected_session_without_stopping_it(self):
         import time
         from ashlar_host.managed_a1_serverless_tasks import _ServerlessSessionFactory
+        from ashlar_host.managed_current_spark_receipt_read import BorrowedServerlessTaskSession
 
-        class ConnectChild:
-            def __init__(self): self.stopped = False
-            @property
-            def sparkContext(self):
-                raise AssertionError("Spark Connect must not access sparkContext")
-            def stop(self): self.stopped = True
-
+        class Frame:
+            def collect(self): return [{"ok": 1}]
         class ConnectParent:
-            def __init__(self): self.child = ConnectChild()
-            def newSession(self): return self.child
+            def __init__(self):
+                self.tags = threading.local()
+                self.query_tags = []
+                self.stop_called = False
+            def _tags(self):
+                if not hasattr(self.tags, "value"): self.tags.value = {"caller"}
+                return self.tags.value
+            def addTag(self, tag): self._tags().add(tag)
+            def getTags(self): return set(self._tags())
+            def removeTag(self, tag): self._tags().discard(tag)
+            def interruptTag(self, tag): return []
+            def sql(self, text):
+                self.query_tags.append(set(self._tags()))
+                return Frame()
 
         parent = ConnectParent()
-        factory = _ServerlessSessionFactory(parent, object(), object(), object())
+        factory = _ServerlessSessionFactory(parent, object(), object(), object(),
+            task_scope_id="scope", deadline_monotonic=time.monotonic() + 5)
         owned = factory.open(stage="close", deadline_monotonic=time.monotonic() + 5)
-        self.assertIs(owned.spark, parent.child)
+        self.assertIs(type(owned), BorrowedServerlessTaskSession)
+        self.assertIs(owned.spark, parent)
+        self.assertEqual(owned.query("SELECT 1"), [{"ok": 1}])
+        self.assertTrue(any(any(tag.startswith("ashlar-managed-current-close-")
+                                for tag in tags) for tags in parent.query_tags))
         owned.close()
-        self.assertTrue(parent.child.stopped)
+        self.assertFalse(parent.stop_called)
+        self.assertEqual(parent.getTags(), {"caller"})
 
 
 if __name__ == "__main__":

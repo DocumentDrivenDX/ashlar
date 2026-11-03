@@ -56,12 +56,12 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
         raise ValueError("Closed read-only runtime probe result required")
     api_probe = runtime_result["serverlessApiProbe"]
     if (type(api_probe) is not dict or set(api_probe) != {
-            "profile", "newSessionDistinct", "tagAddedAndObserved", "taggedQueryRowCount",
+            "profile", "providedJobSessionBorrowed", "tagAddedAndObserved", "taggedQueryRowCount",
             "taggedQueryValue", "interruptTagResponseType", "interruptTagResponseCount",
             "tagRemoved", "preexistingTagsRestored", "operationTerminationClaimed"}
             or api_probe != {
-                "profile": "ashlar-spark-connect-tag-api-probe/0.1",
-                "newSessionDistinct": True, "tagAddedAndObserved": True,
+                "profile": "ashlar-spark-connect-tag-api-probe/0.2",
+                "providedJobSessionBorrowed": True, "tagAddedAndObserved": True,
                 "taggedQueryRowCount": 1, "taggedQueryValue": 1,
                 "interruptTagResponseType": "list",
                 "interruptTagResponseCount": api_probe.get("interruptTagResponseCount"),

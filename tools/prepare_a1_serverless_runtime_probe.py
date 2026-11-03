@@ -30,6 +30,7 @@ def build_payload(notebook_path: str, notebook_file: Path, environment_version: 
             "timeout_seconds": 60,
             "max_retries": 0,
             "retry_on_timeout": False,
+            "disable_auto_optimization": True,
             "notebook_task": {"notebook_path": notebook_path,
                                "source": "WORKSPACE",
                                "base_parameters": {"protocol_identity": protocol_identity}},

@@ -75,12 +75,15 @@ def _protocol_profile(value):
         tuple(value["writer_versions"]), tuple(value["features"]))
 
 
-def _environment(spark, protocol, expected, *, namespace=True):
+def _environment(spark, protocol, expected, *, namespace=True, session=None):
     from .managed_current_publication import observe_managed_current_environment
-    value = observe_managed_current_environment(spark, protocol)
-    timezone_rows = spark.sql("SELECT current_timezone() AS sessionTimeZone").collect()
-    _need(len(timezone_rows) == 1, "Unique Spark session timezone readback required")
-    value["sessionTimeZone"] = timezone_rows[0]["sessionTimeZone"]
+    runner = None if session is None else session.run_bounded
+    value = observe_managed_current_environment(spark, protocol, operation_runner=runner)
+    timezone_sql = lambda: spark.sql("SELECT current_timezone() AS session_timezone").collect()
+    timezone_rows = timezone_sql() if runner is None else runner(timezone_sql)
+    _need(len(timezone_rows) == 1
+          and timezone_rows[0]["session_timezone"] in ("UTC", "Etc/UTC"),
+          "Unique UTC Spark session timezone readback required")
     keys = ["runtimeName", "sparkVersion", "principal", "protocol"]
     if namespace:
         keys.extend(("catalog", "schema"))
@@ -99,8 +102,13 @@ def _environment(spark, protocol, expected, *, namespace=True):
     return value
 
 
-def _po_status(spark, table):
-    rows = spark.sql("DESCRIBE TABLE EXTENDED " + table).collect()
+def _query_rows(spark, sql, *, action="collect", session=None):
+    operation = lambda: getattr(spark.sql(sql), action)()
+    return operation() if session is None else session.run_bounded(operation)
+
+
+def _po_status(spark, table, *, session=None):
+    rows = _query_rows(spark, "DESCRIBE TABLE EXTENDED " + table, session=session)
     found = []
     for row in rows:
         values = row.asDict(recursive=True)
@@ -112,22 +120,24 @@ def _po_status(spark, table):
     return "ENABLE"
 
 
-def _retention_seconds(spark, table):
+def _retention_seconds(spark, table, *, session=None):
     from ashlar.retention import interval_microseconds
     values = {row["key"]: row["value"] for row in
-              spark.sql("SHOW TBLPROPERTIES " + table).collect()}
+              _query_rows(spark, "SHOW TBLPROPERTIES " + table, session=session)}
     data = values.get("delta.deletedFileRetentionDuration", "interval 7 days")
     log = values.get("delta.logRetentionDuration", "interval 30 days")
     return {"data_retention_seconds": interval_microseconds(data) // 1_000_000,
             "log_retention_seconds": interval_microseconds(log) // 1_000_000}
 
 
-def _maintenance_digest(spark, catalog, schema, roles):
+def _maintenance_digest(spark, catalog, schema, roles, *, session=None):
     rows = []
     for role in sorted(roles):
         table = f"`{catalog}`.`{schema}`.`{role}`"
-        detail = spark.sql("DESCRIBE DETAIL " + table).first()
-        history = spark.sql("DESCRIBE HISTORY " + table + " LIMIT 8").collect()
+        detail = _query_rows(spark, "DESCRIBE DETAIL " + table,
+                             action="first", session=session)
+        history = _query_rows(spark, "DESCRIBE HISTORY " + table + " LIMIT 8",
+                              session=session)
         _need(detail is not None and len(history) <= 8,
               "Bounded native maintenance inventory required")
         rows.append({"role": role, "detail": detail.asDict(recursive=True),
@@ -335,27 +345,21 @@ class VolumeNativePinStageObserver(VolumeSourceCustodyObserver):
         self._rpc(kind="pin", stage=stage, selection=selection, vector=vector)
 
 
-class _ServerlessSession:
-    def __init__(self, spark, stage):
-        self.spark = spark
-        self.session_id = stage + ":" + uuid.uuid4().hex
-
-    def close(self):
-        # Spark Connect stop() releases this child client session. Unlike
-        # classic SparkContext.stop(), it does not stop the serverless job.
-        self.spark.stop()
-
-
 class _ServerlessSessionFactory:
-    def __init__(self, spark, pin_observer, selection, vector):
+    def __init__(self, spark, pin_observer, selection, vector, *, task_scope_id,
+                 deadline_monotonic):
         self.spark, self.pin_observer = spark, pin_observer
         self.selection, self.vector = selection, vector
+        self.task_scope_id, self.deadline_monotonic = task_scope_id, deadline_monotonic
     def open(self, *, stage, deadline_monotonic):
         _need(time.monotonic() < deadline_monotonic,
-              "Managed read interval deadline expired before a fresh Spark session")
+              "Managed read interval deadline expired before the task Spark wrapper")
+        from .managed_current_spark_receipt_read import BorrowedServerlessTaskSession
         if stage in ("open", "pre_ack"):
             self.pin_observer.prepare(stage=stage, selection=self.selection, vector=self.vector)
-        return _ServerlessSession(self.spark.newSession(), stage)
+        return BorrowedServerlessTaskSession(self.spark, stage=stage,
+            task_session_scope_id=self.task_scope_id,
+            deadline_monotonic=min(deadline_monotonic, self.deadline_monotonic))
 
 
 class _ServerlessPolicyObserver:
@@ -363,18 +367,18 @@ class _ServerlessPolicyObserver:
         self.catalog, self.schema, self.roles = catalog, schema, tuple(roles)
     def observe(self, *, stage, session, vector):
         table = lambda role: f"`{self.catalog}`.`{self.schema}`.`{role}`"
-        settings = {role: _retention_seconds(session.spark, table(role))
+        settings = {role: _retention_seconds(session.spark, table(role), session=session)
                     for role in ("object_current", "edge_current", "tombstone",
                                  "whole_source_history")}
         _need(all(value["data_retention_seconds"] >= 604800
                   and value["log_retention_seconds"] >= 604800
                   for value in settings.values()),
               "Four data-role retention windows must each cover seven days")
-        po = {_po_status(session.spark, table(role)) for role in settings}
+        po = {_po_status(session.spark, table(role), session=session) for role in settings}
         _need(po == {"ENABLE"}, "Predictive optimization must remain enabled at every stage")
         return {"retention_settings": settings, "predictive_optimization": "ENABLE",
             "maintenance_inventory_sha256": _maintenance_digest(
-                session.spark, self.catalog, self.schema, self.roles)}
+                session.spark, self.catalog, self.schema, self.roles, session=session)}
 
 
 def publisher_task(spark, parameters):
@@ -482,6 +486,7 @@ def verifier_task(spark, parameters):
     from .managed_current_core import CARRIER_PROFILE_XXHASH64, ROLES
     from .managed_current_trial import ManagedCurrentTrialConfig
     from .managed_current_spark_receipt_read import ManagedCurrentSparkServerlessReceiptConfig
+    from .managed_current_spark_receipt_read import BorrowedServerlessTaskSession
     from .managed_operational_read_port import ManagedOperationalReadPort
     from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
     from .managed_a1_detached_admission import admit_detached_a1_plan
@@ -500,9 +505,19 @@ def verifier_task(spark, parameters):
     _need(type(parameters["post_ack_close"]) is bool,
           "Explicit verifier pre-ACK or post-ACK close-only mode required")
     protocol = _protocol_profile(parameters["protocol_profile"])
-    spark.sql("USE CATALOG `" + trial["catalog"] + "`").collect()
-    spark.sql("USE SCHEMA `" + trial["schema"] + "`").collect()
-    opening = _environment(spark, protocol, trial["expected_runtime"])
+    task_scope_id = uuid.uuid4().hex
+    task_deadline = time.monotonic() + trial["verifier_timeout_seconds"] - 5
+    if task_deadline <= time.monotonic():
+        raise ValueError("Verifier task has no bounded SQL observation budget")
+    opening_session = BorrowedServerlessTaskSession(spark, stage="environment_open",
+        task_session_scope_id=task_scope_id, deadline_monotonic=task_deadline)
+    try:
+        opening_session.query("USE CATALOG `" + trial["catalog"] + "`")
+        opening_session.query("USE SCHEMA `" + trial["schema"] + "`")
+        opening = _environment(spark, protocol, trial["expected_runtime"],
+                               session=opening_session)
+    finally:
+        opening_session.close()
     genesis = _load_volume(parameters["genesis_volume_uri"], parameters["genesis_sha256"])
     initial_raw = _load_volume(parameters["genesis_manifest_volume_uri"],
                                parameters["genesis_manifest_sha256"])
@@ -583,17 +598,26 @@ def verifier_task(spark, parameters):
     pin_observer = VolumeNativePinStageObserver(parameters["source_rpc_directory"])
     policy_observer = _ServerlessPolicyObserver(trial["catalog"], trial["schema"], ROLES)
     read_port = ManagedOperationalReadPort(selection,
-        _ServerlessSessionFactory(spark, pin_observer, selection, bundle.vector),
+        _ServerlessSessionFactory(spark, pin_observer, selection, bundle.vector,
+            task_scope_id=task_scope_id, deadline_monotonic=task_deadline),
         source_observer, policy_observer,
         context=context)
     handle = read_port.open(bundle.destination_receipt_bytes, bundle.vector, context)
     handle.renew()
     interval = handle.close()
-    closing = _environment(spark, protocol, trial["expected_runtime"])
+    closing_session = BorrowedServerlessTaskSession(spark, stage="environment_close",
+        task_session_scope_id=task_scope_id, deadline_monotonic=task_deadline)
+    try:
+        closing = _environment(spark, protocol, trial["expected_runtime"],
+                               session=closing_session)
+        publication_po = _po_status(spark,
+            f"`{trial['catalog']}`.`{trial['schema']}`.`publication_manifest`",
+            session=closing_session)
+    finally:
+        closing_session.close()
     _need(closing == publisher["runtimeIdentity"]["closing"],
           "Independent verifier runtime differs from the publisher runtime tuple")
-    _need(_po_status(spark,
-        f"`{trial['catalog']}`.`{trial['schema']}`.`publication_manifest`") == "ENABLE",
+    _need(publication_po == "ENABLE",
         "Predictive optimization changed or is not enabled")
     observations = [{
         "stage": item.stage,
@@ -602,6 +626,9 @@ def verifier_task(spark, parameters):
         "vector_targets": item.vector_targets,
         "runtime_identity": item.runtime_identity,
         "source_custody_digests": item.source_custody_digests,
+        "session_ownership_profile": item.session_ownership_profile,
+        "task_session_scope_id": item.task_session_scope_id,
+        "session_wrapper_id": item.session_wrapper_id,
         "retention_settings": item.retention_settings,
         "predictive_optimization": item.predictive_optimization,
         "maintenance_inventory_sha256": item.maintenance_inventory_sha256,

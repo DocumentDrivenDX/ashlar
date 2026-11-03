@@ -1156,6 +1156,12 @@ def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
     manifest_sha = hashlib.sha256(manifest_bytes).hexdigest()
     receipt_sha = hashlib.sha256(receipt_bytes).hexdigest()
     observation = output["managedObservation"]
+    observations = observation.get("observations") if type(observation) is dict else None
+    from ashlar_host.managed_current_spark_receipt_read import SERVERLESS_TASK_SESSION_OWNERSHIP
+    session_scopes = ([item.get("task_session_scope_id") for item in observations]
+                      if type(observations) is list else [])
+    wrapper_ids = ([item.get("session_wrapper_id") for item in observations]
+                   if type(observations) is list else [])
     observation_raw = json.dumps(observation, sort_keys=True, separators=(",", ":"),
         ensure_ascii=False, allow_nan=False).encode("utf-8")
     require(output["requestSha256"] == request_sha
@@ -1170,6 +1176,12 @@ def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
             and type(observation.get("observations")) is list
             and [item.get("stage") for item in observation["observations"]]
                 == ["open", "pre_ack", "close"]
+            and all(item.get("session_ownership_profile") == SERVERLESS_TASK_SESSION_OWNERSHIP
+                    for item in observation["observations"])
+            and all(type(scope) is str and scope for scope in session_scopes)
+            and len(set(session_scopes)) == 1
+            and all(type(wrapper_id) is str and wrapper_id for wrapper_id in wrapper_ids)
+            and len(set(wrapper_ids)) == 3
             and all(item.get("predictive_optimization") == "ENABLE"
                     and item.get("vector_targets") == {
                         table: {"uuid": target[0], "version": target[1]}

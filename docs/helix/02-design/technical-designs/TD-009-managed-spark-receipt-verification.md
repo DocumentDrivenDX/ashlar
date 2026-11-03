@@ -240,7 +240,14 @@ and physical `.4` schema semantics remain unchanged.
 The read-only host coordinator is implemented in
 `src/ashlar_host/managed_operational_retention_interval.py`. Its required shape
 is `OperationalRetentionInterval.open(selection)`, `renew_pre_ack()`, and
-`close()`. Each stage invokes a fresh owned Spark-session factory, independently
+`close()`. Classic Jobs uses a fresh owned Spark-session factory at each stage.
+The explicit Databricks serverless profile wraps the task-injected Spark Connect
+session in a new observation wrapper for each stage. Those wrappers carry one
+task-local scope ID and close without stopping the provider-owned session; the
+serverless Jobs tasks are isolated environments, but the adapter does not claim
+distinct provider Spark sessions. Every Spark operation runs on a worker thread
+with its own thread-local operation tag, and bounded timeout requests
+`interruptTag` without claiming remote termination. Each stage independently
 reopens the original request/manifest and source oracle through
 `ManagedCurrentSparkReceiptReader`, compares all four exact `VERSION AS OF`
 bags, captures policy/PO/maintenance and source-custody observations, and
@@ -260,20 +267,16 @@ cover typed fake native probes separately; the interval seam has no integrated
 nonempty-prefix probe qualification. These tests qualify coordinator ordering
 only, not the injected adapters.
 
-Production use stops at the concrete host-port seam. The existing
-`ManagedCurrentSparkReceiptReader` is an injected-session offline reopen owner;
-it has no host-owned session factory or policy observer. `SparkSession.newSession()`
-would provide separate SQL state while sharing the same SparkContext, whereas
-`SparkSession.stop()` stops the shared context; the repository has no Databricks
-task-context adapter that establishes which session handle is injected into a
-Python Jobs task, how a child session is uniquely identified and closed without
-stopping the cluster context, or what cancellation state survives between
-stages. This must be settled against the actual task/runtime contract before an
-adapter can claim an owned fresh session. There is no approved session lifecycle
-or identity evidence in the repository from which to implement it safely.
-The [Azure Databricks task-session guidance](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/databricks-connect/notebooks)
-and [Spark 4.2.0 `newSession` API](https://spark.apache.org/docs/4.2.0/api/python/reference/pyspark.sql/api/pyspark.sql.SparkSession.newSession.html)
-support these API distinctions; neither establishes this trial's runtime custody.
+Serverless session ownership is task-scoped and borrowed: each isolated Jobs
+task receives its injected Spark Connect session, and all open/pre-ACK/close
+observations in that task use wrappers around that same handle. The runtime
+probe qualifies the required tag and interrupt methods on that handle and runs
+one bounded tagged query. `interruptTag` responses are recorded as requests;
+they do not prove that a timed-out remote operation terminated. The
+[Azure Databricks serverless dependency guidance](https://learn.microsoft.com/en-us/azure/databricks/compute/serverless/dependencies)
+documents task environment isolation. The serverless qualification does not
+claim a fresh or distinct Spark session for every observation. Classic Jobs
+retains the existing fresh-owned session path.
 
 The existing `observe_retention_configuration` can read Delta properties only
 when a host supplies qualified native defaults and a trusted executor. That

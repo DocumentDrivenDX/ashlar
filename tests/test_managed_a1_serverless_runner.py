@@ -112,6 +112,7 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         self.assertNotIn("retry_on_timeout", current)
         self.assertEqual(current["tasks"][0]["max_retries"], 0)
         self.assertIs(current["tasks"][0]["retry_on_timeout"], False)
+        self.assertIs(current["tasks"][0]["disable_auto_optimization"], True)
         a1_settings = _job_settings({"trial_id": "a1-readback-test",
             "expected_principal": submitted["run_as"]["user_name"],
             "initializer": {"timeout_seconds": 60}}, "initializer", {
@@ -129,10 +130,16 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         self.assertEqual(a1_settings["tasks"][0]["max_retries"], 0)
         self.assertIs(a1_settings["tasks"][0]["retry_on_timeout"], False)
         self.assertIs(a1_settings["tasks"][0]["disable_auto_optimization"], True)
-        expected = copy.deepcopy(submitted)
-        expected.pop("max_retries", None)
-        expected.pop("retry_on_timeout", None)
+        expected = copy.deepcopy(current)
         expected["tasks"][0]["notebook_task"]["source"] = "WORKSPACE"
+        expected["tags"] = readback["settings"]["tags"]
+        # The captured unpaid probe predates the explicit task auto-optimization
+        # disable. It must not be admitted for the next probe after a provider
+        # retry occurred despite task max_retries=0.
+        with self.assertRaisesRegex(ValueError, "pinned serverless artifact lock"):
+            _admit_job_readback(readback, expected, None)
+        readback = {"settings": copy.deepcopy(expected),
+                    "run_as_user_name": expected["run_as"]["user_name"]}
         _admit_job_readback(readback, expected, None)
 
         changed = copy.deepcopy(readback)
@@ -214,6 +221,9 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
             "authority": "read_observation_only_no_source_ack",
             "maximum_elapsed_seconds": 60,
             "observations": [{"stage": stage, "predictive_optimization": "ENABLE",
+                "session_ownership_profile": "databricks-serverless-provided-task-session/0.1",
+                "task_session_scope_id": "same-verifier-task-scope",
+                "session_wrapper_id": "wrapper-" + stage,
                 "vector_targets": targets} for stage in ("open", "pre_ack", "close")]}
         observation_raw = json.dumps(observation, sort_keys=True,
             separators=(",", ":")).encode()

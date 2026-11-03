@@ -39,6 +39,7 @@ _XXHASH_SQL = ("SELECT xxhash64(CAST(:source AS STRING),CAST(:type AS BIGINT),"
 # managed-current contract; 64 KiB is conservative and keeps each bound native
 # parameter well below the 4 MiB frozen-prefix envelope.
 _MAX_PROBE_SOURCE_BYTES = 65536
+SERVERLESS_TASK_SESSION_OWNERSHIP = "databricks-serverless-provided-task-session/0.1"
 
 
 def _require(value, reason="Managed Spark receipt reopen refused"):
@@ -206,6 +207,111 @@ class _ServerlessSparkTagCancellation:
             raise primary
 
 
+class SparkConnectOperationTimeout(ValueError):
+    """A tagged Spark Connect operation timed out; completion remains unknown."""
+
+
+def run_spark_connect_tagged_operation(spark, operation, *, deadline_monotonic):
+    """Run one Spark Connect action on a worker with its own thread-local tag.
+
+    On timeout, request ``interruptTag`` asynchronously and refuse to claim the
+    server operation terminated. The task/job deadline remains the outer bound.
+    """
+    if (spark is None or not callable(operation)
+            or type(deadline_monotonic) not in (int, float)
+            or deadline_monotonic <= time.monotonic()):
+        raise ValueError("Live bounded Spark Connect operation and deadline required")
+    tag_owner = _ServerlessSparkTagCancellation(spark)
+    result = queue.Queue(maxsize=1)
+
+    def invoke():
+        try:
+            result.put((True, tag_owner.run_tagged_thread(operation)))
+        except BaseException as error:
+            result.put((False, error))
+
+    thread = threading.Thread(target=invoke, name="ashlar-spark-connect-owned-query", daemon=True)
+    primary = None
+    value = None
+    try:
+        thread.start()
+        try:
+            succeeded, value = result.get(timeout=max(0, deadline_monotonic - time.monotonic()))
+            if not succeeded:
+                primary = value
+        except queue.Empty:
+            primary = SparkConnectOperationTimeout(
+                "Spark Connect query exceeded its task deadline; tagged interrupt requested, "
+                "operation completion remains unknown")
+            interrupt = threading.Thread(target=tag_owner.interrupt_tagged_operations,
+                name="ashlar-spark-connect-owned-interrupt", daemon=True)
+            interrupt.start()
+    except BaseException as error:
+        primary = error
+    try:
+        tag_owner.close()
+    except BaseException as cleanup_error:
+        if primary is None:
+            primary = cleanup_error
+        elif callable(getattr(primary, "add_note", None)):
+            primary.add_note("Spark Connect owned-tag cleanup also failed: "
+                             + type(cleanup_error).__name__)
+    if primary is not None:
+        raise primary
+    return value
+
+
+class BorrowedServerlessTaskSession:
+    """A per-observation wrapper around the task-injected parent SparkSession.
+
+    ``close`` releases this wrapper only. The Databricks notebook task owns the
+    supplied Spark session; this adapter never calls ``newSession`` or ``stop``.
+    The opaque task-scope value is a local correlation ID, not a provider session
+    identifier.
+    """
+
+    ownership_profile = SERVERLESS_TASK_SESSION_OWNERSHIP
+
+    def __init__(self, spark, *, stage, task_session_scope_id, deadline_monotonic):
+        if (spark is None or type(stage) is not str or not stage
+                or type(task_session_scope_id) is not str or not task_session_scope_id
+                or type(deadline_monotonic) not in (int, float)
+                or deadline_monotonic <= time.monotonic()):
+            raise ValueError("Exact borrowed serverless task Spark session and deadline required")
+        required = ("addTag", "getTags", "removeTag", "interruptTag", "sql")
+        if any(not callable(getattr(spark, name, None)) for name in required):
+            raise ValueError("Provided serverless Spark session lacks the required tag/query APIs")
+        self.spark = spark
+        self.stage = stage
+        self.session_id = "ashlar-observation-wrapper-" + uuid.uuid4().hex
+        self.task_session_scope_id = task_session_scope_id
+        self.deadline_monotonic = deadline_monotonic
+        self.closed = False
+        self.completion_unknown = False
+
+    def run_bounded(self, operation):
+        if self.closed or self.completion_unknown:
+            raise ValueError("Borrowed serverless task session is closed or has unknown query completion")
+        try:
+            return run_spark_connect_tagged_operation(
+                self.spark, operation, deadline_monotonic=self.deadline_monotonic)
+        except SparkConnectOperationTimeout:
+            self.completion_unknown = True
+            raise
+
+    def query(self, sql, *, action="collect"):
+        if type(sql) is not str or not sql or action not in ("collect", "first"):
+            raise ValueError("Bounded serverless SQL text and supported result action required")
+        return self.run_bounded(lambda: getattr(self.spark.sql(sql), action)())
+
+    def close(self):
+        if self.closed:
+            raise ValueError("Borrowed serverless task-session wrapper already closed")
+        # Do not stop or replace the task-injected SparkSession. A timeout
+        # remains an unknown remote operation even after local wrapper cleanup.
+        self.closed = True
+
+
 @dataclass(frozen=True)
 class ManagedCurrentSparkReceiptReopenObservation:
     """Offline reopen result. It intentionally has no source-ACK port."""
@@ -335,9 +441,17 @@ class _SparkReceiptExecutor:
 class ManagedCurrentSparkReceiptReader:
     """Reopen a receipt from a separately injected SparkSession."""
 
-    def __init__(self, spark, config: ManagedCurrentSparkReceiptConfig):
+    def __init__(self, spark, config: ManagedCurrentSparkReceiptConfig, *,
+                 operation_deadline_monotonic=None):
         _require(spark is not None and type(config) in (
             ManagedCurrentSparkReceiptConfig, ManagedCurrentSparkServerlessReceiptConfig))
+        if (operation_deadline_monotonic is not None
+                and (type(operation_deadline_monotonic) not in (int, float)
+                     or operation_deadline_monotonic <= time.monotonic())):
+            raise ValueError("Future serverless task operation deadline required")
+        _require(operation_deadline_monotonic is None
+                 or config.execution_profile == "serverless_connect",
+                 "A task deadline override is only valid for Spark Connect")
         self.spark, self.config = spark, config
         self.carriers = load_current_managed_carriers(config.carrier_profile)
         self.started, self.statements, self.closed = time.monotonic(), 0, False
@@ -351,6 +465,7 @@ class ManagedCurrentSparkReceiptReader:
         self._serverless_tag = None
         self._serverless_operation_unknown = False
         self._serverless_close_deadline = None
+        self._serverless_task_deadline = operation_deadline_monotonic
         if config.execution_profile == "serverless_connect":
             self._serverless_tag = _ServerlessSparkTagCancellation(self.spark)
         else:
@@ -361,7 +476,13 @@ class ManagedCurrentSparkReceiptReader:
         self._observe_environment = self._observe_spark_environment
         try:
             self.opening_runtime = self._observe_environment()
-            _require(self.opening_runtime == config.expected_runtime,
+            runtime_match = (self.opening_runtime == config.expected_runtime
+                if config.execution_profile != "serverless_connect"
+                else type(self.opening_runtime) is dict
+                     and {key: self.opening_runtime.get(key)
+                          for key in config.expected_runtime} == config.expected_runtime
+                     and set(self.opening_runtime) == set(config.expected_runtime) | {"sessionTimeZone"})
+            _require(runtime_match,
                      "Spark opening runtime/principal/namespace differs from explicit selection")
             self.opening = self._observe_inventory()
             self._manifest = self._request = self._publication_id = self._observation = None
@@ -391,6 +512,7 @@ class ManagedCurrentSparkReceiptReader:
             _require(len(timezone_rows) == 1
                      and timezone_rows[0].get("session_timezone") in ("UTC", "Etc/UTC"),
                      "Exact UTC Spark Connect session timezone required")
+            observed["sessionTimeZone"] = timezone_rows[0]["session_timezone"]
             _require(observed.get("runtimeName") == "databricks-serverless"
                      and observed.get("protocol") == c.protocol_profile.identity,
                      "Exact serverless runtime and protocol observations required")
@@ -444,6 +566,8 @@ class ManagedCurrentSparkReceiptReader:
             deadline = self._serverless_close_deadline
         else:
             deadline = self.started + self.config.maximum_elapsed_seconds
+            if self._serverless_task_deadline is not None:
+                deadline = min(deadline, self._serverless_task_deadline)
         remaining = deadline - time.monotonic() if deadline is not None else 0
         _require(remaining > 0, "Spark Connect operation deadline expired")
         result = queue.Queue(maxsize=1)
@@ -471,6 +595,13 @@ class ManagedCurrentSparkReceiptReader:
         if not succeeded:
             raise value
         return value
+
+    def run_observer_operation(self, operation):
+        """Run bounded verifier policy SQL under this reader's exact owned tag."""
+        _require(self.config.execution_profile == "serverless_connect"
+                 and self._serverless_tag is not None and not self.closed and not self.closing,
+                 "Live Spark Connect receipt reader required for bounded observer SQL")
+        return self._run_serverless_bounded(operation)
 
     @staticmethod
     def _unique_pairs(pairs):
@@ -1119,7 +1250,12 @@ class ManagedCurrentSparkReceiptReader:
         close_started = time.monotonic()
         self._serverless_close_deadline = min(
             close_started + 20,
-            self.started + self.config.maximum_elapsed_seconds)
+            self.started + self.config.maximum_elapsed_seconds,
+            self._serverless_task_deadline if self._serverless_task_deadline is not None
+                else close_started + 20)
+        close_budget = self._serverless_close_deadline - close_started
+        _require(close_budget > 0,
+                 "Spark Connect close deadline expired before tagged cleanup")
 
         def cancel_close():
             timeout_fired.set()
@@ -1128,7 +1264,7 @@ class ManagedCurrentSparkReceiptReader:
             except BaseException as error:
                 cancellation_thread_error.append(error)
 
-        timer = threading.Timer(20, cancel_close)
+        timer = threading.Timer(close_budget, cancel_close)
         timer.daemon = True
         runtime = inventory = None
         primary = None
@@ -1137,23 +1273,26 @@ class ManagedCurrentSparkReceiptReader:
             original = self._observation
             if original is None or self._reopen_inputs is None:
                 self._renew()
-                _require(not timeout_fired.is_set() and time.monotonic() - close_started < 20,
+                _require(not timeout_fired.is_set()
+                         and time.monotonic() < self._serverless_close_deadline,
                          "Spark Connect close deadline expired; tagged interrupt requested and completion unknown")
                 _require(False, "Exact original receipt reopen required before closing")
             self._closing_bookend_complete = True
             self._close_resolver_and_data_witness()
             self._closing_bookend_complete = False
-            _require(not timeout_fired.is_set() and time.monotonic() - close_started < 20,
+            _require(not timeout_fired.is_set()
+                     and time.monotonic() < self._serverless_close_deadline,
                      "Spark Connect close deadline expired; tagged interrupt requested and completion unknown")
             runtime, inventory = self._renew()
-            _require(not timeout_fired.is_set() and time.monotonic() - close_started < 20,
+            _require(not timeout_fired.is_set()
+                     and time.monotonic() < self._serverless_close_deadline,
                      "Spark Connect close deadline expired; tagged interrupt requested and completion unknown")
         except BaseException as error:
             primary = error
         finally:
             self._closing_bookend_complete = False
             timer.cancel()
-            timer.join(2)
+            timer.join(min(2, max(0, self._serverless_close_deadline - time.monotonic())))
             if timer.is_alive() and primary is None:
                 primary = ValueError(
                     "Spark Connect tagged interrupt call did not return; cancellation outcome unknown")
@@ -1245,10 +1384,12 @@ class ManagedCurrentSparkReceiptReader:
 class ManagedCurrentSparkServerlessReceiptReader(ManagedCurrentSparkReceiptReader):
     """Explicit Spark Connect reader using per-session tags, never SparkContext."""
 
-    def __init__(self, spark, config: ManagedCurrentSparkServerlessReceiptConfig):
+    def __init__(self, spark, config: ManagedCurrentSparkServerlessReceiptConfig, *,
+                 operation_deadline_monotonic=None):
         if type(config) is not ManagedCurrentSparkServerlessReceiptConfig:
             raise ValueError("Explicit serverless Spark Connect receipt config required")
-        super().__init__(spark, config)
+        super().__init__(spark, config,
+                         operation_deadline_monotonic=operation_deadline_monotonic)
 
 
 class _SparkReceiptPolicy:
