@@ -35,6 +35,10 @@ DATA_ROLES = ("object_current", "edge_current", "tombstone", "whole_source_histo
 _IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]{0,127}\Z")
 _XXHASH_SQL = ("SELECT xxhash64(CAST(:source AS STRING),CAST(:type AS BIGINT),"
                "CAST(:id AS BIGINT)) AS lookup_hash")
+_INFORMATION_SCHEMA_COLUMNS_SQL = (
+    "SELECT table_name,column_name,UPPER(full_data_type) AS data_type,is_nullable,ordinal_position "
+    "FROM system.information_schema.columns WHERE table_catalog=:catalog "
+    "AND table_schema=:schema ORDER BY table_name,ordinal_position")
 # Probe-only source token cap. Source identifiers have no smaller limit in the
 # managed-current contract; 64 KiB is conservative and keeps each bound native
 # parameter well below the 4 MiB frozen-prefix envelope.
@@ -468,9 +472,7 @@ class _SparkReceiptExecutor:
             "SELECT current_timezone() AS session_timezone",
             "SELECT table_name,table_type,table_owner FROM system.information_schema.tables "
             "WHERE table_catalog=:catalog AND table_schema=:schema",
-            "SELECT table_name,column_name,data_type,is_nullable,ordinal_position "
-            "FROM system.information_schema.columns WHERE table_catalog=:catalog "
-            "AND table_schema=:schema ORDER BY table_name,ordinal_position",
+            _INFORMATION_SCHEMA_COLUMNS_SQL,
             "SELECT publication_id,profile_version,table_versions_json,source_progress_json,"
             "schema_revisions_json,validation_report_json,"
             "CAST(unix_micros(recorded_at) AS STRING) AS recorded_at FROM " + base
@@ -776,9 +778,7 @@ class ManagedCurrentSparkReceiptReader:
                          and r.get("table_owner") == c.expected_table_owner for r in tables),
                  "Exactly six selected managed roles and owners required")
         cols = self.executor.query(
-            "SELECT table_name,column_name,data_type,is_nullable,ordinal_position "
-            "FROM system.information_schema.columns WHERE table_catalog=:catalog "
-            "AND table_schema=:schema ORDER BY table_name,ordinal_position",
+            _INFORMATION_SCHEMA_COLUMNS_SQL,
             {"catalog": c.catalog, "schema": c.schema}).rows
         by_role = {role: [] for role in ROLES}
         for row in cols:

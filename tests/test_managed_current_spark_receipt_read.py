@@ -79,6 +79,8 @@ class _Spark:
         self.timezone = "UTC"
         self.ordinal_base = 1
         self.ordinal_position_overrides = {}
+        self.full_data_type_overrides = {}
+        self.information_schema_source_rows = []
         self.role_identity_drift = None
         self.hash_values = {}
         self.hash_rows_override = None
@@ -103,7 +105,17 @@ class _Spark:
                 for pos, (name, kind, nullable) in enumerate(self.carriers.ordered_fields(role),
                                                              self.ordinal_base):
                     pos = self.ordinal_position_overrides.get(role, {}).get(name, pos)
-                    rows.append({"table_name": role, "column_name": name, "data_type": kind,
+                    full_type = self.full_data_type_overrides.get(role, {}).get(
+                        name, {"BIGINT": "bigint", "STRING": "string", "TIMESTAMP": "timestamp",
+                               "BOOLEAN": "boolean"}[kind])
+                    raw_type = {"BIGINT": "LONG", "STRING": "STRING", "TIMESTAMP": "TIMESTAMP",
+                                "BOOLEAN": "BOOLEAN"}[kind]
+                    self.information_schema_source_rows.append({
+                        "table_name": role, "column_name": name, "data_type": raw_type,
+                        "full_data_type": full_type,
+                        "is_nullable": "YES" if nullable else "NO", "ordinal_position": pos})
+                    data_type = full_type.upper() if "UPPER(full_data_type) AS data_type" in sql else raw_type
+                    rows.append({"table_name": role, "column_name": name, "data_type": data_type,
                         "is_nullable": "YES" if nullable else "NO", "ordinal_position": pos})
             cols = tuple((name, typ) for name, typ in (("table_name", "string"), ("column_name", "string"),
                 ("data_type", "string"), ("is_nullable", "string"), ("ordinal_position", "long")))
@@ -403,12 +415,28 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         spark, reader = self._serverless_reader()
         spark.ordinal_base = 0
         self.assertEqual(set(reader._observe_inventory()), set(ROLES))
+        self.assertIn("UPPER(full_data_type) AS data_type",
+                      next(call for call in spark.calls
+                           if "FROM system.information_schema.columns" in call))
         role = ROLES[0]
         fields = reader.carriers.ordered_fields(role)
         spark.ordinal_position_overrides[role] = {fields[1][0]: 0}
         with self.assertRaisesRegex(ValueError, "Ordered native columns"):
             reader._observe_inventory()
         spark.ordinal_position_overrides[role] = {fields[0][0]: 2}
+        with self.assertRaisesRegex(ValueError, "Ordered native columns"):
+            reader._observe_inventory()
+
+    def test_serverless_information_schema_uses_declared_type_and_refuses_other_spellings(self):
+        spark, reader = self._serverless_reader()
+        inventory = reader._observe_inventory()
+        self.assertEqual(set(inventory), set(ROLES))
+        self.assertTrue(any(row["data_type"] == "LONG" and row["full_data_type"] == "bigint"
+                            for row in spark.information_schema_source_rows))
+        role = ROLES[0]
+        name = next(field[0] for field in reader.carriers.ordered_fields(role)
+                    if field[1] == "BIGINT")
+        spark.full_data_type_overrides[role] = {name: "long"}
         with self.assertRaisesRegex(ValueError, "Ordered native columns"):
             reader._observe_inventory()
 
