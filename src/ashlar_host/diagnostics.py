@@ -21,6 +21,7 @@ from typing import Callable, Optional
 from uuid import uuid4
 
 from .config import DiagnosticsConfig, DiagnosticsLimits
+from .otel_profile import SDK_VERSIONS
 
 
 class DiagnosticsError(ValueError):
@@ -179,7 +180,7 @@ def _resource(resource: dict) -> None:
     _require(resource['service.name'] == 'ashlar-host'
              and resource['telemetry.sdk.name'] == 'opentelemetry'
              and resource['telemetry.sdk.language'] == 'python'
-             and resource['telemetry.sdk.version'] == '1.45.1'
+             and resource['telemetry.sdk.version'] == SDK_VERSIONS['opentelemetry-api']
              and resource['deployment.environment.name'] in ('development', 'test', 'staging', 'production'))
     version = resource['service.version']
     _require(type(version) is str and len(version) <= 64
@@ -314,7 +315,7 @@ class DiagnosticRun:
             self.resource = {'service.name': 'ashlar-host', 'service.version': version,
                              'deployment.environment.name': config.environment,
                              'telemetry.sdk.name': 'opentelemetry', 'telemetry.sdk.language': 'python',
-                             'telemetry.sdk.version': '1.45.1'}
+                             'telemetry.sdk.version': SDK_VERSIONS['opentelemetry-api']}
             _resource(self.resource)
             self.config, self.sink = config, sink
             self.run_id = uuid4().hex

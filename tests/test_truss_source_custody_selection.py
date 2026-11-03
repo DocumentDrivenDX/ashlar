@@ -64,9 +64,8 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
             "source_checkpoint_json": truss_checkpoint(batch)}
         request["request_digest"] = hashlib.sha256(canonical(request).encode()).hexdigest()
         self.request_bytes = canonical(request).encode()
-        from ashlar.attempt_store import verify_request_digest
         self.publication_id = "ashlar-current:" + hashlib.sha256(
-            verify_request_digest(request).encode("ascii")).hexdigest()
+            request["request_digest"].encode("ascii")).hexdigest()
         self.vector = PinVector("authority", "manifest", self.publication_id, "a" * 64,
             {f"local.graph.{role}": (f"uuid-{role}", 3) for role in
              ("object_current", "edge_current", "tombstone", "whole_source_history")})
@@ -154,6 +153,14 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
                 page=self.page, request_bytes=self.request_bytes,
                 destination_id="selected-r04-destination",
                 preselected_publication_id=self.publication_id)
+
+    def test_preselected_publication_id_must_derive_from_frozen_request(self):
+        with self.assertRaisesRegex(TrussSourceSelectionError,
+                                    "must derive from the frozen managed request"):
+            select_truss_source_custody_anchor(schedule=self.schedule, source="A",
+                page=self.page, request_bytes=self.request_bytes,
+                destination_id="selected-r04-destination",
+                preselected_publication_id="publisher-invented-id")
 
     def test_prepublication_sdk_selection_uses_exact_052_or_fresh_053_gate(self):
         from ashlar_host.truss_current_catalog import (

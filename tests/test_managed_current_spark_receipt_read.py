@@ -320,6 +320,12 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         return self.reader.reopen(request_bytes=_canonical(self.request).encode(),
             manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=receipt or self.receipt)
 
+    def test_fresh_053_is_admitted_as_a_versioned_managed_reader_profile(self):
+        fresh = replace(self.config, source_truss_version="0.0.53")
+        self.assertEqual(fresh.source_truss_version, "0.0.53")
+        with self.assertRaisesRegex(ValueError, "runtime, UC namespace"):
+            replace(self.config, source_truss_version="0.0.46")
+
     def test_reopens_spark_native_inventory_and_closes_with_same_identity(self):
         observation = self.reopen()
         self.reader.close()
@@ -908,7 +914,7 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
 
         with patch.object(ManagedCurrentA1TrialPlan, "verify_delivery", verify):
             selection = ManagedOperationalRetentionSelection(
-                reader_config=replace(self.config, source_truss_version="0.0.52"),
+                reader_config=replace(self.config, source_truss_version="0.0.53"),
                 request_bytes=_canonical(self.request).encode(),
                 manifest_bytes=_canonical(self.manifest).encode(),
                 receipt_bytes=_canonical(self.receipt).encode(),

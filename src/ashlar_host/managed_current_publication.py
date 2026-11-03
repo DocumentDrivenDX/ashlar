@@ -1081,15 +1081,19 @@ def _managed_current_a1_task_inputs(a1_plan, *, stream, predecessor,
     from .managed_current_truss052_genesis_owner import (
         ManagedCurrentTruss052GenesisSelection,
     )
+    from .managed_current_truss053_genesis_owner import (
+        ManagedCurrentTruss053GenesisSelection,
+    )
     from .managed_current_genesis import ManagedCurrentGenesisPredecessor
     from .truss_graph_admission import TrussGraphAdmission
 
     _require(type(a1_plan) is ManagedCurrentA1TrialPlan,
              'Exact prepared managed A1 trial plan required')
     selection = a1_plan.selection
-    _require(type(selection) is ManagedCurrentTruss052GenesisSelection
+    _require(type(selection) in (ManagedCurrentTruss052GenesisSelection,
+                                 ManagedCurrentTruss053GenesisSelection)
              and type(a1_plan.predecessor) is ManagedCurrentGenesisPredecessor,
-             'Exact Truss .52 A/B selection and verified genesis predecessor required')
+             'Exact Truss .52 or .53 A/B selection and verified genesis predecessor required')
     _require(type(a1_plan.driver_inputs) is dict and set(a1_plan.driver_inputs) == {
         'admission', 'stream', 'materialized_at', 'context',
         'managed_genesis_predecessor', 'source_owner_admitted_batch'},
@@ -1172,7 +1176,7 @@ def run_managed_current_publication_task(spark,*,binding=None,core_config,protoc
         admission=restore_managed_current_admission(binding,core_config)
     else:
         _require(binding is None,
-                 'Managed A1 task accepts its exact .52 owner selection without a second source bundle')
+                 'Managed A1 task accepts its exact .52/.53 owner selection without a second source bundle')
         _require(publication_profile=='ashlar-managed-current-incremental/0.1',
                  'Managed A1 source-owner composition requires the incremental publication profile')
         admission,a1_predecessor,a1_batch,planned_request = _managed_current_a1_task_inputs(

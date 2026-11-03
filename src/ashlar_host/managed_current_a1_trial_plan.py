@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
-"""Pure composition of the selected .52 A1 inputs for one managed trial.
+"""Pure composition of selected .52/.53 A1 inputs for one managed trial.
 
 This is a preparation record, not source, publication, native-runtime, or ACK
 authority. It only composes outputs from the Truss source owner and the
@@ -56,11 +56,15 @@ def prepare_managed_current_a1_trial(selection, genesis_manifest, *,
     from .managed_current_truss052_genesis_owner import (
         ManagedCurrentTruss052GenesisSelection,
     )
+    from .managed_current_truss053_genesis_owner import (
+        ManagedCurrentTruss053GenesisSelection,
+    )
     from .managed_current_prefix_delivery import ManagedCurrentPrefixPage
     from .publication_planning import truss_request_for
 
-    if type(selection) is not ManagedCurrentTruss052GenesisSelection:
-        raise ValueError("Independently selected Truss .52 A/B source-owner output required")
+    if type(selection) not in (ManagedCurrentTruss052GenesisSelection,
+                               ManagedCurrentTruss053GenesisSelection):
+        raise ValueError("Independently selected Truss .52 or .53 A/B source-owner output required")
     if type(stream) is not str or not stream or "\0" in stream:
         raise ValueError("Exact managed source stream required")
     if (type(materialized_at) is not str or not materialized_at.isascii()
@@ -99,7 +103,7 @@ def prepare_managed_current_a1_trial(selection, genesis_manifest, *,
             prior_cursor_bytes=page.prior.content,
             next_cursor_bytes=page.next.content)
     except AttributeError as error:
-        raise ValueError("Original public Truss .52 A page and cursors required") from error
+        raise ValueError("Original public Truss .52 or .53 A page and cursors required") from error
     try:
         original_prior = base64.b64decode(batch.cursor_before, validate=True)
         original_next = base64.b64decode(batch.cursor_after, validate=True)

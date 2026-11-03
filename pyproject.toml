@@ -20,7 +20,7 @@ local-delta = [
     "mini-racer==0.12.2; python_version < '3.10'",
     "mini-racer==0.14.1; python_version >= '3.10'",
 ]
-managed-read = ["databricks-sdk==0.155.0", "psycopg[binary]==3.3.6"]
+managed-read = ["databricks-sdk==0.159.0", "psycopg[binary]==3.3.6"]
 weft-validation = ["jsonschema==4.26.0", "referencing==0.37.0", "rpds-py==2026.9.1", "attrs==26.1.0", "jsonschema-specifications==2025.9.1", "typing-extensions==4.16.0"]
 typed-sdk = [
     "umf-core @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-rust-v0.1.0/umf_core-0.10.6-cp311-abi3-macosx_11_0_arm64.whl#sha256=e6219539dabcdfe9657bc09485ad991b3380ae306c658d0a51a35caac0196e36 ; sys_platform == 'darwin' and platform_machine == 'arm64'",
@@ -36,21 +36,21 @@ duckdb = ["duckdb==2.0.0"]
 puppy = ["duckdb==2.0.0", "neo4j==6.4.1"]
 puppy-gremlin = ["duckdb==2.0.0", "neo4j==6.4.1", "gremlinpython==3.8.2"]
 diagnostics = [
-    "opentelemetry-api==1.45.1; python_version == '3.11'",
-    "opentelemetry-sdk==1.45.1; python_version == '3.11'",
-    "opentelemetry-proto==1.45.1; python_version == '3.11'",
-    "opentelemetry-exporter-otlp-proto-common==1.45.1; python_version == '3.11'",
-    "opentelemetry-exporter-otlp-proto-http==1.45.1; python_version == '3.11'",
-    "opentelemetry-semantic-conventions==0.66b1; python_version == '3.11'",
-    "opentelemetry-exporter-http-transport==0.66b1; python_version == '3.11'",
-    "opentelemetry-exporter-otlp-common==0.66b1; python_version == '3.11'",
+    "opentelemetry-api==1.45.2; python_version == '3.11'",
+    "opentelemetry-sdk==1.45.2; python_version == '3.11'",
+    "opentelemetry-proto==1.45.2; python_version == '3.11'",
+    "opentelemetry-exporter-otlp-proto-common==1.45.2; python_version == '3.11'",
+    "opentelemetry-exporter-otlp-proto-http==1.45.2; python_version == '3.11'",
+    "opentelemetry-semantic-conventions==0.66b2; python_version == '3.11'",
+    "opentelemetry-exporter-http-transport==0.66b2; python_version == '3.11'",
+    "opentelemetry-exporter-otlp-common==0.66b2; python_version == '3.11'",
     "protobuf==7.36.2; python_version == '3.11'",
     "requests==2.34.2; python_version == '3.11'",
     "urllib3==2.8.0; python_version == '3.11'",
     "idna==3.20; python_version == '3.11'",
-    "certifi==2026.10.19; python_version == '3.11'",
+    "certifi==2026.10.23; python_version == '3.11'",
     "charset-normalizer==3.5.2; python_version == '3.11'",
-    "googleapis-common-protos==1.75.5; python_version == '3.11'",
+    "googleapis-common-protos==1.76.0; python_version == '3.11'",
     "typing-extensions==4.16.0; python_version == '3.11'",
 ]
 

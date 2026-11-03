@@ -393,9 +393,11 @@ class ManagedA1ReleaseBridge:
                 raise ManagedA1BridgeError("Managed A1 holder interval expired before protected ACK")
 
             ack_started = self._clock()
-            if _elapsed(self._clock, started) > self._maximum_interval_seconds:
-                raise ManagedA1BridgeError("Managed A1 holder interval expired before protected ACK")
             ack_deadline = ack_started + self._ack_reconcile_window_seconds
+            outer_deadline = started + self._maximum_interval_seconds
+            if ack_deadline > outer_deadline:
+                raise ManagedA1BridgeError(
+                    "Full protected ACK/reconciliation window does not fit in the holder interval")
             commit_error = None
             try:
                 self._ack.commit(request_bytes, manifest_bytes, receipt_bytes, context,

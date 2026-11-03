@@ -402,6 +402,28 @@ class ManagedA1ReleaseBridgeTests(unittest.TestCase):
         self.assertEqual(ack.deadlines, [31.0, 31.0])
         self.assertEqual(self.events[-2:], ["managed.close", "source.close"])
 
+    def test_full_ack_window_must_fit_inside_outer_holder_interval(self):
+        self.clock.value = 1.0
+        managed = managed_read_pin_port(self.events, context=self.context,
+            request_bytes=self.request_bytes, manifest_bytes=self.manifest_bytes,
+            receipt_bytes=self.receipt_bytes, vector=self.vector,
+            on_open=lambda: setattr(self.clock, "value", 59.0))
+        ack = AckPort(self.events)
+        bridge = ManagedA1ReleaseBridge(managed, SourcePort(self.events), ack,
+            VerifierCompletionPort(self.events), clock=self.clock,
+            ack_reconcile_window_seconds=30, maximum_interval_seconds=60)
+        with patch("ashlar_host.managed_current_genesis.verify_managed_current_genesis_predecessor",
+                   return_value=self.plan.predecessor):
+            with self.assertRaisesRegex(ManagedA1BridgeError,
+                    "Full protected ACK/reconciliation window does not fit"):
+                bridge.acknowledge(plan=self.plan, request_bytes=self.request_bytes,
+                    manifest_bytes=self.manifest_bytes, receipt_bytes=self.receipt_bytes,
+                    vector=self.vector, context=self.context)
+        self.assertNotIn("ack.commit", self.events)
+        self.assertNotIn("ack.reconcile", self.events)
+        self.assertEqual(ack.deadlines, [])
+        self.assertEqual(self.events[-2:], ["managed.close", "source.close"])
+
     def test_plan_and_publication_bytes_must_match_selected_a1_lineage(self):
         from tests.test_managed_current_a1_trial_plan import TestManagedCurrentA1TrialPlan as Fixtures
         from ashlar_host.managed_current_a1_trial_plan import prepare_managed_current_a1_trial

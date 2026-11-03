@@ -98,7 +98,7 @@
         "deployment.environment.name": {"enum": ["development", "test", "staging", "production"]},
         "telemetry.sdk.name": {"const": "opentelemetry"},
         "telemetry.sdk.language": {"const": "python"},
-        "telemetry.sdk.version": {"const": "1.45.1"}
+        "telemetry.sdk.version": {"const": "1.45.2"}
       }
     },
     "scope": {
