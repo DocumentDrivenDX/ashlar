@@ -38,6 +38,12 @@ def _field(value, name):
     raise ValueError("Detached A/B genesis evidence omitted " + name)
 
 
+def _observe_pre_ack_interval(read_port, bundle, vector, context, interval_id):
+    """Use the selected Spark task receipt, not the distinct Truss receipt."""
+    return read_port.observe_pre_ack(bundle.task_receipt_bytes, vector, context,
+                                     interval_id=interval_id)
+
+
 def _model_content_bytes(value):
     content = None
     for name in ("content", "bytes", "content_base64"):
@@ -747,8 +753,8 @@ def verifier_task(spark, parameters):
     else:
         read_port = ManagedOperationalReadPort(selection, session_factory,
             source_observer, policy_observer, context=context)
-        interval = read_port.observe_pre_ack(bundle.destination_receipt_bytes,
-            bundle.vector, context, interval_id=parameters["operational_interval_id"])
+        interval = _observe_pre_ack_interval(read_port, bundle, bundle.vector, context,
+            parameters["operational_interval_id"])
     closing_session = _borrowed_session(spark, "environment_close", task_scope_id,
                                         task_deadline, trial["expected_runtime"])
     try:

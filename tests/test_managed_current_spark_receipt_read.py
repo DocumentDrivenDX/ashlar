@@ -1402,6 +1402,35 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
         self.assertEqual([item.stage for item in close.observations], ["close"])
         self.assertEqual([item.stage for item in self.sessions], ["open", "pre_ack", "close"])
 
+    def test_verifier_task_uses_exact_task_receipt_not_destination_receipt(self):
+        from ashlar_host.managed_a1_serverless_tasks import _observe_pre_ack_interval
+        from ashlar_host.managed_current_a1_retention_builder import ManagedA1RetentionBundle
+        from ashlar_host.truss_feed_sessions import encode_truss_destination_receipt
+
+        destination_receipt = encode_truss_destination_receipt(
+            self.selection.request_bytes, self.selection.manifest_bytes,
+            self.selection.vector)
+        self.assertNotEqual(destination_receipt, self.selection.receipt_bytes)
+        bundle = ManagedA1RetentionBundle(self.selection, self.selection.vector,
+            self.selection.receipt_bytes, destination_receipt)
+        context = object()
+        port = ManagedOperationalReadPort(self.selection, self.session_factory,
+            self.source_observer, self.policy_observer, context=context)
+        result = _observe_pre_ack_interval(port, bundle, bundle.vector, context,
+            "3c9ca5c5-a1e8-4990-b7dd-f7b405f014c8")
+        self.assertEqual(result.outcome, "pre_ack_checks_complete_close_pending")
+        self.assertEqual([item.stage for item in result.observations], ["open", "pre_ack"])
+
+        wrong_bundle = ManagedA1RetentionBundle(self.selection, self.selection.vector,
+            destination_receipt, destination_receipt)
+        wrong_context = object()
+        guard = ManagedOperationalReadPort(self.selection, self.session_factory,
+            self.source_observer, self.policy_observer, context=wrong_context)
+        with self.assertRaisesRegex(ManagedOperationalReadPortError,
+                                    "Exact selected receipt bytes"):
+            _observe_pre_ack_interval(guard, wrong_bundle, wrong_bundle.vector,
+                wrong_context, "3c9ca5c5-a1e8-4990-b7dd-f7b405f014c8")
+
     def test_noncanonical_parent_interval_uuid_refuses_before_any_observation(self):
         with self.assertRaisesRegex(OperationalRetentionIntervalError,
                                     "Canonical parent-owned operational interval UUID"):
