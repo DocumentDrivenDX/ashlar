@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import patch
 
 from ashlar_host.r04_schedule import canonical
-from ashlar_host.managed_a1_detached_admission import _continuation_expected_a_cursor
+from ashlar_host.managed_a1_detached_admission import continuation_expected_a_cursor
 from ashlar_host.truss_detached_a1_genesis_codec import (
     PROFILE, DetachedA1GenesisError, decode_detached_a1_genesis_snapshot,
     _require_current_fresh_catalog_evidence,
@@ -153,7 +153,7 @@ class DetachedA1GenesisCodecTests(unittest.TestCase):
         body = {key: item for key, item in value.items() if key != "binding_sha256"}
         raw = canonical({**body, "binding_sha256": hashlib.sha256(canonical(body)).hexdigest()})
         self.assertIn(b': ', prior_bytes)
-        self.assertEqual(_continuation_expected_a_cursor(raw), "759")
+        self.assertEqual(continuation_expected_a_cursor(raw), "759")
 
         duplicate_cursor = json.loads(raw)
         duplicate_cursor_bytes = b'{"nextXid": "759", "nextXid": "760"}'
@@ -163,7 +163,7 @@ class DetachedA1GenesisCodecTests(unittest.TestCase):
         duplicate_cursor_raw = canonical({**body,
             "binding_sha256": hashlib.sha256(canonical(body)).hexdigest()})
         with self.assertRaisesRegex(ValueError, "prior cursor"):
-            _continuation_expected_a_cursor(duplicate_cursor_raw)
+            continuation_expected_a_cursor(duplicate_cursor_raw)
 
         duplicate = json.loads(raw)
         duplicate["sources"][1]["source"] = "A"
@@ -171,7 +171,7 @@ class DetachedA1GenesisCodecTests(unittest.TestCase):
         duplicate_raw = canonical({**body,
             "binding_sha256": hashlib.sha256(canonical(body)).hexdigest()})
         with self.assertRaisesRegex(ValueError, "prior cursor"):
-            _continuation_expected_a_cursor(duplicate_raw)
+            continuation_expected_a_cursor(duplicate_raw)
 
     def test_current_055_evidence_uses_actual_pins_and_refuses_stale_054(self):
         pins = {"version": "0.0.55",

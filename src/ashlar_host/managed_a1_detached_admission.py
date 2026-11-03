@@ -28,8 +28,12 @@ def _member(value, *names):
     raise ValueError("Detached A/B evidence omitted " + "/".join(names))
 
 
-def _continuation_expected_a_cursor(genesis_snapshot_bytes):
-    """Read the original A page cursor from the detached codec's closed source list."""
+def continuation_expected_a_cursor(genesis_snapshot_bytes):
+    """Read the A1 predecessor cursor from the closed detached source list.
+
+    This is a parsing hint only; callers must still run the detached codec and
+    bind the resulting snapshot to its A0 manifest and source identities.
+    """
     _need(type(genesis_snapshot_bytes) is bytes
           and 0 < len(genesis_snapshot_bytes) <= 4 * 1024 * 1024,
           "Bounded detached A/B continuation package required")
@@ -176,7 +180,7 @@ def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
         # The detached codec defaults to the literal Truss genesis cursor. For
         # A1 continuation, derive only the numeric cursor bound from the closed
         # package, then bind its exact bytes to the supplied A0 manifest below.
-        expected_a_prior_cursor = _continuation_expected_a_cursor(genesis_snapshot_bytes)
+        expected_a_prior_cursor = continuation_expected_a_cursor(genesis_snapshot_bytes)
     detached = decode_detached_a1_genesis_snapshot(
         genesis_snapshot_bytes, expected_a_prior_cursor=expected_a_prior_cursor)
     _need(detached.schedule_sha256 == hashlib.sha256(detached.schedule_bytes).hexdigest()
