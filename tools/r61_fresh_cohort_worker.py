@@ -13,6 +13,7 @@ import importlib.metadata
 import json
 import os
 from pathlib import Path
+import stat
 import subprocess
 import sys
 import traceback
@@ -49,6 +50,36 @@ def tree_digest(root: Path) -> str:
             digest.update(relative)
             digest.update(sha(path.read_bytes()).encode())
     return digest.hexdigest()
+
+
+def _validate_supervisor_precreated_root(root: Path, evidence_root: Path) -> None:
+    """Accept only the exact empty directory/layout created before worker launch."""
+    if (not root.is_absolute() or root.resolve() != root or root.is_symlink()
+            or not root.is_dir()):
+        raise RuntimeError("canonical supervisor-created continuation output root required")
+    root_info = root.lstat()
+    if (not stat.S_ISDIR(root_info.st_mode) or root_info.st_uid != os.getuid()
+            or stat.S_IMODE(root_info.st_mode) != 0o700):
+        raise RuntimeError("supervisor-created continuation output root owner/mode differs")
+    expected = {"home", "tmp", "worker.log", "supervisor-result.json"}
+    if {path.name for path in root.iterdir()} != expected:
+        raise RuntimeError("supervisor-created continuation output root has unexpected children")
+    for name in ("home", "tmp"):
+        path = root / name
+        info = path.lstat()
+        if (not stat.S_ISDIR(info.st_mode) or stat.S_ISLNK(info.st_mode)
+                or info.st_uid != os.getuid() or stat.S_IMODE(info.st_mode) != 0o700
+                or any(path.iterdir())):
+            raise RuntimeError(f"supervisor-created {name} directory is not empty/owned")
+    for name in ("worker.log", "supervisor-result.json"):
+        path = root / name
+        info = path.lstat()
+        if (not stat.S_ISREG(info.st_mode) or stat.S_ISLNK(info.st_mode)
+                or info.st_uid != os.getuid() or stat.S_IMODE(info.st_mode) != 0o600
+                or info.st_size != 0):
+            raise RuntimeError(f"supervisor-created {name} is not an empty owned receipt file")
+    if evidence_root.exists() or evidence_root.is_symlink():
+        raise RuntimeError("continuation evidence directory must remain absent before export")
 
 
 def canonical(value) -> bytes:
@@ -361,8 +392,8 @@ def _resume_genesis_inputs(scope: dict) -> tuple[dict, dict, dict, dict]:
             or manifest_proof.get("manifest_row_matches_retained_bytes") is not True):
         raise RuntimeError("Retained A0 publication/ACK read-only proof is incomplete")
     output_root = Path(scope["fresh_local_state"]["root"])
-    if output_root.exists() or output_root.is_symlink():
-        raise RuntimeError("Fresh continuation evidence root must be absent")
+    _validate_supervisor_precreated_root(
+        output_root, Path(scope["fresh_local_state"]["evidence_root"]))
     paths = scope["fresh_local_state"]
     pgdata = Path(paths["postgres_data"])
     delta = Path(paths["delta_root"])
