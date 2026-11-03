@@ -3,6 +3,7 @@
 import json
 import hashlib
 import os
+import copy
 from pathlib import Path
 import tempfile
 import time
@@ -13,6 +14,7 @@ from tools.run_managed_a1_serverless import (
     _LocalPinStages, _recover_run_after_lost_response, _run_stage, run,
     _validate_ack_settlement,
     _verify_terminal_proof,
+    _admit_job_readback, _job_settings,
     _write_private_json,
 )
 from ashlar_host.a1_ack_attempt import A1AckSettlement
@@ -79,6 +81,70 @@ class _LostRunNowAPI:
 
 
 class ManagedA1ServerlessRunnerTests(unittest.TestCase):
+    def test_actual_provider_probe_readback_admits_only_documented_defaults(self):
+        from tools.prepare_a1_serverless_runtime_probe import build_payload
+        from pathlib import Path
+
+        submitted_path = Path("/private/tmp/ashlar-runtime-probe-job.json")
+        readback_path = Path("/private/tmp/ashlar-runtime-probe-job-readback.json")
+        if not submitted_path.is_file() or not readback_path.is_file():
+            self.skipTest("Captured actual serverless Jobs probe pair is unavailable")
+        submitted = json.loads(submitted_path.read_text(encoding="utf-8"))
+        readback = json.loads(readback_path.read_text(encoding="utf-8"))
+        protocol = submitted["tasks"][0]["notebook_task"]["base_parameters"]["protocol_identity"]
+        current = build_payload(submitted["tasks"][0]["notebook_task"]["notebook_path"],
+            Path(__file__).resolve().parents[1] / "notebooks/managed_a1/runtime_probe.py",
+            int(submitted["environments"][0]["spec"]["environment_version"]),
+            submitted["run_as"]["user_name"], protocol)
+        self.assertNotIn("max_retries", current)
+        self.assertNotIn("retry_on_timeout", current)
+        self.assertEqual(current["tasks"][0]["max_retries"], 0)
+        self.assertIs(current["tasks"][0]["retry_on_timeout"], False)
+        a1_settings = _job_settings({"trial_id": "a1-readback-test",
+            "expected_principal": submitted["run_as"]["user_name"],
+            "initializer": {"timeout_seconds": 60}}, "initializer", {
+                "task": {"task_key": "initializer", "depends_on": [],
+                    "timeout_seconds": 60, "max_retries": 0, "retry_on_timeout": False,
+                    "disable_auto_optimization": True,
+                    "notebook_task": {"notebook_path": "/Workspace/initialize",
+                        "source": "WORKSPACE", "base_parameters": {"task_parameters_json": "{}"}},
+                    "environment_key": "initializer_env"},
+                "environment": {"environment_key": "initializer_env",
+                    "spec": {"environment_version": "6", "dependencies": [
+                        {"library": {"whl": "/Workspace/ashlar.whl"}}]}}})
+        self.assertNotIn("max_retries", a1_settings)
+        self.assertNotIn("retry_on_timeout", a1_settings)
+        self.assertEqual(a1_settings["tasks"][0]["max_retries"], 0)
+        self.assertIs(a1_settings["tasks"][0]["retry_on_timeout"], False)
+        self.assertIs(a1_settings["tasks"][0]["disable_auto_optimization"], True)
+        expected = copy.deepcopy(submitted)
+        expected.pop("max_retries", None)
+        expected.pop("retry_on_timeout", None)
+        expected["tasks"][0]["notebook_task"]["source"] = "WORKSPACE"
+        _admit_job_readback(readback, expected, None)
+
+        changed = copy.deepcopy(readback)
+        changed["settings"]["max_retries"] = 1
+        with self.assertRaisesRegex(ValueError, "job-level retries"):
+            _admit_job_readback(changed, expected, None)
+        changed = copy.deepcopy(readback)
+        changed["settings"]["tasks"][0]["notebook_task"]["source"] = "GIT"
+        with self.assertRaisesRegex(ValueError, "pinned serverless artifact lock"):
+            _admit_job_readback(changed, expected, None)
+        changed = copy.deepcopy(readback)
+        changed["settings"]["tasks"][0]["max_retries"] = 1
+        with self.assertRaisesRegex(ValueError, "pinned serverless artifact lock"):
+            _admit_job_readback(changed, expected, None)
+        changed = copy.deepcopy(readback)
+        changed["settings"]["tasks"][0]["existing_cluster_id"] = "shared"
+        with self.assertRaisesRegex(ValueError, "unselected task settings"):
+            _admit_job_readback(changed, expected, None)
+        changed = copy.deepcopy(readback)
+        changed["settings"]["environments"][0]["spec"]["dependencies"] = [
+            "/Volumes/client_dev/other.whl"]
+        with self.assertRaisesRegex(ValueError, "artifact locks"):
+            _admit_job_readback(changed, expected, None)
+
     def test_real_holder_settlement_matched_is_accepted_and_exact_bytes_are_checked(self):
         request, manifest, snapshot, next_checkpoint, receipt = (
             b"request", b"manifest", b"selection", b"next", b"receipt")

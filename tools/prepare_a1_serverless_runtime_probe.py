@@ -23,8 +23,6 @@ def build_payload(notebook_path: str, notebook_file: Path, environment_version: 
         "name": "ashlar-a1-serverless-runtime-probe",
         "run_as": {"user_name": principal},
         "max_concurrent_runs": 1,
-        "max_retries": 0,
-        "retry_on_timeout": False,
         "timeout_seconds": 60,
         "tasks": [{
             "task_key": "runtime_probe",
@@ -33,6 +31,7 @@ def build_payload(notebook_path: str, notebook_file: Path, environment_version: 
             "max_retries": 0,
             "retry_on_timeout": False,
             "notebook_task": {"notebook_path": notebook_path,
+                               "source": "WORKSPACE",
                                "base_parameters": {"protocol_identity": protocol_identity}},
             "environment_key": "probe_env",
         }],

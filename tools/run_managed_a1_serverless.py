@@ -159,8 +159,11 @@ def _validate_task(task: object, key: str) -> dict:
             f"{key} timeout must be finite and at most 900 seconds")
     return {"task_key": key, "depends_on": [],
             "timeout_seconds": task["timeout_seconds"], "max_retries": 0,
-            "retry_on_timeout": False, "disable_auto_optimization": True,
-            "notebook_task": {"notebook_path": task["notebook_path"],
+            "retry_on_timeout": False,
+            # Jobs serverless auto-optimization control; UC predictive optimization
+            # remains independently required to read back ENABLE on all four tables.
+            "disable_auto_optimization": True,
+            "notebook_task": {"notebook_path": task["notebook_path"], "source": "WORKSPACE",
                               "base_parameters": params},
             "environment_key": key + "_env"}
 
@@ -545,23 +548,42 @@ def _job_settings(config: dict, stage: str, task_payload: dict, *, config_key=No
         "tags": {"project": "ashlar", "purpose": "managed-current-a1",
                  "ashlar_trial_id": config["trial_id"]},
         "max_concurrent_runs": 1,
-        "max_retries": 0,
-        "retry_on_timeout": False,
         "timeout_seconds": config[config_key]["timeout_seconds"],
         "tasks": [task_payload["task"]],
         "environments": [task_payload["environment"]],
     }
 
 
-def _admit_job_readback(job: dict, expected: dict, trial_id: str) -> None:
+def _admit_job_readback(job: dict, expected: dict, trial_id: str | None) -> None:
     settings = job.get("settings")
     require(type(settings) is dict, "Jobs GET omitted settings")
-    for key in ("name", "run_as", "max_concurrent_runs", "max_retries",
-                "retry_on_timeout", "timeout_seconds"):
+    for key in ("name", "run_as", "max_concurrent_runs", "timeout_seconds"):
         require(settings.get(key) == expected[key],
                 "Jobs GET differs from submitted one-shot contract at " + key)
-    require(settings.get("tags", {}).get("ashlar_trial_id") == trial_id,
-            "Jobs GET omitted the unique A1 trial tag")
+    # Jobs v2 documents these job-level retry defaults as zero/false. Some
+    # workspace responses omit them, while others materialize the defaults.
+    require(("max_retries" not in settings or
+             type(settings["max_retries"]) is int and settings["max_retries"] == 0)
+            and ("retry_on_timeout" not in settings or
+                 settings["retry_on_timeout"] is False),
+            "Jobs GET enables job-level retries")
+    # Jobs GET materializes notification defaults, MULTI_TASK, and queue enabled
+    # even when the create payload omits them.
+    provider_defaults = {"email_notifications": {}, "format": "MULTI_TASK",
+        "queue": {"enabled": True}, "webhook_notifications": {}}
+    allowed_settings = set(expected) | set(provider_defaults) | {
+        "max_retries", "retry_on_timeout"}
+    require(set(settings).issubset(allowed_settings),
+            "Jobs GET contains unselected top-level settings")
+    for key, value in provider_defaults.items():
+        require(key not in settings or settings[key] == value,
+                "Jobs GET changed provider default at " + key)
+    if trial_id is None:
+        require(settings.get("tags") == expected.get("tags"),
+                "Jobs GET tags differ from the submitted probe lock")
+    else:
+        require(settings.get("tags", {}).get("ashlar_trial_id") == trial_id,
+                "Jobs GET omitted the unique A1 trial tag")
     require(not any(key in settings for key in ("schedule", "trigger", "triggers",
                                                   "job_clusters", "compute")),
             "A1 task must be unscheduled and serverless without classic compute")
@@ -573,19 +595,45 @@ def _admit_job_readback(job: dict, expected: dict, trial_id: str) -> None:
         key = actual.get("task_key") if type(actual) is dict else None
         require(key in expected_tasks, "Jobs GET returned an unselected A1 task")
         wanted = expected_tasks[key]
-        require(actual.get("notebook_task") == wanted["notebook_task"]
+        allowed_task_fields = set(wanted) | {"disabled", "email_notifications", "run_if"}
+        require(set(actual).issubset(allowed_task_fields),
+                "Jobs GET contains unselected task settings: " + str(key))
+        require(("disabled" not in actual or actual["disabled"] is False)
+                and ("email_notifications" not in actual or actual["email_notifications"] == {})
+                and ("run_if" not in actual or actual["run_if"] == "ALL_SUCCESS"),
+                "Jobs GET changed a documented task default: " + str(key))
+        actual_notebook = actual.get("notebook_task")
+        require(type(actual_notebook) is dict
+                and set(actual_notebook).issubset(set(wanted["notebook_task"]) | {"source"})
+                and actual_notebook.get("source", "WORKSPACE") == "WORKSPACE"
+                and {name: value for name, value in actual_notebook.items() if name != "source"}
+                    == {name: value for name, value in wanted["notebook_task"].items()
+                        if name != "source"}
                 and actual.get("environment_key") == wanted["environment_key"]
                 and actual.get("timeout_seconds") == wanted["timeout_seconds"]
-                and actual.get("max_retries", 0) == 0
-                and actual.get("retry_on_timeout", False) is False
-                and actual.get("disable_auto_optimization") is True
-                and actual.get("depends_on", []) == wanted["depends_on"]
-                and not any(field in actual for field in
-                            ("existing_cluster_id", "job_cluster_key", "new_cluster", "sql_warehouse_id")),
+                and ("max_retries" not in actual or
+                     type(actual["max_retries"]) is int and actual["max_retries"] == 0)
+                and ("retry_on_timeout" not in actual or
+                     actual["retry_on_timeout"] is False)
+                and ((wanted.get("disable_auto_optimization") is True
+                      and actual.get("disable_auto_optimization") is True)
+                     or (wanted.get("disable_auto_optimization") is not True
+                         and actual.get("disable_auto_optimization", False) is False))
+                and actual.get("depends_on", []) == wanted.get("depends_on", []),
                 "Jobs GET task differs from its pinned serverless artifact lock: " + str(key))
     envs = settings.get("environments")
-    require(type(envs) is list and {item.get("environment_key"): item for item in envs}
-            == {item["environment_key"]: item for item in expected["environments"]},
+    require(type(envs) is list and len(envs) == len(expected["environments"]),
+            "Jobs GET environment count differs from exact artifact locks")
+    normalized_envs = []
+    for item in envs:
+        require(type(item) is dict and set(item) == {"environment_key", "spec"}
+                and type(item["spec"]) is dict
+                and set(item["spec"]).issubset({"environment_version", "dependencies"}),
+                "Jobs GET environment contains unselected fields")
+        spec = dict(item["spec"])
+        spec.setdefault("dependencies", [])
+        normalized_envs.append({"environment_key": item["environment_key"], "spec": spec})
+    require(normalized_envs == expected["environments"],
             "Jobs GET environment versions/dependencies differ from exact artifact locks")
     require(job.get("run_as_user_name") == expected["run_as"]["user_name"],
             "Effective Jobs run-as principal differs from exact admission")
