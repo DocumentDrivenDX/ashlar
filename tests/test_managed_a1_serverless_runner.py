@@ -15,7 +15,7 @@ from tools.run_managed_a1_serverless import (
     _validate_ack_settlement,
     _verify_terminal_proof,
     _admit_job_readback, _job_settings,
-    _write_private_json,
+    _write_private_json, DatabricksCLI,
 )
 from ashlar_host.a1_ack_attempt import A1AckSettlement
 
@@ -81,6 +81,18 @@ class _LostRunNowAPI:
 
 
 class ManagedA1ServerlessRunnerTests(unittest.TestCase):
+    def test_workspace_exports_use_source_for_notebooks_and_auto_for_files(self):
+        calls = []
+        def fake_run(argv, **kwargs):
+            calls.append(argv)
+            return type("Completed", (), {"returncode": 0, "stderr": ""})()
+        with patch("tools.run_managed_a1_serverless.subprocess.run", fake_run):
+            cli = DatabricksCLI("aidev-cus")
+            cli.export_workspace("/Workspace/notebook", "/tmp/notebook.py", notebook=True)
+            cli.export_workspace("/Workspace/wheel.whl", "/tmp/wheel.whl", notebook=False)
+        self.assertEqual(calls[0][calls[0].index("--format") + 1], "SOURCE")
+        self.assertEqual(calls[1][calls[1].index("--format") + 1], "AUTO")
+
     def test_actual_provider_probe_readback_admits_only_documented_defaults(self):
         from tools.prepare_a1_serverless_runtime_probe import build_payload
         from pathlib import Path

@@ -351,7 +351,7 @@ class DatabricksCLI:
             raise RuntimeError("Databricks Files removal failed: " + cp.stderr.strip()[:1200])
 
     def export_workspace(self, path: str, target: str, *, notebook: bool) -> None:
-        fmt = "SOURCE" if notebook else "RAW"
+        fmt = "SOURCE" if notebook else "AUTO"
         cp = subprocess.run(["databricks", "--profile", self.profile, "workspace", "export",
                              path, "--format", fmt, "--file", target],
                             capture_output=True, text=True, check=False,
