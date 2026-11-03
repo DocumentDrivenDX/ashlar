@@ -1076,6 +1076,14 @@
       "reason": "private-cross-module",
       "owner": "ashlar_host.truss_resume_cli local runtime-holder owner",
       "removal_trigger": "Use a public validated local Spark runtime-holder API or retire this one-shot canonical qualification harness; remove only this exact entry at that change."
+    },
+    {
+      "source": "tools/managed_a1_recovery_source_bootstrap.py",
+      "target": "ashlar_host.truss053_source_custody",
+      "symbol": "_genesis_matches_with_monotonic_watermarks",
+      "reason": "private-cross-module",
+      "owner": "Truss source-custody API owner",
+      "removal_trigger": "Use a public source-custody comparison predicate or retire this one-shot recovery source helper; remove only this exact entry at that change."
     }
   ]
 }
