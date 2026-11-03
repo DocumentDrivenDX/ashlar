@@ -431,9 +431,12 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         spark, reader = self._serverless_reader()
         inventory = reader._observe_inventory()
         self.assertEqual(set(inventory), set(ROLES))
+        role = ROLES[0]
+        self.assertEqual(inventory[role]["schema"], [
+            [name, kind.lower(), nullable]
+            for name, kind, nullable in reader.carriers.ordered_fields(role)])
         self.assertTrue(any(row["data_type"] == "LONG" and row["full_data_type"] == "bigint"
                             for row in spark.information_schema_source_rows))
-        role = ROLES[0]
         name = next(field[0] for field in reader.carriers.ordered_fields(role)
                     if field[1] == "BIGINT")
         spark.full_data_type_overrides[role] = {name: "long"}

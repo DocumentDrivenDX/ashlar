@@ -815,8 +815,10 @@ class ManagedCurrentSparkReceiptReader:
                 ".".join((c.catalog, c.schema, role))) + " LIMIT 1", {}).rows
             _require(len(history) == 1)
             version = self._integer(history[0].get("version"))
-            native = {"STRING": "string", "BIGINT": "long", "BOOLEAN": "boolean", "TIMESTAMP": "timestamp"}
-            schema = [[name, native[kind], nullable] for _, name, kind, nullable in actual]
+            # Persist the same simpleString spelling emitted by the publisher's
+            # installed Spark StructType. Resolver schema JSON separately uses
+            # Spark's ``long`` spelling for signed 64-bit values.
+            schema = [[name, kind.lower(), nullable] for _, name, kind, nullable in actual]
             digest = hashlib.sha256(_native_json(detail).encode()).hexdigest()
             inventory[role] = {"name": [c.catalog, c.schema, role], "uuid": table_uuid,
                 "version": version, "schema": schema, "protocol": protocol,
