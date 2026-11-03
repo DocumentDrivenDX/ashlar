@@ -36,6 +36,13 @@ CLUSTER_OWNER_TAG = "ashlar-release"
 POLICY_ID = "001654FA4AA08D1A"
 NODE_TYPE = "Standard_D4ds_v5"
 SPARK_VERSION = "19.x-scala2.13"
+CLASSIC_REQUIREMENTS_LOCAL = Path(
+    "/private/tmp/ashlar-release-owned-wheel-cache-20261103/requirements-a1-serverless.txt")
+CLASSIC_REQUIREMENTS_REMOTE = (
+    "/Workspace/Users/erik.labianca@synaptiq.ai/"
+    ".ashlar-release-20261103/requirements-a1-serverless.txt")
+CLASSIC_REQUIREMENTS_SHA256 = (
+    "44204ac45c523a92975e2bcdda52e34cc2b9bbb89339f0bf43d1edb6dd93d6cf")
 GLOBAL_WALL_SECONDS = 900
 CLUSTER_CLEANUP_RESERVE_SECONDS = 60
 RUNNER_CLEANUP_RESERVE_SECONDS = 60
@@ -55,6 +62,33 @@ def _sha(raw: bytes) -> str:
 def _require(condition: bool, message: str) -> None:
     if not condition:
         raise Refusal(message)
+
+
+def _validate_dependency_mappings(items: list[str]) -> None:
+    _require(type(items) is list and len(items) > 0,
+             "Exact dependency wheel/constraints mappings required")
+    requirements_seen = 0
+    for item in items:
+        _require(type(item) is str and "=" in item,
+                 "Dependency mapping must be LOCAL_FILE=REMOTE_PATH")
+        local, remote = item.split("=", 1)
+        p = Path(local).resolve(strict=True)
+        _require(p.is_file() and p.suffix in (".whl", ".txt"),
+                 "Dependency must be a local wheel or constraints file")
+        # Jobs uses a requirements library value prefixed by `-r `. Validate
+        # the path after that marker, while preserving the original mapping
+        # unchanged for the config generator and launch command.
+        remote_path = remote[3:] if remote.startswith("-r ") else remote
+        _require(remote_path.startswith(("/Workspace/", "/Volumes/")),
+                 "Dependency must bind to a Workspace or Volume path")
+        if remote.startswith("-r ") or p.name == CLASSIC_REQUIREMENTS_LOCAL.name:
+            requirements_seen += 1
+            _require(remote == "-r " + CLASSIC_REQUIREMENTS_REMOTE and
+                     p == CLASSIC_REQUIREMENTS_LOCAL and
+                     _sha(p.read_bytes()) == CLASSIC_REQUIREMENTS_SHA256,
+                     "Requirements dependency differs from the exact locked artifact")
+    _require(requirements_seen == 1,
+             "Exactly one locked non-Spark requirements artifact is required")
 
 
 def _read_json(path: Path) -> dict:
@@ -568,15 +602,7 @@ def _local_preflight(args) -> tuple[dict, dict, Path, Path]:
              "Trial ID differs from the exact owner-admitted cluster specification")
     _require(args.notebook_root.startswith("/Workspace/") and
              not args.notebook_root.endswith("/"), "Workspace notebook root required")
-    _require(type(args.dependency) is list and len(args.dependency) > 0,
-             "Exact dependency wheel/constraints mappings required")
-    for item in args.dependency:
-        _require("=" in item, "Dependency mapping must be LOCAL_FILE=REMOTE_PATH")
-        local, remote = item.split("=", 1)
-        p = Path(local).resolve(strict=True)
-        _require(p.is_file() and p.suffix in (".whl", ".txt")
-                 and (remote.startswith("/Workspace/") or remote.startswith("/Volumes/")),
-                 "Dependency must bind a local wheel/constraints file to Workspace/Volume")
+    _validate_dependency_mappings(args.dependency)
     root = Path(args.output_root)
     _require(root.is_absolute() and root.parent == Path("/private/tmp")
              and not root.exists() and not root.is_symlink(),

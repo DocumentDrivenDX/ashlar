@@ -100,6 +100,8 @@ class ClassicTrialWrapperTests(unittest.TestCase):
                 "--local-receipt", str(repo_receipt), "--dependency",
                 str(dependency) + "=/Workspace/Shared/candidate.whl", "--bun", str(fake_bun),
                 "--python", str(selected_python), "--output-root", str(output_root)]
+            args.extend(["--dependency", str(trial.CLASSIC_REQUIREMENTS_LOCAL) +
+                "=-r " + trial.CLASSIC_REQUIREMENTS_REMOTE])
             with mock.patch.dict(os.environ, {"PATH": str(temp) + os.pathsep + os.environ["PATH"]}):
                 stdout = io.StringIO()
                 with contextlib.redirect_stdout(stdout):
@@ -110,6 +112,22 @@ class ClassicTrialWrapperTests(unittest.TestCase):
             self.assertEqual(result["selected_python"], str(selected_python))
             self.assertEqual(log.read_text().splitlines(), ["version"])
             self.assertFalse(output_root.exists())
+
+    def test_requirements_mapping_is_exact_and_hashed(self):
+        locked = (str(trial.CLASSIC_REQUIREMENTS_LOCAL) + "=-r " +
+                  trial.CLASSIC_REQUIREMENTS_REMOTE)
+        trial._validate_dependency_mappings([locked])
+
+        with mock.patch.object(trial, "CLASSIC_REQUIREMENTS_SHA256", "0" * 64):
+            with self.assertRaisesRegex(trial.Refusal, "exact locked artifact"):
+                trial._validate_dependency_mappings([locked])
+
+        with tempfile.TemporaryDirectory(prefix="classic-wrong-requirements-") as temp:
+            wrong = Path(temp) / trial.CLASSIC_REQUIREMENTS_LOCAL.name
+            wrong.write_bytes(trial.CLASSIC_REQUIREMENTS_LOCAL.read_bytes())
+            wrong_path = str(wrong) + "=-r " + trial.CLASSIC_REQUIREMENTS_REMOTE
+            with self.assertRaisesRegex(trial.Refusal, "exact locked artifact"):
+                trial._validate_dependency_mappings([wrong_path])
 
     def test_runner_wall_subtracts_outer_reserve_without_resetting_clock(self):
         global_deadline = 1000.0
