@@ -55,6 +55,10 @@ class Refusal(RuntimeError):
     pass
 
 
+class CreateCliPreApiRefusal(Refusal):
+    """The Databricks CLI rejected CREATE arguments before API submission."""
+
+
 def _sha(raw: bytes) -> str:
     return hashlib.sha256(raw).hexdigest()
 
@@ -220,38 +224,54 @@ def _run_process(argv: list[str], *, deadline: float,
                  interrupt_first: bool = False) -> tuple[int, bytes]:
     _require(time.monotonic() < deadline, "Global classic trial deadline expired")
     process = subprocess.Popen(argv, stdin=subprocess.DEVNULL,
-        stdout=subprocess.PIPE, stderr=subprocess.STDOUT, close_fds=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True,
         start_new_session=True, env=_closed_cli_env())
-    assert process.stdout is not None
-    fd = process.stdout.fileno()
-    os.set_blocking(fd, False)
+    assert process.stdout is not None and process.stderr is not None
     selector = selectors.DefaultSelector()
-    selector.register(fd, selectors.EVENT_READ)
-    output = bytearray()
+    buffers = {"stdout": bytearray(), "stderr": bytearray()}
+    streams = {"stdout": process.stdout, "stderr": process.stderr}
+    for name, stream in streams.items():
+        os.set_blocking(stream.fileno(), False)
+        selector.register(stream.fileno(), selectors.EVENT_READ, data=name)
     try:
-        eof = False
-        while not eof or process.poll() is None:
+        while selector.get_map() or process.poll() is None:
             remaining = deadline - time.monotonic()
             if remaining <= 0:
                 _stop_owned_process(process, interrupt_first=interrupt_first)
                 raise TimeoutError("Bounded classic trial child exceeded its deadline")
-            for _, _ in selector.select(min(0.25, remaining)):
+            for key, _ in selector.select(min(0.25, remaining)):
+                name = key.data
                 try:
-                    block = os.read(fd, 65536)
+                    block = os.read(key.fd, 65536)
                 except BlockingIOError:
                     continue
                 if not block:
-                    eof = True
                     try:
-                        selector.unregister(fd)
+                        selector.unregister(key.fd)
                     except Exception:
                         pass
-                    break
-                output.extend(block)
-                if len(output) > output_cap:
+                    continue
+                buffers[name].extend(block)
+                if sum(map(len, buffers.values())) > output_cap:
                     _stop_owned_process(process, interrupt_first=interrupt_first)
-                    raise Refusal("Child output exceeded its closed byte bound")
-        return process.returncode, bytes(output)
+                    raise Refusal("Combined child stdout/stderr exceeded its closed byte bound")
+        code = process.wait()
+        stdout = bytes(buffers["stdout"])
+        stderr = bytes(buffers["stderr"])
+        if code == 0:
+            if stderr:
+                binary = getattr(sys.stderr, "buffer", None)
+                if binary is not None:
+                    binary.write(stderr)
+                    binary.flush()
+                else:
+                    sys.stderr.write(stderr.decode("utf-8", "replace"))
+                    sys.stderr.flush()
+            return code, stdout
+        diagnostic = stdout
+        if stderr:
+            diagnostic += (b"\n[child stderr]\n" if diagnostic else b"") + stderr
+        return code, diagnostic
     except BaseException:
         if process.poll() is None:
             _stop_owned_process(process, interrupt_first=interrupt_first)
@@ -259,6 +279,7 @@ def _run_process(argv: list[str], *, deadline: float,
     finally:
         selector.close()
         process.stdout.close()
+        process.stderr.close()
         if process.poll() is None:
             _stop_owned_process(process, interrupt_first=interrupt_first)
 
@@ -549,6 +570,14 @@ def _watchdog(state_path: Path) -> int:
                     "result": {"status": "no_create_attempt", "cluster_cleanup": "not_applicable"},
                     "created_epoch_ms": int(time.time() * 1000)})
                 return 0
+            if state.get("create_api_submitted") is False:
+                _atomic_json(root / "watchdog-receipt.json", {
+                    "profile": "ashlar-managed-classic-cluster-watchdog/0.1",
+                    "trigger": "owner_process_gone" if owner_gone else "work_cutoff_reached",
+                    "result": {"status": "create_not_submitted",
+                               "create_outcome": state.get("create_outcome")},
+                    "created_epoch_ms": int(time.time() * 1000)})
+                return 0
             cluster_id = state.get("cluster_id")
             if cluster_id is None and not state.get("create_response_received"):
                 # The CREATE response can be lost while the API request is
@@ -619,11 +648,16 @@ def _create_or_find(spec: dict, create_spec_path: Path, deadline: float,
     _require(existing is None,
              "A cluster already exists with this exact nonce/owner; no create/reuse allowed")
     state["create_attempted"] = True
+    state["create_api_submitted"] = False
     state["create_attempt_epoch_ms"] = int(time.time() * 1000)
     _atomic_json(state_path, state)
     cli = _cli_path()
+    # Persist intent immediately before invoking the CLI. If the owner exits
+    # before this point, the watchdog knows no CREATE request was submitted.
+    state["create_api_submitted"] = True
+    _atomic_json(state_path, state)
     try:
-        output = _databricks("clusters", "create", SPARK_VERSION,
+        output = _databricks("clusters", "create",
             "--json", "@" + str(create_spec_path), "--no-wait", deadline=deadline)
         create_result = _parse_json_bytes(output, "clusters create")
         cluster_id = create_result.get("cluster_id")
@@ -633,6 +667,17 @@ def _create_or_find(spec: dict, create_spec_path: Path, deadline: float,
                       "create_response_received": True})
         _atomic_json(state_path, state)
     except BaseException as error:
+        message = str(error)
+        if ("when --json flag is specified, no positional arguments are allowed" in message
+                and "Provide 'spark_version' in your JSON input" in message):
+            # This exact CLI parser diagnostic occurs before the API request.
+            # Preserve it and avoid classifying the outcome as ambiguous.
+            state.update({"create_api_submitted": False,
+                "create_outcome": "pre_api_cli_argument_refusal",
+                "create_response_received": False,
+                "create_error": type(error).__name__ + ": " + message[:1200]})
+            _atomic_json(state_path, state)
+            raise CreateCliPreApiRefusal(message) from error
         # The API can commit while its response is lost. Never repeat CREATE;
         # resolve only the exact unique owner/nonce cluster before cleanup.
         state["create_response_received"] = False
@@ -749,7 +794,8 @@ def _execute(args) -> int:
         "started_epoch_ms": int(start_wall * 1000),
         "hard_deadline_mono": deadline,
         "work_cutoff_mono": cleanup_cutoff,
-        "create_attempted": False, "cluster_id": None}
+        "create_attempted": False, "create_api_submitted": False,
+        "state_path": str(state_path), "cluster_id": None}
     _write_json_new(state_path, state)
     _write_json_new(receipt_path, {"profile": "ashlar-managed-classic-a1-trial/0.1",
         "status": "running", "trial_id": args.trial_id,
@@ -771,7 +817,8 @@ def _execute(args) -> int:
     signal.setitimer(signal.ITIMER_REAL, GLOBAL_WALL_SECONDS)
     try:
         watchdog = _spawn_watchdog(state_path, root)
-        _atomic_json(state_path, {**state, "watchdog_pid": watchdog.pid})
+        state["watchdog_pid"] = watchdog.pid
+        _atomic_json(state_path, state)
         auth = _parse_json_bytes(_databricks("auth", "describe", deadline=cleanup_cutoff),
                                  "Databricks CLI auth describe")
         result["workspace_profile_host"] = _admit_profile_host(auth)
@@ -810,7 +857,7 @@ def _execute(args) -> int:
         result["error"] = {"type": type(error).__name__, "message": str(error)[:1500]}
     finally:
         cleanup_deadline = deadline
-        if state.get("create_attempted"):
+        if state.get("create_attempted") and state.get("create_api_submitted") is not False:
             cleanup = _cleanup_owned_cluster(cluster_id, spec, cleanup_deadline)
             result["cluster_cleanup"] = cleanup
             if cleanup.get("status") not in ("deleted", "no_matching_owned_cluster"):
@@ -820,6 +867,9 @@ def _execute(args) -> int:
                     "last_reconciliation": cleanup}
                 result["status"] = "failed_cleanup_incomplete"
                 keep_watchdog_for_unknown_create = True
+        elif state.get("create_outcome") == "pre_api_cli_argument_refusal":
+            result["cluster_cleanup"] = {"status": "create_not_submitted",
+                "reason": "databricks_cli_argument_parser_refusal"}
         if watchdog is not None:
             if not keep_watchdog_for_unknown_create:
                 _write_stop(root)
