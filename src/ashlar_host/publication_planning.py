@@ -38,12 +38,26 @@ def local_effect_plan(generated, prior_rows, tables, *, lookup_hash_profile='sha
                 raise ValueError('Exact generated source-qualified delete keys required')
             if typed_keys:
                 def identity(row):
-                    values=(row['source_system'],row[typed],row['id'])
-                    if any(type(value)is not str for value in values):raise ValueError('Exact prior typed-key snapshot required')
-                    try:parsed=(values[0],int(values[1]),int(values[2]))
-                    except ValueError:raise ValueError('Canonical prior typed-key snapshot required')from None
-                    if str(parsed[1])!=values[1] or str(parsed[2])!=values[2]:raise ValueError('Canonical prior typed-key snapshot required')
-                    return parsed
+                    source=row.get('source_system')
+                    if type(source)is not str:raise ValueError('Exact prior typed-key source required')
+                    parsed=[]
+                    for field in (typed,'id'):
+                        value=row.get(field)
+                        if type(value)is int:
+                            number=value
+                        elif type(value)is str:
+                            try:number=int(value)
+                            except ValueError:raise ValueError('Canonical prior typed-key snapshot required')from None
+                            if str(number)!=value:raise ValueError('Canonical prior typed-key snapshot required')
+                        else:
+                            raise ValueError('Exact prior native signed64 typed-key cell required')
+                        if not -(1<<63)<=number<(1<<63):
+                            raise ValueError('Prior typed-key cell exceeds signed64 range')
+                        parsed.append(number)
+                    return source,parsed[0],parsed[1]
+                for key in keys:
+                    if any(not -(1<<63)<=key[field]<(1<<63) for field in ('type_id','id')):
+                        raise ValueError('Generated typed key exceeds signed64 range')
                 matches = [row for row in prior_rows[role] if any(identity(row)==(k['source_system'],k['type_id'],k['id']) for k in keys)]
             else:
                 matches = [row for row in prior_rows[role] if any(((row['source_system'], row[typed], row['id']) == (k['source_system'], k['type_id'], k['id']) for k in keys))]

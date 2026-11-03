@@ -489,17 +489,19 @@ class ManagedCurrentGraphPublicationDriver:
         instant=(datetime(1970,1,1,tzinfo=timezone.utc)+timedelta(microseconds=int(clock))).isoformat()
         baseline_data_rows=self._baseline_rows() if baseline_data_rows is None else baseline_data_rows
         prior_state=empty_state() if prior_state is None else prior_state
+        lookup_hash_profile=(self.carriers.lookup_hash_profile if hasattr(self.carriers,'lookup_hash_profile')
+            else 'sha256-json-v1')
         after,generated=graph_sql_plan(prior_state,self.admission.batch,self.data_tables,
             materialized_at=instant,schema_policy=self.admission.admit,
             schema_transition_policy=self.admission.admit_transition,native_scalar_profile='typed',
-            lookup_hash_profile=self.carriers.lookup_hash_profile if hasattr(self.carriers,'lookup_hash_profile')
-                else 'sha256-json-v1')
+            lookup_hash_profile=lookup_hash_profile)
         prior_keys={'object_current':[], 'edge_current':[], 'tombstone':[], 'whole_source_history':[]}
         prior_keys['object_current']=[{'source_system':row['source_system'],'type_id':str(row['type_id']),'id':str(row['id'])}
             for row in baseline_data_rows['object_current']]
         prior_keys['edge_current']=[{'source_system':row['source_system'],'rel_type_id':str(row['rel_type_id']),'id':str(row['id'])}
             for row in baseline_data_rows['edge_current']]
-        steps,elisions=local_effect_plan(generated,prior_keys,self.data_tables)
+        steps,elisions=local_effect_plan(generated,prior_keys,self.data_tables,
+            lookup_hash_profile=lookup_hash_profile)
         # Any apply interruption stays uncertain and refuses retry; the plan
         # nevertheless retains exact per-table expected commit count and rows.
         counts={role:0 for role in self.table_roles}

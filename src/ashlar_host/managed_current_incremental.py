@@ -328,7 +328,8 @@ def prepare_incremental_page(*, admission, reader, tables, request, predecessor_
     # Elide only generated deletes whose complete page-key set has no match in
     # the exact affected-key read. Evidence names this bounded set explicitly;
     # it does not claim to hash a complete role snapshot.
-    steps, elisions = _affected_effect_plan(generated, prior_rows, tables)
+    steps, elisions = _affected_effect_plan(generated, prior_rows, tables,
+        lookup_hash_profile=lookup_hash_profile)
     fresh = [c for c in admission.changes
              if (c.feed, c.epoch, c.delivery_id) not in prior.deliveries]
     afterimages = {role: [] for role in DATA_ROLES}
@@ -385,40 +386,26 @@ def prepare_incremental_page(*, admission, reader, tables, request, predecessor_
     return body, encoded, read, after
 
 
-def _affected_effect_plan(generated, prior_rows, tables):
+def _affected_effect_plan(generated, prior_rows, tables, *, lookup_hash_profile):
+    """Select shared profile-exact deletes and retain affected-key evidence only."""
     import hashlib
-    selected = []; elisions = []
-    for ordinal, step in enumerate(generated):
-        matched_role = None; identity_field = None
-        for role, typed in (("object_current", "type_id"), ("edge_current", "rel_type_id")):
-            table = quote_table_identifier(tables[role])
-            expected_prefix = "MERGE INTO " + table + " t USING (SELECT k.* FROM (SELECT explode(from_json(:keys,'ARRAY<STRUCT<source_system:STRING,type_id:STRING,id:STRING>>')) k)) s ON t.source_system=s.source_system AND t." + typed + "=cast(s.type_id AS BIGINT) AND t.id=cast(s.id AS BIGINT) WHEN MATCHED THEN DELETE"
-            if step.get("statement") == expected_prefix:
-                matched_role, identity_field = role, typed
-                break
-        if matched_role is None:
-            selected.append(step)
-            continue
-        _require(type(step.get("parameters")) is dict and set(step["parameters"]) == {"keys"},
-                 "Exact generated affected-key delete required")
-        keys = json.loads(step["parameters"]["keys"])
-        _require(type(keys) is list and bool(keys) and all(type(key) is dict
-            and set(key) == {"source_system", "type_id", "id"}
-            and all(type(value) is str for value in key.values()) for key in keys),
-            "Exact source-qualified delete key list required")
-        match_set = {(row["source_system"], str(row[identity_field]), str(row["id"]))
-                     for row in prior_rows[matched_role]}
-        matches = [key for key in keys
-                   if (key["source_system"], key["type_id"], key["id"]) in match_set]
-        if matches:
-            selected.append(step)
-        else:
-            digest = hashlib.sha256(_canonical(sorted(
-                (_stable_native(row) for row in prior_rows[matched_role]), key=_canonical)).encode()).hexdigest()
-            elisions.append({"ordinal": ordinal, "profile": PROFILE + "/affected-key-zero-match",
-                "table": tables[matched_role], "sourceKeys": keys,
-                "observedAffectedRowsSha256": digest, "matchedRows": []})
-    return selected, elisions
+    from .publication_planning import local_effect_plan
+    stable_prior_rows={role:[_stable_native(row) for row in rows]
+                       for role,rows in prior_rows.items()}
+    selected, selected_elisions = local_effect_plan(generated, stable_prior_rows, tables,
+        lookup_hash_profile=lookup_hash_profile)
+    role_by_table={table:role for role,table in tables.items()}
+    elisions=[]
+    for item in selected_elisions:
+        role=role_by_table.get(item.get('table'))
+        _require(role in ('object_current','edge_current'),
+                 'Affected-key zero-match role must be exact')
+        digest=hashlib.sha256(_canonical(sorted(
+            (_stable_native(row) for row in prior_rows[role]),key=_canonical)).encode()).hexdigest()
+        elisions.append({'ordinal':item['ordinal'],'profile':PROFILE+'/affected-key-zero-match',
+            'table':item['table'],'sourceKeys':item['source_keys'],
+            'observedAffectedRowsSha256':digest,'matchedRows':[]})
+    return selected,elisions
 
 
 def canonical_intent(*, request, predecessor_manifest, four_role_heads, six_role_inventory,

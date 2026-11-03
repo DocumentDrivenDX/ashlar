@@ -160,6 +160,54 @@ class LocalCurrentXxhash64ProfileTests(unittest.TestCase):
                  'tombstone': 'local.trussgraph.tombstone',
                  'whole_source_history': 'local.trussgraph.whole_source_history'},
                 lookup_hash_profile='spark-xxhash64-typed-key/0.1')
+        typed_prior={'object_current':[{'source_system':'s','type_id':7,'id':11,
+            'lookup_hash':-17}], 'edge_current':[]}
+        selected,elisions=local_effect_plan([step],typed_prior,
+            {'object_current':table,'edge_current':'local.trussgraph.edge_current',
+             'tombstone':'local.trussgraph.tombstone','whole_source_history':'local.trussgraph.whole_source_history'},
+            lookup_hash_profile='spark-xxhash64-typed-key/0.1')
+        self.assertEqual(selected,[step]);self.assertEqual(elisions,[])
+        for bad in ({'source_system':'s','type_id':True,'id':11},
+                    {'source_system':'s','type_id':1<<63,'id':11}):
+            with self.assertRaises(ValueError):
+                local_effect_plan([step],{'object_current':[bad],'edge_current':[]},
+                    {'object_current':table,'edge_current':'local.trussgraph.edge_current',
+                     'tombstone':'local.trussgraph.tombstone','whole_source_history':'local.trussgraph.whole_source_history'},
+                    lookup_hash_profile='spark-xxhash64-typed-key/0.1')
+
+    def test_incremental_affected_planner_uses_shared_typed_zero_match_selection(self):
+        from ashlar_host.managed_current_incremental import _affected_effect_plan
+        table='local.trussgraph.object_current';quoted='`local`.`trussgraph`.`object_current`'
+        statement=('MERGE INTO '+quoted+" t USING (SELECT k.* FROM (SELECT explode(from_json(:keys,'"
+            +'ARRAY<STRUCT<source_system:STRING,type_id:BIGINT,id:BIGINT>>'
+            +"')) k)) s ON t.source_system=s.source_system AND t.type_id=s.type_id AND t.id=s.id WHEN MATCHED THEN DELETE")
+        step={'statement':statement,'parameters':{'keys':'[{"source_system":"s","type_id":7,"id":11}]'}}
+        tables={'object_current':table,'edge_current':'local.trussgraph.edge_current',
+            'tombstone':'local.trussgraph.tombstone','whole_source_history':'local.trussgraph.whole_source_history'}
+        empty={'object_current':[],'edge_current':[]}
+        selected,elisions=_affected_effect_plan([step],empty,tables,
+            lookup_hash_profile='spark-xxhash64-typed-key/0.1')
+        self.assertEqual(selected,[]);self.assertEqual(len(elisions),1)
+        self.assertEqual(set(elisions[0]),{'ordinal','profile','table','sourceKeys',
+            'observedAffectedRowsSha256','matchedRows'})
+        self.assertEqual(elisions[0]['profile'],
+            'ashlar-managed-current-incremental/0.1/affected-key-zero-match')
+        native_int_prior={'object_current':[{'source_system':'s','type_id':7,'id':11}],
+                          'edge_current':[]}
+        selected,elisions=_affected_effect_plan([step],native_int_prior,tables,
+            lookup_hash_profile='spark-xxhash64-typed-key/0.1')
+        self.assertEqual(selected,[step]);self.assertEqual(elisions,[])
+        from datetime import datetime,timezone
+        unrelated={'source_system':'s','type_id':99,'id':99,
+            'published_at':datetime(2026,11,3,6,0,9,790503,tzinfo=timezone.utc)}
+        selected,elisions=_affected_effect_plan([step],
+            {'object_current':[unrelated],'edge_current':[]},tables,
+            lookup_hash_profile='spark-xxhash64-typed-key/0.1')
+        self.assertEqual(selected,[]);self.assertEqual(len(elisions),1)
+        expected_digest=__import__('hashlib').sha256(
+            json.dumps([{'id':99,'published_at':'2026-11-03T06:00:09.790503+00:00',
+                'source_system':'s','type_id':99}],sort_keys=True,separators=(',',':')).encode()).hexdigest()
+        self.assertEqual(elisions[0]['observedAffectedRowsSha256'],expected_digest)
 
     def test_xxhash64_driver_refuses_other_current_truss_versions(self):
         transport=SimpleNamespace(installation_profile={
