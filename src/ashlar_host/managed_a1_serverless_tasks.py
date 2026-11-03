@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import base64
 from contextlib import contextmanager
+import datetime
+from decimal import Decimal
 import hashlib
 import json
 import os
@@ -28,6 +30,44 @@ def _need(value, message):
 def _canonical(value):
     return json.dumps(value, sort_keys=True, separators=(",", ":"),
                       ensure_ascii=False, allow_nan=False).encode("utf-8")
+
+
+def _canonical_native_metadata(value):
+    """Canonicalize UC metadata without erasing native scalar types.
+
+    DESCRIBE DETAIL/HISTORY return native datetimes (and may return decimals or
+    binary metadata).  Those values are hash inputs, so implicit ``str``
+    conversion would conflate unlike values and could discard timestamp
+    precision or timezone information.
+    """
+    def normalize(item):
+        if item is None or type(item) in (str, bool, int, float):
+            return item
+        if isinstance(item, datetime.datetime):
+            offset = item.utcoffset()
+            return {"$ashlar_native_metadata": "datetime",
+                    "isoformat": item.isoformat(timespec="microseconds"),
+                    "fold": item.fold,
+                    "tzname": item.tzname(),
+                    "utcoffset_seconds": (None if offset is None else
+                        offset.days * 86400 + offset.seconds)}
+        if isinstance(item, datetime.date):
+            return {"$ashlar_native_metadata": "date", "isoformat": item.isoformat()}
+        if isinstance(item, Decimal):
+            _need(item.is_finite(), "Finite native decimal metadata required")
+            return {"$ashlar_native_metadata": "decimal", "value": str(item)}
+        if type(item) is bytes:
+            return {"$ashlar_native_metadata": "binary",
+                    "base64": base64.b64encode(item).decode("ascii")}
+        if type(item) in (list, tuple):
+            return [normalize(value) for value in item]
+        if type(item) is dict:
+            _need(all(type(key) is str for key in item),
+                  "Native metadata map keys must be text")
+            return {key: normalize(value) for key, value in item.items()}
+        raise ValueError("Unsupported native metadata value in maintenance digest")
+
+    return _canonical(normalize(value))
 
 
 def _field(value, name):
@@ -205,7 +245,7 @@ def _maintenance_digest(spark, catalog, schema, roles, *, session=None):
               "Bounded native maintenance inventory required")
         rows.append({"role": role, "detail": detail.asDict(recursive=True),
                      "history": [item.asDict(recursive=True) for item in history]})
-    return hashlib.sha256(_canonical(rows)).hexdigest()
+    return hashlib.sha256(_canonical_native_metadata(rows)).hexdigest()
 
 
 class _GenesisOnlyManifestPolicy:

@@ -8,6 +8,7 @@ from pathlib import Path
 import tempfile
 import time
 import unittest
+from datetime import datetime, timezone
 from unittest.mock import patch
 
 from tools.run_managed_a1_serverless import (
@@ -26,7 +27,54 @@ from tools.run_managed_a1_serverless import (
 from ashlar_host.a1_ack_attempt import A1AckSettlement
 from ashlar_host.managed_a1_serverless_tasks import (
     _po_status, parse_predictive_optimization_status, _query_rows,
+    _canonical_native_metadata, _maintenance_digest,
 )
+
+
+class NativeMaintenanceDigestTests(unittest.TestCase):
+    def test_native_datetime_keeps_type_precision_and_timezone_in_digest(self):
+        instant = datetime(2026, 11, 3, 12, 13, 14, 123456, tzinfo=timezone.utc)
+        native = _canonical_native_metadata({"createdAt": instant}).decode("utf-8")
+        self.assertIn('"$ashlar_native_metadata":"datetime"', native)
+        self.assertIn("2026-11-03T12:13:14.123456+00:00", native)
+        self.assertIn('"tzname":"UTC"', native)
+        self.assertNotEqual(native, _canonical_native_metadata(
+            {"createdAt": instant.isoformat()}).decode("utf-8"))
+        self.assertNotEqual(native, _canonical_native_metadata({
+            "createdAt": instant.replace(microsecond=123455)}).decode("utf-8"))
+        with self.assertRaisesRegex(ValueError, "Unsupported native metadata"):
+            _canonical_native_metadata({"createdAt": object()})
+
+    def test_maintenance_digest_accepts_native_datetime_rows_and_is_stable(self):
+        roles = ("object_current", "edge_current", "tombstone",
+                 "whole_source_history", "publication_manifest",
+                 "publication_attempt_phase")
+        instant = datetime(2026, 11, 3, 12, 13, 14, 123456, tzinfo=timezone.utc)
+
+        class Row:
+            def __init__(self, value):
+                self.value = value
+            def asDict(self, recursive=True):
+                return dict(self.value)
+
+        class Frame:
+            def __init__(self, row):
+                self.row = row
+            def first(self):
+                return self.row
+            def collect(self):
+                return [self.row]
+
+        class Spark:
+            def sql(self, query):
+                if query.startswith("DESCRIBE DETAIL"):
+                    return Frame(Row({"id": "00000000-0000-4000-8000-000000000001",
+                                      "createdAt": instant}))
+                return Frame(Row({"timestamp": instant, "operation": "CREATE TABLE"}))
+
+        first = _maintenance_digest(Spark(), "client_dev", "trial_schema", roles)
+        second = _maintenance_digest(Spark(), "client_dev", "trial_schema", roles)
+        self.assertEqual(first, second)
 
 
 class PhaseClockTests(unittest.TestCase):
