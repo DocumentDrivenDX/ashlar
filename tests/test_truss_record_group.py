@@ -35,7 +35,7 @@ class RecordGroupTests(unittest.TestCase):
                 self.assertFalse((root/'result.json').exists())
 
     def runtime(self,*,wrong_readback=False,missing_ref=False,primary=None,cleanup_error=None,refusal=None,first_committed_replay=False):
-        contracts=ModuleType('truss.contracts');groups=ModuleType('truss.groups');truss=ModuleType('truss');psycopg=ModuleType('psycopg');calls={'apply':0,'commit':0,'close':0,'operations':None,'initial_replay':None}
+        contracts=ModuleType('truss.contracts');groups=ModuleType('truss.groups');truss=ModuleType('truss');psycopg=ModuleType('psycopg');calls={'apply':0,'commit':0,'close':0,'operations':None,'initial_replay':None,'host_timeouts':[],'settings':[]}
         def dto(module,name,fields):
             cls=make_dataclass(name,fields,frozen=True);setattr(module,name,cls);return cls
         Text=dto(contracts,'TextValue',['kind','text']);Bool=dto(contracts,'BooleanValue',['value']);Null=dto(contracts,'NullValue',[]);dto(contracts,'MapValue',['entries']);dto(contracts,'MapEntry',['key','value'])
@@ -74,12 +74,16 @@ class RecordGroupTests(unittest.TestCase):
                 return Ok(ObjectFound(obj))
             def get_edge_in_transaction(self,tx,**selection):return Ok(EdgeFound(edges[selection['edge_id']]))
         class Connection:
-            def execute(self,*args):pass
+            def execute(self,*args):calls['settings'].append(args[0])
             def commit(self):calls['commit']+=1
             def close(self):
                 calls['close']+=1
                 if cleanup_error:raise cleanup_error
-        truss.create_reference_assembly=lambda config,host:Ok(Assembly());truss.adopt_psycopg_host=lambda connection:SimpleNamespace(adopt_transaction=lambda:Ok(object()),detach=lambda:True);psycopg.connect=lambda *args,**kw:Connection()
+        truss.create_reference_assembly=lambda config,host:Ok(Assembly())
+        def adopt(connection,**kwargs):
+            calls['host_timeouts'].append(kwargs)
+            return SimpleNamespace(adopt_transaction=lambda:Ok(object()),detach=lambda:True)
+        truss.adopt_psycopg_host=adopt;psycopg.connect=lambda *args,**kw:Connection()
         return {'truss':truss,'truss.contracts':contracts,'truss.groups':groups,'psycopg':psycopg},calls
 
     def test_public_atomic_apply_readback_and_complete_original_replay(self):
@@ -87,10 +91,32 @@ class RecordGroupTests(unittest.TestCase):
             root=Path(temporary).resolve();self.fixture(root);modules,calls=self.runtime()
             with patch.dict('sys.modules',modules):result=run_create_truss_record_group_command(root/'config.json',root/'result.json')
             self.assertEqual((calls['apply'],calls['commit'],calls['close']),(2,2,1))
+            self.assertEqual(calls['host_timeouts'],[{},{}])
+            self.assertEqual([s for s in calls['settings'] if s.startswith('SET LOCAL statement_timeout')],
+                             ["SET LOCAL statement_timeout = '15000ms'"]*2)
             self.assertEqual([op.alias for op in calls['operations']],['supplier','product','link'])
             self.assertEqual(len(result['objects']),2);self.assertEqual(len(result['edges']),1)
             self.assertEqual(result['objects'][1]['values'][1][1],{'kind':'decimal','text':'12.75'})
             self.assertTrue((root/'result.json').is_file())
+
+    def test_explicit_group_timeout_aligns_sql_and_public_host(self):
+        with tempfile.TemporaryDirectory()as temporary:
+            root=Path(temporary).resolve();self.fixture(root);modules,calls=self.runtime()
+            with patch.dict('sys.modules',modules):
+                run_create_truss_record_group_command(root/'config.json',root/'result.json',
+                    group_timeout_ms=60000)
+            self.assertEqual(calls['host_timeouts'],[{'statement_timeout_ms':60000,'operation_timeout_ms':60000}]*2)
+            self.assertEqual([s for s in calls['settings'] if s.startswith('SET LOCAL statement_timeout')],
+                             ["SET LOCAL statement_timeout = '60000ms'"]*2)
+
+    def test_group_timeout_out_of_range_refuses_before_native_client(self):
+        with tempfile.TemporaryDirectory()as temporary:
+            root=Path(temporary).resolve();self.fixture(root)
+            for value in (0,60001,True):
+                with self.subTest(value=value),self.assertRaisesRegex(ValueError,'1..60000'):
+                    kwargs={'group_timeout_ms':value}
+                    run_create_truss_record_group_command(root/'config.json',root/'result.json',**kwargs)
+                self.assertFalse((root/'result.json').exists())
 
 
     def test_require_fresh_rejects_first_committed_replay_before_commit(self):

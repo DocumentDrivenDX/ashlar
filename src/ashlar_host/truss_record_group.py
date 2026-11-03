@@ -154,8 +154,11 @@ def release_report(destination: Path, raw: bytes) -> None:
     finish(primary,[lambda:os.unlink(stage)])
 
 
-def run_create_truss_record_group_command(configuration: str | Path, output: str | Path, *, require_fresh: bool = False, freeze_request_path: str | Path | None = None, schedule_sha256: str | None = None, slot: str | None = None) -> dict:
+def run_create_truss_record_group_command(configuration: str | Path, output: str | Path, *, require_fresh: bool = False, freeze_request_path: str | Path | None = None, schedule_sha256: str | None = None, slot: str | None = None, group_timeout_ms: int | None = None) -> dict:
     if type(require_fresh) is not bool:raise ValueError('Exact fresh-apply selection required')
+    if (group_timeout_ms is not None
+            and (type(group_timeout_ms)is not int or not 1<=group_timeout_ms<=60000)):
+        raise ValueError('Explicit Truss group timeout must be 1..60000 milliseconds')
     freeze_requested = freeze_request_path is not None or schedule_sha256 is not None or slot is not None
     if freeze_requested and (freeze_request_path is None or type(schedule_sha256)is not str or type(slot)is not str):
         raise ValueError('R04 request freeze path, exact schedule digest and slot must be selected together')
@@ -177,8 +180,12 @@ def run_create_truss_record_group_command(configuration: str | Path, output: str
         if snapshot(config.document_path,1048576)!=model:raise ValueError('Original group source changed')
     @contextmanager
     def interval(connection):
-        connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');connection.execute("SET LOCAL statement_timeout = '15000ms'")
-        host=adopt_psycopg_host(connection);assembly=None;primary=None
+        connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED')
+        timeout_ms = 15000 if group_timeout_ms is None else group_timeout_ms
+        connection.execute("SET LOCAL statement_timeout = '"+str(timeout_ms)+"ms'")
+        host=(adopt_psycopg_host(connection) if group_timeout_ms is None else
+            adopt_psycopg_host(connection,statement_timeout_ms=group_timeout_ms,
+                operation_timeout_ms=group_timeout_ms));assembly=None;primary=None
         try:
             tx=value(host.adopt_transaction());assembly=value(create_reference_assembly(CatalogRuntimeConfiguration(),host));yield assembly,tx
         except BaseException as error:primary=error

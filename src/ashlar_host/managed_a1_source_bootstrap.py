@@ -570,7 +570,7 @@ def bootstrap_from_private_config(config_bytes: bytes):
             freeze_path = root / "a1-truss-request-freeze.json"
             run_create_truss_record_group_command(group_path, result_path,
                 require_fresh=True, freeze_request_path=freeze_path,
-                schedule_sha256=schedule.sha256, slot="A1")
+                schedule_sha256=schedule.sha256, slot="A1", group_timeout_ms=60000)
             page = read_page(selections["A"].connection_factory,
                 a_ids["consumer_id"], maximum_bytes=1048576)
             _need(page.outcome == "transaction"
