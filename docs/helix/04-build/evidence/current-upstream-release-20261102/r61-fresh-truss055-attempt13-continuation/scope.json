@@ -47,7 +47,7 @@
     ],
     "upstream_candidate_review": "accepted",
     "worker_path": "/private/tmp/ashlar-r61-fresh-cohort-plan/tools/r61_fresh_cohort_worker.py",
-    "worker_sha256": "8d71cf5da7980720fd9ca3b1778a2c44e29bb5d2a1534d1250fed32610e3e1fa"
+    "worker_sha256": "6bdaaa47b68c497456f1c51d7f8a81f3f98b1607b58de8ca8bb500468fadbd52"
   },
   "completion_receipts": [
     "pinned attempt13 setup/failure/supervisor receipts and independent read-only source ACK reconciliation plus exact Delta manifest-row readback",
@@ -172,16 +172,16 @@
   },
   "source": {
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
-    "qualification_commit": "0dc06fea39718687c09d702d333fedec380f9d19",
+    "qualification_commit": "46d280f40fc46aad1a83d8f9aea78b1469e7c647",
     "repository": "ashlar",
     "runner_path": "tools/r61_fresh_cohort_runner.py",
-    "runner_sha256": "b87329b4a61f776e8e8cba174ddd4e83b9e89c5a442e3bf1ea35d76e896d873e",
+    "runner_sha256": "8e85cf183b852b24582a06a16553789a58cff07183c754ae41ab64cf11318904",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
     "setup_stage_sha256": "d6425948b7b84395429f5b83c624cad27843c2e1eda6af66fce16dcc71d1be89",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
     "supervisor_sha256": "c14334239d5270b92ceb9173b4b5a0275cd5efd57ce59ce67a828fe27961e13b",
     "worker_path": "tools/r61_fresh_cohort_worker.py",
-    "worker_sha256": "8d71cf5da7980720fd9ca3b1778a2c44e29bb5d2a1534d1250fed32610e3e1fa",
+    "worker_sha256": "6bdaaa47b68c497456f1c51d7f8a81f3f98b1607b58de8ca8bb500468fadbd52",
     "worktree": "/private/tmp/ashlar-r61-fresh-cohort-plan"
   },
   "status": "attempt13-continuation-origin-fixed-pending-dispatch",
