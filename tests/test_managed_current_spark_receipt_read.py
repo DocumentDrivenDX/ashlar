@@ -631,8 +631,11 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
             release.set()
 
     def test_serverless_close_timeout_uses_tag_interrupt_without_claiming_termination(self):
+        durations = []
+
         class ImmediateTimer:
-            def __init__(self, _seconds, callback):
+            def __init__(self, seconds, callback):
+                durations.append(seconds)
                 self.callback = callback
                 self.alive = False
             def start(self):
@@ -650,9 +653,40 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         with patch("ashlar_host.managed_current_spark_receipt_read.threading.Timer", ImmediateTimer):
             with self.assertRaisesRegex(ValueError, "termination was not established"):
                 reader.close()
+        self.assertEqual(durations, [20])
         self.assertEqual(len(spark.interrupt_calls), 1)
         self.assertEqual(spark.getTags(), before)
         self.assertIsNone(reader._observation.runtime_identity.get("closing"))
+
+    def test_operational_serverless_close_uses_60s_and_clips_to_task_deadline(self):
+        durations = []
+
+        class RecordingTimer:
+            def __init__(self, seconds, _callback):
+                self.seconds = seconds
+                self.alive = False
+                durations.append(seconds)
+            def start(self): pass
+            def cancel(self): pass
+            def join(self, _timeout): pass
+            def is_alive(self): return self.alive
+
+        for task_budget, expected in ((None, 60), (25, 25)):
+            spark, reader = self._serverless_reader(
+                operational_observation_stage=True)
+            reader.reopen(request_bytes=_canonical(self.request).encode(),
+                manifest_bytes=_canonical(self.manifest).encode(),
+                expected_receipt=self.receipt,
+                source_oracle=_authored_adapter_oracle(self, {}))
+            fixed_now = reader.started + 1
+            if task_budget is not None:
+                reader._serverless_task_deadline = fixed_now + task_budget
+            with patch("ashlar_host.managed_current_spark_receipt_read.time.monotonic",
+                       return_value=fixed_now), patch(
+                "ashlar_host.managed_current_spark_receipt_read.threading.Timer", RecordingTimer):
+                reader.close()
+            self.assertEqual(durations[-1], expected)
+            self.assertEqual(spark.getTags(), spark.initial_tags)
 
 
     def test_fresh_053_is_admitted_as_a_versioned_managed_reader_profile(self):

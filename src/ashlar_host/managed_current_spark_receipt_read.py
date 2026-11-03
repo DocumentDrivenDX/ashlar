@@ -1429,11 +1429,12 @@ class ManagedCurrentSparkReceiptReader:
         timeout_fired = threading.Event()
         cancellation_thread_error = []
         close_started = time.monotonic()
+        close_timeout_seconds = 60 if self.config.operational_observation_stage else 20
         self._serverless_close_deadline = min(
-            close_started + 20,
+            close_started + close_timeout_seconds,
             self.started + self.config.maximum_elapsed_seconds,
             self._serverless_task_deadline if self._serverless_task_deadline is not None
-                else close_started + 20)
+                else close_started + close_timeout_seconds)
         close_budget = self._serverless_close_deadline - close_started
         _require(close_budget > 0,
                  "Spark Connect close deadline expired before tagged cleanup")
