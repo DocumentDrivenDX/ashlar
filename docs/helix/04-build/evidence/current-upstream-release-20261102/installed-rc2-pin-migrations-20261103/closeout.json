@@ -1,0 +1,18 @@
+{
+  "cleanup": "Native receipt records closed PG context; postmaster.pid absent after context exit.",
+  "first_sandbox_attempt": "initdb refused System V shared memory before schema effects; authorized local retry outside sandbox passed.",
+  "metadata_commit": "d6e1162f",
+  "native_receipt_sha256": "9138b4d4734eed709b4ae941d2aead1032cf584827a488f97bed481dea3adb3a",
+  "packaged_migrations_equal_canonical": {
+    "01-postgresql.sql": "18f3428464b9cd5e53eb30148523cb01679c899c9baf619aff7b53bdd3a56798",
+    "03-read-guard.sql": "2375285850541023bd27ce4f8197e640c31c9c07b82a9f1e75180614670600fe",
+    "04-table-guard.sql": "690debb6483993d13ff91a516bf2fc85f611a434c91aaa488367f4bd07f7a9db",
+    "05-maintenance-quarantine.sql": "0cf3c3fe189f708fb619fa84ecd664c644ed929442c70e8cd91fbd2fc75e3280",
+    "06-availability-guard.sql": "76a361114fe92cbc9da63984d4190ef720b1576f0765fd35e60a1e0e2509ee29"
+  },
+  "scope": "Installed-wheel local PG18 two-phase pin lifecycle; no Truss, Spark, Delta, UC, source ACK or cloud action.",
+  "source_commit": "b60869ed4563eaaa2ee08f93808429382db771f5",
+  "status": "passed",
+  "wheel_sha256": "13c50bd896d255a01dccf2d7bd190dc7ac55965bfd856e7006c0de42b1a08ae4",
+  "wheel_version": "0.1.0rc2"
+}
