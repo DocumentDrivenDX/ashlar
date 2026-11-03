@@ -41,6 +41,9 @@ MIN_DRIVER_AND_CLEANUP_RESERVE_USD = 20.0
 ACK_REAP_RESERVE_SECONDS = 30
 POST_ACK_CLEANUP_RESERVE_SECONDS = 30
 A0_TO_A1_TRANSITION_TIMEOUT_SECONDS = 90
+MAX_PRIVATE_RECOVERY_ARTIFACT_BYTES = 4 * 1024 * 1024
+MAX_PRIVATE_RECOVERY_ARTIFACTS = 24
+MAX_PRIVATE_RECOVERY_BYTES = 72 * 1024 * 1024
 
 
 class AmbiguousRunSubmissionError(RuntimeError):
@@ -73,6 +76,53 @@ def _write_private_json(path: Path, value: dict) -> None:
     directory_fd = os.open(path.parent, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0))
     try: os.fsync(directory_fd)
     finally: os.close(directory_fd)
+
+
+def _record_private_artifact(recovery_root: Path, recovery_path: Path,
+                             recovery_state: dict, name: str, raw: bytes) -> dict:
+    """Persist exact bounded recovery bytes before dependent managed actions."""
+    require(type(name) is str and re.fullmatch(r"[a-z][a-z0-9_]{0,63}", name)
+            and type(raw) is bytes and len(raw) <= MAX_PRIVATE_RECOVERY_ARTIFACT_BYTES,
+            "Closed bounded private recovery artifact required")
+    artifacts = recovery_state.setdefault("private_artifacts", {})
+    if type(artifacts) is dict and name in artifacts:
+        raise FileExistsError("Private recovery artifact name is immutable")
+    require(type(artifacts) is dict and name not in artifacts
+            and len(artifacts) < MAX_PRIVATE_RECOVERY_ARTIFACTS
+            and all(type(item) is dict and type(item.get("bytes")) is int
+                    and 0 <= item["bytes"] <= MAX_PRIVATE_RECOVERY_ARTIFACT_BYTES
+                    for item in artifacts.values())
+            and sum(item["bytes"] for item in artifacts.values()) + len(raw)
+                <= MAX_PRIVATE_RECOVERY_BYTES,
+            "Private recovery artifacts exceed their bounded unique inventory")
+    if (not recovery_root.is_absolute() or recovery_root.is_symlink()
+            or recovery_root.stat().st_uid != os.getuid()
+            or recovery_root.stat().st_mode & 0o077
+            or recovery_path.parent != recovery_root):
+        raise RuntimeError("Owner-private managed recovery root required")
+    path = recovery_root / (name + ".bin")
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
+                 getattr(os, "O_NOFOLLOW", 0), 0o600)
+    try:
+        view = memoryview(raw)
+        while view:
+            count = os.write(fd, view)
+            if count <= 0:
+                raise OSError("Private recovery artifact write made no progress")
+            view = view[count:]
+        os.fsync(fd)
+    finally:
+        os.close(fd)
+    directory_fd = os.open(recovery_root, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0))
+    try:
+        os.fsync(directory_fd)
+    finally:
+        os.close(directory_fd)
+    record = {"path": str(path), "sha256": hashlib.sha256(raw).hexdigest(),
+        "bytes": len(raw)}
+    artifacts[name] = record
+    _write_private_json(recovery_path, recovery_state)
+    return record
 
 
 def _validate_holder_bootstrap_config(path: Path) -> dict:
@@ -1762,6 +1812,9 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             "genesis_bytes": len(genesis_bytes),
             "state": "source_A0_metadata_committed_and_genesis_selected"}
         _write_private_json(recovery_path, recovery_state)
+        recovery_state["source_bootstrap"]["original_a0_ab_genesis_artifact"] = (
+            _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                     "a0_original_ab_genesis", genesis_bytes))
         genesis_uri = volume_path + "/genesis.bin"
         genesis_artifact = _put_volume_bytes(api, genesis_uri, genesis_bytes)
         trial = dict(config["trial"])
@@ -1794,6 +1847,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         require(hashlib.sha256(initial_manifest).hexdigest() == init_result["manifestSha256"]
                 and len(initial_manifest) <= 4 * 1024 * 1024,
                 "Initializer exact genesis manifest digest/bound failed")
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "uc_genesis_manifest", initial_manifest)
         initial_manifest_value = json.loads(initial_manifest)
         trial["materialized_at"] = _phase_clock_after_manifest(
             trial["materialized_at"], initial_manifest_value)
@@ -1808,12 +1863,16 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         request_bytes = json.dumps(plan.request, sort_keys=True, separators=(",", ":"),
                                    ensure_ascii=False, allow_nan=False).encode("utf-8")
         publication_id = plan.publication_id
-        recovery_state["frozen_a1_request"] = {"request_sha256": hashlib.sha256(request_bytes).hexdigest(),
+        recovery_state["frozen_a0_metadata_request"] = {"request_sha256": hashlib.sha256(request_bytes).hexdigest(),
             "publication_id": publication_id}
         _write_private_json(recovery_path, recovery_state)
+        recovery_state["frozen_a0_metadata_request_artifact"] = _record_private_artifact(
+            recovery_root, recovery_path, recovery_state, "a0_frozen_request", request_bytes)
         destination_id = trial.get("destination_id", "client_dev." + trial["schema"])
         snapshot_bytes, custody_digests = holder.open_a1(
             request_bytes, publication_id, destination_id, work_deadline)
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "a0_held_source_snapshot", snapshot_bytes)
         recovery_state["source_hold"] = {"selection_sha256": hashlib.sha256(snapshot_bytes).hexdigest(),
             "selection_bytes": len(snapshot_bytes), "custody_digests": custody_digests,
             "state": "same_session_prepublication_hold_open"}
@@ -1845,11 +1904,20 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             work_deadline, cleanup_deadline=deadline, recovery_state=recovery_state,
             recovery_path=recovery_path, config_key="publisher")
         run_ids["publisher"] = publisher_id
+        publisher_result_raw = json.dumps(publisher_result, sort_keys=True,
+            separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
+        recovery_state["a0_publisher_result_artifact"] = _record_private_artifact(
+            recovery_root, recovery_path, recovery_state, "a0_publisher_result",
+            publisher_result_raw)
         _validate_task_runtime(publisher_result, config["expected_runtime"], "publisher")
         receipt, request_bytes, manifest_bytes, receipt_bytes, vector, vector_sha256 = (
             _publisher_bundle(publisher_result, "managed-current-spark:" + config["expected_principal"],
                               phase=phase))
         a0_manifest_value = json.loads(manifest_bytes)
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "a0_publication_manifest", manifest_bytes)
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "a0_destination_receipt", receipt_bytes)
         require(a0_manifest_value.get("recorded_at") == trial["materialized_at"],
                 "A0 manifest recorded_at must equal its frozen phase clock")
         require(request_bytes == json.dumps(plan.request, sort_keys=True, separators=(",", ":"),
@@ -1861,8 +1929,6 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             "manifest_sha256": hashlib.sha256(manifest_bytes).hexdigest(),
             "destination_receipt_sha256": hashlib.sha256(receipt_bytes).hexdigest(),
             "vector_sha256": vector_sha256, "runtime_identity": publisher_result["runtimeIdentity"]}
-        publisher_result_raw = json.dumps(publisher_result, sort_keys=True,
-            separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
         publisher_result_uri = volume_path + "/a0-publisher-result.json"
         publisher_result_artifact = _put_volume_bytes(api, publisher_result_uri,
                                                        publisher_result_raw)
@@ -1877,10 +1943,14 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             destination={"catalog": config["catalog"], "schema": config["schema"]},
             carrier_profile="ashlar-delta/0.4-xxhash64",
             materialization_clock_us=trial["materialized_at"], phase=phase)
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "a0_source_prefix", prefix_bytes)
         prefix_uri = volume_path + "/source-prefix.json"
         prefix_artifact = _put_volume_bytes(api, prefix_uri, prefix_bytes)
         selected_prefix_raw = json.dumps(selected_prefix, sort_keys=True,
             separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "a0_selected_prefix", selected_prefix_raw)
         selected_prefix_uri = volume_path + "/selected-prefix.json"
         selected_prefix_artifact = _put_volume_bytes(api, selected_prefix_uri,
                                                        selected_prefix_raw)
@@ -2079,6 +2149,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         task_trial["materialized_at"] = trial["materialized_at"]
         a1_snapshot_bundle_bytes = holder.advance_after_a0_ack(settlement,
             deadline=work_deadline)
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "a1_continuation_ab_genesis", a1_snapshot_bundle_bytes)
         a1_genesis_uri = volume_path + "/a1-source-bundle.bin"
         a1_genesis_artifact = _put_volume_bytes(api, a1_genesis_uri,
                                                 a1_snapshot_bundle_bytes)
@@ -2088,13 +2160,21 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         a1_plan = admit_detached_a1_plan(genesis_snapshot_bytes=a1_snapshot_bundle_bytes,
             genesis_manifest=a0_manifest_value, stream=trial["stream"],
             materialized_at=trial["materialized_at"], context=object(), continuation=True)
+        a1_publication_id = a1_plan.publication_id
         a1_request_bytes = json.dumps(a1_plan.request, sort_keys=True, separators=(",", ":"),
             ensure_ascii=False, allow_nan=False).encode("utf-8")
-        a1_publication_id = a1_plan.publication_id
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "a1_frozen_request", a1_request_bytes)
+        recovery_state["frozen_a1_request"] = {
+            "request_sha256": hashlib.sha256(a1_request_bytes).hexdigest(),
+            "publication_id": a1_publication_id}
+        _write_private_json(recovery_path, recovery_state)
         a1_snapshot_bytes, a1_custody_digests = holder.open_a1(
             a1_request_bytes, a1_publication_id, destination_id, work_deadline)
         require(len(a1_snapshot_bytes) <= 4 * 1024 * 1024,
                 "Held A1 continuation selection exceeds the durable 4 MiB bound")
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "a1_held_source_snapshot", a1_snapshot_bytes)
         from ashlar_host.truss_detached_source_snapshot_codec import decode_detached_source_snapshot
         a1_detached = decode_detached_source_snapshot(a1_snapshot_bytes)
         holder.owner.start_heartbeat()
@@ -2114,17 +2194,24 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             work_deadline, cleanup_deadline=deadline, recovery_state=recovery_state,
             recovery_path=recovery_path, config_key="publisher")
         run_ids["a1-publisher"] = a1_pub_id
+        a1_result_raw = json.dumps(a1_pub_result, sort_keys=True, separators=(",", ":"),
+            ensure_ascii=False, allow_nan=False).encode("utf-8")
+        recovery_state["a1_publisher_result_artifact"] = _record_private_artifact(
+            recovery_root, recovery_path, recovery_state, "a1_publisher_result",
+            a1_result_raw)
         _validate_task_runtime(a1_pub_result, config["expected_runtime"], "publisher")
         a1_receipt, a1_request_bytes, a1_manifest_bytes, a1_receipt_bytes, a1_vector, a1_vector_sha = (
             _publisher_bundle(a1_pub_result,
                 "managed-current-spark:" + config["expected_principal"], phase="a1"))
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "a1_publication_manifest", a1_manifest_bytes)
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "a1_destination_receipt", a1_receipt_bytes)
         require(json.loads(a1_manifest_bytes).get("recorded_at") == trial["materialized_at"],
                 "A1 manifest recorded_at must equal its frozen phase clock")
         require(a1_request_bytes == json.dumps(a1_plan.request, sort_keys=True,
             separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8"),
             "A1 publisher request differs from the exact post-A0 continuation plan")
-        a1_result_raw = json.dumps(a1_pub_result, sort_keys=True, separators=(",", ":"),
-            ensure_ascii=False, allow_nan=False).encode("utf-8")
         a1_result_uri = volume_path + "/a1-publisher-result.json"
         a1_result_artifact = _put_volume_bytes(api, a1_result_uri, a1_result_raw)
         from ashlar_host.managed_current_a1_prefix_builder import build_managed_current_a1_prefix_evidence
@@ -2135,10 +2222,14 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             destination={"catalog": config["catalog"], "schema": config["schema"]},
             carrier_profile="ashlar-delta/0.4-xxhash64",
             materialization_clock_us=trial["materialized_at"])
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "a1_source_prefix", a1_prefix)
         a1_prefix_uri = volume_path + "/a1-source-prefix.json"
         a1_prefix_artifact = _put_volume_bytes(api, a1_prefix_uri, a1_prefix)
         a1_selected_raw = json.dumps(a1_selected_prefix, sort_keys=True,
             separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
+        _record_private_artifact(recovery_root, recovery_path, recovery_state,
+                                 "a1_selected_prefix", a1_selected_raw)
         a1_selected_uri = volume_path + "/a1-selected-prefix.json"
         a1_selected_artifact = _put_volume_bytes(api, a1_selected_uri, a1_selected_raw)
         a1_bundle = _retention_bundle(trial=task_trial | {
@@ -2374,10 +2465,17 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
                 "Owned trial schema remains after cleanup")
         result["status"] = "acknowledged_and_cleaned"
         result["schema_absent_after_cleanup"] = True
+        recovery_state["pin_root"] = str(pin_root)
+        recovery_state["pin_store_retention"] = "owner_private_until_release_closeout"
+        _write_private_json(recovery_path, recovery_state)
+        result["private_recovery_evidence"] = {
+            "recovery_root": str(recovery_root),
+            "recovery_receipt": str(recovery_root / "recovery.json"),
+            "pin_store_root": str(pin_root),
+            "artifacts": dict(recovery_state.get("private_artifacts", {})),
+            "retention": "owner_private_until_release_closeout",
+        }
         trial_result.write_text(json.dumps(result, sort_keys=True, indent=2) + "\n", encoding="utf-8")
-        import shutil
-        shutil.rmtree(pin_root)
-        pin_root = None
         return result
     except BaseException:
         cleanup_evidence = recovery_state.setdefault("postgres_cleanup", [])
@@ -2451,10 +2549,16 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
         result = _launch_trial(config, payload, profile, recovery_root=recovery_root,
             recovery_state=recovery_state, start=start)
         recovery_state.update({"phase": "complete", "status": result.get("status"),
-            "known_run_ids": dict(recovery_state.get("known_run_ids", {}))})
+            "known_run_ids": dict(recovery_state.get("known_run_ids", {})),
+            "private_artifact_retention": "owner_private_until_release_closeout"})
         _write_private_json(recovery_path, recovery_state)
-        import shutil
-        shutil.rmtree(recovery_root)
+        result["private_recovery_evidence"] = {
+            "recovery_root": str(recovery_root),
+            "recovery_receipt": str(recovery_path),
+            "pin_store_root": recovery_state.get("pin_root"),
+            "artifacts": dict(recovery_state.get("private_artifacts", {})),
+            "retention": "owner_private_until_release_closeout",
+        }
         return result
     except BaseException as error:
         recovery_state.setdefault("phase", "recovery_required")

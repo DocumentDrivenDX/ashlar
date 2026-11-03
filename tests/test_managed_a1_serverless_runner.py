@@ -21,7 +21,7 @@ from tools.run_managed_a1_serverless import (
     _admit_job_readback, _job_settings,
     _write_private_json, DatabricksCLI, _admit_auth_readback_host,
     _phase_clock_after_manifest, _managed_serverless_protocol_profile,
-    _admit_owned_uc_table_inventory,
+    _admit_owned_uc_table_inventory, _record_private_artifact,
 )
 from ashlar_host.a1_ack_attempt import A1AckSettlement
 from ashlar_host.managed_a1_serverless_tasks import (
@@ -86,10 +86,16 @@ class _PinHandle:
 
 class _PinOwner:
     native_timeout_seconds = 60
-    def __init__(self): self.events = []
+    def __init__(self): self.events = []; self.handle = None
     def open_native_pin(self):
         self.events.append("open")
-        return _PinHandle(self.events)
+        self.handle = _PinHandle(self.events)
+        return self.handle
+    def close_native_pin(self, handle):
+        if handle is not self.handle:
+            raise AssertionError("Exact owned pin handle required")
+        handle.close()
+        self.handle = None
 
 
 class PredictiveOptimizationTests(unittest.TestCase):
@@ -877,6 +883,62 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
             self.assertEqual(json.loads(path.read_text()),
                              {"phase": "run_now_intent", "run_ids": {}})
             self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+
+    def test_private_recovery_artifact_is_exact_and_digest_bound(self):
+        raw = b"original A/B detached source bytes\x00with exact content"
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "private"
+            root.mkdir(mode=0o700)
+            os.chmod(root, 0o700)
+            recovery = root / "recovery.json"
+            state = {"phase": "before_verifier", "private_artifacts": {}}
+            _write_private_json(recovery, state)
+            record = _record_private_artifact(root, recovery, state,
+                                               "a0_original_ab_genesis", raw)
+            self.assertEqual(record, {"path": str(root / "a0_original_ab_genesis.bin"),
+                "sha256": hashlib.sha256(raw).hexdigest(), "bytes": len(raw)})
+            self.assertEqual(Path(record["path"]).read_bytes(), raw)
+            self.assertEqual(Path(record["path"]).stat().st_mode & 0o777, 0o600)
+            self.assertEqual(json.loads(recovery.read_text())["private_artifacts"].get(
+                "a0_original_ab_genesis"), record)
+            with self.assertRaises(FileExistsError):
+                _record_private_artifact(root, recovery, state,
+                                         "a0_original_ab_genesis", b"different")
+
+    def test_success_retains_private_recovery_artifacts_for_release_closeout(self):
+        import shutil
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "recovery"
+            def selected_temp_root(*, prefix):
+                root.mkdir(mode=0o700)
+                return str(root)
+            def fake_launch(config, payload, profile, *, recovery_root,
+                            recovery_state, start):
+                _record_private_artifact(recovery_root,
+                    recovery_root / "recovery.json", recovery_state,
+                    "a0_original_ab_genesis", b"exact genesis bytes")
+                pin_root = recovery_root / "pin-owner"
+                pin_root.mkdir(mode=0o700)
+                recovery_state["pin_root"] = str(pin_root)
+                return {"status": "acknowledged_and_cleaned"}
+            with patch("tools.run_managed_a1_serverless.tempfile.mkdtemp",
+                       side_effect=selected_temp_root), patch(
+                    "tools.run_managed_a1_serverless._launch_trial",
+                    side_effect=fake_launch):
+                result = run({"trial_id": "a1-private-retention",
+                    "host": "https://example.invalid", "maximum_wall_seconds": 10},
+                    {}, "aidev-cus", launch=True)
+            evidence = result["private_recovery_evidence"]
+            self.assertEqual(evidence["retention"], "owner_private_until_release_closeout")
+            self.assertTrue(Path(evidence["recovery_receipt"]).is_file())
+            artifact = evidence["artifacts"]["a0_original_ab_genesis"]
+            self.assertEqual(Path(artifact["path"]).read_bytes(), b"exact genesis bytes")
+            self.assertEqual(evidence["pin_store_root"], str(root / "pin-owner"))
+            self.assertTrue(Path(evidence["pin_store_root"]).is_dir())
+            self.assertEqual(json.loads(Path(evidence["recovery_receipt"]).read_text())[
+                "phase"], "complete")
+            self.assertTrue(root.is_dir())
+            shutil.rmtree(root)
 
     def test_outer_wall_deadline_writes_recovery_receipt_on_blocked_operation(self):
         def blocked(*args, **kwargs):
