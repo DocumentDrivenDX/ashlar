@@ -801,11 +801,11 @@ def _run_weft_reads(spark, state: dict, setup: dict) -> dict:
                          "response_sha256": sha(response_raw), "sql_sha256": sha(sql.encode())}
     if results["singleton"]["rows"] != [{"person_key": "p1", "person_name": "Ada"}]:
         raise RuntimeError("Native Weft singleton differs from accepted public seed source")
-    if results["grouped"]["rows"] != [{"person_key": "p1", "paths": 1, "targets": 1}]:
+    if results["grouped"]["rows"] != [{"person_key": "p1", "paths": "1", "targets": "1"}]:
         raise RuntimeError("Native Weft grouped path query differs from source-derived graph")
     return {"compiler": prepared["compiler"], "results": results,
             "source_oracle": {"singleton": ["p1", "Ada"],
-                "grouped": [{"person_key": "p1", "paths": 1, "targets": 1}]}}
+                "grouped": [{"person_key": "p1", "paths": "1", "targets": "1"}]}}
 
 
 def _seed_records() -> tuple[list, list]:
