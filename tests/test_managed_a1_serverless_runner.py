@@ -12,6 +12,7 @@ from unittest.mock import patch
 
 from tools.run_managed_a1_serverless import (
     _LocalPinStages, _recover_run_after_lost_response, _run_stage, run,
+    _put_volume_bytes,
     _validate_ack_settlement,
     _verify_terminal_proof,
     _admit_job_readback, _job_settings,
@@ -131,6 +132,41 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
             cli.export_workspace("/Workspace/wheel.whl", "/tmp/wheel.whl", notebook=False)
         self.assertEqual(calls[0][calls[0].index("--format") + 1], "SOURCE")
         self.assertEqual(calls[1][calls[1].index("--format") + 1], "AUTO")
+
+    def test_files_copy_overwrites_only_explicit_local_readback_targets(self):
+        calls = []
+        def fake_run(argv, **kwargs):
+            calls.append(argv)
+            return type("Completed", (), {"returncode": 0, "stderr": ""})()
+        with patch("tools.run_managed_a1_serverless.subprocess.run", fake_run):
+            cli = DatabricksCLI("aidev-cus")
+            cli.copy("/tmp/source", "dbfs:/Volumes/client_dev/s/a", overwrite=True)
+            cli.copy("/tmp/source", "dbfs:/Volumes/client_dev/s/b")
+        self.assertEqual(calls[0][-1], "--overwrite")
+        self.assertNotIn("--overwrite", calls[1])
+
+        class FilesCopy:
+            def __init__(self): self.remote = {}; self.calls = []
+            def copy(self, source, target, *, overwrite=False):
+                self.calls.append((source, target, overwrite))
+                if source.startswith("dbfs:"):
+                    payload = self.remote[source]
+                    if Path(target).exists() and not overwrite:
+                        return
+                    Path(target).write_bytes(payload)
+                else:
+                    if target in self.remote and not overwrite:
+                        return
+                    self.remote[target] = Path(source).read_bytes()
+        api = FilesCopy()
+        payload = b"exact genesis bytes"
+        result = _put_volume_bytes(api, "/Volumes/client_dev/ashlar_a1_x/trial/genesis.bin",
+                                   payload)
+        self.assertEqual(result["sha256"], hashlib.sha256(payload).hexdigest())
+        self.assertEqual(api.calls[0][2], False)  # immutable remote upload
+        self.assertEqual(api.calls[1][2], True)   # precreated local readback only
+        self.assertEqual(api.remote["dbfs:/Volumes/client_dev/ashlar_a1_x/trial/genesis.bin"],
+                         payload)
 
     def test_actual_provider_probe_readback_admits_only_documented_defaults(self):
         from tools.prepare_a1_serverless_runtime_probe import build_payload

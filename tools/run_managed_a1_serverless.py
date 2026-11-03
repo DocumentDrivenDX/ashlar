@@ -335,9 +335,12 @@ class DatabricksCLI:
         require(type(result) is dict, f"Databricks API {path} returned a non-object response")
         return result
 
-    def copy(self, source: str, target: str) -> None:
-        cp = subprocess.run(["databricks", "--profile", self.profile,
-                             "fs", "cp", source, target],
+    def copy(self, source: str, target: str, *, overwrite: bool = False) -> None:
+        argv = ["databricks", "--profile", self.profile,
+                "fs", "cp", source, target]
+        if overwrite:
+            argv.append("--overwrite")
+        cp = subprocess.run(argv,
                             capture_output=True, text=True, check=False,
                             timeout=self._timeout())
         if cp.returncode:
@@ -790,7 +793,10 @@ def _put_volume_bytes(api: DatabricksCLI, volume_uri: str, raw: bytes) -> dict:
         fd, check = tempfile.mkstemp(prefix="ashlar-a1-volume-readback-")
         os.close(fd)
         try:
-            api.copy("dbfs:" + volume_uri, check)
+            # mkstemp creates an empty owner-private file. Databricks fs cp
+            # otherwise treats that existing local target as a no-op, so
+            # overwrite only this freshly-created local readback target.
+            api.copy("dbfs:" + volume_uri, check, overwrite=True)
             observed = Path(check).read_bytes()
             require(observed == raw and hashlib.sha256(observed).digest()
                     == hashlib.sha256(raw).digest(),
@@ -826,7 +832,9 @@ def _check_artifact_lock(api: DatabricksCLI, config: dict) -> None:
                 if raw_path.startswith("/Workspace/"):
                     api.export_workspace(raw_path, local, notebook=False)
                 else:
-                    api.copy("dbfs:" + raw_path, local)
+                    # The local target is a new mkstemp file; replace that
+                    # empty placeholder with the downloaded immutable artifact.
+                    api.copy("dbfs:" + raw_path, local, overwrite=True)
                 actual = hashlib.sha256(Path(local).read_bytes()).hexdigest()
                 require(actual == dep["sha256"],
                         f"{name} dependency bytes differ from supplied SHA-256: {dep['path']}")
@@ -1280,7 +1288,8 @@ def _service_source_observer_rpc(api: DatabricksCLI, holder: SourceHolderIPC,
     fd, local_request = tempfile.mkstemp(prefix="ashlar-a1-source-rpc-")
     os.close(fd)
     try:
-        api.copy("dbfs:" + request_path, local_request)
+        # Replace the empty owner-private mkstemp target with the request bytes.
+        api.copy("dbfs:" + request_path, local_request, overwrite=True)
         request_raw = Path(local_request).read_bytes()
     finally:
         try: os.unlink(local_request)
