@@ -595,7 +595,8 @@ def _admit_job_readback(job: dict, expected: dict, trial_id: str | None) -> None
         key = actual.get("task_key") if type(actual) is dict else None
         require(key in expected_tasks, "Jobs GET returned an unselected A1 task")
         wanted = expected_tasks[key]
-        allowed_task_fields = set(wanted) | {"disabled", "email_notifications", "run_if"}
+        allowed_task_fields = set(wanted) | {
+            "disabled", "email_notifications", "run_if", "min_retry_interval_millis"}
         require(set(actual).issubset(allowed_task_fields),
                 "Jobs GET contains unselected task settings: " + str(key))
         require(("disabled" not in actual or actual["disabled"] is False)
@@ -615,6 +616,9 @@ def _admit_job_readback(job: dict, expected: dict, trial_id: str | None) -> None
                      type(actual["max_retries"]) is int and actual["max_retries"] == 0)
                 and ("retry_on_timeout" not in actual or
                      actual["retry_on_timeout"] is False)
+                and ("min_retry_interval_millis" not in actual or
+                     type(actual["min_retry_interval_millis"]) is int
+                     and actual["min_retry_interval_millis"] == 0)
                 and ((wanted.get("disable_auto_optimization") is True
                       and actual.get("disable_auto_optimization") is True)
                      or (wanted.get("disable_auto_optimization") is not True

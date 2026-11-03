@@ -164,6 +164,24 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "artifact locks"):
             _admit_job_readback(changed, expected, None)
 
+    def test_captured_borrowed_probe_admits_only_zero_task_retry_interval_default(self):
+        from pathlib import Path
+        actual_path = Path("/private/tmp/ashlar-runtime-probe-borrowed-job-actual.json")
+        expected_path = Path("/private/tmp/ashlar-runtime-probe-borrowed-job-expected.json")
+        if not actual_path.is_file() or not expected_path.is_file():
+            self.skipTest("Captured borrowed-session Jobs create/readback pair is unavailable")
+        actual = json.loads(actual_path.read_text(encoding="utf-8"))
+        expected = json.loads(expected_path.read_text(encoding="utf-8"))
+        _admit_job_readback(actual, expected, None)
+        changed = copy.deepcopy(actual)
+        changed["settings"]["tasks"][0]["min_retry_interval_millis"] = 1
+        with self.assertRaisesRegex(ValueError, "pinned serverless artifact lock"):
+            _admit_job_readback(changed, expected, None)
+        changed = copy.deepcopy(actual)
+        changed["settings"]["tasks"][0]["min_retry_interval_millis"] = False
+        with self.assertRaisesRegex(ValueError, "pinned serverless artifact lock"):
+            _admit_job_readback(changed, expected, None)
+
     def test_real_holder_settlement_matched_is_accepted_and_exact_bytes_are_checked(self):
         request, manifest, snapshot, next_checkpoint, receipt = (
             b"request", b"manifest", b"selection", b"next", b"receipt")
