@@ -10,7 +10,7 @@
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
     "setup_stage_sha256": "d6425948b7b84395429f5b83c624cad27843c2e1eda6af66fce16dcc71d1be89",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
-    "supervisor_sha256": "f5bd260314ac3d4a9185a0cd076ea9781a289145aa03cf881cba86ba49dabf11",
+    "supervisor_sha256": "c7d51306b598b3c7db17db6155757e2dfaefb6d2fd5d14081b8d3a6e55c0b3ea",
     "worker_sha256": "a07f79dddd9e2a34ec3614a66e0742e0d8b439af04fee437701da3cea66e9c20",
     "worker_path": "tools/r61_fresh_cohort_worker.py",
     "qualification_commit": "13b6ff46"

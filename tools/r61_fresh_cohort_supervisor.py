@@ -490,7 +490,7 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
     if artifacts.get("upstream_candidate_review") != "accepted":
         missing.append("accepted_upstream_candidate_review")
     if artifacts.get("upstream_candidate_commits") != [
-            "0f109814091aa6da54f4278e7683a8c82338dd93"]:
+            "ea4248833bfacc59dca056ef51cfc1565dd3c74e"]:
         raise RuntimeError("reviewed upstream candidate commit differs")
     for candidate_commit in artifacts["upstream_candidate_commits"]:
         integrated = subprocess.run(["git", "merge-base", "--is-ancestor", candidate_commit, "HEAD"],
