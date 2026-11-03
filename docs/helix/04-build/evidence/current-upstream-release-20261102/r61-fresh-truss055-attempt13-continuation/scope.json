@@ -47,7 +47,7 @@
     ],
     "upstream_candidate_review": "accepted",
     "worker_path": "/private/tmp/ashlar-r61-fresh-cohort-plan/tools/r61_fresh_cohort_worker.py",
-    "worker_sha256": "6bdaaa47b68c497456f1c51d7f8a81f3f98b1607b58de8ca8bb500468fadbd52"
+    "worker_sha256": "84d443d1a79c9e832258159849e9ae3411ff18207182ecd5ce2a665154b87362"
   },
   "completion_receipts": [
     "retained attempt13 setup, A0 ACK/readback, seed group, seed publication, deferred ACK, source page and native readback hashes",
