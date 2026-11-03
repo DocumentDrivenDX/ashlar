@@ -121,7 +121,16 @@ def preflight() -> dict:
             "source_page": Path(resume["source_page_path"]),
             "ack_reconciliation": Path(resume["ack_reconciliation_receipt"]),
             "manifest_readback": Path(resume["manifest_readback_receipt"]),
+            "origin_file": Path(resume["origin_path"]),
         }
+        prior_root = Path(resume["prior_continuation_root"])
+        if prior_root != attempt / "continuation" or not prior_root.is_dir() or prior_root.is_symlink():
+            raise RuntimeError("exact retained attempt13 continuation root required")
+        inputs.update({
+            "prior_worker_failure": prior_root / "worker-failure.json",
+            "prior_supervisor_result": prior_root / "supervisor-result.json",
+            "prior_seed_group_config": prior_root / "seed-group.json",
+        })
         for name, path in inputs.items():
             if (not path.is_absolute() or path.is_symlink() or not path.is_file()
                     or hashlib.sha256(path.read_bytes()).hexdigest() != resume["input_sha256"].get(name)):
@@ -131,6 +140,9 @@ def preflight() -> dict:
         source_page = json.loads(inputs["source_page"].read_text())
         ack_proof = json.loads(inputs["ack_reconciliation"].read_text())
         manifest_proof = json.loads(inputs["manifest_readback"].read_text())
+        prior_failure = json.loads(inputs["prior_worker_failure"].read_text())
+        prior_supervisor = json.loads(inputs["prior_supervisor_result"].read_text())
+        prior_seed_config = json.loads(inputs["prior_seed_group_config"].read_text())
         if (failure.get("source_ack_attempted") is not True
                 or failure.get("delta_write_state") != "confirmed_catalog_genesis_publication"
                 or ack_proof.get("source_api_outcome") != "matched"
@@ -164,6 +176,20 @@ def preflight() -> dict:
                 or manifest_proof.get("mismatched_fields") != []
                 or manifest_proof.get("manifest_row_matches_retained_bytes") is not True):
             raise RuntimeError("retained genesis publication/ACK proofs are incomplete")
+        if (prior_failure.get("failure_type") != "ValueError"
+                or prior_failure.get("failure") != "Original canonical file required"
+                or prior_failure.get("spark_started") is not False
+                or prior_failure.get("postgres_closed") is not True
+                or prior_supervisor.get("status") != "failed_worker"
+                or prior_supervisor.get("cleanup", {}).get("process_group_empty") is not True
+                or prior_supervisor.get("postgres_cleanup", {}).get("postgres_closed") is not True
+                or prior_seed_config.get("origin_path") != str(prior_root / "origin.json")
+                or (prior_root / "seed-group-result.json").exists()
+                or any((prior_root / name).exists() for name in (
+                    "seed-continuation-config.json", "seed-continuation-result.json",
+                    "continuation-group.json", "continuation-group-result.json",
+                    "continuation-config.json", "continuation-result.json"))):
+            raise RuntimeError("prior continuation failure does not prove pre-transaction refusal")
         for name in ("seed-group.json", "seed-group-result.json", "seed-continuation-config.json",
                      "seed-continuation-result.json", "continuation-group.json",
                      "continuation-group-result.json", "continuation-config.json",

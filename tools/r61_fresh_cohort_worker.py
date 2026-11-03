@@ -362,7 +362,18 @@ def _resume_genesis_inputs(scope: dict) -> tuple[dict, dict, dict, dict]:
         "source_page": Path(resume["source_page_path"]),
         "ack_reconciliation": Path(resume["ack_reconciliation_receipt"]),
         "manifest_readback": Path(resume["manifest_readback_receipt"]),
+        "origin_file": Path(resume["origin_path"]),
     }
+    prior_root = Path(resume.get("prior_continuation_root", ""))
+    if prior_root != attempt / "continuation":
+        raise RuntimeError("exact prior attempt13 continuation root required")
+    if not prior_root.is_dir() or prior_root.is_symlink() or prior_root.resolve() != prior_root:
+        raise RuntimeError("canonical prior continuation attempt root required")
+    expected_files.update({
+        "prior_worker_failure": prior_root / "worker-failure.json",
+        "prior_supervisor_result": prior_root / "supervisor-result.json",
+        "prior_seed_group_config": prior_root / "seed-group.json",
+    })
     for key, path in expected_files.items():
         if (not path.is_absolute() or path.is_symlink() or not path.is_file()
                 or sha(path.read_bytes()) != resume["input_sha256"][key]):
@@ -371,6 +382,9 @@ def _resume_genesis_inputs(scope: dict) -> tuple[dict, dict, dict, dict]:
     supervisor = json.loads(expected_files["supervisor_result"].read_text())
     ack_proof = json.loads(expected_files["ack_reconciliation"].read_text())
     manifest_proof = json.loads(expected_files["manifest_readback"].read_text())
+    prior_failure = json.loads(expected_files["prior_worker_failure"].read_text())
+    prior_supervisor = json.loads(expected_files["prior_supervisor_result"].read_text())
+    prior_seed_config = json.loads(expected_files["prior_seed_group_config"].read_text())
     if (failure.get("source_ack_attempted") is not True
             or failure.get("delta_write_state") != "confirmed_catalog_genesis_publication"
             or supervisor.get("status") != "failed_worker"
@@ -391,6 +405,21 @@ def _resume_genesis_inputs(scope: dict) -> tuple[dict, dict, dict, dict]:
             or manifest_proof.get("mismatched_fields") != []
             or manifest_proof.get("manifest_row_matches_retained_bytes") is not True):
         raise RuntimeError("Retained A0 publication/ACK read-only proof is incomplete")
+    if (prior_failure.get("status") != "failed"
+            or prior_failure.get("failure_type") != "ValueError"
+            or prior_failure.get("failure") != "Original canonical file required"
+            or prior_failure.get("spark_started") is not False
+            or prior_failure.get("postgres_closed") is not True
+            or prior_supervisor.get("status") != "failed_worker"
+            or prior_supervisor.get("cleanup", {}).get("process_group_empty") is not True
+            or prior_supervisor.get("postgres_cleanup", {}).get("postgres_closed") is not True
+            or prior_seed_config.get("origin_path") != str(prior_root / "origin.json")
+            or (prior_root / "seed-group-result.json").exists()
+            or any((prior_root / name).exists() for name in (
+                "seed-continuation-config.json", "seed-continuation-result.json",
+                "continuation-group.json", "continuation-group-result.json",
+                "continuation-config.json", "continuation-result.json"))):
+        raise RuntimeError("Prior continuation refusal does not prove pre-transaction cleanup")
     output_root = Path(scope["fresh_local_state"]["root"])
     _validate_supervisor_precreated_root(
         output_root, Path(scope["fresh_local_state"]["evidence_root"]))
@@ -422,15 +451,19 @@ def _resume_genesis_inputs(scope: dict) -> tuple[dict, dict, dict, dict]:
             or manifest_proof.get("manifest_sha256") != resume["manifest_sha256"]
             or ack.get("acknowledgement") != "deferred_not_attempted"):
         raise RuntimeError("Retained A0 source page/manifest identity differs")
+    origin = expected_files["origin_file"]
+    if (not origin.is_absolute() or origin.resolve() != origin or origin.is_symlink()
+            or not origin.is_file()):
+        raise RuntimeError("Retained original canonical file path is unavailable")
     return setup, ack, page, ack_proof
 
 
 def _group_config(path: Path, output: Path, *, uri: str, records: list,
-                  edges: list, key: str) -> dict:
+                  edges: list, key: str, origin_path: Path | None = None) -> dict:
     value = {"profile": "ashlar-truss-record-group/0.1", "connection_uri": uri,
         "bun": os.environ["R61_BUN_EXECUTABLE"], "document_path": str(MODEL),
         "document_revision": "r1", "document_id": "ashlar-local-dev-typed-graph-r21-20261101",
-        "source_version": "0.10.0", "origin_path": str(ROOT / "origin.json"),
+        "source_version": "0.10.0", "origin_path": str(origin_path or ROOT / "origin.json"),
         "request_key": key, "records": records, "edges": edges}
     path.write_bytes(canonical(value) + b"\n")
     os.chmod(path, 0o600)
@@ -586,10 +619,12 @@ def run() -> dict:
     root = ROOT
     if resume_mode:
         setup, resume_ack_file, resume_source_page, resume_ack_proof = _resume_genesis_inputs(scope)
+        canonical_origin = Path(scope["resume_after_genesis"]["origin_path"])
         EFFECTS["delta_write_state"] = "retained_catalog_genesis_publication"
         EFFECTS["source_ack_attempted"] = True
         EFFECTS["source_ack_state"] = "previously_reconciled_matched"
     else:
+        canonical_origin = root / "origin.json"
         EFFECTS["postgres_start_attempted"] = True
         setup = run_fresh_truss_setup_stage(root=root,
             bun=Path(artifacts["bun_executable"]),
@@ -786,7 +821,8 @@ def run() -> dict:
         group_records, group_edges = _seed_records()
         seed_config = root / "seed-group.json"
         _group_config(seed_config, root / "seed-group-result.json", uri=source_uri,
-                      records=group_records, edges=group_edges, key="ashlar-r61-seed-seven")
+                      records=group_records, edges=group_edges, key="ashlar-r61-seed-seven",
+                      origin_path=canonical_origin)
         run_create_truss_record_group_command(seed_config, root / "seed-group-result.json", require_fresh=True)
         phase_receipts.append({"phase": "seven_operation_public_seed", "records": 4,
                                "edges": 3, "event_count": 7,
@@ -863,7 +899,8 @@ def run() -> dict:
                for alias, name in (("p4", "Di"), ("p5", "Eve"))]
         cont_config = root / "continuation-group.json"
         _group_config(cont_config, root / "continuation-group-result.json", uri=source_uri,
-                      records=two, edges=[], key="ashlar-r61-continuation-two")
+                      records=two, edges=[], key="ashlar-r61-continuation-two",
+                      origin_path=canonical_origin)
         run_create_truss_record_group_command(cont_config, root / "continuation-group-result.json", require_fresh=True)
         phase_receipts.append({"phase": "two_record_continuation", "records": 2,
                                "edges": 0, "event_count": 2,
