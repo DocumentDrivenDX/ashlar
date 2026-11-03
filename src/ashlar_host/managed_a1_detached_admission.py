@@ -34,7 +34,8 @@ def _continuation_expected_a_cursor(genesis_snapshot_bytes):
           and 0 < len(genesis_snapshot_bytes) <= 4 * 1024 * 1024,
           "Bounded detached A/B continuation package required")
     try:
-        package = json.loads(genesis_snapshot_bytes.decode("utf-8"))
+        from ashlar.schema import decode_retained_json
+        package = decode_retained_json(genesis_snapshot_bytes)
         sources = package["sources"]
         if type(sources) is not list or len(sources) != 2:
             raise ValueError("exact A/B source list required")
@@ -49,10 +50,9 @@ def _continuation_expected_a_cursor(genesis_snapshot_bytes):
         prior_bytes = base64.b64decode(prior_b64, validate=True)
         if base64.b64encode(prior_bytes).decode("ascii") != prior_b64:
             raise ValueError("canonical prior cursor encoding required")
-        cursor_doc = json.loads(prior_bytes.decode("utf-8"))
-        from .r04_schedule import canonical
-        if type(cursor_doc) is not dict or canonical(cursor_doc) != prior_bytes:
-            raise ValueError("canonical prior cursor document required")
+        cursor_doc = decode_retained_json(prior_bytes)
+        if type(cursor_doc) is not dict:
+            raise ValueError("prior cursor object required")
         next_xid = cursor_doc["nextXid"]
     except (UnicodeError, ValueError, KeyError, TypeError) as error:
         raise ValueError("Exact A1 continuation prior cursor is required") from error

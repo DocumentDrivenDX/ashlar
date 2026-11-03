@@ -148,11 +148,22 @@ class DetachedA1GenesisCodecTests(unittest.TestCase):
         source_a = value["sources"][0]
         prior = json.loads(base64.b64decode(source_a["page"]["prior_bytes_base64"]))
         prior["nextXid"] = "759"
-        prior_bytes = canonical(prior)
+        prior_bytes = __import__("json").dumps(prior, ensure_ascii=False).encode("utf-8")
         source_a["page"]["prior_bytes_base64"] = base64.b64encode(prior_bytes).decode()
         body = {key: item for key, item in value.items() if key != "binding_sha256"}
         raw = canonical({**body, "binding_sha256": hashlib.sha256(canonical(body)).hexdigest()})
+        self.assertIn(b': ', prior_bytes)
         self.assertEqual(_continuation_expected_a_cursor(raw), "759")
+
+        duplicate_cursor = json.loads(raw)
+        duplicate_cursor_bytes = b'{"nextXid": "759", "nextXid": "760"}'
+        duplicate_cursor["sources"][0]["page"]["prior_bytes_base64"] = \
+            base64.b64encode(duplicate_cursor_bytes).decode()
+        body = {key: item for key, item in duplicate_cursor.items() if key != "binding_sha256"}
+        duplicate_cursor_raw = canonical({**body,
+            "binding_sha256": hashlib.sha256(canonical(body)).hexdigest()})
+        with self.assertRaisesRegex(ValueError, "prior cursor"):
+            _continuation_expected_a_cursor(duplicate_cursor_raw)
 
         duplicate = json.loads(raw)
         duplicate["sources"][1]["source"] = "A"
