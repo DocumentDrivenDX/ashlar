@@ -525,9 +525,8 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         stages = _LocalPinStages(owner, lifetime_seconds=60)
         stages("open")
         stages("pre_ack")
-        stages("close")
-        self.assertEqual(owner.events, ["open", "renew", "renew"])
-        self.assertEqual(stages.stages, ["open", "pre_ack", "close"])
+        self.assertEqual(owner.events, ["open", "renew"])
+        self.assertEqual(stages.stages, ["open", "pre_ack"])
         self.assertIsNotNone(stages.handle)
         stages.renew_for_ack()
         self.assertEqual(owner.events[-1], "renew")
@@ -535,10 +534,68 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Post-ACK close observation"):
             stages("open")
         stages("close")
+        self.assertEqual(stages.stages, ["open", "pre_ack", "close"])
         stages.renew_after_post_ack_observation()
         stages.close_after_ack()
         self.assertEqual(owner.events[-1], "close")
         self.assertIsNone(stages.handle)
+
+    def test_parent_composes_exact_pre_ack_and_post_ack_observations(self):
+        from tools.run_managed_a1_serverless import _compose_operational_interval
+        interval_id = "3c9ca5c5-a1e8-4990-b7dd-f7b405f014c8"
+        vector_targets = {role: {"uuid": "uuid-" + role, "version": 4}
+            for role in ("object_current", "edge_current", "tombstone", "whole_source_history")}
+        custody = {name: ("a" if name == "source_registration" else "b") * 64
+            for name in ("source_registration", "consumer_registration", "cursor",
+                         "destination_registration", "ack_scope", "checkpoint",
+                         "current_page", "retained_page")}
+        retention = {role: {"data_retention_seconds": 604800,
+                            "log_retention_seconds": 604800}
+            for role in ("object_current", "edge_current", "tombstone", "whole_source_history")}
+        bags = {role: {"row_count": 1, "normalized_bytes": 16,
+                       "comparison_sha256": "c" * 64}
+            for role in ("object_current", "edge_current", "tombstone", "whole_source_history")}
+        def item(stage, wrapper):
+            return {"stage": stage, "elapsed_seconds": 0.1,
+                "vector_targets": vector_targets, "source_custody_digests": custody,
+                "retention_settings": retention, "predictive_optimization": "ENABLE",
+                "maintenance_inventory_sha256": "d" * 64,
+                "row_count": 4, "normalized_bytes": 64, "role_comparisons": bags,
+                "comparison_sha256": "e" * 64, "session_wrapper_id": wrapper,
+                "runtime_identity": {"runtimeName": "databricks-serverless",
+                                     "sparkApplicationId": "per-task"}}
+        anchors = {"request_sha256": "1" * 64, "manifest_sha256": "2" * 64,
+            "destination_receipt_sha256": "3" * 64, "vector_sha256": "4" * 64,
+            "runtime_identity": {"opening": {"runtimeName": "databricks-serverless"},
+                                 "closing": {"runtimeName": "databricks-serverless"}}}
+        pre_observation = {"profile": "ashlar-managed-operational-retention-pre-ack/0.1",
+            "interval_id": interval_id, "outcome": "pre_ack_checks_complete_close_pending",
+            "authority": "read_observation_only_no_source_ack", "maximum_elapsed_seconds": 900,
+            "observations": [item("open", "wrapper-open"), item("pre_ack", "wrapper-pre")]}
+        close_observation = {"profile": "ashlar-managed-operational-retention/0.1",
+            "interval_id": interval_id, "outcome": "observed_available_at_close",
+            "authority": "read_observation_only_no_source_ack", "maximum_elapsed_seconds": 900,
+            "observations": [item("close", "wrapper-close")]}
+        pre = {**anchors, "outcome": "pre_ack_checks_complete", "interval_id": interval_id,
+            "managed_observation": pre_observation, "result_sha256": "5" * 64,
+            "run_id": "11", "task_id": "12"}
+        close = {**anchors, "outcome": "post_ack_close_observed", "interval_id": interval_id,
+            "managed_observation": close_observation, "result_sha256": "6" * 64,
+            "run_id": "21", "task_id": "22"}
+        receipt, proof = _compose_operational_interval(pre, close,
+            interval_started=100.0, pre_ack_received=160.0, close_received=240.0,
+            interval_id=interval_id)
+        self.assertEqual([row["stage"] for row in receipt["observations"]],
+                         ["open", "pre_ack", "close"])
+        self.assertEqual([row["elapsed_seconds"] for row in receipt["observations"]],
+                         [60.0, 60.0, 140.0])
+        self.assertEqual(receipt["interval_id"], interval_id)
+        self.assertEqual(proof["outcome"], "durably_verified")
+        with self.assertRaisesRegex(ValueError, "do not form one exact"):
+            _compose_operational_interval(pre,
+                {**close, "interval_id": "6f422776-87bf-4a1e-9bd7-01fbe5591373"},
+                interval_started=100.0, pre_ack_received=160.0, close_received=240.0,
+                interval_id=interval_id)
 
     def test_post_ack_close_requires_its_own_terminal_native_proof(self):
         request, manifest, receipt = b"request", b"manifest", b"receipt"
@@ -571,7 +628,7 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
             "vector": vector}
         proof = _verify_terminal_proof(output, 10, 11, request, manifest, receipt,
             "a" * 64, vector, phase="a0", observation_phase="post_ack_close")
-        self.assertEqual(proof["outcome"], "durably_verified")
+        self.assertEqual(proof["outcome"], "post_ack_close_observed")
         with self.assertRaisesRegex(ValueError, "wrong source-ACK observation phase"):
             _verify_terminal_proof(output, 10, 11, request, manifest, receipt,
                 "a" * 64, vector, phase="a0", observation_phase="pre_ack")
@@ -585,6 +642,47 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Independent verifier managed observations"):
             _verify_terminal_proof(output, 10, 11, request, manifest, receipt,
                 "a" * 64, vector, phase="a0", observation_phase="post_ack_close")
+
+    def test_pre_ack_terminal_task_proof_is_partial_and_requires_same_interval_id(self):
+        request, manifest, receipt = b"request", b"manifest", b"receipt"
+        interval_id = "3c9ca5c5-a1e8-4990-b7dd-f7b405f014c8"
+        vector = {"authority": "managed-current-spark:owner",
+            "scope_kind": "publication", "scope_id": "pub-1",
+            "custody_digest": "f" * 64,
+            "targets": {role: ["uuid-" + role, 1] for role in (
+                "object_current", "edge_current", "tombstone", "whole_source_history")}}
+        targets = {role: {"uuid": item[0], "version": item[1]}
+                   for role, item in vector["targets"].items()}
+        observation = {"profile": "ashlar-managed-operational-retention-pre-ack/0.1",
+            "interval_id": interval_id, "outcome": "pre_ack_checks_complete_close_pending",
+            "authority": "read_observation_only_no_source_ack",
+            "maximum_elapsed_seconds": 900,
+            "observations": [{"stage": stage, "predictive_optimization": "ENABLE",
+                "session_ownership_profile": "databricks-serverless-provided-task-session/0.1",
+                "task_session_scope_id": "same-verifier-task-scope",
+                "session_wrapper_id": "wrapper-" + stage,
+                "vector_targets": targets} for stage in ("open", "pre_ack")]}
+        observation_raw = json.dumps(observation, sort_keys=True,
+            separators=(",", ":")).encode()
+        output = {"profile": "ashlar-managed-a1-verifier-result/0.1",
+            "phase": "a0", "observationPhase": "pre_ack",
+            "runtimeIdentity": {"opening": {}, "closing": {}},
+            "predictiveOptimization": "ENABLE", "managedObservation": observation,
+            "managedObservationSha256": hashlib.sha256(observation_raw).hexdigest(),
+            "requestSha256": hashlib.sha256(request).hexdigest(),
+            "manifestSha256": hashlib.sha256(manifest).hexdigest(),
+            "destinationReceiptSha256": hashlib.sha256(receipt).hexdigest(),
+            "vector": vector}
+        proof = _verify_terminal_proof(output, 10, 11, request, manifest, receipt,
+            "a" * 64, vector, phase="a0", observation_phase="pre_ack",
+            interval_id=interval_id)
+        self.assertEqual(proof["outcome"], "pre_ack_checks_complete")
+        self.assertEqual([item["stage"] for item in proof["managed_observation"]["observations"]],
+                         ["open", "pre_ack"])
+        with self.assertRaisesRegex(ValueError, "exact publication vector"):
+            _verify_terminal_proof(output, 10, 11, request, manifest, receipt,
+                "a" * 64, vector, phase="a0", observation_phase="pre_ack",
+                interval_id="6f422776-87bf-4a1e-9bd7-01fbe5591373")
 
     def test_lost_run_now_response_recovers_unique_run_from_fresh_job(self):
         api = _RunsAPI([{"runs": [{"run_id": 418, "job_id": 7,

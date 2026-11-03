@@ -106,6 +106,24 @@ class ManagedOperationalReadPort:
                 "Managed opening observation refused") from error
         return ManagedOperationalReadHandle(interval, clock=self.clock)
 
+    def observe_pre_ack(self, receipt_bytes: bytes, vector: PinVector,
+                        context: object, *, interval_id: str):
+        """Complete open/pre-ACK checks; a parent must later add close after ACK."""
+        if (self._opened or type(receipt_bytes) is not bytes
+                or receipt_bytes != self.selection.receipt_bytes
+                or type(vector) is not PinVector or vector != self.selection.vector
+                or context is not self.context):
+            raise ManagedOperationalReadPortError(
+                "Exact selected receipt bytes, PinVector and caller context required")
+        self._opened = True
+        try:
+            return OperationalRetentionInterval.observe_pre_ack(
+                self.selection, self.session_factory, self.source_observer,
+                self.policy_observer, interval_id=interval_id, clock=self.clock)
+        except OperationalRetentionIntervalError as error:
+            raise ManagedOperationalReadPortError(
+                "Managed open and pre-ACK observations refused") from error
+
 
 class ManagedOperationalReadPinHandle:
     """Coordinate read observations with live native pin custody.

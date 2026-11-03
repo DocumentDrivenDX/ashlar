@@ -91,6 +91,7 @@ class ManagedCurrentSparkReceiptConfig:
     maximum_result_bytes: int = 1048576
     carrier_profile: str = CARRIER_PROFILE_LEGACY
     execution_profile: str = "classic_jobs_cluster"
+    operational_observation_stage: bool = False
 
     def __post_init__(self):
         _require(type(self.catalog) is str and _IDENT.fullmatch(self.catalog)
@@ -105,6 +106,9 @@ class ManagedCurrentSparkReceiptConfig:
                  and self.expected_runtime.get("schema") == self.schema
                  and self.expected_runtime.get("protocol") == self.protocol_profile.identity
                  and self.execution_profile in ("classic_jobs_cluster", "serverless_connect")
+                 and type(self.operational_observation_stage) is bool
+                 and (not self.operational_observation_stage
+                      or self.execution_profile == "serverless_connect")
                  and self.expected_runtime.get("runtimeName") == (
                      "databricks-serverless" if self.execution_profile == "serverless_connect"
                      else "databricks-jobs-cluster")
@@ -941,6 +945,10 @@ class ManagedCurrentSparkReceiptReader:
                     else:
                         raise ValueError("Unsupported managed-current projection type")
                 normalized.append(item)
+            # The native query is deliberately unordered. Keep multiplicity,
+            # but canonicalize the bag before hashing so repeated exact-version
+            # observations do not depend on Spark's row-return order.
+            normalized.sort(key=_canonical)
             actual[role] = normalized
             total_rows += len(normalized)
             total_bytes += len(_canonical(normalized).encode("utf-8"))
@@ -1238,11 +1246,16 @@ class ManagedCurrentSparkReceiptReader:
                  "Closing native resolver differs from exact four-role publication")
         oracle = selected["source_oracle"]
         if oracle is not None:
-            comparison, summary = self._read_and_compare_source_bags(
-                oracle, request, manifest, versions, role_tables)
-            _require(comparison == self._observation.bag_comparison_sha256
-                     and summary == self._observation.bag_comparison_summary,
-                     "Closing source-derived data witness changed")
+            if self.config.operational_observation_stage:
+                _require(self._observation.bag_comparison_sha256 is not None
+                         and type(self._observation.bag_comparison_summary) is dict,
+                         "Exact source-derived bag comparison required before the operational close bookend")
+            else:
+                comparison, summary = self._read_and_compare_source_bags(
+                    oracle, request, manifest, versions, role_tables)
+                _require(comparison == self._observation.bag_comparison_sha256
+                         and summary == self._observation.bag_comparison_summary,
+                         "Closing source-derived data witness changed")
 
     def _close_serverless(self):
         _require(self._serverless_tag is not None and not self._serverless_tag.closed,

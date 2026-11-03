@@ -366,7 +366,8 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         return self.reader.reopen(request_bytes=_canonical(self.request).encode(),
             manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=receipt or self.receipt)
 
-    def _serverless_reader(self, *, interrupt_result=None):
+    def _serverless_reader(self, *, interrupt_result=None,
+                           operational_observation_stage=False):
         runtime = {"runtimeName": "databricks-serverless", "sparkVersion": "4.2.0",
             "sparkBuildText": "Spark build", "runtimeTag": "serverless-4.2.0",
             "principal": self.config.expected_principal, "catalog": self.config.catalog,
@@ -375,7 +376,8 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
             self.config.catalog, self.config.schema, self.config.expected_principal,
             self.config.expected_table_owner, self.config.source_truss_version,
             self.config.protocol_profile, runtime,
-            carrier_profile=self.config.carrier_profile)
+            carrier_profile=self.config.carrier_profile,
+            operational_observation_stage=operational_observation_stage)
         spark = _SparkConnect(self.manifest, self.receipt, self.uuids,
             interrupt_result=interrupt_result)
         return spark, ManagedCurrentSparkServerlessReceiptReader(spark, selected)
@@ -458,6 +460,7 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
                 prefix_sha="c" * 64, selected_prefix={}, source_snapshot=b"snapshot",
                 custody_digests={})
         self.assertEqual(type(bundle.selection.reader_config), ManagedCurrentSparkServerlessReceiptConfig)
+        self.assertTrue(bundle.selection.reader_config.operational_observation_stage)
         _, managed_manifest, managed_receipt, managed_uuids, _ = _fixture(
             carrier_profile=CARRIER_PROFILE_XXHASH64)
         spark = _SparkConnect(managed_manifest, managed_receipt, managed_uuids)
@@ -754,6 +757,53 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         self.assertEqual(len(closing_data_sql), 8)
         self.assertEqual(observation.runtime_identity["closing"]["sessionTimeZone"], "UTC")
         self.assertEqual(self.reader._approved_data_queries, set())
+
+    def test_operational_reader_stage_does_one_full_bag_and_fresh_resolver_close(self):
+        oracle = _authored_adapter_oracle(self, {})
+        spark, reader = self._serverless_reader(operational_observation_stage=True)
+        try:
+            observation = reader.reopen(request_bytes=_canonical(self.request).encode(),
+                manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+                source_oracle=oracle)
+            self.assertRegex(observation.bag_comparison_sha256, r"^[0-9a-f]{64}$")
+            self.assertEqual(sum("LIMIT 1025" in sql for sql in spark.calls), 4)
+            reader.close()
+            self.assertEqual(sum("LIMIT 1025" in sql for sql in spark.calls), 4)
+            manifest_reads = [sql for sql in spark.calls
+                if "publication_manifest` WHERE publication_id" in sql]
+            self.assertGreaterEqual(len(manifest_reads), 2)
+            self.assertTrue(any("VERSION AS OF" in sql for sql in spark.calls
+                                if "publication_attempt_phase` VERSION AS OF" in sql))
+        finally:
+            if not reader.closed:
+                reader._serverless_tag.close()
+
+    def test_exact_version_bag_digest_is_stable_under_native_row_reordering(self):
+        role = "object_current"
+        first_row = _native_test_row(self.reader.carriers, role, "first")
+        second_row = _native_test_row(self.reader.carriers, role, "second")
+        expected_rows = {name: [] for name in ("object_current", "edge_current",
+                                                "tombstone", "whole_source_history")}
+        expected_rows[role] = [first_row, second_row]
+        oracle = _authored_adapter_oracle(self, expected_rows)
+        first_spark, first_reader = self._serverless_reader(
+            operational_observation_stage=True)
+        first_spark.role_rows[role] = [first_row, second_row]
+        first = first_reader.reopen(request_bytes=_canonical(self.request).encode(),
+            manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+            source_oracle=oracle)
+        first_reader.close()
+
+        second_spark, second_reader = self._serverless_reader(
+            operational_observation_stage=True)
+        second_spark.role_rows[role] = [second_row, first_row]
+        second = second_reader.reopen(request_bytes=_canonical(self.request).encode(),
+            manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+            source_oracle=oracle)
+        second_reader.close()
+        self.assertEqual(first.bag_comparison_sha256, second.bag_comparison_sha256)
+        self.assertEqual(first.bag_comparison_summary["roles"][role]["comparison_sha256"],
+                         second.bag_comparison_summary["roles"][role]["comparison_sha256"])
 
     def test_close_repeats_source_derived_witness_and_refuses_data_drift(self):
         oracle = _authored_adapter_oracle(self, {})
@@ -1228,6 +1278,41 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
                          [("policy", "close", 4)])
         self.assertEqual([event for event in self.events if event[0] == "source"],
                          [("source", "close")])
+
+    def test_parent_interval_uuid_spans_nonterminal_pre_ack_and_post_ack_close(self):
+        context = object()
+        interval_id = "3c9ca5c5-a1e8-4990-b7dd-f7b405f014c8"
+        port = ManagedOperationalReadPort(self.selection, self.session_factory,
+            self.source_observer, self.policy_observer, context=context)
+        pre_ack = port.observe_pre_ack(self.selection.receipt_bytes,
+            self.selection.vector, context, interval_id=interval_id)
+        self.assertEqual(pre_ack.profile,
+            "ashlar-managed-operational-retention-pre-ack/0.1")
+        self.assertEqual(pre_ack.outcome, "pre_ack_checks_complete_close_pending")
+        self.assertEqual(pre_ack.interval_id, interval_id)
+        self.assertEqual([item.stage for item in pre_ack.observations], ["open", "pre_ack"])
+        self.assertEqual([item.stage for item in self.sessions], ["open", "pre_ack"])
+        self.assertTrue(all(item.closed for item in self.sessions))
+        with self.assertRaisesRegex(ManagedOperationalReadPortError, "Exact selected"):
+            port.observe_pre_ack(self.selection.receipt_bytes,
+                self.selection.vector, context, interval_id=interval_id)
+
+        close = OperationalRetentionInterval.observe_close_only(self.selection,
+            self.session_factory, self.source_observer, self.policy_observer,
+            interval_id=interval_id)
+        self.assertEqual(close.profile, "ashlar-managed-operational-retention/0.1")
+        self.assertEqual(close.outcome, "observed_available_at_close")
+        self.assertEqual(close.interval_id, interval_id)
+        self.assertEqual([item.stage for item in close.observations], ["close"])
+        self.assertEqual([item.stage for item in self.sessions], ["open", "pre_ack", "close"])
+
+    def test_noncanonical_parent_interval_uuid_refuses_before_any_observation(self):
+        with self.assertRaisesRegex(OperationalRetentionIntervalError,
+                                    "Canonical parent-owned operational interval UUID"):
+            OperationalRetentionInterval.observe_pre_ack(self.selection,
+                self.session_factory, self.source_observer, self.policy_observer,
+                interval_id="not-a-uuid")
+        self.assertEqual(self.sessions, [])
 
     def test_serverless_interval_allows_only_same_task_borrowed_session_wrappers(self):
         from ashlar_host.managed_a1_serverless_tasks import _ServerlessSessionFactory

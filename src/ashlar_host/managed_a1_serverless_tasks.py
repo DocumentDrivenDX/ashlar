@@ -524,7 +524,8 @@ def verifier_task(spark, parameters):
     from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
     from .managed_a1_detached_admission import admit_detached_a1_plan
 
-    required = {"trial", "protocol_profile", "phase", "post_ack_close", "genesis_volume_uri", "genesis_sha256",
+    required = {"trial", "protocol_profile", "phase", "post_ack_close", "operational_interval_id",
+        "genesis_volume_uri", "genesis_sha256",
         "genesis_manifest_volume_uri", "genesis_manifest_sha256",
         "a1_snapshot_volume_uri", "a1_snapshot_sha256", "publisher_result_volume_uri",
         "publisher_result_sha256", "prefix_volume_uri", "prefix_sha256",
@@ -537,6 +538,8 @@ def verifier_task(spark, parameters):
     _need(phase in ("a0", "a1"), "Explicit A0 metadata or A1 semantic phase required")
     _need(type(parameters["post_ack_close"]) is bool,
           "Explicit verifier pre-ACK or post-ACK close-only mode required")
+    _need(type(parameters["operational_interval_id"]) is str,
+          "Parent-owned operational interval identifier required")
     protocol = _protocol_profile(parameters["protocol_profile"])
     task_scope_id = uuid.uuid4().hex
     task_deadline = time.monotonic() + trial["verifier_timeout_seconds"] - 5
@@ -596,7 +599,8 @@ def verifier_task(spark, parameters):
         expected_runtime=trial["expected_runtime"],
         maximum_elapsed_seconds=300, maximum_statements=128,
         maximum_rows=1024, maximum_result_bytes=4 * 1024 * 1024,
-        carrier_profile=CARRIER_PROFILE_XXHASH64)
+        carrier_profile=CARRIER_PROFILE_XXHASH64,
+        operational_observation_stage=True)
     core_config = ManagedCurrentTrialConfig(
         catalog=trial["catalog"], schema=trial["schema"], stream=trial["stream"],
         predecessor=plan.predecessor.manifest["publication_id"],
@@ -634,13 +638,13 @@ def verifier_task(spark, parameters):
         bundle.vector, task_scope_id=task_scope_id, deadline_monotonic=task_deadline)
     if parameters["post_ack_close"]:
         interval = OperationalRetentionInterval.observe_close_only(
-            selection, session_factory, source_observer, policy_observer)
+            selection, session_factory, source_observer, policy_observer,
+            interval_id=parameters["operational_interval_id"])
     else:
         read_port = ManagedOperationalReadPort(selection, session_factory,
             source_observer, policy_observer, context=context)
-        handle = read_port.open(bundle.destination_receipt_bytes, bundle.vector, context)
-        handle.renew()
-        interval = handle.close()
+        interval = read_port.observe_pre_ack(bundle.destination_receipt_bytes,
+            bundle.vector, context, interval_id=parameters["operational_interval_id"])
     closing_session = BorrowedServerlessTaskSession(spark, stage="environment_close",
         task_session_scope_id=task_scope_id, deadline_monotonic=task_deadline)
     try:

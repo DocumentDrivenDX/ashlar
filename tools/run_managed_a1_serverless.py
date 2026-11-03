@@ -21,6 +21,7 @@ import tempfile
 import threading
 import time
 import signal
+import uuid
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -1208,7 +1209,8 @@ def _retention_bundle(*, trial, protocol_profile, plan, request_bytes,
         protocol_profile=selected_protocol_profile,
         expected_runtime=trial["expected_runtime"], maximum_elapsed_seconds=300,
         maximum_statements=128, maximum_rows=1024, maximum_result_bytes=4 * 1024 * 1024,
-        carrier_profile=CARRIER_PROFILE_XXHASH64)
+        carrier_profile=CARRIER_PROFILE_XXHASH64,
+        operational_observation_stage=True)
     cost = trial["cost"]
     core = ManagedCurrentTrialConfig(catalog=trial["catalog"], schema=trial["schema"],
         stream=trial["stream"], predecessor=plan.predecessor.manifest["publication_id"],
@@ -1264,6 +1266,7 @@ class _LocalPinStages:
                     "Post-ACK close observation requires the retained pin")
             self.handle.renew()
             self.post_ack_observations += 1
+            self.stages.append("close")
             return
         if stage == "open":
             require(self.handle is None and not self.stages,
@@ -1274,20 +1277,18 @@ class _LocalPinStages:
                     "Native A1 pin pre-ACK renewal must follow its opening")
             self.handle.renew()
         else:
-            require(self.handle is not None and self.stages == ["open", "pre_ack"],
-                    "Native A1 pin close must follow open and pre-ACK")
-            self.handle.renew()
+            require(False, "Native A1 close observation is reserved for the post-ACK window")
         self.stages.append(stage)
 
     def renew_for_ack(self):
-        require(self.handle is not None and self.stages == ["open", "pre_ack", "close"],
-                "Native A1 pin must survive all three verifier stages before source ACK")
+        require(self.handle is not None and self.stages == ["open", "pre_ack"],
+                "Native A1 pin must survive open and pre-ACK verifier stages before source ACK")
         self.handle.renew()
 
     def begin_post_ack_observation(self):
         require(self.handle is not None and not self.post_ack_window
-                and self.stages == ["open", "pre_ack", "close"],
-                "Post-ACK close observation requires the retained pre-ACK pin")
+                and self.stages == ["open", "pre_ack"],
+                "Post-ACK close observation requires the retained open/pre-ACK pin")
         self.post_ack_window = True
         self.post_ack_observations = 0
 
@@ -1315,7 +1316,8 @@ def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
                            request_bytes: bytes, manifest_bytes: bytes,
                            receipt_bytes: bytes, vector_sha256: str,
                            vector_wire: dict, *, phase: str,
-                           observation_phase="pre_ack") -> dict:
+                           observation_phase="pre_ack",
+                           interval_id: str | None = None) -> dict:
     require(set(output) == {"profile", "runtimeIdentity", "predictiveOptimization",
                             "managedObservation", "managedObservationSha256",
                             "requestSha256", "manifestSha256", "phase", "observationPhase",
@@ -1333,8 +1335,14 @@ def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
     observation = output["managedObservation"]
     observations = observation.get("observations") if type(observation) is dict else None
     close_only = observation_phase == "post_ack_close"
-    expected_stages = ["close"] if close_only else ["open", "pre_ack", "close"]
-    expected_outcome = "observed_available_at_close" if close_only else "observed_available_at_checks"
+    expected_stages = ["close"] if close_only else ["open", "pre_ack"]
+    expected_outcome = ("observed_available_at_close" if close_only else
+                        "pre_ack_checks_complete_close_pending")
+    from ashlar_host.managed_operational_retention_interval import (
+        PRE_ACK_PROOF_PROFILE,
+    )
+    expected_profile = ("ashlar-managed-operational-retention/0.1" if close_only
+                        else PRE_ACK_PROOF_PROFILE)
     from ashlar_host.managed_current_spark_receipt_read import SERVERLESS_TASK_SESSION_OWNERSHIP
     session_scopes = ([item.get("task_session_scope_id") for item in observations]
                       if type(observations) is list else [])
@@ -1348,9 +1356,10 @@ def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
             and output["vector"] == vector_wire
             and output["managedObservationSha256"] == hashlib.sha256(observation_raw).hexdigest()
             and type(observation) is dict
-            and observation.get("profile") == "ashlar-managed-operational-retention/0.1"
+            and observation.get("profile") == expected_profile
             and observation.get("outcome") == expected_outcome
             and observation.get("authority") == "read_observation_only_no_source_ack"
+            and (interval_id is None or observation.get("interval_id") == interval_id)
             and type(observation.get("observations")) is list
             and [item.get("stage") for item in observation["observations"]]
                 == expected_stages
@@ -1368,10 +1377,108 @@ def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
             "Independent verifier managed observations differ from exact publication vector or PO state")
     return {"profile": "ashlar-managed-a1-verifier-terminal-success/0.1",
         "run_id": str(run_id), "task_id": str(task_run_id), "terminal": True,
-        "status": "SUCCEEDED", "outcome": "durably_verified",
+        "status": "SUCCEEDED",
+        "outcome": "post_ack_close_observed" if close_only else "pre_ack_checks_complete",
         "request_sha256": request_sha, "manifest_sha256": manifest_sha,
         "destination_receipt_sha256": receipt_sha, "vector_sha256": vector_sha256,
+        "interval_id": observation.get("interval_id"),
+        "managed_observation": observation,
+        "runtime_identity": output["runtimeIdentity"],
         "result_sha256": hashlib.sha256(observation_raw).hexdigest()}
+
+
+def _compose_operational_interval(pre_ack_proof: dict, close_proof: dict, *,
+                                  interval_started: float, pre_ack_received: float,
+                                  close_received: float, interval_id: str) -> tuple[dict, dict]:
+    """Compose two pre-ACK witnesses and the post-ACK close into one interval.
+
+    The child task's local elapsed values do not span separate Jobs runs. The
+    parent therefore records conservative monotonic receipt-time upper bounds:
+    each observation happened before its task result was received.
+    """
+    pre = pre_ack_proof.get("managed_observation")
+    close = close_proof.get("managed_observation")
+    require(pre_ack_proof.get("outcome") == "pre_ack_checks_complete"
+            and close_proof.get("outcome") == "post_ack_close_observed"
+            and pre_ack_proof.get("interval_id") == interval_id
+            and close_proof.get("interval_id") == interval_id
+            and pre_ack_proof.get("request_sha256") == close_proof.get("request_sha256")
+            and pre_ack_proof.get("manifest_sha256") == close_proof.get("manifest_sha256")
+            and pre_ack_proof.get("destination_receipt_sha256") ==
+                close_proof.get("destination_receipt_sha256")
+            and pre_ack_proof.get("vector_sha256") == close_proof.get("vector_sha256")
+            and pre_ack_proof.get("runtime_identity") == close_proof.get("runtime_identity")
+            and type(pre) is dict and type(close) is dict
+            and pre.get("profile") ==
+                "ashlar-managed-operational-retention-pre-ack/0.1"
+            and pre.get("outcome") == "pre_ack_checks_complete_close_pending"
+            and close.get("profile") == "ashlar-managed-operational-retention/0.1"
+            and close.get("outcome") == "observed_available_at_close"
+            and pre.get("interval_id") == interval_id
+            and close.get("interval_id") == interval_id
+            and pre.get("authority") == close.get("authority") ==
+                "read_observation_only_no_source_ack"
+            and pre.get("maximum_elapsed_seconds") == close.get("maximum_elapsed_seconds") == 900
+            and [item.get("stage") for item in pre.get("observations", [])] == ["open", "pre_ack"]
+            and [item.get("stage") for item in close.get("observations", [])] == ["close"],
+            "Pre-ACK and post-ACK close proofs do not form one exact three-stage interval")
+    require(interval_started <= pre_ack_received <= close_received
+            and 0 <= close_received - interval_started <= 900,
+            "Parent monotonic operational interval exceeded its 900-second bound")
+    observations = json.loads(json.dumps(pre["observations"] + close["observations"]))
+    pre_bound = pre_ack_received - interval_started
+    close_bound = close_received - interval_started
+    for item in observations[:2]:
+        item["elapsed_seconds"] = pre_bound
+    observations[2]["elapsed_seconds"] = close_bound
+    for previous, current in zip(observations, observations[1:]):
+        require(previous["elapsed_seconds"] <= current["elapsed_seconds"],
+                "Parent monotonic interval bounds are out of stage order")
+    expected_targets = observations[0]["vector_targets"]
+    expected_source = observations[0]["source_custody_digests"]
+    expected_policy = (observations[0]["retention_settings"],
+        observations[0]["predictive_optimization"],
+        observations[0]["maintenance_inventory_sha256"])
+    expected_bags = (observations[0]["row_count"], observations[0]["normalized_bytes"],
+        observations[0]["role_comparisons"], observations[0]["comparison_sha256"])
+    expected_reader_runtime = {key: value for key, value in
+        observations[0]["runtime_identity"].items() if key != "sparkApplicationId"}
+    require(all(item["vector_targets"] == expected_targets
+                and item["source_custody_digests"] == expected_source
+                and (item["retention_settings"], item["predictive_optimization"],
+                     item["maintenance_inventory_sha256"]) == expected_policy
+                and (item["row_count"], item["normalized_bytes"],
+                     item["role_comparisons"], item["comparison_sha256"]) == expected_bags
+                and {key: value for key, value in
+                    item["runtime_identity"].items() if key != "sparkApplicationId"}
+                    == expected_reader_runtime
+                for item in observations),
+            "Operational interval stage observations differ in exact vector, source, policy or row bags")
+    require(len({item["session_wrapper_id"] for item in observations}) == 3
+            and all(item["predictive_optimization"] == "ENABLE" for item in observations),
+            "Three distinct full-bag verifier stages with PO ENABLE are required")
+    final = {"profile": "ashlar-managed-operational-retention/0.1",
+        "interval_id": interval_id, "outcome": "observed_available_at_checks",
+        "authority": "read_observation_only_no_source_ack",
+        "maximum_elapsed_seconds": 900, "observations": observations}
+    final_raw = json.dumps(final, sort_keys=True, separators=(",", ":"),
+        ensure_ascii=False, allow_nan=False).encode("utf-8")
+    proof = {"profile": "ashlar-managed-a1-verifier-terminal-success/0.1",
+        "terminal": True, "status": "SUCCEEDED", "outcome": "durably_verified",
+        "interval_id": interval_id,
+        "pre_ack_run_id": pre_ack_proof["run_id"],
+        "pre_ack_task_id": pre_ack_proof["task_id"],
+        "post_ack_close_run_id": close_proof["run_id"],
+        "post_ack_close_task_id": close_proof["task_id"],
+        "request_sha256": pre_ack_proof["request_sha256"],
+        "manifest_sha256": pre_ack_proof["manifest_sha256"],
+        "destination_receipt_sha256": pre_ack_proof["destination_receipt_sha256"],
+        "vector_sha256": pre_ack_proof["vector_sha256"],
+        "pre_ack_task_result_sha256": pre_ack_proof["result_sha256"],
+        "post_ack_close_task_result_sha256": close_proof["result_sha256"],
+        "elapsed_bounds_basis": "parent_monotonic_task_result_receipt_upper_bound/0.1",
+        "result_sha256": hashlib.sha256(final_raw).hexdigest()}
+    return final, proof
 
 
 def _validate_ack_settlement(settlement, *, request_bytes: bytes,
@@ -1517,7 +1624,8 @@ def _run_post_ack_close(api, config, verifier_payload, parameters, deadline, *,
     _validate_task_runtime(output, config["expected_runtime"], "verifier")
     proof = _verify_terminal_proof(output, run_id, task_run_id, request_bytes,
         manifest_bytes, receipt_bytes, vector_sha256, vector, phase=phase,
-        observation_phase="post_ack_close")
+        observation_phase="post_ack_close",
+        interval_id=parameters.get("operational_interval_id"))
     pin_stages.renew_after_post_ack_observation()
     return run_id, task_run_id, output, proof
 
@@ -1805,13 +1913,16 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             lifetime_seconds=pin_native_timeout)
         result["local_pin_owner"] = pin_registration
         rpc_dir = volume_path
+        phase_interval_id = str(uuid.uuid4())
+        phase_interval_started = time.monotonic()
         verify_params = dict(common)
         verify_params.update({"publisher_result_volume_uri": publisher_result_uri,
             "publisher_result_sha256": publisher_result_artifact["sha256"],
             "prefix_volume_uri": prefix_uri, "prefix_sha256": prefix_artifact["sha256"],
             "selected_prefix_volume_uri": selected_prefix_uri,
             "selected_prefix_sha256": selected_prefix_artifact["sha256"],
-            "source_rpc_directory": rpc_dir, "post_ack_close": False})
+            "source_rpc_directory": rpc_dir, "post_ack_close": False,
+            "operational_interval_id": phase_interval_id})
         verifier_id, verifier_task_id, _, verifier_result = _run_stage(api, config,
             "a0-verifier", payload["verifier"], {"task_parameters_json": json.dumps(
                 verify_params, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},
@@ -1822,18 +1933,24 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             recovery_path=recovery_path, config_key="verifier")
         run_ids["verifier"] = verifier_id
         _validate_task_runtime(verifier_result, config["expected_runtime"], "verifier")
+        pre_ack_received = time.monotonic()
         holder.renew(work_deadline)
-        require(pin_stages.stages == ["open", "pre_ack", "close"]
+        require(pin_stages.stages == ["open", "pre_ack"]
                 and pin_stages.handle is not None,
-                "Local native pin interval did not complete all three managed observer stages")
+                "Local native pin must remain live after open and pre-ACK observations")
         proof = _verify_terminal_proof(verifier_result, verifier_id, verifier_task_id,
             request_bytes, manifest_bytes, receipt_bytes, vector_sha256, vector,
-            phase=phase)
-        result["verifier_terminal_proof"] = proof
+            phase=phase, observation_phase="pre_ack", interval_id=phase_interval_id)
+        result["verifier_pre_ack_proof"] = proof
         result["verifier"] = {"run_id": verifier_id, "task_run_id": verifier_task_id,
             "result_sha256": proof["result_sha256"],
             "runtime_identity": verifier_result["runtimeIdentity"],
             "predictive_optimization": verifier_result["predictiveOptimization"]}
+        recovery_state["retention_interval"] = {"interval_id": phase_interval_id,
+            "pre_ack_result_sha256": proof["result_sha256"],
+            "pre_ack_received_elapsed_upper_bound_seconds":
+                pre_ack_received - phase_interval_started}
+        _write_private_json(recovery_path, recovery_state)
 
         require(deadline - time.monotonic() >= config["cleanup_reserve_seconds"],
                 "Do not bind or ACK without the full remaining ACK/reap/cleanup reserve")
@@ -1895,7 +2012,19 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             holder=holder, rpc_dir=rpc_dir, custody_digests=custody_digests,
             pin_stages=pin_stages, recovery_state=recovery_state,
             recovery_path=recovery_path)
+        final_interval, terminal_proof = _compose_operational_interval(
+            proof, close_proof, interval_started=phase_interval_started,
+            pre_ack_received=pre_ack_received, close_received=time.monotonic(),
+            interval_id=phase_interval_id)
         run_ids["a0-post-ack-close"] = close_id
+        result["verifier_terminal_proof"] = terminal_proof
+        result["operational_interval"] = final_interval
+        recovery_state["retention_interval"].update({
+            "post_ack_close_result_sha256": close_proof["result_sha256"],
+            "final_interval": final_interval,
+            "terminal_proof": terminal_proof,
+        })
+        _write_private_json(recovery_path, recovery_state)
         pin_stages.close_after_ack()
         pin_owner.__exit__(None, None, None)
         recovery_state["pin_postgres_cleanup"] = _cleanup_pin_pgdata(
@@ -1919,6 +2048,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             "vector_sha256": vector_sha256,
             "publisher_run_id": publisher_id, "verifier_run_id": verifier_id,
             "post_ack_close_run_id": close_id, "post_ack_close_proof": close_proof,
+            "operational_interval": final_interval,
+            "terminal_proof": terminal_proof,
             "settlement": {"outcome": settlement.outcome,
                 "selection_sha256": settlement.selection_sha256}}
 
@@ -2019,13 +2150,16 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         pin_owner.__enter__()
         result["a1_local_pin_owner"] = pin_owner.register()
         pin_stages = _LocalPinStages(pin_owner, lifetime_seconds=a1_pin_timeout)
+        a1_interval_id = str(uuid.uuid4())
+        a1_interval_started = time.monotonic()
         a1_verify_params = dict(a1_common)
         a1_verify_params.update({"publisher_result_volume_uri": a1_result_uri,
             "publisher_result_sha256": a1_result_artifact["sha256"],
             "prefix_volume_uri": a1_prefix_uri, "prefix_sha256": a1_prefix_artifact["sha256"],
             "selected_prefix_volume_uri": a1_selected_uri,
             "selected_prefix_sha256": a1_selected_artifact["sha256"],
-            "source_rpc_directory": rpc_dir, "post_ack_close": False})
+            "source_rpc_directory": rpc_dir, "post_ack_close": False,
+            "operational_interval_id": a1_interval_id})
         a1_ver_id, a1_ver_task_id, _, a1_ver_result = _run_stage(api, config,
             "a1-verifier", payload["verifier"], {"task_parameters_json": json.dumps(
                 a1_verify_params, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},
@@ -2036,12 +2170,19 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             recovery_path=recovery_path, config_key="verifier")
         run_ids["a1-verifier"] = a1_ver_id
         _validate_task_runtime(a1_ver_result, config["expected_runtime"], "verifier")
+        a1_pre_ack_received = time.monotonic()
         holder.renew(work_deadline)
-        require(pin_stages.stages == ["open", "pre_ack", "close"] and pin_stages.handle is not None,
-                "A1 local native pin interval did not complete all observer stages")
+        require(pin_stages.stages == ["open", "pre_ack"] and pin_stages.handle is not None,
+                "A1 native pin must remain live after open and pre-ACK observations")
         a1_proof = _verify_terminal_proof(a1_ver_result, a1_ver_id, a1_ver_task_id,
             a1_request_bytes, a1_manifest_bytes, a1_receipt_bytes, a1_vector_sha,
-            a1_vector, phase="a1")
+            a1_vector, phase="a1", observation_phase="pre_ack",
+            interval_id=a1_interval_id)
+        recovery_state["a1_retention_interval"] = {"interval_id": a1_interval_id,
+            "pre_ack_result_sha256": a1_proof["result_sha256"],
+            "pre_ack_received_elapsed_upper_bound_seconds":
+                a1_pre_ack_received - a1_interval_started}
+        _write_private_json(recovery_path, recovery_state)
         result["a1"] = {"publication_id": a1_publication_id,
             "request_sha256": hashlib.sha256(a1_request_bytes).hexdigest(),
             "manifest_sha256": hashlib.sha256(a1_manifest_bytes).hexdigest(),
@@ -2109,9 +2250,21 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
                 rpc_dir=rpc_dir, custody_digests=a1_custody_digests,
                 pin_stages=pin_stages, recovery_state=recovery_state,
                 recovery_path=recovery_path))
+        a1_final_interval, a1_terminal_proof = _compose_operational_interval(
+            a1_proof, a1_close_proof, interval_started=a1_interval_started,
+            pre_ack_received=a1_pre_ack_received, close_received=time.monotonic(),
+            interval_id=a1_interval_id)
         run_ids["a1-post-ack-close"] = a1_close_id
         result["a1"].update({"post_ack_close_run_id": a1_close_id,
-            "post_ack_close_proof": a1_close_proof})
+            "post_ack_close_proof": a1_close_proof,
+            "operational_interval": a1_final_interval,
+            "terminal_proof": a1_terminal_proof})
+        recovery_state["a1_retention_interval"].update({
+            "post_ack_close_result_sha256": a1_close_proof["result_sha256"],
+            "final_interval": a1_final_interval,
+            "terminal_proof": a1_terminal_proof,
+        })
+        _write_private_json(recovery_path, recovery_state)
         pin_stages.close_after_ack()
         pin_owner.__exit__(None, None, None)
         recovery_state["a1_pin_postgres_cleanup"] = _cleanup_pin_pgdata(

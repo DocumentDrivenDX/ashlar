@@ -35,6 +35,7 @@ from ashlar.pins import PinVector
 
 
 PROFILE = "ashlar-managed-operational-retention/0.1"
+PRE_ACK_PROOF_PROFILE = "ashlar-managed-operational-retention-pre-ack/0.1"
 DATA_ROLES = ("object_current", "edge_current", "tombstone", "whole_source_history")
 SOURCE_CUSTODY_FIELDS = (
     "source_registration", "consumer_registration", "cursor",
@@ -233,6 +234,18 @@ class ManagedOperationalIntervalReceipt:
     observations: tuple[ManagedOperationalObservation, ...]
 
 
+@dataclass(frozen=True)
+class ManagedOperationalPreAckProof:
+    """Nonterminal open/pre-ACK checks; the parent must add the post-ACK close."""
+
+    profile: str
+    interval_id: str
+    outcome: str
+    authority: str
+    maximum_elapsed_seconds: int
+    observations: tuple[ManagedOperationalObservation, ...]
+
+
 def _sha(value, label):
     if type(value) is not str or not _SHA256.fullmatch(value):
         raise OperationalRetentionIntervalError(f"Canonical {label} SHA-256 required")
@@ -282,7 +295,7 @@ class OperationalRetentionInterval:
     """Read exact four-role bags at open, pre-ACK and close; never ACKs."""
 
     def __init__(self, selection, session_factory, source_observer, policy_observer,
-                 *, clock=time.monotonic):
+                 *, clock=time.monotonic, interval_id=None):
         if (type(selection) is not ManagedOperationalRetentionSelection
                 or not callable(getattr(session_factory, "open", None))
                 or not callable(getattr(source_observer, "observe", None))
@@ -295,7 +308,17 @@ class OperationalRetentionInterval:
         self.clock = clock
         self.started = clock()
         self.deadline = self.started + _MAX_INTERVAL_SECONDS
-        self.interval_id = str(uuid.uuid4())
+        if interval_id is None:
+            interval_id = str(uuid.uuid4())
+        try:
+            canonical_interval_id = str(uuid.UUID(interval_id))
+        except (TypeError, ValueError, AttributeError) as error:
+            raise OperationalRetentionIntervalError(
+                "Canonical parent-owned operational interval UUID required") from error
+        if canonical_interval_id != interval_id:
+            raise OperationalRetentionIntervalError(
+                "Canonical parent-owned operational interval UUID required")
+        self.interval_id = interval_id
         self.observations = []
         self._session_ids = set()
         self._spark_sessions = []
@@ -310,14 +333,40 @@ class OperationalRetentionInterval:
 
     @classmethod
     def open(cls, selection, session_factory, source_observer, policy_observer,
-             *, clock=time.monotonic):
-        interval = cls(selection, session_factory, source_observer, policy_observer, clock=clock)
+             *, clock=time.monotonic, interval_id=None):
+        interval = cls(selection, session_factory, source_observer, policy_observer,
+                       clock=clock, interval_id=interval_id)
         interval._capture("open")
         return interval
 
     @classmethod
+    def observe_pre_ack(cls, selection, session_factory, source_observer,
+                        policy_observer, *, interval_id, clock=time.monotonic):
+        """Complete open and pre-ACK checks, leaving final close to the parent.
+
+        The returned value is deliberately nonterminal. The same parent-owned
+        interval ID must be used for the independent post-ACK close observation.
+        """
+        interval = cls(selection, session_factory, source_observer, policy_observer,
+                       clock=clock, interval_id=interval_id)
+        interval._capture("open")
+        interval.renew_pre_ack()
+        if interval._invalid or [item.stage for item in interval.observations] != ["open", "pre_ack"]:
+            raise OperationalRetentionIntervalError(
+                "Exact open and pre-ACK checks required before source ACK")
+        interval._closed = True
+        return ManagedOperationalPreAckProof(
+            profile=PRE_ACK_PROOF_PROFILE,
+            interval_id=interval.interval_id,
+            outcome="pre_ack_checks_complete_close_pending",
+            authority="read_observation_only_no_source_ack",
+            maximum_elapsed_seconds=_MAX_INTERVAL_SECONDS,
+            observations=tuple(interval.observations),
+        )
+
+    @classmethod
     def observe_close_only(cls, selection, session_factory, source_observer,
-                           policy_observer, *, clock=time.monotonic):
+                           policy_observer, *, interval_id=None, clock=time.monotonic):
         """Make one fresh post-ACK close observation, without claiming an interval.
 
         This path is for the terminal close after a separate three-point
@@ -325,7 +374,7 @@ class OperationalRetentionInterval:
         ``close`` observation, never an opening/pre-ACK/close interval receipt.
         """
         interval = cls(selection, session_factory, source_observer, policy_observer,
-                       clock=clock)
+                       clock=clock, interval_id=interval_id)
         observation = interval._capture("close", closing=True)
         interval._closed = True
         return ManagedOperationalIntervalReceipt(
