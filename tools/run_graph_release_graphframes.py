@@ -59,8 +59,11 @@ def _lineage(value,*,private_custody_admitted=False):
     if type(roles) is not dict or set(roles)!={'nodes','edges'} or any(type(t) is not str or t not in snapshots for t in roles.values()) or roles['nodes']==roles['edges']:
         raise ValueError('Distinct original snapshot graph roles required')
     expected={'reversibleIdentity':True,'independentEdges':True,'isolatedNodes':True,'exactCanonicalText':True,'selectedScalarPromotion':False,'nativeReleaseMaterialization':False,'engineExecution':False}
-    if type(mapping) is not dict or set(mapping)!={'identity','properties','residuals','capabilities','losses','engineSupport'}:
+    mapping_fields={'identity','properties','residuals','capabilities','losses','engineSupport'}
+    if type(mapping) is not dict or set(mapping) not in (mapping_fields,mapping_fields|{'lookupHashProfile'}):
         raise ValueError('Complete mapping capability/loss inventory required')
+    if 'lookupHashProfile' in mapping and mapping['lookupHashProfile']!='spark-xxhash64-typed-key/0.1':
+        raise ValueError('Unsupported typed-key lookup-hash profile')
     if mapping['identity']!='ashlar-key/1' or type(mapping['properties']) is not str or not mapping['properties'] or type(mapping['residuals']) is not list or not mapping['residuals'] or any(type(t) is not str or not t for t in mapping['residuals']):
         raise ValueError('Named exact carrier mapping required')
     capabilities=mapping['capabilities']
@@ -74,9 +77,23 @@ def load_release(payload, trusted_sha256,*,custody_profile=None,custody_payload=
                     parse_constant=lambda x: (_ for _ in ()).throw(ValueError('Nonfinite JSON')))
     private=False
     if any(x is not None for x in (custody_profile,custody_payload,trusted_custody_sha256)):
-        from private_graph_custody import PROFILE,admit_private_custody
-        if custody_profile!=PROFILE or custody_payload is None or trusted_custody_sha256 is None:raise ValueError('Explicit complete separately trusted private custody required')
-        admit_private_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256);private=True
+        if custody_payload is None or trusted_custody_sha256 is None:
+            raise ValueError('Explicit complete separately trusted custody required')
+        from ashlar_host.private_graph_custody import PROFILE as PRIVATE_PROFILE,admit_private_custody
+        from ashlar_host.truss_graph_custody import PROFILE as TRUSS_PROFILE
+        if custody_profile==TRUSS_PROFILE:
+            from ashlar_host.private_graph_custody import load_private_graph_release
+            # The Truss profile binds the actual publication vector and source
+            # checkpoint; preserve and validate those exact retained bytes.
+            # This shared loader also validates the .4 typed-key mapping and
+            # the release's exact carrier schema. The legacy checks below are
+            # specific to the older private-custody carrier shape.
+            return load_private_graph_release(payload,trusted_sha256,custody_payload,trusted_custody_sha256)
+        elif custody_profile==PRIVATE_PROFILE:
+            admit_private_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
+            private=True
+        else:
+            raise ValueError('Explicit supported custody profile required')
     _lineage(value,private_custody_admitted=private)
     if value.get('format')!=FORMAT or value.get('mapping',{}).get('identity')!='ashlar-key/1':
         raise ValueError('Unsupported named release/identity encoding')

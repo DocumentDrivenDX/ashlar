@@ -322,7 +322,7 @@ def _run_graphframes(scope: dict, release: Path, custody: Path, output: Path) ->
     if probe.returncode != 0:
         raise RuntimeError("GraphFrames env does not load exact candidate Ashlar wheel: " +
                            probe.stdout[-2000:].decode("utf-8", "replace"))
-    from ashlar_host.private_graph_custody import PROFILE as custody_profile
+    from ashlar_host.truss_graph_custody import PROFILE as custody_profile
     command = [str(python), str(REPO / "tools/run_graph_release_graphframes.py"),
         "--release", str(release), "--sha256", sha(release.read_bytes()),
         "--output", str(output), "--jars", str(jars),
