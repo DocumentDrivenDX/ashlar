@@ -10,6 +10,7 @@ Native singleton reads work through the publication resolver independently of Fa
 - [Runnable setup, ingest and query example](../../examples/end-to-end/README.md)
 - [Toolkit components and local commands](../../src/ashlar/README.md)
 - [Execution plan and evidence](04-build/end-to-end-plan.md)
+- [Draft 0.1.0rc1 candidate notes (not for distribution)](05-deploy/release-notes.md)
 - [Current release closure sequence](04-build/release-closure-20261101.md)
 - [Product requirements](01-frame/prd.md) and [consumer conformance strategy](03-test/consumer-conformance-plan.md)
 - [Physical tables](02-design/contracts/CONTRACT-003-delta-graph-tables.md),
@@ -19,29 +20,34 @@ Native singleton reads work through the publication resolver independently of Fa
 
 ## Implementation status
 
-The candidate selects UMF SDK 0.10.1 / Python Core 0.10.5, Weft 0.4.56,
-Access 0.1.0.dev8 and published Truss 0.0.52. The six-role `.4-xxhash64`
-carrier has bounded local SDK publication, retained manifest and native
-Spark 4.2 / Delta 4.4.1 singleton, grouped-query and page-read evidence
-([SDK result](04-build/evidence/current-upstream-release-20261101/g03-sdk0101-r3-manifest-continuation/r5-completion.md),
-[Weft result](04-build/evidence/current-upstream-release-20261101/g03-weft-native-consumer/README.md)).
+The current local qualification cohort is Truss 0.0.55, UMF SDK 0.10.2 /
+Python Core 0.10.6, Weft 0.4.56, Access 0.1.0.dev8 and declared UMF
+model 0.10.0. Ashlar remains at package version `0.1.0.dev1`; a `0.1.0rc1`
+provider-cache candidate is planned, but no tag or publication is authorized
+until the remaining qualification gates close.
 
-A fresh local-development Truss 0.0.52 source has public acceptance and consumer
-evidence. Genesis, the seven-change seed and the two-change continuation were published
-to Delta, read back natively, and protected-ACKed to their exact Truss
-checkpoints under local-development authority. The completed continuation has
-focused native Weft singleton, grouped, page/continuation and direct canonical
-export evidence; the original source-owner export wrapper and managed runtime
-remain open. A bounded serverless Jobs task helper and
-Weft `.4.1` compiler route are on main, but no paid `client_dev` trial has run.
-The managed A/B source-prefix owner, live source/ACK custody and native pin
-composition remain open ([release closure](04-build/release-closure-20261101.md),
-[A1 source-owner gap](04-build/evidence/a1-managed-source-prefix-owner-gap-20261101.md)).
+The composed R61 local-development run used Spark 4.2.0 / Delta 4.4.1 and the
+`.4-xxhash64` carrier. It committed a metadata genesis, seven-operation seed
+and two-record continuation, matched their protected Truss checkpoints, and
+produced a canonical six-node/three-edge owner export. A separately bounded
+GraphFrames action matched that retained export. The closeout preserves the
+original full-worker GraphFrames adapter failure and the later retained-bytes
+pass; the native Weft singleton and grouped values were observed, but the full
+worker did not persist a durable Weft result hash. See the [R61 closeout](04-build/evidence/current-upstream-release-20261102/r61-fresh-truss055-attempt13-continuation/qualification-closeout.json).
 
-The owner held the 1B-node/5B-edge scale trial after the measured sample
-projected more than 15 minutes at 80% of observed throughput. The stable GitHub
-release has not been tagged or published. Claims remain limited to their exact
-source, runtime, model and evidence.
+A separate local managed-current recovery reopened the exact attempt14 pending
+A1 page, independently compared all four native Delta role bags against the
+source oracle, then reconciled one protected A1 ACK. It performed no source
+group replay or Delta write. This recovery records a source-hold discontinuity
+and uses local path-based Delta reads; it does not establish Databricks or
+Unity Catalog execution. See the [attempt14 recovery closeout](04-build/evidence/current-upstream-release-20261102/managed-current-attempt14-a1-recovery/closeout.json).
+
+The managed trial gate remains pending, the dedicated managed classic Spark Jobs
+trial is pending, Fabric integration is unfinished, and the 1B-node / 5B-edge
+scale trial remains held. The current release closure records each
+remaining gate. No stable Ashlar version, tag, or GitHub release has been
+created. The [candidate release-notes draft](05-deploy/release-notes.md) is not
+for distribution.
 
 ## Requirements navigation
 
