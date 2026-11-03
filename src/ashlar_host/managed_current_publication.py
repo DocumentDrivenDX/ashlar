@@ -111,7 +111,9 @@ class ManagedCurrentTargetOwner:
                 'Unity Catalog information schema must observe a managed table')
             actual=tuple((field.name,field.dataType.simpleString(),field.nullable)
                          for field in self.spark.table(table).schema.fields)
-            native={'STRING':'string','BIGINT':'long','BOOLEAN':'boolean','TIMESTAMP':'timestamp'}
+            # Compare against PySpark DataType.simpleString(), whose LongType
+            # spelling is ``bigint`` (typeName() is ``long``).
+            native={'STRING':'string','BIGINT':'bigint','BOOLEAN':'boolean','TIMESTAMP':'timestamp'}
             expected=tuple((name,native[kind],nullable) for name,kind,nullable in self.carriers.ordered_fields(role))
             _require(actual==expected,'Current UMF-generated native table schema differs')
             protocol_detail=dict(detail)

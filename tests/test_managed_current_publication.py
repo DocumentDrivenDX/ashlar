@@ -45,7 +45,7 @@ class Spark:
         role=name.rsplit('.',1)[1]
         fields=[]
         for column,kind,nullable in self.carriers.ordered_fields(role):
-            native={'STRING':'string','BIGINT':'long','TIMESTAMP':'timestamp','BOOLEAN':'boolean'}[kind]
+            native={'STRING':'string','BIGINT':'bigint','TIMESTAMP':'timestamp','BOOLEAN':'boolean'}[kind]
             fields.append(SimpleNamespace(name=column,dataType=SimpleNamespace(simpleString=lambda n=native:n),nullable=nullable))
         return SimpleNamespace(schema=SimpleNamespace(fields=fields))
 
@@ -160,6 +160,27 @@ class Tests(unittest.TestCase):
         closing=owner.closing()
         self.assertEqual({role:item.uuid for role,item in closing.items()},
                          {role:item.uuid for role,item in opening.items()})
+
+    def test_target_schema_uses_pyspark_long_simple_string_spelling(self):
+        from pyspark.sql.types import LongType
+        self.assertEqual(LongType().simpleString(),'bigint')
+        self.assertEqual(LongType().typeName(),'long')
+        spark=Spark();profile=ReaderProtocolProfile('test-current-managed-reader',(1,),(2,),())
+        owner=ManagedCurrentTargetOwner(spark,catalog='client_dev',schema='trial_schema',protocol_profile=profile)
+        owner.open_existing()
+
+        class IncorrectSimpleStringSpark(Spark):
+            def table(self,name):
+                frame=super().table(name)
+                for field in frame.schema.fields:
+                    if field.dataType.simpleString()=='bigint':
+                        field.dataType.simpleString=lambda:'long'
+                return frame
+
+        wrong=IncorrectSimpleStringSpark()
+        with self.assertRaisesRegex(ValueError,'native table schema differs'):
+            ManagedCurrentTargetOwner(wrong,catalog='client_dev',schema='trial_schema',
+                protocol_profile=profile).open_existing()
 
     def test_current_truss_page_plan_is_canonical_and_reconstructs_exactly(self):
         import hashlib
