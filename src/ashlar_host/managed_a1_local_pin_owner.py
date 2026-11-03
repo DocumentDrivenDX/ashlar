@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 import hashlib
-from importlib.resources import files
+from importlib.resources import as_file, files
 from pathlib import Path
 import re
 import subprocess
@@ -220,24 +220,29 @@ class ManagedA1LocalPinOwner:
             options="-c statement_timeout=5000 -c lock_timeout=2000")
 
     def _install_schema(self):
-        migration_root = Path(__file__).resolve().parents[2] / "sql" / "ashlar-pins"
-        migrations = tuple(migration_root / name for name in (
+        migration_root = files("ashlar_host").joinpath(
+            "resources", "sql", "ashlar-pins")
+        migration_names = (
             "01-postgresql.sql", "03-read-guard.sql", "04-table-guard.sql",
-            "05-maintenance-quarantine.sql", "06-availability-guard.sql"))
-        if any(not path.is_file() or path.is_symlink() for path in migrations):
+            "05-maintenance-quarantine.sql", "06-availability-guard.sql")
+        migrations = tuple(migration_root.joinpath(name) for name in migration_names)
+        if any(not resource.is_file() for resource in migrations):
             raise ManagedA1LocalPinOwnerError("Committed Ashlar pin migrations required")
-        for path in migrations:
-            timeout = 15
-            if self.deadline_monotonic is not None:
-                timeout = min(timeout, int(self.deadline_monotonic - time.monotonic()))
-            if timeout < 1:
-                raise ManagedA1LocalPinOwnerError("A1 deadline expired during local pin migration")
-            result = subprocess.run([str(self._runtime.psql_path),
-                self._runtime.info.connection_uri, "-X", "-v", "ON_ERROR_STOP=1",
-                "-f", str(path)], capture_output=True, text=True, timeout=timeout)
-            if result.returncode != 0:
-                raise ManagedA1LocalPinOwnerError(
-                    f"Local pin migration refused: {path.name} ({result.returncode})")
+        for resource in migrations:
+            with as_file(resource) as path:
+                if path.is_symlink() or not path.is_file():
+                    raise ManagedA1LocalPinOwnerError("Packaged pin migration must be a regular file")
+                timeout = 15
+                if self.deadline_monotonic is not None:
+                    timeout = min(timeout, int(self.deadline_monotonic - time.monotonic()))
+                if timeout < 1:
+                    raise ManagedA1LocalPinOwnerError("A1 deadline expired during local pin migration")
+                result = subprocess.run([str(self._runtime.psql_path),
+                    self._runtime.info.connection_uri, "-X", "-v", "ON_ERROR_STOP=1",
+                    "-f", str(path)], capture_output=True, text=True, timeout=timeout)
+                if result.returncode != 0:
+                    raise ManagedA1LocalPinOwnerError(
+                        f"Local pin migration refused: {path.name} ({result.returncode})")
 
     def register(self):
         if not self._active or self._pins is None or self._policy._registered:

@@ -3,6 +3,8 @@ from types import MappingProxyType, SimpleNamespace
 import tempfile
 import unittest
 from contextlib import contextmanager
+from importlib.resources import files
+from pathlib import Path
 from unittest.mock import patch
 
 from ashlar.pins import PinVector
@@ -153,7 +155,6 @@ class ManagedA1LocalPinPolicyTests(unittest.TestCase):
             owner.select_next_phase(next_selection, next_vector, native_timeout_seconds=60)
 
     def test_owner_accepts_concrete_posix_path_without_starting_postgres(self):
-        from pathlib import Path
         from ashlar_host.managed_operational_retention_interval import (
             ManagedOperationalRetentionSelection,
         )
@@ -165,6 +166,32 @@ class ManagedA1LocalPinPolicyTests(unittest.TestCase):
                     LocalPostgres=lambda path: SimpleNamespace(path=path))}):
                 owner = ManagedA1LocalPinOwner(selected_path, selection, self.vector)
             self.assertIs(owner.data_directory, selected_path)
+
+    def test_pin_migrations_are_packaged_exactly_and_loaded_in_order(self):
+        names = (
+            "01-postgresql.sql", "03-read-guard.sql", "04-table-guard.sql",
+            "05-maintenance-quarantine.sql", "06-availability-guard.sql")
+        packaged = files("ashlar_host").joinpath("resources", "sql", "ashlar-pins")
+        source = Path(__file__).resolve().parents[1] / "sql" / "ashlar-pins"
+        self.assertEqual(tuple(sorted(item.name for item in packaged.iterdir()
+                                      if item.name.endswith(".sql"))), names)
+        for name in names:
+            self.assertEqual(packaged.joinpath(name).read_bytes(), (source / name).read_bytes())
+
+        owner = object.__new__(ManagedA1LocalPinOwner)
+        owner._runtime = SimpleNamespace(psql_path="/test/psql",
+            info=SimpleNamespace(connection_uri="postgresql://local-pin-owner"))
+        owner.deadline_monotonic = None
+        submitted = []
+        def run(argv, **kwargs):
+            submitted.append((argv, kwargs))
+            return SimpleNamespace(returncode=0)
+        with patch("ashlar_host.managed_a1_local_pin_owner.subprocess.run", side_effect=run):
+            owner._install_schema()
+        self.assertEqual([Path(argv[argv.index("-f") + 1]).name
+                          for argv, _ in submitted], list(names))
+        self.assertEqual([Path(argv[argv.index("-f") + 1]).read_bytes()
+                          for argv, _ in submitted], [(source / name).read_bytes() for name in names])
 
 
 class _ReleaseExecutor:
