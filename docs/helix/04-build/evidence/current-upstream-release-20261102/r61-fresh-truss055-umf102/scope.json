@@ -1,0 +1,193 @@
+{
+  "packet": "ashlar-r61-fresh-truss055-umf102",
+  "status": "attempt13-fresh-truss055-candidate-bound-pre-dispatch",
+  "source": {
+    "repository": "ashlar",
+    "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
+    "worktree": "/private/tmp/ashlar-r61-fresh-cohort-plan",
+    "runner_path": "tools/r61_fresh_cohort_runner.py",
+    "runner_sha256": "7ad5f7d254566cdf895fd1d71a24a870cec7156ddf51a9da9ec7ae43ef33614c",
+    "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
+    "setup_stage_sha256": "d6425948b7b84395429f5b83c624cad27843c2e1eda6af66fce16dcc71d1be89",
+    "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
+    "supervisor_sha256": "f5bd260314ac3d4a9185a0cd076ea9781a289145aa03cf881cba86ba49dabf11",
+    "worker_sha256": "a07f79dddd9e2a34ec3614a66e0742e0d8b439af04fee437701da3cea66e9c20",
+    "worker_path": "tools/r61_fresh_cohort_worker.py",
+    "qualification_commit": "69afbaeb6f5d38e30bb661ffaee65c04fcb3bac6"
+  },
+  "supervisor_runtime": {
+    "python_executable": "/Users/erik/.local/bin/python3.11",
+    "python_version": "3.11.17",
+    "python_sha256": "5ebf120b62e8d02ab22485ca328da471db27fd278069df3de01c957cc02d9cd6",
+    "psutil_module_path": "/private/tmp/ashlar-r9-truss051-current-runtime-20261101/site-packages/psutil/__init__.py",
+    "psutil_version": "7.2.2",
+    "psutil_module_sha256": "d138a5786b163b56ba86ea0b2d5589dfca37e1bcdf8de1057fe1e933d6ab808a"
+  },
+  "artifacts": {
+    "truss_version": "0.0.55",
+    "truss_wheel": "/private/tmp/truss-0.0.55-local-wheel-final/umf_truss-0.0.55-py3-none-any.whl",
+    "truss_wheel_sha256": "156df20641d8c4fee6d836c6b29266a0a7eb3b1299c407e430ce0d2c07a79805",
+    "truss_release_manifest_sha256": "5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522",
+    "umf_model_version": "0.10.0",
+    "umf_sdk_version": "0.10.2",
+    "umf_sdk_artifact": "/private/tmp/umf-rust-v0.1.0-release-assets/umf-sdk-0.10.2-macos-aarch64.tgz",
+    "umf_sdk_sha256": "785de2c4db18b030c9462c7f55f52d012db50a4d4b3c608a4dc3aa6f5fa0d39b",
+    "umf_sdk_linux_x86_64_sha256": "0e210969dc6d585d73b0e70d35660421b40c141746389118f7181c54bfcff943",
+    "umf_core_version": "0.10.6",
+    "umf_core_platform_artifact": "/private/tmp/umf-rust-v0.1.0-release-assets/umf_core-0.10.6-cp311-abi3-macosx_11_0_arm64.whl",
+    "umf_core_sha256": "e6219539dabcdfe9657bc09485ad991b3380ae306c658d0a51a35caac0196e36",
+    "umf_core_linux_x86_64_sha256": "9a4fc6e739fb9c0c80e22916490484fb41b6f00985afc53fb81dcca2d72029b9",
+    "python_executable": "/private/tmp/ashlar-r61-runtime-68191905/bin/python",
+    "python_sha256": "0048df8bc66cbf4cc964f31eb89321e762902aeecf95dfbde306a36601d27034",
+    "runtime_manifest": "/private/tmp/ashlar-r61-runtime-68191905/r61-native-runtime-manifest.json",
+    "runtime_manifest_sha256": "171cd01d4235f85f88a8d6094a2e4e0220a9536e4764e2ac9f9964d624c0604b",
+    "upstream_candidate_checkout": "/private/tmp/ashlar-release-integration",
+    "upstream_candidate_commits": [
+      "ea4248833bfacc59dca056ef51cfc1565dd3c74e"
+    ],
+    "upstream_candidate_review": "accepted",
+    "ashlar_candidate_commit": "ea4248833bfacc59dca056ef51cfc1565dd3c74e",
+    "truss_adapter_profile": "ashlar-truss-current-catalog-evidence/0.8-fresh-baseline",
+    "bun_executable": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+    "bun_sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
+    "postgresql_18_runtime": "/private/tmp/ashlar-r61-runtime-68191905/lib/python3.12/site-packages/pgserver/pginstall",
+    "postgresql_18_runtime_manifest": "/private/tmp/ashlar-r61-runtime-68191905/r61-postgres-runtime-manifest-seed-copy.json",
+    "postgresql_18_runtime_manifest_sha256": "056f3da9dab9df3bea1b4364946efb5c67ea16b92b98fbb6757bbf967b2793f4",
+    "ashlar_candidate_wheel": "/private/tmp/ashlar-ea424883-local-wheel/umf_ashlar-0.1.0.dev1-py3-none-any.whl",
+    "ashlar_candidate_wheel_sha256": "705b16c54f92ad051eda0fe8d08af5ac385de09f8a421f4a1b76123eaa4ea5d8",
+    "graphframes_runtime_manifest": "/private/tmp/ashlar-r61-graphframes-68191905/r61-graphframes-runtime-manifest.json",
+    "graphframes_runtime_manifest_sha256": "d0e9c16d8a3c236bda3fd3c898e186d93e74c08a1dec5f92477418a9c2e068f5",
+    "worker_path": "/private/tmp/ashlar-r61-fresh-cohort-plan/tools/r61_fresh_cohort_worker.py",
+    "worker_sha256": "a07f79dddd9e2a34ec3614a66e0742e0d8b439af04fee437701da3cea66e9c20",
+    "umf_sdk_tag_commit": "e35cd92b45e16816be2bdbf28e83ef9c53ac99a2",
+    "truss_source_custody_profile": "ashlar-truss-055-fresh-baseline-source-custody/0.1",
+    "delta_installation_profile": "ashlar-local-current-installation-profile/0.5",
+    "bun_version": "1.4.3",
+    "postgresql_18_initdb_sha256": "e5793da2ccfef3a99a19e689e47e02b0688232fd52f149da4d3741ebeff3a5d0",
+    "postgresql_18_pg_controldata_sha256": "9d4cff3fd9c003b471a767b1985cf1d1c46414b53486dd16934434c6e34c5d8e",
+    "ashlar_candidate_module_sha256": {
+      "ashlar_host/truss_note_publication.py": "4d2bd98e3edfdf2a0c7bb7c62f59da0af8ae7c59685651fff463142e18f7108f",
+      "ashlar_host/truss_source_custody_selection.py": "326fb9db04366adf8e13a0d9cb2c7e80e971800f26015faf94a337a82d3f49b8",
+      "ashlar_host/truss_current_catalog.py": "456e97a6d7decf11f805b570082298488b4ea02fe9011aed5a3273d690471fb5",
+      "ashlar_host/truss_graph_custody.py": "cc192942dd118abe83541ec7617b99fc3c317e49ffb3901c028ed8ac2615ade6",
+      "ashlar/graph_release.py": "93d2e79c5f33be5c095553851c63d1a958b441d1467df3d2e97c69f6aa872d3d"
+    }
+  },
+  "fresh_local_state": {
+    "root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13",
+    "postgres_data": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/pgdata",
+    "delta_root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta",
+    "evidence_root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/evidence",
+    "must_be_absent_before_dispatch": true,
+    "forbidden_state": [
+      "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
+      "/private/tmp/ashlar-r59-truss052-protected-ack-20261102",
+      "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt8",
+      "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt10",
+      "/private/tmp/ashlar-r61-truss054-umf102-20261102-attempt11",
+      "/private/tmp/ashlar-r61-truss054-umf102-20261102-attempt12"
+    ]
+  },
+  "limits": {
+    "enforcement_status": "reviewed_supervisor_e05e9c36_enforced_on_dispatch",
+    "wall_seconds_including_cleanup": 900,
+    "aggregate_rss_bytes": 4294967296,
+    "disposable_output_bytes": 536870912,
+    "estimated_duration_minutes": [
+      8,
+      12
+    ],
+    "attempts": 1,
+    "local_only": true
+  },
+  "workflow": [
+    "verify exact Truss 0.0.55, UMF SDK 0.10.2/Core 0.10.6, Ashlar candidate and native/GraphFrames runtime origins",
+    "copy only the exact stopped uninstalled PostgreSQL 18 initdb seed into fresh attempt13 and create a new public Truss 0.0.55 installation/accepted model/consumer",
+    "read the complete accepted report/catalog/source and capture the actual metadata-only initial public page, binding its bytes, cursors, writer XID and identity before publication",
+    "publish and protected-ACK the exact observed metadata-only accepted-catalog transaction as graph genesis",
+    "apply one seven-operation public group, publish it as genesis continuation and protected-ACK it",
+    "run bounded native Weft reads against the seven-operation publication vector",
+    "apply one two-record continuation, publish and protected-ACK it while capturing original-owner release/custody",
+    "close source, consumer, Spark and PostgreSQL owners before persisting release/custody bytes",
+    "run one GraphFrames action in the separate reviewed runtime using the exact candidate wheel and owner-captured canonical release/custody bytes",
+    "reconcile source checkpoint, protected ACKs, four-role publication vector, separate six-role installation inventory, process cleanup, output size and final hashes"
+  ],
+  "completion_receipts": [
+    "artifact and module-origin manifest",
+    "accepted model/report/catalog identity",
+    "metadata-only source page bytes/outcome/cursors, catalog prerequisite/revision IDs, zero-entity event counts and genesis publication/ACK proof",
+    "seven-op seed continuation and protected ACK, native Weft request/response hashes and complete four-role publication vector",
+    "complete four-role Delta publication vector and separate six-role installation inventory before and after, including schema and manifest identity",
+    "source checkpoint and protected ACK receipts before and after",
+    "owner release and custody canonical-byte hashes, only after successful owner close",
+    "GraphFrames runtime identity and one action result bound to those hashes",
+    "bounded wall/RSS/output observations and stopped-owner census",
+    "PG18 seed/copy tree hashes, initdb receipt, prior failure receipts, stopped-state/control identity, and observed SHOW fsync=on"
+  ],
+  "non_claims": [
+    "No successful end-to-end R61 qualification has completed before attempt13.",
+    "No Truss 0.0.53 or 0.0.54 migration or recovery is claimed; attempt13 creates a fresh 0.0.55 baseline.",
+    "No release, tag, publish, cloud, scale, push or production authority is claimed.",
+    "The retained R59 GraphFrames environment is not candidate evidence; attempt13 uses its isolated clone with the exact candidate wheel."
+  ],
+  "qualification_stage": {
+    "status": "attempt13-fresh-public-truss055-setup-with-180s-install-only-timeout",
+    "source_model": "docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json",
+    "source_model_sha256": "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",
+    "truss_local_runtime_member_sha256": "7a0fce2fd418a3c239e7f6e847ac952d152d1967638251a4ebba2f5f29b90728",
+    "source_model_declared_version": "0.10.0",
+    "source_stage_outputs": [
+      "fresh public Truss 0.0.55 accepted report and installed catalog status",
+      "public complete catalog view and accepted source bytes",
+      "actual initial public page bytes/outcome/cursors/writer XID and metadata-only event counts, bound again before graph publication",
+      "successful PostgreSQL owner close before setup receipt write"
+    ],
+    "source_stage_uses_fresh_local_postgres_data_and_owned_socket": true,
+    "source_stage_socket_policy": {
+      "profile": "Truss LocalPostgres 0.0.55 deterministic owned socket",
+      "root": "/private/tmp/truss-pg18-{uid}",
+      "directory_suffix": "first 24 hex characters of SHA256(os.fsencode(canonical PGDATA))",
+      "precondition": "exact socket directory absent before any PostgreSQL setup"
+    }
+  },
+  "supervisor": {
+    "mode": "one-shot local worker only",
+    "wall_deadline_includes_cleanup": true,
+    "process_group_rss_polling": true,
+    "worker_log_capture_limit_bytes": 67108864,
+    "aggregate_output_limit_bytes": 536870912,
+    "term_seconds": 8,
+    "kill_seconds": 4,
+    "owned_pg_ctl_stop_seconds": 22,
+    "completion_receipt_required": true,
+    "dispatch_requires_exact_external_review_receipt": true,
+    "native_dispatched": false
+  },
+  "postgres_bootstrap_policy": {
+    "profile": "ashlar-r61-pg18-fresh-uninstalled-bootstrap-copy/0.1",
+    "method": "copy only the exact stopped, uninstalled PG18 initdb seed into new attempt13; public Truss 0.0.55 install/accept/register creates all source state from a fresh cluster",
+    "seed_root": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4",
+    "seed_pgdata": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/pgdata",
+    "seed_tree_sha256": "76bced149f633e7b2b556aa489db88995881b31cfdf3a3ec079af8c81f108db4",
+    "seed_system_identifier": "7703698260472019557",
+    "seed_initdb_receipt": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/pg-initdb.json",
+    "seed_initdb_receipt_sha256": "cd3787cbc76d546fcae37df18893687a5d6ea1f501f25a59ec095f20fe708fa7",
+    "seed_worker_failure_receipt": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/worker-failure.json",
+    "seed_worker_failure_sha256": "a518badc946fb830157c8afe557ddf6c3c23344abd81eafcee7191ebb21cbc35",
+    "seed_supervisor_receipt": "/private/tmp/ashlar-r61-truss053-umf102-20261102-attempt4/supervisor-result.json",
+    "seed_supervisor_receipt_sha256": "7dc3ddf15666793ebdcfdd639b32518345c18958ca10750fc59666dcae657052",
+    "source_claim": "seed attempt4 is only a stopped initdb bootstrap cluster; it has no Truss installation, accepted model, source consumer, publication or ACK. Attempt13 is a fresh public .55 install; attempt12 was a cleanly reconciled install-timeout refusal with no source consumer, Spark, Delta or ACK.",
+    "initdb_mode": "--no-sync applies only to seed initdb bootstrap; PostgreSQL fsync must be observed on before source operations",
+    "public_truss_apis": [
+      "install_in_transaction",
+      "prepare_catalog",
+      "accept_in_transaction",
+      "configure_module_access_in_transaction",
+      "status_in_transaction",
+      "report_in_transaction"
+    ],
+    "install_statement_timeout_ms": 60000,
+    "install_statement_timeout_scope": "SET LOCAL statement_timeout and the adopted Truss host statement/operation caps are each 60000ms. Public install_in_transaction receives operation_timeout_ms=180000 only; its operation deadline is bounded separately, while other setup/query operations retain 15000ms and the outer supervisor remains 900 seconds.",
+    "install_operation_timeout_ms": 180000
+  }
+}
