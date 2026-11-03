@@ -162,14 +162,14 @@
   },
   "source": {
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
-    "qualification_commit": "466a9eda5a3acd2a31929de064b39e4d9d5ecb06",
+    "qualification_commit": "9716fbe04bd14f659fb9c0e5b0ec64d181798f6e",
     "repository": "ashlar",
     "runner_path": "tools/r61_fresh_cohort_runner.py",
     "runner_sha256": "a6a26f7d8c31af464c6d6a070c945cfd5700a22b3cdc133d4dcbeaf00b7d2fbb",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
     "setup_stage_sha256": "d6425948b7b84395429f5b83c624cad27843c2e1eda6af66fce16dcc71d1be89",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
-    "supervisor_sha256": "742a0744c23a1b0223df66a0d89f3c9f7cfbf2e7b9ff5426fa8811e3b0a7053c",
+    "supervisor_sha256": "e9991eb83453e3c606e3696c74fd2fc7935e69c5a5ef927d1d06b101ad8a877f",
     "worker_path": "tools/r61_fresh_cohort_worker.py",
     "worker_sha256": "9d7e1798a4ad8170b48fb74ab4a9c25c13bc41018376a69efa7c34f3fe2137f0",
     "worktree": "/private/tmp/ashlar-r61-fresh-cohort-plan"
