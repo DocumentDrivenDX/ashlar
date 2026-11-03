@@ -23,7 +23,7 @@ from ashlar.native import SQLResult
 from .lifecycle import finish
 
 SHARED_ENDPOINT=('https://adb-7405607548213398.18.azuredatabricks.net','2439e1f2e37ac563')
-DATABRICKS_SDK_VERSION = '0.159.0'
+DATABRICKS_SDK_VERSION = '0.160.0'
 
 class ManagedSQLReadError(ValueError):pass
 

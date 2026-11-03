@@ -57,9 +57,9 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
                          VERIFIER_TIMEOUT_SECONDS)
         paid_cap_seconds = (INITIALIZER_TIMEOUT_SECONDS + 2 * PUBLISHER_TIMEOUT_SECONDS
                             + 4 * VERIFIER_TIMEOUT_SECONDS)
-        self.assertEqual(paid_cap_seconds, 1050)  # Stage ceilings are not additive wall time.
-        self.assertEqual({INITIALIZER_TIMEOUT_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
-                          VERIFIER_TIMEOUT_SECONDS}, {150})
+        self.assertEqual(paid_cap_seconds, 1140)  # Stage ceilings are not additive wall time.
+        self.assertEqual((INITIALIZER_TIMEOUT_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
+                          VERIFIER_TIMEOUT_SECONDS), (180, 180, 150))
         self.assertLessEqual(max(INITIALIZER_TIMEOUT_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
                                  VERIFIER_TIMEOUT_SECONDS) + 15,
                              config["maximum_wall_seconds"] - config["cleanup_reserve_seconds"])
