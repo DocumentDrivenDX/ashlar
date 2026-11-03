@@ -22,6 +22,7 @@ import threading
 import time
 import signal
 from pathlib import Path
+from urllib.parse import urlsplit
 
 
 HOST = "https://adb-7405607548213398.18.azuredatabricks.net"
@@ -370,6 +371,37 @@ class DatabricksCLI:
         value = json.loads(cp.stdout)
         require(type(value) is dict, "Databricks auth describe returned no profile identity")
         return value
+
+
+def _admit_auth_readback_host(value: dict, expected_host: str) -> str:
+    """Read the public CLI host in current or legacy auth-describe JSON."""
+    require(type(value) is dict and value.get("status") == "success",
+            "Databricks CLI profile authentication did not report success")
+    require(type(expected_host) is str and expected_host,
+            "Exact selected Databricks workspace host required")
+    details = value.get("details")
+    if "details" in value:
+        require(type(details) is dict,
+                "Databricks auth describe details must be an object when present")
+    nested_host = details.get("host") if type(details) is dict else None
+    legacy_host = value.get("host")
+    hosts = []
+    for host in (nested_host, legacy_host):
+        if host is None:
+            continue
+        require(type(host) is str and host and host == host.strip(),
+                "Databricks auth describe host is malformed")
+        parsed = urlsplit(host)
+        require(parsed.scheme == "https" and parsed.netloc
+                and parsed.hostname and parsed.username is None and parsed.password is None
+                and parsed.path in ("", "/") and not parsed.query and not parsed.fragment,
+                "Databricks auth describe host is malformed")
+        hosts.append(host.rstrip("/"))
+    require(bool(hosts) and all(host == hosts[0] for host in hosts),
+            "Databricks auth describe host sources are missing or contradictory")
+    require(hosts[0] == expected_host.rstrip("/"),
+            "Selected Databricks CLI profile is not the admitted dbw-aidev-cus host")
+    return hosts[0]
 
 
 class SourceHolderIPC:
@@ -1354,8 +1386,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
     deadline = start + config["maximum_wall_seconds"]
     api.deadline = deadline
     auth = api.auth_readback()
-    require(auth.get("host", "").rstrip("/") == config["host"].rstrip("/"),
-            "Selected Databricks CLI profile is not the admitted dbw-aidev-cus host")
+    _admit_auth_readback_host(auth, config["host"])
     _check_artifact_lock(api, config)
     python = config["holder_bootstrap"]["python"]
     python_path = Path(python)

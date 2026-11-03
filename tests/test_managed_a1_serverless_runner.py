@@ -15,7 +15,7 @@ from tools.run_managed_a1_serverless import (
     _validate_ack_settlement,
     _verify_terminal_proof,
     _admit_job_readback, _job_settings,
-    _write_private_json, DatabricksCLI,
+    _write_private_json, DatabricksCLI, _admit_auth_readback_host,
 )
 from ashlar_host.a1_ack_attempt import A1AckSettlement
 
@@ -81,6 +81,45 @@ class _LostRunNowAPI:
 
 
 class ManagedA1ServerlessRunnerTests(unittest.TestCase):
+    def test_auth_describe_accepts_sanitized_nested_host_and_legacy_host_only(self):
+        from tools.run_managed_a1_serverless import HOST
+        captured_path = Path("/private/tmp/ashlar-managed-auth-describe.json")
+        if captured_path.is_file():
+            raw = json.loads(captured_path.read_text(encoding="utf-8"))
+            # Preserve only the public host/status/auth-type shape. The raw
+            # configuration and token-storage payload never enter assertions.
+            captured_sanitized = {
+                "status": raw.get("status"),
+                "username": raw.get("username"),
+                "details": {"auth_type": raw.get("details", {}).get("auth_type"),
+                            "host": raw.get("details", {}).get("host"),
+                            "configuration": "<redacted>"},
+                "token_storage": "<redacted>",
+            }
+            self.assertEqual(_admit_auth_readback_host(captured_sanitized, HOST), HOST)
+        captured_sanitized = {
+            "status": "success", "username": "runner@example.test",
+            "details": {"auth_type": "oauth", "host": HOST,
+                        "configuration": "<redacted>"},
+            "token_storage": "<redacted>",
+        }
+        self.assertEqual(_admit_auth_readback_host(captured_sanitized, HOST), HOST)
+        legacy = {"status": "success", "host": HOST}
+        self.assertEqual(_admit_auth_readback_host(legacy, HOST), HOST)
+
+        contradictory = copy.deepcopy(captured_sanitized)
+        contradictory["host"] = "https://other.example.test"
+        with self.assertRaisesRegex(ValueError, "missing or contradictory"):
+            _admit_auth_readback_host(contradictory, HOST)
+        malformed = copy.deepcopy(captured_sanitized)
+        malformed["details"]["host"] = "adb-7405607548213398.18.azuredatabricks.net"
+        with self.assertRaisesRegex(ValueError, "malformed"):
+            _admit_auth_readback_host(malformed, HOST)
+        failed = copy.deepcopy(captured_sanitized)
+        failed["status"] = "failure"
+        with self.assertRaisesRegex(ValueError, "did not report success"):
+            _admit_auth_readback_host(failed, HOST)
+
     def test_workspace_exports_use_source_for_notebooks_and_auto_for_files(self):
         calls = []
         def fake_run(argv, **kwargs):
