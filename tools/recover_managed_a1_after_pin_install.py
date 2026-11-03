@@ -25,6 +25,9 @@ import run_managed_a1_serverless as runner
 
 MAX_READONLY_ADMISSION_SECONDS = 120
 MAX_RECOVERY_SECONDS = 1230
+MAX_A1_CONTINUATION_SECONDS = 810
+R23_RETIRED_ACTIVE_SECONDS = 420
+PRIOR_ACTIVE_SECONDS_AFTER_R23 = 2040
 ORIGINAL_CAMPAIGN_SECONDS = 1680
 RETIRED_RECOVERY_WINDOWS = (
     {"attempt": "R18 retry01", "ceiling_seconds": 90,
@@ -96,6 +99,8 @@ RETIRED_RECOVERY_WINDOWS = (
 PRIOR_ACTIVE_SECONDS_CEILING = 1620  # prior 1,380s + 240s R22 window.
 MAX_CUMULATIVE_ACTIVE_SECONDS = 2850  # prior 1,620s + remaining 1,230s.
 PROFILE = "ashlar-managed-a1-pin-install-recovery/0.1"
+R23_RESUME_RECEIPT_SHA256 = (
+    "c6db3cb3296cef4b6056b926dda95b767cc7b27a9dea0ba7b58a6cc7599388b8")
 
 
 def _require(value, message):
@@ -360,6 +365,8 @@ def _volume_preflight(api, config, receipt, retained, deadline) -> tuple[str, li
         "source-prefix.json": retained["a0_prefix"],
         "selected-prefix.json": retained["a0_selected_prefix"],
     }
+    if retained.get("a0_recovery_snapshot") is not None:
+        objects["a0-recovery-source-snapshot.bin"] = retained["a0_recovery_snapshot"]
     for name, raw in objects.items():
         _read_volume_bytes(api, volume_path + "/" + name, raw)
     directory = api.call("get", "/api/2.0/fs/directories/" + quote(volume_path, safe="/"))
@@ -577,6 +584,616 @@ def _run_verifier_phase(*, api, config, payload, state, state_path, recovery_roo
     _write_state(state_path, state)
     pin_stages.close_after_ack()
     return result, settlement, store, attempt_dir, close_output
+
+
+def _resume_a1_inputs(config_path: Path, r23_receipt_path: Path,
+                      output_root: Path) -> tuple[dict, dict, dict, dict, dict, dict]:
+    """Admit only the exact retained R23 state after A0 matched closeout."""
+    from ashlar_host.a1_ack_attempt import (
+        A1AckSettlement, DurableA1AckAttemptStore, MAX_SETTLEMENT_RECORD_BYTES,
+    )
+    import base64
+
+    _require(config_path.is_absolute() and config_path.is_file()
+             and not config_path.is_symlink(), "Exact retained managed trial config required")
+    config = json.loads(config_path.read_text(encoding="utf-8"))
+    payload, config = runner.build_payload(config)
+    _require(config["maximum_wall_seconds"] == ORIGINAL_CAMPAIGN_SECONDS
+             and config["trial_id"] == "a1-release-20261103-serverless-r1",
+             "A1 continuation must retain the original 1,680-second campaign inputs")
+    cost = config.get("cost")
+    _require(type(cost) is dict and config.get("trial", {}).get("cost") == cost
+             and cost.get("estimated_total_dbu") == 148.0
+             and cost.get("authorized_total_dbu") == 148.0
+             and cost.get("estimated_total_usd") == 69.56
+             and cost.get("cleanup_reserve_usd") == 20.0
+             and cost.get("cleanup_reserve_dbu") == 0.0,
+             "The already authorized 148 DBU plus $20 cost envelope must remain exact")
+    _require(config["holder_bootstrap"]["python"] == sys.executable,
+             "Use the selected original managed host Python")
+    _require(r23_receipt_path.is_absolute() and r23_receipt_path.is_file()
+             and not r23_receipt_path.is_symlink(), "Exact R23 receipt required")
+    _require(r23_receipt_path.stat().st_uid == os.getuid()
+             and r23_receipt_path.stat().st_mode & 0o077 == 0,
+             "Owner-private R23 recovery receipt required")
+    r23_raw = r23_receipt_path.read_bytes()
+    _require(_sha(r23_raw) == R23_RESUME_RECEIPT_SHA256,
+             "Only the exact reviewed R23 A0 settlement may resume")
+    r23 = json.loads(r23_raw.decode("utf-8"))
+    r23_root = r23_receipt_path.parent.resolve(strict=True)
+    _require(r23.get("profile") == PROFILE and r23.get("status") == "recovery_required"
+             and r23.get("phase") == "recovery_required"
+             and r23.get("original_trial_id") == config["trial_id"]
+             and r23.get("original_schema_id")
+             and r23.get("original_volume_id"),
+             "R23 namespace identity differs from the original managed trial")
+    _require(r23.get("a0_ack_matched") is True
+             and r23.get("a0_ack", {}).get("state") == "acknowledged_exactly_reconciled"
+             and r23.get("a0_ack", {}).get("attempt_sha256")
+                 == r23.get("private_artifacts", {}).get("a0_ack_attempt", {}).get("sha256")
+             and r23.get("a0_terminal_proof", {}).get("outcome") == "durably_verified"
+             and r23.get("a0_terminal_proof", {}).get("terminal") is True
+             and r23.get("a0_terminal_proof", {}).get("status") == "SUCCEEDED"
+             and r23.get("a0_terminal_proof", {}).get("manifest_sha256")
+                 == r23.get("a0_ack", {}).get("manifest_sha256")
+             and type(r23.get("active_recovery_seconds")) in (int, float)
+             and 0 < r23["active_recovery_seconds"] <= R23_RETIRED_ACTIVE_SECONDS
+             and r23.get("delta_replay_or_write") is False
+             and r23.get("initializer_replayed") is False
+             and r23.get("a0_publisher_replayed") is False,
+             "R23 must contain the exact durably verified/matched A0 closeout only")
+    _require("a1_ack" not in r23 and r23.get("a1_ack_matched") is not True
+             and r23.get("a1_ack_attempted") is not True
+             and not (r23_root / "ack" / "a1").exists()
+             and set(r23.get("jobs", {})) == {"a0-verifier", "a0-post-ack-close"}
+             and all(row.get("result_state") == "SUCCESS"
+                     and row.get("run_now_state") == "terminal_success"
+                     and row.get("job_create_state") == "deleted"
+                     for row in r23["jobs"].values()),
+             "R23 must have no A1 publication, verification, or ACK effects")
+    _require(r23.get("prior_active_seconds_ceiling") == 1620
+             and r23.get("maximum_active_recovery_seconds") == MAX_RECOVERY_SECONDS
+             and r23.get("cumulative_active_seconds_ceiling") == 2850
+             and r23.get("cost_envelope") == cost,
+             "R23 cumulative budget and cost envelope must match original trial")
+    original_path = Path(r23.get("original_recovery_receipt", ""))
+    _require(original_path.is_absolute() and original_path.is_file()
+             and not original_path.is_symlink()
+             and original_path.stat().st_uid == os.getuid()
+             and original_path.stat().st_mode & 0o077 == 0,
+             "Exact original setup recovery receipt required")
+    _require(_sha(original_path.read_bytes()) == r23.get("original_recovery_receipt_sha256"),
+             "Original setup recovery receipt bytes differ from retained R23 binding")
+    original = json.loads(original_path.read_text(encoding="utf-8"))
+    _require(original.get("source_bootstrap_config_path")
+             and original.get("schema_id") == r23["original_schema_id"]
+             and original.get("volume_id") == r23["original_volume_id"]
+             and original.get("trial_id") == r23["original_trial_id"]
+             and original.get("trial_id") == config["trial_id"],
+             "Original setup receipt must bind the same source/schema/Volume trial")
+    _require(not output_root.exists() and not output_root.is_symlink(),
+             "Use a fresh distinct A1 continuation output root")
+
+    original_root = original_path.parent.resolve(strict=True)
+    retained = {name: _read_private_artifact(original, source_name, original_root)
+        for name, source_name in (
+            ("genesis", "a0_original_ab_genesis"),
+            ("a0_snapshot", "a0_held_source_snapshot"),
+            ("request", "a0_frozen_request"),
+            ("a0_manifest", "a0_publication_manifest"),
+            ("a0_receipt", "a0_destination_receipt"),
+            ("publisher_result", "a0_publisher_result"),
+            ("a0_prefix", "a0_source_prefix"),
+            ("a0_selected_prefix", "a0_selected_prefix"),
+            ("genesis_manifest", "uc_genesis_manifest"))}
+    a1_genesis = _read_private_artifact(r23, "a1_continuation_genesis", r23_root)
+    a1_request = _read_private_artifact(r23, "a1_frozen_request", r23_root)
+    a0_recovery_snapshot = _read_private_artifact(
+        r23, "a0_recovery_source_snapshot", r23_root)
+    a0_recovery_genesis = _read_private_artifact(
+        r23, "a0_recovery_genesis", r23_root)
+    attempt_directory = Path(r23.get("a0_ack", {}).get("attempt_directory", ""))
+    _require(attempt_directory.is_absolute() and attempt_directory.is_dir()
+             and not attempt_directory.is_symlink(), "Exact original A0 ACK attempt directory required")
+    store = DurableA1AckAttemptStore(attempt_directory)
+    attempt = store.load()
+    record = store._read_record("worker-settlement.json", MAX_SETTLEMENT_RECORD_BYTES)
+    _require(_sha(attempt.path.read_bytes()) == r23["a0_ack"]["attempt_sha256"]
+             and attempt.selection_sha256 == r23["a0_ack"]["selection_sha256"]
+             and attempt.request_sha256 == r23["a0_ack"]["request_sha256"]
+             and attempt.manifest_sha256 == r23["a0_ack"]["manifest_sha256"]
+             and attempt.receipt_sha256 == r23["a0_ack"]["receipt_sha256"]
+             and record.get("outcome") == "matched"
+             and record.get("ack_retry_permitted") is False,
+             "R23 matched A0 settlement differs from the exact durable attempt")
+    checkpoint = base64.b64decode(record["checkpoint_bytes_base64"], validate=True)
+    a0_settlement = A1AckSettlement("matched", checkpoint,
+        (None if record["receipt_bytes_base64"] is None else
+         base64.b64decode(record["receipt_bytes_base64"], validate=True)),
+        record["request_sha256"], record["manifest_sha256"], record["selection_sha256"])
+    store._validate_settlement(attempt, a0_settlement)
+    a0_next_cursor = json.loads(checkpoint.decode("utf-8"))["nextXid"]
+    from ashlar_host.truss_detached_a1_genesis_codec import decode_detached_a1_genesis_snapshot
+    from ashlar_host.managed_a1_detached_admission import admit_detached_a1_plan
+    a0_manifest_value = _json(retained["a0_manifest"], "matched A0 publication manifest")
+    genesis_manifest_value = _json(retained["genesis_manifest"], "original genesis manifest")
+    phase_clock = runner._phase_clock_after_manifest(
+        config["trial"]["materialized_at"], genesis_manifest_value)
+    a1_clock = runner._phase_clock_after_manifest(phase_clock, a0_manifest_value)
+    a1_genesis_value = decode_detached_a1_genesis_snapshot(a1_genesis,
+        expected_a_prior_cursor=a0_next_cursor)
+    a1_plan = admit_detached_a1_plan(genesis_snapshot_bytes=a1_genesis,
+        genesis_manifest=a0_manifest_value, stream=config["trial"]["stream"],
+        materialized_at=a1_clock, context=object(), continuation=True)
+    recomposed_request = json.dumps(a1_plan.request, sort_keys=True, separators=(",", ":"),
+        ensure_ascii=False, allow_nan=False).encode("utf-8")
+    a1_row = r23["a1_request"]
+    _require(recomposed_request == a1_request
+             and _sha(a1_request) == a1_row.get("request_sha256")
+             and a1_plan.publication_id == a1_row.get("publication_id")
+             and a1_genesis_value.schedule_sha256
+                 == _json(retained["genesis"], "original A0 genesis envelope").get("schedule_sha256"),
+             "Retained A1 continuation genesis/request differs from exact A0 settlement plan")
+    expected_a0_resume_uri = ("/Volumes/" + config["catalog"] + "/" + config["schema"]
+        + "/" + config["volume_name"] + "/a0-recovery-source-snapshot.bin")
+    _require(r23.get("source_hold", {}).get("fresh_snapshot_volume_uri")
+             == expected_a0_resume_uri
+             and r23.get("private_artifacts", {}).get(
+                 "a0_recovery_source_snapshot", {}).get("sha256") == _sha(a0_recovery_snapshot)
+             and r23.get("private_artifacts", {}).get(
+                 "a0_recovery_genesis", {}).get("sha256") == _sha(a0_recovery_genesis)
+             and r23.get("source_hold", {}).get("fresh_genesis_sha256")
+                 == _sha(a0_recovery_genesis),
+             "R23 source re-open snapshot must be the exact seventh owned Volume artifact")
+
+    _require(not (r23_root / "ack" / "a1").exists(),
+             "No prior A1 ACK attempt may exist for this continuation")
+    return (config, payload, r23, original, retained | {
+        "a1_genesis": a1_genesis, "a1_request": a1_request,
+        "a0_recovery_snapshot": a0_recovery_snapshot,
+        "a0_recovery_genesis": a0_recovery_genesis,
+        "a0_settlement": a0_settlement, "a0_attempt_directory": attempt_directory,
+        "a1_plan": a1_plan, "phase_clock": phase_clock, "a1_clock": a1_clock,
+        "a1_publication_id": a1_plan.publication_id},
+        {"original_receipt_path": original_path, "r23_root": r23_root,
+         "original_root": original_root})
+
+
+def _launch_a1_continuation(config_path: Path, r23_receipt_path: Path,
+                            output_root: Path, profile: str) -> dict:
+    """Resume only A1 after the exact R23 A0 ACK and committed seed."""
+    import threading
+    from urllib.parse import quote
+    from ashlar_host.a1_ack_attempt import DurableA1AckAttemptStore
+    from ashlar_host.truss_detached_source_snapshot_codec import decode_detached_source_snapshot
+
+    config, payload, r23, original, retained, paths = _resume_a1_inputs(
+        config_path, r23_receipt_path, output_root)
+    _require(profile == runner.PROFILE, "Resume profile must remain the selected original workspace")
+    _require(threading.current_thread() is threading.main_thread(),
+             "Bounded A1 continuation must run on the main thread")
+    output_root.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+    _require(not output_root.exists() and not output_root.is_symlink(),
+             "A1 continuation output root must be new")
+    output_root.mkdir(mode=0o700)
+    os.chmod(output_root, 0o700)
+    state_path = output_root / "recovery.json"
+    r23_sha = _sha(r23_receipt_path.read_bytes())
+    state = {"profile": PROFILE, "status": "running", "phase": "read_only_admission",
+        "resume_mode": "a1_after_matched_a0_and_committed_seed/0.1",
+        "r23_receipt_path": str(r23_receipt_path), "r23_receipt_sha256": r23_sha,
+        "original_recovery_receipt_path": str(paths["original_receipt_path"]),
+        "original_recovery_receipt_sha256": _sha(paths["original_receipt_path"].read_bytes()),
+        "trial_id": config["trial_id"], "schema_id": r23["original_schema_id"],
+        "volume_id": r23["original_volume_id"], "a0_ack_replayed": False,
+        "a0_publisher_replayed": False, "a1_seed_replayed": False,
+        "delta_replayed": False, "a1_publication_outcome": "not_started",
+        "ack_attempted": False,
+        "source_ack_outcome": "not_attempted", "jobs": {}, "known_run_ids": {},
+        "private_artifacts": {}, "cleanup_errors": [],
+        "original_campaign_active_seconds_ceiling": ORIGINAL_CAMPAIGN_SECONDS,
+        "r23_retired_active_seconds_ceiling": R23_RETIRED_ACTIVE_SECONDS,
+        "prior_active_seconds_ceiling": PRIOR_ACTIVE_SECONDS_AFTER_R23,
+        "remaining_a1_continuation_seconds": MAX_A1_CONTINUATION_SECONDS,
+        "cumulative_active_seconds_ceiling": 2850,
+        "cost_envelope": config["cost"]}
+    _write_state(state_path, state)
+    previous_handler = signal.getsignal(signal.SIGALRM)
+    previous_timer = signal.getitimer(signal.ITIMER_REAL)
+    preflight_start = time.monotonic()
+    preflight_deadline = preflight_start + MAX_READONLY_ADMISSION_SECONDS
+    deadline = preflight_deadline
+    work_deadline = preflight_deadline
+    api = runner.DatabricksCLI(profile)
+    api.deadline = deadline
+    holder = pin_owner = pin_stages = pin_pg_ctl_lock = None
+    a1_ack_done = False
+    unresolved_ack = False
+    active_start = None
+    readonly_elapsed = None
+    run_ids = {}
+    a1_result = None
+    pin_cleanup = None
+    source_cleanup = None
+
+    def expired(_signum, _frame):
+        if state.get("phase") == "read_only_admission":
+            raise TimeoutError("A1 resume read-only admission exceeded 120 seconds")
+        raise TimeoutError("A1 continuation exceeded its 810-second remaining active window")
+
+    signal.signal(signal.SIGALRM, expired)
+    signal.setitimer(signal.ITIMER_REAL, MAX_READONLY_ADMISSION_SECONDS)
+    try:
+        auth = api.auth_readback()
+        runner._admit_auth_readback_host(auth, config["host"])
+        runner._check_artifact_lock(api, config)
+        original_root = paths["original_root"]
+        _validate_terminal_predecessors(api, original, config, work_deadline, {
+            "publisher_result": retained["publisher_result"],
+            "genesis_manifest": retained["genesis_manifest"]})
+        # Re-read the already completed A0 verifier and close jobs. They are
+        # immutable prior evidence; this does not rerun either task or source ACK.
+        for phase, proof_key in (("a0-verifier", "pre_ack_run_id"),
+                                 ("a0-post-ack-close", "post_ack_close_run_id")):
+            row = r23["jobs"][phase]
+            run = runner._get_owned_run(api, row["run_id"], row["job_id"])
+            _require(runner._terminal(run.get("state", {}))
+                     and run.get("state", {}).get("result_state") == "SUCCESS",
+                     f"Retained R23 {phase} job no longer reads as terminal success")
+            task = runner._task_output(api, row["task_run_id"])
+            runner._validate_task_runtime(task, config["expected_runtime"], "verifier")
+            raw = json.dumps(task, sort_keys=True, separators=(",", ":"),
+                ensure_ascii=False, allow_nan=False).encode("utf-8")
+            terminal = r23["a0_terminal_proof"]
+            expected_sha = (terminal["pre_ack_task_result_sha256"]
+                if phase == "a0-verifier" else terminal["post_ack_close_task_result_sha256"])
+            observed_run_id = row["run_id"]
+            proof_run_id = terminal[proof_key]
+            _require(type(observed_run_id) in (int, str)
+                     and type(observed_run_id) is not bool
+                     and str(observed_run_id).isascii()
+                     and str(observed_run_id).isdecimal()
+                     and type(proof_run_id) is str and proof_run_id.isascii()
+                     and proof_run_id.isdecimal()
+                     and str(observed_run_id) == proof_run_id
+                     and _sha(raw) == expected_sha,
+                     f"Retained R23 {phase} task output differs from its exact terminal proof")
+            _require(time.monotonic() < work_deadline,
+                     "A1 continuation admission exceeded the read-only cap")
+
+        schema = runner._list_schema(api, config["catalog"], config["schema"], work_deadline)
+        _require(type(schema) is dict and schema.get("schema_id") == r23["original_schema_id"]
+                 and schema.get("properties", {}).get("ashlar.trial_id") == config["trial_id"],
+                 "Original A1 schema ownership identity changed")
+        volume_path, original_volume_uris = _volume_preflight(
+            api, config, original, retained, work_deadline)
+        _require(volume_path == r23["source_hold"]["fresh_snapshot_volume_uri"].rsplit("/", 1)[0],
+                 "R23 recovery source snapshot does not belong to the original owned Volume")
+        state["verified_existing_volume_files"] = [uri.rsplit("/", 1)[-1]
+                                                    for uri in original_volume_uris]
+        _write_state(state_path, state)
+        bootstrap_path = Path(original["source_bootstrap_config_path"])
+        _require(bootstrap_path.is_file() and not bootstrap_path.is_symlink()
+                 and bootstrap_path.stat().st_mode & 0o077 == 0,
+                 "Exact original source bootstrap config must remain owner-private")
+        readonly_elapsed = time.monotonic() - preflight_start
+        _require(readonly_elapsed < MAX_READONLY_ADMISSION_SECONDS,
+                 "A1 resume read-only admission exceeded its bound")
+        active_start = time.monotonic()
+        deadline = active_start + MAX_A1_CONTINUATION_SECONDS
+        work_deadline = deadline - config["cleanup_reserve_seconds"]
+        api.deadline = deadline
+        state.update({"phase": "active_a1_continuation",
+            "readonly_admission_seconds": readonly_elapsed,
+            "active_continuation_started_monotonic": active_start,
+            "active_continuation_deadline_monotonic": deadline})
+        _write_state(state_path, state)
+        signal.setitimer(signal.ITIMER_REAL, MAX_A1_CONTINUATION_SECONDS)
+
+        from managed_a1_recovery_source_bootstrap import open_retained_a1_source_hold
+        holder = open_retained_a1_source_hold(bootstrap_config_path=bootstrap_path,
+            a0_genesis_bytes=retained["a0_recovery_genesis"],
+            a0_selection_bytes=retained["a0_recovery_snapshot"],
+            a0_request_bytes=retained["request"],
+            a0_publication_id=_json(retained["a0_manifest"],
+                                    "matched A0 publication manifest")["publication_id"],
+            a1_genesis_bytes=retained["a1_genesis"],
+            a1_request_bytes=retained["a1_request"],
+            a1_publication_id=retained["a1_publication_id"],
+            destination_id=config["trial"]["destination_id"],
+            a0_attempt_directory=Path(r23["a0_ack"]["attempt_directory"]),
+            deadline_monotonic=work_deadline)
+        a1_snapshot = holder.snapshot_bytes
+        a1_custody = holder.custody_digests
+        _require(holder.phase == "a1" and type(a1_snapshot) is bytes
+                 and type(a1_custody) is dict and holder.owner._heartbeat is not None,
+                 "Fresh A1 public source hold and heartbeat required")
+        a1_detached = decode_detached_source_snapshot(a1_snapshot)
+        a1_page = a1_detached.source_page
+        _require(a1_page.page_fields["outcome"] == "transaction"
+                 and a1_page.request_bytes == retained["a1_request"]
+                 and a1_page.publication_id == retained["a1_publication_id"]
+                 and a1_page.destination_id == config["trial"]["destination_id"]
+                 and a1_page.prior_bytes == retained["a0_settlement"].checkpoint_bytes
+                 and holder.reselection_evidence.get("a0_settlement_outcome") == "matched"
+                 and holder.reselection_evidence.get("seed_callback_invoked") is False,
+                 "Fresh source page must be the exact already-seeded A1 transaction")
+        _record_new_artifact(output_root, state_path, state, "a1_recovery_source_snapshot", a1_snapshot)
+        state["a1_source_hold"] = {"phase": "a1", "state": "fresh_a1_page_held",
+            "source_snapshot_sha256": _sha(a1_snapshot), "custody_digests": a1_custody,
+            "reselection_evidence": holder.reselection_evidence,
+            "original_a0_hold_gap": True, "a1_seed_replayed": False}
+        _write_state(state_path, state)
+
+        a1_clock = retained["a1_clock"]
+        task_trial = dict(config["trial"])
+        task_trial.update({"expected_runtime": config["expected_runtime"],
+            "cost": config["cost"], "materialized_at": a1_clock,
+            "source_custody_digests": a1_custody,
+            "destination_id": config["trial"]["destination_id"]})
+        a1_genesis_uri = volume_path + "/a1-source-bundle.bin"
+        a1_manifest_uri = volume_path + "/a0-manifest.json"
+        a1_snapshot_uri = volume_path + "/a1-source-snapshot.bin"
+        _put_new_volume(api, a1_genesis_uri, retained["a1_genesis"])
+        _put_new_volume(api, a1_manifest_uri, retained["a0_manifest"])
+        _put_new_volume(api, a1_snapshot_uri, a1_snapshot)
+        a1_genesis_artifact = {"sha256": _sha(retained["a1_genesis"])}
+        a1_manifest_artifact = {"sha256": _sha(retained["a0_manifest"])}
+        a1_snapshot_artifact = {"sha256": _sha(a1_snapshot)}
+        a1_common = {"trial": task_trial, "protocol_profile": config["protocol_profile"],
+            "phase": "a1", "genesis_volume_uri": a1_genesis_uri,
+            "genesis_sha256": a1_genesis_artifact["sha256"],
+            "genesis_manifest_volume_uri": a1_manifest_uri,
+            "genesis_manifest_sha256": a1_manifest_artifact["sha256"],
+            "a1_snapshot_volume_uri": a1_snapshot_uri,
+            "a1_snapshot_sha256": a1_snapshot_artifact["sha256"]}
+        state["phase"] = "a1_publisher"
+        state["a0_ack_replayed"] = False
+        state["a0_publisher_replayed"] = False
+        state["a1_seed_replayed"] = False
+        state["a1_publication_outcome"] = "submitted_or_unknown"
+        _write_state(state_path, state)
+        a1_pub_id, _, _, a1_output = runner._run_stage(api, config,
+            "a1-publisher", payload["publisher"], {"task_parameters_json": json.dumps(
+                a1_common, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},
+            work_deadline, cleanup_deadline=deadline, recovery_state=state,
+            recovery_path=state_path, config_key="publisher")
+        run_ids["a1-publisher"] = a1_pub_id
+        runner._validate_task_runtime(a1_output, config["expected_runtime"], "publisher")
+        a1_output_raw = json.dumps(a1_output, sort_keys=True, separators=(",", ":"),
+            ensure_ascii=False, allow_nan=False).encode("utf-8")
+        _record_new_artifact(output_root, state_path, state, "a1_publisher_result", a1_output_raw)
+        state["a1_publication_outcome"] = "succeeded"
+        state["a1_publication_performed"] = True
+        _write_state(state_path, state)
+        (a1_receipt, a1_request_actual, a1_manifest, a1_receipt_bytes, a1_vector,
+         a1_vector_sha) = runner._publisher_bundle(a1_output,
+            "managed-current-spark:" + config["expected_principal"], phase="a1")
+        _require(a1_request_actual == retained["a1_request"]
+                 and _json(a1_manifest, "A1 manifest").get("recorded_at") == a1_clock,
+                 "A1 publication must use the exact persisted continuation request/clock")
+        _record_new_artifact(output_root, state_path, state, "a1_publication_manifest", a1_manifest)
+        _record_new_artifact(output_root, state_path, state, "a1_destination_receipt", a1_receipt_bytes)
+        a1_result_uri = volume_path + "/a1-publisher-result.json"
+        a1_result_artifact = _put_new_volume(api, a1_result_uri, a1_output_raw)
+        from ashlar_host.managed_current_a1_prefix_builder import build_managed_current_a1_prefix_evidence
+        a1_prefix, a1_prefix_sha, a1_selected = build_managed_current_a1_prefix_evidence(
+            genesis_bytes=retained["genesis"], source_snapshot_bytes=a1_snapshot,
+            initial_manifest_bytes=retained["a0_manifest"],
+            request_bytes=retained["a1_request"], publication_manifest_bytes=a1_manifest,
+            destination={"catalog": config["catalog"], "schema": config["schema"]},
+            carrier_profile="ashlar-delta/0.4-xxhash64", materialization_clock_us=a1_clock)
+        a1_selected_raw = json.dumps(a1_selected, sort_keys=True, separators=(",", ":"),
+            ensure_ascii=False, allow_nan=False).encode("utf-8")
+        _record_new_artifact(output_root, state_path, state,
+            "a1_source_prefix_before_retention", a1_prefix)
+        _record_new_artifact(output_root, state_path, state,
+            "a1_selected_prefix_before_retention", a1_selected_raw)
+        a1_bundle = runner._retention_bundle(trial=task_trial | {
+                "verifier_timeout_seconds": config["verifier"]["timeout_seconds"]},
+            protocol_profile=config["protocol_profile"], plan=retained["a1_plan"],
+            request_bytes=retained["a1_request"], manifest_bytes=a1_manifest,
+            destination_receipt=a1_receipt_bytes, task_receipt=a1_receipt,
+            prefix_bytes=a1_prefix, prefix_sha=a1_prefix_sha,
+            selected_prefix=a1_selected, source_snapshot=a1_snapshot,
+            custody_digests=a1_custody)
+        _require(_wire_vector(a1_bundle.vector) == a1_vector,
+                 "Resumed A1 publisher vector differs from exact retention selection")
+
+        pin_root = output_root / "pin-owner"
+        pin_root.mkdir(mode=0o700)
+        os.chmod(pin_root, 0o700)
+        pin_timeout = min(900, int(work_deadline - time.monotonic()
+                                   - runner.POST_ACK_CLEANUP_RESERVE_SECONDS))
+        _require(pin_timeout >= 31, "Remaining A1 window cannot cover the exact native pin")
+        from importlib.resources import files
+        from ashlar_host.managed_a1_postgres_cleanup import inspect_pg_ctl
+        from ashlar_host.managed_a1_local_pin_owner import ManagedA1LocalPinOwner
+        pin_pg_bin = Path(str(files("pgserver"))) / "pginstall" / "bin"
+        pin_pg_ctl_lock = inspect_pg_ctl(pin_pg_bin / "pg_ctl")
+        pin_owner = ManagedA1LocalPinOwner(pin_root / "pgdata", a1_bundle.selection,
+            a1_bundle.vector, native_timeout_seconds=pin_timeout,
+            deadline_monotonic=work_deadline)
+        pin_owner.__enter__()
+        a1_registration = pin_owner.register()
+        state["pin_registry"] = {"a1_registration": a1_registration,
+            "data_directory": str(pin_owner.data_directory), "state": "a1_registered",
+            "fresh_a1_only_registry": True}
+        _write_state(state_path, state)
+        pin_stages = runner._LocalPinStages(pin_owner, lifetime_seconds=pin_timeout)
+        state["phase"] = "a1_verification"
+        _write_state(state_path, state)
+        a1_result, a1_settlement, a1_store, a1_attempt_dir, _ = _run_verifier_phase(
+            api=api, config=config, payload=payload, state=state, state_path=state_path,
+            recovery_root=output_root, holder=holder, pin_stages=pin_stages,
+            phase="a1", trial=task_trial, volume_path=volume_path,
+            source_snapshot=a1_snapshot, source_snapshot_uri=a1_snapshot_uri,
+            custody_digests=a1_custody,
+            request_bytes=retained["a1_request"], manifest_bytes=a1_manifest,
+            receipt_bytes=a1_receipt_bytes, genesis_bytes=retained["a1_genesis"],
+            genesis_manifest_bytes=retained["a0_manifest"],
+            publisher_result_raw=a1_output_raw, publisher_result_uri=a1_result_uri,
+            prefix_bytes=a1_prefix, prefix_sha=a1_prefix_sha,
+            selected_prefix_raw=a1_selected_raw, vector=a1_vector,
+            vector_sha=a1_vector_sha, deadline=deadline, work_deadline=work_deadline,
+            run_ids=run_ids, ack_store_root=output_root / "ack")
+        a1_release = pin_owner.release_current_registration()
+        state["pin_registry"].update({"a1_release": a1_release, "state": "a1_released"})
+        _write_state(state_path, state)
+        pin_owner.__exit__(None, None, None)
+        pin_cleanup = runner._cleanup_pin_pgdata(pin_owner, pin_pg_ctl_lock, deadline)
+        pin_owner = None
+        holder.finish_ack(a1_settlement, attempt_directory=a1_attempt_dir, deadline=deadline)
+        a1_ack_done = True
+        unresolved_ack = False
+        state["unresolved_ack"] = False
+        state["a1_ack"]["state"] = "acknowledged_exactly_reconciled"
+        _write_state(state_path, state)
+        holder.close(deadline, orderly=True)
+        runner._wait_source_group_absent(holder, deadline)
+        source_group_id = holder.owner.process_group_id
+        source_config = json.loads(bootstrap_path.read_bytes())
+        source_root = Path(source_config["root"])
+        source_cleanup = {"state": "stopped_and_preserved",
+            "pgdata": {source: {"path": str(source_root / f"pgdata-{source}"),
+                "postmaster_pid_absent": not (source_root / f"pgdata-{source}" / "postmaster.pid").exists()}
+                for source in ("A", "B")},
+            "process_group_absent": runner._process_group_absent(source_group_id)}
+        _require(all(item["postmaster_pid_absent"] for item in source_cleanup["pgdata"].values())
+                 and source_cleanup["process_group_absent"],
+                 "Fresh A1 holder or retained PostgreSQL source processes remain active")
+        holder = None
+
+        a1_volume_names = ["a1-source-bundle.bin", "a0-manifest.json",
+            "a1-source-snapshot.bin", "a1-publisher-result.json",
+            "a1-source-prefix.json", "a1-selected-prefix.json"]
+        expected_new_volume = {"a1-source-bundle.bin": retained["a1_genesis"],
+            "a0-manifest.json": retained["a0_manifest"],
+            "a1-source-snapshot.bin": a1_snapshot,
+            "a1-publisher-result.json": a1_output_raw,
+            "a1-source-prefix.json": a1_prefix,
+            "a1-selected-prefix.json": a1_selected_raw}
+        for name, expected in expected_new_volume.items():
+            _read_volume_bytes(api, volume_path + "/" + name, expected)
+        _read_volume_bytes(api, volume_path + "/a0-recovery-source-snapshot.bin",
+                           retained["a0_recovery_snapshot"])
+        all_volume_uris = original_volume_uris + [volume_path + "/" + name
+            for name in a1_volume_names]
+        for uri in all_volume_uris:
+            api.remove_file("dbfs:" + uri)
+        directory = api.call("get", "/api/2.0/fs/directories/" + quote(volume_path, safe="/"))
+        _require(runner._directory_contents(directory, maximum_entries=24) == [],
+                 "Original Volume contains unexpected files after A1 continuation cleanup")
+        volume_full = config["catalog"] + "." + config["schema"] + "." + config["volume_name"]
+        volume_api = "/api/2.1/unity-catalog/volumes/" + quote(volume_full, safe="")
+        live_volume = api.call("get", volume_api)
+        _require(live_volume.get("volume_id") == r23["original_volume_id"]
+                 and live_volume.get("owner") == config["expected_principal"],
+                 "Original Volume ownership changed before cleanup")
+        api.call("delete", volume_api)
+        role_rows = runner._list_owned_tables(api, config, deadline)
+        cleanup_ids = runner._admit_owned_uc_table_inventory(role_rows,
+            original["uc_genesis"]["installation_inventory"],
+            catalog=config["catalog"], schema=config["schema"],
+            principal=config["expected_principal"])
+        _require(cleanup_ids == original["uc_table_id_baseline"],
+                 "Original six managed table IDs changed before cleanup")
+        current_schema = runner._list_schema(api, config["catalog"], config["schema"], deadline)
+        _require(type(current_schema) is dict
+                 and current_schema.get("schema_id") == r23["original_schema_id"]
+                 and current_schema.get("properties", {}).get("ashlar.trial_id") == config["trial_id"],
+                 "Original schema ownership changed before cleanup")
+        schema_path = "/api/2.1/unity-catalog/schemas/" + quote(
+            config["catalog"] + "." + config["schema"], safe="")
+        api.call("delete", schema_path + "?force=true")
+        _require(runner._list_schema(api, config["catalog"], config["schema"], deadline) is None,
+                 "Original schema remains after A1 continuation cleanup")
+        result = {"profile": PROFILE, "status": "a1_resumed_acknowledged_and_cleaned",
+            "resume_mode": "a1_after_matched_a0_and_committed_seed/0.1",
+            "r23_receipt_sha256": r23_sha,
+            "a0_ack_replayed": False, "a0_publisher_replayed": False,
+            "a1_seed_replayed": False, "delta_replayed": False,
+            "a1_publication_performed": True,
+            "a1_publication_outcome": "succeeded",
+            "a0_prior_terminal_proof": r23["a0_terminal_proof"],
+            "a0_prior_ack": {"state": "acknowledged_exactly_reconciled",
+                "attempt_sha256": r23["a0_ack"]["attempt_sha256"],
+                "settlement_outcome": "matched"},
+            "a1_request_sha256": _sha(retained["a1_request"]),
+            "a1_source_snapshot_sha256": _sha(a1_snapshot),
+            "a1_source_reselection": holder if isinstance(holder, dict) else
+                state.get("a1_source_hold", {}).get("reselection_evidence"),
+            "a1": a1_result, "a1_pin_release": a1_release,
+            "pin_postgres_cleanup": pin_cleanup, "source_postgres_cleanup": source_cleanup,
+            "readonly_admission_seconds": readonly_elapsed,
+            "active_continuation_seconds": time.monotonic() - active_start,
+            "known_run_ids": dict(run_ids), "schema_absent_after_cleanup": True,
+            "source_holder_closed": True,
+            "volume_cleanup": "exact_prior_and_a1_files_removed",
+            "native_table_cleanup": "original_six_managed_tables_and_schema_removed"}
+        state.update({"status": "a1_resumed_acknowledged_and_cleaned", "phase": "complete",
+            "active_continuation_seconds": time.monotonic() - active_start,
+            "a0_prior_ack_replayed": False, "a1_ack": {**state["a1_ack"],
+                "state": "acknowledged_exactly_reconciled"},
+            "delta_replayed": False, "a1_publication_outcome": "succeeded",
+            "a1_publication_performed": True,
+            "known_run_ids": dict(run_ids), "result": result})
+        _write_state(state_path, state)
+        runner._write_private_json(output_root / "qualification.json", result)
+        return result
+    except BaseException as error:
+        state["phase"] = "recovery_required"
+        state["status"] = "recovery_required"
+        state["failure_type"] = type(error).__name__
+        state["failure"] = str(error)[:1200]
+        state["readonly_admission_seconds"] = readonly_elapsed
+        state["active_continuation_seconds"] = (None if active_start is None
+            else time.monotonic() - active_start)
+        state["known_run_ids"] = dict(run_ids)
+        state["a1_ack_matched"] = a1_ack_done
+        state["unresolved_ack"] = unresolved_ack or bool(state.get("unresolved_ack"))
+        try:
+            _write_state(state_path, state)
+            runner._write_private_json(output_root / "qualification.json", state)
+        except Exception:
+            pass
+        raise
+    finally:
+        if pin_stages is not None and pin_owner is not None:
+            try:
+                pin_stages.close_on_error()
+            except Exception as error:
+                state.setdefault("cleanup_errors", []).append({"owner": "pin",
+                    "stage": "native_handle_close", "error": f"{type(error).__name__}: {error}"[:400]})
+        if pin_owner is not None:
+            try:
+                pin_owner.__exit__(None, None, None)
+            except Exception as error:
+                state.setdefault("cleanup_errors", []).append({"owner": "pin",
+                    "stage": "owner_exit", "error": f"{type(error).__name__}: {error}"[:400]})
+            if pin_pg_ctl_lock is not None:
+                try:
+                    state.setdefault("postgres_cleanup", []).append(
+                        runner._cleanup_pin_pgdata(pin_owner, pin_pg_ctl_lock, deadline))
+                except Exception as error:
+                    state.setdefault("cleanup_errors", []).append({"owner": "pin",
+                        "stage": "postgres_cleanup", "error": f"{type(error).__name__}: {error}"[:400]})
+        if holder is not None:
+            try:
+                unresolved_ack = unresolved_ack or bool(state.get("unresolved_ack"))
+                holder.close(deadline, orderly=not unresolved_ack)
+                runner._wait_source_group_absent(holder, deadline)
+            except Exception as error:
+                state.setdefault("cleanup_errors", []).append({"owner": "source",
+                    "stage": "close_or_reap", "error": f"{type(error).__name__}: {error}"[:400]})
+        try:
+            _write_state(state_path, state)
+        except Exception:
+            pass
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        signal.signal(signal.SIGALRM, previous_handler)
+        if previous_timer[0] > 0:
+            signal.setitimer(signal.ITIMER_REAL, previous_timer[0], previous_timer[1])
 
 
 def _record_new_artifact(root: Path, state_path: Path, state: dict,
@@ -916,7 +1533,7 @@ def _launch(config_path: Path, recovery_receipt_path: Path, output_root: Path,
             task_trial["destination_id"], work_deadline)
         from ashlar_host.truss_detached_source_snapshot_codec import decode_detached_source_snapshot
         a1_detached = decode_detached_source_snapshot(a1_snapshot)
-        _require(a1_detached.source_page.outcome == "transaction",
+        _require(a1_detached.source_page.page_fields["outcome"] == "transaction",
                  "A1 must be one actual public Truss transaction after the matched A0 ACK")
         holder.owner.start_heartbeat()
         _record_new_artifact(output_root, state_path, state, "a1_source_snapshot", a1_snapshot)
@@ -1158,12 +1775,44 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--recovery-receipt", required=True)
     parser.add_argument("--output-root", required=True)
     parser.add_argument("--profile", default=runner.PROFILE)
+    parser.add_argument("--resume-after-a0", action="store_true",
+                        help="Resume only the already-committed A1 continuation from matched A0")
     parser.add_argument("--execute", action="store_true",
                         help="Run the reviewed bounded recovery; default is effect-free preflight")
     args = parser.parse_args(argv)
     config_path, receipt_path, output_root = map(Path,
         (args.config, args.recovery_receipt, args.output_root))
     try:
+        if args.resume_after_a0:
+            config, payload, r23, original, retained, paths = _resume_a1_inputs(
+                config_path, receipt_path, output_root)
+            inert = {"r23_receipt_sha256": _sha(receipt_path.read_bytes()),
+                "original_receipt_sha256": _sha(paths["original_receipt_path"].read_bytes()),
+                "a0_ack_attempt_sha256": r23["a0_ack"]["attempt_sha256"],
+                "a0_settlement_outcome": retained["a0_settlement"].outcome,
+                "a0_next_cursor": json.loads(retained["a0_settlement"].checkpoint_bytes)["nextXid"],
+                "a1_genesis_sha256": _sha(retained["a1_genesis"]),
+                "a1_request_sha256": _sha(retained["a1_request"]),
+                "a1_publication_id": retained["a1_publication_id"],
+                "a1_seed_already_committed": True,
+                "a0_publication_or_ack_replay": False,
+                "a1_seed_replay": False,
+                "readonly_admission_cap_seconds": MAX_READONLY_ADMISSION_SECONDS,
+                "active_continuation_cap_seconds": MAX_A1_CONTINUATION_SECONDS,
+                "maximum_finite_wall_seconds": MAX_READONLY_ADMISSION_SECONDS
+                    + MAX_A1_CONTINUATION_SECONDS,
+                "cost_envelope": config["cost"]}
+            if not args.execute:
+                print(json.dumps({"status": "resume_preflight_passed",
+                    "profile": PROFILE, "trial_id": config["trial_id"],
+                    "schema_id": r23["original_schema_id"],
+                    "volume_id": r23["original_volume_id"],
+                    "retained_input_recomposition": inert}, sort_keys=True))
+                return 0
+            value = _launch_a1_continuation(config_path, receipt_path,
+                output_root, args.profile)
+            print(json.dumps(value, sort_keys=True, indent=2))
+            return 0
         config, payload, receipt = _validate_recovery_inputs(
             config_path, receipt_path, output_root)
         inert = _inert_preflight(config, receipt, receipt_path)
