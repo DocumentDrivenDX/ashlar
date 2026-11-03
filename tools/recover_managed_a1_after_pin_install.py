@@ -50,9 +50,28 @@ RETIRED_RECOVERY_WINDOWS = (
          "detail_role_count": 6, "extended_role_count": 6, "grant_scope_count": 8,
          "history_role_count": 6, "retention_property_role_count": 4,
          "role_count": 6, "table_schema_role_count": 6}},
+    {"attempt": "R20 RC5 failed A0 verifier", "ceiling_seconds": 150,
+     "observed_provider_seconds": 111.312, "ack_attempted": False,
+     "a1_seed_attempted": False, "source_ack_outcome": "not_attempted",
+     "job_result_state": "FAILED", "job_create_state": "deleted",
+     "provider_receipt_path": "/private/tmp/ashlar-managed-r20-failed-verifier-run.json",
+     "provider_receipt_sha256": "5cd19fe9d0506c1850bbf5ffe2f4254fe0845f0885cbbc9f88a2d91f1462a25e",
+     "recovery_receipt_path": "/private/tmp/ashlar-a1-managed-recovery-r20-rc5-20261103/recovery.json",
+     "recovery_receipt_sha256": "1123025828ed403e380483e0241f70bc334bec953348bcdbc86c0e4f2edd27db"},
+    {"attempt": "R20 read-only six-role versioned row capture", "ceiling_seconds": 180,
+     "observed_provider_seconds": 41.536, "observed_body_seconds": 25.3466,
+     "read_only": True, "jobs_terminal_and_deleted": True,
+     "producer_receipt_sha256": "9b90f21685e92e8e236b632d779978e0c66840248bcff4da7545c23802d18b78",
+     "provider_receipt_path": "/private/tmp/ashlar-native-versioned-rows-capture-20261103/run.json",
+     "provider_receipt_sha256": "a7a37d75e928630f3312ba645fdf3f07ea4b0a9a7c5c2a55527e2a94b0af7f28",
+     "rows_path": "/private/tmp/ashlar-native-versioned-rows-capture-20261103/rows.json",
+     "rows_sha256": "ee19f82a17f439212f9b52b696c19c5cf72a2f0be39ea2580b512bd3cc5a23fc",
+     "row_counts": {"object_current": 0, "edge_current": 0, "tombstone": 0,
+         "whole_source_history": 0, "publication_manifest": 2,
+         "publication_attempt_phase": 5}},
 )
-PRIOR_ACTIVE_SECONDS_CEILING = 840  # 450s original + 90s + 120s + 180s windows.
-MAX_CUMULATIVE_ACTIVE_SECONDS = 2070  # prior 840s + remaining 1,230s.
+PRIOR_ACTIVE_SECONDS_CEILING = 1170  # 450s + 90s + 120s + 180s + 150s + 180s.
+MAX_CUMULATIVE_ACTIVE_SECONDS = 2400  # prior 1,170s + remaining 1,230s.
 PROFILE = "ashlar-managed-a1-pin-install-recovery/0.1"
 
 
@@ -117,13 +136,13 @@ def _validate_recovery_inputs(config_path: Path, recovery_receipt_path: Path,
              "Recovery must retain the original 1,680-second campaign clock")
     cost = config.get("cost")
     _require(type(cost) is dict and config.get("trial", {}).get("cost") == cost
-             and cost.get("estimated_total_dbu") == 122.0
-             and cost.get("authorized_total_dbu") == 122.0
-             and cost.get("estimated_total_usd") == 57.34
+             and cost.get("estimated_total_dbu") == 133.0
+             and cost.get("authorized_total_dbu") == 133.0
+             and cost.get("estimated_total_usd") == 62.51
              and cost.get("cleanup_reserve_usd") == 20.0
              and cost.get("cleanup_reserve_dbu") == 0.0
              and cost.get("includes_startup_driver_verifier_handoff_and_cleanup") is True,
-             "RC4 recovery cost envelope must bind 122 DBU plus the $20 cleanup reserve")
+             "RC5 recovery cost envelope must bind 133 DBU plus the $20 cleanup reserve")
     _require(config["holder_bootstrap"]["python"] == sys.executable,
              "Run recovery under the exact original selected RC2 Python")
     _require(recovery_receipt_path.is_absolute() and recovery_receipt_path.is_file()
