@@ -530,7 +530,7 @@ def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict
             or seed_result["publications"][0].get("deferred_ack_intent", {}).get("sha256")
                 != resume["input_sha256"].get("seed_deferred_ack")
             or seed_result["publications"][0].get("source_page", {}).get("sha256")
-                != resume["seed_source_page_sha256"]
+                != resume["input_sha256"].get("seed_source_page")
             or readback.get("status") != "native_readback_verified_deferred_ack"
             or readback.get("acknowledgement") != "not_attempted"
             or readback.get("publication_id") != resume["seed_publication_id"]
@@ -545,7 +545,7 @@ def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict
             or a0_ack.get("acknowledgement") != "deferred_not_attempted"
             or a0_page.get("sha256") != resume["a0_source_page_sha256"]
             or seed_config.get("origin_path") != str(resume["origin_path"])
-            or seed_group_result.get("profile") != "ashlar-truss-record-group-result/0.1"
+            or seed_group_result.get("profile") != "ashlar-truss-record-group/0.1"
             or (prior_root / "continuation-group.json").exists()
             or (prior_root / "continuation-group-result.json").exists()
             or (prior_root / "continuation-config.json").exists()
