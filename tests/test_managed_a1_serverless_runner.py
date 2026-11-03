@@ -20,11 +20,62 @@ from tools.run_managed_a1_serverless import (
     _directory_contents,
     _admit_job_readback, _job_settings,
     _write_private_json, DatabricksCLI, _admit_auth_readback_host,
+    _phase_clock_after_manifest, _managed_serverless_protocol_profile,
+    _admit_owned_uc_table_inventory,
 )
 from ashlar_host.a1_ack_attempt import A1AckSettlement
 from ashlar_host.managed_a1_serverless_tasks import (
     _po_status, parse_predictive_optimization_status,
 )
+
+
+class PhaseClockTests(unittest.TestCase):
+    def test_each_phase_clock_follows_exact_predecessor_and_is_stable(self):
+        genesis = {"recorded_at": "1793677610661611"}
+        a0_clock = _phase_clock_after_manifest("1790000000000000", genesis)
+        self.assertEqual(a0_clock, "1793677610661612")
+        self.assertEqual(_phase_clock_after_manifest(a0_clock, genesis), a0_clock)
+        a0_manifest = {"recorded_at": a0_clock, "publication_id": "a0-id"}
+        a1_clock = _phase_clock_after_manifest(a0_clock, a0_manifest)
+        self.assertEqual(a1_clock, "1793677610661613")
+        self.assertGreater(int(a1_clock), int(a0_manifest["recorded_at"]))
+        for bad in ("01", "-1", str(2**63)):
+            with self.assertRaises(ValueError):
+                _phase_clock_after_manifest(a0_clock, {"recorded_at": bad})
+        with self.assertRaises(ValueError):
+            _phase_clock_after_manifest(str(2**63 - 1), {"recorded_at": str(2**63 - 1)})
+
+    def test_generated_protocol_wire_decodes_to_exact_serverless_profile(self):
+        from ashlar_host.configured_local_runtime import MANAGED_SERVERLESS_PROFILE
+        wire = {"identity": MANAGED_SERVERLESS_PROFILE.identity,
+            "reader_versions": sorted(MANAGED_SERVERLESS_PROFILE.reader_versions),
+            "writer_versions": sorted(MANAGED_SERVERLESS_PROFILE.writer_versions),
+            "features": sorted(MANAGED_SERVERLESS_PROFILE.features)}
+        self.assertIs(_managed_serverless_protocol_profile(wire), MANAGED_SERVERLESS_PROFILE)
+        altered = dict(wire, features=wire["features"] + ["unknownFeature"])
+        with self.assertRaisesRegex(ValueError, "Exact closed"):
+            _managed_serverless_protocol_profile(altered)
+
+    def test_uc_table_ids_remain_distinct_from_delta_installation_uuids(self):
+        roles = ("object_current", "edge_current", "tombstone",
+            "whole_source_history", "publication_manifest", "publication_attempt_phase")
+        principal = "owner@example.test"
+        schema = "trial_schema"
+        catalog = "client_dev"
+        installation = {role: {"name": f"{catalog}.{schema}.{role}",
+            "owner": principal, "uuid": f"00000000-0000-4000-8000-{index:012d}",
+            "version": 0} for index, role in enumerate(roles, 1)}
+        rows = [{"name": role, "full_name": f"{catalog}.{schema}.{role}",
+            "catalog_name": catalog, "schema_name": schema, "table_type": "MANAGED",
+            "owner": principal, "table_id": f"10000000-0000-4000-8000-{index:012d}"}
+            for index, role in enumerate(roles, 1)]
+        admitted = _admit_owned_uc_table_inventory(rows, installation,
+            catalog=catalog, schema=schema, principal=principal)
+        self.assertNotEqual(admitted[installation[roles[0]]["name"]],
+                            installation[roles[0]]["uuid"])
+        with self.assertRaisesRegex(ValueError, "exactly six"):
+            _admit_owned_uc_table_inventory(rows[:-1], installation,
+                catalog=catalog, schema=schema, principal=principal)
 
 
 class _PinHandle:

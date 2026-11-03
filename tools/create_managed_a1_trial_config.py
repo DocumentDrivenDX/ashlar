@@ -111,7 +111,7 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
         "catalog": "client_dev", "schema": schema,
         "protocol": MANAGED_SERVERLESS_PROFILE.identity}
     cost = {"estimated_total_dbu": 16.0, "cleanup_reserve_dbu": 4.0,
-        "authorized_total_dbu": 128.0, "estimated_total_usd": 9.75,
+        "authorized_total_dbu": 122.0, "estimated_total_usd": 9.75,
         "cleanup_reserve_usd": 20.0, "preferred_budget_exception": None,
         "includes_startup_driver_verifier_handoff_and_cleanup": True}
     tasks = {}

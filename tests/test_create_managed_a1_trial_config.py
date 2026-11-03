@@ -69,7 +69,7 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
             config["maximum_wall_seconds"] * WORST_SERVERLESS_DBUH / 3600)
         self.assertLessEqual(config["cost"]["authorized_total_dbu"] * 0.47
                              + config["cost"]["cleanup_reserve_usd"], 100)
-        self.assertEqual(config["cost"]["authorized_total_dbu"], 128.0)
+        self.assertEqual(config["cost"]["authorized_total_dbu"], 122.0)
         self.assertLess(config["cost"]["estimated_total_usd"], 10)
         self.assertEqual(config["expected_runtime"]["protocol"], MANAGED_SERVERLESS_PROFILE.identity)
         self.assertEqual(config["protocol_profile"]["identity"], MANAGED_SERVERLESS_PROFILE.identity)

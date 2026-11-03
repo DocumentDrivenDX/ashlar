@@ -31,7 +31,7 @@ MAX_SECONDS = 900
 HARD_USD = 100.0
 PREFERRED_USD = 10.0
 SERVERLESS_USD_PER_DBUH = 0.47
-WORST_SERVERLESS_DBUH = 360.0  # 1.5x the largest published default (240 DBU/h)
+WORST_SERVERLESS_DBUH = 240.0  # Largest documented default cap; no custom compute or invoice guarantee.
 MAX_SOURCE_BOOTSTRAP_SECONDS = 165
 INITIALIZER_TIMEOUT_SECONDS = 150
 PUBLISHER_TIMEOUT_SECONDS = 150
@@ -115,6 +115,24 @@ SHA = re.compile(r"[0-9a-f]{64}\Z")
 def require(ok: bool, message: str) -> None:
     if not ok:
         raise ValueError(message)
+
+
+def _phase_clock_after_manifest(materialized_at: str, manifest: dict) -> str:
+    """Choose a stable phase clock strictly after its exact predecessor row."""
+    require(isinstance(materialized_at, str)
+            and re.fullmatch(r"0|[1-9][0-9]{0,18}", materialized_at) is not None
+            and int(materialized_at) < 2**63,
+            "Phase materialization clock must be canonical uint63 decimal")
+    require(isinstance(manifest, dict), "Predecessor manifest must be an object")
+    predecessor = manifest.get("recorded_at")
+    require(isinstance(predecessor, str)
+            and re.fullmatch(r"0|[1-9][0-9]{0,18}", predecessor) is not None
+            and int(predecessor) < 2**63,
+            "Predecessor manifest recorded_at must be canonical uint63 decimal")
+    next_value = max(int(materialized_at), int(predecessor) + 1)
+    require(next_value < 2**63,
+            "No representable uint63 phase clock follows predecessor recorded_at")
+    return str(next_value)
 
 
 def _workspace_file(path: object, suffix: str) -> bool:
@@ -719,6 +737,45 @@ def _list_owned_tables(api: DatabricksCLI, config: dict, deadline: float) -> lis
             return rows
 
 
+def _admit_owned_uc_table_inventory(rows: object, installation_inventory: object, *,
+                                    catalog: str, schema: str, principal: str) -> dict:
+    """Bind UC API table IDs independently from Ashlar's Delta table UUIDs."""
+    import uuid
+    roles = {"object_current", "edge_current", "tombstone", "whole_source_history",
+             "publication_manifest", "publication_attempt_phase"}
+    require(type(installation_inventory) is dict and set(installation_inventory) == roles,
+            "Exact six-role Ashlar installation receipt required for UC inventory admission")
+    expected_full_names = {}
+    for role, entry in installation_inventory.items():
+        full_name = f"{catalog}.{schema}.{role}"
+        require(type(entry) is dict and set(entry) == {"name", "owner", "uuid", "version"}
+                and entry["name"] == full_name and entry["owner"] == principal
+                and type(entry["uuid"]) is str and str(uuid.UUID(entry["uuid"])) == entry["uuid"]
+                and type(entry["version"]) is int and entry["version"] >= 0,
+                "Ashlar Delta installation inventory differs from the exact six-role namespace")
+        expected_full_names[full_name] = entry["uuid"]
+    require(type(rows) is list and len(rows) == len(roles),
+            "UC inventory must contain exactly six trial-owned table rows")
+    uc_ids = {}
+    for row in rows:
+        require(type(row) is dict and row.get("catalog_name") == catalog
+                and row.get("schema_name") == schema and row.get("table_type") == "MANAGED"
+                and row.get("owner") == principal,
+                "UC table row is outside the exact owned managed namespace")
+        full_name = row.get("full_name")
+        short_name = row.get("name")
+        table_id = row.get("table_id")
+        require(type(full_name) is str and full_name in expected_full_names
+                and short_name == full_name.rsplit(".", 1)[-1]
+                and type(table_id) is str and str(uuid.UUID(table_id)) == table_id
+                and full_name not in uc_ids,
+                "UC table identity is missing, duplicated, or outside the six-role inventory")
+        uc_ids[full_name] = table_id
+    require(set(uc_ids) == set(expected_full_names),
+            "UC inventory omitted an Ashlar six-role table")
+    return uc_ids
+
+
 def _task_output(api: DatabricksCLI, run_id: int) -> dict:
     output = api.call("get", f"/api/2.2/jobs/runs/get-output?run_id={run_id}")
     notebook = output.get("notebook_output")
@@ -1142,11 +1199,13 @@ def _retention_bundle(*, trial, protocol_profile, plan, request_bytes,
     )
     from ashlar_host.managed_current_trial import ManagedCurrentTrialConfig
     from ashlar_host.truss_current_catalog import installed_fresh_truss_runtime_pins
+    selected_protocol_profile = _managed_serverless_protocol_profile(protocol_profile)
     source_truss_version = installed_fresh_truss_runtime_pins()["version"]
     reader = ManagedCurrentSparkServerlessReceiptConfig(catalog=trial["catalog"],
         schema=trial["schema"], expected_principal=trial["expected_runtime"]["principal"],
         expected_table_owner=trial["expected_runtime"]["principal"],
-        source_truss_version=source_truss_version, protocol_profile=protocol_profile,
+        source_truss_version=source_truss_version,
+        protocol_profile=selected_protocol_profile,
         expected_runtime=trial["expected_runtime"], maximum_elapsed_seconds=300,
         maximum_statements=128, maximum_rows=1024, maximum_result_bytes=4 * 1024 * 1024,
         carrier_profile=CARRIER_PROFILE_XXHASH64)
@@ -1172,6 +1231,17 @@ def _retention_bundle(*, trial, protocol_profile, plan, request_bytes,
         source_prefix_bytes=prefix_bytes, source_prefix_sha256=prefix_sha,
         selected_prefix=selected_prefix, source_snapshot_bytes=source_snapshot,
         source_custody_digests=custody_digests, source_core_config=core)
+
+
+def _managed_serverless_protocol_profile(value):
+    from ashlar_host.configured_local_runtime import MANAGED_SERVERLESS_PROFILE
+    expected = {"identity": MANAGED_SERVERLESS_PROFILE.identity,
+        "reader_versions": sorted(MANAGED_SERVERLESS_PROFILE.reader_versions),
+        "writer_versions": sorted(MANAGED_SERVERLESS_PROFILE.writer_versions),
+        "features": sorted(MANAGED_SERVERLESS_PROFILE.features)}
+    require(type(value) is dict and value == expected,
+            "Exact closed managed serverless protocol profile wire required")
+    return MANAGED_SERVERLESS_PROFILE
 
 
 class _LocalPinStages:
@@ -1554,6 +1624,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
     pin_pg_ctl_lock = None
     pin_root = None
     run_ids = {}
+    uc_table_id_baseline = None
+    installation_inventory = None
     verified_ack = False
     ack_attempted = False
     recovery_state["phase"] = "trial_started"
@@ -1591,17 +1663,27 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
                 and init_result["profile"] == "ashlar-managed-a1-initializer-result/0.1"
                 and init_result["predictiveOptimization"] == "ENABLE",
                 "Initializer must return the exact empty six-role genesis result")
+        installation_inventory = init_result["installationInventory"]
+        uc_table_id_baseline = _admit_owned_uc_table_inventory(
+            _list_owned_tables(api, config, deadline), installation_inventory,
+            catalog=config["catalog"], schema=config["schema"],
+            principal=config["expected_principal"])
+        recovery_state["uc_table_id_baseline"] = uc_table_id_baseline
+        _write_private_json(recovery_path, recovery_state)
         initial_manifest = base64.b64decode(init_result["genesisManifestBytesBase64"], validate=True)
         require(hashlib.sha256(initial_manifest).hexdigest() == init_result["manifestSha256"]
                 and len(initial_manifest) <= 4 * 1024 * 1024,
                 "Initializer exact genesis manifest digest/bound failed")
+        initial_manifest_value = json.loads(initial_manifest)
+        trial["materialized_at"] = _phase_clock_after_manifest(
+            trial["materialized_at"], initial_manifest_value)
         recovery_state["uc_genesis"] = {"manifest_sha256": hashlib.sha256(initial_manifest).hexdigest(),
             "installation_inventory": init_result["installationInventory"]}
         _write_private_json(recovery_path, recovery_state)
         from ashlar_host.managed_a1_detached_admission import admit_detached_a1_plan
         context = object()
         plan = admit_detached_a1_plan(genesis_snapshot_bytes=genesis_bytes,
-            genesis_manifest=json.loads(initial_manifest), stream=trial["stream"],
+            genesis_manifest=initial_manifest_value, stream=trial["stream"],
             materialized_at=trial["materialized_at"], context=context)
         request_bytes = json.dumps(plan.request, sort_keys=True, separators=(",", ":"),
                                    ensure_ascii=False, allow_nan=False).encode("utf-8")
@@ -1647,6 +1729,9 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         receipt, request_bytes, manifest_bytes, receipt_bytes, vector, vector_sha256 = (
             _publisher_bundle(publisher_result, "managed-current-spark:" + config["expected_principal"],
                               phase=phase))
+        a0_manifest_value = json.loads(manifest_bytes)
+        require(a0_manifest_value.get("recorded_at") == trial["materialized_at"],
+                "A0 manifest recorded_at must equal its frozen phase clock")
         require(request_bytes == json.dumps(plan.request, sort_keys=True, separators=(",", ":"),
             ensure_ascii=False, allow_nan=False).encode("utf-8"),
             "Publisher exact request differs from parent detached A/B admission")
@@ -1710,7 +1795,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         _write_private_json(recovery_path, recovery_state)
         pin_owner = ManagedA1LocalPinOwner(pin_root / "pgdata", bundle.selection,
             bundle.vector, native_timeout_seconds=pin_native_timeout,
-            deadline_monotonic=work_deadline - 2 * config["verifier"]["timeout_seconds"])
+            deadline_monotonic=work_deadline)
         pin_owner.__enter__()
         pin_registration = pin_owner.register()
         pin_stages = _LocalPinStages(pin_owner,
@@ -1838,6 +1923,9 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         # source ACK has reconciled. A1 then receives its own immutable request,
         # publisher/verifier jobs, pin interval, durable ACK attempt and ACK.
         a0_manifest_bytes = manifest_bytes
+        trial["materialized_at"] = _phase_clock_after_manifest(
+            trial["materialized_at"], a0_manifest_value)
+        task_trial["materialized_at"] = trial["materialized_at"]
         a1_snapshot_bundle_bytes = holder.advance_after_a0_ack(settlement,
             deadline=work_deadline)
         a1_genesis_uri = volume_path + "/a1-source-bundle.bin"
@@ -1847,7 +1935,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         a1_manifest_artifact = _put_volume_bytes(api, a1_manifest_uri, a0_manifest_bytes)
         from ashlar_host.managed_a1_detached_admission import admit_detached_a1_plan
         a1_plan = admit_detached_a1_plan(genesis_snapshot_bytes=a1_snapshot_bundle_bytes,
-            genesis_manifest=json.loads(a0_manifest_bytes), stream=trial["stream"],
+            genesis_manifest=a0_manifest_value, stream=trial["stream"],
             materialized_at=trial["materialized_at"], context=object(), continuation=True)
         a1_request_bytes = json.dumps(a1_plan.request, sort_keys=True, separators=(",", ":"),
             ensure_ascii=False, allow_nan=False).encode("utf-8")
@@ -1879,6 +1967,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         a1_receipt, a1_request_bytes, a1_manifest_bytes, a1_receipt_bytes, a1_vector, a1_vector_sha = (
             _publisher_bundle(a1_pub_result,
                 "managed-current-spark:" + config["expected_principal"], phase="a1"))
+        require(json.loads(a1_manifest_bytes).get("recorded_at") == trial["materialized_at"],
+                "A1 manifest recorded_at must equal its frozen phase clock")
         require(a1_request_bytes == json.dumps(a1_plan.request, sort_keys=True,
             separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8"),
             "A1 publisher request differs from the exact post-A0 continuation plan")
@@ -1922,7 +2012,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
                 "Insufficient remaining wall deadline for the A1 native pin interval")
         pin_owner = ManagedA1LocalPinOwner(a1_pin_root / "pgdata", a1_bundle.selection,
             a1_bundle.vector, native_timeout_seconds=a1_pin_timeout,
-            deadline_monotonic=work_deadline - 2 * config["verifier"]["timeout_seconds"])
+            deadline_monotonic=work_deadline)
         pin_owner.__enter__()
         result["a1_local_pin_owner"] = pin_owner.register()
         pin_stages = _LocalPinStages(pin_owner, lifetime_seconds=a1_pin_timeout)
@@ -2080,19 +2170,20 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         require({row.get("name") for row in owned_tables} == required_roles
                 and all(row.get("table_type") == "MANAGED"
                         and row.get("owner") == config["expected_principal"]
-                        and type(row.get("table_id")) is str and row["table_id"]
+                        and type(row.get("table_id")) is str and row.get("full_name")
                         for row in owned_tables),
                 "Cleanup requires exactly the six owned managed-current tables under the admitted principal")
-        expected_uuids = {receipt["installationInventory"][role]["name"]:
-                          receipt["installationInventory"][role]["uuid"]
-                          for role in ("object_current", "edge_current", "tombstone",
-                                       "whole_source_history", "publication_manifest",
-                                       "publication_attempt_phase")}
-        require({row["name"]: row["table_id"] for row in owned_tables} == expected_uuids,
-                "Cleanup table UUID inventory differs from the retained installation receipt")
+        cleanup_uc_table_ids = _admit_owned_uc_table_inventory(
+            owned_tables, installation_inventory, catalog=config["catalog"],
+            schema=config["schema"], principal=config["expected_principal"])
+        require(uc_table_id_baseline is not None
+                and cleanup_uc_table_ids == uc_table_id_baseline,
+                "UC catalog table IDs changed after initializer baseline; refusing cleanup")
         result["cleanup_table_inventory"] = sorted(
-            [{"name": row["name"], "table_id": row["table_id"], "owner": row["owner"]}
-             for row in owned_tables], key=lambda item: item["name"])
+            [{"full_name": row["full_name"], "uc_table_id": row["table_id"],
+              "delta_uuid": installation_inventory[row["name"]]["uuid"],
+              "owner": row["owner"]}
+             for row in owned_tables], key=lambda item: item["full_name"])
         api.call("delete", schema_path + "?force=true")
         require(_list_schema(api, config["catalog"], config["schema"], deadline) is None,
                 "Owned trial schema remains after cleanup")
