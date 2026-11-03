@@ -18,7 +18,8 @@ from .r04_schedule import PROFILE as R04_PROFILE, R04Schedule, SLOT_ORDER, STAGE
 MODEL_ID = "ashlar-local-dev-typed-graph-r21-20261101"
 MODEL_REVISION = "r1"
 MODEL_SHA256 = "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2"
-PUBLIC_SETUP_HELPER_SHA256 = "e8898eb892e42f8826cd334b8aa823d95604f432287c713cec20e06748367b0a"
+PUBLIC_SETUP_HELPER_SHA256 = "d6425948b7b84395429f5b83c624cad27843c2e1eda6af66fce16dcc71d1be89"
+PUBLIC_SETUP_HELPER_RELATIVE_PATH = Path("tools/r61_fresh_truss_setup_stage.py")
 MODEL_RELATIVE_PATH = ("docs/helix/04-build/evidence/current-upstream-release-20261101/"
                        "r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json")
 
@@ -69,15 +70,18 @@ def public_group_seed(seed: dict) -> dict:
     return encoded
 
 
-def example_private_config(*, root: Path, bun_path: Path) -> dict:
+def example_private_config(*, root: Path, bun_path: Path,
+                           repository_root: Path) -> dict:
     """Create a concrete local-development config skeleton with no credentials."""
     from importlib.resources import files
-    repo = Path(__file__).resolve().parents[2]
+    repo = Path(repository_root).resolve(strict=True)
     model_path = repo / MODEL_RELATIVE_PATH
+    setup_helper_path = repo / PUBLIC_SETUP_HELPER_RELATIVE_PATH
     initdb = Path(str(files("pgserver"))) / "pginstall" / "bin" / "initdb"
     return {
         "profile": "ashlar-managed-a1-truss053-source-bootstrap/0.1",
-        "root": str(Path(root)), "model_path": str(model_path),
+        "root": str(Path(root)), "repository_root": str(repo),
+        "model_path": str(model_path), "setup_helper_path": str(setup_helper_path),
         "model_sha256": MODEL_SHA256, "bun_path": str(Path(bun_path)),
         "pg18_initdb": str(initdb),
         "source_ids": {
@@ -293,15 +297,32 @@ def validate_private_bootstrap_config(raw: bytes) -> dict:
         raise ValueError("Closed private A/B bootstrap JSON required") from error
     _need(type(value) is dict and canonical_json(value) == raw,
           "Canonical duplicate-free private A/B bootstrap JSON required")
-    required = {"profile", "root", "model_path", "model_sha256", "bun_path",
+    required = {"profile", "root", "repository_root", "model_path", "setup_helper_path",
+                "model_sha256", "bun_path",
                 "pg18_initdb", "source_ids", "a1_group"}
     _need(type(value) is dict and set(value) == required
           and value["profile"] == "ashlar-managed-a1-truss053-source-bootstrap/0.1",
           "Closed managed A1 source-bootstrap config required")
-    for key in ("root", "model_path", "bun_path", "pg18_initdb"):
+    for key in ("root", "repository_root", "model_path", "setup_helper_path",
+                "bun_path", "pg18_initdb"):
         path = Path(value[key])
         _need(type(value[key]) is str and path.is_absolute() and path.resolve() == path,
               f"Canonical absolute {key} required")
+    repository_root = Path(value["repository_root"])
+    _need(repository_root.is_dir() and not repository_root.is_symlink()
+          and repository_root.resolve(strict=True) == repository_root,
+          "Explicit canonical operator repository root required")
+    expected_model = repository_root / MODEL_RELATIVE_PATH
+    model_path = Path(value["model_path"])
+    _need(model_path == expected_model and model_path.is_file()
+          and not model_path.is_symlink()
+          and hashlib.sha256(model_path.read_bytes()).hexdigest() == MODEL_SHA256,
+          "Exact committed R28 model path and bytes required under operator repository")
+    setup_path = Path(value["setup_helper_path"])
+    _need(setup_path == repository_root / PUBLIC_SETUP_HELPER_RELATIVE_PATH
+          and setup_path.is_file() and not setup_path.is_symlink()
+          and hashlib.sha256(setup_path.read_bytes()).hexdigest() == PUBLIC_SETUP_HELPER_SHA256,
+          "Exact reviewed public Truss SDK setup helper path and bytes required")
     _need(value["model_sha256"] == MODEL_SHA256,
           "Exact committed R28 UMF 0.10 model digest required")
     source_fields = {"feed", "consumer_id", "ack_scope"}
@@ -333,7 +354,7 @@ def bootstrap_from_private_config(config_bytes: bytes):
     bun = Path(config["bun_path"])
     initdb = Path(config["pg18_initdb"])
     model = model_path.read_bytes()
-    expected_model_path = Path(__file__).resolve().parents[2] / MODEL_RELATIVE_PATH
+    expected_model_path = Path(config["repository_root"]) / MODEL_RELATIVE_PATH
     _need(model_path == expected_model_path and not model_path.is_symlink(),
           "Exact committed R28 UMF model path required")
     _need(hashlib.sha256(model).hexdigest() == MODEL_SHA256,
@@ -353,7 +374,7 @@ def bootstrap_from_private_config(config_bytes: bytes):
     _need(initdb == selected_initdb and not initdb.is_symlink(),
           "Exact bundled PostgreSQL 18 initdb required")
 
-    setup_path = Path("/private/tmp/ashlar-r61-fresh-cohort-plan/tools/r61_fresh_truss_setup_stage.py")
+    setup_path = Path(config["setup_helper_path"])
     _need(setup_path.is_file() and not setup_path.is_symlink(),
           "Exact reviewed public Truss SDK setup helper required")
     _need(hashlib.sha256(setup_path.read_bytes()).hexdigest() == PUBLIC_SETUP_HELPER_SHA256,

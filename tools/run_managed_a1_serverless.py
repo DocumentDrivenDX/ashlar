@@ -84,8 +84,11 @@ def _validate_holder_bootstrap_config(path: Path) -> dict:
             and root.stat().st_mode & 0o077 == 0,
             "Owner-private canonical source-supervisor root required")
     model = Path(value["model_path"])
-    expected_model = Path(__file__).resolve().parents[1] / MODEL_RELATIVE_PATH
-    require(model == expected_model and model.is_file() and not model.is_symlink()
+    repository_root = Path(value["repository_root"])
+    expected_repository_root = Path(__file__).resolve().parents[1]
+    expected_model = expected_repository_root / MODEL_RELATIVE_PATH
+    require(repository_root == expected_repository_root
+            and model == expected_model and model.is_file() and not model.is_symlink()
             and value["model_sha256"] == MODEL_SHA256
             and hashlib.sha256(model.read_bytes()).hexdigest() == MODEL_SHA256,
             "Exact frozen R28 model artifact path and digest required")
@@ -1304,7 +1307,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
     bootstrap_root = recovery_root / "truss-source"
     bootstrap_root.mkdir(mode=0o700)
     from ashlar_host.managed_a1_source_bootstrap import example_private_config
-    holder_config_value = example_private_config(root=bootstrap_root, bun_path=bun_path)
+    holder_config_value = example_private_config(root=bootstrap_root, bun_path=bun_path,
+                                                  repository_root=repo_root)
     holder_config_path = recovery_root / "source-bootstrap.json"
     _write_private_json(holder_config_path, holder_config_value)
     holder_config = _validate_holder_bootstrap_config(holder_config_path)
