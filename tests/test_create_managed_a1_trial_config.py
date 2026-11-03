@@ -1,11 +1,13 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert closure check for the full managed A1 input constructor."""
 import hashlib
+import copy
 from pathlib import Path
 import shutil
 import sys
 import tempfile
 import unittest
+from types import SimpleNamespace
 
 from tools.create_managed_a1_trial_config import build_config
 from tools.run_managed_a1_serverless import (
@@ -13,7 +15,7 @@ from tools.run_managed_a1_serverless import (
     MAX_SOURCE_BOOTSTRAP_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
     RUNTIME_PROBE_TASK_SECONDS, VERIFIER_TIMEOUT_SECONDS, build_payload,
 )
-from ashlar_host.configured_local_runtime import PROFILE
+from ashlar_host.configured_local_runtime import PROFILE, MANAGED_SERVERLESS_PROFILE
 
 
 class CreateManagedA1TrialConfigTests(unittest.TestCase):
@@ -62,8 +64,61 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
                          config["maximum_wall_seconds"] - config["cleanup_reserve_seconds"])
         self.assertEqual(config["cost"]["authorized_total_dbu"], 128.0)
         self.assertLess(config["cost"]["estimated_total_usd"], 10)
-        self.assertEqual(config["expected_runtime"]["protocol"], PROFILE.identity)
+        self.assertEqual(config["expected_runtime"]["protocol"], MANAGED_SERVERLESS_PROFILE.identity)
+        self.assertEqual(config["protocol_profile"]["identity"], MANAGED_SERVERLESS_PROFILE.identity)
+        self.assertIn("v2Checkpoint", config["protocol_profile"]["features"])
+        self.assertNotIn("futureFeature", config["protocol_profile"]["features"])
         self.assertEqual(len(config["initializer"]["dependencies"]), 1)
+        altered = copy.deepcopy(config)
+        altered["protocol_profile"]["features"].append("futureFeature")
+        with self.assertRaisesRegex(ValueError, "versioned managed serverless reader protocol profile"):
+            build_payload(altered)
+        with tempfile.TemporaryDirectory(dir=Path.cwd()) as temporary:
+            receipt = Path(temporary) / "qualification.json"
+            receipt.write_bytes(b"local qualification receipt")
+            with self.assertRaisesRegex(ValueError, "exact Databricks serverless identity"):
+                build_config(runtime_result={**runtime, "sparkVersion": "4.3.0"},
+                    trial_id="a1-config-check", notebook_root="/Workspace/Shared/ashlar",
+                    environment_version=7, dependencies=dependencies, local_receipt=receipt,
+                    evidence_dir="docs/helix/04-build/evidence/test",
+                    bun_path=Path(shutil.which("bun")), python=Path(sys.executable))
+
+    def test_selected_managed_profile_flows_through_actual_environment_observer(self):
+        from ashlar_host.managed_a1_serverless_tasks import _environment
+
+        class Row(dict):
+            def asDict(self, recursive=True):
+                return dict(self)
+
+        class Frame:
+            def __init__(self, row):
+                self.rows=[Row(row)]
+                self.schema=SimpleNamespace(fields=[SimpleNamespace(name=name,
+                    dataType=SimpleNamespace(simpleString=lambda: "string")) for name in row])
+            def limit(self, count):
+                return self
+            def collect(self):
+                return self.rows
+
+        class Spark:
+            version="4.2.0"
+            conf=type("Conf", (), {"get": lambda self, key: None})()
+            def sql(self, query, args=None):
+                if "current_user()" in query:
+                    return Frame({"principal":"owner@example.com","catalog":"client_dev",
+                                  "schema":"trial_schema"})
+                if "version() AS sparkBuildText" in query:
+                    return Frame({"sparkBuildText":"Spark SQL build"})
+                if "current_timezone()" in query:
+                    return Frame({"session_timezone":"UTC"})
+                raise AssertionError("Unexpected environment SQL")
+
+        expected={"runtimeName":"databricks-serverless","sparkVersion":"4.2.0",
+            "principal":"owner@example.com","catalog":"client_dev","schema":"trial_schema",
+            "protocol":MANAGED_SERVERLESS_PROFILE.identity,"sparkBuildText":"Spark SQL build",
+            "runtimeTag":None}
+        observed=_environment(Spark(),MANAGED_SERVERLESS_PROFILE,expected)
+        self.assertEqual(observed["protocol"],MANAGED_SERVERLESS_PROFILE.identity)
 
 
 if __name__ == "__main__":

@@ -23,6 +23,13 @@ from .evolution_producer import snapshot
 from .lifecycle import finish,owned_context
 
 PROFILE=ReaderProtocolProfile('ashlar-configured-local-delta/0.1',(1,2,3),(2,5,7),{'appendOnly','invariants','checkConstraints','changeDataFeed','generatedColumns','columnMapping','deletionVectors','timestampNtz','domainMetadata','rowTracking','clustering'})
+# The observed Databricks serverless Spark 4.2.0 fresh UC tables advertised
+# v2Checkpoint. The managed provider's bundled Delta version was not reported.
+# Keep this profile separate from the local profile and recognize no other new
+# feature without evidence.
+MANAGED_SERVERLESS_PROFILE=ReaderProtocolProfile(
+    'ashlar-managed-serverless-spark42-delta/0.1',
+    PROFILE.reader_versions,PROFILE.writer_versions,PROFILE.features|{'v2Checkpoint'})
 CONFIGURED_LOCAL_CARRIERS=('ashlar-delta/0.3','ashlar-delta/0.4-xxhash64')
 
 def _require(value):

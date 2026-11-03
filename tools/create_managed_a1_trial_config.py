@@ -44,7 +44,7 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
                  environment_version: int, dependencies: list[dict],
                  local_receipt: Path, evidence_dir: str, bun_path: Path,
                  python: Path) -> dict:
-    from ashlar_host.configured_local_runtime import PROFILE
+    from ashlar_host.configured_local_runtime import PROFILE, MANAGED_SERVERLESS_PROFILE
 
     if not re.fullmatch(r"a1-[a-z0-9][a-z0-9-]{0,49}", trial_id):
         raise ValueError("Unique bounded trial ID beginning a1- required")
@@ -74,6 +74,7 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
             or api_probe["interruptTagResponseCount"] < 0):
         raise ValueError("Runtime probe must qualify Spark Connect session tags and interrupt response")
     if (runtime_result["runtimeName"] != "databricks-serverless"
+            or runtime_result["sparkVersion"] != "4.2.0"
             or runtime_result["protocol"] != PROFILE.identity
             or runtime_result["sideEffects"] != []
             or not all(type(runtime_result.get(key)) is str and runtime_result[key]
@@ -105,7 +106,10 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
         "sparkBuildText": runtime_result["sparkBuildText"],
         "runtimeTag": runtime_result["runtimeTag"],
         "principal": runtime_result["principal"],
-        "catalog": "client_dev", "schema": schema, "protocol": PROFILE.identity}
+        # Keep the raw runtime probe echo unchanged, but tasks use the derived
+        # managed-serverless reader profile selected for this Spark version.
+        "catalog": "client_dev", "schema": schema,
+        "protocol": MANAGED_SERVERLESS_PROFILE.identity}
     cost = {"estimated_total_dbu": 16.0, "cleanup_reserve_dbu": 4.0,
         "authorized_total_dbu": 128.0, "estimated_total_usd": 9.75,
         "cleanup_reserve_usd": 20.0, "preferred_budget_exception": None,
@@ -147,10 +151,10 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
             "destination_id": "client_dev." + schema, "cost": cost,
             "publisher_timeout_seconds": PUBLISHER_TIMEOUT_SECONDS,
             "verifier_timeout_seconds": VERIFIER_TIMEOUT_SECONDS},
-        "protocol_profile": {"identity": PROFILE.identity,
-            "reader_versions": list(PROFILE.reader_versions),
-            "writer_versions": list(PROFILE.writer_versions),
-            "features": sorted(PROFILE.features)},
+        "protocol_profile": {"identity": MANAGED_SERVERLESS_PROFILE.identity,
+            "reader_versions": sorted(MANAGED_SERVERLESS_PROFILE.reader_versions),
+            "writer_versions": sorted(MANAGED_SERVERLESS_PROFILE.writer_versions),
+            "features": sorted(MANAGED_SERVERLESS_PROFILE.features)},
         "volume_name": volume_name,
         "local_qualification": {"path": relative_receipt.as_posix(),
             "sha256": hashlib.sha256(qualification.read_bytes()).hexdigest()},

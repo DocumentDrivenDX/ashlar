@@ -195,10 +195,11 @@ def build_payload(config: object) -> tuple[dict, dict]:
                     "principal", "catalog", "schema", "protocol"}
     require(type(runtime) is dict and set(runtime) == runtime_keys
             and runtime.get("runtimeName") == "databricks-serverless"
+            and runtime.get("sparkVersion") == "4.2.0"
+            and runtime.get("protocol") == "ashlar-managed-serverless-spark42-delta/0.1"
             and runtime.get("principal") == config["expected_principal"]
             and runtime.get("catalog") == "client_dev"
             and runtime.get("schema") == config["schema"]
-            and type(runtime.get("sparkVersion")) is str and runtime["sparkVersion"]
             and (type(runtime.get("sparkBuildText")) is str and runtime["sparkBuildText"]
                  or type(runtime.get("runtimeTag")) is str and runtime["runtimeTag"])
             and type(runtime.get("protocol")) is str and runtime["protocol"],
@@ -265,9 +266,13 @@ def build_payload(config: object) -> tuple[dict, dict]:
             and re.fullmatch(r"0|[1-9][0-9]{0,18}", trial["materialized_at"])
             and int(trial["materialized_at"]) < 2**63,
             "Closed A1 task contract must bind destination, runtime, cost and task deadline")
-    require(type(config["protocol_profile"]) is dict and set(config["protocol_profile"]) == {
-        "identity", "reader_versions", "writer_versions", "features"},
-        "Exact reader protocol profile required")
+    from ashlar_host.configured_local_runtime import MANAGED_SERVERLESS_PROFILE
+    expected_protocol_profile = {"identity": MANAGED_SERVERLESS_PROFILE.identity,
+        "reader_versions": sorted(MANAGED_SERVERLESS_PROFILE.reader_versions),
+        "writer_versions": sorted(MANAGED_SERVERLESS_PROFILE.writer_versions),
+        "features": sorted(MANAGED_SERVERLESS_PROFILE.features)}
+    require(type(config["protocol_profile"]) is dict and config["protocol_profile"] == expected_protocol_profile,
+        "Exact versioned managed serverless reader protocol profile required")
     require(type(config["volume_name"]) is str and IDENT.fullmatch(config["volume_name"])
             and config["volume_name"].startswith("ashlar_a1_"),
             "Unique owned managed-volume name required inside the per-run schema")

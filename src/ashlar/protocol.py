@@ -47,7 +47,8 @@ def validate_protocol_detail(detail, *, uuid, profile):
     features=_json(text.encode('utf-8'))
     if not isinstance(features,list) or len(features)>64 or any(not isinstance(v,str) or not v or len(v)>128 for v in features) or len(set(features))!=len(features):
         raise ProtocolError('Malformed or duplicate native features')
-    if not set(features)<=profile.features:raise ProtocolError('Unrecognized native table feature')
+    unknown=sorted(set(features)-profile.features)
+    if unknown:raise ProtocolError('Unrecognized native table feature(s): '+', '.join(unknown))
     return {'uuid':uuid,'profile':profile.identity,'reader_version':versions[0],
             'writer_version':versions[1],'features':sorted(features)}
 

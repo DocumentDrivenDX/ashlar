@@ -9,7 +9,8 @@ class ProtocolTests(unittest.TestCase):
         features=['deletionVectors','clustering'];profile=ReaderProtocolProfile('reader',(3,),(7,),features)
         features.append('future')
         self.assertEqual(validate_protocol_detail(self.detail(),uuid='original',profile=profile)['features'],['clustering','deletionVectors'])
-        with self.assertRaises(ProtocolError):validate_protocol_detail(dict(self.detail(),tableFeatures='["future"]'),uuid='original',profile=profile)
+        with self.assertRaisesRegex(ProtocolError,'future'):
+            validate_protocol_detail(dict(self.detail(),tableFeatures='["future"]'),uuid='original',profile=profile)
     def test_unknown_missing_noncanonical_and_numeric_aliases_refuse(self):
         for fields in [dict(id='other'),dict(format='parquet'),dict(minReaderVersion='03'),dict(minReaderVersion=3),dict(minReaderVersion=True),dict(minWriterVersion='8'),dict(tableFeatures='null'),dict(tableFeatures='["clustering","clustering"]'),dict(tableFeatures='[true]')]:
             with self.assertRaises(ProtocolError):validate_protocol_detail(dict(self.detail(),**fields),uuid='original',profile=self.profile())
