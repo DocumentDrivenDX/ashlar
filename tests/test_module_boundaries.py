@@ -2,8 +2,9 @@
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
-from check_module_boundaries import check, scan, ROOT, POLICY
+from check_module_boundaries import check, imports, scan, ROOT, POLICY
 
 
 class BoundaryTests(unittest.TestCase):
@@ -93,6 +94,19 @@ class BoundaryTests(unittest.TestCase):
         self.assertTrue(any(e[1:3] == ('ashlar', '_hidden') and e[3] == 'private-cross-module' for e in edges))
         (root / 'src/ashlar/__init__.py').write_text('from ashlar import _self\n')
         self.assertFalse(any(e[0].endswith('__init__.py') for e in scan(root)))
+
+    def test_module_inventory_avoids_per_import_exists_stat(self):
+        root = self.tree('from . import cli\n')
+        (root / 'src/ashlar/cli.py').write_text('')
+        with patch.object(Path, 'exists', side_effect=AssertionError('per-import stat')):
+            edges = scan(root)
+        self.assertTrue(any(edge[1] == 'ashlar.cli' for edge in edges))
+
+    def test_explicit_package_init_import_matches_old_module_probe(self):
+        root = self.tree('from . import __init__\n')
+        (root / 'src/ashlar/__init__.py').write_text('')
+        edges = list(imports(root))
+        self.assertTrue(any(edge[1:3] == ('ashlar.__init__', '*') for edge in edges))
 
     def test_compiler_installer_and_composition_roles(self):
         root = self.tree('')

@@ -302,7 +302,9 @@ def build_managed_current_prefix_oracle(prefix_bytes, *, prefix_sha256, config,
 
 def managed_current_a1_lookup_keys(plan, *, config):
     """Derive the complete bounded `.4` key probe set from the selected A1 owner output."""
-    from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
+    from .managed_current_a1_trial_plan import (
+        ManagedCurrentA1TrialPlan, ManagedCurrentA1ContinuationPredecessor,
+    )
     from .managed_current_genesis import (
         ManagedCurrentGenesisPredecessor, transition_managed_current_first_a_page,
     )
@@ -317,7 +319,8 @@ def managed_current_a1_lookup_keys(plan, *, config):
     _require(type(plan) is ManagedCurrentA1TrialPlan
              and type(plan.selection) in (ManagedCurrentTruss052GenesisSelection,
                                           ManagedCurrentTruss053GenesisSelection)
-             and type(plan.predecessor) is ManagedCurrentGenesisPredecessor
+             and type(plan.predecessor) in (ManagedCurrentGenesisPredecessor,
+                                             ManagedCurrentA1ContinuationPredecessor)
              and type(config) is ManagedCurrentCoreConfig
              and config.carrier_profile == CARRIER_PROFILE_XXHASH64,
              "Exact selected A1 plan and `.4` source configuration required")
@@ -328,12 +331,20 @@ def managed_current_a1_lookup_keys(plan, *, config):
     _require(type(admission) is TrussGraphAdmission
              and admission.batch is batch
              and inputs.get("admission") is admission
-             and inputs.get("source_owner_admitted_batch") is batch
-             and inputs.get("managed_genesis_predecessor") is plan.predecessor
+             and ((type(plan.predecessor) is ManagedCurrentGenesisPredecessor
+                   and inputs.get("source_owner_admitted_batch") is batch
+                   and inputs.get("managed_genesis_predecessor") is plan.predecessor)
+                  or (type(plan.predecessor) is ManagedCurrentA1ContinuationPredecessor
+                      and inputs.get("source_owner_admitted_batch") is None
+                      and inputs.get("managed_genesis_predecessor") is None))
              and type(inputs.get("stream")) is str and inputs["stream"]
              and type(inputs.get("materialized_at")) is str
              and config.catalog and config.schema,
              "A1 plan must retain its exact source-owner batch and verified predecessor")
+    if plan.phase == "a0_metadata":
+        _require(not admission.changes,
+                 "A0 catalog-only publication must have zero graph effects")
+        return ()
     from .publication_planning import truss_request_for
     expected_request = truss_request_for(inputs["stream"], batch,
         plan.predecessor.manifest["publication_id"], selection.schema_revisions)
@@ -344,8 +355,11 @@ def managed_current_a1_lookup_keys(plan, *, config):
     _require(schedule.sha256 == selection.schedule_sha256
              and schedule.document()["slots"][0]["source"] == "A",
              "A1 plan differs from the original first R04 source slot")
-    transition_managed_current_first_a_page(
-        plan.predecessor, source_owner_admitted_batch=batch)
+    if type(plan.predecessor) is ManagedCurrentGenesisPredecessor:
+        transition_managed_current_first_a_page(
+            plan.predecessor, source_owner_admitted_batch=batch)
+    else:
+        _validate_a1_continuation_progress(plan, batch)
 
     before = empty_state()
     after = plan_apply(before, admission.changes, schema_policy=admission.admit,
@@ -358,13 +372,15 @@ def managed_current_a1_lookup_keys(plan, *, config):
 
 def build_managed_current_a1_source_oracle(plan, *, config, prefix_bytes,
         prefix_sha256, selected, manifest, lookup_hashes):
-    """Build bounded first-page bags from the selected `.52` or `.53` owner result.
+    """Build bounded first-page bags from the selected `.52`, `.53` or `.54` owner result.
 
     The complete `/0.2` prefix is independently selected and checked for exact
     schedule/page/request/publication correspondence. This helper adds no live
     source, native-publication, retention, or ACK authority.
     """
-    from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
+    from .managed_current_a1_trial_plan import (
+        ManagedCurrentA1TrialPlan, ManagedCurrentA1ContinuationPredecessor,
+    )
     from .managed_current_genesis import transition_managed_current_first_a_page
     from .managed_current_truss052_genesis_owner import (
         ManagedCurrentTruss052GenesisSelection,
@@ -384,8 +400,39 @@ def build_managed_current_a1_source_oracle(plan, *, config, prefix_bytes,
     correspondence = plan.verify_delivery(prefix_bytes, prefix_sha256=prefix_sha256,
         selected=selected, schedule_bytes=plan.selection.schedule_bytes,
         pages=(plan.delivery_page,))
-    from ashlar_host.managed_current_prefix_delivery import _decode as _decode_delivery
-    package = _decode_delivery(prefix_bytes)
+    from ashlar_host.managed_current_prefix_delivery import decode_prefix_payload
+    package = decode_prefix_payload(prefix_bytes)
+    if plan.phase == "a0_metadata":
+        selection = plan.selection
+        admission = selection.admission
+        batch = selection.source_owner_admitted_batch
+        _require(not admission.changes and type(admission) is TrussGraphAdmission
+                 and admission.batch is batch
+                 and config.catalog == selected["destination"]["catalog"]
+                 and config.schema == selected["destination"]["schema"]
+                 and manifest.get("publication_id") != plan.predecessor.manifest.get("publication_id")
+                 and manifest.get("profile_version") == config.carrier_profile,
+                 "A0 must publish a distinct metadata-only manifest in the selected destination")
+        from .managed_current_genesis import transition_managed_current_first_a_page
+        progress = transition_managed_current_first_a_page(
+            plan.predecessor, source_owner_admitted_batch=batch)
+        _require(manifest.get("source_progress_json") == _canonical(progress)
+                 and manifest.get("schema_revisions_json") == plan.request[
+                     "schema_revisions_json"],
+                 "A0 manifest must retain the exact A0 checkpoint and unchanged B vector")
+        _require(package.get("phase") == "a0_metadata" and package.get("scheduleStep") == 0
+                 and package.get("entries") == []
+                 and package.get("progress") == json.loads(package[
+                     "initialProgressJson"]),
+                 "A0 verification must bypass R04 semantic slots")
+        empty = {role: [] for role in _ROLES}
+        return ManagedCurrentSourcePrefixOracle(
+            A1_PROFILE, config.carrier_profile, prefix_sha256,
+            plan.selection.schedule_sha256, 0,
+            _canonical({"catalog": config.catalog, "schema": config.schema}),
+            _canonical(progress), _canonical(plan.request),
+            _canonical({"source": "A", "phase": "a0_metadata"}),
+            _canonical(empty))
     entry = package["entries"][0]
     _require(type(entry) is dict
              and entry.get("requestJson") == _canonical(plan.request)
@@ -409,8 +456,11 @@ def build_managed_current_a1_source_oracle(plan, *, config, prefix_bytes,
              "Exact A1 request digest and source batch required")
     from ashlar.manifest import validate_manifest_row
     validate_manifest_row(manifest)
-    progress = transition_managed_current_first_a_page(
-        plan.predecessor, source_owner_admitted_batch=batch)
+    if type(plan.predecessor) is ManagedCurrentA1ContinuationPredecessor:
+        progress = _validate_a1_continuation_progress(plan, batch)
+    else:
+        progress = transition_managed_current_first_a_page(
+            plan.predecessor, source_owner_admitted_batch=batch)
     _require(manifest.get("publication_id") != plan.predecessor.manifest.get("publication_id")
              and manifest.get("profile_version") == config.carrier_profile
              and manifest.get("source_progress_json") == _canonical(progress)
@@ -441,6 +491,29 @@ def build_managed_current_a1_source_oracle(plan, *, config, prefix_bytes,
         _canonical({"catalog": config.catalog, "schema": config.schema}),
         _canonical(progress), _canonical(request), _canonical({"source": "A", "ordinal": 1}),
         _canonical(expected))
+
+
+def _validate_a1_continuation_progress(plan, batch):
+    """Advance A0's durable A/B progress by precisely the held A1 page."""
+    import base64
+    from ashlar.source_checkpoint import truss_checkpoint
+    try:
+        progress = json.loads(plan.predecessor.manifest["source_progress_json"])
+        source_a = plan.selection.source_progress["A"]
+        source_b = plan.selection.source_progress["B"]
+        old_a = progress[source_a.feed]
+        checkpoint = json.loads(truss_checkpoint(batch))
+    except (KeyError, TypeError, ValueError) as error:
+        raise ValueError("Exact A0 source progress and A1 page checkpoint required") from error
+    _require(type(progress) is dict and set(progress) == {source_a.feed, source_b.feed}
+             and type(old_a) is dict and old_a.get("epoch") == source_a.epoch
+             and old_a.get("profile") == "truss-native-feed/0.1"
+             and old_a.get("position") == batch.cursor_before
+             and old_a.get("previous")
+             and progress[source_b.feed] == source_b.document(),
+             "A1 prior cursor must equal committed A0 A progress and preserve B genesis")
+    progress[source_a.feed] = checkpoint
+    return progress
 
 
 def _decode_retained(text):

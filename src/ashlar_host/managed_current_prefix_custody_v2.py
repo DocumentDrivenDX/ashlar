@@ -71,9 +71,11 @@ def validate_selected_managed_current_prefix_v2(prefix_bytes, *, prefix_sha256,
         package = _decode(prefix_bytes)
     except (UnicodeError, ValueError, RecursionError) as error:
         raise ValueError("Valid duplicate-free source-prefix package JSON required") from error
-    fields = {"profile", "carrierProfile", "destination", "scheduleJson",
+    base_fields = {"profile", "carrierProfile", "destination", "scheduleJson",
               "initialSources", "initialProgressJson", "initialPublicationJson",
               "scheduleStep", "entries", "progress"}
+    a0_metadata = type(package) is dict and package.get("phase") == "a0_metadata"
+    fields = base_fields | ({"phase"} if a0_metadata else set())
     _require(type(package) is dict and set(package) == fields
              and package.get("profile") == PROFILE,
              "Closed complete source-prefix /0.2 package required")
@@ -106,7 +108,8 @@ def validate_selected_managed_current_prefix_v2(prefix_bytes, *, prefix_sha256,
              and all(type(value) is str and value for value in package["destination"].values())
              and package["carrierProfile"] in ("ashlar-delta/0.3", "ashlar-delta/0.4-xxhash64")
              and type(package["scheduleStep"]) is int
-             and 1 <= package["scheduleStep"] <= 8
+             and (package["scheduleStep"] == 0 if a0_metadata
+                  else 1 <= package["scheduleStep"] <= 8)
              and type(package["entries"]) is list
              and len(package["entries"]) == package["scheduleStep"],
              "Bounded complete global source-prefix dimensions required")
@@ -229,6 +232,13 @@ def validate_selected_managed_current_prefix_v2(prefix_bytes, *, prefix_sha256,
     _require(initial_manifest.get("source_progress_json") == initial_progress_raw.decode("utf-8"),
              "Initial manifest must retain the exact selected complete A/B progress")
 
+    if a0_metadata:
+        _require(package.get("phase") == "a0_metadata"
+                 and package["entries"] == [] and package["progress"] == progress,
+                 "A0 metadata prefix carries only the unchanged empty R04-semantic state")
+        return ManagedCurrentPrefixCustodyCorrespondence(
+            prefix_sha256, schedule.sha256, 0, initial_id, (), _canonical(progress))
+
     publication_ids = []
     predecessor = initial_id
     progress = {key: dict(value) for key, value in progress.items()}
@@ -344,3 +354,151 @@ def validate_selected_managed_current_prefix_v2(prefix_bytes, *, prefix_sha256,
     return ManagedCurrentPrefixCustodyCorrespondence(
         prefix_sha256, schedule.sha256, package["scheduleStep"], initial_id,
         tuple(publication_ids), _canonical(progress))
+
+
+def validate_selected_managed_current_prefix_a0_continuation(
+        prefix_bytes, *, prefix_sha256, selected):
+    """Validate the first semantic R04 page with the exact A0 manifest as base.
+
+    A0 is a separately published metadata-only source transaction and is not
+    an R04 semantic slot. This path preserves original A/B genesis anchors,
+    verifies the A0 full vector, and admits exactly one A1 page after it.
+    """
+    from ashlar.attempt_store import verify_request_digest
+    from ashlar.source_checkpoint import truss_checkpoint
+    from ashlar.staging import batch_from_row
+    _require(type(prefix_bytes) is bytes and 0 < len(prefix_bytes) <= _MAX_BYTES
+             and type(prefix_sha256) is str and _SHA.fullmatch(prefix_sha256)
+             and hashlib.sha256(prefix_bytes).hexdigest() == prefix_sha256,
+             "Exact bounded A0-continuation prefix bytes required")
+    package = _decode(prefix_bytes)
+    required = {"profile", "carrierProfile", "destination", "scheduleJson",
+        "initialSources", "initialProgressJson", "initialPublicationJson",
+        "scheduleStep", "entries", "progress"}
+    _require(type(package) is dict and set(package) == required
+             and package.get("profile") == PROFILE
+             and _canonical(package).encode("utf-8") == prefix_bytes,
+             "Canonical closed `/0.2` A0-continuation package required")
+    _require(type(selected) is dict and set(selected) == {
+        "scheduleSha256", "sources", "initialProgressSha256",
+        "initialPublicationSha256", "initialPublicationId", "carrierProfile",
+        "destination"}, "Independent A/B genesis and A0 selection required")
+    schedule_raw = package["scheduleJson"].encode("utf-8")
+    schedule = R04Schedule(schedule_raw)
+    schedule_doc = schedule.document()
+    _require(hashlib.sha256(schedule_raw).hexdigest() == selected["scheduleSha256"]
+             and package["scheduleStep"] == 1 and len(package["entries"]) == 1
+             and schedule_doc["slots"][0]["source"] == "A"
+             and package["destination"] == selected["destination"]
+             and package["carrierProfile"] == selected["carrierProfile"],
+             "A0 continuation must begin at the original first semantic A slot")
+    identities = {}
+    selected_genesis_progress = {}
+    initial_sources = package["initialSources"]
+    source_selections = selected["sources"]
+    _require(type(initial_sources) is dict and set(initial_sources) == {"A", "B"}
+             and type(source_selections) is dict and set(source_selections) == {"A", "B"},
+             "Original A/B genesis registrations and cursors required")
+    for source in ("A", "B"):
+        selected_source = source_selections[source]
+        _require(type(selected_source) is dict and set(selected_source) == {
+            "registrationSha256", "genesisCursorSha256", "identity"},
+            "Independent original source selection required")
+        identity = selected_source["identity"]
+        binding = schedule_doc["source_bindings"][source]
+        identity_fields = {"feed": "feed", "epoch": "epoch",
+            "installation_id": "installation_id", "consumer_id": "consumer_id",
+            "registration_id": "registration_id"}
+        _require(type(identity) is dict and identity == binding
+            and all(identity.get(field) == binding.get(key)
+            for field, key in identity_fields.items()),
+            "Original source identity differs from the frozen schedule")
+        actual = initial_sources[source]
+        _require(type(actual) is dict and set(actual) == {
+            "registrationJson", "genesisCursorBase64"},
+            "Exact original registration and genesis cursor bytes required")
+        registration = actual["registrationJson"].encode("utf-8")
+        cursor = base64.b64decode(actual["genesisCursorBase64"], validate=True)
+        _require(hashlib.sha256(registration).hexdigest()
+                 == selected_source["registrationSha256"]
+                 and hashlib.sha256(cursor).hexdigest()
+                 == selected_source["genesisCursorSha256"],
+                 "Original genesis registration/cursor digest differs")
+        cursor_doc = _decode(cursor)
+        _require(cursor_doc.get("nextXid") == "0"
+                 and cursor_doc.get("installationId") == identity["installation_id"]
+                 and cursor_doc.get("sourceEpoch") == identity["epoch"]
+                 and cursor_doc.get("consumerId") == identity["consumer_id"]
+                 and cursor_doc.get("registrationId") == identity["registration_id"],
+                 "Original genesis cursor identity differs")
+        identities[source] = identity
+        try:
+            registration_doc = _decode(registration)
+            registration_id = registration_doc["registrationId"]
+        except (ValueError, KeyError, TypeError) as error:
+            raise ValueError("Exact original catalog registration identity required") from error
+        selected_genesis_progress[source] = {
+            "profile": "ashlar-truss-source-genesis-progress/0.1",
+            "feed": identity["feed"], "epoch": identity["epoch"],
+            "position": actual["genesisCursorBase64"],
+            "position_sha256": selected_source["genesisCursorSha256"],
+            "catalog_registration_id": registration_id,
+            "catalog_registration_sha256": selected_source["registrationSha256"],
+            "consumer_id": identity["consumer_id"],
+            "consumer_registration_id": identity["registration_id"],
+            "installation_id": identity["installation_id"],
+            "page": {"profile": "ashlar-source-page-absent/0.1"}}
+    initial_progress_raw = package["initialProgressJson"].encode("utf-8")
+    initial_manifest_raw = package["initialPublicationJson"].encode("utf-8")
+    _require(hashlib.sha256(initial_progress_raw).hexdigest()
+             == selected["initialProgressSha256"]
+             and hashlib.sha256(initial_manifest_raw).hexdigest()
+             == selected["initialPublicationSha256"],
+             "A0 exact progress or manifest digest differs")
+    progress = _decode(initial_progress_raw)
+    a0 = _decode(initial_manifest_raw)
+    _require(type(progress) is dict and set(progress) == {
+        identities["A"]["feed"], identities["B"]["feed"]}
+        and _canonical(progress).encode() == initial_progress_raw
+        and a0.get("publication_id") == selected["initialPublicationId"]
+        and a0.get("source_progress_json") == initial_progress_raw.decode("utf-8"),
+        "A0 manifest must retain its exact full A/B progress vector")
+    a_feed, b_feed = identities["A"]["feed"], identities["B"]["feed"]
+    a0_a, a0_b = progress[a_feed], progress[b_feed]
+    _require(type(a0_a) is dict and a0_a.get("epoch") == identities["A"]["epoch"]
+             and a0_a.get("feed") == a_feed
+             and type(a0_a.get("position")) is str
+             and a0_a.get("profile") == "truss-native-feed/0.1"
+             and type(a0_a.get("previous")) is str
+             and a0_a.get("previous") == initial_sources["A"]["genesisCursorBase64"]
+             and a0_b == selected_genesis_progress["B"],
+             "A0 A checkpoint or untouched B genesis marker differs")
+    entry = package["entries"][0]
+    _require(type(entry) is dict and set(entry) == {"bundleJson", "requestJson",
+        "materializationClockUs", "publicationManifestJson"}
+        and _CLOCK.fullmatch(entry["materializationClockUs"]),
+        "Exact first semantic page entry required")
+    request = _decode(entry["requestJson"].encode("utf-8"))
+    manifest = _decode(entry["publicationManifestJson"].encode("utf-8"))
+    verify_request_digest(request)
+    _require(request.get("predecessor") == a0["publication_id"]
+             and request.get("schema_revisions_json") == a0.get("schema_revisions_json")
+             and manifest.get("publication_id") != a0["publication_id"],
+             "A1 request must descend from the exact A0 publication")
+    batch_artifact = _decode(request["source_batch_json"].encode("utf-8"))
+    batch = batch_from_row({"source_profile": batch_artifact["profile"],
+        "feed": batch_artifact["feed"], "epoch": batch_artifact["epoch"],
+        "batch_id": batch_artifact["batch_id"], "cursor_before": batch_artifact["cursor_before"],
+        "cursor_after": batch_artifact["cursor_after"], "records_digest": batch_artifact["records_sha256"],
+        "batch_json": request["source_batch_json"], "batch_digest": request["source_batch_digest"]})
+    _require(batch.feed == a_feed and batch.epoch == identities["A"]["epoch"]
+             and batch.cursor_before == a0_a["position"]
+             and request["source_checkpoint_json"] == truss_checkpoint(batch),
+             "A1 page must continue the exact A0 A checkpoint")
+    final_progress = dict(progress)
+    final_progress[a_feed] = _decode(request["source_checkpoint_json"].encode("utf-8"))
+    _require(_decode(manifest["source_progress_json"].encode("utf-8")) == final_progress
+             and package["progress"] == final_progress,
+             "A1 manifest must advance A only and preserve the complete A/B vector")
+    return ManagedCurrentPrefixCustodyCorrespondence(prefix_sha256, schedule.sha256,
+        1, a0["publication_id"], (manifest["publication_id"],), _canonical(final_progress))

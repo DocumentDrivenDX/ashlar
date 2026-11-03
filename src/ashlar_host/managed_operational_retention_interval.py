@@ -25,6 +25,8 @@ from ashlar_host.managed_current_core import (
 from ashlar_host.managed_current_spark_receipt_read import (
     ManagedCurrentSparkReceiptConfig,
     ManagedCurrentSparkReceiptReader,
+    ManagedCurrentSparkServerlessReceiptConfig,
+    ManagedCurrentSparkServerlessReceiptReader,
     ManagedCurrentSparkReceiptReopenObservation,
 )
 from ashlar.pins import PinVector
@@ -95,7 +97,8 @@ class ManagedOperationalRetentionSelection:
     _a1_prefix_selected_bytes: bytes | None = field(init=False, repr=False, compare=False)
 
     def __post_init__(self):
-        if type(self.reader_config) is not ManagedCurrentSparkReceiptConfig:
+        if type(self.reader_config) not in (ManagedCurrentSparkReceiptConfig,
+                                            ManagedCurrentSparkServerlessReceiptConfig):
             raise OperationalRetentionIntervalError("Explicit managed Spark receipt configuration required")
         if (type(self.request_bytes) is not bytes or not 0 < len(self.request_bytes) <= 4 * 1024 * 1024
                 or type(self.manifest_bytes) is not bytes
@@ -155,10 +158,11 @@ class ManagedOperationalRetentionSelection:
         if self.a1_plan is not None:
             from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
             if (type(self.a1_plan) is not ManagedCurrentA1TrialPlan
-                    or self.reader_config.source_truss_version not in ("0.0.52", "0.0.53")
+                    or self.reader_config.source_truss_version not in (
+                        "0.0.52", "0.0.53", "0.0.54", "0.0.55")
                     or type(self.a1_prefix_selected) is not dict):
                 raise OperationalRetentionIntervalError(
-                    "A1 operational read requires the exact `.52` or `.53` plan and selected `/0.2` custody")
+                    "A1 operational read requires an admitted `.52`-`.55` plan and selected `/0.2` custody")
             try:
                 from ashlar.schema import decode_retained_json
                 request = decode_retained_json(self.request_bytes)
@@ -340,7 +344,11 @@ class OperationalRetentionInterval:
                     "Fresh owned Spark session required at every stage")
             self._session_ids.add(session.session_id)
             self._spark_sessions.append(session.spark)
-            reader = ManagedCurrentSparkReceiptReader(session.spark, self.selection.reader_config)
+            if type(self.selection.reader_config) is ManagedCurrentSparkServerlessReceiptConfig:
+                reader = ManagedCurrentSparkServerlessReceiptReader(
+                    session.spark, self.selection.reader_config)
+            else:
+                reader = ManagedCurrentSparkReceiptReader(session.spark, self.selection.reader_config)
             kwargs = {
                 "request_bytes": self.selection.request_bytes,
                 "manifest_bytes": self.selection.manifest_bytes,

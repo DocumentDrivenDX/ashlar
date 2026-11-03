@@ -12,6 +12,7 @@ from unittest.mock import patch
 from ashlar.truss_native_feed import native_feed_batch
 from ashlar_host.managed_current_a1_trial_plan import (
     prepare_managed_current_a1_trial,
+    prepare_managed_current_a1_continuation,
 )
 from ashlar_host.managed_current_genesis import ManagedCurrentGenesisPredecessor
 from ashlar_host.managed_current_prefix_delivery import ManagedCurrentPrefixPage
@@ -188,6 +189,93 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
                     predecessor='genesis-manifest', schema_revisions_json='{}',
                     materialized_at='1762000000000000')
 
+    def test_continuation_requires_exact_a0_cursor_and_unchanged_b_genesis(self):
+        from ashlar_host.managed_current_genesis import admit_truss_source_genesis_progress
+        from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64
+        schedule = self._schedule()
+        prior = json.dumps({'profile': 'truss-caller-asserted-feed/0.1',
+            'nextXid': '2', 'installationId': 'install-A', 'sourceEpoch': 'epoch-A',
+            'consumerId': 'consumer-A', 'registrationId': 'consumer-reg-A'},
+            separators=(',', ':')).encode()
+        next_cursor = json.dumps({'profile': 'truss-caller-asserted-feed/0.1',
+            'nextXid': '3', 'installationId': 'install-A', 'sourceEpoch': 'epoch-A',
+            'consumerId': 'consumer-A', 'registrationId': 'consumer-reg-A'},
+            separators=(',', ':')).encode()
+        payload = {'interfaceVersion': 'truss-native-feed/0.1',
+            'prior': json.loads(prior), 'next': json.loads(next_cursor), 'writerXid': '2',
+            'catalogPrerequisites': [], 'revisions': [], 'changes': [], 'sources': [],
+            'reservations': [], 'configuration': {}}
+        content = json.dumps(payload, separators=(',', ':')).encode()
+        batch = native_feed_batch(content, sha256=hashlib.sha256(content).hexdigest(),
+            prior=prior, next=next_cursor, feed='feed-A')
+        page = SimpleNamespace(content=content,
+            prior=SimpleNamespace(content=prior), next=SimpleNamespace(content=next_cursor))
+        b_reg = b'{"profile":"truss-catalog-registration/0.1","registrationId":"catalog-B"}'
+        b_cursor = json.dumps({'profile': 'truss-caller-asserted-feed/0.1',
+            'nextXid': '0', 'installationId': 'install-B', 'sourceEpoch': 'epoch-B',
+            'consumerId': 'consumer-B', 'registrationId': 'consumer-reg-B'},
+            separators=(',', ':')).encode()
+        progress_a = admit_truss_source_genesis_progress(feed='feed-A', epoch='epoch-A',
+            cursor_bytes=prior, cursor_sha256=hashlib.sha256(prior).hexdigest(),
+            catalog_registration_id='catalog-A', catalog_registration_bytes=b_reg,
+            consumer_id='consumer-A', consumer_registration_id='consumer-reg-A',
+            installation_id='install-A', expected_next_xid='2')
+        progress_b = admit_truss_source_genesis_progress(feed='feed-B', epoch='epoch-B',
+            cursor_bytes=b_cursor, cursor_sha256=hashlib.sha256(b_cursor).hexdigest(),
+            catalog_registration_id='catalog-B', catalog_registration_bytes=b_reg,
+            consumer_id='consumer-B', consumer_registration_id='consumer-reg-B',
+            installation_id='install-B')
+        admission = TrussGraphAdmission.__new__(TrussGraphAdmission)
+        admission.batch = batch
+        selection = ManagedCurrentTruss053GenesisSelection(schedule.sha256,
+            schedule.raw, {'A': progress_a, 'B': progress_b}, {}, {},
+            {'install-A': '1', 'install-B': '1'},
+            {'A': SimpleNamespace(batch=batch, page=page),
+             'B': SimpleNamespace(batch=None, page=None)},
+            admission, batch)
+        source_progress = {
+            'feed-A': {'profile': 'truss-native-feed/0.1', 'feed': 'feed-A',
+                'epoch': 'epoch-A', 'position': base64.b64encode(prior).decode(),
+                'previous': base64.b64encode(b'{"nextXid":"0"}').decode()},
+            'feed-B': progress_b.document()}
+        predecessor = {'publication_id': 'a0-publication',
+            'profile_version': CARRIER_PROFILE_XXHASH64,
+            'source_progress_json': json.dumps(source_progress, sort_keys=True,
+                separators=(',', ':'))}
+        plan = prepare_managed_current_a1_continuation(selection, predecessor,
+            stream='source-stream', materialized_at='1', context=object())
+        self.assertEqual(plan.phase, 'a1_continuation')
+        self.assertEqual(plan.request['predecessor'], 'a0-publication')
+        self.assertIsNone(plan.driver_inputs['managed_genesis_predecessor'])
+        self.assertIsNone(plan.driver_inputs['source_owner_admitted_batch'])
+        admitted, genesis_predecessor, source_batch, rebuilt = _managed_current_a1_task_inputs(
+            plan, stream='source-stream', predecessor='a0-publication',
+            schema_revisions_json=json.dumps(selection.schema_revisions,
+                sort_keys=True, separators=(',', ':')), materialized_at='1')
+        self.assertIs(admitted, admission)
+        self.assertIsNone(genesis_predecessor)
+        self.assertIsNone(source_batch)
+        self.assertEqual(rebuilt, plan.request)
+        changed = dict(source_progress)
+        changed['feed-A'] = dict(source_progress['feed-A'], position='e30=')
+        wrong = dict(predecessor, source_progress_json=json.dumps(changed,
+            sort_keys=True, separators=(',', ':')))
+        with self.assertRaisesRegex(ValueError, 'A1 prior cursor must equal A0'):
+            prepare_managed_current_a1_continuation(selection, wrong,
+                stream='source-stream', materialized_at='1', context=object())
+
+        from ashlar_host.managed_current_spark_source_oracle import (
+            _validate_a1_continuation_progress,
+        )
+        oracle_plan = SimpleNamespace(predecessor=SimpleNamespace(manifest=predecessor),
+                                      selection=selection)
+        self.assertEqual(_validate_a1_continuation_progress(oracle_plan, batch)['feed-A'],
+                         json.loads(__import__('ashlar.source_checkpoint',
+                             fromlist=['truss_checkpoint']).truss_checkpoint(batch)))
+        oracle_plan.predecessor = SimpleNamespace(manifest=wrong)
+        with self.assertRaisesRegex(ValueError, 'A1 prior cursor must equal committed A0'):
+            _validate_a1_continuation_progress(oracle_plan, batch)
+
     def test_a1_native_oracle_binds_the_owner_page_and_complete_progress(self):
         from ashlar_host.managed_current_core import (
             CARRIER_PROFILE_XXHASH64, ManagedCurrentCoreConfig,
@@ -272,7 +360,7 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
         )
         for pins in cases:
             with self.subTest(pins=tuple(pins)), self.assertRaisesRegex(
-                    ValueError, 'Truss .52/.53 A1 reads require'):
+                    ValueError, 'Truss .52/.53/.54 A1 reads require'):
                 reader.reopen(request_bytes=b'{}', manifest_bytes=b'{}',
                               expected_receipt={}, **pins)
 

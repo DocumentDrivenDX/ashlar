@@ -3,10 +3,19 @@
 import base64
 import hashlib
 import unittest
+from unittest.mock import patch
 
 from ashlar_host.r04_schedule import canonical
 from ashlar_host.truss_detached_a1_genesis_codec import (
     PROFILE, DetachedA1GenesisError, decode_detached_a1_genesis_snapshot,
+    _require_current_fresh_catalog_evidence,
+)
+from ashlar_host.truss_current_catalog import (
+    CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
+    CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+    CURRENT_TRUSS_055_FRESH_RUNTIME_MANIFEST_SHA256,
+    CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,
+    CurrentCatalogEvidence,
 )
 from test_managed_current_a1_trial_plan import TestManagedCurrentA1TrialPlan
 
@@ -75,6 +84,22 @@ def _raw():
 
 
 class DetachedA1GenesisCodecTests(unittest.TestCase):
+    def test_current_055_evidence_uses_actual_pins_and_refuses_stale_054(self):
+        pins = {"version": "0.0.55",
+            "wheel_sha256": CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,
+            "manifest_sha256": CURRENT_TRUSS_055_FRESH_RUNTIME_MANIFEST_SHA256,
+            "source_custody_profile": "ashlar-truss-055-fresh-baseline-source-custody/0.1"}
+        with patch("ashlar_host.truss_current_catalog.installed_fresh_truss_runtime_pins",
+                   return_value=pins):
+            current = CurrentCatalogEvidence("0.0.55", {}, {}, {},
+                pins["wheel_sha256"], pins["manifest_sha256"])
+            self.assertIs(_require_current_fresh_catalog_evidence(current), pins)
+            stale = CurrentCatalogEvidence("0.0.54", {}, {}, {},
+                CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
+                CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256)
+            with self.assertRaisesRegex(DetachedA1GenesisError, "installed fresh Truss"):
+                _require_current_fresh_catalog_evidence(stale)
+
     def test_decodes_exact_a_and_b_public_pages_and_accepted_documents(self):
         snapshot = decode_detached_a1_genesis_snapshot(_raw())
         self.assertEqual(set(snapshot.sources), {"A", "B"})

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
-"""Closed plain-evidence transport for a fresh Truss .53 A/B A1 genesis read."""
+"""Closed plain-evidence transport for a current-fresh Truss A/B A1 genesis read."""
 from __future__ import annotations
 
 import base64
@@ -58,15 +58,22 @@ def _need(value, message):
         raise DetachedA1GenesisError(message)
 
 
+def _require_current_fresh_catalog_evidence(evidence):
+    from .truss_current_catalog import CurrentCatalogEvidence, installed_fresh_truss_runtime_pins
+    pins = installed_fresh_truss_runtime_pins()
+    _need(type(evidence) is CurrentCatalogEvidence
+          and evidence.truss_version == pins["version"]
+          and (evidence.runtime_wheel_sha256, evidence.runtime_manifest_sha256)
+             == (pins["wheel_sha256"], pins["manifest_sha256"]),
+          "Exact installed fresh Truss catalog evidence required for both sources")
+    return pins
+
+
 def _source_payload(selection, source):
     from .managed_current_truss053_genesis_owner import (
         ManagedCurrentTruss053SourceObservation, _is_issued_source_observation,
     )
     from .managed_current_genesis import TrussSourceGenesisProgress
-    from .truss_current_catalog import (
-        CURRENT_TRUSS_053_FRESH_VERSION, CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-        CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256, CurrentCatalogEvidence,
-    )
     from truss.feed import FeedPage
     from truss.reader_catalog import AcceptedDocument
 
@@ -76,19 +83,14 @@ def _source_payload(selection, source):
           and _is_issued_source_observation(observation)
           and observation.source == source and type(progress) is TrussSourceGenesisProgress
           and type(observation.page) is FeedPage,
-          "Original issued public Truss .53 A/B observation required")
+          "Original issued public fresh-Truss A/B observation required")
     evidence = observation.catalog_evidence
-    _need(type(evidence) is CurrentCatalogEvidence
-          and evidence.truss_version == CURRENT_TRUSS_053_FRESH_VERSION
-          and (evidence.runtime_wheel_sha256, evidence.runtime_manifest_sha256)
-             == (CURRENT_TRUSS_053_FRESH_WHEEL_SHA256,
-                 CURRENT_TRUSS_053_FRESH_RUNTIME_MANIFEST_SHA256),
-          "Exact fresh .53 catalog evidence required for both sources")
+    _require_current_fresh_catalog_evidence(evidence)
     revision = next(iter(evidence.reports), "")
     _need(revision in evidence.reports and set(evidence.views) == {revision}
           and observation.report_bytes == evidence.reports[revision]
           and observation.catalog_view_bytes == evidence.views[revision],
-          "Original accepted .53 report and complete view bytes required")
+          "Original accepted fresh-Truss report and complete view bytes required")
     report = json.loads(observation.report_bytes)
     view = json.loads(observation.catalog_view_bytes)
     _need(type(report) is dict and type(view) is dict
@@ -180,7 +182,7 @@ def encode_detached_a1_genesis_snapshot(selection) -> bytes:
           and set(selection.source_observations) == {"A", "B"}
           and type(selection.schedule_bytes) is bytes
           and selection.schedule_sha256 == hashlib.sha256(selection.schedule_bytes).hexdigest(),
-          "Exact public `.53` two-source genesis selection required")
+          "Exact public current-fresh two-source genesis selection required")
     schedule = R04Schedule(selection.schedule_bytes)
     sources = [_source_payload(selection, source) for source in ("A", "B")]
     body = {"profile": PROFILE,

@@ -8,6 +8,7 @@ import json
 import unittest
 from datetime import datetime, timezone
 import time
+import threading
 from unittest.mock import patch
 from types import SimpleNamespace
 
@@ -19,7 +20,9 @@ from ashlar_host.managed_current_carriers import load_current_managed_carriers
 from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64, ROLES
 from ashlar_host.managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
 from ashlar_host.managed_current_spark_receipt_read import (
-    ManagedCurrentSparkReceiptConfig, ManagedCurrentSparkReceiptReader, _native_json,
+    ManagedCurrentSparkReceiptConfig, ManagedCurrentSparkServerlessReceiptConfig,
+    ManagedCurrentSparkReceiptReader, ManagedCurrentSparkServerlessReceiptReader,
+    _native_json,
 )
 from ashlar_host.managed_current_spark_source_oracle import (
     ManagedCurrentSourcePrefixOracle, build_managed_current_prefix_oracle,
@@ -77,11 +80,13 @@ class _Spark:
         self.role_identity_drift = None
         self.hash_values = {}
         self.hash_rows_override = None
+        self.catalog = "client_dev"
+        self.schema = "trial_schema"
 
     def sql(self, sql, args=None):
         args = args or {}; self.calls.append(sql); self.parameters.append(dict(args))
         if "current_user() AS principal" in sql:
-            rows, cols = [{"principal": self.owner, "catalog": "client_dev", "schema": "trial_schema"}], \
+            rows, cols = [{"principal": self.owner, "catalog": self.catalog, "schema": self.schema}], \
                 (("principal", "string"), ("catalog", "string"), ("schema", "string"))
         elif "version() AS sparkBuildText" in sql:
             rows, cols = [{"sparkBuildText": "Spark build"}], (("sparkBuildText", "string"),)
@@ -148,6 +153,43 @@ class _SparkContext:
     def setJobGroup(self, group, description, interruptOnCancel=True):
         self.properties["spark.jobGroup.id"] = group
     def cancelJobGroup(self, group): pass
+
+
+class _SparkConnect(_Spark):
+    @property
+    def sparkContext(self):
+        raise AssertionError("Spark Connect test must never access sparkContext")
+    @sparkContext.setter
+    def sparkContext(self, _):
+        self._forbidden_context = True
+
+    def __init__(self, manifest, receipt, uuids, *, interrupt_result=None):
+        self.initial_tags = {"caller-owned-tag"}
+        self._thread_tags = threading.local()
+        self.interrupt_result = ["operation-123"] if interrupt_result is None else interrupt_result
+        self.interrupt_calls = []
+        self.interrupt_saw_active_operation = []
+        self.active_tagged_operations = set()
+        self.query_tag_snapshots = []
+        super().__init__(manifest, receipt, uuids)
+        self.version = "4.2.0"
+        self.conf = SimpleNamespace(get=lambda key: {
+            "spark.databricks.clusterUsageTags.sparkVersion": "serverless-4.2.0"}[key])
+
+    def _tags(self):
+        if not hasattr(self._thread_tags, "value"):
+            self._thread_tags.value = set(self.initial_tags)
+        return self._thread_tags.value
+    def addTag(self, tag): self._tags().add(tag)
+    def getTags(self): return set(self._tags())
+    def removeTag(self, tag): self._tags().discard(tag)
+    def sql(self, sql, args=None):
+        self.query_tag_snapshots.append(self.getTags())
+        return super().sql(sql, args=args)
+    def interruptTag(self, tag):
+        self.interrupt_calls.append(tag)
+        self.interrupt_saw_active_operation.append(tag in self.active_tagged_operations)
+        return list(self.interrupt_result)
 
 
 def _spark_config(config):
@@ -320,11 +362,187 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         return self.reader.reopen(request_bytes=_canonical(self.request).encode(),
             manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=receipt or self.receipt)
 
+    def _serverless_reader(self, *, interrupt_result=None):
+        runtime = {"runtimeName": "databricks-serverless", "sparkVersion": "4.2.0",
+            "sparkBuildText": "Spark build", "runtimeTag": "serverless-4.2.0",
+            "principal": self.config.expected_principal, "catalog": self.config.catalog,
+            "schema": self.config.schema, "protocol": self.config.protocol_profile.identity}
+        selected = ManagedCurrentSparkServerlessReceiptConfig(
+            self.config.catalog, self.config.schema, self.config.expected_principal,
+            self.config.expected_table_owner, self.config.source_truss_version,
+            self.config.protocol_profile, runtime,
+            carrier_profile=self.config.carrier_profile)
+        spark = _SparkConnect(self.manifest, self.receipt, self.uuids,
+            interrupt_result=interrupt_result)
+        return spark, ManagedCurrentSparkServerlessReceiptReader(spark, selected)
+
+    def test_serverless_connect_reader_reopens_without_sparkcontext_and_restores_tags(self):
+        spark, reader = self._serverless_reader()
+        before = set(reader._serverless_tag.preexisting_tags)
+        observation = reader.reopen(request_bytes=_canonical(self.request).encode(),
+            manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt)
+        self.assertEqual(observation.runtime_identity["opening"]["runtimeName"],
+                         "databricks-serverless")
+        self.assertEqual(observation.runtime_identity["opening"], reader.config.expected_runtime)
+        self.assertNotIn("sessionTimeZone", observation.runtime_identity["opening"])
+        self.assertNotIn("sparkApplicationId", observation.runtime_identity["opening"])
+        self.assertNotIn("clusterId", observation.runtime_identity["opening"])
+        self.assertEqual(spark.getTags(), before | {reader._serverless_tag.tag})
+        reader.close()
+        self.assertEqual(spark.getTags(), before)
+        self.assertEqual(spark.interrupt_calls, [])
+
+    def test_generated_trial_config_routes_through_parent_bundle_to_connect_reader(self):
+        import shutil
+        import sys
+        import tempfile
+        from pathlib import Path
+        from types import SimpleNamespace
+        from unittest.mock import patch
+        from tools.create_managed_a1_trial_config import build_config
+        from tools.run_managed_a1_serverless import _retention_bundle
+        from ashlar_host.configured_local_runtime import PROFILE
+
+        runtime_result = {"runtimeName": "databricks-serverless", "sparkVersion": "4.2.0",
+            "sparkBuildText": "Spark build", "runtimeTag": "serverless-4.2.0",
+            "principal": "owner@example.test", "catalog": "client_dev", "schema": "trial_schema",
+            "protocol": PROFILE.identity,
+            "serverlessApiProbe": {"profile": "ashlar-spark-connect-tag-api-probe/0.1",
+                "newSessionDistinct": True, "tagAddedAndObserved": True,
+                "taggedQueryRowCount": 1, "taggedQueryValue": 1,
+                "interruptTagResponseType": "list", "interruptTagResponseCount": 0,
+                "tagRemoved": True, "preexistingTagsRestored": True,
+                "operationTerminationClaimed": False}, "sideEffects": []}
+        with tempfile.TemporaryDirectory(dir=Path.cwd()) as temporary:
+            receipt_path = Path(temporary) / "local-qualification.json"
+            receipt_path.write_bytes(b"qualified local release")
+            config = build_config(runtime_result=runtime_result,
+                trial_id="a1-serverless-chain", notebook_root="/Workspace/Shared/ashlar",
+                environment_version=7, dependencies=[{"path": "/Workspace/Shared/ashlar.whl",
+                    "sha256": "a" * 64}], local_receipt=receipt_path,
+                evidence_dir="docs/helix/04-build/evidence/test",
+                bun_path=Path(shutil.which("bun")), python=Path(sys.executable))
+        plan = SimpleNamespace(predecessor=SimpleNamespace(manifest={"publication_id": "prior"}),
+            selection=SimpleNamespace(schedule_sha256="b" * 64,
+                                      schema_revisions={"test": "revision-1"}))
+        captured = {}
+        def compose(**kwargs):
+            captured.update(kwargs)
+            return SimpleNamespace(selection=SimpleNamespace(
+                reader_config=kwargs["reader_config"]), vector=object())
+        with patch("ashlar_host.managed_current_a1_retention_builder.build_managed_current_a1_retention_bundle",
+                   side_effect=compose), patch(
+                "ashlar_host.truss_current_catalog.installed_fresh_truss_runtime_pins",
+                return_value={"version": "0.0.55"}):
+            bundle = _retention_bundle(trial=config["trial"],
+                protocol_profile=PROFILE, plan=plan, request_bytes=b"{}", manifest_bytes=b"{}",
+                destination_receipt=b"{}", task_receipt={}, prefix_bytes=b"prefix",
+                prefix_sha="c" * 64, selected_prefix={}, source_snapshot=b"snapshot",
+                custody_digests={})
+        self.assertEqual(type(bundle.selection.reader_config), ManagedCurrentSparkServerlessReceiptConfig)
+        _, managed_manifest, managed_receipt, managed_uuids, _ = _fixture(
+            carrier_profile=CARRIER_PROFILE_XXHASH64)
+        spark = _SparkConnect(managed_manifest, managed_receipt, managed_uuids)
+        spark.owner = config["expected_principal"]
+        spark.schema = config["schema"]
+        reader = ManagedCurrentSparkServerlessReceiptReader(
+            spark, bundle.selection.reader_config)
+        try:
+            self.assertEqual(reader.opening_runtime, config["expected_runtime"])
+            self.assertTrue(any("current_timezone()" in sql for sql in spark.calls))
+            self.assertNotIn("sessionTimeZone", reader.opening_runtime)
+            self.assertIs(captured["reader_config"], bundle.selection.reader_config)
+        finally:
+            reader._serverless_tag.close()
+
+    def test_serverless_open_deadline_interrupts_a_blocked_connect_request(self):
+        import threading
+        import time
+
+        entered = threading.Event()
+        release = threading.Event()
+        spark = _SparkConnect(self.manifest, self.receipt, self.uuids)
+        original_sql = spark.sql
+        def blocked_sql(sql, args=None):
+            tags = spark.getTags()
+            spark.query_tag_snapshots.append(tags)
+            owned = next(tag for tag in tags if tag.startswith(
+                "ashlar-managed-current-close-"))
+            spark.active_tagged_operations.add(owned)
+            entered.set()
+            try:
+                release.wait(3)
+                return original_sql(sql, args=args)
+            finally:
+                spark.active_tagged_operations.discard(owned)
+        spark.sql = blocked_sql
+        runtime = {"runtimeName": "databricks-serverless", "sparkVersion": "4.2.0",
+            "sparkBuildText": "Spark build", "runtimeTag": "serverless-4.2.0",
+            "principal": self.config.expected_principal, "catalog": self.config.catalog,
+            "schema": self.config.schema, "protocol": self.config.protocol_profile.identity}
+        selected = ManagedCurrentSparkServerlessReceiptConfig(
+            self.config.catalog, self.config.schema, self.config.expected_principal,
+            self.config.expected_table_owner, self.config.source_truss_version,
+            self.config.protocol_profile, runtime, maximum_elapsed_seconds=1,
+            carrier_profile=self.config.carrier_profile)
+        started = time.monotonic()
+        try:
+            with self.assertRaisesRegex(ValueError, "operation completion remains unknown"):
+                ManagedCurrentSparkServerlessReceiptReader(spark, selected)
+            self.assertTrue(entered.is_set())
+            self.assertLess(time.monotonic() - started, 2.5)
+            deadline = time.monotonic() + 1
+            while not spark.interrupt_calls and time.monotonic() < deadline:
+                time.sleep(0.01)
+            self.assertEqual(len(spark.interrupt_calls), 1)
+            self.assertEqual(spark.interrupt_saw_active_operation, [True])
+            self.assertTrue(any(spark.interrupt_calls[0] in tags
+                                for tags in spark.query_tag_snapshots))
+        finally:
+            release.set()
+
+    def test_serverless_close_timeout_uses_tag_interrupt_without_claiming_termination(self):
+        class ImmediateTimer:
+            def __init__(self, _seconds, callback):
+                self.callback = callback
+                self.alive = False
+            def start(self):
+                self.alive = True
+                self.callback()
+                self.alive = False
+            def cancel(self): pass
+            def join(self, _timeout): pass
+            def is_alive(self): return self.alive
+
+        spark, reader = self._serverless_reader(interrupt_result=["operation-123"])
+        before = set(reader._serverless_tag.preexisting_tags)
+        reader.reopen(request_bytes=_canonical(self.request).encode(),
+            manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt)
+        with patch("ashlar_host.managed_current_spark_receipt_read.threading.Timer", ImmediateTimer):
+            with self.assertRaisesRegex(ValueError, "termination was not established"):
+                reader.close()
+        self.assertEqual(len(spark.interrupt_calls), 1)
+        self.assertEqual(spark.getTags(), before)
+        self.assertIsNone(reader._observation.runtime_identity.get("closing"))
+
+
     def test_fresh_053_is_admitted_as_a_versioned_managed_reader_profile(self):
         fresh = replace(self.config, source_truss_version="0.0.53")
         self.assertEqual(fresh.source_truss_version, "0.0.53")
         with self.assertRaisesRegex(ValueError, "runtime, UC namespace"):
             replace(self.config, source_truss_version="0.0.46")
+
+    def test_fresh_054_is_admitted_as_a_versioned_managed_reader_profile(self):
+        fresh = replace(self.config, source_truss_version="0.0.54")
+        self.assertEqual(fresh.source_truss_version, "0.0.54")
+        with self.assertRaisesRegex(ValueError, "runtime, UC namespace"):
+            replace(self.config, source_truss_version="0.0.56")
+
+    def test_fresh_055_is_admitted_as_a_versioned_managed_reader_profile(self):
+        fresh = replace(self.config, source_truss_version="0.0.55")
+        self.assertEqual(fresh.source_truss_version, "0.0.55")
+        with self.assertRaisesRegex(ValueError, "runtime, UC namespace"):
+            replace(self.config, source_truss_version="0.0.56")
 
     def test_reopens_spark_native_inventory_and_closes_with_same_identity(self):
         observation = self.reopen()
@@ -1168,6 +1386,30 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
         self.assertTrue(all(item.closed for item in self.sessions))
         self.assertEqual(len(interval.observations), 3)
         self.assertGreater(interval.observations[-1].elapsed_seconds, 900)
+
+
+class ManagedA1ServerlessSessionTests(unittest.TestCase):
+    def test_serverless_newsession_factory_releases_only_connect_child_client(self):
+        import time
+        from ashlar_host.managed_a1_serverless_tasks import _ServerlessSessionFactory
+
+        class ConnectChild:
+            def __init__(self): self.stopped = False
+            @property
+            def sparkContext(self):
+                raise AssertionError("Spark Connect must not access sparkContext")
+            def stop(self): self.stopped = True
+
+        class ConnectParent:
+            def __init__(self): self.child = ConnectChild()
+            def newSession(self): return self.child
+
+        parent = ConnectParent()
+        factory = _ServerlessSessionFactory(parent, object(), object(), object())
+        owned = factory.open(stage="close", deadline_monotonic=time.monotonic() + 5)
+        self.assertIs(owned.spark, parent.child)
+        owned.close()
+        self.assertTrue(parent.child.stopped)
 
 
 if __name__ == "__main__":

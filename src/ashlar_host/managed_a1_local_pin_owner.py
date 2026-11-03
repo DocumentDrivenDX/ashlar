@@ -14,6 +14,7 @@ from pathlib import Path
 import re
 import subprocess
 from collections.abc import Mapping
+import time
 
 from ashlar.pins import PinVector, PostgresPins
 
@@ -119,7 +120,8 @@ class _PsycopgPinExecutor:
 class ManagedA1LocalPinOwner:
     """Own one fresh PG18 data directory and exact A1 four-role pin registry."""
 
-    def __init__(self, data_directory, selection, vector, *, native_timeout_seconds=900):
+    def __init__(self, data_directory, selection, vector, *, native_timeout_seconds=900,
+                 deadline_monotonic=None):
         from truss import LocalPostgres
         if (not isinstance(data_directory, Path) or not data_directory.is_absolute()
                 or data_directory.resolve() != data_directory
@@ -129,11 +131,15 @@ class ManagedA1LocalPinOwner:
                     fromlist=["ManagedOperationalRetentionSelection"]).ManagedOperationalRetentionSelection
                 or type(vector) is not PinVector or selection.vector != vector
                 or type(native_timeout_seconds) is not int
-                or not 31 <= native_timeout_seconds <= 900):
+                or not 31 <= native_timeout_seconds <= 900
+                or (deadline_monotonic is not None
+                    and (type(deadline_monotonic) not in (int, float)
+                         or deadline_monotonic <= time.monotonic()))):
             raise ManagedA1LocalPinOwnerError("Fresh PG18 path and exact A1 retention/vector inputs required")
         self.data_directory = data_directory
         self.selection, self.vector = selection, vector
         self.native_timeout_seconds = native_timeout_seconds
+        self.deadline_monotonic = deadline_monotonic
         self.context = object()
         self._runtime = LocalPostgres(data_directory)
         self._active = False
@@ -146,8 +152,14 @@ class ManagedA1LocalPinOwner:
             raise ManagedA1LocalPinOwnerError("Local pin owner cannot be reentered")
         try:
             self._initialize_fresh_pg18_no_sync()
+            if (self.deadline_monotonic is not None
+                    and time.monotonic() >= self.deadline_monotonic):
+                raise ManagedA1LocalPinOwnerError("A1 deadline expired before local PG18 startup")
             self._runtime.__enter__()
             self._active = True
+            if (self.deadline_monotonic is not None
+                    and time.monotonic() >= self.deadline_monotonic):
+                raise ManagedA1LocalPinOwnerError("A1 deadline expired during local PG18 startup")
             self._install_schema()
             self._pins = PostgresPins(
                 _PsycopgPinExecutor(self._connect, self.context), self._policy)
@@ -180,10 +192,15 @@ class ManagedA1LocalPinOwner:
             raise ManagedA1LocalPinOwnerError("Exact bundled PostgreSQL 18 initdb required")
         self.data_directory.parent.mkdir(parents=True, exist_ok=True)
         self.data_directory.mkdir(mode=0o700)
+        timeout = 90
+        if self.deadline_monotonic is not None:
+            timeout = min(timeout, int(self.deadline_monotonic - time.monotonic()))
+        if timeout < 1:
+            raise ManagedA1LocalPinOwnerError("A1 deadline expired before local PG18 initialization")
         result = subprocess.run(
             [str(initdb), "--no-sync", "-D", str(self.data_directory),
              "--auth=trust", "--auth-local=trust", "--encoding=UTF8", "-U", "postgres"],
-            capture_output=True, text=True, timeout=45)
+            capture_output=True, text=True, timeout=timeout)
         if result.returncode != 0 or not (self.data_directory / "PG_VERSION").is_file():
             raise ManagedA1LocalPinOwnerError(
                 "Fresh bundled PostgreSQL 18 no-sync initialization failed")
@@ -204,9 +221,14 @@ class ManagedA1LocalPinOwner:
         if any(not path.is_file() or path.is_symlink() for path in migrations):
             raise ManagedA1LocalPinOwnerError("Committed Ashlar pin migrations required")
         for path in migrations:
+            timeout = 15
+            if self.deadline_monotonic is not None:
+                timeout = min(timeout, int(self.deadline_monotonic - time.monotonic()))
+            if timeout < 1:
+                raise ManagedA1LocalPinOwnerError("A1 deadline expired during local pin migration")
             result = subprocess.run([str(self._runtime.psql_path),
                 self._runtime.info.connection_uri, "-X", "-v", "ON_ERROR_STOP=1",
-                "-f", str(path)], capture_output=True, text=True, timeout=15)
+                "-f", str(path)], capture_output=True, text=True, timeout=timeout)
             if result.returncode != 0:
                 raise ManagedA1LocalPinOwnerError(
                     f"Local pin migration refused: {path.name} ({result.returncode})")
