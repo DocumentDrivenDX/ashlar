@@ -44,11 +44,11 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
             run_managed_current_publication_task,
         )
 
-        class SelectedDriver(Exception):
+        class BackendConstructed(Exception):
             pass
 
         target_calls = []
-        driver_calls = []
+        backend_calls = []
 
         protocol = ReaderProtocolProfile("test-managed-serverless", (3,), (7,),
                                          {"v2Checkpoint"})
@@ -64,22 +64,39 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
 
         def open_existing(self):
             target_calls.append(self.carrier_profile)
+            self.opening = {role: SimpleNamespace(
+                uuid=f"20000000-0000-4000-8000-{index:012d}")
+                for index, role in enumerate(ROLES, 1)}
 
-        def select_driver(target, admission, **kwargs):
-            driver_calls.append((target, admission, kwargs))
-            raise SelectedDriver
+        def stop_before_publication(backend, *args, **kwargs):
+            from ashlar.attempt_store import DeltaAttemptStore
+            from ashlar.manifest import DeltaManifestStore
+            from ashlar_host.truss_backend import TrussPublisherBackend
+            self.assertIsInstance(backend, TrussPublisherBackend)
+            self.assertIsInstance(backend.attempts, DeltaAttemptStore)
+            manifest_port = backend.manifest_factory(plan.request, kwargs["context"])
+            self.assertIsInstance(manifest_port.store, DeltaManifestStore)
+            self.assertEqual(manifest_port.store.table,
+                "client_dev.trial_schema.publication_manifest")
+            self.assertEqual(manifest_port.store.sql_table,
+                "`client_dev`.`trial_schema`.`publication_manifest`")
+            self.assertEqual(manifest_port.store.uuid,
+                "20000000-0000-4000-8000-000000000005")
+            backend_calls.append((backend, manifest_port))
+            raise BackendConstructed
 
         revisions = json.dumps(plan.selection.schema_revisions, sort_keys=True,
                                separators=(",", ":"))
+        plan.selection.admission.current = True
+        plan.selection.admission.revisions = {}
         expected_id = managed_current_publication_id(
             plan.request["request_digest"], incremental=True)
         with patch("ashlar_host.managed_current_publication.observe_managed_current_environment",
                    return_value=environment), \
              patch.object(ManagedCurrentTargetOwner, "_existing", existing), \
              patch.object(ManagedCurrentTargetOwner, "open_existing", open_existing), \
-             patch("ashlar_host.managed_current_publication.ManagedCurrentIncrementalPublicationDriver",
-                   side_effect=select_driver):
-            with self.assertRaises(SelectedDriver):
+             patch("ashlar.publisher.publish_batch", side_effect=stop_before_publication):
+            with self.assertRaises(BackendConstructed):
                 run_managed_current_publication_task(object(), binding=None,
                     core_config=core, protocol_profile=protocol,
                     stream=plan.driver_inputs["stream"],
@@ -91,11 +108,17 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
                     a1_plan=plan)
         self.assertEqual(plan.publication_id, expected_id)
         self.assertEqual(target_calls, [CARRIER_PROFILE_XXHASH64])
-        self.assertEqual(len(driver_calls), 1)
-        self.assertIsInstance(driver_calls[0][0], ManagedCurrentTargetOwner)
-        self.assertEqual(driver_calls[0][0].carrier_profile, CARRIER_PROFILE_XXHASH64)
-        self.assertEqual(driver_calls[0][2]["materialized_at"],
-                         plan.driver_inputs["materialized_at"])
+        self.assertEqual(len(backend_calls), 1)
+        backend, manifest_port = backend_calls[0]
+        self.assertIsInstance(backend.driver, ManagedCurrentIncrementalPublicationDriver)
+        self.assertEqual(backend.driver.clock, plan.driver_inputs["materialized_at"])
+        self.assertEqual(backend.attempts.table,
+            "client_dev.trial_schema.publication_attempt_phase")
+        self.assertEqual(backend.attempts.sql_table,
+            "`client_dev`.`trial_schema`.`publication_attempt_phase`")
+        self.assertEqual(backend.attempts.uuid,
+            "20000000-0000-4000-8000-000000000006")
+        self.assertIs(backend.attempts.policy, backend.driver.policy)
         target_calls.clear()
         with patch("ashlar_host.managed_current_publication.observe_managed_current_environment",
                    return_value=environment), \

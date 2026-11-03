@@ -1253,7 +1253,7 @@ def run_managed_current_publication_task(spark,*,binding=None,core_config,protoc
                  'Managed task request differs from exact prepared A1 request')
     _require(request['source_checkpoint_json']==truss_checkpoint(admission.batch),
              'Exact accepted current Truss checkpoint required')
-    attempts_role='publication_attempt_phase';attempt_table=target.names[attempts_role]
+    attempts_role='publication_attempt_phase';attempt_table=target.tables[attempts_role]
     attempts_uuid=target.opening[attempts_role].uuid
     attempts=DeltaAttemptStore(driver.transport,driver.policy,attempt_table,attempts_uuid,
                                original_request=request)
