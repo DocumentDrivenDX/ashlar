@@ -30,11 +30,17 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=Path.cwd()) as temporary:
             receipt = Path(temporary) / "qualification.json"
             receipt.write_bytes(b"local qualification receipt")
+            venv_bin = Path(temporary) / "venv" / "bin"
+            venv_bin.mkdir(parents=True)
+            venv_python = venv_bin / "python"
+            venv_python.symlink_to(sys.executable)
             config = build_config(runtime_result=runtime, trial_id="a1-config-check",
                 notebook_root="/Workspace/Shared/ashlar",
                 environment_version=7, dependencies=dependencies,
                 local_receipt=receipt, evidence_dir="docs/helix/04-build/evidence/test",
-                bun_path=Path(shutil.which("bun")), python=Path(sys.executable))
+                bun_path=Path(shutil.which("bun")), python=venv_python)
+            self.assertEqual(config["holder_bootstrap"]["python"], str(venv_python))
+            self.assertTrue(Path(config["holder_bootstrap"]["python"]).is_symlink())
         payload, locked = build_payload(config)
         self.assertIs(locked, config)
         self.assertEqual(config["initializer"]["timeout_seconds"]

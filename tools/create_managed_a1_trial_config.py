@@ -85,9 +85,14 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
     if not local_receipt.is_file() or local_receipt.is_symlink():
         raise ValueError("Exact local A1 qualification receipt file required")
     bun_path = bun_path.resolve(strict=True)
-    python = python.resolve(strict=True)
-    if not bun_path.is_file() or not os.access(bun_path, os.X_OK) or not python.is_file():
-        raise ValueError("Exact local Bun and Python runtimes required")
+    python = Path(os.path.normpath(str(python.expanduser())))
+    if not bun_path.is_file() or not os.access(bun_path, os.X_OK):
+        raise ValueError("Exact local Bun runtime required")
+    if (not python.is_absolute() or not python.is_file()
+            or not os.access(python, os.X_OK)
+            or python.lstat().st_uid != os.getuid()
+            or python.resolve(strict=True) != Path(sys.executable).resolve(strict=True)):
+        raise ValueError("Owner-selected venv Python executable required")
 
     suffix = trial_id[3:].replace("-", "_")
     schema = "ashlar_a1_" + suffix
