@@ -426,7 +426,8 @@ def bootstrap_from_private_config(config_bytes: bytes):
             config={"document_id": MODEL_ID, "document_revision": MODEL_REVISION,
                     "request_key": f"ashlar-managed-a1-{source.lower()}-accept-r1"},
             paths={"data_directory": pgdata, "bun": bun}, source=model,
-            origin=origin, module_ids=tuple(item["id"] for item in parsed_model["modules"]))
+            origin=origin, module_ids=tuple(item["id"] for item in parsed_model["modules"]),
+            install_operation_timeout_ms=180000)
 
     selections = {}
     with ExitStack() as stack:

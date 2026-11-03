@@ -1,4 +1,6 @@
 import json
+import importlib.util
+import inspect
 import shutil
 import tempfile
 import unittest
@@ -129,6 +131,15 @@ class ManagedA1SourceBootstrapTests(unittest.TestCase):
             self.assertEqual(config["model_sha256"], MODEL_SHA256)
             self.assertEqual(PUBLIC_SETUP_HELPER_SHA256,
                              "d6425948b7b84395429f5b83c624cad27843c2e1eda6af66fce16dcc71d1be89")
+
+    def test_public_setup_call_binds_approved_helper_signature_before_pg_setup(self):
+        helper_path = Path(__file__).resolve().parents[1] / PUBLIC_SETUP_HELPER_RELATIVE_PATH
+        spec = importlib.util.spec_from_file_location("_test_r61_setup_helper", helper_path)
+        helper = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(helper)
+        args = {"config": {}, "paths": {}, "source": b"model", "origin": b"origin",
+                "module_ids": (), "install_operation_timeout_ms": 180000}
+        inspect.signature(helper._run_public_truss_setup).bind(**args)
 
     def test_public_group_preflight_receives_exact_typed_scalar_carriers(self):
         from ashlar_host.truss_record_group import preflight
