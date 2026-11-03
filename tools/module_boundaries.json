@@ -942,6 +942,22 @@
       "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
     },
     {
+      "source": "tools/r61_fresh_cohort_worker.py",
+      "target": "ashlar_host",
+      "symbol": "__file__",
+      "reason": "private-cross-module",
+      "owner": "R61 fresh-cohort qualification worker installed-provenance owner",
+      "removal_trigger": "Replace this exact tools/r61_fresh_cohort_worker.py read of ashlar_host.__file__ with a public installed-module provenance API; remove only this entry when that owner API is adopted or the qualification worker is retired."
+    },
+    {
+      "source": "tools/r61_fresh_cohort_worker.py",
+      "target": "ashlar_host.truss_resume_cli",
+      "symbol": "_CurrentTrussRuntime",
+      "reason": "private-cross-module",
+      "owner": "ashlar_host.truss_resume_cli local runtime-holder owner",
+      "removal_trigger": "Replace this exact R61 qualification-worker reuse of _CurrentTrussRuntime with a public local Spark runtime-holder API; remove only this entry when that owner API is adopted."
+    },
+    {
       "source": "tools/retain_profile_custody.py",
       "target": "ashlar.schema",
       "symbol": "_json",
