@@ -11,12 +11,32 @@ from ashlar_host.truss_current_catalog import (
 )
 from ashlar_host.truss052_source_custody import Truss052CustodyError
 from ashlar_host.truss053_source_custody import (
-    Truss053CustodyError, Truss053SourceCustodySession,
+    Truss053A1SourceHolder, Truss053CustodyError, Truss053SourceCustodySession,
 )
 from test_truss052_source_custody import _open_selection, _selection
 
 
 class Truss053SourceCustodyTests(unittest.TestCase):
+    def test_a1_resume_rejects_wrong_settlement_before_phase_change(self):
+        holder = object.__new__(Truss053A1SourceHolder)
+        holder._closed = False
+        holder.phase = "a0"
+        holder.genesis = None
+        holder.genesis_bytes = None
+        holder.session = None
+        holder.snapshot_bytes = None
+        holder.anchor = None
+        holder.bound_selection = None
+        holder._a0_settlement = None
+        holder._a0_page_next = None
+        holder.source_selections = {"A": object(), "B": object()}
+        holder._advance_a1_callback = lambda _: self.fail("resume must not seed")
+        with self.assertRaisesRegex(Truss053CustodyError,
+                                    "Fresh unopened source holder"):
+            holder.resume_a1_after_matched_a0(object(), object())
+        self.assertEqual(holder.phase, "a0")
+        self.assertIsNone(holder._a0_page_next)
+
     def test_current_055_fresh_profile_admits_same_session_prepublication_selection(self):
         selection = _open_selection(_selection())
         pins = MappingProxyType({"version": "0.0.55",

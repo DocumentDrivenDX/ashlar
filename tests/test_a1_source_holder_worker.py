@@ -14,10 +14,49 @@ from ashlar_host.truss053_source_custody import Truss053A1SourceHolder
 
 
 class A1SourceHolderWorkerTests(unittest.TestCase):
+    def test_worker_and_parent_accept_only_explicit_resumed_a1_genesis(self):
+        from test_truss_detached_a1_genesis_codec import _raw
+
+        server, client_channel = socket.socketpair()
+        source = object.__new__(Truss053A1SourceHolder)
+        source._closed = False
+        source.phase = "a1"
+        genesis = _raw()
+        source.select_genesis = lambda: genesis
+        source.close_before_ack = lambda: setattr(source, "_closed", True)
+        server_error = []
+
+        def serve():
+            try:
+                run_worker(server, source)
+            except BaseException as error:
+                server_error.append(error)
+
+        thread = threading.Thread(target=serve)
+        thread.start()
+        try:
+            process = Mock()
+            process.pid = 12345
+            process.poll.return_value = None
+            client = A1Truss053SourceHolderProcess(process, client_channel,
+                operation_timeout_seconds=2)
+            self.assertEqual(client.wait_genesis(expected_phase="a1",
+                expected_a_prior_cursor="0"), genesis)
+            self.assertEqual(client.phase, "a1")
+            self.assertEqual(client._rpc({"type": "close"}, response_type="closed",
+                                         maximum=1024), {"type": "closed"})
+            thread.join(timeout=2)
+            self.assertFalse(thread.is_alive())
+            self.assertEqual(server_error, [])
+        finally:
+            client_channel.close()
+            server.close()
+
     def test_real_bind_command_and_bound_response_round_trip(self):
         server, client_channel = socket.socketpair()
         source = object.__new__(Truss053A1SourceHolder)
         source._closed = False
+        source.phase = "a0"
         bound = []
         source.select_genesis = lambda: b"bounded local protocol fixture"
         source.bind_publication = lambda **value: bound.append(value)
@@ -65,6 +104,7 @@ class A1SourceHolderWorkerTests(unittest.TestCase):
         server, client = socket.socketpair()
         source = object.__new__(Truss053A1SourceHolder)
         source._closed = False
+        source.phase = "a0"
         source.select_genesis = lambda: b"genesis"
         source.acknowledge_once = lambda **kwargs: A1AckSettlement(
             "matched", b"c" * (1024 * 1024), b"r" * (1024 * 1024),

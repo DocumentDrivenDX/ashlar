@@ -140,6 +140,7 @@ class Truss053A1SourceHolder:
         self._a0_page_next = None
         self._matched_ack = None
         self._advance_a1_callback = None
+        self._resumed_a1_genesis_event_pending = False
         self._closed = False
 
     def select_genesis(self) -> bytes:
@@ -149,6 +150,10 @@ class Truss053A1SourceHolder:
         from .truss_detached_a1_genesis_codec import encode_detached_a1_genesis_snapshot
         from .truss_current_catalog import installed_fresh_truss_runtime_pins
         if self.genesis is not None:
+            if (self.phase == "a1" and self._resumed_a1_genesis_event_pending
+                    and type(self.genesis_bytes) is bytes):
+                self._resumed_a1_genesis_event_pending = False
+                return self.genesis_bytes
             raise Truss053CustodyError("A/B genesis selection is one-shot")
         installed_fresh_truss_runtime_pins()
         expected = (None if self.phase == "a0" else
@@ -158,6 +163,139 @@ class Truss053A1SourceHolder:
                 expected_a_prior_cursor=expected)
         self.genesis_bytes = encode_detached_a1_genesis_snapshot(self.genesis)
         return self.genesis_bytes
+
+    def resume_a1_after_matched_a0(self, attempt, settlement):
+        """Resume an already-committed A1 page without replaying its seed group.
+
+        The durable A0 attempt and settlement are revalidated against a fresh
+        read-only Truss reconciliation. The exact A0 next cursor then gates a
+        new public A/B selection for the still-pending A1 page.
+        """
+        from .a1_ack_attempt import (
+            A1AckAttempt, A1AckSettlement, DurableA1AckAttemptStore,
+            MAX_SETTLEMENT_RECORD_BYTES,
+        )
+        from .managed_current_truss053_genesis_owner import (
+            ManagedCurrentTruss053GenesisSourceOwner,
+        )
+        from .truss_detached_a1_genesis_codec import encode_detached_a1_genesis_snapshot
+        from .truss_detached_source_snapshot_codec import decode_detached_source_snapshot
+        from .managed_current_truss_cursor import validate_selected_truss_cursor
+
+        if (self._closed or self.phase != "a0" or self.genesis is not None
+                or self.genesis_bytes is not None or self.session is not None
+                or self.snapshot_bytes is not None or self.anchor is not None
+                or self.bound_selection is not None or self._a0_settlement is not None
+                or type(attempt) is not A1AckAttempt
+                or type(settlement) is not A1AckSettlement):
+            raise Truss053CustodyError(
+                "Fresh unopened source holder and exact A0 attempt/settlement required")
+        if set(self.source_selections) != {"A", "B"}:
+            raise Truss053CustodyError("Exact selected A/B source owners required")
+        try:
+            store = DurableA1AckAttemptStore(attempt.path.parent)
+            persisted = store.load()
+            dispatch = store._read_record("ack-command-dispatched.json")
+            worker = store._read_record("worker-settlement.json",
+                                        MAX_SETTLEMENT_RECORD_BYTES)
+            snapshot = decode_detached_source_snapshot(attempt.selection_bytes)
+            page = snapshot.source_page
+            selected_a = self.source_selections["A"]
+            expected_identity = self.schedule.document()["source_bindings"]["A"]
+            if (persisted != attempt or page.source != "A"
+                    or page.schedule_sha256 != self.schedule.sha256
+                    or page.identity != expected_identity
+                    or (selected_a.feed, selected_a.epoch,
+                        selected_a.installation_id, selected_a.consumer_id,
+                        selected_a.consumer_registration_id)
+                       != (expected_identity["feed"], expected_identity["epoch"],
+                           expected_identity["installation_id"],
+                           expected_identity["consumer_id"], expected_identity["registration_id"])
+                    or snapshot.progress.feed != selected_a.feed
+                    or snapshot.progress.epoch != selected_a.epoch
+                    or snapshot.progress.installation_id != selected_a.installation_id
+                    or snapshot.progress.consumer_id != selected_a.consumer_id
+                    or snapshot.progress.consumer_registration_id
+                       != selected_a.consumer_registration_id
+                    or dispatch.get("attempt_id") != attempt.attempt_id
+                    or dispatch.get("status") != "ack_command_may_have_been_sent"
+                    or dispatch.get("ack_retry_permitted") is not False
+                    or worker.get("attempt_id") != attempt.attempt_id
+                    or worker.get("status") != "matched"
+                    or worker.get("outcome") != "matched"
+                    or worker.get("ack_retry_permitted") is not False):
+                raise Truss053CustodyError(
+                    "Persisted matched A0 attempt and selected source identity required")
+            prior_cursor = validate_selected_truss_cursor(
+                attempt.prior_checkpoint_bytes,
+                cursor_sha256=hashlib.sha256(attempt.prior_checkpoint_bytes).hexdigest(),
+                selected_identity=expected_identity)
+            if (prior_cursor.next_xid != "0"
+                    or page.prior_bytes != attempt.prior_checkpoint_bytes
+                    or page.next_bytes != attempt.next_checkpoint_bytes
+                    or page.request_bytes != attempt.request_bytes
+                    or page.publication_id != attempt.publication_id
+                    or page.destination_id != attempt.destination_id
+                    or page.page_fields.get("sha256") != attempt.page_sha256):
+                raise Truss053CustodyError(
+                    "Original zero-cursor A0 attempt bindings required for A1 resume")
+            cursor = validate_selected_truss_cursor(
+                attempt.next_checkpoint_bytes,
+                cursor_sha256=hashlib.sha256(attempt.next_checkpoint_bytes).hexdigest(),
+                selected_identity=expected_identity)
+            expected_settlement = A1AckSettlement(
+                "matched", attempt.next_checkpoint_bytes, attempt.receipt_bytes,
+                attempt.request_sha256, attempt.manifest_sha256,
+                attempt.selection_sha256)
+            if settlement != expected_settlement:
+                raise Truss053CustodyError(
+                    "Matched A0 settlement differs from exact durable attempt")
+            encoded_settlement = {
+                "outcome": settlement.outcome,
+                "checkpoint_bytes_base64": base64.b64encode(
+                    settlement.checkpoint_bytes).decode("ascii"),
+                "receipt_bytes_base64": base64.b64encode(
+                    settlement.receipt_bytes).decode("ascii"),
+                "request_sha256": settlement.request_sha256,
+                "manifest_sha256": settlement.manifest_sha256,
+                "selection_sha256": settlement.selection_sha256,
+            }
+            if any(worker.get(key) != value for key, value in encoded_settlement.items()):
+                raise Truss053CustodyError(
+                    "Worker's durable A0 settlement differs from supplied bytes")
+            reconciled = Truss053ReadOnlyAckReconciler(
+                lambda _context: selected_a.connection_factory(), context=self.context
+            ).reconcile(attempt)
+            if reconciled != settlement:
+                raise Truss053CustodyError(
+                    "Fresh public A0 ACK reconciliation differs from retained settlement")
+
+            # No callback is retained or invoked: the public A1 transaction is
+            # already committed. Re-admit that pending page at the exact A0
+            # checkpoint and let the ordinary open path establish its hold.
+            genesis = ManagedCurrentTruss053GenesisSourceOwner(
+                self.schedule, self.source_selections).admit_a1(
+                    expected_a_prior_cursor=cursor.next_xid)
+            page_a = genesis.source_observations["A"].page
+            if (page_a.outcome != "transaction"
+                    or page_a.prior.content != settlement.checkpoint_bytes):
+                raise Truss053CustodyError(
+                    "Exact pending A1 transaction after the reconciled A0 cursor required")
+            genesis_bytes = encode_detached_a1_genesis_snapshot(genesis)
+        except Truss053CustodyError:
+            raise
+        except Exception as error:
+            raise Truss053CustodyError(
+                "Could not verify the matched A0 attempt and pending A1 source") from error
+
+        self._a0_settlement = settlement
+        self._a0_page_next = settlement.checkpoint_bytes
+        self._advance_a1_callback = None
+        self.genesis = genesis
+        self.genesis_bytes = genesis_bytes
+        self.phase = "a1"
+        self._resumed_a1_genesis_event_pending = True
+        return genesis_bytes
 
     def open_prepublication(self, *, request_bytes: bytes, destination_id: str,
                              publication_id: str) -> bytes:

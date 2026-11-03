@@ -103,8 +103,10 @@ def run_worker(channel: socket.socket, holder: Truss053A1SourceHolder):
     """Serve a single source custody interval; authority never leaves this child."""
     if type(holder) is not Truss053A1SourceHolder:
         raise A1SourceHolderWorkerError("Exact .53 source holder required")
+    if holder.phase not in ("a0", "a1"):
+        raise A1SourceHolderWorkerError("Exact initial A0 or resumed A1 source phase required")
     genesis = holder.select_genesis()
-    send_frame(channel, {"type": "genesis", "phase": "a0",
+    send_frame(channel, {"type": "genesis", "phase": holder.phase,
         "genesis_bytes_base64": base64.b64encode(genesis).decode("ascii")},
         maximum=MAX_READY_BYTES)
     while True:
@@ -301,16 +303,27 @@ class A1Truss053SourceHolderProcess:
         self.snapshot_bytes = snapshot
         return snapshot
 
-    def wait_genesis(self):
+    def wait_genesis(self, *, expected_phase="a0", expected_a_prior_cursor="0"):
+        if (expected_phase not in ("a0", "a1")
+                or type(expected_a_prior_cursor) is not str
+                or not expected_a_prior_cursor.isascii()
+                or not expected_a_prior_cursor.isdecimal()
+                or len(expected_a_prior_cursor) > 20
+                or str(int(expected_a_prior_cursor)) != expected_a_prior_cursor
+                or int(expected_a_prior_cursor) > 18446744073709551615):
+            raise A1SourceHolderWorkerError("Exact genesis phase and canonical A cursor required")
+        if expected_phase == "a0" and expected_a_prior_cursor != "0":
+            raise A1SourceHolderWorkerError("Initial A0 genesis must use the original zero cursor")
         response = receive_frame(self.channel, maximum=MAX_READY_BYTES)
         if (set(response) != {"type", "phase", "genesis_bytes_base64"}
-                or response["type"] != "genesis" or response["phase"] != "a0"):
-            raise A1SourceHolderWorkerError("Exact detached A/B genesis event required")
+                or response["type"] != "genesis" or response["phase"] != expected_phase):
+            raise A1SourceHolderWorkerError("Exact detached A/B genesis phase event required")
         raw = _bytes(response["genesis_bytes_base64"], "A/B genesis", 64 * 1024 * 1024)
         from .truss_detached_a1_genesis_codec import decode_detached_a1_genesis_snapshot
-        decode_detached_a1_genesis_snapshot(raw)
+        decode_detached_a1_genesis_snapshot(raw,
+            expected_a_prior_cursor=expected_a_prior_cursor)
         self.genesis_bytes = raw
-        self.phase = "a0"
+        self.phase = expected_phase
         return raw
 
     def open_prepublication(self, *, request_bytes: bytes, destination_id: str,
