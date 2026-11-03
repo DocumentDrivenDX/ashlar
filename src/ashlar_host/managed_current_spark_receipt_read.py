@@ -160,6 +160,35 @@ class _ServerlessSparkTagCancellation:
         except BaseException as error:
             self.interrupt_error = error
 
+    def run_tagged_thread(self, operation):
+        """Bind the owned tag to a worker thread (Spark tags are thread-local)."""
+        before = self.spark.getTags()
+        if type(before) is not set or any(type(tag) is not str for tag in before):
+            raise ValueError("Spark Connect worker tags must be an exact text set")
+        if self.tag in before:
+            raise ValueError("Owned Spark Connect tag unexpectedly exists on worker thread")
+        self.spark.addTag(self.tag)
+        primary = None
+        try:
+            current = self.spark.getTags()
+            if type(current) is not set or current != before | {self.tag}:
+                raise ValueError("Spark Connect worker did not bind the exact owned operation tag")
+            return operation()
+        except BaseException as error:
+            primary = error
+            raise
+        finally:
+            try:
+                self.spark.removeTag(self.tag)
+                restored = self.spark.getTags()
+                if type(restored) is not set or restored != before:
+                    raise ValueError("Spark Connect worker tag cleanup did not restore caller tags")
+            except BaseException as cleanup_error:
+                if primary is None:
+                    raise
+                if callable(getattr(primary, "add_note", None)):
+                    primary.add_note("Worker tag cleanup failed: " + type(cleanup_error).__name__)
+
     def close(self):
         if self.closed:
             raise ValueError("Spark Connect operation tag already closed")
@@ -421,7 +450,7 @@ class ManagedCurrentSparkReceiptReader:
 
         def invoke():
             try:
-                result.put((True, operation()))
+                result.put((True, self._serverless_tag.run_tagged_thread(operation)))
             except BaseException as error:
                 result.put((False, error))
 

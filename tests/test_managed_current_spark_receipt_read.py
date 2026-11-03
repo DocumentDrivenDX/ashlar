@@ -8,6 +8,7 @@ import json
 import unittest
 from datetime import datetime, timezone
 import time
+import threading
 from unittest.mock import patch
 from types import SimpleNamespace
 
@@ -163,19 +164,31 @@ class _SparkConnect(_Spark):
         self._forbidden_context = True
 
     def __init__(self, manifest, receipt, uuids, *, interrupt_result=None):
-        self.tags = {"caller-owned-tag"}
+        self.initial_tags = {"caller-owned-tag"}
+        self._thread_tags = threading.local()
         self.interrupt_result = ["operation-123"] if interrupt_result is None else interrupt_result
         self.interrupt_calls = []
+        self.interrupt_saw_active_operation = []
+        self.active_tagged_operations = set()
+        self.query_tag_snapshots = []
         super().__init__(manifest, receipt, uuids)
         self.version = "4.2.0"
         self.conf = SimpleNamespace(get=lambda key: {
             "spark.databricks.clusterUsageTags.sparkVersion": "serverless-4.2.0"}[key])
 
-    def addTag(self, tag): self.tags.add(tag)
-    def getTags(self): return set(self.tags)
-    def removeTag(self, tag): self.tags.discard(tag)
+    def _tags(self):
+        if not hasattr(self._thread_tags, "value"):
+            self._thread_tags.value = set(self.initial_tags)
+        return self._thread_tags.value
+    def addTag(self, tag): self._tags().add(tag)
+    def getTags(self): return set(self._tags())
+    def removeTag(self, tag): self._tags().discard(tag)
+    def sql(self, sql, args=None):
+        self.query_tag_snapshots.append(self.getTags())
+        return super().sql(sql, args=args)
     def interruptTag(self, tag):
         self.interrupt_calls.append(tag)
+        self.interrupt_saw_active_operation.append(tag in self.active_tagged_operations)
         return list(self.interrupt_result)
 
 
@@ -451,9 +464,17 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         spark = _SparkConnect(self.manifest, self.receipt, self.uuids)
         original_sql = spark.sql
         def blocked_sql(sql, args=None):
+            tags = spark.getTags()
+            spark.query_tag_snapshots.append(tags)
+            owned = next(tag for tag in tags if tag.startswith(
+                "ashlar-managed-current-close-"))
+            spark.active_tagged_operations.add(owned)
             entered.set()
-            release.wait(3)
-            return original_sql(sql, args=args)
+            try:
+                release.wait(3)
+                return original_sql(sql, args=args)
+            finally:
+                spark.active_tagged_operations.discard(owned)
         spark.sql = blocked_sql
         runtime = {"runtimeName": "databricks-serverless", "sparkVersion": "4.2.0",
             "sparkBuildText": "Spark build", "runtimeTag": "serverless-4.2.0",
@@ -474,6 +495,9 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
             while not spark.interrupt_calls and time.monotonic() < deadline:
                 time.sleep(0.01)
             self.assertEqual(len(spark.interrupt_calls), 1)
+            self.assertEqual(spark.interrupt_saw_active_operation, [True])
+            self.assertTrue(any(spark.interrupt_calls[0] in tags
+                                for tags in spark.query_tag_snapshots))
         finally:
             release.set()
 
