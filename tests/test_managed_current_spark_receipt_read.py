@@ -39,7 +39,24 @@ from ashlar_host.managed_operational_read_port import (
 )
 from ashlar.manifest import manifest_pin_vector
 from ashlar_host.truss_note_publication import graph_expected_rows
-from test_managed_current_receipt_read import _fixture, _canonical
+from test_managed_current_receipt_read import _fixture as _sql_fixture, _canonical
+
+
+def _fixture(*args, **kwargs):
+    """Build Spark-receipt fixtures with producer simpleString type spellings.
+
+    The shared base fixture models SQL warehouse Delta JSON schema types
+    (``long``); native Spark receipt inventory reports ``bigint`` instead.
+    Keep that profile difference confined to this Spark test module.
+    """
+    request, manifest, receipt, uuids, config = _sql_fixture(*args, **kwargs)
+    receipt = copy.deepcopy(receipt)
+    for item in receipt["installationInventory"].values():
+        item["schema"] = [
+            [name, "bigint" if kind == "long" else kind, nullable]
+            for name, kind, nullable in item["schema"]
+        ]
+    return request, manifest, receipt, uuids, config
 
 
 class _Row:
