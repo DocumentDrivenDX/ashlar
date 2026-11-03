@@ -1373,6 +1373,7 @@ def _run_post_ack_close(api, config, verifier_payload, parameters, deadline, *,
 
 def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: Path,
                   recovery_state: dict, start: float) -> dict:
+    recovery_path = recovery_root / "recovery.json"
     require(profile == PROFILE, "Use the explicitly selected aidev-cus CLI profile")
     repo_root = Path(__file__).resolve().parents[1]
     gate_path = repo_root / config["local_qualification"]["path"]
@@ -1416,7 +1417,6 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
     holder_spec = {"bootstrap": config["holder_bootstrap"]["bootstrap"],
                    "config_path": str(holder_config_path), "python": python}
     work_deadline = deadline - config["cleanup_reserve_seconds"]
-    recovery_path = recovery_root / "recovery.json"
     recovery_state.update({"phase": "pre_mutation", "workspace": config["host"],
         "trial_id": config["trial_id"], "schema": config["catalog"] + "." + config["schema"],
         "volume": config["volume_name"],
