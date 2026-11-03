@@ -102,7 +102,7 @@ def _fixture(carrier_profile="ashlar-delta/0.3", source_truss_version="0.0.44"):
     for role in ROLES:
         installation[role] = {"name": ".".join(("client_dev", "trial_schema", role)),
             "uuid": uuids[role], "version": 0,
-            "schema": [[name, kind.lower().replace("bigint", "long"), nullable]
+            "schema": [[name, kind.lower(), nullable]
                        for name, kind, nullable in carriers.ordered_fields(role)],
             "protocol": {"uuid": uuids[role], "profile": "trial-reader/0.1",
                 "reader_version": 1, "writer_version": 2, "features": []}}

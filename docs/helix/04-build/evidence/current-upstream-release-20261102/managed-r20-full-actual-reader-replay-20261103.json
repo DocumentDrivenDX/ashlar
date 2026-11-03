@@ -1,0 +1,81 @@
+{
+  "code_commit": "e658cea3",
+  "inputs": {
+    "actual_six_role_metadata_capture": {
+      "bytes": 106964,
+      "filename": "metadata.json",
+      "sha256": "b26174e14eb8bb12a94ff4f7e6c56de292de8894c0b46a7fdceec88e8ee09128"
+    },
+    "actual_versioned_role_capture": {
+      "bytes": 528259,
+      "filename": "rows.json",
+      "sha256": "ee19f82a17f439212f9b52b696c19c5cf72a2f0be39ea2580b512bd3cc5a23fc"
+    },
+    "retained_actual_producer_artifacts": {
+      "a0_destination_receipt": {
+        "bytes": 67273,
+        "sha256": "d19055c4f15f3ccfed550dc68551eeb923d6f67151c0b19ef68137dd34cde3ad"
+      },
+      "a0_frozen_request": {
+        "bytes": 45316,
+        "sha256": "cfccde51cf503072aad7b8f8577f687dbb723065553bcc4098713086e0cd2e1e"
+      },
+      "a0_held_source_snapshot": {
+        "bytes": 181282,
+        "sha256": "d8e7ac3723144be7460409421189d3d72a8562b166554be903a48dc490a24847"
+      },
+      "a0_original_ab_genesis": {
+        "bytes": 248385,
+        "sha256": "83db00e6076acae386a594ce021eb2cb5f55fe3ea9fcb99fcf1df9b20a2b706f"
+      },
+      "a0_publication_manifest": {
+        "bytes": 4509,
+        "sha256": "037087d1d5f464e827f0233735448b97a9cafc471d3990042e8f56a0cd90958e"
+      },
+      "a0_publisher_result": {
+        "bytes": 172536,
+        "sha256": "9b90f21685e92e8e236b632d779978e0c66840248bcff4da7545c23802d18b78"
+      },
+      "a0_selected_prefix": {
+        "bytes": 1606,
+        "sha256": "caeef810cb8746c10204cf4a5a50f51d465ea629e0619f0543ac45a4fa62f969"
+      },
+      "a0_source_prefix": {
+        "bytes": 96562,
+        "sha256": "5156981f56712ad14d6cde7cfb1b36ab7030b36f4f0a83957edd7b61aacab6f6"
+      },
+      "uc_genesis_manifest": {
+        "bytes": 11850,
+        "sha256": "ef48c643cc1192babf192ee83fdfb3b8646a9232907df048d76eff3ce3ca38e6"
+      }
+    }
+  },
+  "observed": {
+    "actual_committed_attempt_phases": 5,
+    "actual_data_role_rows": {
+      "edge_current": 0,
+      "object_current": 0,
+      "tombstone": 0,
+      "whole_source_history": 0
+    },
+    "actual_manifest_projection_matches_publisher_receipt": true,
+    "actual_metadata_column_count": 66,
+    "actual_publication_manifest_rows": 2,
+    "actual_role_count": 6,
+    "actual_source_lookup_hash_probes": 0,
+    "production_reader_close_sql_calls": 31,
+    "production_reader_reopen_sql_calls": 46,
+    "protocol_uuid_and_head_checks_pass": true,
+    "six_role_inventory_and_ordered_schema_pass": true
+  },
+  "profile": "ashlar-managed-r20-full-actual-reader-replay/0.1",
+  "replay_script_sha256": "de14e0de9b9c31b2dcad3f662e6a30a28669858cc7ee9475a3d084bb812f5c0b",
+  "scope": {
+    "reader_reopen_resolver_source_bag_and_close": "passed using exact retained A0 publisher receipt/request/manifest, original genesis and held source snapshot, recomposed exact prefix/selection, and captured pinned UC metadata/rows",
+    "source_acknowledgement": "not attempted",
+    "source_lease": "not opened or qualified by this replay",
+    "spark_runtime_and_sql": "locally adapted to supply captured observations through the production reader; not a live Spark execution",
+    "writes": "none"
+  },
+  "status": "passed"
+}
