@@ -528,7 +528,10 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         from types import SimpleNamespace
         from unittest.mock import patch
         from tools.create_managed_a1_trial_config import build_config
-        from tools.run_managed_a1_serverless import _retention_bundle
+        from tools.run_managed_a1_serverless import (
+            CLASSIC_TASK_REQUIREMENTS_PATH, CLASSIC_TASK_REQUIREMENTS_SHA256,
+            _retention_bundle,
+        )
         from ashlar_host.configured_local_runtime import MANAGED_CLASSIC_PROFILE
         from ashlar_host.managed_current_spark_receipt_read import (
             ManagedCurrentSparkClassicTaskReceiptConfig,
@@ -553,7 +556,9 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
             config = build_config(runtime_result={"principal": owner},
                 trial_id=trial_id, notebook_root="/Workspace/Users/owner@example.test/ashlar",
                 environment_version=None,
-                dependencies=[{"path": "/Workspace/Shared/ashlar.whl", "sha256": "a" * 64}],
+                dependencies=[{"path": "/Workspace/Shared/ashlar.whl", "sha256": "a" * 64},
+                    {"path": "-r " + CLASSIC_TASK_REQUIREMENTS_PATH,
+                     "sha256": CLASSIC_TASK_REQUIREMENTS_SHA256}],
                 local_receipt=receipt_path,
                 evidence_dir="docs/helix/04-build/evidence/test",
                 bun_path=Path(shutil.which("bun")), python=Path(sys.executable),
