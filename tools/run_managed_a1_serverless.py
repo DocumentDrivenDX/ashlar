@@ -982,12 +982,12 @@ def _retention_bundle(*, trial, protocol_profile, plan, request_bytes,
         build_managed_current_a1_retention_bundle,
     )
     from ashlar_host.managed_current_spark_receipt_read import (
-        CARRIER_PROFILE_XXHASH64, ManagedCurrentSparkReceiptConfig,
+        CARRIER_PROFILE_XXHASH64, ManagedCurrentSparkServerlessReceiptConfig,
     )
     from ashlar_host.managed_current_trial import ManagedCurrentTrialConfig
     from ashlar_host.truss_current_catalog import installed_fresh_truss_runtime_pins
     source_truss_version = installed_fresh_truss_runtime_pins()["version"]
-    reader = ManagedCurrentSparkReceiptConfig(catalog=trial["catalog"],
+    reader = ManagedCurrentSparkServerlessReceiptConfig(catalog=trial["catalog"],
         schema=trial["schema"], expected_principal=trial["expected_runtime"]["principal"],
         expected_table_owner=trial["expected_runtime"]["principal"],
         source_truss_version=source_truss_version, protocol_profile=protocol_profile,

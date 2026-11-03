@@ -9,6 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import hashlib
 import json
+import queue
 import re
 import threading
 import time
@@ -273,18 +274,25 @@ class _SparkReceiptExecutor:
                            else owner.config.maximum_statements - 24)
         _require(owner.statements <= statement_limit,
                  "Spark receipt statement budget exhausted")
-        frame = owner.spark.sql(sql, args=dict(parameters))
-        fields = tuple((f.name, _spark_type(f.dataType.simpleString())) for f in frame.schema.fields)
-        if is_attempt_query:
-            _require(fields == (("phase", "string"), ("request_digest", "string"),
-                                ("payload_json", "string"), ("payload_digest", "string")),
-                     "Exact native committed-attempt carrier required")
-        if is_hash_query:
-            _require(fields == (("lookup_hash", "long"),),
-                     "Exact native signed BIGINT hash projection required")
-        capture_cap = (161 if is_attempt_query else 1025 if is_data_query
-                       else owner.config.maximum_rows + 1)
-        rows = frame.limit(capture_cap).collect()
+        def execute():
+            frame = owner.spark.sql(sql, args=dict(parameters))
+            fields = tuple((f.name, _spark_type(f.dataType.simpleString()))
+                           for f in frame.schema.fields)
+            if is_attempt_query:
+                _require(fields == (("phase", "string"), ("request_digest", "string"),
+                                    ("payload_json", "string"), ("payload_digest", "string")),
+                         "Exact native committed-attempt carrier required")
+            if is_hash_query:
+                _require(fields == (("lookup_hash", "long"),),
+                         "Exact native signed BIGINT hash projection required")
+            capture_cap = (161 if is_attempt_query else 1025 if is_data_query
+                           else owner.config.maximum_rows + 1)
+            return fields, frame.limit(capture_cap).collect()
+
+        if owner.config.execution_profile == "serverless_connect":
+            fields, rows = owner._run_serverless_bounded(execute)
+        else:
+            fields, rows = execute()
         owner._check_deadline()
         accepted_cap = 161 if is_attempt_query else 1024 if is_data_query else owner.config.maximum_rows
         _require(len(rows) <= accepted_cap, "Complete bounded Spark result required")
@@ -299,7 +307,8 @@ class ManagedCurrentSparkReceiptReader:
     """Reopen a receipt from a separately injected SparkSession."""
 
     def __init__(self, spark, config: ManagedCurrentSparkReceiptConfig):
-        _require(spark is not None and isinstance(config, ManagedCurrentSparkReceiptConfig))
+        _require(spark is not None and type(config) in (
+            ManagedCurrentSparkReceiptConfig, ManagedCurrentSparkServerlessReceiptConfig))
         self.spark, self.config = spark, config
         self.carriers = load_current_managed_carriers(config.carrier_profile)
         self.started, self.statements, self.closed = time.monotonic(), 0, False
@@ -311,6 +320,8 @@ class ManagedCurrentSparkReceiptReader:
         self._approved_hash_parameters = set()
         self.executor = _SparkReceiptExecutor(self)
         self._serverless_tag = None
+        self._serverless_operation_unknown = False
+        self._serverless_close_deadline = None
         if config.execution_profile == "serverless_connect":
             self._serverless_tag = _ServerlessSparkTagCancellation(self.spark)
         else:
@@ -344,13 +355,13 @@ class ManagedCurrentSparkReceiptReader:
         c = self.config
         if c.execution_profile == "serverless_connect":
             from .managed_current_publication import observe_managed_current_environment
-            observed = observe_managed_current_environment(self.spark, c.protocol_profile)
+            observed = self._run_serverless_bounded(lambda:
+                observe_managed_current_environment(self.spark, c.protocol_profile))
             timezone_rows = self.executor.query(
                 "SELECT current_timezone() AS session_timezone", {}).rows
             _require(len(timezone_rows) == 1
                      and timezone_rows[0].get("session_timezone") in ("UTC", "Etc/UTC"),
                      "Exact UTC Spark Connect session timezone required")
-            observed["sessionTimeZone"] = timezone_rows[0]["session_timezone"]
             _require(observed.get("runtimeName") == "databricks-serverless"
                      and observed.get("protocol") == c.protocol_profile.identity,
                      "Exact serverless runtime and protocol observations required")
@@ -392,9 +403,45 @@ class ManagedCurrentSparkReceiptReader:
         return observed
 
     def _check_deadline(self):
+        _require(not self._serverless_operation_unknown,
+                 "Prior Spark Connect operation timed out; completion remains unknown")
         _require(not self.closed and (self.closing or
                  time.monotonic() - self.started < self.config.maximum_elapsed_seconds),
                  "Spark receipt cumulative deadline expired")
+
+    def _run_serverless_bounded(self, operation):
+        """Bound one Connect request by the reader/close deadline, then interrupt its tag."""
+        if self.closing:
+            deadline = self._serverless_close_deadline
+        else:
+            deadline = self.started + self.config.maximum_elapsed_seconds
+        remaining = deadline - time.monotonic() if deadline is not None else 0
+        _require(remaining > 0, "Spark Connect operation deadline expired")
+        result = queue.Queue(maxsize=1)
+
+        def invoke():
+            try:
+                result.put((True, operation()))
+            except BaseException as error:
+                result.put((False, error))
+
+        thread = threading.Thread(target=invoke, name="ashlar-spark-connect-query", daemon=True)
+        thread.start()
+        try:
+            succeeded, value = result.get(timeout=remaining)
+        except queue.Empty as error:
+            self._serverless_operation_unknown = True
+            # interruptTag itself may block; do not extend the caller's deadline
+            # or report termination when its response arrives.
+            interrupt = threading.Thread(target=self._serverless_tag.interrupt_tagged_operations,
+                name="ashlar-spark-connect-interrupt", daemon=True)
+            interrupt.start()
+            raise ValueError(
+                "Spark Connect request exceeded its bounded deadline; tagged interrupt requested, "
+                "operation completion remains unknown") from error
+        if not succeeded:
+            raise value
+        return value
 
     @staticmethod
     def _unique_pairs(pairs):
@@ -1041,6 +1088,9 @@ class ManagedCurrentSparkReceiptReader:
         timeout_fired = threading.Event()
         cancellation_thread_error = []
         close_started = time.monotonic()
+        self._serverless_close_deadline = min(
+            close_started + 20,
+            self.started + self.config.maximum_elapsed_seconds)
 
         def cancel_close():
             timeout_fired.set()

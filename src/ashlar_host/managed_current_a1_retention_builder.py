@@ -35,6 +35,7 @@ def build_managed_current_a1_retention_bundle(*, plan, reader_config,
     from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
     from .managed_current_spark_receipt_read import (
         CARRIER_PROFILE_XXHASH64, ManagedCurrentSparkReceiptConfig,
+        ManagedCurrentSparkServerlessReceiptConfig,
     )
     from .truss_current_catalog import installed_fresh_truss_runtime_pins
     from .managed_operational_retention_interval import (
@@ -46,7 +47,8 @@ def build_managed_current_a1_retention_bundle(*, plan, reader_config,
 
     runtime_pins = installed_fresh_truss_runtime_pins()
     if (type(plan) is not ManagedCurrentA1TrialPlan
-            or not isinstance(reader_config, ManagedCurrentSparkReceiptConfig)
+            or type(reader_config) not in (ManagedCurrentSparkReceiptConfig,
+                                           ManagedCurrentSparkServerlessReceiptConfig)
             or reader_config.source_truss_version != runtime_pins["version"]
             or reader_config.carrier_profile != CARRIER_PROFILE_XXHASH64
             or type(task_receipt) is not dict):

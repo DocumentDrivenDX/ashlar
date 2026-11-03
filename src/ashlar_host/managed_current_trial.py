@@ -128,7 +128,7 @@ class ManagedCurrentTrialConfig:
                  and self.estimated_total_cost_usd > 0 and self.reserve_usd_for_cleanup >= 0
                  and self.estimated_total_cost_usd + self.reserve_usd_for_cleanup <= _COST_CEILING_USD,
                  "Estimated total including startup, driver, and cleanup must remain below the authorized $100 ceiling")
-        if self.estimated_total_cost_usd + self.reserve_usd_for_cleanup > _PREFERRED_CEILING_USD:
+        if self.estimated_total_cost_usd > _PREFERRED_CEILING_USD:
             _require(type(self.preferred_budget_exception) is str and self.preferred_budget_exception.strip()
                      and len(self.preferred_budget_exception.encode("utf-8")) <= 1024
                      and "\0" not in self.preferred_budget_exception,

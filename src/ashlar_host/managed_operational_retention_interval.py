@@ -97,7 +97,8 @@ class ManagedOperationalRetentionSelection:
     _a1_prefix_selected_bytes: bytes | None = field(init=False, repr=False, compare=False)
 
     def __post_init__(self):
-        if not isinstance(self.reader_config, ManagedCurrentSparkReceiptConfig):
+        if type(self.reader_config) not in (ManagedCurrentSparkReceiptConfig,
+                                            ManagedCurrentSparkServerlessReceiptConfig):
             raise OperationalRetentionIntervalError("Explicit managed Spark receipt configuration required")
         if (type(self.request_bytes) is not bytes or not 0 < len(self.request_bytes) <= 4 * 1024 * 1024
                 or type(self.manifest_bytes) is not bytes
