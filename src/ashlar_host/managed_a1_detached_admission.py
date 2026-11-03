@@ -28,6 +28,40 @@ def _member(value, *names):
     raise ValueError("Detached A/B evidence omitted " + "/".join(names))
 
 
+def _continuation_expected_a_cursor(genesis_snapshot_bytes):
+    """Read the original A page cursor from the detached codec's closed source list."""
+    _need(type(genesis_snapshot_bytes) is bytes
+          and 0 < len(genesis_snapshot_bytes) <= 4 * 1024 * 1024,
+          "Bounded detached A/B continuation package required")
+    try:
+        package = json.loads(genesis_snapshot_bytes.decode("utf-8"))
+        sources = package["sources"]
+        if type(sources) is not list or len(sources) != 2:
+            raise ValueError("exact A/B source list required")
+        a_sources = [item for item in sources
+                     if type(item) is dict and item.get("source") == "A"]
+        if len(a_sources) != 1:
+            raise ValueError("one original A source required")
+        page = a_sources[0]["page"]
+        prior_b64 = page["prior_bytes_base64"]
+        if type(prior_b64) is not str:
+            raise ValueError("canonical prior cursor encoding required")
+        prior_bytes = base64.b64decode(prior_b64, validate=True)
+        if base64.b64encode(prior_bytes).decode("ascii") != prior_b64:
+            raise ValueError("canonical prior cursor encoding required")
+        cursor_doc = json.loads(prior_bytes.decode("utf-8"))
+        from .r04_schedule import canonical
+        if type(cursor_doc) is not dict or canonical(cursor_doc) != prior_bytes:
+            raise ValueError("canonical prior cursor document required")
+        next_xid = cursor_doc["nextXid"]
+    except (UnicodeError, ValueError, KeyError, TypeError) as error:
+        raise ValueError("Exact A1 continuation prior cursor is required") from error
+    _need(type(next_xid) is str and next_xid.isascii() and next_xid.isdecimal()
+          and str(int(next_xid)) == next_xid,
+          "Canonical A1 continuation nextXid required")
+    return next_xid
+
+
 def admit_progress(source, evidence, *, expected_next_xid="0"):
     from .managed_current_genesis import (
         TrussSourceGenesisProgress, admit_truss_source_genesis_progress,
@@ -142,17 +176,7 @@ def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
         # The detached codec defaults to the literal Truss genesis cursor. For
         # A1 continuation, derive only the numeric cursor bound from the closed
         # package, then bind its exact bytes to the supplied A0 manifest below.
-        try:
-            package = json.loads(genesis_snapshot_bytes.decode("utf-8"))
-            prior_b64 = package["sources"]["A"]["page"]["prior_bytes_base64"]
-            prior_bytes = base64.b64decode(prior_b64, validate=True)
-            cursor_doc = json.loads(prior_bytes.decode("utf-8"))
-            expected_a_prior_cursor = cursor_doc["nextXid"]
-        except (UnicodeError, ValueError, KeyError, TypeError) as error:
-            raise ValueError("Exact A1 continuation prior cursor is required") from error
-        _need(type(expected_a_prior_cursor) is str
-              and expected_a_prior_cursor.isdecimal(),
-              "Canonical A1 continuation nextXid required")
+        expected_a_prior_cursor = _continuation_expected_a_cursor(genesis_snapshot_bytes)
     detached = decode_detached_a1_genesis_snapshot(
         genesis_snapshot_bytes, expected_a_prior_cursor=expected_a_prior_cursor)
     _need(detached.schedule_sha256 == hashlib.sha256(detached.schedule_bytes).hexdigest()

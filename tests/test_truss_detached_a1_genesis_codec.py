@@ -6,6 +6,7 @@ import unittest
 from unittest.mock import patch
 
 from ashlar_host.r04_schedule import canonical
+from ashlar_host.managed_a1_detached_admission import _continuation_expected_a_cursor
 from ashlar_host.truss_detached_a1_genesis_codec import (
     PROFILE, DetachedA1GenesisError, decode_detached_a1_genesis_snapshot,
     _require_current_fresh_catalog_evidence,
@@ -140,6 +141,26 @@ class DetachedA1GenesisCodecTests(unittest.TestCase):
         self.assertTrue(_genesis_matches_with_monotonic_watermarks(
             continuation_bytes, encode(continuation_newer),
             expected_a_prior_cursor="5"))
+
+    def test_continuation_cursor_reader_accepts_closed_source_list_shape(self):
+        import json
+        value = json.loads(_raw())
+        source_a = value["sources"][0]
+        prior = json.loads(base64.b64decode(source_a["page"]["prior_bytes_base64"]))
+        prior["nextXid"] = "759"
+        prior_bytes = canonical(prior)
+        source_a["page"]["prior_bytes_base64"] = base64.b64encode(prior_bytes).decode()
+        body = {key: item for key, item in value.items() if key != "binding_sha256"}
+        raw = canonical({**body, "binding_sha256": hashlib.sha256(canonical(body)).hexdigest()})
+        self.assertEqual(_continuation_expected_a_cursor(raw), "759")
+
+        duplicate = json.loads(raw)
+        duplicate["sources"][1]["source"] = "A"
+        body = {key: item for key, item in duplicate.items() if key != "binding_sha256"}
+        duplicate_raw = canonical({**body,
+            "binding_sha256": hashlib.sha256(canonical(body)).hexdigest()})
+        with self.assertRaisesRegex(ValueError, "prior cursor"):
+            _continuation_expected_a_cursor(duplicate_raw)
 
     def test_current_055_evidence_uses_actual_pins_and_refuses_stale_054(self):
         pins = {"version": "0.0.55",
