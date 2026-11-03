@@ -12,8 +12,10 @@ from types import SimpleNamespace
 from tools.create_managed_a1_trial_config import build_config
 from tools.run_managed_a1_serverless import (
     INITIALIZER_TIMEOUT_SECONDS, MAX_SOURCE_BOOTSTRAP_SECONDS,
-    PUBLISHER_TIMEOUT_SECONDS, VERIFIER_TIMEOUT_SECONDS,
-    WORST_SERVERLESS_DBUH, build_payload, _admit_job_readback, _admit_classic_cluster_readback,
+    PUBLISHER_TIMEOUT_SECONDS, VERIFIER_TIMEOUT_SECONDS, MAX_SERVERLESS_CAMPAIGN_SECONDS,
+    SERVERLESS_PUBLISHER_TIMEOUT_SECONDS, SERVERLESS_VERIFIER_TIMEOUT_SECONDS,
+    PREMIUM_DEFAULT_SERVERLESS_DBUH, HISTORICAL_SERVERLESS_DBU, SERVERLESS_USD_PER_DBUH,
+    build_payload, _admit_job_readback, _admit_classic_cluster_readback,
     _job_settings, _validate_task_runtime, _require_independent_classic_task_processes,
 )
 from ashlar_host.configured_local_runtime import (PROFILE, MANAGED_SERVERLESS_PROFILE,
@@ -47,6 +49,20 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
                 environment_version=7, dependencies=dependencies,
                 local_receipt=receipt, evidence_dir="docs/helix/04-build/evidence/test",
                 bun_path=Path(shutil.which("bun")), python=venv_python)
+            short_config = build_config(runtime_result=runtime, trial_id="a1-config-short",
+                notebook_root="/Workspace/Shared/ashlar",
+                environment_version=7, dependencies=dependencies,
+                local_receipt=receipt, evidence_dir="docs/helix/04-build/evidence/test",
+                bun_path=Path(shutil.which("bun")), python=venv_python,
+                remaining_wall_seconds=900)
+            self.assertEqual(short_config["cost"]["authorized_total_dbu"], 136.0)
+            with self.assertRaisesRegex(ValueError, "selected bounded profile"):
+                build_config(runtime_result=runtime, trial_id="a1-config-too-long",
+                    notebook_root="/Workspace/Shared/ashlar",
+                    environment_version=7, dependencies=dependencies,
+                    local_receipt=receipt, evidence_dir="docs/helix/04-build/evidence/test",
+                    bun_path=Path(shutil.which("bun")), python=venv_python,
+                    remaining_wall_seconds=1681)
             self.assertEqual(config["holder_bootstrap"]["python"], str(venv_python))
             self.assertTrue(Path(config["holder_bootstrap"]["python"]).is_symlink())
         payload, locked = build_payload(config)
@@ -54,27 +70,33 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
         self.assertEqual(config["initializer"]["timeout_seconds"],
                          INITIALIZER_TIMEOUT_SECONDS)
         self.assertEqual(config["publisher"]["timeout_seconds"],
-                         PUBLISHER_TIMEOUT_SECONDS)
+                         SERVERLESS_PUBLISHER_TIMEOUT_SECONDS)
         self.assertEqual(config["verifier"]["timeout_seconds"],
-                         VERIFIER_TIMEOUT_SECONDS)
-        paid_cap_seconds = (INITIALIZER_TIMEOUT_SECONDS + 2 * PUBLISHER_TIMEOUT_SECONDS
-                            + 4 * VERIFIER_TIMEOUT_SECONDS)
-        self.assertEqual(paid_cap_seconds, 1140)  # Stage ceilings are not additive wall time.
-        self.assertEqual((INITIALIZER_TIMEOUT_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
-                          VERIFIER_TIMEOUT_SECONDS), (180, 180, 150))
-        self.assertLessEqual(max(INITIALIZER_TIMEOUT_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
-                                 VERIFIER_TIMEOUT_SECONDS) + 15,
+                         SERVERLESS_VERIFIER_TIMEOUT_SECONDS)
+        paid_cap_seconds = (INITIALIZER_TIMEOUT_SECONDS
+            + 2 * SERVERLESS_PUBLISHER_TIMEOUT_SECONDS
+            + 4 * SERVERLESS_VERIFIER_TIMEOUT_SECONDS)
+        self.assertEqual(paid_cap_seconds, 1980)  # Stage ceilings share the 1680s campaign clock.
+        self.assertEqual((INITIALIZER_TIMEOUT_SECONDS, SERVERLESS_PUBLISHER_TIMEOUT_SECONDS,
+                          SERVERLESS_VERIFIER_TIMEOUT_SECONDS), (180, 300, 300))
+        self.assertLessEqual(max(INITIALIZER_TIMEOUT_SECONDS, SERVERLESS_PUBLISHER_TIMEOUT_SECONDS,
+                                 SERVERLESS_VERIFIER_TIMEOUT_SECONDS) + 15,
                              config["maximum_wall_seconds"] - config["cleanup_reserve_seconds"])
         self.assertLessEqual(MAX_SOURCE_BOOTSTRAP_SECONDS,
                              config["maximum_wall_seconds"] - config["cleanup_reserve_seconds"])
         self.assertEqual(MAX_SOURCE_BOOTSTRAP_SECONDS, 275)
+        self.assertEqual(config["maximum_wall_seconds"], MAX_SERVERLESS_CAMPAIGN_SECONDS)
         self.assertGreaterEqual(config["cost"]["authorized_total_dbu"],
-            config["maximum_wall_seconds"] * WORST_SERVERLESS_DBUH / 3600)
+            HISTORICAL_SERVERLESS_DBU
+            + config["maximum_wall_seconds"] * PREMIUM_DEFAULT_SERVERLESS_DBUH / 3600)
         self.assertLessEqual(config["cost"]["authorized_total_dbu"] * 0.47
                              + config["cost"]["cleanup_reserve_usd"], 100)
-        self.assertEqual(config["cost"]["authorized_total_dbu"], 166.0)
-        self.assertLessEqual(166.0 * 0.47 + 20.0, 100.0)
-        self.assertLess(config["cost"]["estimated_total_usd"], 10)
+        self.assertEqual(config["cost"]["authorized_total_dbu"], 162.0)
+        self.assertAlmostEqual(config["cost"]["estimated_total_usd"], 76.14)
+        self.assertAlmostEqual(config["cost"]["authorized_total_dbu"]
+                               * SERVERLESS_USD_PER_DBUH + 20.0, 96.14)
+        self.assertLessEqual(162.0 * 0.47 + 20.0, 100.0)
+        self.assertIn("Premium", config["cost"]["preferred_budget_exception"])
         self.assertEqual(config["expected_runtime"]["protocol"], MANAGED_SERVERLESS_PROFILE.identity)
         self.assertEqual(config["protocol_profile"]["identity"], MANAGED_SERVERLESS_PROFILE.identity)
         self.assertIn("v2Checkpoint", config["protocol_profile"]["features"])

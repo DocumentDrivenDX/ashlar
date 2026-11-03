@@ -7,6 +7,7 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -19,7 +20,10 @@ sys.path.insert(0, str(REPOSITORY_ROOT / "src"))
 from tools.run_managed_a1_serverless import (
     HOST, INITIALIZER_TIMEOUT_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
     VERIFIER_TIMEOUT_SECONDS, CLASSIC_TASK_REQUIREMENTS_PATH,
-    CLASSIC_TASK_REQUIREMENTS_SHA256, build_payload,
+    CLASSIC_TASK_REQUIREMENTS_SHA256, MAX_SECONDS,
+    MAX_SERVERLESS_CAMPAIGN_SECONDS, PREMIUM_DEFAULT_SERVERLESS_DBUH,
+    SERVERLESS_PUBLISHER_TIMEOUT_SECONDS, SERVERLESS_VERIFIER_TIMEOUT_SECONDS,
+    HISTORICAL_SERVERLESS_DBU, SERVERLESS_USD_PER_DBUH, build_payload,
 )
 
 
@@ -46,7 +50,7 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
                  local_receipt: Path, evidence_dir: str, bun_path: Path,
                  python: Path, execution_profile="serverless",
                  classic_cluster_readback: dict | None = None,
-                 remaining_wall_seconds=900) -> dict:
+                 remaining_wall_seconds: int | None = None) -> dict:
     from ashlar_host.configured_local_runtime import (
         PROFILE, MANAGED_SERVERLESS_PROFILE, MANAGED_CLASSIC_PROFILE)
 
@@ -54,11 +58,14 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
         raise ValueError("Unique bounded trial ID beginning a1- required")
     if not notebook_root.startswith("/Workspace/") or notebook_root.endswith("/"):
         raise ValueError("Uploaded notebook root must be an absolute Workspace path")
-    if type(remaining_wall_seconds) is not int or not 1 <= remaining_wall_seconds <= 900:
-        raise ValueError("Remaining outer trial wall deadline must be between 1 and 900 seconds")
     classic = execution_profile == "classic_existing_cluster"
     if execution_profile not in ("serverless", "classic_existing_cluster"):
         raise ValueError("Exact managed execution profile required")
+    if remaining_wall_seconds is None:
+        remaining_wall_seconds = (MAX_SECONDS if classic else MAX_SERVERLESS_CAMPAIGN_SECONDS)
+    wall_limit = MAX_SECONDS if classic else MAX_SERVERLESS_CAMPAIGN_SECONDS
+    if type(remaining_wall_seconds) is not int or not 1 <= remaining_wall_seconds <= wall_limit:
+        raise ValueError("Remaining campaign deadline exceeds the selected bounded profile")
     if classic:
         if environment_version is not None or type(classic_cluster_readback) is not dict:
             raise ValueError("Classic mode requires live cluster readback and no serverless environment")
@@ -180,9 +187,19 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
             "classic_cluster_maximum_lifetime_seconds": 1800,
             "classic_cluster_usd_ceiling": 5.0}
     else:
-        cost = {"estimated_total_dbu": 16.0, "cleanup_reserve_dbu": 4.0,
-            "authorized_total_dbu": 166.0, "estimated_total_usd": 9.75,
-            "cleanup_reserve_usd": 20.0, "preferred_budget_exception": None,
+        campaign_serverless_dbu = math.ceil(
+            HISTORICAL_SERVERLESS_DBU
+            + remaining_wall_seconds * PREMIUM_DEFAULT_SERVERLESS_DBUH / 3600)
+        campaign_serverless_usd = campaign_serverless_dbu * SERVERLESS_USD_PER_DBUH
+        cost = {"estimated_total_dbu": float(campaign_serverless_dbu), "cleanup_reserve_dbu": 0.0,
+            "authorized_total_dbu": float(campaign_serverless_dbu),
+            "estimated_total_usd": campaign_serverless_usd,
+            "cleanup_reserve_usd": 20.0,
+            "preferred_budget_exception": (
+                "Aidev-cus ARM SKU is Premium; the documented Default Automated Compute "
+                "cap is approximately 120 DBU/h. This estimate combines 106 historical "
+                "DBU with the full bounded campaign duration and $20 cleanup reserve; "
+                "the executor cap is approximate, not an invoice guarantee."),
             "includes_startup_driver_verifier_handoff_and_cleanup": True}
     tasks = {}
     for role in ("initializer", "publisher", "verifier"):
@@ -197,8 +214,10 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
             "base_parameters": {"task_parameters_json": "{}"},
             "timeout_seconds": {
                 "initializer": INITIALIZER_TIMEOUT_SECONDS,
-                "publisher": PUBLISHER_TIMEOUT_SECONDS,
-                "verifier": VERIFIER_TIMEOUT_SECONDS,
+                "publisher": (PUBLISHER_TIMEOUT_SECONDS if classic
+                               else SERVERLESS_PUBLISHER_TIMEOUT_SECONDS),
+                "verifier": (VERIFIER_TIMEOUT_SECONDS if classic
+                             else SERVERLESS_VERIFIER_TIMEOUT_SECONDS),
             }[role]}
     now_us = str(int(datetime.now(timezone.utc).timestamp() * 1_000_000))
     qualification = local_receipt.resolve(strict=True)
@@ -208,7 +227,7 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
         raise ValueError("Local qualification receipt must be inside the repository") from error
     config = {"host": HOST, "trial_id": trial_id, "catalog": "client_dev",
         "schema": schema, "expected_principal": runtime["principal"],
-        "expected_runtime": runtime, "maximum_wall_seconds": 900,
+        "expected_runtime": runtime, "maximum_wall_seconds": remaining_wall_seconds,
         "cleanup_reserve_seconds": 60, "cost": cost,
         "execution_profile": execution_profile, "classic_cluster": classic_lock,
         "publisher": tasks["publisher"], "initializer": tasks["initializer"],
@@ -220,9 +239,9 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
             "expected_runtime": runtime, "stream": "ashlar-managed-a1-" + suffix,
             "stage_id": "managed-a1-trial-" + trial_id[3:], "materialized_at": now_us,
             "destination_id": "client_dev." + schema, "cost": cost,
-            "initializer_timeout_seconds": INITIALIZER_TIMEOUT_SECONDS,
-            "publisher_timeout_seconds": PUBLISHER_TIMEOUT_SECONDS,
-            "verifier_timeout_seconds": VERIFIER_TIMEOUT_SECONDS},
+            "initializer_timeout_seconds": tasks["initializer"]["timeout_seconds"],
+            "publisher_timeout_seconds": tasks["publisher"]["timeout_seconds"],
+            "verifier_timeout_seconds": tasks["verifier"]["timeout_seconds"]},
         "protocol_profile": {"identity": profile.identity,
             "reader_versions": sorted(profile.reader_versions),
             "writer_versions": sorted(profile.writer_versions),
@@ -245,7 +264,7 @@ def main() -> int:
     parser.add_argument("--trial-id", required=True)
     parser.add_argument("--notebook-root", required=True)
     parser.add_argument("--environment-version", type=int)
-    parser.add_argument("--remaining-wall-seconds", type=int, default=900)
+    parser.add_argument("--remaining-wall-seconds", type=int)
     parser.add_argument("--local-receipt", type=Path, required=True)
     parser.add_argument("--evidence-dir", default="docs/helix/04-build/evidence/current-upstream-release-20261102")
     parser.add_argument("--dependency", action="append", default=[], metavar="LOCAL=REMOTE",

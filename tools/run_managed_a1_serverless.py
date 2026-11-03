@@ -29,6 +29,9 @@ from urllib.parse import urlsplit
 HOST = "https://adb-7405607548213398.18.azuredatabricks.net"
 PROFILE = "aidev-cus"
 MAX_SECONDS = 900
+MAX_SERVERLESS_CAMPAIGN_SECONDS = 1680
+PREMIUM_DEFAULT_SERVERLESS_DBUH = 120.0
+HISTORICAL_SERVERLESS_DBU = 106.0
 HARD_USD = 100.0
 PREFERRED_USD = 10.0
 SERVERLESS_USD_PER_DBUH = 0.47
@@ -37,6 +40,8 @@ MAX_SOURCE_BOOTSTRAP_SECONDS = 275
 INITIALIZER_TIMEOUT_SECONDS = 180
 PUBLISHER_TIMEOUT_SECONDS = 180
 VERIFIER_TIMEOUT_SECONDS = 150
+SERVERLESS_PUBLISHER_TIMEOUT_SECONDS = 300
+SERVERLESS_VERIFIER_TIMEOUT_SECONDS = 300
 MIN_DRIVER_AND_CLEANUP_RESERVE_USD = 20.0
 ACK_REAP_RESERVE_SECONDS = 30
 POST_ACK_CLEANUP_RESERVE_SECONDS = 30
@@ -341,8 +346,9 @@ def build_payload(config: object) -> tuple[dict, dict]:
     else:
         require(cluster is None, "Serverless trial must not select classic compute")
     wall = config["maximum_wall_seconds"]
-    require(type(wall) is int and 1 <= wall <= MAX_SECONDS,
-            "Whole-run deadline, including startup, handoff and cleanup, must be <=900s")
+    wall_limit = MAX_SECONDS if classic else MAX_SERVERLESS_CAMPAIGN_SECONDS
+    require(type(wall) is int and 1 <= wall <= wall_limit,
+            "Whole-run deadline exceeds the selected bounded campaign limit")
     cleanup_seconds = config["cleanup_reserve_seconds"]
     require(type(cleanup_seconds) is int
             and ACK_REAP_RESERVE_SECONDS + POST_ACK_CLEANUP_RESERVE_SECONDS
@@ -454,9 +460,13 @@ def build_payload(config: object) -> tuple[dict, dict]:
         if classic:
             task_payload["existing_cluster_id"] = cluster["cluster_id"]
         stage_payloads[key] = {"task": task_payload, "environment": env}
-    require(config["initializer"]["timeout_seconds"] == INITIALIZER_TIMEOUT_SECONDS
-            and config["publisher"]["timeout_seconds"] == PUBLISHER_TIMEOUT_SECONDS
-            and config["verifier"]["timeout_seconds"] == VERIFIER_TIMEOUT_SECONDS,
+    expected_timeouts = ((INITIALIZER_TIMEOUT_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
+                          VERIFIER_TIMEOUT_SECONDS) if classic else
+                         (INITIALIZER_TIMEOUT_SECONDS, SERVERLESS_PUBLISHER_TIMEOUT_SECONDS,
+                          SERVERLESS_VERIFIER_TIMEOUT_SECONDS))
+    require((config["initializer"]["timeout_seconds"],
+             config["publisher"]["timeout_seconds"],
+             config["verifier"]["timeout_seconds"]) == expected_timeouts,
             "Managed task budgets must match the admitted init/publish/verify caps")
     # Per-stage timeouts are individual cancellation limits, not additive
     # wall-time guarantees: every stage shares the one outer trial deadline.
@@ -477,8 +487,13 @@ def build_payload(config: object) -> tuple[dict, dict]:
                 and cost["cleanup_reserve_usd"] >= 20.0,
                 "Classic DBU/VM exposure plus reserve exceeds the $100 trial ceiling")
     else:
-        require(cost["authorized_total_dbu"] >= wall * WORST_SERVERLESS_DBUH / 3600,
-                "Authorized DBU exposure must cover the whole-trial wall deadline")
+        premium_default_exposure = (HISTORICAL_SERVERLESS_DBU
+            + wall * PREMIUM_DEFAULT_SERVERLESS_DBUH / 3600)
+        require(cost["authorized_total_dbu"] >= premium_default_exposure
+                and cost["estimated_total_dbu"] >= premium_default_exposure
+                and cost["authorized_total_dbu"] * SERVERLESS_USD_PER_DBUH
+                    + cost["cleanup_reserve_usd"] <= HARD_USD,
+                "Premium-default DBU exposure plus prior usage and reserve exceeds $100")
     require(MAX_SOURCE_BOOTSTRAP_SECONDS <= wall - cleanup_seconds,
             "Source-bootstrap stage ceiling must fit before the whole-trial cleanup reserve")
     return stage_payloads, config
