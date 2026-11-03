@@ -88,8 +88,10 @@ def preflight() -> dict:
         raise RuntimeError("outer one-shot supervisor source hash differs from scope")
 
     paths = scope["fresh_local_state"]
-    resume = scope.get("resume_after_genesis")
+    resume_seed = scope.get("resume_after_seed")
+    resume = resume_seed if type(resume_seed) is dict else scope.get("resume_after_genesis")
     resume_mode = type(resume) is dict
+    resume_seed_mode = type(resume_seed) is dict
     root = Path(paths["root"])
     if any(Path(paths[key]).resolve().is_relative_to(Path(forbidden).resolve())
            or Path(forbidden).resolve().is_relative_to(Path(paths[key]).resolve())
@@ -101,7 +103,57 @@ def preflight() -> dict:
     existing = [paths[key] for key in required_absent if Path(paths[key]).exists()]
     if existing:
         raise RuntimeError(f"fresh output paths already exist: {existing}")
-    if resume_mode:
+    if resume_seed_mode:
+        attempt = Path(resume["attempt_root"])
+        prior_root = Path(resume["prior_continuation_root"])
+        if (prior_root != attempt / "continuation-02" or not prior_root.is_dir()
+                or prior_root.is_symlink()):
+            raise RuntimeError("exact retained attempt13/continuation-02 root required")
+        seed_inputs = {
+            "setup_receipt": attempt / "setup-stage.json",
+            "prior_worker_failure": prior_root / "worker-failure.json",
+            "prior_supervisor_result": prior_root / "supervisor-result.json",
+            "seed_group_config": prior_root / "seed-group.json",
+            "seed_group_result": prior_root / "seed-group-result.json",
+            "seed_continuation_config": prior_root / "seed-continuation-config.json",
+            "seed_continuation_result": prior_root / "seed-continuation-result.json",
+            "seed_deferred_ack": Path(resume["seed_deferred_ack_path"]),
+            "seed_source_page": Path(resume["seed_source_page_path"]),
+            "seed_readback_completion": Path(resume["seed_readback_completion_path"]),
+            "seed_pending_recovery": Path(resume["seed_pending_recovery_path"]),
+            "origin_file": Path(resume["origin_path"]),
+        }
+        for name, path in seed_inputs.items():
+            if (not path.is_absolute() or path.is_symlink() or not path.is_file()
+                    or hashlib.sha256(path.read_bytes()).hexdigest() != resume["input_sha256"].get(name)):
+                raise RuntimeError(f"retained seed continuation evidence hash differs: {name}")
+        failure = json.loads(seed_inputs["prior_worker_failure"].read_text())
+        supervisor = json.loads(seed_inputs["prior_supervisor_result"].read_text())
+        ack = json.loads(seed_inputs["seed_deferred_ack"].read_text())
+        page = json.loads(seed_inputs["seed_source_page"].read_text())
+        completed = json.loads(seed_inputs["seed_readback_completion"].read_text())
+        if (failure.get("failure_type") != "KeyError" or failure.get("failure") != "'types'"
+                or failure.get("source_ack_state") != "closed_reconciled"
+                or failure.get("delta_write_state") != "confirmed_seed_continuation_publication"
+                or failure.get("postgres_closed") is not True or failure.get("spark_closed") is not True
+                or supervisor.get("status") != "failed_worker"
+                or supervisor.get("cleanup", {}).get("process_group_empty") is not True
+                or supervisor.get("postgres_cleanup", {}).get("postgres_closed") is not True
+                or ack.get("publication_id") != resume.get("seed_publication_id")
+                or ack.get("manifest_sha256") != resume.get("seed_manifest_sha256")
+                or ack.get("source_page", {}).get("page_sha256") != resume.get("seed_source_page_sha256")
+                or ack.get("source_page", {}).get("next_sha256") != resume.get("seed_next_cursor_sha256")
+                or hashlib.sha256(base64.b64decode(page["next"], validate=True)).hexdigest()
+                    != resume.get("seed_next_cursor_sha256")
+                or completed.get("status") != "native_readback_verified_deferred_ack"
+                or completed.get("acknowledgement") != "not_attempted"
+                or completed.get("publication_id") != resume.get("seed_publication_id")):
+            raise RuntimeError("retained seed publication/ACK proofs do not permit resume")
+        if any((prior_root / name).exists() for name in (
+                "continuation-group.json", "continuation-group-result.json",
+                "continuation-config.json", "continuation-result.json")):
+            raise RuntimeError("prior final continuation artifacts exist; replay is refused")
+    elif resume_mode:
         for key in ("postgres_data", "delta_root"):
             candidate = Path(paths[key])
             if (not candidate.is_dir() or candidate.is_symlink()

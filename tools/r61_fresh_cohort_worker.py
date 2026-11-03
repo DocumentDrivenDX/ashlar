@@ -459,6 +459,119 @@ def _resume_genesis_inputs(scope: dict) -> tuple[dict, dict, dict, dict]:
     return setup, ack, page, ack_proof
 
 
+def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict, dict, dict]:
+    """Bind the already ACKed seven-operation page and refuse all seed replay."""
+    resume = scope.get("resume_after_seed")
+    if type(resume) is not dict or resume.get("profile") != "ashlar-r61-resume-after-seed-ack/0.1":
+        raise RuntimeError("Exact reviewed resume-after-seed scope required")
+    attempt = Path(resume["attempt_root"])
+    prior_root = Path(resume["prior_continuation_root"])
+    if (not attempt.is_absolute() or attempt.resolve() != attempt or attempt.is_symlink()
+            or prior_root != attempt / "continuation-02"
+            or not prior_root.is_dir() or prior_root.is_symlink()):
+        raise RuntimeError("Canonical retained attempt13/continuation-02 roots required")
+    files = {
+        "setup_receipt": attempt / "setup-stage.json",
+        "a0_deferred_ack": Path(resume["a0_deferred_ack_path"]),
+        "a0_source_page": Path(resume["a0_source_page_path"]),
+        "a0_ack_reconciliation": Path(resume["a0_ack_reconciliation_receipt"]),
+        "a0_manifest_readback": Path(resume["a0_manifest_readback_receipt"]),
+        "origin_file": Path(resume["origin_path"]),
+        "seed_worker_failure": prior_root / "worker-failure.json",
+        "seed_supervisor_result": prior_root / "supervisor-result.json",
+        "seed_group_config": prior_root / "seed-group.json",
+        "seed_group_result": prior_root / "seed-group-result.json",
+        "seed_continuation_config": prior_root / "seed-continuation-config.json",
+        "seed_continuation_result": prior_root / "seed-continuation-result.json",
+        "seed_deferred_ack": Path(resume["seed_deferred_ack_path"]),
+        "seed_source_page": Path(resume["seed_source_page_path"]),
+        "seed_readback_completion": Path(resume["seed_readback_completion_path"]),
+        "seed_pending_recovery": Path(resume["seed_pending_recovery_path"]),
+    }
+    for name, path in files.items():
+        if (not path.is_absolute() or path.is_symlink() or not path.is_file()
+                or sha(path.read_bytes()) != resume["input_sha256"].get(name)):
+            raise RuntimeError(f"Retained continuation input hash differs: {name}")
+    prior_failure = json.loads(files["seed_worker_failure"].read_text())
+    prior_supervisor = json.loads(files["seed_supervisor_result"].read_text())
+    seed_config = json.loads(files["seed_group_config"].read_text())
+    seed_group_result = json.loads(files["seed_group_result"].read_text())
+    seed_cont_config = json.loads(files["seed_continuation_config"].read_text())
+    seed_result = json.loads(files["seed_continuation_result"].read_text())
+    seed_ack = json.loads(files["seed_deferred_ack"].read_text())
+    seed_page = json.loads(files["seed_source_page"].read_text())
+    readback = json.loads(files["seed_readback_completion"].read_text())
+    a0_ack = json.loads(files["a0_deferred_ack"].read_text())
+    a0_page = json.loads(files["a0_source_page"].read_text())
+    a0_ack_proof = json.loads(files["a0_ack_reconciliation"].read_text())
+    a0_manifest_proof = json.loads(files["a0_manifest_readback"].read_text())
+    if (prior_failure.get("status") != "failed"
+            or prior_failure.get("failure_type") != "KeyError"
+            or prior_failure.get("failure") != "'types'"
+            or prior_failure.get("source_ack_state") != "closed_reconciled"
+            or prior_failure.get("spark_started") is not True
+            or prior_failure.get("spark_closed") is not True
+            or prior_failure.get("postgres_closed") is not True
+            or prior_failure.get("delta_write_state") != "confirmed_seed_continuation_publication"
+            or prior_supervisor.get("status") != "failed_worker"
+            or prior_supervisor.get("cleanup", {}).get("process_group_empty") is not True
+            or prior_supervisor.get("postgres_cleanup", {}).get("postgres_closed") is not True
+            or not seed_result.get("source_acknowledgement") == "deferred_not_attempted"
+            or len(seed_result.get("publications", ())) != 1
+            or seed_ack.get("acknowledgement") != "deferred_not_attempted"
+            or seed_ack.get("publication_id") != resume["seed_publication_id"]
+            or seed_ack.get("manifest_sha256") != resume["seed_manifest_sha256"]
+            or seed_page.get("sha256") != resume["seed_source_page_sha256"]
+            or seed_page.get("outcome") != "transaction"
+            or seed_page.get("writer_xid") != resume["seed_writer_xid"]
+            or seed_ack.get("source_page", {}).get("page_sha256") != seed_page.get("sha256")
+            or seed_ack.get("source_page", {}).get("next_sha256") != resume["seed_next_cursor_sha256"]
+            or sha(base64.b64decode(seed_page["next"], validate=True)) != resume["seed_next_cursor_sha256"]
+            or seed_result["publications"][0].get("deferred_ack_intent", {}).get("sha256")
+                != resume["input_sha256"].get("seed_deferred_ack")
+            or seed_result["publications"][0].get("source_page", {}).get("sha256")
+                != resume["seed_source_page_sha256"]
+            or readback.get("status") != "native_readback_verified_deferred_ack"
+            or readback.get("acknowledgement") != "not_attempted"
+            or readback.get("publication_id") != resume["seed_publication_id"]
+            or readback.get("deferred_ack_intent", {}).get("sha256")
+                != resume["input_sha256"].get("seed_deferred_ack")
+            or a0_ack_proof.get("source_api_outcome") != "matched"
+            or a0_manifest_proof.get("source_reconciliation_outcome") != "matched"
+            or a0_manifest_proof.get("status") != "read_only_delta_manifest_match"
+            or a0_manifest_proof.get("source_ack_retried") is not False
+            or a0_manifest_proof.get("source_or_delta_written") is not False
+            or a0_manifest_proof.get("manifest_row_matches_retained_bytes") is not True
+            or a0_ack.get("acknowledgement") != "deferred_not_attempted"
+            or a0_page.get("sha256") != resume["a0_source_page_sha256"]
+            or seed_config.get("origin_path") != str(resume["origin_path"])
+            or seed_group_result.get("profile") != "ashlar-truss-record-group-result/0.1"
+            or (prior_root / "continuation-group.json").exists()
+            or (prior_root / "continuation-group-result.json").exists()
+            or (prior_root / "continuation-config.json").exists()
+            or (prior_root / "continuation-result.json").exists()):
+        raise RuntimeError("Retained seven-operation publication/ACK state does not prove a no-replay resume")
+    if (Path(resume["origin_path"]).resolve() != files["origin_file"].resolve()
+            or Path(seed_cont_config["publication_directory"]).resolve()
+                != Path(scope["fresh_local_state"]["delta_root"]).resolve()
+            or Path(seed_ack["source_page"]["path"]).resolve() != files["seed_source_page"].resolve()
+            or Path(seed_result["publications"][0]["deferred_ack_intent"]["path"]).resolve()
+                != files["seed_deferred_ack"].resolve()):
+        raise RuntimeError("Retained seed publication paths differ from the pinned continuation")
+    if (Path(scope["fresh_local_state"]["evidence_root"]).exists()
+            or Path(scope["fresh_local_state"]["evidence_root"]).is_symlink()):
+        raise RuntimeError("fresh owner-export evidence root must be absent")
+    pgdata = Path(scope["fresh_local_state"]["postgres_data"])
+    delta = Path(scope["fresh_local_state"]["delta_root"])
+    if ((pgdata / "postmaster.pid").exists()
+            or tree_digest(pgdata) != resume["pgdata_tree_sha256"]
+            or tree_digest(delta) != resume["delta_tree_sha256"]):
+        raise RuntimeError("Stopped source/Delta state differs from the reviewed after-seed snapshot")
+    setup = json.loads(files["setup_receipt"].read_text())
+    return (setup, seed_result["publications"][0], seed_ack, seed_page, prior_failure,
+            a0_ack, a0_page, a0_ack_proof)
+
+
 def _group_config(path: Path, output: Path, *, uri: str, records: list,
                   edges: list, key: str, origin_path: Path | None = None) -> dict:
     value = {"profile": "ashlar-truss-record-group/0.1", "connection_uri": uri,
@@ -471,18 +584,36 @@ def _group_config(path: Path, output: Path, *, uri: str, records: list,
     return value
 
 
-def _run_weft_reads(spark, state: dict, setup: dict) -> dict:
-    """Compile twice with Weft .4.56 and execute two R61-bound native reads."""
+def _prepare_weft_reads(state: dict, setup: dict) -> dict:
+    """Compile and fully bind R61 Weft requests without starting Spark."""
     import weft
     template_path = REPO / "docs/helix/04-build/evidence/current-upstream-release-20261101/g03-weft-native-consumer/candidate-r12/grouped.request.json"
     template = json.loads(template_path.read_text())
     model_raw = MODEL.read_bytes()
     model_hash = sha(model_raw)
-    report = json.loads(base64.b64decode(setup["report"]["original_base64"], validate=True))
-    type_ids = {item["elementId"]: str(item["typeId"]) for item in report["types"]}
-    property_ids = {item["elementId"]: str(item["propertyId"]) for item in report["properties"]}
-    if set(type_ids) != {"Person", "Place"} or not {"person_key", "person_name", "place_key", "place_name"} <= set(property_ids):
-        raise RuntimeError("accepted R21 catalog type/property allocations differ")
+    catalog_view_raw = base64.b64decode(setup["catalog_view"]["original_base64"], validate=True)
+    if sha(catalog_view_raw) != setup["catalog_view"]["sha256"]:
+        raise RuntimeError("accepted catalog-view bytes differ from setup-stage pin")
+    catalog_view = json.loads(catalog_view_raw)
+    if (catalog_view.get("interfaceVersion") != "truss-catalog-view/0.2.0"
+            or catalog_view.get("catalogRevision") != "1"):
+        raise RuntimeError("complete accepted catalog-view identity differs")
+    definitions = catalog_view.get("definitions", [])
+    type_ids = {item["reference"]["authoredIdentity"]: str(item["reference"]["typeId"])
+                for item in definitions if item.get("reference", {}).get("kind") == "type"}
+    property_ids = {item["reference"]["authoredIdentity"]: str(item["reference"]["propertyId"])
+                    for item in definitions if item.get("reference", {}).get("kind") == "property"}
+    relationship_ids = {item["reference"]["authoredIdentity"]: str(item["reference"]["relationshipId"])
+                        for item in definitions if item.get("reference", {}).get("kind") == "relationship"}
+    if (set(type_ids) != {"Person", "Place"}
+            or set(property_ids) != {"person_key", "person_name", "quantity", "place_key", "place_name"}
+            or set(relationship_ids) != {"knows", "located"}):
+        raise RuntimeError("accepted R21 catalog type/property/relationship allocations differ")
+    if any(item.get("provenance", {}).get("acceptedDocumentSha256") != setup["model"]["sha256"]
+           or item.get("provenance", {}).get("documentRevision") != setup["model"]["revision"]
+           or item.get("reference", {}).get("owner", {}).get("documentId") != setup["model"]["id"]
+           for item in definitions):
+        raise RuntimeError("accepted catalog definitions do not originate from the exact retained model document")
     roles = state["observation"].roles
     database = "ashlar_r61_" + state["selection"].publication_id[-12:]
     table_pins = [{"name": ["spark_catalog", database, role],
@@ -490,10 +621,19 @@ def _run_weft_reads(spark, state: dict, setup: dict) -> dict:
                   for role in ("object_current", "edge_current", "tombstone", "whole_source_history")]
     installation_id = setup["installation"]["installation_id"]
     pub_uuid = state["manifest_uuid"]
-    source_type = {"17": type_ids["Person"], "18": type_ids["Place"]}
+    source_type = {"17": type_ids["Person"], "18": type_ids["Place"],
+                   "31": relationship_ids["knows"], "32": relationship_ids["located"]}
     source_property = {"21": property_ids["person_key"], "22": property_ids["person_name"],
                        "23": property_ids["quantity"], "24": property_ids["place_key"],
                        "25": property_ids["place_name"]}
+    model_document_id = setup["model"]["id"]
+    model_document_revision = setup["model"]["revision"]
+    catalog_revision = str(catalog_view["catalogRevision"])
+    if (model_document_id != "ashlar-local-dev-typed-graph-r21-20261101"
+            or model_document_revision != "r1"
+            or catalog_revision != "1"
+            or model_hash != setup["model"]["sha256"]):
+        raise RuntimeError("accepted model identity/revision differs from the retained setup receipt")
 
     def rewrite(value):
         if isinstance(value, dict):
@@ -516,13 +656,68 @@ def _run_weft_reads(spark, state: dict, setup: dict) -> dict:
         request = json.loads(json.dumps(template))
         binding = json.loads(request["target"]["bindingJson"])
         for pin in binding["modelPins"]:
-            pin.update(documentId="ashlar-local-dev-typed-graph-r21-20261101",
-                       revision="1", sha256=model_hash, umfVersion="0.10.0")
+            pin.update(documentId=model_document_id,
+                       revision=catalog_revision, sha256=model_hash, umfVersion="0.10.0")
         binding["layoutRevision"] = "ashlar-delta/0.4-xxhash64"
         binding["lookupHashProfile"] = "spark-xxhash64-typed-key/0.1"
         binding["publication"] = {"id": state["selection"].publication_id,
             "manifestUuid": pub_uuid, "tables": table_pins}
         rewrite(binding)
+        if (not binding.get("modelPins")
+                or binding["modelPins"][0].get("documentId") != model_document_id
+                or binding["modelPins"][0].get("revision") != catalog_revision
+                or binding["modelPins"][0].get("sha256") != model_hash
+                or binding["modelPins"][0].get("umfVersion") != "0.10.0"):
+            raise RuntimeError("Weft model pin must bind the actual accepted catalog revision and model bytes")
+        if ({item.get("logical", {}).get("element") for item in binding.get("records", [])}
+                != {"Person", "Place"}
+                or {item.get("typeId") for item in binding.get("records", [])}
+                    != {type_ids["Person"], type_ids["Place"]}
+                or {prop.get("home", {}).get("propertyId")
+                    for item in binding.get("records", []) for prop in item.get("properties", [])}
+                    != set(property_ids.values())
+                or {item.get("logical", {}).get("relationship")
+                    for item in binding.get("relationships", [])} != {"knows", "located"}
+                or {item.get("typeId") for item in binding.get("relationships", [])}
+                    != set(relationship_ids.values())
+                or any(item.get("sourceSystem") != installation_id
+                       for item in binding.get("records", []) + binding.get("relationships", []))
+                or any(item.get("logical", {}).get("revision") != catalog_revision
+                       for item in binding.get("records", []) + binding.get("relationships", []))):
+            raise RuntimeError("complete Weft type/property/relationship/source/model-revision bindings differ")
+        expected_endpoints = {
+            "knows": ("Person", "Person"),
+            "located": ("Person", "Place"),
+        }
+        if (len(binding.get("modelPins", [])) != 1
+                or any(item.get("logical", {}).get("documentId") != model_document_id
+                       or item.get("logical", {}).get("module") != "m"
+                       or item.get("schemaRevision") != catalog_revision
+                       for item in binding.get("records", []) + binding.get("relationships", []))
+                or any(prop.get("logical", {}).get("documentId") != model_document_id
+                       or prop.get("logical", {}).get("module") != "m"
+                       or prop.get("logical", {}).get("revision") != catalog_revision
+                       for record in binding.get("records", [])
+                       for prop in record.get("properties", []))
+                or any((relation.get("source", {}).get("documentId") != model_document_id
+                        or relation.get("source", {}).get("element") != expected_endpoints[
+                            relation.get("logical", {}).get("relationship")][0]
+                        or relation.get("source", {}).get("module") != "m"
+                        or relation.get("source", {}).get("revision") != catalog_revision
+                        or relation.get("target", {}).get("documentId") != model_document_id
+                        or relation.get("target", {}).get("element") != expected_endpoints[
+                            relation.get("logical", {}).get("relationship")][1]
+                        or relation.get("target", {}).get("module") != "m"
+                        or relation.get("target", {}).get("revision") != catalog_revision)
+                       for relation in binding.get("relationships", []))
+                or any(value in {"17", "18", "19", "21", "22", "23", "24", "25", "31", "32"}
+                       for item in binding.get("records", []) + binding.get("relationships", [])
+                       for value in (item.get("typeId"),))
+                or any(value in {"17", "18", "19", "21", "22", "23", "24", "25"}
+                       for record in binding.get("records", [])
+                       for prop in record.get("properties", [])
+                       for value in (prop.get("home", {}).get("propertyId"),))):
+            raise RuntimeError("Weft binding retains stale IDs or mismatches accepted document/model revision")
         binding_raw = json.dumps(binding, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
         request["target"]["bindingJson"] = binding_raw
         request["target"]["bindingSha256"] = sha(binding_raw.encode())
@@ -537,7 +732,8 @@ def _run_weft_reads(spark, state: dict, setup: dict) -> dict:
         artifact = json.loads(first)
         if (artifact.get("status") != "compiled"
                 or artifact.get("targetContext", {}).get("storageLayoutRevision") != "ashlar-delta/0.4-xxhash64"
-                or artifact.get("targetContext", {}).get("lookupHashProfile") != "spark-xxhash64-typed-key/0.1"):
+                or artifact.get("targetContext", {}).get("sessionSettings", {}).get("lookupHashProfile")
+                    != "spark-xxhash64-typed-key/0.1"):
             raise RuntimeError("Weft .4.56 compiled artifact/profile refused")
         return request, artifact, request_raw, first.encode()
 
@@ -545,17 +741,35 @@ def _run_weft_reads(spark, state: dict, setup: dict) -> dict:
         "singleton": "SELECT p.person_key, p.person_name FROM Person p WHERE p.person_key = 'p1'",
         "grouped": template["sql"],
     }
-    results = {}
+    prepared = {}
     for name, query in queries.items():
         request, artifact, request_raw, response_raw = compile_request(query)
+        prepared[name] = {"request": request, "artifact": artifact,
+                          "request_raw": request_raw, "response_raw": response_raw}
+    return {"compiler": "umf-weft/0.4.56", "database": database,
+            "publication_id": state["selection"].publication_id,
+            "manifest_uuid": pub_uuid, "table_pins": table_pins,
+            "model_document_revision": model_document_revision,
+            "catalog_revision": catalog_revision,
+            "type_ids": type_ids, "property_ids": property_ids,
+            "relationship_ids": relationship_ids, "prepared": prepared}
+
+
+def _run_weft_reads(spark, state: dict, setup: dict) -> dict:
+    """Execute the already fully bound R61 requests with Weft .4.56."""
+    prepared = _prepare_weft_reads(state, setup)
+    roles = state["observation"].roles
+    results = {}
+    for name, item in prepared["prepared"].items():
+        artifact, request_raw, response_raw = item["artifact"], item["request_raw"], item["response_raw"]
         sql = artifact["sql"]
         refs = re.findall(r"`spark_catalog`\.`([^`]+)`\.`([^`]+)`\s+VERSION\s+AS\s+OF\s+(\d+)", sql)
         if not refs:
             raise RuntimeError("Weft SQL lacks explicit pinned Delta references")
         for db, role, version in refs:
-            if db != database or role not in roles or int(version) != roles[role].head_version:
+            if db != prepared["database"] or role not in roles or int(version) != roles[role].head_version:
                 raise RuntimeError("Weft SQL does not bind exact R61 role heads")
-            source = f"`spark_catalog`.`{database}`.`{role}`"
+            source = f"`spark_catalog`.`{prepared['database']}`.`{role}`"
             sql = sql.replace(source, f"delta.`{Path(state['delta_root']) / role}`")
         if "spark_catalog" in sql:
             raise RuntimeError("Unresolved Weft catalog reference")
@@ -567,7 +781,7 @@ def _run_weft_reads(spark, state: dict, setup: dict) -> dict:
         raise RuntimeError("Native Weft singleton differs from accepted public seed source")
     if results["grouped"]["rows"] != [{"person_key": "p1", "paths": 1, "targets": 1}]:
         raise RuntimeError("Native Weft grouped path query differs from source-derived graph")
-    return {"compiler": "umf-weft/0.4.56", "results": results,
+    return {"compiler": prepared["compiler"], "results": results,
             "source_oracle": {"singleton": ["p1", "Ada"],
                 "grouped": [{"person_key": "p1", "paths": 1, "targets": 1}]}}
 
@@ -598,7 +812,8 @@ def _seed_records() -> tuple[list, list]:
 def run() -> dict:
     scope = json.loads(SCOPE.read_text())
     artifacts = scope["artifacts"]
-    resume_mode = "resume_after_genesis" in scope
+    resume_seed_mode = type(scope.get("resume_after_seed")) is dict
+    resume_mode = resume_seed_mode or type(scope.get("resume_after_genesis")) is dict
     runtime_identity = _install_runtime(scope)
     from truss import LocalPostgres
     import psycopg
@@ -618,7 +833,15 @@ def run() -> dict:
     spec.loader.exec_module(setup_module)
     run_fresh_truss_setup_stage = setup_module.run_fresh_truss_setup_stage
     root = ROOT
-    if resume_mode:
+    if resume_seed_mode:
+        (setup, resume_seed_publication, resume_seed_ack_file, resume_seed_page,
+         prior_seed_failure, resume_ack_file, resume_source_page,
+         resume_ack_proof) = _resume_seed_inputs(scope)
+        canonical_origin = Path(scope["resume_after_seed"]["origin_path"])
+        EFFECTS["delta_write_state"] = "retained_seed_publication"
+        EFFECTS["source_ack_attempted"] = True
+        EFFECTS["source_ack_state"] = "previously_reconciled_matched"
+    elif resume_mode:
         setup, resume_ack_file, resume_source_page, resume_ack_proof = _resume_genesis_inputs(scope)
         canonical_origin = Path(scope["resume_after_genesis"]["origin_path"])
         EFFECTS["delta_write_state"] = "retained_catalog_genesis_publication"
@@ -683,7 +906,24 @@ def run() -> dict:
                 if not host.detach(): raise RuntimeError("public Truss host detach refused")
             connection.rollback()
         from ashlar_host.truss_note_publication import read_page
-        if resume_mode:
+        initial_page = setup["initial_source_page"]
+        initial_content = base64.b64decode(initial_page["content_base64"], validate=True)
+        initial_prior = base64.b64decode(initial_page["prior_base64"], validate=True)
+        initial_next = base64.b64decode(initial_page["next_base64"], validate=True)
+        if resume_seed_mode:
+            from truss.feed import FeedCursor, FeedPage
+            genesis_cursor = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
+            genesis_page = FeedPage(
+                consumer_id=initial_page["consumer_id"],
+                registration_id=initial_page["registration_id"],
+                prior=FeedCursor(content=initial_prior),
+                next=FeedCursor(content=initial_next),
+                content=initial_content,
+                sha256=initial_page["sha256"],
+                writer_xid=initial_page["writer_xid"],
+                safe_watermark_xid=initial_page["safe_watermark_xid"],
+                outcome=initial_page["outcome"])
+        elif resume_mode:
             from truss.feed import FeedCursor, FeedPage
             # The current public source cursor is observed before any new group
             # operation. The retained transaction page is reconstructed only
@@ -701,10 +941,6 @@ def run() -> dict:
                 outcome=resume_source_page["outcome"])
         else:
             genesis_page = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
-        initial_page = setup["initial_source_page"]
-        initial_content = base64.b64decode(initial_page["content_base64"], validate=True)
-        initial_prior = base64.b64decode(initial_page["prior_base64"], validate=True)
-        initial_next = base64.b64decode(initial_page["next_base64"], validate=True)
         if (sha(initial_content) != initial_page["sha256"]
                 or sha(genesis_page.content) != genesis_page.sha256
                 or genesis_page.content != initial_content
@@ -747,7 +983,22 @@ def run() -> dict:
                     context_holder=holder, state=state)
             return select_page
 
-        if resume_mode:
+        if resume_seed_mode:
+            expected_next = base64.b64decode(resume_source_page["next"], validate=True)
+            from types import SimpleNamespace
+            genesis_vector = resume_ack_file["publication_vector"]
+            genesis_state = {"observation": SimpleNamespace(vector=SimpleNamespace(
+                targets={key: tuple(value) for key, value in genesis_vector["targets"].items()}))}
+            intent_path = delta / f"publication-intent-{resume_ack_file['request_digest']}.json"
+            if not intent_path.is_file() or intent_path.is_symlink():
+                raise RuntimeError("Original A0 publication intent file is missing")
+            genesis_result = {"manifest": resume_ack_file["manifest"],
+                "publication_intent": {"path": str(intent_path), "sha256": sha(intent_path.read_bytes())}}
+            genesis_ack = {"outcome": "reconciled_matched",
+                "checkpoint_sha256": sha(expected_next), "receipt_outcome": "matched",
+                "ack_matched": True,
+                "read_only_reconciliation_sha256": sha(Path(scope["resume_after_seed"]["a0_ack_reconciliation_receipt"]).read_bytes())}
+        elif resume_mode:
             # A0 was already published and protected-ACKed. Use the exact
             # source/Delta receipts and check the live cursor before proceeding;
             # never republish or repeat that ACK.
@@ -819,21 +1070,6 @@ def run() -> dict:
             "publication_vector": {k: list(v) for k, v in genesis_state["observation"].vector.targets.items()},
             "ack": genesis_ack})
 
-        group_records, group_edges = _seed_records()
-        seed_config = root / "seed-group.json"
-        _group_config(seed_config, root / "seed-group-result.json", uri=source_uri,
-                      records=group_records, edges=group_edges, key="ashlar-r61-seed-seven",
-                      origin_path=canonical_origin)
-        run_create_truss_record_group_command(seed_config, root / "seed-group-result.json", require_fresh=True)
-        phase_receipts.append({"phase": "seven_operation_public_seed", "records": 4,
-                               "edges": 3, "event_count": 7,
-                               "receipt_sha256": sha((root / "seed-group-result.json").read_bytes())})
-        page = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
-        seed_payload = json.loads(page.content)
-        if (page.outcome != "transaction" or page.consumer_id != CONSUMER
-                or len(seed_payload.get("changes", [])) != 7):
-            raise RuntimeError("public Truss did not expose the exact seven-operation seed page")
-
         from ashlar_host.truss_continue_cli import run_continue_truss_graph_command
         genesis_intent = genesis_result.get("publication_intent")
         if type(genesis_intent) is not dict or set(genesis_intent) != {"path", "sha256"}:
@@ -857,24 +1093,70 @@ def run() -> dict:
             path.write_bytes(canonical(value) + b"\n")
             os.chmod(path, 0o600)
             return value
-        seed_continuation_path = root / "seed-continuation-config.json"
-        continuation_config_for(seed_continuation_path, genesis_intent)
-        seed_state = {}
-        seed_result_path = root / "seed-continuation-result.json"
-        EFFECTS["delta_write_state"] = "possible_seed_continuation_publication"
-        continued_seed = run_continue_truss_graph_command(
-            seed_continuation_path, seed_result_path, maximum_pages=1,
-            wait_seconds=0, maximum_page_bytes=1048576,
-            defer_source_acknowledgement=True,
-            prepublication_source_custody=selector_for(seed_state), export_graph=False)
-        EFFECTS["delta_write_state"] = "confirmed_seed_continuation_publication"
-        if (continued_seed.get("source_acknowledgement") != "deferred_not_attempted"
-                or len(continued_seed.get("publications", ())) != 1
-                or "selection" not in seed_state):
-            raise RuntimeError("one seven-op seed publication and native custody bind required")
-        seed_result = continued_seed["publications"][0]
-        seed_ack = _acknowledge(seed_state)
-        seed_cursor = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
+        if resume_seed_mode:
+            from types import SimpleNamespace
+            seed_result = resume_seed_publication
+            seed_ack = {"outcome": "reconciled_matched",
+                "checkpoint_sha256": sha(base64.b64decode(resume_seed_page["next"], validate=True)),
+                "receipt_outcome": "matched", "ack_matched": True,
+                "reconciliation_source": "prior_worker_failure_closed_reconciled"}
+            seed_targets = resume_seed_ack_file["publication_vector"]["targets"]
+            expected_roles = {"object_current", "edge_current", "tombstone", "whole_source_history"}
+            if {name.rsplit(".", 1)[-1] for name in seed_targets} != expected_roles:
+                raise RuntimeError("retained seed ACK vector is not the complete four-role publication")
+            role_values = {name.rsplit(".", 1)[-1]: value for name, value in seed_targets.items()}
+            seed_roles = {role: SimpleNamespace(uuid=value[0], head_version=int(value[1]))
+                          for role, value in role_values.items()}
+            manifest_log = delta / "manifest" / "_delta_log" / "00000000000000000000.json"
+            manifest_id = next(json.loads(line)["metaData"]["id"]
+                for line in manifest_log.read_text().splitlines()
+                if "\"metaData\"" in line)
+            if manifest_id != scope["resume_after_seed"]["manifest_table_uuid"]:
+                raise RuntimeError("retained Delta manifest table UUID differs from the reviewed seed scope")
+            seed_state = {"observation": SimpleNamespace(
+                roles=seed_roles, vector=SimpleNamespace(targets={k: tuple(v) for k,v in seed_targets.items()})),
+                "selection": SimpleNamespace(publication_id=resume_seed_ack_file["publication_id"]),
+                "manifest_uuid": manifest_id, "delta_root": str(delta)}
+            seed_cursor = genesis_cursor
+            expected_seed_next = base64.b64decode(resume_seed_page["next"], validate=True)
+            if (seed_cursor.outcome != "empty_interval"
+                    or seed_cursor.prior.content != expected_seed_next
+                    or sha(seed_cursor.prior.content) != scope["resume_after_seed"]["seed_next_cursor_sha256"]
+                    or prior_seed_failure.get("source_ack_state") != "closed_reconciled"):
+                raise RuntimeError("Retained seed ACK does not match the live public checkpoint")
+        else:
+            group_records, group_edges = _seed_records()
+            seed_config = root / "seed-group.json"
+            _group_config(seed_config, root / "seed-group-result.json", uri=source_uri,
+                          records=group_records, edges=group_edges, key="ashlar-r61-seed-seven",
+                          origin_path=canonical_origin)
+            run_create_truss_record_group_command(seed_config, root / "seed-group-result.json", require_fresh=True)
+            phase_receipts.append({"phase": "seven_operation_public_seed", "records": 4,
+                                   "edges": 3, "event_count": 7,
+                                   "receipt_sha256": sha((root / "seed-group-result.json").read_bytes())})
+            page = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
+            seed_payload = json.loads(page.content)
+            if (page.outcome != "transaction" or page.consumer_id != CONSUMER
+                    or len(seed_payload.get("changes", [])) != 7):
+                raise RuntimeError("public Truss did not expose the exact seven-operation seed page")
+            seed_continuation_path = root / "seed-continuation-config.json"
+            continuation_config_for(seed_continuation_path, genesis_intent)
+            seed_state = {}
+            seed_result_path = root / "seed-continuation-result.json"
+            EFFECTS["delta_write_state"] = "possible_seed_continuation_publication"
+            continued_seed = run_continue_truss_graph_command(
+                seed_continuation_path, seed_result_path, maximum_pages=1,
+                wait_seconds=0, maximum_page_bytes=1048576,
+                defer_source_acknowledgement=True,
+                prepublication_source_custody=selector_for(seed_state), export_graph=False)
+            EFFECTS["delta_write_state"] = "confirmed_seed_continuation_publication"
+            if (continued_seed.get("source_acknowledgement") != "deferred_not_attempted"
+                    or len(continued_seed.get("publications", ())) != 1
+                    or "selection" not in seed_state):
+                raise RuntimeError("one seven-op seed publication and native custody bind required")
+            seed_result = continued_seed["publications"][0]
+            seed_ack = _acknowledge(seed_state)
+            seed_cursor = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
         if (seed_cursor.outcome != "empty_interval"
                 or sha(seed_cursor.prior.content) != seed_ack["checkpoint_sha256"]):
             raise RuntimeError("seven-op seed ACK does not match the saved next checkpoint")

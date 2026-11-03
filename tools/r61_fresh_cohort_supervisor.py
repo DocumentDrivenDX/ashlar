@@ -108,7 +108,8 @@ def _bounded_output_size(root: Path, scope: dict, *, stop_after: int,
                          exclude: Path | None = None,
                          deadline: float | None = None) -> int:
     size = _tree_size(root, stop_after=stop_after, exclude=exclude, deadline=deadline)
-    if size > stop_after or type(scope.get("resume_after_genesis")) is not dict:
+    if size > stop_after or not any(type(scope.get(key)) is dict
+                                    for key in ("resume_after_genesis", "resume_after_seed")):
         return size
     for key in ("postgres_data", "delta_root"):
         retained = Path(scope["fresh_local_state"][key])
@@ -536,7 +537,8 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
             or limits.get("attempts") != 1):
         raise RuntimeError("R61 hard bounds differ from reviewed limits")
     state = scope["fresh_local_state"]
-    resume = scope.get("resume_after_genesis")
+    resume_seed = scope.get("resume_after_seed")
+    resume = resume_seed if type(resume_seed) is dict else scope.get("resume_after_genesis")
     resume_mode = type(resume) is dict
     state_keys = ("root", "evidence_root") if resume_mode else (
         "root", "postgres_data", "delta_root", "evidence_root")
@@ -554,8 +556,10 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
         elif not resume_mode or not candidate.is_dir() or candidate.is_symlink():
             raise RuntimeError(f"retained continuation state directory unavailable: {key}")
     if resume_mode:
-        if resume.get("profile") != "ashlar-r61-resume-after-genesis-ack/0.1":
-            raise RuntimeError("exact reviewed R61 continuation profile required")
+        expected_profile = ("ashlar-r61-resume-after-seed-ack/0.1" if type(resume_seed) is dict
+                            else "ashlar-r61-resume-after-genesis-ack/0.1")
+        if resume.get("profile") != expected_profile:
+            raise RuntimeError("exact reviewed R61 retained-state profile required")
         for key, path_key in (("pgdata_tree_sha256", "postgres_data"),
                               ("delta_tree_sha256", "delta_root")):
             if _tree_digest(Path(state[path_key])) != resume.get(key):
@@ -607,9 +611,13 @@ def preflight() -> dict:
             "missing_bindings": sorted(set(missing)),
             "bounds_enforced_by_supervisor": True,
             "limits": scope["limits"], "output_root_absent": True,
-            "continuing_after_genesis_ack": type(scope.get("resume_after_genesis")) is dict,
-            "truss_socket_directory_absent": type(scope.get("resume_after_genesis")) is not dict,
-            "retained_truss_socket_directory_empty": type(scope.get("resume_after_genesis")) is dict,
+            "continuing_after_genesis_ack": (type(scope.get("resume_after_genesis")) is dict
+                                               or type(scope.get("resume_after_seed")) is dict),
+            "continuing_after_seed_ack": type(scope.get("resume_after_seed")) is dict,
+            "truss_socket_directory_absent": not (type(scope.get("resume_after_genesis")) is dict
+                                                   or type(scope.get("resume_after_seed")) is dict),
+            "retained_truss_socket_directory_empty": (type(scope.get("resume_after_genesis")) is dict
+                                                        or type(scope.get("resume_after_seed")) is dict),
             "supervisor_psutil": {"version": psutil.__version__,
                                   "module_path": str(psutil_path),
                                   "module_sha256": _sha(psutil_path)},
