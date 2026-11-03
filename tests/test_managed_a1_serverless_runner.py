@@ -13,6 +13,7 @@ from unittest.mock import patch
 from tools.run_managed_a1_serverless import (
     _LocalPinStages, _recover_run_after_lost_response, _run_stage, run,
     _put_volume_bytes,
+    _job_runs,
     _validate_ack_settlement,
     _verify_terminal_proof,
     _admit_job_readback, _job_settings,
@@ -75,7 +76,7 @@ class _LostRunNowAPI:
                 "result_state": "SUCCESS"}, "tasks": []}
         if method == "get" and path == "/api/2.2/jobs/runs/get-output?run_id=29":
             return {"notebook_output": {"result": '{"ok":true}'}}
-        if method == "delete" and path == "/api/2.2/jobs/delete":
+        if method == "post" and path == "/api/2.2/jobs/delete":
             self.deleted = True
             return {}
         raise AssertionError((method, path, body))
@@ -167,6 +168,22 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         self.assertEqual(api.calls[1][2], True)   # precreated local readback only
         self.assertEqual(api.remote["dbfs:/Volumes/client_dev/ashlar_a1_x/trial/genesis.bin"],
                          payload)
+
+    def test_fresh_job_run_inventory_accepts_omitted_runs_only_as_empty(self):
+        class RunsAPI:
+            def __init__(self, response): self.response = response; self.path = None
+            def call(self, method, path):
+                self.path = path
+                return self.response
+        empty = RunsAPI({})
+        self.assertEqual(_job_runs(empty, 745992151311768), [])
+        self.assertIn("limit=25", empty.path)
+        explicit_null = RunsAPI({"runs": None})
+        with self.assertRaisesRegex(ValueError, "complete fresh-job run inventory"):
+            _job_runs(explicit_null, 745992151311768)
+        continuation = RunsAPI({"runs": [], "next_page_token": "next"})
+        with self.assertRaisesRegex(ValueError, "complete fresh-job run inventory"):
+            _job_runs(continuation, 745992151311768)
 
     def test_actual_provider_probe_readback_admits_only_documented_defaults(self):
         from tools.prepare_a1_serverless_runtime_probe import build_payload

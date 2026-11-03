@@ -734,9 +734,13 @@ def _task_output(api: DatabricksCLI, run_id: int) -> dict:
 
 
 def _job_runs(api: DatabricksCLI, job_id: int) -> list[dict]:
-    response = api.call("get", f"/api/2.2/jobs/runs/list?job_id={job_id}&limit=100")
-    rows = response.get("runs")
-    require(type(rows) is list and len(rows) <= 100
+    # Jobs Runs List accepts a maximum page size of 25. This trial creates a
+    # fresh job and admits only a complete, single-page run inventory, so a
+    # missing `runs` member is the API's empty-list default, while explicit
+    # null or a continuation page remains a refusal.
+    response = api.call("get", f"/api/2.2/jobs/runs/list?job_id={job_id}&limit=25")
+    rows = response["runs"] if "runs" in response else []
+    require(type(rows) is list and len(rows) <= 25
             and response.get("next_page_token") in (None, ""),
             "Bounded complete fresh-job run inventory required")
     require(all(type(row) is dict and type(row.get("run_id")) is int for row in rows),
@@ -951,7 +955,7 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
         persist({"run_now_state": "terminal_success", "run_id": run_id,
                  "task_run_id": task_run_id, "result_state": snapshot.get("state", {}).get("result_state")})
         api.deadline = cleanup_deadline
-        api.call("delete", "/api/2.2/jobs/delete", {"job_id": job_id})
+        api.call("post", "/api/2.2/jobs/delete", {"job_id": job_id})
         persist({"job_create_state": "deleted"})
         return run_id, task_run_id, snapshot, output
     except BaseException:
@@ -987,7 +991,7 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
         if (job_id is not None and
                 (not run_attempted or (run_id is not None and _terminal(snapshot.get("state", {}))))):
             try:
-                api.call("delete", "/api/2.2/jobs/delete", {"job_id": job_id})
+                api.call("post", "/api/2.2/jobs/delete", {"job_id": job_id})
                 persist({"job_create_state": "deleted"})
             except Exception:
                 pass
