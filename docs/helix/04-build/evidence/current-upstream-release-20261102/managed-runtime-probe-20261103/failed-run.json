@@ -1,0 +1,105 @@
+{
+  "cleanup_duration": 0,
+  "creator_user_name": "erik.labianca@synaptiq.ai",
+  "effective_performance_target": "PERFORMANCE_OPTIMIZED",
+  "end_time": 1793668507540,
+  "execution_duration": 0,
+  "job_id": 613823195492464,
+  "job_run_id": 335133416738587,
+  "number_in_job": 335133416738587,
+  "original_attempt_run_id": 335133416738587,
+  "run_duration": 55362,
+  "run_id": 335133416738587,
+  "run_name": "ashlar-a1-serverless-runtime-probe",
+  "run_page_url": "https://adb-7405607548213398.18.azuredatabricks.net/?o=7405607548213398#job/613823195492464/run/335133416738587",
+  "run_type": "JOB_RUN",
+  "setup_duration": 0,
+  "start_time": 1793668452178,
+  "state": {
+    "life_cycle_state": "TERMINATED",
+    "result_state": "CANCELED",
+    "state_message": "Run cancelled by user",
+    "user_cancelled_or_timedout": true
+  },
+  "status": {
+    "state": "TERMINATED",
+    "termination_details": {
+      "code": "USER_CANCELED",
+      "message": "Run cancelled by user",
+      "type": "SUCCESS"
+    }
+  },
+  "tasks": [
+    {
+      "attempt_number": 0,
+      "cleanup_duration": 0,
+      "effective_performance_target": "PERFORMANCE_OPTIMIZED",
+      "end_time": 1793668477197,
+      "environment_key": "probe_env",
+      "execution_duration": 20000,
+      "notebook_task": {
+        "base_parameters": {
+          "protocol_identity": "ashlar-configured-local-delta/0.1"
+        },
+        "notebook_path": "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/managed_a1/runtime_probe.py",
+        "source": "WORKSPACE"
+      },
+      "run_id": 1050697738031109,
+      "run_if": "ALL_SUCCESS",
+      "run_page_url": "https://adb-7405607548213398.18.azuredatabricks.net/?o=7405607548213398#job/613823195492464/run/1050697738031109",
+      "setup_duration": 4000,
+      "start_time": 1793668452206,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "FAILED",
+        "state_message": "Workload failed, see run output for details",
+        "user_cancelled_or_timedout": false
+      },
+      "status": {
+        "state": "TERMINATED",
+        "termination_details": {
+          "code": "RUN_EXECUTION_ERROR",
+          "message": "Workload failed, see run output for details",
+          "type": "CLIENT_ERROR"
+        }
+      },
+      "task_key": "runtime_probe"
+    },
+    {
+      "attempt_number": 1,
+      "cleanup_duration": 0,
+      "effective_performance_target": "PERFORMANCE_OPTIMIZED",
+      "end_time": 1793668507126,
+      "environment_key": "probe_env",
+      "execution_duration": 26000,
+      "notebook_task": {
+        "base_parameters": {
+          "protocol_identity": "ashlar-configured-local-delta/0.1"
+        },
+        "notebook_path": "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/managed_a1/runtime_probe.py",
+        "source": "WORKSPACE"
+      },
+      "run_id": 95756602622280,
+      "run_if": "ALL_SUCCESS",
+      "run_page_url": "https://adb-7405607548213398.18.azuredatabricks.net/?o=7405607548213398#job/613823195492464/run/95756602622280",
+      "setup_duration": 3000,
+      "start_time": 1793668478017,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "CANCELED",
+        "state_message": "Workload failed, see run output for details",
+        "user_cancelled_or_timedout": true
+      },
+      "status": {
+        "state": "TERMINATED",
+        "termination_details": {
+          "code": "RUN_EXECUTION_ERROR",
+          "message": "Workload failed, see run output for details",
+          "type": "CLIENT_ERROR"
+        }
+      },
+      "task_key": "runtime_probe"
+    }
+  ],
+  "trigger": "ONE_TIME"
+}

@@ -1,0 +1,814 @@
+[
+  {
+    "name": "edge_current",
+    "table_id": "a2f55cff-04bd-453f-886d-0d309a3b4211",
+    "owner": "erik.labianca@synaptiq.ai",
+    "table_type": "MANAGED",
+    "columns": [
+      {
+        "name": "source_system",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 0,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_system\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "rel_type_id",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 1,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"rel_type_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "id",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 2,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "source_type",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 3,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_type\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "source_id",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 4,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "target_type",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 5,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"target_type\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "target_id",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 6,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"target_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "schema_revision",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 7,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"schema_revision\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "entity_version",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 8,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"entity_version\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "props_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 9,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"props_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "retained_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 10,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"retained_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "order_key",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 11,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"order_key\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      },
+      {
+        "name": "source_feed",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 12,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_feed\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "source_epoch",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 13,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_epoch\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "source_position",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 14,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_position\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      },
+      {
+        "name": "published_at",
+        "type_text": "timestamp",
+        "type_name": "TIMESTAMP",
+        "position": 15,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"published_at\",\"type\":\"timestamp\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "lookup_hash",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 16,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"lookup_hash\",\"type\":\"long\",\"nullable\":false,\"metadata\":{\"comment\":\"Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, rel_type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.\"}}",
+        "comment": "Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, rel_type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "apply_batch_id",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 17,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"apply_batch_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      },
+      {
+        "name": "source_cursor_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 18,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_cursor_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      },
+      {
+        "name": "source_delivery_id",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 19,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      }
+    ],
+    "enable_predictive_optimization": "INHERIT",
+    "effective_predictive_optimization_flag": {
+      "value": "ENABLE",
+      "inherited_from_type": "METASTORE",
+      "inherited_from_name": "metastore_centralus"
+    }
+  },
+  {
+    "name": "object_current",
+    "table_id": "9780752e-5397-4303-bbb8-acfc8b29ec08",
+    "owner": "erik.labianca@synaptiq.ai",
+    "table_type": "MANAGED",
+    "columns": [
+      {
+        "name": "source_system",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 0,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_system\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "type_id",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 1,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"type_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "id",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 2,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "logical_key_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 3,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"logical_key_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "schema_revision",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 4,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"schema_revision\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "entity_version",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 5,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"entity_version\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "props_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 6,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"props_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "retained_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 7,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"retained_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "root_id",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 8,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"root_id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      },
+      {
+        "name": "source_feed",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 9,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_feed\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "source_epoch",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 10,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_epoch\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "source_position",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 11,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_position\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      },
+      {
+        "name": "published_at",
+        "type_text": "timestamp",
+        "type_name": "TIMESTAMP",
+        "position": 12,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"published_at\",\"type\":\"timestamp\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "lookup_hash",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 13,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"lookup_hash\",\"type\":\"long\",\"nullable\":false,\"metadata\":{\"comment\":\"Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.\"}}",
+        "comment": "Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "apply_batch_id",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 14,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"apply_batch_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      },
+      {
+        "name": "source_cursor_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 15,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_cursor_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      },
+      {
+        "name": "source_delivery_id",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 16,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      }
+    ],
+    "enable_predictive_optimization": "INHERIT",
+    "effective_predictive_optimization_flag": {
+      "value": "ENABLE",
+      "inherited_from_type": "METASTORE",
+      "inherited_from_name": "metastore_centralus"
+    }
+  },
+  {
+    "name": "publication_attempt_phase",
+    "table_id": "1cab4ef1-09a1-4129-95fe-3357c03f61e5",
+    "owner": "erik.labianca@synaptiq.ai",
+    "table_type": "MANAGED",
+    "columns": [
+      {
+        "name": "stream",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 0,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"stream\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "batch_id",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 1,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"batch_id\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "phase",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 2,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"phase\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "request_digest",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 3,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"request_digest\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "payload_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 4,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"payload_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "payload_digest",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 5,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"payload_digest\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      }
+    ],
+    "enable_predictive_optimization": "INHERIT",
+    "effective_predictive_optimization_flag": {
+      "value": "ENABLE",
+      "inherited_from_type": "METASTORE",
+      "inherited_from_name": "metastore_centralus"
+    }
+  },
+  {
+    "name": "publication_manifest",
+    "table_id": "5733dc67-3560-413a-bcd2-40899c5f9516",
+    "owner": "erik.labianca@synaptiq.ai",
+    "table_type": "MANAGED",
+    "columns": [
+      {
+        "name": "publication_id",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 0,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"publication_id\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "profile_version",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 1,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"profile_version\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "table_versions_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 2,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"table_versions_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "source_progress_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 3,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_progress_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "schema_revisions_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 4,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"schema_revisions_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "validation_report_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 5,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"validation_report_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "recorded_at",
+        "type_text": "timestamp",
+        "type_name": "TIMESTAMP",
+        "position": 6,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"recorded_at\",\"type\":\"timestamp\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      }
+    ],
+    "enable_predictive_optimization": "INHERIT",
+    "effective_predictive_optimization_flag": {
+      "value": "ENABLE",
+      "inherited_from_type": "METASTORE",
+      "inherited_from_name": "metastore_centralus"
+    }
+  },
+  {
+    "name": "tombstone",
+    "table_id": "31ab276a-bbf4-4f61-9758-d9a71bb34627",
+    "owner": "erik.labianca@synaptiq.ai",
+    "table_type": "MANAGED",
+    "columns": [
+      {
+        "name": "source_system",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 0,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_system\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "entity_kind",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 1,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"entity_kind\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "type_id",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 2,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"type_id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "id",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 3,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"id\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "entity_version",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 4,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"entity_version\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "source_feed",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 5,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_feed\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "source_epoch",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 6,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_epoch\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "source_position",
+        "type_text": "bigint",
+        "type_name": "LONG",
+        "position": 7,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_position\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      },
+      {
+        "name": "source_cursor_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 8,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_cursor_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      },
+      {
+        "name": "source_delivery_id",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 9,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"source_delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+        "nullable": true,
+        "column_masks": {}
+      }
+    ],
+    "enable_predictive_optimization": "INHERIT",
+    "effective_predictive_optimization_flag": {
+      "value": "ENABLE",
+      "inherited_from_type": "METASTORE",
+      "inherited_from_name": "metastore_centralus"
+    }
+  },
+  {
+    "name": "whole_source_history",
+    "table_id": "4f90ffee-fa18-4334-b89e-3ee927aa4e9c",
+    "owner": "erik.labianca@synaptiq.ai",
+    "table_type": "MANAGED",
+    "columns": [
+      {
+        "name": "feed",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 0,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"feed\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "epoch",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 1,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"epoch\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "delivery_id",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 2,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"delivery_id\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "digest",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 3,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"digest\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "change_json",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 4,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"change_json\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      },
+      {
+        "name": "raw_base64",
+        "type_text": "string",
+        "type_name": "STRING",
+        "position": 5,
+        "type_precision": 0,
+        "type_scale": 0,
+        "type_json": "{\"name\":\"raw_base64\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}",
+        "nullable": false,
+        "column_masks": {}
+      }
+    ],
+    "enable_predictive_optimization": "INHERIT",
+    "effective_predictive_optimization_flag": {
+      "value": "ENABLE",
+      "inherited_from_type": "METASTORE",
+      "inherited_from_name": "metastore_centralus"
+    }
+  }
+]

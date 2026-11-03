@@ -1,0 +1,24 @@
+{
+  "schema": "client_dev.ashlar_a1_release_20261103_r11",
+  "schema_id": "97ad150b-0a91-4eef-b610-89563b943f83",
+  "uc_table_ids_deleted": {
+    "client_dev.ashlar_a1_release_20261103_r11.edge_current": "975199b7-1f04-4ce0-87a3-63856339fffd",
+    "client_dev.ashlar_a1_release_20261103_r11.object_current": "198e623e-9cd0-433e-a83b-841c52992389",
+    "client_dev.ashlar_a1_release_20261103_r11.publication_attempt_phase": "bb2ba4a5-e54d-4e13-90c7-ec775a710446",
+    "client_dev.ashlar_a1_release_20261103_r11.publication_manifest": "acb26c88-c96e-481c-9c41-b6d527a45db8",
+    "client_dev.ashlar_a1_release_20261103_r11.tombstone": "26e15299-cea9-480d-9e45-c752f777ebe1",
+    "client_dev.ashlar_a1_release_20261103_r11.whole_source_history": "9149d55f-896f-41fe-a229-783ec66ab6b4"
+  },
+  "delta_ids_from_initializer": {
+    "client_dev.ashlar_a1_release_20261103_r11.edge_current": "ce59ae38-f407-4ff3-a7d1-3718e603d5e2",
+    "client_dev.ashlar_a1_release_20261103_r11.object_current": "d8673fbc-cd47-48d7-b775-c2f38ae3f551",
+    "client_dev.ashlar_a1_release_20261103_r11.publication_attempt_phase": "af136043-8232-4bab-9c83-9475a897872e",
+    "client_dev.ashlar_a1_release_20261103_r11.publication_manifest": "ba293fb4-1c6a-4012-b8e7-ad1b0e1b851d",
+    "client_dev.ashlar_a1_release_20261103_r11.tombstone": "6e5611fe-7ba2-4cec-a0b7-cdfec3b0b63d",
+    "client_dev.ashlar_a1_release_20261103_r11.whole_source_history": "e804971a-7624-452d-90cf-7ccc9428ae45"
+  },
+  "volume_id_deleted": "17a2caac-05fc-4c19-8a3d-9e60a2a2d57a",
+  "status": "owned_resources_deleted",
+  "ack_attempted": false,
+  "initializer_run_id": 871607359444255
+}

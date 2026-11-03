@@ -1,0 +1,193 @@
+{
+  "actual_from_native_spark_read": {
+    "grouped": [
+      {
+        "paths": "1",
+        "person_key": "p1",
+        "targets": "1"
+      }
+    ],
+    "singleton": [
+      {
+        "person_key": "p1",
+        "person_name": "Ada"
+      }
+    ]
+  },
+  "compiled_queries": {
+    "grouped": {
+      "compiled_sql": "WITH `__weft_rel_0_source` AS (SELECT r.id AS __id, (CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM `spark_catalog`.`ashlar_r61_d3479b23a102`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)), `__weft_rel_1_target` AS (SELECT r.id AS __id, (CAST(CAST(variant_get(parse_json(r.props_json), :p8) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM `spark_catalog`.`ashlar_r61_d3479b23a102`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p5 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p6 AS BIGINT)), `__weft_rel_3_source` AS (SELECT r.id AS __id, (CAST(CAST(variant_get(parse_json(r.props_json), :p12) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM `spark_catalog`.`ashlar_r61_d3479b23a102`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p9 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p10 AS BIGINT)), `__weft_rel_4_target` AS (SELECT r.id AS __id, (CAST(CAST(variant_get(parse_json(r.props_json), :p16) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM `spark_catalog`.`ashlar_r61_d3479b23a102`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p13 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p14 AS BIGINT)), `s0` AS (SELECT r.id AS __id, (CAST(CAST(variant_get(parse_json(r.props_json), :p20) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM `spark_catalog`.`ashlar_r61_d3479b23a102`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p17 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p18 AS BIGINT)), `__weft_rel_2_edge` AS (SELECT e.* FROM `spark_catalog`.`ashlar_r61_d3479b23a102`.`edge_current` VERSION AS OF 2 e WHERE (e.source_system COLLATE UTF8_BINARY) = (:p21 COLLATE UTF8_BINARY) AND e.rel_type_id = CAST(:p22 AS BIGINT)), `__weft_rel_5_edge` AS (SELECT e.* FROM `spark_catalog`.`ashlar_r61_d3479b23a102`.`edge_current` VERSION AS OF 2 e WHERE (e.source_system COLLATE UTF8_BINARY) = (:p26 COLLATE UTF8_BINARY) AND e.rel_type_id = CAST(:p27 AS BIGINT)), `__weft_path_0_mid` AS (SELECT __id, (`__weft_rel_1_target`.`f1` COLLATE UTF8_BINARY) AS `m0` FROM `__weft_rel_1_target`), `__weft_path_0_terminal` AS (SELECT __id, (`__weft_rel_4_target`.`f1` COLLATE UTF8_BINARY) AS `t0` FROM `__weft_rel_4_target`), `__weft_path_0_rows` AS (SELECT e1.source_id AS __root, m.__id AS __intermediate, t.__id AS __terminal, e1.id AS __edge1, e2.id AS __edge2, `m`.`m0`, `t`.`t0` FROM `__weft_rel_2_edge` e1 JOIN `__weft_path_0_mid` m ON e1.target_id=m.__id JOIN `__weft_rel_5_edge` e2 ON e2.source_id=m.__id JOIN `__weft_path_0_terminal` t ON e2.target_id=t.__id) SELECT CAST((`s0`.`f1` COLLATE UTF8_BINARY) AS STRING) AS `person_key`, CAST(COUNT(*) AS STRING) AS `paths`, CAST(COUNT(DISTINCT struct(`__weft_path_0_rows`.`t0`)) AS STRING) AS `targets` FROM (`s0` INNER JOIN `__weft_path_0_rows` ON `__weft_path_0_rows`.__root=`s0`.__id) GROUP BY (`s0`.`f1` COLLATE UTF8_BINARY) HAVING COUNT(*)>CAST(:p31 AS BIGINT) ORDER BY `person_key` COLLATE UTF8_BINARY ASC",
+      "compiled_sql_sha256": "c3beeb5aa80e7393867f92d38b67f56a096ddf015caeda4b9215f6416174fd99",
+      "compiled_status": "compiled",
+      "executed_sql": "WITH `__weft_rel_0_source` AS (SELECT r.id AS __id, (CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM delta.`/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta/object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)), `__weft_rel_1_target` AS (SELECT r.id AS __id, (CAST(CAST(variant_get(parse_json(r.props_json), :p8) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM delta.`/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta/object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p5 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p6 AS BIGINT)), `__weft_rel_3_source` AS (SELECT r.id AS __id, (CAST(CAST(variant_get(parse_json(r.props_json), :p12) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM delta.`/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta/object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p9 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p10 AS BIGINT)), `__weft_rel_4_target` AS (SELECT r.id AS __id, (CAST(CAST(variant_get(parse_json(r.props_json), :p16) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM delta.`/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta/object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p13 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p14 AS BIGINT)), `s0` AS (SELECT r.id AS __id, (CAST(CAST(variant_get(parse_json(r.props_json), :p20) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM delta.`/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta/object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p17 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p18 AS BIGINT)), `__weft_rel_2_edge` AS (SELECT e.* FROM delta.`/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta/edge_current` VERSION AS OF 2 e WHERE (e.source_system COLLATE UTF8_BINARY) = (:p21 COLLATE UTF8_BINARY) AND e.rel_type_id = CAST(:p22 AS BIGINT)), `__weft_rel_5_edge` AS (SELECT e.* FROM delta.`/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta/edge_current` VERSION AS OF 2 e WHERE (e.source_system COLLATE UTF8_BINARY) = (:p26 COLLATE UTF8_BINARY) AND e.rel_type_id = CAST(:p27 AS BIGINT)), `__weft_path_0_mid` AS (SELECT __id, (`__weft_rel_1_target`.`f1` COLLATE UTF8_BINARY) AS `m0` FROM `__weft_rel_1_target`), `__weft_path_0_terminal` AS (SELECT __id, (`__weft_rel_4_target`.`f1` COLLATE UTF8_BINARY) AS `t0` FROM `__weft_rel_4_target`), `__weft_path_0_rows` AS (SELECT e1.source_id AS __root, m.__id AS __intermediate, t.__id AS __terminal, e1.id AS __edge1, e2.id AS __edge2, `m`.`m0`, `t`.`t0` FROM `__weft_rel_2_edge` e1 JOIN `__weft_path_0_mid` m ON e1.target_id=m.__id JOIN `__weft_rel_5_edge` e2 ON e2.source_id=m.__id JOIN `__weft_path_0_terminal` t ON e2.target_id=t.__id) SELECT CAST((`s0`.`f1` COLLATE UTF8_BINARY) AS STRING) AS `person_key`, CAST(COUNT(*) AS STRING) AS `paths`, CAST(COUNT(DISTINCT struct(`__weft_path_0_rows`.`t0`)) AS STRING) AS `targets` FROM (`s0` INNER JOIN `__weft_path_0_rows` ON `__weft_path_0_rows`.__root=`s0`.__id) GROUP BY (`s0`.`f1` COLLATE UTF8_BINARY) HAVING COUNT(*)>CAST(:p31 AS BIGINT) ORDER BY `person_key` COLLATE UTF8_BINARY ASC",
+      "executed_sql_sha256": "54eaa5238f0c8fe46c69c75af08a6f052f7f991c7031f355a4d8e5b9596d4c30",
+      "request_sha256": "3a92dbf983451e489dcbe7a0ad27ffb523ba39bbbcc1f63b5bb95eae960eb4ac",
+      "response_sha256": "1fdbe3a0b0a72014b51e319061d4d2fbba0b85197917dfef4d9b2b4157e2c9de",
+      "target_context": {
+        "engine": "databricks-serverless-spark-jobs",
+        "engineVersion": "host-observed",
+        "id": "ashlar-managed-current-core/0.2-xxhash64",
+        "publicationRevision": "ashlar-managed-current-core/0.2-xxhash64",
+        "sessionSettings": {
+          "comparison": "UTF8_BINARY",
+          "lookupHashProfile": "spark-xxhash64-typed-key/0.1",
+          "runtime": "host-observed"
+        },
+        "storageLayoutRevision": "ashlar-delta/0.4-xxhash64"
+      }
+    },
+    "singleton": {
+      "compiled_sql": "WITH `s0` AS (SELECT (CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f0`, (CAST(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM `spark_catalog`.`ashlar_r61_d3479b23a102`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)) SELECT CAST((`s0`.`f0` COLLATE UTF8_BINARY) AS STRING) AS `person_key`, CAST((`s0`.`f1` COLLATE UTF8_BINARY) AS STRING) AS `person_name` FROM `s0` WHERE ((`s0`.`f0` COLLATE UTF8_BINARY) = (CAST(:p6 AS STRING) COLLATE UTF8_BINARY))",
+      "compiled_sql_sha256": "e741856d7b19ca4ddb406af38828eabe855ba07199358eaa740d7e978bb0a99e",
+      "compiled_status": "compiled",
+      "executed_sql": "WITH `s0` AS (SELECT (CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f0`, (CAST(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM delta.`/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta/object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)) SELECT CAST((`s0`.`f0` COLLATE UTF8_BINARY) AS STRING) AS `person_key`, CAST((`s0`.`f1` COLLATE UTF8_BINARY) AS STRING) AS `person_name` FROM `s0` WHERE ((`s0`.`f0` COLLATE UTF8_BINARY) = (CAST(:p6 AS STRING) COLLATE UTF8_BINARY))",
+      "executed_sql_sha256": "98c0934ce7d52a2df0c02d9b3c6e18c60d730331a6ff57bcc5d5776823e8f72a",
+      "request_sha256": "3dc2161e62c82128f4c5d2471fb52f649d21ae151e053998ec312c039ce438fb",
+      "response_sha256": "c46fd0cc534272c496edff8d5c1621e3f975e41a44027f05142841febcb460b1",
+      "target_context": {
+        "engine": "databricks-serverless-spark-jobs",
+        "engineVersion": "host-observed",
+        "id": "ashlar-managed-current-core/0.2-xxhash64",
+        "publicationRevision": "ashlar-managed-current-core/0.2-xxhash64",
+        "sessionSettings": {
+          "comparison": "UTF8_BINARY",
+          "lookupHashProfile": "spark-xxhash64-typed-key/0.1",
+          "runtime": "host-observed"
+        },
+        "storageLayoutRevision": "ashlar-delta/0.4-xxhash64"
+      }
+    }
+  },
+  "delta_tree_sha256_before_and_after_read_only_diagnosis": "7e2b4937859fd4bee8ed0fd65c857bce610fc923f239f2513b2d5cd75d7f3a09",
+  "diagnosis": "The query result values match the source-derived graph and compiled SQL casts both count outputs to STRING. The R61 assertion compared those strings to Python integers; this is a harness oracle type mismatch, not a Weft compiler or Delta data mismatch.",
+  "failure_receipts": {
+    "supervisor_result": {
+      "captured_log_bytes": 1929,
+      "cleanup": {
+        "group_empty": true,
+        "process_group_empty": true,
+        "sigkill_sent": false,
+        "sigterm_sent": false
+      },
+      "dispatch_receipt_sha256": "0142c8fbae1c306c452d0e1db6b4f64fe8720c3d5bfdc73734ae8c634e0e99e7",
+      "elapsed_seconds": 30.987,
+      "final_output_bytes": 69944635,
+      "log_bytes": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "native_started": true,
+      "output_bytes_before_receipt": 69942706,
+      "output_exceeded": false,
+      "peak_group_rss_bytes": 879722496,
+      "peak_postgres_tree_pid_count": 9,
+      "peak_postgres_tree_pids": [
+        79405,
+        79406,
+        79407,
+        79408,
+        79409,
+        79410,
+        79412,
+        79413,
+        79414
+      ],
+      "peak_process_group_pid_count": 3,
+      "peak_process_group_pids": [
+        78979,
+        79434,
+        79559
+      ],
+      "postgres_cleanup": {
+        "pg_ctl_returncode": null,
+        "postgres_closed": true,
+        "postmaster_pid_absent": true,
+        "runtime_lease": {
+          "present": true,
+          "unlocked": true
+        },
+        "socket_absent": true,
+        "standalone_backend_detected": false,
+        "stop_attempted": false
+      },
+      "rss_exceeded": false,
+      "scope_sha256": "27840b099701fed1a72d1c5df4d4c2b90f512a21835bdb6692e12f0b674605d6",
+      "standalone_postgres_backend_seen": false,
+      "status": "failed_worker",
+      "timed_out": false,
+      "worker_returncode": 2,
+      "worker_sha256": "829b273dfb265e5fe4ebcf2f59d2587f9524d809cc99ff4485000c76f30d3039"
+    },
+    "supervisor_result_sha256": "80192c3ca53df410985ab33c0e6b54f45ed8be78eb8c163f5f56c4102f4597eb",
+    "worker_failure": {
+      "cloud": false,
+      "custody_cleanup": [],
+      "delta_write_state": "retained_seed_publication",
+      "delta_written": true,
+      "effect_free": false,
+      "failure": "Native Weft grouped path query differs from source-derived graph",
+      "failure_type": "RuntimeError",
+      "graphframes_closed": false,
+      "graphframes_started": false,
+      "native_dispatched": true,
+      "postgres_closed": true,
+      "postgres_start_attempted": true,
+      "postgres_started": true,
+      "production_authority": false,
+      "profile": "ashlar-r61-fresh-cohort-worker/0.1",
+      "source_ack_attempted": true,
+      "source_ack_state": "previously_reconciled_matched",
+      "spark_closed": true,
+      "spark_started": true,
+      "status": "failed",
+      "traceback": "Traceback (most recent call last):\n  File \"/private/tmp/ashlar-r61-fresh-cohort-plan/tools/r61_fresh_cohort_worker.py\", line 1339, in main\n    completed = run()\n                ^^^^^\n  File \"/private/tmp/ashlar-r61-fresh-cohort-plan/tools/r61_fresh_cohort_worker.py\", line 1191, in run\n    weft_receipt = _run_weft_reads(spark, seed_state, setup)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/ashlar-r61-fresh-cohort-plan/tools/r61_fresh_cohort_worker.py\", line 805, in _run_weft_reads\n    raise RuntimeError(\"Native Weft grouped path query differs from source-derived graph\")\nRuntimeError: Native Weft grouped path query differs from source-derived graph\n"
+    },
+    "worker_failure_sha256": "d37f31df29f3d0fb459032bdc3f7a9284926cdc392d3f4f86c7c1407f0e92070"
+  },
+  "postgres_stopped_tree_sha256_after_attempt04": "11eb4947da434d3d01100826f3db8321b8782416664199ca7ff773d345c72199",
+  "prior_assertion_expected_grouped": [
+    {
+      "paths": 1,
+      "person_key": "p1",
+      "targets": 1
+    }
+  ],
+  "profile": "ashlar-r61-weft-grouped-assertion-diagnosis/0.1",
+  "publication_id": "truss-graph-c91f32a80ece198f8437864be029f8fa9a2ca38e3213bd587693d3479b23a102",
+  "read_only_diagnostic_spark": "local configured Spark 4.2.0 / Delta 4.4.1; no source API, ACK, group submission, or Delta write",
+  "scope_sha256": "27840b099701fed1a72d1c5df4d4c2b90f512a21835bdb6692e12f0b674605d6",
+  "seed_group_config_path": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation-02/seed-group.json",
+  "seed_group_config_sha256": "772362f6f7851fca355e59caea4a5b7721988b21438b56379e70106c91f47ff7",
+  "seed_page_content_sha256": "623256d8aaf8146b48238c2b97eb146bea8e852327d63013f7cf04c7980abebf",
+  "source_graph": {
+    "edges": [
+      {
+        "alias": "e1",
+        "relationship": "knows",
+        "source": "p1",
+        "target": "p2"
+      },
+      {
+        "alias": "e2",
+        "relationship": "knows",
+        "source": "p2",
+        "target": "p3"
+      },
+      {
+        "alias": "e3",
+        "relationship": "located",
+        "source": "p2",
+        "target": "l1"
+      }
+    ],
+    "expected_distinct_terminal_count": "1",
+    "expected_from_p1": [
+      "p1 --knows--> p2 --located--> l1"
+    ],
+    "expected_path_count": "1",
+    "object_aliases": [
+      "p1",
+      "p2",
+      "p3",
+      "l1"
+    ]
+  }
+}

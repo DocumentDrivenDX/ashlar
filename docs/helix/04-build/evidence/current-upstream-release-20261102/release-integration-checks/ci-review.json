@@ -1,0 +1,17 @@
+{
+  "reviewer": "Sol 6.1",
+  "implementation_model": "gpt-6-luna",
+  "reviewed_commit": "e940ce2a0bcddbdce3b82f9341cadd6a319cd1fa",
+  "status": "approved",
+  "job_count": 18,
+  "workflow_count": 10,
+  "timeouts_minutes": {
+    "routine_pr_and_pages": 10,
+    "publishing": 15,
+    "manual_qualification": 30
+  },
+  "triggers_matrices_permissions_commands_concurrency_unchanged": true,
+  "actions_runs": 0,
+  "remaining_material_quota_findings": [],
+  "default_timeout_source": "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_idtimeout-minutes"
+}

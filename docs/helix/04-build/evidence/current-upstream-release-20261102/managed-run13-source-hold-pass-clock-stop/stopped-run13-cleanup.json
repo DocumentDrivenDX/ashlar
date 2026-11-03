@@ -1,0 +1,21 @@
+{
+  "schema": "client_dev.ashlar_a1_release_20261103_r13",
+  "schema_id": "416c631d-f39e-4896-bfc5-e901c3390438",
+  "uc_table_ids_deleted": {
+    "client_dev.ashlar_a1_release_20261103_r13.edge_current": "40134933-5fb8-4626-ae9a-00404f65b14d",
+    "client_dev.ashlar_a1_release_20261103_r13.object_current": "e0348568-2d3c-4794-95b7-bdb2da311d83",
+    "client_dev.ashlar_a1_release_20261103_r13.publication_attempt_phase": "73a409c2-adfd-462e-9a0c-98c339e6613b",
+    "client_dev.ashlar_a1_release_20261103_r13.publication_manifest": "ffcef8ba-aa9a-4fb8-8c2e-86bc5844afec",
+    "client_dev.ashlar_a1_release_20261103_r13.tombstone": "1eec4ac4-8751-4e58-ae20-26d008dd58a0",
+    "client_dev.ashlar_a1_release_20261103_r13.whole_source_history": "5df19037-6c9c-4b0b-be73-1188d8e3fdab"
+  },
+  "volume_id_deleted": "1341ca20-3a5d-4861-9c7e-c9a0f65dbe6a",
+  "unsubmitted_publisher_jobs_deleted": [
+    625965573877568
+  ],
+  "status": "owned_resources_deleted",
+  "ack_attempted": false,
+  "source_hold_opened": true,
+  "stop_reason": "Owner review identified nonmonotonic publication clocks; interrupted before publisher run submission",
+  "initializer_run_id": 929016592145307
+}

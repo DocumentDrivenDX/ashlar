@@ -1,0 +1,17 @@
+{
+  "schema": "client_dev.ashlar_a1_release_20261103_r12",
+  "schema_id": "5609e5a9-aa3f-4b52-ace6-d1c9ffc271e4",
+  "uc_table_ids_deleted": {
+    "client_dev.ashlar_a1_release_20261103_r12.edge_current": "db19de4d-7a96-45f3-9fd7-2f9914ddf6c9",
+    "client_dev.ashlar_a1_release_20261103_r12.object_current": "9d3b87c8-0182-488d-a511-f44aaa4a6342",
+    "client_dev.ashlar_a1_release_20261103_r12.publication_attempt_phase": "16901152-67c2-410a-93b7-26cb861728f1",
+    "client_dev.ashlar_a1_release_20261103_r12.publication_manifest": "4ae7228f-a61a-4097-865d-e49ab9db4f5b",
+    "client_dev.ashlar_a1_release_20261103_r12.tombstone": "3fae47c6-b731-4877-a619-4e0046d1e2b5",
+    "client_dev.ashlar_a1_release_20261103_r12.whole_source_history": "510bdec6-c035-4e67-aa3a-e6c01d1da6c7"
+  },
+  "volume_id_deleted": "023895b7-765f-405b-b5a9-71a528146ebc",
+  "status": "owned_resources_deleted",
+  "ack_attempted": false,
+  "failure": "source-holder IPC closed",
+  "initializer_run_id": 432847335209848
+}

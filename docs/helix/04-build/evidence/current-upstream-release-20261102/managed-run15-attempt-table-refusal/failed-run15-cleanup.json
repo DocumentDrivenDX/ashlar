@@ -1,0 +1,18 @@
+{
+  "schema": "client_dev.ashlar_a1_release_20261103_r15",
+  "schema_id": "9951cf14-7492-40e6-8caf-b9f70d1bdc8f",
+  "uc_table_ids_deleted": {
+    "client_dev.ashlar_a1_release_20261103_r15.edge_current": "97824ce1-c773-416c-9ab1-6b02cc41be33",
+    "client_dev.ashlar_a1_release_20261103_r15.object_current": "b28e7eae-a832-455c-99f5-7d9aa1680ec4",
+    "client_dev.ashlar_a1_release_20261103_r15.publication_attempt_phase": "a76a666c-7378-4827-8ebb-41b3da1441d4",
+    "client_dev.ashlar_a1_release_20261103_r15.publication_manifest": "b6dc26f0-5660-4946-b230-e80cc9cb4011",
+    "client_dev.ashlar_a1_release_20261103_r15.tombstone": "af639e6b-2f00-4baf-bef0-2efdfb5cefb5",
+    "client_dev.ashlar_a1_release_20261103_r15.whole_source_history": "55d5cad3-ca1d-4f14-a515-1d668b20c78c"
+  },
+  "volume_id_deleted": "30190211-6b39-4c06-a930-b2fb300e4dca",
+  "status": "owned_resources_deleted",
+  "ack_attempted": false,
+  "source_hold_opened": true,
+  "failure": "Attempt store received tuple instead of qualified string; constructor refused before publication effects",
+  "publisher_run_id": 355229076182323
+}

@@ -1,0 +1,23 @@
+{
+  "catalog": "ai",
+  "principal": "erik.labianca@synaptiq.ai",
+  "protocol": "ashlar-configured-local-delta/0.1",
+  "runtimeName": "databricks-serverless",
+  "runtimeTag": null,
+  "schema": "default",
+  "serverlessApiProbe": {
+    "interruptTagResponseCount": 0,
+    "interruptTagResponseType": "list",
+    "operationTerminationClaimed": false,
+    "preexistingTagsRestored": true,
+    "profile": "ashlar-spark-connect-tag-api-probe/0.2",
+    "providedJobSessionBorrowed": true,
+    "tagAddedAndObserved": true,
+    "tagRemoved": true,
+    "taggedQueryRowCount": 1,
+    "taggedQueryValue": 1
+  },
+  "sideEffects": [],
+  "sparkBuildText": "4.2.0 0000000000000000000000000000000000000000",
+  "sparkVersion": "4.2.0"
+}

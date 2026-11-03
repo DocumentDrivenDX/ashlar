@@ -1,0 +1,76 @@
+{
+  "job_id": 546472438602327,
+  "run_id": 35837483215322,
+  "creator_user_name": "erik.labianca@synaptiq.ai",
+  "number_in_job": 35837483215322,
+  "original_attempt_run_id": 35837483215322,
+  "state": {
+    "life_cycle_state": "TERMINATED",
+    "result_state": "SUCCESS",
+    "state_message": "",
+    "user_cancelled_or_timedout": false
+  },
+  "start_time": 1793675183373,
+  "setup_duration": 5000,
+  "execution_duration": 33000,
+  "cleanup_duration": 0,
+  "end_time": 1793675222386,
+  "run_duration": 39013,
+  "trigger": "ONE_TIME",
+  "run_name": "ashlar-run10-readonly-metadata-capture",
+  "run_page_url": "https://adb-7405607548213398.18.azuredatabricks.net/?o=7405607548213398#job/546472438602327/run/35837483215322",
+  "run_type": "JOB_RUN",
+  "tasks": [
+    {
+      "run_id": 815992140928830,
+      "task_key": "readonly_capture",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/managed_a1/run10_readonly_capture.py",
+        "source": "WORKSPACE"
+      },
+      "environment_key": "readonly_capture_env",
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "SUCCESS",
+        "state_message": "",
+        "user_cancelled_or_timedout": false
+      },
+      "run_page_url": "https://adb-7405607548213398.18.azuredatabricks.net/?o=7405607548213398#job/546472438602327/run/815992140928830",
+      "start_time": 1793675183397,
+      "setup_duration": 5000,
+      "execution_duration": 33000,
+      "cleanup_duration": 0,
+      "end_time": 1793675222016,
+      "attempt_number": 0,
+      "status": {
+        "state": "TERMINATED",
+        "termination_details": {
+          "code": "SUCCESS",
+          "type": "SUCCESS",
+          "message": ""
+        }
+      },
+      "effective_performance_target": "PERFORMANCE_OPTIMIZED"
+    }
+  ],
+  "format": "MULTI_TASK",
+  "status": {
+    "state": "TERMINATED",
+    "termination_details": {
+      "code": "SUCCESS",
+      "type": "SUCCESS",
+      "message": ""
+    }
+  },
+  "environments": [
+    {
+      "environment_key": "readonly_capture_env",
+      "spec": {
+        "environment_version": "6"
+      }
+    }
+  ],
+  "job_run_id": 35837483215322,
+  "effective_performance_target": "PERFORMANCE_OPTIMIZED"
+}

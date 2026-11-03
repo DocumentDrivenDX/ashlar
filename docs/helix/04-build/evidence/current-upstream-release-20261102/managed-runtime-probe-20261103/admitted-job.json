@@ -1,0 +1,50 @@
+{
+  "created_time": 1793666928604,
+  "creator_user_name": "erik.labianca@synaptiq.ai",
+  "job_id": 613823195492464,
+  "run_as_user_name": "erik.labianca@synaptiq.ai",
+  "settings": {
+    "email_notifications": {},
+    "environments": [
+      {
+        "environment_key": "probe_env",
+        "spec": {
+          "environment_version": "6"
+        }
+      }
+    ],
+    "format": "MULTI_TASK",
+    "max_concurrent_runs": 1,
+    "name": "ashlar-a1-serverless-runtime-probe",
+    "queue": {
+      "enabled": true
+    },
+    "run_as": {
+      "user_name": "erik.labianca@synaptiq.ai"
+    },
+    "tags": {
+      "notebook_sha256": "94e18fddd1f66d44d84d23f2dc8497c7020ba910d42c9202fe07790dc65fa361",
+      "project": "ashlar",
+      "purpose": "read-only-serverless-runtime-probe"
+    },
+    "tasks": [
+      {
+        "disabled": false,
+        "email_notifications": {},
+        "environment_key": "probe_env",
+        "notebook_task": {
+          "base_parameters": {
+            "protocol_identity": "ashlar-configured-local-delta/0.1"
+          },
+          "notebook_path": "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/managed_a1/runtime_probe.py",
+          "source": "WORKSPACE"
+        },
+        "run_if": "ALL_SUCCESS",
+        "task_key": "runtime_probe",
+        "timeout_seconds": 60
+      }
+    ],
+    "timeout_seconds": 60,
+    "webhook_notifications": {}
+  }
+}

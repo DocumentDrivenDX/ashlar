@@ -22,9 +22,9 @@ Native singleton reads work through the publication resolver independently of Fa
 
 The current local qualification cohort is Truss 0.0.55, UMF SDK 0.10.2 /
 Python Core 0.10.6, Weft 0.4.56, Access 0.1.0.dev8 and declared UMF
-model 0.10.0. Ashlar remains at package version `0.1.0.dev1`; a `0.1.0rc1`
-provider-cache candidate is planned, but no tag or publication is authorized
-until the remaining qualification gates close.
+model 0.10.0. Ashlar package metadata is `0.1.0rc1`, and the provider-cache
+candidate is built and staged. No tag or publication has occurred; the remaining
+qualification gates are still open.
 
 The composed R61 local-development run used Spark 4.2.0 / Delta 4.4.1 and the
 `.4-xxhash64` carrier. It committed a metadata genesis, seven-operation seed
@@ -42,12 +42,17 @@ group replay or Delta write. This recovery records a source-hold discontinuity
 and uses local path-based Delta reads; it does not establish Databricks or
 Unity Catalog execution. See the [attempt14 recovery closeout](04-build/evidence/current-upstream-release-20261102/managed-current-attempt14-a1-recovery/closeout.json).
 
-The managed trial gate remains pending, the dedicated managed classic Spark Jobs
-trial is pending, Fabric integration is unfinished, and the 1B-node / 5B-edge
-scale trial remains held. The current release closure records each
-remaining gate. No stable Ashlar version, tag, or GitHub release has been
-created. The [candidate release-notes draft](05-deploy/release-notes.md) is not
-for distribution.
+The managed trial is blocked pending the owner's catalog-scope decision. The
+usual workspace permits development-schema creation, but its catalog inventory
+does not include `client_dev`; the separate `aidev` workspace exposes
+`client_dev` to the current principal. The dedicated managed classic Spark Jobs
+attempt was refused by the workspace backend before cluster creation because
+the organization has no associated worker environments; no classic workload
+ran. Fabric integration is unfinished, and the 1B-node / 5B-edge scale trial
+remains held. The current release closure records each remaining gate. The
+candidate has no tag or GitHub release. The
+[candidate release-notes draft](05-deploy/release-notes.md) is not for
+distribution.
 
 ## Requirements navigation
 

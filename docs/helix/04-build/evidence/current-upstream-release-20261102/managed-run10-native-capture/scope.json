@@ -1,0 +1,18 @@
+{
+  "status": "native_genesis_and_inherited_policy_readback_passed",
+  "not_full_A0_A1_trial": true,
+  "ack_attempted": false,
+  "billing_usage_observed": false,
+  "billing_note": "SQL SUM returned null; no usage total or invoice was observed.",
+  "manifest_canonical_sha256": "74fa69c771b15d5d0fbd5741d131f136a4737397861894b788d829fb94068825",
+  "read_only_task_seconds": 38,
+  "source_authority": "fresh local-development public Truss sources; managed UC target",
+  "inputs": {
+    "run10-readonly-job-cleanup.json": "40aca1b3d5d02ad1d42a7e91def6e36204ef3c7452e990a760a3472b17da7989",
+    "run10-readonly-result.json": "dce6e80f2ad749ab0ff8135e6ca9cca446525bdae20f1ac98ce3d4f85b4999ec",
+    "native-genesis-manifest.json": "39237d19415325243988527d20c16dee213c85ab87c92de0306e73ca2e1fcb27",
+    "native-uc-inventory.json": "3bed4d982636d0d87bcedcb7d4587073395305c4c250e1035003d38c15a98d0b",
+    "run10-readonly-run.json": "974dbdfb886a37bbd64f3cb4cdb8e926a1b9ead84bb5c1c348f468197531b96d",
+    "run10-readonly-job-readback.json": "2efc35c75c124f47cbb0630ca1e2734946a6f9b828848443d48a214b54f9165b"
+  }
+}

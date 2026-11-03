@@ -1,0 +1,127 @@
+{
+  "actions_runs_started": 0,
+  "all_owned_failed_trial_schemas_deleted": true,
+  "as_of": "2026-11-03",
+  "billing_usage": "unobserved; no zero-cost or invoice claim",
+  "current_authorized_usd_ceiling": 100,
+  "duplicate_run_handling": "R06 reused an earlier workspace-global idempotent run; counted once under R05. Later tokens bind owned job IDs.",
+  "entries": [
+    {
+      "reported_setup_execution_cleanup_seconds": 53,
+      "stage": "runtime-probe-first"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 29,
+      "stage": "runtime-probe-borrowed"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 67,
+      "stage": "R05-initializer"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 74,
+      "stage": "R07-initializer"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 78,
+      "stage": "R08-initializer"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 79,
+      "stage": "R09-initializer"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 120,
+      "stage": "R10-initializer"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 38,
+      "stage": "R10-read-only-capture"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 120,
+      "stage": "R11-initializer"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 130,
+      "stage": "R12-initializer"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 126,
+      "stage": "R13-initializer"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 129,
+      "stage": "R14-initializer"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 71,
+      "stage": "R14-publisher"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 125,
+      "stage": "R15-initializer"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 85,
+      "stage": "R15-publisher"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 117,
+      "stage": "R16-initializer"
+    },
+    {
+      "reported_setup_execution_cleanup_seconds": 141,
+      "stage": "R16-publisher"
+    }
+  ],
+  "model": {
+    "additional_driver_cleanup_storage_reserve_usd": 20,
+    "claim": "Documented-default estimate for no custom compute. Historical 360/480 sensitivity snapshots remain separate evidence; not an enforced currency meter.",
+    "future_whole_run_seconds": 900,
+    "largest_documented_default_dbu_per_hour": 240,
+    "modeled_total_usd": 98.02,
+    "rounded_total_dbu_authorization": 166,
+    "usd_per_dbu_hour": 0.47
+  },
+  "preferred_usd": 10,
+  "private_managed_query_history_summary": {
+    "after_last_statement_seconds": 5.805,
+    "before_first_statement_seconds": 51.198,
+    "finished_statement_count": 123,
+    "job_id": 184422112369641,
+    "job_wall_seconds": 141.895,
+    "notes": "Only the capture hash and aggregate summary are retained; raw per-statement history remains private.",
+    "parent_job_id": 832697207002423,
+    "prior_0_179_seconds_per_statement_estimate": "discarded_not_an_observed_rate",
+    "prior_static_estimate_observed": false,
+    "prior_static_statement_estimate": 792,
+    "source_bytes": 184234,
+    "source_path": "/private/tmp/ashlar-r16-query-history-private.json",
+    "source_sha256": "96c69c460fe433762fe1cf9d301716b061d0649db4adcebfbac4bad674a0ea79",
+    "statement_span_seconds": 84.892,
+    "statement_types": {
+      "DESCRIBE": 49,
+      "SELECT": 68,
+      "SHOW": 2,
+      "USE": 4
+    },
+    "status": "summary_only_raw_capture_not_committed",
+    "sum_statement_durations_seconds": 44.534,
+    "task_key": "880609387215607"
+  },
+  "profile": "ashlar-managed-release-execution-cost-ledger/0.1",
+  "reported_task_seconds": 1582,
+  "source_ack_attempted_in_managed_trials": false,
+  "sources": [
+    "https://learn.microsoft.com/en-us/azure/databricks/compute/serverless/manage-serverless-compute",
+    "https://azure.microsoft.com/en-us/pricing/details/databricks/"
+  ],
+  "historical_status_at_cost_snapshot": "cloud_stopped_pending_full_local_native_qualification_and_metadata_optimization",
+  "current_status": {
+    "managed_trial": "blocked_pending_owner_catalog_scope_decision",
+    "classic_trial": "workspace_backend_refused_create_no_cluster_or_task_created",
+    "additional_compute_started_after_snapshot": false,
+    "billing_usage": "unobserved; no zero-cost or invoice claim"
+  }
+}

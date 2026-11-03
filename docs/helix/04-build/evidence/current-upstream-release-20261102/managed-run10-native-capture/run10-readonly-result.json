@@ -1,0 +1,375 @@
+{
+  "actions": [
+    "SELECT genesis manifest",
+    "DESCRIBE TABLE EXTENDED object_current",
+    "DESCRIBE TABLE EXTENDED publication_manifest"
+  ],
+  "elapsed_seconds": 23.899551021000207,
+  "manifest_rows": [
+    {
+      "profile_version": "ashlar-delta/0.4-xxhash64",
+      "publication_id": "managed-genesis-a69c7455a9900c8663116287b040bcab9d84d72d7561ea67c5f1006c86e74f33",
+      "recorded_at": "1793674247696003",
+      "schema_revisions_json": "{\"c52fbc8a-82a0-4f98-8498-54e8bd7778f7\":\"1\",\"dd8ad84d-668b-4848-be04-154d8b9e8d6f\":\"1\"}",
+      "source_progress_json": "{\"ashlar-managed-a1-a-feed\":{\"catalog_registration_id\":\"484af79c-cf97-4348-8147-b910a2cf7116\",\"catalog_registration_sha256\":\"3131f96f9fdaa7bfcefe75c71aae364beadff668a54307d16286fd8ca4abda31\",\"consumer_id\":\"ashlar-managed-a1-a-consumer\",\"consumer_registration_id\":\"6d0c3314-07d0-4a6b-bd04-3b2190f7d3d9\",\"epoch\":\"cf13a491-20f8-40be-a9ac-ca4f1932e2a1\",\"feed\":\"ashlar-managed-a1-a-feed\",\"installation_id\":\"c52fbc8a-82a0-4f98-8498-54e8bd7778f7\",\"page\":{\"profile\":\"ashlar-source-page-absent/0.1\"},\"position\":\"eyJuZXh0WGlkIjogIjAiLCAicHJvZmlsZSI6ICJ0cnVzcy1jYWxsZXItYXNzZXJ0ZWQtZmVlZC8wLjEiLCAiY29uc3VtZXJJZCI6ICJhc2hsYXItbWFuYWdlZC1hMS1hLWNvbnN1bWVyIiwgInNvdXJjZUVwb2NoIjogImNmMTNhNDkxLTIwZjgtNDBiZS1hOWFjLWNhNGYxOTMyZTJhMSIsICJpbnN0YWxsYXRpb25JZCI6ICJjNTJmYmM4YS04MmEwLTRmOTgtODQ5OC01NGU4YmQ3Nzc4ZjciLCAicmVnaXN0cmF0aW9uSWQiOiAiNmQwYzMzMTQtMDdkMC00YTZiLWJkMDQtM2IyMTkwZjdkM2Q5In0=\",\"position_sha256\":\"616ebe93c66a221092f3c87a31e1d82956351b2cd38d34086c050eaed3ceb324\",\"profile\":\"ashlar-truss-source-genesis-progress/0.1\"},\"ashlar-managed-a1-b-feed\":{\"catalog_registration_id\":\"da4c3e69-5c68-4888-8904-e8f4e9d7bc17\",\"catalog_registration_sha256\":\"2f499a3edbe3a5833a78713f3a901741f350f0105cb128eee260b1f9babef668\",\"consumer_id\":\"ashlar-managed-a1-b-consumer\",\"consumer_registration_id\":\"96bafaa1-3979-41b9-b1d5-86450bc3d413\",\"epoch\":\"717b84b9-7227-4f4c-be62-d80382aa303d\",\"feed\":\"ashlar-managed-a1-b-feed\",\"installation_id\":\"dd8ad84d-668b-4848-be04-154d8b9e8d6f\",\"page\":{\"profile\":\"ashlar-source-page-absent/0.1\"},\"position\":\"eyJuZXh0WGlkIjogIjAiLCAicHJvZmlsZSI6ICJ0cnVzcy1jYWxsZXItYXNzZXJ0ZWQtZmVlZC8wLjEiLCAiY29uc3VtZXJJZCI6ICJhc2hsYXItbWFuYWdlZC1hMS1iLWNvbnN1bWVyIiwgInNvdXJjZUVwb2NoIjogIjcxN2I4NGI5LTcyMjctNGY0Yy1iZTYyLWQ4MDM4MmFhMzAzZCIsICJpbnN0YWxsYXRpb25JZCI6ICJkZDhhZDg0ZC02NjhiLTQ4NDgtYmUwNC0xNTRkOGI5ZThkNmYiLCAicmVnaXN0cmF0aW9uSWQiOiAiOTZiYWZhYTEtMzk3OS00MWI5LWIxZDUtODY0NTBiYzNkNDEzIn0=\",\"position_sha256\":\"f292c9669cfdbc3a39e7a76c1d65e3e4b29d972c60d3e416cc5dfffbb4c80382\",\"profile\":\"ashlar-truss-source-genesis-progress/0.1\"}}",
+      "table_versions_json": "{\"client_dev.ashlar_a1_release_20261103_r10.edge_current\":0,\"client_dev.ashlar_a1_release_20261103_r10.object_current\":0,\"client_dev.ashlar_a1_release_20261103_r10.tombstone\":0,\"client_dev.ashlar_a1_release_20261103_r10.whole_source_history\":0}",
+      "validation_report_json": "{\"accepted_model_pins\":{\"A\":{\"documentId\":\"ashlar-local-dev-typed-graph-r21-20261101\",\"documentRevision\":\"r1\",\"modelPath\":\"docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json\",\"modelSha256\":\"b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2\"},\"B\":{\"documentId\":\"ashlar-local-dev-typed-graph-r21-20261101\",\"documentRevision\":\"r1\",\"modelPath\":\"docs/helix/04-build/evidence/current-upstream-release-20261101/r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json\",\"modelSha256\":\"b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2\"}},\"carrier_profile\":\"ashlar-delta/0.4-xxhash64\",\"catalog_acceptance_revisions\":{\"A\":{\"catalog_sha256\":\"67e46c83f6237c9ce4920cb0c5746dde56736ce0a70e3e0526a451db77af0329\",\"installation_id\":\"c52fbc8a-82a0-4f98-8498-54e8bd7778f7\",\"report_sha256\":\"3131f96f9fdaa7bfcefe75c71aae364beadff668a54307d16286fd8ca4abda31\",\"revision\":\"1\"},\"B\":{\"catalog_sha256\":\"de226ea8fe17a8f0bcdb5beacfaf5b9514806cb35be3d9bc13962ceb12906697\",\"installation_id\":\"dd8ad84d-668b-4848-be04-154d8b9e8d6f\",\"report_sha256\":\"2f499a3edbe3a5833a78713f3a901741f350f0105cb128eee260b1f9babef668\",\"revision\":\"1\"}},\"complete\":true,\"empty_data_role_witnesses\":{\"edge_current\":{\"row_count\":0,\"rows_sha256\":\"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\"},\"object_current\":{\"row_count\":0,\"rows_sha256\":\"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\"},\"tombstone\":{\"row_count\":0,\"rows_sha256\":\"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\"},\"whole_source_history\":{\"row_count\":0,\"rows_sha256\":\"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\"}},\"fresh_target_creation\":{\"created_by_owner\":true,\"initial_role_heads\":{\"edge_current\":0,\"object_current\":0,\"publication_attempt_phase\":0,\"publication_manifest\":0,\"tombstone\":0,\"whole_source_history\":0},\"profile\":\"ashlar-managed-current-fresh-target/0.1\"},\"model_evidence_sha256\":{\"A\":\"b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2\",\"B\":\"b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2\"},\"publication_plan_profile\":\"ashlar-managed-current-genesis-manifest/0.1\",\"recorded_at\":\"1793674247696003\",\"schedule_sha256\":\"b18a571284162a1212696124b59f9044612077ba6ff76ae1c3d89015fd4d7588\",\"six_role_inventory\":{\"edge_current\":{\"name\":\"client_dev.ashlar_a1_release_20261103_r10.edge_current\",\"protocol\":{\"features\":[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"],\"profile\":\"ashlar-managed-serverless-spark42-delta/0.1\",\"reader_version\":3,\"uuid\":\"208d9037-6e7b-428f-9962-654e5080092f\",\"writer_version\":7},\"schema\":[[\"source_system\",\"string\",false],[\"rel_type_id\",\"bigint\",false],[\"id\",\"bigint\",false],[\"source_type\",\"bigint\",false],[\"source_id\",\"bigint\",false],[\"target_type\",\"bigint\",false],[\"target_id\",\"bigint\",false],[\"schema_revision\",\"string\",false],[\"entity_version\",\"bigint\",false],[\"props_json\",\"string\",false],[\"retained_json\",\"string\",false],[\"order_key\",\"string\",true],[\"source_feed\",\"string\",false],[\"source_epoch\",\"string\",false],[\"source_position\",\"bigint\",true],[\"published_at\",\"timestamp\",false],[\"lookup_hash\",\"bigint\",false],[\"apply_batch_id\",\"string\",true],[\"source_cursor_json\",\"string\",true],[\"source_delivery_id\",\"string\",true]],\"uuid\":\"208d9037-6e7b-428f-9962-654e5080092f\",\"version\":0},\"object_current\":{\"name\":\"client_dev.ashlar_a1_release_20261103_r10.object_current\",\"protocol\":{\"features\":[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"],\"profile\":\"ashlar-managed-serverless-spark42-delta/0.1\",\"reader_version\":3,\"uuid\":\"f9641c43-20f1-4af8-9fc4-1fc48de476e2\",\"writer_version\":7},\"schema\":[[\"source_system\",\"string\",false],[\"type_id\",\"bigint\",false],[\"id\",\"bigint\",false],[\"logical_key_json\",\"string\",false],[\"schema_revision\",\"string\",false],[\"entity_version\",\"bigint\",false],[\"props_json\",\"string\",false],[\"retained_json\",\"string\",false],[\"root_id\",\"bigint\",true],[\"source_feed\",\"string\",false],[\"source_epoch\",\"string\",false],[\"source_position\",\"bigint\",true],[\"published_at\",\"timestamp\",false],[\"lookup_hash\",\"bigint\",false],[\"apply_batch_id\",\"string\",true],[\"source_cursor_json\",\"string\",true],[\"source_delivery_id\",\"string\",true]],\"uuid\":\"f9641c43-20f1-4af8-9fc4-1fc48de476e2\",\"version\":0},\"publication_attempt_phase\":{\"name\":\"client_dev.ashlar_a1_release_20261103_r10.publication_attempt_phase\",\"protocol\":{\"features\":[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"],\"profile\":\"ashlar-managed-serverless-spark42-delta/0.1\",\"reader_version\":3,\"uuid\":\"6f00182d-306b-47db-a054-fe475a7924eb\",\"writer_version\":7},\"schema\":[[\"stream\",\"string\",false],[\"batch_id\",\"string\",false],[\"phase\",\"string\",false],[\"request_digest\",\"string\",false],[\"payload_json\",\"string\",false],[\"payload_digest\",\"string\",false]],\"uuid\":\"6f00182d-306b-47db-a054-fe475a7924eb\",\"version\":0},\"publication_manifest\":{\"name\":\"client_dev.ashlar_a1_release_20261103_r10.publication_manifest\",\"protocol\":{\"features\":[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"],\"profile\":\"ashlar-managed-serverless-spark42-delta/0.1\",\"reader_version\":3,\"uuid\":\"6fc19692-7799-42da-8ebe-7067eb9d667c\",\"writer_version\":7},\"schema\":[[\"publication_id\",\"string\",false],[\"profile_version\",\"string\",false],[\"table_versions_json\",\"string\",false],[\"source_progress_json\",\"string\",false],[\"schema_revisions_json\",\"string\",false],[\"validation_report_json\",\"string\",false],[\"recorded_at\",\"timestamp\",false]],\"uuid\":\"6fc19692-7799-42da-8ebe-7067eb9d667c\",\"version\":0},\"tombstone\":{\"name\":\"client_dev.ashlar_a1_release_20261103_r10.tombstone\",\"protocol\":{\"features\":[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"],\"profile\":\"ashlar-managed-serverless-spark42-delta/0.1\",\"reader_version\":3,\"uuid\":\"02ae6492-6d50-4532-a1b9-b6f5951018a5\",\"writer_version\":7},\"schema\":[[\"source_system\",\"string\",false],[\"entity_kind\",\"string\",false],[\"type_id\",\"bigint\",false],[\"id\",\"bigint\",false],[\"entity_version\",\"bigint\",false],[\"source_feed\",\"string\",false],[\"source_epoch\",\"string\",false],[\"source_position\",\"bigint\",true],[\"source_cursor_json\",\"string\",true],[\"source_delivery_id\",\"string\",true]],\"uuid\":\"02ae6492-6d50-4532-a1b9-b6f5951018a5\",\"version\":0},\"whole_source_history\":{\"name\":\"client_dev.ashlar_a1_release_20261103_r10.whole_source_history\",\"protocol\":{\"features\":[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"],\"profile\":\"ashlar-managed-serverless-spark42-delta/0.1\",\"reader_version\":3,\"uuid\":\"ebd8ae5d-56d3-4345-b33d-36bdd90f110e\",\"writer_version\":7},\"schema\":[[\"feed\",\"string\",false],[\"epoch\",\"string\",false],[\"delivery_id\",\"string\",false],[\"digest\",\"string\",false],[\"change_json\",\"string\",false],[\"raw_base64\",\"string\",false]],\"uuid\":\"ebd8ae5d-56d3-4345-b33d-36bdd90f110e\",\"version\":0}},\"source_acknowledged\":false,\"source_page_accepted\":false,\"source_progress_sha256\":\"d37fa00a40a3d788c6ee6956fea6bbb291c44a202c6dde4b36c225f75f1e8ecf\",\"sources\":{\"A\":{\"catalog_registration_id\":\"484af79c-cf97-4348-8147-b910a2cf7116\",\"catalog_registration_sha256\":\"3131f96f9fdaa7bfcefe75c71aae364beadff668a54307d16286fd8ca4abda31\",\"consumer_id\":\"ashlar-managed-a1-a-consumer\",\"consumer_registration_id\":\"6d0c3314-07d0-4a6b-bd04-3b2190f7d3d9\",\"epoch\":\"cf13a491-20f8-40be-a9ac-ca4f1932e2a1\",\"feed\":\"ashlar-managed-a1-a-feed\",\"genesis_cursor_sha256\":\"616ebe93c66a221092f3c87a31e1d82956351b2cd38d34086c050eaed3ceb324\",\"installation_id\":\"c52fbc8a-82a0-4f98-8498-54e8bd7778f7\"},\"B\":{\"catalog_registration_id\":\"da4c3e69-5c68-4888-8904-e8f4e9d7bc17\",\"catalog_registration_sha256\":\"2f499a3edbe3a5833a78713f3a901741f350f0105cb128eee260b1f9babef668\",\"consumer_id\":\"ashlar-managed-a1-b-consumer\",\"consumer_registration_id\":\"96bafaa1-3979-41b9-b1d5-86450bc3d413\",\"epoch\":\"717b84b9-7227-4f4c-be62-d80382aa303d\",\"feed\":\"ashlar-managed-a1-b-feed\",\"genesis_cursor_sha256\":\"f292c9669cfdbc3a39e7a76c1d65e3e4b29d972c60d3e416cc5dfffbb4c80382\",\"installation_id\":\"dd8ad84d-668b-4848-be04-154d8b9e8d6f\"}}}"
+    }
+  ],
+  "owned_job_usage": {
+    "rows": [
+      {
+        "dbu": null
+      }
+    ],
+    "status": "observed"
+  },
+  "predictive_optimization_display": {
+    "object_current": [
+      {
+        "col_name": "source_system",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "type_id",
+        "comment": null,
+        "data_type": "bigint"
+      },
+      {
+        "col_name": "id",
+        "comment": null,
+        "data_type": "bigint"
+      },
+      {
+        "col_name": "logical_key_json",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "schema_revision",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "entity_version",
+        "comment": null,
+        "data_type": "bigint"
+      },
+      {
+        "col_name": "props_json",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "retained_json",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "root_id",
+        "comment": null,
+        "data_type": "bigint"
+      },
+      {
+        "col_name": "source_feed",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "source_epoch",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "source_position",
+        "comment": null,
+        "data_type": "bigint"
+      },
+      {
+        "col_name": "published_at",
+        "comment": null,
+        "data_type": "timestamp"
+      },
+      {
+        "col_name": "lookup_hash",
+        "comment": "Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.",
+        "data_type": "bigint"
+      },
+      {
+        "col_name": "apply_batch_id",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "source_cursor_json",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "source_delivery_id",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "# Clustering Information",
+        "comment": "",
+        "data_type": ""
+      },
+      {
+        "col_name": "# col_name",
+        "comment": "comment",
+        "data_type": "data_type"
+      },
+      {
+        "col_name": "lookup_hash",
+        "comment": "Spark SQL xxhash64 seed 42 over typed identity (source_system STRING, type_id BIGINT, id BIGINT); pruning only, exact key remains authoritative.",
+        "data_type": "bigint"
+      },
+      {
+        "col_name": "",
+        "comment": "",
+        "data_type": ""
+      },
+      {
+        "col_name": "# Delta Statistics Columns",
+        "comment": "",
+        "data_type": ""
+      },
+      {
+        "col_name": "Column Names",
+        "comment": "",
+        "data_type": "lookup_hash,source_system,type_id,id"
+      },
+      {
+        "col_name": "Column Selection Method",
+        "comment": "",
+        "data_type": "manual"
+      },
+      {
+        "col_name": "",
+        "comment": "",
+        "data_type": ""
+      },
+      {
+        "col_name": "# Detailed Table Information",
+        "comment": "",
+        "data_type": ""
+      },
+      {
+        "col_name": "Catalog",
+        "comment": "",
+        "data_type": "client_dev"
+      },
+      {
+        "col_name": "Database",
+        "comment": "",
+        "data_type": "ashlar_a1_release_20261103_r10"
+      },
+      {
+        "col_name": "Table",
+        "comment": "",
+        "data_type": "object_current"
+      },
+      {
+        "col_name": "Created Time",
+        "comment": "",
+        "data_type": "Tue Nov 03 02:50:23 UTC 2026"
+      },
+      {
+        "col_name": "Last Access",
+        "comment": "",
+        "data_type": "UNKNOWN"
+      },
+      {
+        "col_name": "Created By",
+        "comment": "",
+        "data_type": "Spark "
+      },
+      {
+        "col_name": "Type",
+        "comment": "",
+        "data_type": "MANAGED"
+      },
+      {
+        "col_name": "Location",
+        "comment": "",
+        "data_type": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/9780752e-5397-4303-bbb8-acfc8b29ec08"
+      },
+      {
+        "col_name": "Provider",
+        "comment": "",
+        "data_type": "delta"
+      },
+      {
+        "col_name": "Owner",
+        "comment": "",
+        "data_type": "erik.labianca@synaptiq.ai"
+      },
+      {
+        "col_name": "Is_managed_location",
+        "comment": "",
+        "data_type": "true"
+      },
+      {
+        "col_name": "Predictive Optimization",
+        "comment": "",
+        "data_type": "ENABLE (inherited from METASTORE metastore_centralus)"
+      },
+      {
+        "col_name": "Table Properties",
+        "comment": "",
+        "data_type": "[clusteringColumns=[[\"lookup_hash\"]],delta.checkpointPolicy=v2,delta.dataSkippingStatsColumns=lookup_hash,source_system,type_id,id,delta.enableDeletionVectors=true,delta.enableRowTracking=true,delta.feature.appendOnly=supported,delta.feature.clustering=supported,delta.feature.deletionVectors=supported,delta.feature.domainMetadata=supported,delta.feature.invariants=supported,delta.feature.rowTracking=supported,delta.feature.v2Checkpoint=supported,delta.minReaderVersion=3,delta.minWriterVersion=7,delta.parquet.compression.codec=zstd,delta.parquet.format.version=2.12.0,delta.parquet.format.version.afe.internal=2.12.0,delta.rowTracking.materializedRowCommitVersionColumnName=_row-commit-version-col-b107cb38-c967-4951-830c-f2ddfad440e8,delta.rowTracking.materializedRowIdColumnName=_row-id-col-4f92119e-b2f3-4ddb-8907-882deada6199,delta.targetFileSize=67108864,io.unitycatalog.tableId=9780752e-5397-4303-bbb8-acfc8b29ec08]"
+      }
+    ],
+    "publication_manifest": [
+      {
+        "col_name": "publication_id",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "profile_version",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "table_versions_json",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "source_progress_json",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "schema_revisions_json",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "validation_report_json",
+        "comment": null,
+        "data_type": "string"
+      },
+      {
+        "col_name": "recorded_at",
+        "comment": null,
+        "data_type": "timestamp"
+      },
+      {
+        "col_name": "# Clustering Information",
+        "comment": "",
+        "data_type": ""
+      },
+      {
+        "col_name": "# col_name",
+        "comment": "comment",
+        "data_type": "data_type"
+      },
+      {
+        "col_name": "",
+        "comment": "",
+        "data_type": ""
+      },
+      {
+        "col_name": "# Delta Statistics Columns",
+        "comment": "",
+        "data_type": ""
+      },
+      {
+        "col_name": "Column Names",
+        "comment": "",
+        "data_type": "validation_report_json, publication_id, profile_version, source_progress_json, table_versions_json, schema_revisions_json, recorded_at"
+      },
+      {
+        "col_name": "Column Selection Method",
+        "comment": "",
+        "data_type": "first-32"
+      },
+      {
+        "col_name": "",
+        "comment": "",
+        "data_type": ""
+      },
+      {
+        "col_name": "# Detailed Table Information",
+        "comment": "",
+        "data_type": ""
+      },
+      {
+        "col_name": "Catalog",
+        "comment": "",
+        "data_type": "client_dev"
+      },
+      {
+        "col_name": "Database",
+        "comment": "",
+        "data_type": "ashlar_a1_release_20261103_r10"
+      },
+      {
+        "col_name": "Table",
+        "comment": "",
+        "data_type": "publication_manifest"
+      },
+      {
+        "col_name": "Created Time",
+        "comment": "",
+        "data_type": "Tue Nov 03 02:50:29 UTC 2026"
+      },
+      {
+        "col_name": "Last Access",
+        "comment": "",
+        "data_type": "UNKNOWN"
+      },
+      {
+        "col_name": "Created By",
+        "comment": "",
+        "data_type": "Spark "
+      },
+      {
+        "col_name": "Statistics",
+        "comment": "",
+        "data_type": "23435 bytes, 1 rows"
+      },
+      {
+        "col_name": "Type",
+        "comment": "",
+        "data_type": "MANAGED"
+      },
+      {
+        "col_name": "Location",
+        "comment": "",
+        "data_type": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/5733dc67-3560-413a-bcd2-40899c5f9516"
+      },
+      {
+        "col_name": "Provider",
+        "comment": "",
+        "data_type": "delta"
+      },
+      {
+        "col_name": "Owner",
+        "comment": "",
+        "data_type": "erik.labianca@synaptiq.ai"
+      },
+      {
+        "col_name": "Is_managed_location",
+        "comment": "",
+        "data_type": "true"
+      },
+      {
+        "col_name": "Predictive Optimization",
+        "comment": "",
+        "data_type": "ENABLE (inherited from METASTORE metastore_centralus)"
+      },
+      {
+        "col_name": "Table Properties",
+        "comment": "",
+        "data_type": "[clusterByAuto=true,clusteringColumns=[],delta.checkpointPolicy=v2,delta.enableDeletionVectors=true,delta.enableRowTracking=true,delta.feature.appendOnly=supported,delta.feature.clustering=supported,delta.feature.deletionVectors=supported,delta.feature.domainMetadata=supported,delta.feature.invariants=supported,delta.feature.rowTracking=supported,delta.feature.v2Checkpoint=supported,delta.minReaderVersion=3,delta.minWriterVersion=7,delta.parquet.compression.codec=zstd,delta.parquet.format.version=2.12.0,delta.parquet.format.version.afe.internal=2.12.0,delta.rowTracking.materializedRowCommitVersionColumnName=_row-commit-version-col-288bdb39-3f39-49b0-b49d-544d5210a298,delta.rowTracking.materializedRowIdColumnName=_row-id-col-c666adbf-6290-460c-844a-65cb6f81571f,io.unitycatalog.tableId=5733dc67-3560-413a-bcd2-40899c5f9516]"
+      }
+    ]
+  },
+  "profile": "ashlar-managed-a1-run10-readonly-capture/0.1",
+  "scope": "client_dev.ashlar_a1_release_20261103_r10"
+}

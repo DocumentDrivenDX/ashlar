@@ -1,0 +1,50 @@
+{
+  "files": [
+    {
+      "bytes": 2388,
+      "path": "attempt-backend-refusal/backend-refusal-reconciliation.json",
+      "sha256": "75e7418ea0cf1111bcbfdbe608a63d9516a7a4e8db367d7207ced9b213981fae"
+    },
+    {
+      "bytes": 7,
+      "path": "attempt-backend-refusal/post-terminal-cluster-inventory.json",
+      "sha256": "8d1a5a80c450b2a56fd735c78399e41c14070f1a6705b90bdd5242456ca3869e"
+    },
+    {
+      "bytes": 897,
+      "path": "attempt-backend-refusal/state.json",
+      "sha256": "8cd01a23d5e06a93c7becb865900ee75ba0e8d12aeee02b7b2fdb82667245ee0"
+    },
+    {
+      "bytes": 1272,
+      "path": "attempt-backend-refusal/trial-receipt.json",
+      "sha256": "d60cb4c3cc9a7e76c82ca2043e76eaba0e0fd429b5cd54a3ebf55f8d787a03a1"
+    },
+    {
+      "bytes": 5,
+      "path": "attempt-backend-refusal/watchdog.stop",
+      "sha256": "a11c3d917a2149a4b548217038bc8f2dd2130a1966e0c7af5c4225d81f25a8c3"
+    },
+    {
+      "bytes": 2324,
+      "path": "attempt-pre-api/pre-api-reconciliation.json",
+      "sha256": "964a66320b7b092840d02f33dae70d8d68bc8381381b98e896c5b33b69275953"
+    },
+    {
+      "bytes": 780,
+      "path": "attempt-pre-api/state.json",
+      "sha256": "dabf4be27c368252bc3681bc1903bc9d63c40063c72d4b1e4b02a0bbfe059691"
+    },
+    {
+      "bytes": 1270,
+      "path": "attempt-pre-api/trial-receipt.json",
+      "sha256": "3f28489ce3fdd18210d92e1253dd2455585bd70c1ec1194ab5103400549138a4"
+    },
+    {
+      "bytes": 5,
+      "path": "attempt-pre-api/watchdog.stop",
+      "sha256": "a11c3d917a2149a4b548217038bc8f2dd2130a1966e0c7af5c4225d81f25a8c3"
+    }
+  ],
+  "profile": "ashlar-managed-classic-c17-evidence-hashes/0.1"
+}

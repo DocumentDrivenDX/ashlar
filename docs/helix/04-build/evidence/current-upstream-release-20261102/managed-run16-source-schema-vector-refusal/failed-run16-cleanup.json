@@ -1,0 +1,18 @@
+{
+  "schema": "client_dev.ashlar_a1_release_20261103_r16",
+  "schema_id": "b3d7f16a-2b99-453c-b02e-292596cf9ae2",
+  "uc_table_ids_deleted": {
+    "client_dev.ashlar_a1_release_20261103_r16.edge_current": "c935ed52-8cce-458d-9cf2-41b69b824de0",
+    "client_dev.ashlar_a1_release_20261103_r16.object_current": "13be27d0-7487-44d4-8b30-2a062871bf57",
+    "client_dev.ashlar_a1_release_20261103_r16.publication_attempt_phase": "cd831c77-607e-4c7e-be04-3c884be1a4ba",
+    "client_dev.ashlar_a1_release_20261103_r16.publication_manifest": "46c9dc96-c40d-43c2-9253-dfdc13d3f2a9",
+    "client_dev.ashlar_a1_release_20261103_r16.tombstone": "5d7d5d68-33ce-4ea4-a941-13c1a74ad526",
+    "client_dev.ashlar_a1_release_20261103_r16.whole_source_history": "ff8371d7-2323-476b-b481-e46f167b76bb"
+  },
+  "volume_id_deleted": "9ee7d483-0621-4449-96fb-25270dffe030",
+  "status": "owned_resources_deleted",
+  "ack_attempted": false,
+  "source_hold_opened": true,
+  "failure": "Driver compared declared source revision vector to report digest map; guard refused before publication effects",
+  "publisher_run_id": 832697207002423
+}

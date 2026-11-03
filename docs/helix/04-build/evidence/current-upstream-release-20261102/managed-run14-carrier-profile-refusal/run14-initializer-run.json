@@ -1,0 +1,87 @@
+{
+  "job_id": 412992373113175,
+  "run_id": 766759289566065,
+  "creator_user_name": "erik.labianca@synaptiq.ai",
+  "number_in_job": 766759289566065,
+  "original_attempt_run_id": 766759289566065,
+  "state": {
+    "life_cycle_state": "TERMINATED",
+    "result_state": "SUCCESS",
+    "state_message": "",
+    "user_cancelled_or_timedout": false
+  },
+  "start_time": 1793678973671,
+  "setup_duration": 4000,
+  "execution_duration": 125000,
+  "cleanup_duration": 0,
+  "end_time": 1793679103165,
+  "run_duration": 129494,
+  "trigger": "ONE_TIME",
+  "run_name": "ashlar-a1-a1-release-20261103-r14-initializer",
+  "run_page_url": "https://adb-7405607548213398.18.azuredatabricks.net/?o=7405607548213398#job/412992373113175/run/766759289566065",
+  "run_type": "JOB_RUN",
+  "tasks": [
+    {
+      "run_id": 255111966182078,
+      "task_key": "initializer",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/managed_a1/initialize.py",
+        "base_parameters": {
+          "task_parameters_json": "{\"genesis_sha256\":\"e8b7afd768ce51d3fb2001e22cea7df4b644b47ec8d1206670b421def4bfdadb\",\"genesis_volume_uri\":\"/Volumes/client_dev/ashlar_a1_release_20261103_r14/ashlar_a1_volume_release_20261103_r14/genesis.bin\",\"protocol_profile\":{\"features\":[\"appendOnly\",\"changeDataFeed\",\"checkConstraints\",\"clustering\",\"columnMapping\",\"deletionVectors\",\"domainMetadata\",\"generatedColumns\",\"invariants\",\"rowTracking\",\"timestampNtz\",\"v2Checkpoint\"],\"identity\":\"ashlar-managed-serverless-spark42-delta/0.1\",\"reader_versions\":[1,2,3],\"writer_versions\":[2,5,7]},\"trial\":{\"catalog\":\"client_dev\",\"cost\":{\"authorized_total_dbu\":122.0,\"cleanup_reserve_dbu\":4.0,\"cleanup_reserve_usd\":20.0,\"estimated_total_dbu\":36.0,\"estimated_total_usd\":19.5,\"includes_startup_driver_verifier_handoff_and_cleanup\":true,\"preferred_budget_exception\":\"Owner authorized100 maximum, preferring10. Prior distinct tasks914 reported seconds plus entire next900-second wall at documented largest default240 DBU/hour (no custom compute) projects120.933DBU; conservative122*.47+unchanged20 driver/cleanup reserve=$77.34. Historical360/480 sensitivity models remain separate records. Actual invoice unavailable; this is a documented-default exposure model, not a meter guarantee. Role ceilings150 share hard900 wholewall and60 cleanup reserve. No retries, additional probe or custom compute.\"},\"destination_id\":\"client_dev.ashlar_a1_release_20261103_r14\",\"expected_runtime\":{\"catalog\":\"client_dev\",\"principal\":\"erik.labianca@synaptiq.ai\",\"protocol\":\"ashlar-managed-serverless-spark42-delta/0.1\",\"runtimeName\":\"databricks-serverless\",\"runtimeTag\":null,\"schema\":\"ashlar_a1_release_20261103_r14\",\"sparkBuildText\":\"4.2.0 0000000000000000000000000000000000000000\",\"sparkVersion\":\"4.2.0\"},\"materialized_at\":\"1793678929665333\",\"publisher_timeout_seconds\":150,\"schema\":\"ashlar_a1_release_20261103_r14\",\"stage_id\":\"managed-a1-trial-release-20261103-r14\",\"stream\":\"ashlar-managed-a1-release_20261103_r14\",\"verifier_timeout_seconds\":150}}"
+        },
+        "source": "WORKSPACE"
+      },
+      "environment_key": "initializer_env",
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "SUCCESS",
+        "state_message": "",
+        "user_cancelled_or_timedout": false
+      },
+      "run_page_url": "https://adb-7405607548213398.18.azuredatabricks.net/?o=7405607548213398#job/412992373113175/run/255111966182078",
+      "start_time": 1793678973696,
+      "setup_duration": 4000,
+      "execution_duration": 125000,
+      "cleanup_duration": 0,
+      "end_time": 1793679102816,
+      "attempt_number": 0,
+      "status": {
+        "state": "TERMINATED",
+        "termination_details": {
+          "code": "SUCCESS",
+          "type": "SUCCESS",
+          "message": ""
+        }
+      },
+      "effective_performance_target": "PERFORMANCE_OPTIMIZED"
+    }
+  ],
+  "format": "MULTI_TASK",
+  "status": {
+    "state": "TERMINATED",
+    "termination_details": {
+      "code": "SUCCESS",
+      "type": "SUCCESS",
+      "message": ""
+    }
+  },
+  "environments": [
+    {
+      "environment_key": "initializer_env",
+      "spec": {
+        "dependencies": [
+          "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/wheels-monotonic-watermark/umf_ashlar-0.1.0.dev1-py3-none-any.whl",
+          "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/wheels/umf_truss-0.0.55-py3-none-any.whl",
+          "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/wheels/umf_core-0.10.6-cp311-abi3-linux_x86_64.whl",
+          "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/wheels/umf_weft-0.4.56-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/wheels/umf_access-0.1.0.dev8-py3-none-any.whl",
+          "-r /Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/requirements-a1-serverless.txt"
+        ],
+        "environment_version": "6"
+      }
+    }
+  ],
+  "job_run_id": 766759289566065,
+  "effective_performance_target": "PERFORMANCE_OPTIMIZED"
+}

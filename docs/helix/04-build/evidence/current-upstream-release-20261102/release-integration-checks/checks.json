@@ -1,0 +1,15 @@
+{
+  "source_commit": "9ca3cb04",
+  "module_boundaries": {
+    "exit_code": 0,
+    "log_sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+  },
+  "truss055_artifacts": {
+    "wheel_sha256": "156df20641d8c4fee6d836c6b29266a0a7eb3b1299c407e430ce0d2c07a79805",
+    "sdist_sha256": "be2964a6f17064fd2061e46882f745c6dc730915f488293eb70dc203b9dd5c26",
+    "package_members_identical": 450
+  },
+  "qualification_status": "local_continuation_in_progress_managed_not_started",
+  "actions_runs": 0,
+  "snapshot_note": "Historical check snapshot for source_commit 9ca3cb04; qualification_status is the state at that check, not the final release state."
+}

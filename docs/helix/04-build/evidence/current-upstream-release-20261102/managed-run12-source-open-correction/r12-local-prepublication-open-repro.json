@@ -1,0 +1,18 @@
+{
+  "cloud_actions": false,
+  "held_snapshot_bytes": 181182,
+  "held_snapshot_sha256": "c9394e29c29a7a7b36319b1ae725290b45eb0d611ae5983da56a7be599d20773",
+  "initial_genesis_sha256": "4c575f6048e9586468f249aa2cc7fa9ae97d602de4a62159a60ba917eac87e74",
+  "initializer_idle_seconds": 127,
+  "phase": "a0",
+  "profile": "ashlar-managed-a1-local-open-reproduction/0.1",
+  "publication_id": "ashlar-current:7ab7e002cf5c1d23a26b2e586f3d3fb2b25a921943badf63a97a51281076757f",
+  "refreshed_genesis_sha256": "b6eb7612c3d0deea45281cf067f1242baedf6492ed259582d4ba8505915699cf",
+  "request_sha256": "48353564548357c0c454c950fc130859baae491c9dc7586c88b529cf57f7482f",
+  "safe_watermarks": {
+    "A": "846",
+    "B": "833"
+  },
+  "source_acknowledged": false,
+  "status": "opened_and_closed_before_ack"
+}

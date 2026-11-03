@@ -1,0 +1,70 @@
+{
+  "cleanup_duration": 0,
+  "creator_user_name": "erik.labianca@synaptiq.ai",
+  "effective_performance_target": "PERFORMANCE_OPTIMIZED",
+  "end_time": 1793669519139,
+  "execution_duration": 25000,
+  "job_id": 613823195492464,
+  "job_run_id": 109173216296238,
+  "number_in_job": 109173216296238,
+  "original_attempt_run_id": 109173216296238,
+  "run_duration": 29481,
+  "run_id": 109173216296238,
+  "run_name": "ashlar-a1-serverless-runtime-probe",
+  "run_page_url": "https://adb-7405607548213398.18.azuredatabricks.net/?o=7405607548213398#job/613823195492464/run/109173216296238",
+  "run_type": "JOB_RUN",
+  "setup_duration": 4000,
+  "start_time": 1793669489658,
+  "state": {
+    "life_cycle_state": "TERMINATED",
+    "result_state": "SUCCESS",
+    "state_message": "",
+    "user_cancelled_or_timedout": false
+  },
+  "status": {
+    "state": "TERMINATED",
+    "termination_details": {
+      "code": "SUCCESS",
+      "message": "",
+      "type": "SUCCESS"
+    }
+  },
+  "tasks": [
+    {
+      "attempt_number": 0,
+      "cleanup_duration": 0,
+      "effective_performance_target": "PERFORMANCE_OPTIMIZED",
+      "end_time": 1793669518823,
+      "environment_key": "probe_env",
+      "execution_duration": 25000,
+      "notebook_task": {
+        "base_parameters": {
+          "protocol_identity": "ashlar-configured-local-delta/0.1"
+        },
+        "notebook_path": "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/managed_a1/runtime_probe_borrowed.py",
+        "source": "WORKSPACE"
+      },
+      "run_id": 510553994538217,
+      "run_if": "ALL_SUCCESS",
+      "run_page_url": "https://adb-7405607548213398.18.azuredatabricks.net/?o=7405607548213398#job/613823195492464/run/510553994538217",
+      "setup_duration": 4000,
+      "start_time": 1793669489683,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "SUCCESS",
+        "state_message": "",
+        "user_cancelled_or_timedout": false
+      },
+      "status": {
+        "state": "TERMINATED",
+        "termination_details": {
+          "code": "SUCCESS",
+          "message": "",
+          "type": "SUCCESS"
+        }
+      },
+      "task_key": "runtime_probe"
+    }
+  ],
+  "trigger": "ONE_TIME"
+}

@@ -1,0 +1,52 @@
+{
+  "job_id": 546472438602327,
+  "creator_user_name": "erik.labianca@synaptiq.ai",
+  "run_as_user_name": "erik.labianca@synaptiq.ai",
+  "run_as_owner": false,
+  "settings": {
+    "name": "ashlar-run10-readonly-metadata-capture",
+    "email_notifications": {},
+    "webhook_notifications": {},
+    "timeout_seconds": 60,
+    "max_concurrent_runs": 1,
+    "tasks": [
+      {
+        "task_key": "readonly_capture",
+        "run_if": "ALL_SUCCESS",
+        "notebook_task": {
+          "notebook_path": "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/managed_a1/run10_readonly_capture.py",
+          "source": "WORKSPACE"
+        },
+        "max_retries": 0,
+        "min_retry_interval_millis": 0,
+        "retry_on_timeout": false,
+        "disable_auto_optimization": true,
+        "timeout_seconds": 60,
+        "email_notifications": {},
+        "environment_key": "readonly_capture_env",
+        "disabled": false
+      }
+    ],
+    "tags": {
+      "notebook_sha256": "e488d894d7bacf1670e5f54c832054ae8ea57a12adff6fc206719e1ad7f2146f",
+      "project": "ashlar",
+      "purpose": "run10-read-only-uc-metadata-capture"
+    },
+    "format": "MULTI_TASK",
+    "queue": {
+      "enabled": true
+    },
+    "run_as": {
+      "user_name": "erik.labianca@synaptiq.ai"
+    },
+    "environments": [
+      {
+        "environment_key": "readonly_capture_env",
+        "spec": {
+          "environment_version": "6"
+        }
+      }
+    ]
+  },
+  "created_time": 1793675182335
+}
