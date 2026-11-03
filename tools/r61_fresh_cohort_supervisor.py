@@ -57,6 +57,7 @@ def _tree_digest(root: Path) -> str:
         if path.is_file():
             relative = path.relative_to(root).as_posix().encode()
             digest.update(len(relative).to_bytes(4, "big"))
+            digest.update(relative)
             digest.update(_sha(path).encode())
     return digest.hexdigest()
 
