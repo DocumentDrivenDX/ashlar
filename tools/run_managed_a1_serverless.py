@@ -1522,7 +1522,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         require(phase == "a0", "Source holder must begin at the explicit A0 metadata phase")
         recovery_state["source_bootstrap"] = {"worker_pid": holder.process.pid,
             "genesis_sha256": hashlib.sha256(genesis_bytes).hexdigest(),
-            "genesis_bytes": len(genesis_bytes), "state": "source_A1_committed_and_genesis_selected"}
+            "genesis_bytes": len(genesis_bytes),
+            "state": "source_A0_metadata_committed_and_genesis_selected"}
         _write_private_json(recovery_path, recovery_state)
         genesis_uri = volume_path + "/genesis.bin"
         genesis_artifact = _put_volume_bytes(api, genesis_uri, genesis_bytes)

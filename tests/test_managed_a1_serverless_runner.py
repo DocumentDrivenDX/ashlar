@@ -231,6 +231,29 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
             _directory_contents({"contents": [], "next_page_token": "next"},
                                 maximum_entries=16)
 
+    def test_detached_initializer_mapping_shape_is_admitted_without_attribute_access(self):
+        from ashlar_host.managed_a1_detached_admission import admit_progress
+        from ashlar_host.managed_a1_serverless_tasks import _model_content_bytes
+        from tests.test_managed_current_genesis import _progress
+        import base64
+
+        selected = _progress("A")
+        evidence = {"progress": {
+            "feed": selected.feed, "epoch": selected.epoch,
+            "cursor_bytes_base64": base64.b64encode(selected.cursor_bytes).decode("ascii"),
+            "position_sha256": selected.position_sha256,
+            "catalog_registration_id": selected.catalog_registration_id,
+            "catalog_registration_bytes_base64": base64.b64encode(
+                selected.catalog_registration_bytes).decode("ascii"),
+            "consumer_id": selected.consumer_id,
+            "consumer_registration_id": selected.consumer_registration_id,
+            "installation_id": selected.installation_id,
+        }}
+        self.assertEqual(admit_progress("A", evidence), selected)
+        model_bytes = b"original selected model"
+        self.assertEqual(_model_content_bytes({"pin": {}, "content": model_bytes}),
+                         model_bytes)
+
     def test_actual_provider_probe_readback_admits_only_documented_defaults(self):
         from tools.prepare_a1_serverless_runtime_probe import build_payload
         from pathlib import Path

@@ -36,6 +36,23 @@ def _field(value, name):
     raise ValueError("Detached A/B genesis evidence omitted " + name)
 
 
+def _model_content_bytes(value):
+    content = None
+    for name in ("content", "bytes", "content_base64"):
+        if type(value) is dict and name in value:
+            content = value[name]
+            break
+        if hasattr(value, name):
+            content = getattr(value, name)
+            break
+    _need(content is not None, "Detached selected model content omitted")
+    if type(content) is str:
+        content = base64.b64decode(content, validate=True)
+    _need(type(content) is bytes and content,
+          "Original selected model content bytes required")
+    return content
+
+
 def _validate_trial(trial):
     _need(type(trial) is dict and trial.get("catalog") == "client_dev"
           and type(trial.get("schema")) is str
@@ -250,9 +267,9 @@ def initialize_genesis_task(spark, parameters):
     args = {"schedule_bytes": detached.schedule_bytes,
         "source_progress": progress,
         "selected_model_evidence": {source: {
-            "pin": _field(detached.source_evidence(source), "model")["pin"],
-            "bytes": base64.b64decode(
-                _field(detached.source_evidence(source), "model")["content_base64"], validate=True)}
+            "pin": _field(_field(detached.source_evidence(source), "model"), "pin"),
+            "bytes": _model_content_bytes(
+                _field(detached.source_evidence(source), "model"))}
             for source in ("A", "B")},
         "catalog_acceptance_revisions": {source: {
             "installation_id": progress[source].installation_id,

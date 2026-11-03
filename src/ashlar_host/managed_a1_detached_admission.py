@@ -33,7 +33,7 @@ def admit_progress(source, evidence, *, expected_next_xid="0"):
         TrussSourceGenesisProgress, admit_truss_source_genesis_progress,
     )
 
-    progress = evidence.progress
+    progress = _member(evidence, "progress")
     if type(progress) is TrussSourceGenesisProgress:
         cursor = progress.cursor_bytes
         registration = progress.catalog_registration_bytes
@@ -242,19 +242,25 @@ def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
             batch = None
         batches[source] = batch
         catalog = _catalog_evidence(evidence)
+        catalog_revision = _member(evidence, "catalog_revision")
+        documents = _member(evidence, "documents")
         if source == "B":
             # B has no A1 publication page, but its full accepted catalog and
             # original documents still require the same .54 interpretation.
             from .truss_current_catalog import interpret_current_catalog
-            interpret_current_catalog(evidence.catalog_revision, report, view,
+            interpret_current_catalog(catalog_revision, report, view,
                 catalog.sources, truss_version=catalog.truss_version)
         model_evidence = _member(evidence, "model_evidence", "model")
         if type(model_evidence) is dict and set(model_evidence) == {"pin", "content_base64"}:
             model_evidence = {"pin": model_evidence["pin"],
                               "bytes": base64.b64decode(
                                   model_evidence["content_base64"], validate=True)}
-        elif type(model_evidence) is dict and set(model_evidence) == {"pin", "bytes"}:
-            pass
+        elif type(model_evidence) is dict and set(model_evidence) in (
+                {"pin", "bytes"}, {"pin", "content"}):
+            model_bytes = _member(model_evidence, "bytes", "content")
+            _need(type(model_bytes) is bytes and model_bytes,
+                  "Original selected model content bytes required")
+            model_evidence = {"pin": model_evidence["pin"], "bytes": model_bytes}
         else:
             raise ValueError("Exact selected A/B model pin and original content required")
         _need(model_evidence["pin"] == schedule_doc["accepted_model_pins"][source],
@@ -264,13 +270,13 @@ def admit_detached_a1_plan(*, genesis_snapshot_bytes, genesis_manifest,
             report_bytes=report,
             catalog_view_bytes=view,
             accepted_documents={_member(doc, "document_id", "documentId"): doc
-                                for doc in evidence.documents},
+                                for doc in documents},
             model_evidence=model_evidence,
             catalog_evidence=catalog)
         selected_models[source] = model_evidence
         catalog_acceptance[source] = {
             "installation_id": progress.installation_id,
-            "revision": evidence.catalog_revision,
+            "revision": catalog_revision,
             "report_bytes": report,
             "catalog_bytes": view,
         }
