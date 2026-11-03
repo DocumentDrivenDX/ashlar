@@ -468,11 +468,14 @@ def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict
     attempt = Path(resume["attempt_root"])
     prior_root = Path(resume["prior_continuation_root"])
     prior_native_root = Path(resume["prior_native_attempt_root"])
+    prior_native_root_02 = Path(resume["prior_native_attempt_root_02"])
     if (not attempt.is_absolute() or attempt.resolve() != attempt or attempt.is_symlink()
             or prior_root != attempt / "continuation-02"
             or not prior_root.is_dir() or prior_root.is_symlink()
             or prior_native_root != attempt / "continuation-03"
-            or not prior_native_root.is_dir() or prior_native_root.is_symlink()):
+            or not prior_native_root.is_dir() or prior_native_root.is_symlink()
+            or prior_native_root_02 != attempt / "continuation-04"
+            or not prior_native_root_02.is_dir() or prior_native_root_02.is_symlink()):
         raise RuntimeError("Canonical retained attempt13/continuation-02 roots required")
     files = {
         "setup_receipt": attempt / "setup-stage.json",
@@ -493,6 +496,9 @@ def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict
         "seed_pending_recovery": Path(resume["seed_pending_recovery_path"]),
         "prior_native_worker_failure": prior_native_root / "worker-failure.json",
         "prior_native_supervisor_result": prior_native_root / "supervisor-result.json",
+        "prior_native_worker_failure_02": prior_native_root_02 / "worker-failure.json",
+        "prior_native_supervisor_result_02": prior_native_root_02 / "supervisor-result.json",
+        "weft_diagnosis_receipt": Path(resume["weft_diagnosis_receipt"]),
     }
     for name, path in files.items():
         if (not path.is_absolute() or path.is_symlink() or not path.is_file()
@@ -509,6 +515,9 @@ def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict
     readback = json.loads(files["seed_readback_completion"].read_text())
     native_failure = json.loads(files["prior_native_worker_failure"].read_text())
     native_supervisor = json.loads(files["prior_native_supervisor_result"].read_text())
+    native_failure_02 = json.loads(files["prior_native_worker_failure_02"].read_text())
+    native_supervisor_02 = json.loads(files["prior_native_supervisor_result_02"].read_text())
+    diagnosis = json.loads(files["weft_diagnosis_receipt"].read_text())
     a0_ack = json.loads(files["a0_deferred_ack"].read_text())
     a0_page = json.loads(files["a0_source_page"].read_text())
     a0_ack_proof = json.loads(files["a0_ack_reconciliation"].read_text())
@@ -534,6 +543,24 @@ def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict
             or native_supervisor.get("status") != "failed_worker"
             or native_supervisor.get("cleanup", {}).get("process_group_empty") is not True
             or native_supervisor.get("postgres_cleanup", {}).get("postgres_closed") is not True
+            or native_failure_02.get("failure_type") != resume.get("prior_native_failure_type_02")
+            or native_failure_02.get("failure") != resume.get("prior_native_failure_02")
+            or native_failure_02.get("source_ack_state") != "previously_reconciled_matched"
+            or native_failure_02.get("delta_write_state") != "retained_seed_publication"
+            or native_failure_02.get("spark_started") is not True
+            or native_failure_02.get("spark_closed") is not True
+            or native_failure_02.get("postgres_closed") is not True
+            or native_supervisor_02.get("status") != "failed_worker"
+            or native_supervisor_02.get("cleanup", {}).get("process_group_empty") is not True
+            or native_supervisor_02.get("postgres_cleanup", {}).get("postgres_closed") is not True
+            or diagnosis.get("profile") != "ashlar-r61-weft-grouped-assertion-diagnosis/0.1"
+            or diagnosis.get("publication_id") != resume["seed_publication_id"]
+            or diagnosis.get("source_graph", {}).get("expected_path_count") != "1"
+            or diagnosis.get("source_graph", {}).get("expected_distinct_terminal_count") != "1"
+            or diagnosis.get("actual_from_native_spark_read", {}).get("grouped")
+                != [{"person_key": "p1", "paths": "1", "targets": "1"}]
+            or diagnosis.get("delta_tree_sha256_before_and_after_read_only_diagnosis")
+                != resume["delta_tree_sha256"]
             or not seed_result.get("source_acknowledgement") == "deferred_not_attempted"
             or len(seed_result.get("publications", ())) != 1
             or seed_ack.get("acknowledgement") != "deferred_not_attempted"
@@ -571,7 +598,11 @@ def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict
             or (Path(resume["prior_native_attempt_root"]) / "continuation-group.json").exists()
             or (Path(resume["prior_native_attempt_root"]) / "continuation-group-result.json").exists()
             or (Path(resume["prior_native_attempt_root"]) / "continuation-config.json").exists()
-            or (Path(resume["prior_native_attempt_root"]) / "continuation-result.json").exists()):
+            or (Path(resume["prior_native_attempt_root"]) / "continuation-result.json").exists()
+            or (prior_native_root_02 / "continuation-group.json").exists()
+            or (prior_native_root_02 / "continuation-group-result.json").exists()
+            or (prior_native_root_02 / "continuation-config.json").exists()
+            or (prior_native_root_02 / "continuation-result.json").exists()):
         raise RuntimeError("Retained seven-operation publication/ACK state does not prove a no-replay resume")
     if (Path(resume["origin_path"]).resolve() != files["origin_file"].resolve()
             or Path(seed_cont_config["publication_directory"]).resolve()

@@ -123,6 +123,9 @@ def preflight() -> dict:
             "seed_pending_recovery": Path(resume["seed_pending_recovery_path"]),
             "prior_native_worker_failure": Path(resume["prior_native_attempt_root"]) / "worker-failure.json",
             "prior_native_supervisor_result": Path(resume["prior_native_attempt_root"]) / "supervisor-result.json",
+            "prior_native_worker_failure_02": Path(resume["prior_native_attempt_root_02"]) / "worker-failure.json",
+            "prior_native_supervisor_result_02": Path(resume["prior_native_attempt_root_02"]) / "supervisor-result.json",
+            "weft_diagnosis_receipt": Path(resume["weft_diagnosis_receipt"]),
             "origin_file": Path(resume["origin_path"]),
         }
         for name, path in seed_inputs.items():
@@ -136,6 +139,9 @@ def preflight() -> dict:
         completed = json.loads(seed_inputs["seed_readback_completion"].read_text())
         native_failure = json.loads(seed_inputs["prior_native_worker_failure"].read_text())
         native_supervisor = json.loads(seed_inputs["prior_native_supervisor_result"].read_text())
+        native_failure_02 = json.loads(seed_inputs["prior_native_worker_failure_02"].read_text())
+        native_supervisor_02 = json.loads(seed_inputs["prior_native_supervisor_result_02"].read_text())
+        diagnosis = json.loads(seed_inputs["weft_diagnosis_receipt"].read_text())
         if (failure.get("failure_type") != "KeyError" or failure.get("failure") != "'types'"
                 or failure.get("source_ack_state") != "closed_reconciled"
                 or failure.get("delta_write_state") != "confirmed_seed_continuation_publication"
@@ -153,6 +159,22 @@ def preflight() -> dict:
                 or native_supervisor.get("status") != "failed_worker"
                 or native_supervisor.get("cleanup", {}).get("process_group_empty") is not True
                 or native_supervisor.get("postgres_cleanup", {}).get("postgres_closed") is not True
+                or native_failure_02.get("failure_type") != resume.get("prior_native_failure_type_02")
+                or native_failure_02.get("failure") != resume.get("prior_native_failure_02")
+                or native_failure_02.get("source_ack_state") != "previously_reconciled_matched"
+                or native_failure_02.get("delta_write_state") != "retained_seed_publication"
+                or native_failure_02.get("spark_started") is not True
+                or native_failure_02.get("spark_closed") is not True
+                or native_failure_02.get("postgres_closed") is not True
+                or native_supervisor_02.get("status") != "failed_worker"
+                or native_supervisor_02.get("cleanup", {}).get("process_group_empty") is not True
+                or native_supervisor_02.get("postgres_cleanup", {}).get("postgres_closed") is not True
+                or diagnosis.get("profile") != "ashlar-r61-weft-grouped-assertion-diagnosis/0.1"
+                or diagnosis.get("publication_id") != resume.get("seed_publication_id")
+                or diagnosis.get("actual_from_native_spark_read", {}).get("grouped")
+                    != [{"person_key": "p1", "paths": "1", "targets": "1"}]
+                or diagnosis.get("delta_tree_sha256_before_and_after_read_only_diagnosis")
+                    != resume.get("delta_tree_sha256")
                 or ack.get("publication_id") != resume.get("seed_publication_id")
                 or ack.get("manifest_sha256") != resume.get("seed_manifest_sha256")
                 or ack.get("source_page", {}).get("page_sha256") != resume.get("seed_source_page_sha256")
@@ -172,6 +194,11 @@ def preflight() -> dict:
                 "continuation-group.json", "continuation-group-result.json",
                 "continuation-config.json", "continuation-result.json")):
             raise RuntimeError("prior native resume artifacts do not prove no final group action")
+        native_root_02 = Path(resume["prior_native_attempt_root_02"])
+        if native_root_02 != attempt / "continuation-04" or any((native_root_02 / name).exists() for name in (
+                "continuation-group.json", "continuation-group-result.json",
+                "continuation-config.json", "continuation-result.json")):
+            raise RuntimeError("prior native Weft assertion artifacts do not prove no final group action")
     elif resume_mode:
         for key in ("postgres_data", "delta_root"):
             candidate = Path(paths[key])
