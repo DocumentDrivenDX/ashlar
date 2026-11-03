@@ -21,7 +21,7 @@ import time
 import zipfile
 
 REPO = Path(__file__).resolve().parents[1]
-SCOPE = REPO / "docs/helix/04-build/evidence/current-upstream-release-20261102/r61-fresh-truss055-umf102/scope.json"
+SCOPE = REPO / "docs/helix/04-build/evidence/current-upstream-release-20261102/r61-fresh-truss055-attempt13-continuation/scope.json"
 PENDING = (
     "truss_wheel", "truss_wheel_sha256", "truss_release_manifest_sha256",
     "umf_sdk_artifact", "umf_sdk_sha256", "umf_sdk_tag_commit",
@@ -47,6 +47,18 @@ RUN_RECEIPT_PATH: str | None = None
 
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _tree_digest(root: Path) -> str:
+    digest = hashlib.sha256()
+    for path in sorted(root.rglob("*"), key=lambda item: item.relative_to(root).as_posix()):
+        if path.is_symlink():
+            raise RuntimeError("symlink in pinned continuation state")
+        if path.is_file():
+            relative = path.relative_to(root).as_posix().encode()
+            digest.update(len(relative).to_bytes(4, "big"))
+            digest.update(_sha(path).encode())
+    return digest.hexdigest()
 
 
 def _pinned_psutil(scope: dict):
@@ -88,6 +100,25 @@ def _tree_size(root: Path, *, stop_after: int, exclude: Path | None = None,
                 size += path.stat().st_size
                 if size > stop_after:
                     return size
+    return size
+
+
+def _bounded_output_size(root: Path, scope: dict, *, stop_after: int,
+                         exclude: Path | None = None,
+                         deadline: float | None = None) -> int:
+    size = _tree_size(root, stop_after=stop_after, exclude=exclude, deadline=deadline)
+    if size > stop_after or type(scope.get("resume_after_genesis")) is not dict:
+        return size
+    for key in ("postgres_data", "delta_root"):
+        retained = Path(scope["fresh_local_state"][key])
+        if retained.is_relative_to(root):
+            continue
+        remaining = stop_after - size
+        if remaining <= 0:
+            return stop_after + 1
+        size += _tree_size(retained, stop_after=remaining, deadline=deadline)
+        if size > stop_after:
+            return size
     return size
 
 
@@ -504,16 +535,32 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
             or limits.get("attempts") != 1):
         raise RuntimeError("R61 hard bounds differ from reviewed limits")
     state = scope["fresh_local_state"]
+    resume = scope.get("resume_after_genesis")
+    resume_mode = type(resume) is dict
+    state_keys = ("root", "evidence_root") if resume_mode else (
+        "root", "postgres_data", "delta_root", "evidence_root")
     for key in ("root", "postgres_data", "delta_root", "evidence_root"):
         candidate = Path(state[key])
         if not candidate.is_absolute() or candidate.resolve() != candidate:
-            raise RuntimeError(f"noncanonical fresh path: {key}")
+            raise RuntimeError(f"noncanonical R61 state path: {key}")
         for forbidden in state["forbidden_state"]:
             denied = Path(forbidden).resolve()
             if candidate == denied or candidate in denied.parents or denied in candidate.parents:
-                raise RuntimeError("fresh run path overlaps retained state")
-        if candidate.exists() or candidate.is_symlink():
-            raise RuntimeError(f"fresh output path already exists: {key}")
+                raise RuntimeError("R61 path overlaps forbidden retained state")
+        if key in state_keys:
+            if candidate.exists() or candidate.is_symlink():
+                raise RuntimeError(f"fresh output path already exists: {key}")
+        elif not resume_mode or not candidate.is_dir() or candidate.is_symlink():
+            raise RuntimeError(f"retained continuation state directory unavailable: {key}")
+    if resume_mode:
+        if resume.get("profile") != "ashlar-r61-resume-after-genesis-ack/0.1":
+            raise RuntimeError("exact reviewed R61 continuation profile required")
+        for key, path_key in (("pgdata_tree_sha256", "postgres_data"),
+                              ("delta_tree_sha256", "delta_root")):
+            if _tree_digest(Path(state[path_key])) != resume.get(key):
+                raise RuntimeError(f"retained continuation tree hash differs: {path_key}")
+        if (Path(state["postgres_data"]) / "postmaster.pid").exists():
+            raise RuntimeError("retained continuation PostgreSQL must be stopped")
     pgdata = Path(state["postgres_data"])
     runtime_root = Path("/private/tmp" if sys.platform == "darwin" else "/tmp") / f"truss-pg18-{os.getuid()}"
     socket_id = hashlib.sha256(os.fsencode(pgdata)).hexdigest()[:24]
@@ -524,8 +571,22 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
         if (not stat.S_ISDIR(root_info.st_mode) or stat.S_ISLNK(root_info.st_mode)
                 or root_info.st_uid != os.getuid() or stat.S_IMODE(root_info.st_mode) != 0o700):
             raise RuntimeError("Truss runtime socket root ownership/mode differs")
-    if socket_dir.exists() or socket_dir.is_symlink() or lease.exists() or lease.is_symlink():
-        raise RuntimeError("fresh Truss deterministic socket/lease is already present")
+    if socket_dir.exists() or socket_dir.is_symlink() or lease.is_symlink():
+        raise RuntimeError("Truss deterministic socket or lease state is not admissible")
+    if resume_mode:
+        if not lease.is_file() or lease.stat().st_uid != os.getuid():
+            raise RuntimeError("owned retained Truss runtime lease required")
+        fd = os.open(lease, os.O_RDWR | getattr(os, "O_NOFOLLOW", 0))
+        try:
+            try:
+                fcntl.lockf(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError as error:
+                raise RuntimeError("retained Truss runtime lease is still held") from error
+            fcntl.lockf(fd, fcntl.LOCK_UN)
+        finally:
+            os.close(fd)
+    elif lease.exists():
+        raise RuntimeError("fresh Truss deterministic runtime lease is already present")
     return missing, scope
 
 
@@ -539,6 +600,7 @@ def preflight() -> dict:
             "missing_bindings": sorted(set(missing)),
             "bounds_enforced_by_supervisor": True,
             "limits": scope["limits"], "output_root_absent": True,
+            "continuing_after_genesis_ack": type(scope.get("resume_after_genesis")) is dict,
             "truss_socket_directory_absent": True,
             "supervisor_psutil": {"version": psutil.__version__,
                                   "module_path": str(psutil_path),
@@ -652,8 +714,8 @@ def run_once(dispatch_path: Path) -> int:
                     break
                 # The stream is capped independently so a fast writer cannot
                 # overshoot the aggregate output bound between filesystem polls.
-                other_bytes = _tree_size(root, stop_after=512 * 1024**2,
-                                         exclude=log, deadline=deadline)
+                other_bytes = _bounded_output_size(root, scope, stop_after=512 * 1024**2,
+                                                   exclude=log, deadline=deadline)
                 if other_bytes + captured > 512 * 1024**2 - 65536:
                     output_exceeded = True
                     break
@@ -740,8 +802,8 @@ def run_once(dispatch_path: Path) -> int:
                         result["worker_completion_sha256"] = _sha(worker_result_path)
             result["log_sha256"] = _sha(log)
             result["log_bytes"] = log.stat().st_size
-            result["output_bytes_before_receipt"] = _tree_size(root, stop_after=512 * 1024**2,
-                                                               exclude=receipt_path)
+            result["output_bytes_before_receipt"] = _bounded_output_size(
+                root, scope, stop_after=512 * 1024**2, exclude=receipt_path)
     except BaseException as exc:
         result["status"] = "failed_supervisor_exception"
         result["failure"] = f"{type(exc).__name__}: {exc}"
@@ -764,8 +826,9 @@ def run_once(dispatch_path: Path) -> int:
         result["elapsed_seconds"] = round(time.monotonic() - started, 3)
         try:
             if root.exists() and time.monotonic() < deadline:
-                result["final_output_bytes"] = _tree_size(root, stop_after=512 * 1024**2,
-                                                          exclude=receipt_path, deadline=deadline)
+                result["final_output_bytes"] = _bounded_output_size(
+                    root, scope, stop_after=512 * 1024**2,
+                    exclude=receipt_path, deadline=deadline)
                 if result["final_output_bytes"] > 512 * 1024**2 - 65536:
                     result["status"] = "failed_output_limit_receipt_reserve"
             elif root.exists():

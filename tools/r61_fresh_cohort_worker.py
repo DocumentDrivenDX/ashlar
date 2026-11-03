@@ -315,6 +315,85 @@ def _run_graphframes(scope: dict, release: Path, custody: Path, output: Path) ->
             "action_complete": True}
 
 
+def _resume_genesis_inputs(scope: dict) -> tuple[dict, dict, dict, dict]:
+    """Validate immutable attempt13 evidence before continuing after its A0 ACK."""
+    resume = scope.get("resume_after_genesis")
+    if type(resume) is not dict or resume.get("profile") != "ashlar-r61-resume-after-genesis-ack/0.1":
+        raise RuntimeError("Exact reviewed resume-after-genesis scope required")
+    attempt = Path(resume["attempt_root"])
+    if not attempt.is_absolute() or attempt.resolve() != attempt or attempt.is_symlink():
+        raise RuntimeError("Canonical retained attempt13 root required")
+    expected_files = {
+        "setup_receipt": attempt / "setup-stage.json",
+        "worker_failure": attempt / "worker-failure.json",
+        "supervisor_result": attempt / "supervisor-result.json",
+        "deferred_ack": Path(resume["deferred_ack_path"]),
+        "source_page": Path(resume["source_page_path"]),
+        "ack_reconciliation": Path(resume["ack_reconciliation_receipt"]),
+        "manifest_readback": Path(resume["manifest_readback_receipt"]),
+    }
+    for key, path in expected_files.items():
+        if (not path.is_absolute() or path.is_symlink() or not path.is_file()
+                or sha(path.read_bytes()) != resume["input_sha256"][key]):
+            raise RuntimeError(f"Retained attempt13 input hash differs: {key}")
+    failure = json.loads(expected_files["worker_failure"].read_text())
+    supervisor = json.loads(expected_files["supervisor_result"].read_text())
+    ack_proof = json.loads(expected_files["ack_reconciliation"].read_text())
+    manifest_proof = json.loads(expected_files["manifest_readback"].read_text())
+    if (failure.get("source_ack_attempted") is not True
+            or failure.get("delta_write_state") != "confirmed_catalog_genesis_publication"
+            or supervisor.get("status") != "failed_worker"
+            or ack_proof.get("source_api_outcome") != "matched"
+            or ack_proof.get("source_reconcile_called") is not True
+            or ack_proof.get("source_ack_retry_or_replay_attempted") is not False
+            or ack_proof.get("delta_write_attempted") is not False
+            or ack_proof.get("cleanup_errors") != []
+            or manifest_proof.get("source_reconciliation_outcome") != "matched"
+            or manifest_proof.get("source_reconciliation_receipt_sha256")
+                != resume["input_sha256"].get("ack_reconciliation")
+            or manifest_proof.get("deferred_ack_sha256")
+                != resume["input_sha256"].get("deferred_ack")
+            or manifest_proof.get("status") != "read_only_delta_manifest_match"
+            or manifest_proof.get("source_ack_retried") is not False
+            or manifest_proof.get("source_or_delta_written") is not False
+            or manifest_proof.get("postgres_reopened") is not False
+            or manifest_proof.get("mismatched_fields") != []
+            or manifest_proof.get("manifest_row_matches_retained_bytes") is not True):
+        raise RuntimeError("Retained A0 publication/ACK read-only proof is incomplete")
+    output_root = Path(scope["fresh_local_state"]["root"])
+    if output_root.exists() or output_root.is_symlink():
+        raise RuntimeError("Fresh continuation evidence root must be absent")
+    paths = scope["fresh_local_state"]
+    pgdata = Path(paths["postgres_data"])
+    delta = Path(paths["delta_root"])
+    if ((pgdata / "postmaster.pid").exists()
+            or tree_digest(pgdata) != resume["pgdata_tree_sha256"]
+            or tree_digest(delta) != resume["delta_tree_sha256"]):
+        raise RuntimeError("Stopped attempt13 PG/Delta state differs from reviewed continuation input")
+    forbidden = ("seed-group.json", "seed-group-result.json", "seed-continuation-config.json",
+                 "seed-continuation-result.json", "continuation-group.json",
+                 "continuation-group-result.json", "continuation-config.json",
+                 "continuation-result.json")
+    if any((attempt / name).exists() or (attempt / name).is_symlink() for name in forbidden):
+        raise RuntimeError("Prior seed/continuation operation exists; replay is refused")
+    setup = json.loads(expected_files["setup_receipt"].read_text())
+    ack = json.loads(expected_files["deferred_ack"].read_text())
+    page = json.loads(expected_files["source_page"].read_text())
+    if (ack.get("publication_id") != resume["publication_id"]
+            or page.get("sha256") != resume["source_page_sha256"]
+            or ack.get("source_page", {}).get("page_sha256") != page.get("sha256")
+            or ack.get("source_page", {}).get("next_sha256") != resume.get("next_cursor_sha256")
+            or sha(base64.b64decode(page["next"], validate=True)) != resume.get("next_cursor_sha256")
+            or Path(ack.get("source_page", {}).get("path", "")).resolve()
+                != expected_files["source_page"].resolve()
+            or ack.get("manifest_sha256") != resume["manifest_sha256"]
+            or manifest_proof.get("publication_id") != resume["publication_id"]
+            or manifest_proof.get("manifest_sha256") != resume["manifest_sha256"]
+            or ack.get("acknowledgement") != "deferred_not_attempted"):
+        raise RuntimeError("Retained A0 source page/manifest identity differs")
+    return setup, ack, page, ack_proof
+
+
 def _group_config(path: Path, output: Path, *, uri: str, records: list,
                   edges: list, key: str) -> dict:
     value = {"profile": "ashlar-truss-record-group/0.1", "connection_uri": uri,
@@ -454,6 +533,7 @@ def _seed_records() -> tuple[list, list]:
 def run() -> dict:
     scope = json.loads(SCOPE.read_text())
     artifacts = scope["artifacts"]
+    resume_mode = "resume_after_genesis" in scope
     runtime_identity = _install_runtime(scope)
     from truss import LocalPostgres
     import psycopg
@@ -473,14 +553,20 @@ def run() -> dict:
     spec.loader.exec_module(setup_module)
     run_fresh_truss_setup_stage = setup_module.run_fresh_truss_setup_stage
     root = ROOT
-    EFFECTS["postgres_start_attempted"] = True
-    setup = run_fresh_truss_setup_stage(root=root,
-        bun=Path(artifacts["bun_executable"]),
-        expected_adapter_profile=artifacts["truss_adapter_profile"])
-    # The public Truss setup stage has started and cleanly closed its owned PG
-    # contexts before returning accepted setup evidence.
-    EFFECTS["postgres_started"] = True
-    EFFECTS["postgres_closed"] = True
+    if resume_mode:
+        setup, resume_ack_file, resume_source_page, resume_ack_proof = _resume_genesis_inputs(scope)
+        EFFECTS["delta_write_state"] = "retained_catalog_genesis_publication"
+        EFFECTS["source_ack_attempted"] = True
+        EFFECTS["source_ack_state"] = "previously_reconciled_matched"
+    else:
+        EFFECTS["postgres_start_attempted"] = True
+        setup = run_fresh_truss_setup_stage(root=root,
+            bun=Path(artifacts["bun_executable"]),
+            expected_adapter_profile=artifacts["truss_adapter_profile"])
+        # The public Truss setup stage has started and cleanly closed its owned PG
+        # contexts before returning accepted setup evidence.
+        EFFECTS["postgres_started"] = True
+        EFFECTS["postgres_closed"] = True
     pgdata = Path(scope["fresh_local_state"]["postgres_data"])
     delta = Path(scope["fresh_local_state"]["delta_root"])
     jars = [Path(item) for item in runtime_identity["jars"]]
@@ -530,7 +616,24 @@ def run() -> dict:
                 if not host.detach(): raise RuntimeError("public Truss host detach refused")
             connection.rollback()
         from ashlar_host.truss_note_publication import read_page
-        genesis_page = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
+        if resume_mode:
+            from truss.feed import FeedCursor, FeedPage
+            # The current public source cursor is observed before any new group
+            # operation. The retained transaction page is reconstructed only
+            # from attempt13's exact immutable bytes for receipt reporting.
+            genesis_cursor = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
+            genesis_page = FeedPage(
+                consumer_id=resume_source_page["consumer_id"],
+                registration_id=resume_source_page["registration_id"],
+                prior=FeedCursor(content=base64.b64decode(resume_source_page["prior"], validate=True)),
+                next=FeedCursor(content=base64.b64decode(resume_source_page["next"], validate=True)),
+                content=base64.b64decode(resume_source_page["content"], validate=True),
+                sha256=resume_source_page["sha256"],
+                writer_xid=resume_source_page["writer_xid"],
+                safe_watermark_xid=resume_source_page["safe_watermark_xid"],
+                outcome=resume_source_page["outcome"])
+        else:
+            genesis_page = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
         initial_page = setup["initial_source_page"]
         initial_content = base64.b64decode(initial_page["content_base64"], validate=True)
         initial_prior = base64.b64decode(initial_page["prior_base64"], validate=True)
@@ -577,45 +680,68 @@ def run() -> dict:
                     context_holder=holder, state=state)
             return select_page
 
-        # Publish and protectively acknowledge the accepted-catalog metadata
-        # transaction first. It has no entity rows, but it is a real public page.
-        EFFECTS["spark_started"] = True
-        spark = open_configured_local_spark(runtime_config, attested_jars, warehouse,
-                                            app_name="Ashlar R61 catalog genesis")
-        try:
-            verify_loaded_delta_class(spark, attested_jars)
-            EFFECTS["delta_write_state"] = "possible_catalog_genesis_publication"
-            expected_first_page = {
-                "profile": "ashlar-truss-first-page-binding/0.1",
-                "page_sha256": initial_page["sha256"],
-                "page_bytes": len(initial_content),
-                "outcome": initial_page["outcome"],
-                "writer_xid": initial_page["writer_xid"],
-                "consumer_id": initial_page["consumer_id"],
-                "registration_id": initial_page["registration_id"],
-                "prior_sha256": sha(initial_prior),
-            }
-            genesis_publication = publish_graph_pages(spark, delta,
-                connection_factory=source_factory, catalog_connection_factory=lambda:
-                    psycopg.connect(registrar_uri, autocommit=False, connect_timeout=5),
-                consumer_id=CONSUMER, feed=FEED, maximum_pages=1,
-                maximum_page_bytes=1048576, destination_id=DESTINATION,
-                carrier_profile="ashlar-delta/0.4-xxhash64", umf_sdk_version="0.10.2",
-                defer_source_acknowledgement=True,
-                expected_first_page=expected_first_page,
-                prepublication_source_custody=selector_for(genesis_state))
-        finally:
-            spark.stop()
-            EFFECTS["spark_closed"] = True
-        EFFECTS["delta_write_state"] = "confirmed_catalog_genesis_publication"
-        if len(genesis_publication.get("publications", ())) != 1 or "selection" not in genesis_state:
-            raise RuntimeError("one accepted-catalog genesis publication and native custody bind required")
-        genesis_result = genesis_publication["publications"][0]
-        genesis_ack = _acknowledge(genesis_state)
-        genesis_cursor = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
-        if (genesis_cursor.outcome != "empty_interval"
-                or sha(genesis_cursor.prior.content) != genesis_ack["checkpoint_sha256"]):
-            raise RuntimeError("metadata-only genesis ACK does not match the saved next checkpoint")
+        if resume_mode:
+            # A0 was already published and protected-ACKed. Use the exact
+            # source/Delta receipts and check the live cursor before proceeding;
+            # never republish or repeat that ACK.
+            expected_next = base64.b64decode(resume_source_page["next"], validate=True)
+            if (genesis_cursor.outcome != "empty_interval"
+                    or genesis_cursor.prior.content != expected_next
+                    or resume_ack_proof.get("source_api_outcome") != "matched"):
+                raise RuntimeError("Retained A0 ACK does not match the live public checkpoint")
+            from types import SimpleNamespace
+            genesis_vector = resume_ack_file["publication_vector"]
+            genesis_state = {"observation": SimpleNamespace(vector=SimpleNamespace(
+                targets={key: tuple(value) for key, value in genesis_vector["targets"].items()}))}
+            intent_path = delta / f"publication-intent-{resume_ack_file['request_digest']}.json"
+            if not intent_path.is_file() or intent_path.is_symlink():
+                raise RuntimeError("Original A0 publication intent file is missing")
+            genesis_result = {"manifest": resume_ack_file["manifest"],
+                "publication_intent": {"path": str(intent_path), "sha256": sha(intent_path.read_bytes())}}
+            genesis_ack = {"outcome": "reconciled_matched",
+                "checkpoint_sha256": sha(expected_next), "receipt_outcome": "matched",
+                "ack_matched": True,
+                "read_only_reconciliation_sha256": sha(Path(scope["resume_after_genesis"]["ack_reconciliation_receipt"]).read_bytes())}
+        else:
+            # Publish and protectively acknowledge the accepted-catalog metadata
+            # transaction first. It has no entity rows, but it is a real public page.
+            EFFECTS["spark_started"] = True
+            spark = open_configured_local_spark(runtime_config, attested_jars, warehouse,
+                                                app_name="Ashlar R61 catalog genesis")
+            try:
+                verify_loaded_delta_class(spark, attested_jars)
+                EFFECTS["delta_write_state"] = "possible_catalog_genesis_publication"
+                expected_first_page = {
+                    "profile": "ashlar-truss-first-page-binding/0.1",
+                    "page_sha256": initial_page["sha256"],
+                    "page_bytes": len(initial_content),
+                    "outcome": initial_page["outcome"],
+                    "writer_xid": initial_page["writer_xid"],
+                    "consumer_id": initial_page["consumer_id"],
+                    "registration_id": initial_page["registration_id"],
+                    "prior_sha256": sha(initial_prior),
+                }
+                genesis_publication = publish_graph_pages(spark, delta,
+                    connection_factory=source_factory, catalog_connection_factory=lambda:
+                        psycopg.connect(registrar_uri, autocommit=False, connect_timeout=5),
+                    consumer_id=CONSUMER, feed=FEED, maximum_pages=1,
+                    maximum_page_bytes=1048576, destination_id=DESTINATION,
+                    carrier_profile="ashlar-delta/0.4-xxhash64", umf_sdk_version="0.10.2",
+                    defer_source_acknowledgement=True,
+                    expected_first_page=expected_first_page,
+                    prepublication_source_custody=selector_for(genesis_state))
+            finally:
+                spark.stop()
+                EFFECTS["spark_closed"] = True
+            EFFECTS["delta_write_state"] = "confirmed_catalog_genesis_publication"
+            if len(genesis_publication.get("publications", ())) != 1 or "selection" not in genesis_state:
+                raise RuntimeError("one accepted-catalog genesis publication and native custody bind required")
+            genesis_result = genesis_publication["publications"][0]
+            genesis_ack = _acknowledge(genesis_state)
+            genesis_cursor = read_page(source_factory, CONSUMER, maximum_bytes=1048576)
+            if (genesis_cursor.outcome != "empty_interval"
+                    or sha(genesis_cursor.prior.content) != genesis_ack["checkpoint_sha256"]):
+                raise RuntimeError("metadata-only genesis ACK does not match the saved next checkpoint")
         phase_receipts.append({"phase": "accepted_catalog_metadata_genesis_and_protected_ack",
             "source_writer_xid": genesis_page.writer_xid,
             "source_page_sha256": genesis_page.sha256,
