@@ -44,7 +44,7 @@ class _A1PinPolicy:
 
     def admit_registration(self, vector, context):
         if self._registered:
-            raise ManagedA1LocalPinOwnerError("One original A1 pin registration required")
+            raise ManagedA1LocalPinOwnerError("One original pin-phase registration required")
         return self._admit(vector, context)
 
     def authorize_read(self, vector, context):
@@ -118,7 +118,7 @@ class _PsycopgPinExecutor:
 
 
 class ManagedA1LocalPinOwner:
-    """Own one fresh PG18 data directory and exact A1 four-role pin registry."""
+    """Own one fresh PG18 registry for exact sequential A0/A1 pin scopes."""
 
     def __init__(self, data_directory, selection, vector, *, native_timeout_seconds=900,
                  deadline_monotonic=None):
@@ -145,7 +145,13 @@ class ManagedA1LocalPinOwner:
         self._active = False
         self._policy = _A1PinPolicy(selection, vector, self.context)
         self._pins = None
-        self._pin_opened = False
+        self._executor = None
+        self._pin_handle = None
+        self._phase_handle_opened = False
+        self._phase_close_confirmed = False
+        self._phase_released = False
+        self._phase_index = 0
+        self._seen_scope_keys = {(vector.authority, vector.scope_kind, vector.scope_id)}
 
     def __enter__(self):
         if self._active:
@@ -161,8 +167,8 @@ class ManagedA1LocalPinOwner:
                     and time.monotonic() >= self.deadline_monotonic):
                 raise ManagedA1LocalPinOwnerError("A1 deadline expired during local PG18 startup")
             self._install_schema()
-            self._pins = PostgresPins(
-                _PsycopgPinExecutor(self._connect, self.context), self._policy)
+            self._executor = _PsycopgPinExecutor(self._connect, self.context)
+            self._pins = PostgresPins(self._executor, self._policy)
         except BaseException as error:
             if self._active:
                 try:
@@ -235,7 +241,7 @@ class ManagedA1LocalPinOwner:
 
     def register(self):
         if not self._active or self._pins is None or self._policy._registered:
-            raise ManagedA1LocalPinOwnerError("Active one-shot local A1 pin owner required")
+            raise ManagedA1LocalPinOwnerError("Active one-shot local pin phase required")
         try:
             self._pins.register(self.vector, context=self.context)
         except BaseException as error:
@@ -246,8 +252,113 @@ class ManagedA1LocalPinOwner:
             "runtime_version": self._runtime.info.runtime_version,
             "data_directory": str(self.data_directory),
             "vector_sha256": hashlib.sha256(json_bytes(self.vector)).hexdigest(),
+            "phase_index": self._phase_index,
             "native_pin_transaction_timeout_seconds": self.native_timeout_seconds,
             "authority": "fresh owned local PostgreSQL pin registry; no Delta file lease"}
+
+    def close_native_pin(self, handle):
+        """Close only this phase's exact live handle while retaining PG18."""
+        if (not self._active or self._pin_handle is None
+                or handle is not self._pin_handle):
+            raise ManagedA1LocalPinOwnerError("Original live phase pin handle required")
+        try:
+            handle.close()
+        except BaseException:
+            # Do not allow a failed close to authorize registry release or a
+            # subsequent phase. Clear the reference only so bounded owner
+            # shutdown can reap the local server during failure cleanup.
+            self._pin_handle = None
+            self._phase_close_confirmed = False
+            raise
+        self._pin_handle = None
+        self._phase_close_confirmed = True
+
+    @staticmethod
+    def _phase_inventory(session, vector, *, released):
+        rows = session.query(
+            "SELECT table_name,table_uuid,version::text AS version,"
+            "encode(custody_digest,'hex') AS digest,released "
+            "FROM ashlar_pins.pin WHERE authority=:authority "
+            "AND scope_kind=:kind AND scope_id=:scope LIMIT 129",
+            {"authority": vector.authority, "kind": vector.scope_kind,
+             "scope": vector.scope_id}).rows
+        expected = {table: (uuid, str(version))
+            for table, (uuid, version) in vector.targets.items()}
+        if (type(rows) is not list or len(rows) != len(expected)
+                or {row.get("table_name") for row in rows} != set(expected)
+                or any((row.get("table_uuid"), row.get("version"))
+                    != expected.get(row.get("table_name"))
+                    or row.get("digest") != vector.custody_digest
+                    or row.get("released") is not released for row in rows)):
+            raise ManagedA1LocalPinOwnerError(
+                "Exact phase pin inventory readback required")
+
+    def release_current_registration(self):
+        """Release the closed phase's exact vector, retaining immutable rows."""
+        if (not self._active or self._pin_handle is not None
+                or not self._phase_handle_opened or self._phase_released
+                or not self._phase_close_confirmed
+                or not self._policy._registered or self._executor is None):
+            raise ManagedA1LocalPinOwnerError(
+                "Closed registered phase pin required before exact release")
+        vector = self.vector
+        try:
+            with self._executor.transaction(self.context) as session:
+                self._phase_inventory(session, vector, released=False)
+                for table in sorted(vector.targets):
+                    parameters = vector.parameters(table)
+                    session.query(
+                        "SELECT ashlar_pins.release(:id,:authority,decode(:digest,'hex'))",
+                        {"id": parameters["id"], "authority": vector.authority,
+                         "digest": vector.custody_digest})
+                self._phase_inventory(session, vector, released=True)
+        except BaseException as error:
+            if isinstance(error, ManagedA1LocalPinOwnerError):
+                raise
+            raise ManagedA1LocalPinOwnerError(
+                "Exact original phase pin release was not confirmed") from error
+        self._phase_released = True
+        return {"profile": "ashlar-a1-local-pin-release/0.1",
+            "phase_index": self._phase_index,
+            "vector_sha256": hashlib.sha256(json_bytes(vector)).hexdigest(),
+            "scope_id": vector.scope_id, "released_rows": len(vector.targets),
+            "state": "released_exact_vector_readback_confirmed"}
+
+    def select_next_phase(self, selection, vector, *, native_timeout_seconds):
+        """Bind a distinct next phase after prior handle close and pin release."""
+        from .managed_operational_retention_interval import (
+            ManagedOperationalRetentionSelection,
+        )
+        if (not self._active or self._pin_handle is not None
+                or not self._phase_released or self._phase_index != 0
+                or type(selection) is not ManagedOperationalRetentionSelection
+                or type(vector) is not PinVector or selection.vector != vector
+                or type(native_timeout_seconds) is not int
+                or not 31 <= native_timeout_seconds <= 900
+                or (self.deadline_monotonic is not None
+                    and time.monotonic() >= self.deadline_monotonic)):
+            raise ManagedA1LocalPinOwnerError(
+                "Distinct next phase requires a closed and released prior pin scope")
+        scope_key = (vector.authority, vector.scope_kind, vector.scope_id)
+        if scope_key in self._seen_scope_keys:
+            raise ManagedA1LocalPinOwnerError(
+                "A1 pin phase must use a new immutable publication scope")
+        self._seen_scope_keys.add(scope_key)
+        self.selection, self.vector = selection, vector
+        self.native_timeout_seconds = native_timeout_seconds
+        self.context = object()
+        self._policy = _A1PinPolicy(selection, vector, self.context)
+        self._executor = _PsycopgPinExecutor(self._connect, self.context)
+        self._pins = PostgresPins(self._executor, self._policy)
+        self._phase_handle_opened = False
+        self._phase_close_confirmed = False
+        self._phase_released = False
+        self._phase_index += 1
+        return {"profile": "ashlar-a1-local-pin-phase-selection/0.1",
+            "phase_index": self._phase_index,
+            "vector_sha256": hashlib.sha256(json_bytes(vector)).hexdigest(),
+            "scope_id": vector.scope_id,
+            "native_pin_transaction_timeout_seconds": native_timeout_seconds}
 
     def operational_pin_port(self, read_port):
         if (not self._active or not self._policy._registered
@@ -268,20 +379,26 @@ class ManagedA1LocalPinOwner:
         read or Delta file-retention lease.
         """
         if (not self._active or not self._policy._registered
-                or self._pins is None or self._pin_opened):
-            raise ManagedA1LocalPinOwnerError("Registered one-shot A1 pin owner required")
-        self._pin_opened = True
+                or self._pins is None or self._phase_handle_opened
+                or self._pin_handle is not None or self._phase_released):
+            raise ManagedA1LocalPinOwnerError("Registered one-shot phase pin required")
         try:
-            return self._pins.open_live(self.vector, self.selection,
+            handle = self._pins.open_live(self.vector, self.selection,
                 context=self.context,
                 bounded_lifetime_seconds=self.native_timeout_seconds)
         except BaseException:
-            self._pin_opened = False
             raise
+        self._phase_handle_opened = True
+        self._phase_close_confirmed = False
+        self._pin_handle = handle
+        return handle
 
     def __exit__(self, exc_type, exc, traceback):
         if not self._active:
             return False
+        if self._pin_handle is not None:
+            raise ManagedA1LocalPinOwnerError(
+                "Live phase pin must be closed before its PostgreSQL owner")
         self._active = False
         return self._runtime.__exit__(exc_type, exc, traceback)
 

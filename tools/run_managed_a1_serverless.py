@@ -33,7 +33,7 @@ HARD_USD = 100.0
 PREFERRED_USD = 10.0
 SERVERLESS_USD_PER_DBUH = 0.47
 WORST_SERVERLESS_DBUH = 240.0  # Largest documented default cap; no custom compute or invoice guarantee.
-MAX_SOURCE_BOOTSTRAP_SECONDS = 165
+MAX_SOURCE_BOOTSTRAP_SECONDS = 275
 INITIALIZER_TIMEOUT_SECONDS = 180
 PUBLISHER_TIMEOUT_SECONDS = 180
 VERIFIER_TIMEOUT_SECONDS = 150
@@ -1312,12 +1312,12 @@ class _LocalPinStages:
                 "Native A1 pin closes only after exact source ACK reconciliation")
         require(self.post_ack_window and self.post_ack_observations == 1,
                 "Native A1 pin closes only after exact post-ACK four-role close observation")
-        self.handle.close()
+        self.owner.close_native_pin(self.handle)
         self.handle = None
 
     def close_on_error(self):
         if self.handle is not None:
-            try: self.handle.close()
+            try: self.owner.close_native_pin(self.handle)
             finally: self.handle = None
 
 
@@ -1918,6 +1918,12 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             deadline_monotonic=work_deadline)
         pin_owner.__enter__()
         pin_registration = pin_owner.register()
+        recovery_state["pin_registry"] = {
+            "data_directory": str(pin_owner.data_directory),
+            "a0_registration": pin_registration,
+            "state": "a0_registered",
+        }
+        _write_private_json(recovery_path, recovery_state)
         pin_stages = _LocalPinStages(pin_owner,
             lifetime_seconds=pin_native_timeout)
         result["local_pin_owner"] = pin_registration
@@ -2035,11 +2041,13 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         })
         _write_private_json(recovery_path, recovery_state)
         pin_stages.close_after_ack()
-        pin_owner.__exit__(None, None, None)
-        recovery_state["pin_postgres_cleanup"] = _cleanup_pin_pgdata(
-            pin_owner, pin_pg_ctl_lock, deadline)
-        result["pin_postgres_cleanup"] = recovery_state["pin_postgres_cleanup"]
-        pin_owner = None
+        a0_pin_release = pin_owner.release_current_registration()
+        result["a0_pin_release"] = a0_pin_release
+        recovery_state["pin_registry"].update({
+            "a0_release": a0_pin_release,
+            "state": "a0_released_a1_registration_pending",
+        })
+        _write_private_json(recovery_path, recovery_state)
         holder.finish_ack(settlement, attempt_directory=store.directory, deadline=deadline)
         result["source_holder_settlement"] = {"outcome": settlement.outcome,
             "request_sha256": settlement.request_sha256,
@@ -2147,17 +2155,20 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             "targets": {key: list(value) for key, value in a1_bundle.vector.targets.items()}}
         require(a1_vector_wire == a1_vector,
                 "A1 retention builder and publisher vector differ")
-        a1_pin_root = pin_root / "a1"
-        a1_pin_root.mkdir(mode=0o700)
         a1_pin_timeout = min(900, int(deadline - time.monotonic()
             - POST_ACK_CLEANUP_RESERVE_SECONDS))
         require(a1_pin_timeout >= 31,
                 "Insufficient remaining wall deadline for the A1 native pin interval")
-        pin_owner = ManagedA1LocalPinOwner(a1_pin_root / "pgdata", a1_bundle.selection,
-            a1_bundle.vector, native_timeout_seconds=a1_pin_timeout,
-            deadline_monotonic=work_deadline)
-        pin_owner.__enter__()
+        a1_pin_selection = pin_owner.select_next_phase(a1_bundle.selection,
+            a1_bundle.vector, native_timeout_seconds=a1_pin_timeout)
+        result["a1_local_pin_phase"] = a1_pin_selection
         result["a1_local_pin_owner"] = pin_owner.register()
+        recovery_state["pin_registry"].update({
+            "a1_phase": a1_pin_selection,
+            "a1_registration": result["a1_local_pin_owner"],
+            "state": "a1_registered",
+        })
+        _write_private_json(recovery_path, recovery_state)
         pin_stages = _LocalPinStages(pin_owner, lifetime_seconds=a1_pin_timeout)
         a1_interval_id = str(uuid.uuid4())
         a1_interval_started = time.monotonic()
@@ -2202,6 +2213,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
                 "Do not bind or ACK A1 without the full remaining ACK/reap/cleanup reserve")
         holder.bind(manifest_bytes=a1_manifest_bytes, vector=a1_vector,
             receipt_bytes=a1_receipt_bytes, deadline=deadline)
+        a1_pin_root = pin_root / "a1"
+        a1_pin_root.mkdir(mode=0o700)
         a1_attempt_dir = a1_pin_root / "attempts"
         a1_attempt_dir.mkdir(parents=True, exist_ok=False, mode=0o700)
         os.chmod(a1_attempt_dir, 0o700)
@@ -2275,10 +2288,17 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         })
         _write_private_json(recovery_path, recovery_state)
         pin_stages.close_after_ack()
+        a1_pin_release = pin_owner.release_current_registration()
+        result["a1_pin_release"] = a1_pin_release
+        recovery_state["pin_registry"].update({
+            "a1_release": a1_pin_release,
+            "state": "a1_released",
+        })
+        _write_private_json(recovery_path, recovery_state)
         pin_owner.__exit__(None, None, None)
-        recovery_state["a1_pin_postgres_cleanup"] = _cleanup_pin_pgdata(
+        recovery_state["pin_postgres_cleanup"] = _cleanup_pin_pgdata(
             pin_owner, pin_pg_ctl_lock, deadline)
-        result["a1_pin_postgres_cleanup"] = recovery_state["a1_pin_postgres_cleanup"]
+        result["pin_postgres_cleanup"] = recovery_state["pin_postgres_cleanup"]
         pin_owner = None
         holder.finish_ack(a1_settlement, attempt_directory=a1_store.directory,
                           deadline=deadline)
