@@ -191,7 +191,8 @@ class ManagedCurrentGraphPublicationDriver:
     outcomes always refuse resubmission; only exact committed replay is
     supported in this bounded slice.
     """
-    def __init__(self,target_owner,admission,*,stream,materialized_at,context):
+    def __init__(self,target_owner,admission,*,stream,materialized_at,context,
+                 schema_revisions_json=None):
         from contextlib import contextmanager
         _require(type(target_owner)is ManagedCurrentTargetOwner and admission.current
             and type(stream)is str and stream and type(materialized_at)is str
@@ -208,7 +209,23 @@ class ManagedCurrentGraphPublicationDriver:
             'Original managed Truss page cursor required')
         self.revisions={revision:__import__('hashlib').sha256(selected['report']).hexdigest()
             for revision,selected in admission.revisions.items()}
-        self.schema_revisions_json=_canonical(self.revisions)
+        # The report digest map above supports the legacy exact-plan path.
+        # A source-owner A1 plan carries a distinct declared installation
+        # revision vector; accept that vector only after the task boundary has
+        # recomposed the exact owner plan and pass it explicitly here.
+        if schema_revisions_json is None:
+            self.schema_revisions_json=_canonical(self.revisions)
+        else:
+            try: selected_revisions=json.loads(schema_revisions_json)
+            except (TypeError, json.JSONDecodeError):
+                _require(False,'Canonical selected managed source schema revisions required')
+            _require(type(schema_revisions_json)is str and type(selected_revisions)is dict
+                     and bool(selected_revisions)
+                     and all(type(key)is str and key and type(value)is str and value
+                             for key,value in selected_revisions.items())
+                     and _canonical(selected_revisions)==schema_revisions_json,
+                     'Canonical selected managed source schema revisions required')
+            self.schema_revisions_json=schema_revisions_json
         self.names={role:'.'.join(target_owner.names[role]) for role in target_owner.names}
         self.data_tables={role:self.names[role] for role in self.table_roles}
         self.columns={role:target_owner.carriers.ordered_fields(role) for role in ROLES}
@@ -682,9 +699,11 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
 
     def __init__(self, target_owner, admission, *, stream, materialized_at, context,
                  managed_genesis_predecessor=None,
-                 source_owner_admitted_batch=None):
+                 source_owner_admitted_batch=None,
+                 schema_revisions_json=None):
         super().__init__(target_owner, admission, stream=stream,
-                         materialized_at=materialized_at, context=context)
+                         materialized_at=materialized_at, context=context,
+                         schema_revisions_json=schema_revisions_json)
         from .managed_current_incremental import ManagedCurrentAffectedReader
         self.incremental_reader = ManagedCurrentAffectedReader(
             self.transport, self.data_tables,
@@ -1246,6 +1265,8 @@ def run_managed_current_publication_task(spark,*,binding=None,core_config,protoc
     if publication_profile == 'ashlar-managed-current-incremental/0.1':
         driver_inputs.update(managed_genesis_predecessor=a1_predecessor,
                              source_owner_admitted_batch=a1_batch)
+    if a1_plan is not None:
+        driver_inputs['schema_revisions_json'] = schema_revisions_json
     driver=driver_type(target,admission,**driver_inputs)
     request=truss_request_for(stream,admission.batch,predecessor,revisions)
     if a1_plan is not None:

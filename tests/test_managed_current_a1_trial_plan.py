@@ -47,6 +47,9 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
         class BackendConstructed(Exception):
             pass
 
+        class FirstPredecessorRead(Exception):
+            pass
+
         target_calls = []
         backend_calls = []
 
@@ -82,6 +85,18 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
                 "`client_dev`.`trial_schema`.`publication_manifest`")
             self.assertEqual(manifest_port.store.uuid,
                 "20000000-0000-4000-8000-000000000005")
+            driver = backend.driver
+            self.assertEqual(driver.schema_revisions_json, revisions)
+            self.assertEqual(driver._source_checkpoint(), plan.request["source_checkpoint_json"])
+            first_sql = []
+            def stop_at_first_read(sql, parameters):
+                first_sql.append((sql, parameters))
+                raise FirstPredecessorRead
+            with patch.object(driver.transport, "query", side_effect=stop_at_first_read):
+                with self.assertRaises(FirstPredecessorRead):
+                    driver.prepare_truss_apply(plan.request, driver.context)
+            self.assertEqual(len(first_sql), 1)
+            self.assertIn("publication_manifest", first_sql[0][0])
             backend_calls.append((backend, manifest_port))
             raise BackendConstructed
 
