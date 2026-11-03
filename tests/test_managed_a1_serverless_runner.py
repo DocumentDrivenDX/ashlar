@@ -39,10 +39,16 @@ class _PinOwner:
 
 
 class _RunsAPI:
-    def __init__(self, pages): self.pages = iter(pages); self.cancelled = []
+    def __init__(self, pages): self.pages = iter(pages); self.cancelled = []; self.rows = []
     def call(self, method, path, body=None):
         if path.startswith("/api/2.2/jobs/runs/list"):
-            return next(self.pages)
+            page = next(self.pages)
+            self.rows = page.get("runs", [])
+            return page
+        if path.startswith("/api/2.2/jobs/runs/get?run_id="):
+            run_id = int(path.split("=")[-1])
+            row = next(item for item in self.rows if item["run_id"] == run_id)
+            return {**row, "state": {"life_cycle_state": "RUNNING"}}
         if path == "/api/2.2/jobs/runs/cancel":
             self.cancelled.append(body["run_id"])
             return {}
@@ -55,8 +61,10 @@ class _LostRunNowAPI:
         self.visible = visible
         self.settings = None
         self.run_now_count = 0
+        self.run_now_payload = None
         self.run_list_count = 0
         self.deleted = False
+        self.cancelled = []
 
     def call(self, method, path, body=None):
         if method == "post" and path == "/api/2.2/jobs/create":
@@ -72,14 +80,64 @@ class _LostRunNowAPI:
             return {"runs": rows, "next_page_token": None}
         if method == "post" and path == "/api/2.2/jobs/run-now":
             self.run_now_count += 1
+            self.run_now_payload = body
             raise TimeoutError("response lost after server acceptance")
         if method == "get" and path == "/api/2.2/jobs/runs/get?run_id=29":
-            return {"run_id": 29, "state": {"life_cycle_state": "TERMINATED",
+            return {"run_id": 29, "job_id": 17,
+                "state": {"life_cycle_state": "TERMINATED",
                 "result_state": "SUCCESS"}, "tasks": []}
         if method == "get" and path == "/api/2.2/jobs/runs/get-output?run_id=29":
             return {"notebook_output": {"result": '{"ok":true}'}}
         if method == "post" and path == "/api/2.2/jobs/delete":
             self.deleted = True
+            return {}
+        if method == "post" and path == "/api/2.2/jobs/runs/cancel":
+            self.cancelled.append(body["run_id"])
+            return {}
+        raise AssertionError((method, path, body))
+
+
+class _ForeignRunNowAPI:
+    def __init__(self):
+        self.deadline = None; self.settings = None; self.deleted = False; self.cancelled = []
+    def call(self, method, path, body=None):
+        if method == "post" and path == "/api/2.2/jobs/create":
+            self.settings = body
+            return {"job_id": 17}
+        if method == "get" and path == "/api/2.2/jobs/get?job_id=17":
+            return {"settings": self.settings,
+                    "run_as_user_name": self.settings["run_as"]["user_name"]}
+        if method == "get" and path.startswith("/api/2.2/jobs/runs/list?"):
+            return {}
+        if method == "post" and path == "/api/2.2/jobs/run-now":
+            self.token = body["idempotency_token"]
+            return {"run_id": 29}
+        if method == "get" and path == "/api/2.2/jobs/runs/get?run_id=29":
+            return {"run_id": 29, "job_id": 86034381333009,
+                "state": {"life_cycle_state": "TERMINATED", "result_state": "SUCCESS"},
+                "tasks": []}
+        if method == "post" and path == "/api/2.2/jobs/runs/cancel":
+            self.cancelled.append(body["run_id"])
+            return {}
+        if method == "post" and path == "/api/2.2/jobs/delete":
+            self.deleted = True
+            return {}
+        raise AssertionError((method, path, body))
+
+
+class _MixedOwnershipRunsAPI:
+    def __init__(self): self.cancelled = []
+    def call(self, method, path, body=None):
+        if path.startswith("/api/2.2/jobs/runs/list"):
+            return {"runs": [{"run_id": 418, "start_time": 100100},
+                             {"run_id": 419, "start_time": 100200}],
+                    "next_page_token": None}
+        if path == "/api/2.2/jobs/runs/get?run_id=418":
+            return {"run_id": 418, "job_id": 7, "state": {"life_cycle_state": "RUNNING"}}
+        if path == "/api/2.2/jobs/runs/get?run_id=419":
+            return {"run_id": 419, "job_id": 999, "state": {"life_cycle_state": "RUNNING"}}
+        if method == "post" and path == "/api/2.2/jobs/runs/cancel":
+            self.cancelled.append(body["run_id"])
             return {}
         raise AssertionError((method, path, body))
 
@@ -446,6 +504,16 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         self.assertEqual(state[-1]["submission_state"],
                          "multiple_runs_unknown_cancel_requested")
 
+    def test_ambiguous_recovery_refuses_all_cancellation_if_any_run_is_foreign(self):
+        api = _MixedOwnershipRunsAPI()
+        state = []
+        found = _recover_run_after_lost_response(api, 7, "token", 100000,
+            time.monotonic() + 5, set(), state.append)
+        self.assertIsNone(found)
+        self.assertEqual(api.cancelled, [])
+        self.assertEqual(state[-1]["submission_state"],
+                         "multiple_runs_ownership_unknown")
+
     def test_lost_run_now_response_is_reconciled_without_resubmission(self):
         api = _LostRunNowAPI()
         config = {"trial_id": "a1-regression", "expected_principal": "owner@example.com",
@@ -470,10 +538,41 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         self.assertEqual(snapshot["state"]["result_state"], "SUCCESS")
         self.assertEqual(output, {"ok": True})
         self.assertEqual(api.run_now_count, 1)
+        self.assertEqual(api.run_now_payload["idempotency_token"],
+            hashlib.sha256(b"a1-regression:17:initializer").hexdigest())
         self.assertTrue(api.deleted)
         self.assertEqual(recovery["known_run_ids"]["initializer"], 29)
         self.assertEqual(recovery["jobs"]["initializer"]["run_now_state"],
                          "terminal_success")
+
+    def test_cross_job_run_now_result_is_never_trusted_or_cancelled(self):
+        api = _ForeignRunNowAPI()
+        config = {"trial_id": "a1-foreign", "expected_principal": "owner@example.com",
+            "initializer": {"timeout_seconds": 60}}
+        task_payload = {"task": {"task_key": "initializer", "depends_on": [],
+            "timeout_seconds": 60, "max_retries": 0, "retry_on_timeout": False,
+            "disable_auto_optimization": True,
+            "notebook_task": {"notebook_path": "/Workspace/initialize",
+                              "base_parameters": {"task_parameters_json": "{}"}},
+            "environment_key": "initializer_env"},
+            "environment": {"environment_key": "initializer_env",
+                            "spec": {"environment_version": "1",
+                                      "dependencies": ["/Volumes/x.whl"]}}}
+        recovery = {"jobs": {}, "known_run_ids": {}}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "private"
+            root.mkdir(mode=0o700); os.chmod(root, 0o700)
+            with self.assertRaisesRegex(ValueError, "not owned by the exact newly-created job"):
+                _run_stage(api, config, "initializer", task_payload,
+                    {"task_parameters_json": "{}"}, time.monotonic() + 10,
+                    cleanup_deadline=time.monotonic() + 15,
+                    recovery_state=recovery, recovery_path=root / "recovery.json")
+        self.assertEqual(api.cancelled, [])
+        self.assertTrue(api.deleted)  # only the new, empty job was removed
+        stage = recovery["jobs"]["initializer"]
+        self.assertEqual(stage["run_now_state"], "foreign_run_id_refused")
+        self.assertEqual(stage["foreign_run_id"], 29)
+        self.assertIs(stage["foreign_run_cancelled"], False)
 
     def test_phase_jobs_reuse_role_timeout_but_get_distinct_job_identity(self):
         api = _LostRunNowAPI()

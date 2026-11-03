@@ -748,6 +748,13 @@ def _job_runs(api: DatabricksCLI, job_id: int) -> list[dict]:
     return rows
 
 
+def _get_owned_run(api: DatabricksCLI, run_id: int, job_id: int) -> dict:
+    snapshot = api.call("get", f"/api/2.2/jobs/runs/get?run_id={run_id}")
+    require(type(snapshot) is dict and snapshot.get("job_id") == job_id,
+            "Jobs run ID is not owned by the exact newly-created job")
+    return snapshot
+
+
 def _recover_run_after_lost_response(api: DatabricksCLI, job_id: int, token: str,
         request_started_ms: int, deadline: float, baseline_ids: set[int], persist) -> int | None:
     """Discover only the run added to this unique fresh job; never resubmit."""
@@ -773,11 +780,20 @@ def _recover_run_after_lost_response(api: DatabricksCLI, job_id: int, token: str
                          else "unique_fresh_job_run"})
             return run_id
         if len(candidates) > 1:
+            owned = []
             for row in candidates:
-                try: api.call("post", "/api/2.2/jobs/runs/cancel", {"run_id": row["run_id"]})
+                try:
+                    _get_owned_run(api, row["run_id"], job_id)
+                except Exception:
+                    persist({"submission_state": "multiple_runs_ownership_unknown",
+                             "run_ids": [item["run_id"] for item in candidates]})
+                    return None
+                owned.append(row["run_id"])
+            for run_id in owned:
+                try: api.call("post", "/api/2.2/jobs/runs/cancel", {"run_id": run_id})
                 except Exception: pass
             persist({"submission_state": "multiple_runs_unknown_cancel_requested",
-                     "run_ids": [row["run_id"] for row in candidates]})
+                     "run_ids": owned})
             return None
         time.sleep(min(1.0, max(0.1, deadline - time.monotonic())))
     persist({"submission_state": "unknown_submission_exposure",
@@ -893,6 +909,8 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
         config_key=config_key)
     job_id = None
     run_id = None
+    foreign_run_id = None
+    ownership_unknown = False
     run_attempted = False
     submission_recovery_attempted = False
     snapshot = {}
@@ -923,7 +941,11 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
         require(not baseline,
                 "Fresh unique one-run Jobs object unexpectedly has prior runs")
         request_started_ms = int(time.time() * 1000)
-        token = hashlib.sha256((config["trial_id"] + ":" + stage).encode()).hexdigest()
+        # The Jobs idempotency token is workspace-global. Include the exact
+        # fresh job identity so a later trial attempt cannot reuse another
+        # job's prior run while remaining stable for response-loss recovery.
+        token = hashlib.sha256((config["trial_id"] + ":" + str(job_id)
+                                + ":" + stage).encode()).hexdigest()
         run_attempted = True
         persist({"run_now_state": "submission_intent", "idempotency_token": token,
                  "request_started_ms": request_started_ms, "baseline_run_ids": []})
@@ -946,7 +968,7 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
             require(time.monotonic() < deadline,
                     f"{stage} work deadline reached; cancel requested")
             api.deadline = deadline
-            snapshot = api.call("get", f"/api/2.2/jobs/runs/get?run_id={run_id}")
+            snapshot = _get_owned_run(api, run_id, job_id)
             persist({"run_state": snapshot.get("state"), "run_id": run_id})
             if _terminal(snapshot.get("state", {})):
                 break
@@ -972,7 +994,8 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
         return run_id, task_run_id, snapshot, output
     except BaseException:
         api.deadline = cleanup_deadline
-        if (run_attempted and run_id is None and job_id is not None
+        if (run_attempted and run_id is None and foreign_run_id is None
+                and not ownership_unknown and job_id is not None
                 and not submission_recovery_attempted):
             try:
                 submission_recovery_attempted = True
@@ -983,25 +1006,41 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
             except Exception as recovery_error:
                 persist({"run_now_state": "unknown_submission_exposure",
                          "recovery_error": type(recovery_error).__name__})
-        if run_attempted and run_id is None:
+        if run_attempted and run_id is None and foreign_run_id is None and not ownership_unknown:
             persist({"run_now_state": "unknown_submission_exposure"})
+        foreign_has_no_owned_runs = False
         if run_id is not None:
             try:
-                snapshot = api.call("get", f"/api/2.2/jobs/runs/get?run_id={run_id}")
+                snapshot = _get_owned_run(api, run_id, job_id)
                 persist({"run_id": run_id, "run_state": snapshot.get("state")})
                 if not _terminal(snapshot.get("state", {})):
                     api.call("post", "/api/2.2/jobs/runs/cancel", {"run_id": run_id})
                     persist({"cancel_requested": True})
                     while time.monotonic() < cleanup_deadline:
-                        snapshot = api.call("get", f"/api/2.2/jobs/runs/get?run_id={run_id}")
+                        snapshot = _get_owned_run(api, run_id, job_id)
                         persist({"run_state": snapshot.get("state")})
                         if _terminal(snapshot.get("state", {})):
                             break
                         time.sleep(min(2, max(0.2, cleanup_deadline - time.monotonic())))
-            except Exception:
-                pass
+            except ValueError:
+                foreign_run_id = run_id
+                run_id = None
+                persist({"run_now_state": "foreign_run_id_refused",
+                         "foreign_run_id": foreign_run_id,
+                         "foreign_run_cancelled": False})
+                try:
+                    foreign_has_no_owned_runs = not _job_runs(api, job_id)
+                except Exception:
+                    ownership_unknown = True
+            except Exception as cleanup_error:
+                ownership_unknown = True
+                persist({"run_now_state": "run_ownership_unknown",
+                         "run_id": run_id,
+                         "ownership_error": type(cleanup_error).__name__})
+                run_id = None
         if (job_id is not None and
-                (not run_attempted or (run_id is not None and _terminal(snapshot.get("state", {}))))):
+                (not run_attempted or foreign_has_no_owned_runs
+                 or (run_id is not None and _terminal(snapshot.get("state", {}))))):
             try:
                 api.call("post", "/api/2.2/jobs/delete", {"job_id": job_id})
                 persist({"job_create_state": "deleted"})
