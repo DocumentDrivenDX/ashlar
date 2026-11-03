@@ -14,6 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import hashlib
 import json
+from weakref import WeakValueDictionary
 
 
 class ManagedCurrentTruss053GenesisError(RuntimeError):
@@ -98,12 +99,12 @@ class ManagedCurrentTruss053GenesisSelection:
     source_owner_admitted_batch: object = field(repr=False, compare=False)
 
 
-_ISSUED_SOURCE_OBSERVATIONS = {}
+_ISSUED_SOURCE_OBSERVATIONS = WeakValueDictionary()
 _MAX_ISSUED_SOURCE_OBSERVATIONS = 8
 
 
 def _issue_source_observation(observation):
-    """Retain a bounded process-local marker for a public-owner result."""
+    """Track live public-owner results without retaining obsolete admissions."""
     if (type(observation) is not ManagedCurrentTruss053SourceObservation
             or len(_ISSUED_SOURCE_OBSERVATIONS) >= _MAX_ISSUED_SOURCE_OBSERVATIONS):
         raise ManagedCurrentTruss053GenesisError(
