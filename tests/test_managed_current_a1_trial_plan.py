@@ -32,6 +32,88 @@ from ashlar_host.r04_schedule import R04Schedule, PROFILE, SLOT_ORDER, STAGES
 
 
 class TestManagedCurrentA1TrialPlan(unittest.TestCase):
+    def _assert_actual_task_selects_incremental_driver(self, plan):
+        from ashlar.protocol import ReaderProtocolProfile
+        from ashlar_host.managed_current_core import (
+            CARRIER_PROFILE_XXHASH64, ManagedCurrentCoreConfig, ROLES,
+        )
+        from ashlar_host.managed_current_publication import (
+            ManagedCurrentTargetOwner,
+            ManagedCurrentIncrementalPublicationDriver,
+            managed_current_publication_id,
+            run_managed_current_publication_task,
+        )
+
+        class SelectedDriver(Exception):
+            pass
+
+        target_calls = []
+        driver_calls = []
+
+        protocol = ReaderProtocolProfile("test-managed-serverless", (3,), (7,),
+                                         {"v2Checkpoint"})
+        environment = {"runtimeName": "databricks-serverless", "sparkVersion": "4.2.0",
+            "sparkBuildText": "4.2.0 test", "runtimeTag": None,
+            "principal": "owner@example.test", "catalog": "client_dev",
+            "schema": "trial_schema", "protocol": protocol.identity}
+        core = ManagedCurrentCoreConfig("client_dev", "trial_schema", None, None, 0, 100,
+            carrier_profile=CARRIER_PROFILE_XXHASH64)
+
+        def existing(self):
+            return set(ROLES)
+
+        def open_existing(self):
+            target_calls.append(self.carrier_profile)
+
+        def select_driver(target, admission, **kwargs):
+            driver_calls.append((target, admission, kwargs))
+            raise SelectedDriver
+
+        revisions = json.dumps(plan.selection.schema_revisions, sort_keys=True,
+                               separators=(",", ":"))
+        expected_id = managed_current_publication_id(
+            plan.request["request_digest"], incremental=True)
+        with patch("ashlar_host.managed_current_publication.observe_managed_current_environment",
+                   return_value=environment), \
+             patch.object(ManagedCurrentTargetOwner, "_existing", existing), \
+             patch.object(ManagedCurrentTargetOwner, "open_existing", open_existing), \
+             patch("ashlar_host.managed_current_publication.ManagedCurrentIncrementalPublicationDriver",
+                   side_effect=select_driver):
+            with self.assertRaises(SelectedDriver):
+                run_managed_current_publication_task(object(), binding=None,
+                    core_config=core, protocol_profile=protocol,
+                    stream=plan.driver_inputs["stream"],
+                    predecessor=plan.request["predecessor"],
+                    schema_revisions_json=revisions,
+                    materialized_at=plan.driver_inputs["materialized_at"],
+                    expected_environment=environment,
+                    publication_profile="ashlar-managed-current-incremental/0.1",
+                    a1_plan=plan)
+        self.assertEqual(plan.publication_id, expected_id)
+        self.assertEqual(target_calls, [CARRIER_PROFILE_XXHASH64])
+        self.assertEqual(len(driver_calls), 1)
+        self.assertIsInstance(driver_calls[0][0], ManagedCurrentTargetOwner)
+        self.assertEqual(driver_calls[0][0].carrier_profile, CARRIER_PROFILE_XXHASH64)
+        self.assertEqual(driver_calls[0][2]["materialized_at"],
+                         plan.driver_inputs["materialized_at"])
+        target_calls.clear()
+        with patch("ashlar_host.managed_current_publication.observe_managed_current_environment",
+                   return_value=environment), \
+             patch.object(ManagedCurrentTargetOwner, "_existing", existing), \
+             patch.object(ManagedCurrentTargetOwner, "open_existing", open_existing), \
+             patch.object(type(plan), "publication_id", property(lambda _plan: "wrong-id")):
+            with self.assertRaisesRegex(ValueError, "publication ID differs"):
+                run_managed_current_publication_task(object(), binding=None,
+                    core_config=core, protocol_profile=protocol,
+                    stream=plan.driver_inputs["stream"],
+                    predecessor=plan.request["predecessor"],
+                    schema_revisions_json=revisions,
+                    materialized_at=plan.driver_inputs["materialized_at"],
+                    expected_environment=environment,
+                    publication_profile="ashlar-managed-current-incremental/0.1",
+                    a1_plan=plan)
+        self.assertEqual(target_calls, [])
+
     @staticmethod
     def _schedule():
         slots = []
@@ -174,7 +256,7 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
         admission = TrussGraphAdmission.__new__(TrussGraphAdmission)
         admission.batch = batch
         selection = ManagedCurrentTruss053GenesisSelection(
-            schedule.sha256, schedule.raw, {}, {}, {}, {},
+            schedule.sha256, schedule.raw, {}, {}, {}, {"test-schema": "revision-1"},
             {'A': SimpleNamespace(batch=batch, page=page),
              'B': SimpleNamespace(batch=None)}, admission, batch)
         manifest = {'publication_id': 'genesis-manifest'}
@@ -186,14 +268,19 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
                 stream='source-stream', materialized_at='1762000000000000', context=context)
             from ashlar_host.managed_current_publication import managed_current_publication_id
             self.assertEqual(plan.publication_id,
-                managed_current_publication_id(plan.request['request_digest']))
-            self.assertEqual(replace(plan, phase='a0_metadata').publication_id,
-                managed_current_publication_id(plan.request['request_digest']))
+                managed_current_publication_id(plan.request['request_digest'], incremental=True))
+            a0_plan = replace(plan, phase='a0_metadata',
+                delivery_page=replace(plan.delivery_page, ordinal=0))
+            self.assertEqual(a0_plan.publication_id,
+                managed_current_publication_id(a0_plan.request['request_digest'], incremental=True))
+            self._assert_actual_task_selects_incremental_driver(a0_plan)
+            self._assert_actual_task_selects_incremental_driver(plan)
             with self.assertRaisesRegex(ValueError, 'phase is not admitted'):
                 replace(plan, phase='unrecognized').publication_id
             selected_admission, selected_predecessor, selected_batch, request = (
                 _managed_current_a1_task_inputs(plan, stream='source-stream',
-                    predecessor='genesis-manifest', schema_revisions_json='{}',
+                    predecessor='genesis-manifest', schema_revisions_json=json.dumps(
+                        selection.schema_revisions, sort_keys=True, separators=(',', ':')),
                     materialized_at='1762000000000000'))
             self.assertIs(selected_admission, admission)
             self.assertIs(selected_predecessor, predecessor)
@@ -201,7 +288,8 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
             self.assertEqual(request, plan.request)
             with self.assertRaisesRegex(ValueError, 'request differs'):
                 _managed_current_a1_task_inputs(plan, stream='other-stream',
-                    predecessor='genesis-manifest', schema_revisions_json='{}',
+                    predecessor='genesis-manifest', schema_revisions_json=json.dumps(
+                        selection.schema_revisions, sort_keys=True, separators=(',', ':')),
                     materialized_at='1762000000000000')
             plan.driver_inputs['source_owner_admitted_batch'] = object()
             with self.assertRaisesRegex(ValueError, 'exact source-owner admission'):
@@ -268,6 +356,7 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
         from ashlar_host.managed_current_publication import managed_current_publication_id
         self.assertEqual(plan.publication_id,
             managed_current_publication_id(plan.request['request_digest'], incremental=True))
+        self._assert_actual_task_selects_incremental_driver(plan)
         self.assertEqual(plan.request['predecessor'], 'a0-publication')
         self.assertIsNone(plan.driver_inputs['managed_genesis_predecessor'])
         self.assertIsNone(plan.driver_inputs['source_owner_admitted_batch'])

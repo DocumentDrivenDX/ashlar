@@ -24,13 +24,11 @@ class ManagedCurrentA1TrialPlan:
 
     @property
     def publication_id(self):
-        """Use the same identifier derivation as the owning materializer."""
+        """Use the incremental materializer's ID convention for every managed A1 phase."""
         from .managed_current_publication import managed_current_publication_id
-        if self.phase == "a1_continuation":
-            return managed_current_publication_id(
-                self.request.get("request_digest"), incremental=True)
-        if self.phase in ("a0_metadata", "a1_genesis"):
-            return managed_current_publication_id(self.request.get("request_digest"))
+        if self.phase in ("a0_metadata", "a1_genesis", "a1_continuation"):
+            return managed_current_publication_id(self.request.get("request_digest"),
+                                                  incremental=True)
         raise ValueError("Managed A1 publication phase is not admitted")
 
     def verify_delivery(self, prefix_bytes, *, prefix_sha256, selected,

@@ -195,7 +195,7 @@ class Truss053A1SourceHolder:
             schedule=self.schedule, source="A", page=observation.page,
             request_bytes=self.request_bytes, destination_id=self.destination_id,
             preselected_publication_id=self.publication_id,
-            incremental=self.phase == "a1")
+            incremental=self.phase in ("a0", "a1"))
         open_selection = self.anchor.open_selection()
         selected_a = self.source_selections["A"]
         # The public owner selection stores a no-argument, independently

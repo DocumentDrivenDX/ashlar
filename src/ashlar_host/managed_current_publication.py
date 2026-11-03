@@ -1158,6 +1158,21 @@ def _managed_current_a1_task_inputs(a1_plan, *, stream, predecessor,
             selection.source_owner_admitted_batch, rebuilt.request)
 
 
+def _managed_current_task_driver_type(publication_profile, a1_plan):
+    """Bind an A1 plan to the incremental driver's publication-ID convention."""
+    if a1_plan is None:
+        return (ManagedCurrentIncrementalPublicationDriver
+                if publication_profile == 'ashlar-managed-current-incremental/0.1'
+                else ManagedCurrentGraphPublicationDriver)
+    _require(publication_profile == 'ashlar-managed-current-incremental/0.1',
+             'Every managed A1 phase requires the incremental publication profile')
+    expected_id = managed_current_publication_id(
+        a1_plan.request.get('request_digest'), incremental=True)
+    _require(a1_plan.publication_id == expected_id,
+             'Managed A1 plan publication ID differs from its selected incremental driver')
+    return ManagedCurrentIncrementalPublicationDriver
+
+
 def run_managed_current_publication_task(spark,*,binding=None,core_config,protocol_profile,
         stream,predecessor,schema_revisions_json,materialized_at,expected_environment,
         publication_profile='ashlar-managed-current-incremental/0.1',a1_plan=None):
@@ -1216,17 +1231,16 @@ def run_managed_current_publication_task(spark,*,binding=None,core_config,protoc
             a1_plan, stream=stream, predecessor=predecessor,
             schema_revisions_json=schema_revisions_json,
             materialized_at=materialized_at)
+    driver_type = _managed_current_task_driver_type(publication_profile, a1_plan)
     _require(admission.batch.feed and admission.batch.batch_id)
     target=ManagedCurrentTargetOwner(spark,catalog=core_config.catalog,schema=core_config.schema,
-                                     protocol_profile=protocol_profile)
+                                     protocol_profile=protocol_profile,
+                                     carrier_profile=core_config.carrier_profile)
     existing=target._existing()
     if not existing:target.initialize()
     elif existing==set(ROLES):target.open_existing()
     else:raise ManagedCurrentPublicationError('Partial six-role managed target refuses publication')
     context=object()
-    driver_type=(ManagedCurrentIncrementalPublicationDriver
-                 if publication_profile=='ashlar-managed-current-incremental/0.1'
-                 else ManagedCurrentGraphPublicationDriver)
     driver_inputs = {'stream': stream, 'materialized_at': materialized_at,
                      'context': context}
     if publication_profile == 'ashlar-managed-current-incremental/0.1':
