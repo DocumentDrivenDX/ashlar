@@ -3,7 +3,7 @@ ddx:
   id: ashlar.release-notes-20261103
   type: release-notes
   activity: 05-deploy
-  status: ready
+  status: released
   authoring:
     home: repo
   links:
@@ -13,8 +13,9 @@ ddx:
 
 # Release Notes — 0.1.0
 
-> This release qualifies the documented local and managed profiles below. The
-> distribution channel is the GitHub `v0.1.0` release assets.
+> Published as an immutable GitHub release on 2026-11-03. The annotated tag
+> points to the reviewed source commit; the release API target commitish is
+> `main`. Downloaded wheel and sdist payloads were verified against the tag.
 
 ## Release Scope
 
@@ -22,7 +23,7 @@ ddx:
 - Release date: 2026-11-03.
 - Rollout window or environment: selected `aidev-cus` Databricks serverless profile, Spark 4.2.0 / environment 6 / Unity Catalog managed Delta.
 - Release owner: Erik Labianca.
-- Distribution: GitHub `v0.1.0` release assets.
+- Distribution: [immutable GitHub `v0.1.0` release](https://github.com/DocumentDrivenDX/ashlar/releases/tag/v0.1.0); Truss `v0.0.55` is published at its [immutable release](https://github.com/DocumentDrivenDX/truss/releases/tag/v0.0.55).
 
 ## Audience and Channels
 
@@ -42,9 +43,9 @@ Qualified scope and release limits:
 
 ## Required Actions Summary
 
-- Install the wheel from the GitHub `v0.1.0` release assets and verify its published SHA-256.
+- Install the wheel from the GitHub `v0.1.0` release assets and verify its SHA-256 against `release-manifest.json`.
 - Use the managed profile only within the qualified Spark 4.2.0 / environment 6 scope described here.
-- No in-place production migration is qualified; use a fresh installation and retain the previous deployment for rollback.
+- No in-place production migration is qualified; use a fresh installation and retain the previous deployment for rollback. The managed cost envelope is `$89.56` modeled including reserve; billing was not observed.
 
 ## Changes and Fixes
 
@@ -53,8 +54,8 @@ Qualified scope and release limits:
 | Area | What changed | Who is affected |
 |------|--------------|-----------------|
 | Delta graph publication | The local R61 qualification exercised the `.4-xxhash64` carrier with Truss 0.0.55, UMF SDK 0.10.2 / Core 0.10.6 and model 0.10.0. | The local R61 evidence is a separate local-development qualification and does not establish managed runtime support. |
-| Source custody | A local attempt14 recovery independently compared four native Delta role bags to the source oracle before reconciling one pending A1 ACK. | Qualification reviewers; recovery records a source-hold discontinuity. |
-| Managed serverless continuation | R23 completed A0 native verification, a three-point predictive-optimization observation and matched protected ACK. R25 resumed the retained A1 continuation without replay, independently verified 14 native rows, observed predictive optimization enabled at all three checks, reconciled the protected ACK, and completed close and cleanup. | Operators using the selected `aidev-cus` serverless Spark 4.2.0 / environment 6 / Unity Catalog managed Delta profile. The source-hold gap remains recorded; no Databricks Delta engine version is claimed. |
+| Source custody | A local attempt14 recovery independently compared four native Delta role bags to the source oracle before reconciling one A1 ACK. | Qualification reviewers; recovery records a source-hold discontinuity. |
+| Managed serverless continuation | R23 completed A0 native verification, a three-point predictive-optimization observation and matched protected ACK. R25 resumed the retained A1 source transaction without replay, independently verified 14 native rows, observed predictive optimization enabled at all three checks, reconciled the protected ACK, and completed close and cleanup. | Operators using the selected `aidev-cus` serverless Spark 4.2.0 / environment 6 / Unity Catalog managed Delta profile. The source-hold gap remains recorded; no Databricks Delta engine version is claimed. |
 | Runtime package bindings | The host controller/source-holder uses Ashlar `0.1.0rc10`; remote task payloads remain bound to the original Ashlar `0.1.0rc7` wheel. | The remote Spark tasks used RC7; RC10 was the host controller and source-holder. |
 
 ### Fixes
@@ -88,7 +89,7 @@ No in-place migration is qualified. Install as a new deployment and retain the e
 
 | Issue | Who is affected | Workaround or next step |
 |------|------------------|-------------------------|
-| The C17 classic Spark Jobs CREATE attempt was refused because the organization has no associated worker environments; no cluster or workload was created. | Operators using the classic route | Do not claim managed classic Jobs support. See the [C17 refusal evidence](../04-build/evidence/current-upstream-release-20261102/managed-classic-c17-create-reconciliation-20261103/README.md). |
+| The C17 classic Spark Jobs CREATE attempt was refused because the organization has no associated worker environments; no cluster or workload was created. | Operators using the classic route | The classic Jobs route is outside this release scope. See the [C17 refusal evidence](../04-build/evidence/current-upstream-release-20261102/managed-classic-c17-create-reconciliation-20261103/README.md). |
 | Fabric integration is unfinished; the 1B-node / 5B-edge scale trial remains held | Fabric and large-scale users | Do not claim those capabilities or performance. |
 | R61's Weft result values were observed, but a durable result hash was not persisted in the full worker closeout | Qualification reviewers | See the evidence limitation in the [R61 closeout](../04-build/evidence/current-upstream-release-20261102/r61-fresh-truss055-attempt13-continuation/qualification-closeout.json). |
 
@@ -97,5 +98,6 @@ No in-place migration is qualified. Install as a new deployment and retain the e
 - Release gate: [Ashlar release closure](../04-build/release-closure-20261101.md)
 - Local R61 evidence: [R61 qualification closeout](../04-build/evidence/current-upstream-release-20261102/r61-fresh-truss055-attempt13-continuation/qualification-closeout.json)
 - Local A1 recovery: [attempt14 recovery closeout](../04-build/evidence/current-upstream-release-20261102/managed-current-attempt14-a1-recovery/closeout.json)
+- Publication: [v0.1.0 publication closeout](evidence/release-0.1.0-20261103/publication-closeout.json)
 - Managed R23/R25 evidence: [final closeout provenance](../04-build/evidence/current-upstream-release-20261102/managed-a1-resume-20261103/managed-a1-closeout-provenance.json), [raw R25 qualification receipt](../04-build/evidence/current-upstream-release-20261102/managed-a1-resume-20261103/managed-a1-closeout.json), and [R23 A0 / RC10 source probe](../04-build/evidence/current-upstream-release-20261102/managed-a1-resume-20261103/r23-a0-and-rc10-a1-source-probe.json)
 - Support or escalation path: project release review

@@ -23,8 +23,8 @@ Native singleton reads work through the publication resolver independently of Fa
 The current local qualification cohort is Truss 0.0.55, UMF SDK 0.10.2 /
 Python Core 0.10.6, Weft 0.4.56, Access 0.1.0.dev8 and declared UMF
 model 0.10.0. The selected managed serverless qualification passed for its
-documented profile. Ashlar package metadata is `0.1.0`; the release channel is
-GitHub.
+documented profile. Ashlar `0.1.0` is published as an immutable GitHub release;
+see the [publication closeout](05-deploy/evidence/release-0.1.0-20261103/publication-closeout.json).
 
 The composed R61 local-development run used Spark 4.2.0 / Delta 4.4.1 and the
 `.4-xxhash64` carrier. It committed a metadata genesis, seven-operation seed
