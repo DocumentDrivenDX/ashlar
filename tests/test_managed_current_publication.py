@@ -143,6 +143,19 @@ class Tests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'actor'):
             observe_managed_current_environment(spark,profile)
 
+    def test_nonclassic_environment_observation_never_touches_spark_context(self):
+        from ashlar_host.configured_local_runtime import MANAGED_SERVERLESS_PROFILE
+        from ashlar_host.managed_current_publication import observe_managed_current_environment
+
+        class ServerlessSpark(RuntimeSpark):
+            @property
+            def sparkContext(self):
+                raise AssertionError("serverless adapter must not inspect SparkContext")
+
+        value = observe_managed_current_environment(ServerlessSpark(), MANAGED_SERVERLESS_PROFILE)
+        self.assertEqual(value["runtimeName"], "databricks-serverless")
+        self.assertNotIn("sparkApplicationId", value)
+
     def test_parameter_bindings_use_whole_collect_schema_path(self):
         spark=Spark();transport=ManagedCurrentSparkTransport(spark)
         result=transport.query('SELECT :value AS value',{'value':"x' OR 1=1 --"})

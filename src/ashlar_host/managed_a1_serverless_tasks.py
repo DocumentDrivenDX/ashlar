@@ -17,6 +17,8 @@ import re
 import time
 import uuid
 
+_TASK_PROCESS_NONCE = uuid.uuid4().hex
+
 
 def _need(value, message):
     if not value:
@@ -60,9 +62,18 @@ def _validate_trial(trial):
           and type(trial.get("expected_runtime")) is dict
           and trial["expected_runtime"].get("catalog") == "client_dev"
           and trial["expected_runtime"].get("schema") == trial["schema"]
-          and trial["expected_runtime"].get("runtimeName") == "databricks-serverless"
+          and trial["expected_runtime"].get("runtimeName") in
+              ("databricks-serverless", "databricks-jobs-cluster")
           and trial["expected_runtime"].get("principal"),
-          "Exact bounded serverless trial namespace and run-as identity required")
+          "Exact bounded managed trial namespace and run-as identity required")
+    if trial["expected_runtime"]["runtimeName"] == "databricks-jobs-cluster":
+        _need(type(trial["expected_runtime"].get("clusterId")) is str
+              and trial["expected_runtime"]["clusterId"]
+              and trial["expected_runtime"].get("sessionTimeZone") in ("UTC", "Etc/UTC"),
+              "Exact dedicated classic cluster and UTC session lock required")
+    _need(type(trial.get("initializer_timeout_seconds")) is int
+          and 1 <= trial["initializer_timeout_seconds"] <= 900,
+          "Bounded initializer task timeout required")
     for key in ("stream", "stage_id", "materialized_at"):
         _need(type(trial.get(key)) is str and trial[key] and "\0" not in trial[key],
               "Exact managed A1 " + key + " required")
@@ -85,11 +96,18 @@ def _load_volume(uri, digest, maximum=4 * 1024 * 1024):
 
 def _protocol_profile(value):
     from ashlar.protocol import ReaderProtocolProfile
+    from .configured_local_runtime import MANAGED_CLASSIC_PROFILE, MANAGED_SERVERLESS_PROFILE
     _need(type(value) is dict and set(value) == {
         "identity", "reader_versions", "writer_versions", "features"},
         "Exact admitted reader protocol profile required")
-    return ReaderProtocolProfile(value["identity"], tuple(value["reader_versions"]),
-        tuple(value["writer_versions"]), tuple(value["features"]))
+    for profile in (MANAGED_SERVERLESS_PROFILE, MANAGED_CLASSIC_PROFILE):
+        expected = {"identity": profile.identity,
+            "reader_versions": sorted(profile.reader_versions),
+            "writer_versions": sorted(profile.writer_versions),
+            "features": sorted(profile.features)}
+        if value == expected:
+            return profile
+    raise ValueError("Exact versioned managed runtime protocol profile required")
 
 
 def _environment(spark, protocol, expected, *, namespace=True, session=None):
@@ -116,13 +134,20 @@ def _environment(spark, protocol, expected, *, namespace=True, session=None):
     if expected.get("runtimeTag") is not None:
         _need(value.get("runtimeTag") == expected["runtimeTag"],
               "Observed serverless runtime tag differs from its lock")
-    _need(value.get("runtimeName") == "databricks-serverless",
-          "Dedicated serverless runtime required")
+    _need(value.get("runtimeName") == expected.get("runtimeName")
+          and value.get("runtimeName") in ("databricks-serverless", "databricks-jobs-cluster"),
+          "Exact selected managed runtime required")
+    if value.get("runtimeName") == "databricks-jobs-cluster":
+        _need(value.get("clusterId") == expected.get("clusterId")
+              and value.get("sparkApplicationId")
+              and expected.get("sessionTimeZone") in ("UTC", "Etc/UTC")
+              and timezone_value.get("session_timezone") in ("UTC", "Etc/UTC"),
+              "Classic task cluster, Spark application and UTC session must be pinned")
     return value
 
 
-def _query_rows(spark, sql, *, action="collect", session=None):
-    operation = lambda: getattr(spark.sql(sql), action)()
+def _query_rows(spark, sql, *, args=None, action="collect", session=None):
+    operation = lambda: getattr(spark.sql(sql) if args is None else spark.sql(sql, args=args), action)()
     return operation() if session is None else session.run_bounded(operation)
 
 
@@ -234,7 +259,7 @@ class _GenesisOnlyManifestPolicy:
         return None
 
 
-def initialize_genesis_task(spark, parameters):
+def _initialize_genesis_task(spark, parameters, *, session=None):
     """Create the empty six-role target and durable no-page/no-ACK genesis."""
     from ashlar.manifest import DeltaManifestStore
     from .managed_current_core import CARRIER_PROFILE_XXHASH64, ROLES
@@ -251,18 +276,19 @@ def initialize_genesis_task(spark, parameters):
     _validate_trial(trial)
     protocol = _protocol_profile(parameters["protocol_profile"])
     expected = trial["expected_runtime"]
-    opening = _environment(spark, protocol, expected, namespace=False)
+    opening = _environment(spark, protocol, expected, namespace=False, session=session)
     raw = _load_volume(parameters["genesis_volume_uri"], parameters["genesis_sha256"])
     detached = decode_detached_a1_genesis_snapshot(raw)
     schedule = R04Schedule(detached.schedule_bytes)
     progress = {source: admit_progress(source, detached.source_evidence(source))
                 for source in ("A", "B")}
 
-    spark.sql("USE CATALOG `client_dev`").collect()
-    spark.sql("USE SCHEMA `" + trial["schema"] + "`").collect()
-    opening = _environment(spark, protocol, expected)
+    _query_rows(spark, "USE CATALOG `client_dev`", session=session)
+    _query_rows(spark, "USE SCHEMA `" + trial["schema"] + "`", session=session)
+    opening = _environment(spark, protocol, expected, session=session)
     target = ManagedCurrentTargetOwner(spark, catalog="client_dev", schema=trial["schema"],
-        protocol_profile=protocol, carrier_profile=CARRIER_PROFILE_XXHASH64)
+        protocol_profile=protocol, carrier_profile=CARRIER_PROFILE_XXHASH64,
+        operation_runner=None if session is None else session.run_bounded)
     _need(not target._existing(), "Initializer requires a fresh empty owned schema")
     inventory = target.initialize()
     manifest_role = "publication_manifest"
@@ -297,16 +323,17 @@ def initialize_genesis_task(spark, parameters):
     row = owner.initialize(**args)
     _need(policy.admitted_digest == hashlib.sha256(_canonical(row)).hexdigest(),
           "Genesis manifest did not pass its exact one-use writer gate")
-    closing = _environment(spark, protocol, expected)
+    closing = _environment(spark, protocol, expected, session=session)
     _need(closing == opening, "Runtime or catalog context changed during initializer")
-    owner_rows = spark.sql("SELECT table_name,table_owner FROM system.information_schema.tables "
+    owner_rows = _query_rows(spark, "SELECT table_name,table_owner FROM system.information_schema.tables "
         "WHERE table_catalog=:catalog AND table_schema=:schema",
-        args={"catalog": "client_dev", "schema": trial["schema"]}).collect()
+        args={"catalog": "client_dev", "schema": trial["schema"]},
+        session=session)
     ownership = {item["table_name"]: item["table_owner"] for item in owner_rows}
     _need(set(ownership) == set(ROLES)
           and all(owner_name == expected["principal"] for owner_name in ownership.values()),
           "Complete six-role native UC installation owner check required")
-    po = {_po_status(spark, f"`client_dev`.`{trial['schema']}`.`{role}`")
+    po = {_po_status(spark, f"`client_dev`.`{trial['schema']}`.`{role}`", session=session)
           for role in ROLES}
     _need(po == {"ENABLE"}, "Predictive optimization must remain enabled on all six roles")
     exact_manifest = _canonical(row)
@@ -318,6 +345,24 @@ def initialize_genesis_task(spark, parameters):
         "installationInventory": {role: {"name": inventory[role].name,
             "uuid": inventory[role].uuid, "owner": ownership[role],
             "version": inventory[role].version} for role in ROLES}}
+    return result
+
+
+def initialize_genesis_task(spark, parameters):
+    """Initialize through the provided task Spark session with a bounded wrapper."""
+    trial = parameters.get("trial") if type(parameters) is dict else None
+    _validate_trial(trial)
+    expected = trial["expected_runtime"]
+    if expected["runtimeName"] != "databricks-jobs-cluster":
+        return _initialize_genesis_task(spark, parameters)
+    scope_id = uuid.uuid4().hex
+    deadline = time.monotonic() + trial["initializer_timeout_seconds"] - 5
+    session = _borrowed_session(spark, "initializer", scope_id, deadline, expected)
+    try:
+        result = _initialize_genesis_task(spark, parameters, session=session)
+    finally:
+        session.close()
+    result["taskProcess"] = {"pid": os.getpid(), "nonce": _TASK_PROCESS_NONCE}
     return result
 
 
@@ -386,12 +431,29 @@ class _ServerlessSessionFactory:
     def open(self, *, stage, deadline_monotonic):
         _need(time.monotonic() < deadline_monotonic,
               "Managed read interval deadline expired before the task Spark wrapper")
-        from .managed_current_spark_receipt_read import BorrowedServerlessTaskSession
+        from .managed_current_spark_receipt_read import (
+            BorrowedServerlessTaskSession, BorrowedClassicTaskSession,
+            ManagedCurrentSparkClassicTaskReceiptConfig,
+        )
         if stage in ("open", "pre_ack"):
             self.pin_observer.prepare(stage=stage, selection=self.selection, vector=self.vector)
-        return BorrowedServerlessTaskSession(self.spark, stage=stage,
-            task_session_scope_id=self.task_scope_id,
+        reader_config = getattr(self.selection, "reader_config", None)
+        session_type = (BorrowedClassicTaskSession
+            if type(reader_config) is ManagedCurrentSparkClassicTaskReceiptConfig
+            else BorrowedServerlessTaskSession)
+        return session_type(self.spark, stage=stage, task_session_scope_id=self.task_scope_id,
             deadline_monotonic=min(deadline_monotonic, self.deadline_monotonic))
+
+
+def _borrowed_session(spark, stage, task_scope_id, deadline_monotonic, expected_runtime):
+    from .managed_current_spark_receipt_read import (
+        BorrowedServerlessTaskSession, BorrowedClassicTaskSession,
+    )
+    session_type = (BorrowedClassicTaskSession
+        if expected_runtime.get("runtimeName") == "databricks-jobs-cluster"
+        else BorrowedServerlessTaskSession)
+    return session_type(spark, stage=stage, task_session_scope_id=task_scope_id,
+                        deadline_monotonic=deadline_monotonic)
 
 
 class _ServerlessPolicyObserver:
@@ -431,9 +493,18 @@ def publisher_task(spark, parameters):
     phase = parameters["phase"]
     _need(phase in ("a0", "a1"), "Explicit A0 metadata or A1 semantic phase required")
     protocol = _protocol_profile(parameters["protocol_profile"])
-    spark.sql("USE CATALOG `" + trial["catalog"] + "`").collect()
-    spark.sql("USE SCHEMA `" + trial["schema"] + "`").collect()
-    opening = _environment(spark, protocol, trial["expected_runtime"])
+    task_scope_id = uuid.uuid4().hex
+    task_deadline = time.monotonic() + trial["publisher_timeout_seconds"] - 5
+    task_session = _borrowed_session(spark, "publisher", task_scope_id, task_deadline,
+                                     trial["expected_runtime"])
+    try:
+        _query_rows(spark, "USE CATALOG `" + trial["catalog"] + "`", session=task_session)
+        _query_rows(spark, "USE SCHEMA `" + trial["schema"] + "`", session=task_session)
+        opening = _environment(spark, protocol, trial["expected_runtime"], session=task_session)
+    except BaseException:
+        task_session.close()
+        raise
+    task_session.close()
     genesis = _load_volume(parameters["genesis_volume_uri"], parameters["genesis_sha256"])
     initial_raw = _load_volume(parameters["genesis_manifest_volume_uri"],
                                parameters["genesis_manifest_sha256"])
@@ -480,11 +551,18 @@ def publisher_task(spark, parameters):
         cost_estimate_includes_startup_driver_and_cleanup=True,
         create_schema=False,
         preferred_budget_exception=cost["preferred_budget_exception"],
-        retries=0, max_concurrent_runs=1, dedicated_serverless=True,
+        retries=0, max_concurrent_runs=1,
+        dedicated_serverless=trial["expected_runtime"]["runtimeName"] == "databricks-serverless",
         predictive_optimization_disabled=False,
         carrier_profile=CARRIER_PROFILE_XXHASH64)
-    result = run_managed_current_trial_page(spark, config=config,
-        protocol_profile=protocol, a1_plan=plan)
+    task_session = _borrowed_session(spark, "publisher_effects", task_scope_id,
+                                     task_deadline, trial["expected_runtime"])
+    try:
+        result = run_managed_current_trial_page(spark, config=config,
+            protocol_profile=protocol, a1_plan=plan,
+            operation_runner=task_session.run_bounded)
+    finally:
+        task_session.close()
     task = result["task"]
     receipt = task["receipt"]
     _need(receipt.get("profile") == "ashlar-managed-current-destination-receipt/0.1",
@@ -497,28 +575,44 @@ def publisher_task(spark, parameters):
                                     trial["expected_runtime"]["principal"])
     destination_receipt = encode_truss_destination_receipt(
         _canonical(plan.request), _canonical(receipt["manifest"]), vector)
-    _need(_environment(spark, protocol, trial["expected_runtime"]) ==
-          task["runtimeIdentity"]["closing"],
+    closing_session = _borrowed_session(spark, "publisher_closing", task_scope_id,
+        task_deadline, trial["expected_runtime"])
+    try:
+        closing_environment = _environment(spark, protocol, trial["expected_runtime"],
+                                           session=closing_session)
+        po = {_po_status(spark, f"`{trial['catalog']}`.`{trial['schema']}`.`{role}`",
+                         session=closing_session)
+              for role in ("object_current", "edge_current", "tombstone",
+                           "whole_source_history", "publication_manifest",
+                           "publication_attempt_phase")}
+    finally:
+        closing_session.close()
+    _need(all(value is None or closing_environment.get(key) == value
+              for key, value in trial["expected_runtime"].items())
+          and all(value is None or task["runtimeIdentity"]["closing"].get(key) == value
+                  for key, value in trial["expected_runtime"].items()),
           "Publisher output runtime identity differs from fresh task closing observation")
-    po = {_po_status(spark, f"`{trial['catalog']}`.`{trial['schema']}`.`{role}`")
-          for role in ("object_current", "edge_current", "tombstone", "whole_source_history",
-                       "publication_manifest", "publication_attempt_phase")}
     _need(po == {"ENABLE"}, "Predictive optimization must remain enabled for all six roles")
-    return {"profile": "ashlar-managed-a1-publisher-result/0.1", "phase": phase,
+    result = {"profile": "ashlar-managed-a1-publisher-result/0.1", "phase": phase,
         "runtimeIdentity": task["runtimeIdentity"],
         "predictiveOptimization": "ENABLE",
         "requestBytesBase64": base64.b64encode(_canonical(plan.request)).decode("ascii"),
         "manifestBytesBase64": base64.b64encode(_canonical(receipt["manifest"])).decode("ascii"),
         "destinationReceiptBytesBase64": base64.b64encode(destination_receipt).decode("ascii"),
         "receipt": receipt}
+    if trial["expected_runtime"]["runtimeName"] == "databricks-jobs-cluster":
+        result["taskProcess"] = {"pid": os.getpid(), "nonce": _TASK_PROCESS_NONCE}
+    return result
 
 
 def verifier_task(spark, parameters):
     """Verify through a three-stage interval or one post-ACK close-only read."""
     from .managed_current_core import CARRIER_PROFILE_XXHASH64, ROLES
     from .managed_current_trial import ManagedCurrentTrialConfig
-    from .managed_current_spark_receipt_read import ManagedCurrentSparkServerlessReceiptConfig
-    from .managed_current_spark_receipt_read import BorrowedServerlessTaskSession
+    from .managed_current_spark_receipt_read import (
+        ManagedCurrentSparkServerlessReceiptConfig,
+        ManagedCurrentSparkClassicTaskReceiptConfig,
+    )
     from .managed_operational_read_port import ManagedOperationalReadPort
     from .managed_operational_retention_interval import OperationalRetentionInterval
     from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
@@ -545,8 +639,8 @@ def verifier_task(spark, parameters):
     task_deadline = time.monotonic() + trial["verifier_timeout_seconds"] - 5
     if task_deadline <= time.monotonic():
         raise ValueError("Verifier task has no bounded SQL observation budget")
-    opening_session = BorrowedServerlessTaskSession(spark, stage="environment_open",
-        task_session_scope_id=task_scope_id, deadline_monotonic=task_deadline)
+    opening_session = _borrowed_session(spark, "environment_open", task_scope_id,
+                                        task_deadline, trial["expected_runtime"])
     try:
         opening_session.query("USE CATALOG `" + trial["catalog"] + "`")
         opening_session.query("USE SCHEMA `" + trial["schema"] + "`")
@@ -590,13 +684,22 @@ def verifier_task(spark, parameters):
     if type(selected_prefix) is not dict:
         raise ValueError("Exact separately selected prefix anchors required")
     from .truss_current_catalog import installed_fresh_truss_runtime_pins
-    reader_config = ManagedCurrentSparkServerlessReceiptConfig(
+    reader_config_type = (ManagedCurrentSparkClassicTaskReceiptConfig
+        if trial["expected_runtime"]["runtimeName"] == "databricks-jobs-cluster"
+        else ManagedCurrentSparkServerlessReceiptConfig)
+    reader_runtime = dict(trial["expected_runtime"])
+    if trial["expected_runtime"]["runtimeName"] == "databricks-jobs-cluster":
+        # The verifier's own task opening is the source of its current public
+        # Spark build string; the cluster lock supplies runtimeTag, not an
+        # invented SQL version() result.
+        reader_runtime["sparkBuildText"] = opening.get("sparkBuildText")
+    reader_config = reader_config_type(
         catalog=trial["catalog"], schema=trial["schema"],
         expected_principal=trial["expected_runtime"]["principal"],
         expected_table_owner=trial["expected_runtime"]["principal"],
         source_truss_version=installed_fresh_truss_runtime_pins()["version"],
         protocol_profile=protocol,
-        expected_runtime=trial["expected_runtime"],
+        expected_runtime=reader_runtime,
         maximum_elapsed_seconds=300, maximum_statements=128,
         maximum_rows=1024, maximum_result_bytes=4 * 1024 * 1024,
         carrier_profile=CARRIER_PROFILE_XXHASH64,
@@ -619,6 +722,7 @@ def verifier_task(spark, parameters):
         cost_estimate_includes_startup_driver_and_cleanup=True,
         create_schema=False,
         preferred_budget_exception=trial["cost"]["preferred_budget_exception"],
+        dedicated_serverless=trial["expected_runtime"]["runtimeName"] == "databricks-serverless",
         carrier_profile=CARRIER_PROFILE_XXHASH64).core_config()
     from .managed_current_a1_retention_builder import build_managed_current_a1_retention_bundle
     bundle = build_managed_current_a1_retention_bundle(
@@ -645,8 +749,8 @@ def verifier_task(spark, parameters):
             source_observer, policy_observer, context=context)
         interval = read_port.observe_pre_ack(bundle.destination_receipt_bytes,
             bundle.vector, context, interval_id=parameters["operational_interval_id"])
-    closing_session = BorrowedServerlessTaskSession(spark, stage="environment_close",
-        task_session_scope_id=task_scope_id, deadline_monotonic=task_deadline)
+    closing_session = _borrowed_session(spark, "environment_close", task_scope_id,
+                                        task_deadline, trial["expected_runtime"])
     try:
         closing = _environment(spark, protocol, trial["expected_runtime"],
                                session=closing_session)
@@ -655,8 +759,13 @@ def verifier_task(spark, parameters):
             session=closing_session)
     finally:
         closing_session.close()
-    _need(closing == publisher["runtimeIdentity"]["closing"],
-          "Independent verifier runtime differs from the publisher runtime tuple")
+    if trial["expected_runtime"]["runtimeName"] == "databricks-jobs-cluster":
+        _need(all(closing.get(key) == publisher["runtimeIdentity"]["closing"].get(key)
+                  for key in trial["expected_runtime"]),
+              "Independent verifier classic cluster/runtime differs from publisher selection")
+    else:
+        _need(closing == publisher["runtimeIdentity"]["closing"],
+              "Independent verifier runtime differs from the publisher runtime tuple")
     _need(publication_po == "ENABLE",
         "Predictive optimization changed or is not enabled")
     observations = [{
@@ -682,7 +791,7 @@ def verifier_task(spark, parameters):
         "maximum_elapsed_seconds": interval.maximum_elapsed_seconds,
         "observations": observations}
     observed_bytes = _canonical(observation_value)
-    return {"profile": "ashlar-managed-a1-verifier-result/0.1", "phase": phase,
+    result = {"profile": "ashlar-managed-a1-verifier-result/0.1", "phase": phase,
         "observationPhase": "post_ack_close" if parameters["post_ack_close"] else "pre_ack",
         "runtimeIdentity": {"opening": opening, "closing": closing},
         "predictiveOptimization": "ENABLE",
@@ -696,3 +805,6 @@ def verifier_task(spark, parameters):
             "scope_id": bundle.vector.scope_id,
             "custody_digest": bundle.vector.custody_digest,
             "targets": {key: list(value) for key, value in bundle.vector.targets.items()}}}
+    if trial["expected_runtime"]["runtimeName"] == "databricks-jobs-cluster":
+        result["taskProcess"] = {"pid": os.getpid(), "nonce": _TASK_PROCESS_NONCE}
+    return result

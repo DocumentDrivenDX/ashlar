@@ -203,7 +203,8 @@ def _validate_task(task: object, key: str) -> dict:
             f"{key} notebook must be an absolute Workspace path")
     require(type(task["notebook_sha256"]) is str and SHA.fullmatch(task["notebook_sha256"]),
             f"{key} notebook SHA-256 required")
-    require(type(task["environment_version"]) is int and task["environment_version"] > 0,
+    classic = task["environment_version"] is None
+    require(classic or type(task["environment_version"]) is int and task["environment_version"] > 0,
             f"Read-back-confirmed {key} serverless environment version required")
     deps = task["dependencies"]
     require(type(deps) is list and len(deps) > 0,
@@ -222,6 +223,11 @@ def _validate_task(task: object, key: str) -> dict:
         filename = item["path"].removeprefix("-r ").rsplit("/", 1)[-1]
         require(filename.endswith((".whl", ".txt")),
                 f"{key} dependency must be a wheel or immutable requirements file")
+        if classic:
+            require(item["path"].endswith(".whl")
+                    and not re.search(r"(?:^|[-_.])(pyspark|delta[-_]spark)(?:[-_.]|$)",
+                                      filename, re.IGNORECASE),
+                    f"{key} classic dependencies must be Ashlar wheels; DBR owns Spark/Delta")
     require(len(paths) == len(set(paths)), f"Duplicate {key} dependency path")
     params = task["base_parameters"]
     require(type(params) is dict and params and all(
@@ -229,15 +235,19 @@ def _validate_task(task: object, key: str) -> dict:
         for k, v in params.items()), f"Explicit string-only {key} task parameters required")
     require(type(task["timeout_seconds"]) is int and 1 <= task["timeout_seconds"] <= MAX_SECONDS,
             f"{key} timeout must be finite and at most 900 seconds")
-    return {"task_key": key, "depends_on": [],
+    result = {"task_key": key, "depends_on": [],
             "timeout_seconds": task["timeout_seconds"], "max_retries": 0,
             "retry_on_timeout": False,
-            # Jobs serverless auto-optimization control; UC predictive optimization
-            # remains independently required to read back ENABLE on all four tables.
-            "disable_auto_optimization": True,
             "notebook_task": {"notebook_path": task["notebook_path"], "source": "WORKSPACE",
-                              "base_parameters": params},
-            "environment_key": key + "_env"}
+                              "base_parameters": params}}
+    if classic:
+        result["libraries"] = [{"whl": item["path"]} for item in deps]
+    else:
+        # Jobs serverless auto-optimization control; UC predictive optimization
+        # remains independently required to read back ENABLE on all four tables.
+        result["disable_auto_optimization"] = True
+        result["environment_key"] = key + "_env"
+    return result
 
 
 def build_payload(config: object) -> tuple[dict, dict]:
@@ -245,7 +255,8 @@ def build_payload(config: object) -> tuple[dict, dict]:
         "host", "trial_id", "catalog", "schema", "expected_principal",
         "expected_runtime", "maximum_wall_seconds", "cleanup_reserve_seconds", "cost", "publisher",
         "initializer", "verifier", "holder_bootstrap", "trial", "protocol_profile",
-        "volume_name", "local_qualification", "evidence_dir",
+        "volume_name", "local_qualification", "evidence_dir", "execution_profile",
+        "classic_cluster",
     }, "Closed managed A1 runner input required")
     require(config["host"] == HOST,
             "A1 runner is pinned to the approved dbw-aidev-cus workspace")
@@ -259,19 +270,59 @@ def build_payload(config: object) -> tuple[dict, dict]:
     require(type(config["expected_principal"]) is str and config["expected_principal"].strip(),
             "Exact admitted Jobs principal required")
     runtime = config["expected_runtime"]
+    execution_profile = config["execution_profile"]
+    classic = execution_profile == "classic_existing_cluster"
+    require(execution_profile in ("serverless", "classic_existing_cluster"),
+            "Exact managed execution profile required")
     runtime_keys = {"runtimeName", "sparkVersion", "sparkBuildText", "runtimeTag",
                     "principal", "catalog", "schema", "protocol"}
+    if classic:
+        runtime_keys |= {"clusterId", "sessionTimeZone"}
     require(type(runtime) is dict and set(runtime) == runtime_keys
-            and runtime.get("runtimeName") == "databricks-serverless"
+            and runtime.get("runtimeName") == ("databricks-jobs-cluster" if classic
+                                                else "databricks-serverless")
             and runtime.get("sparkVersion") == "4.2.0"
-            and runtime.get("protocol") == "ashlar-managed-serverless-spark42-delta/0.1"
+            and runtime.get("protocol") == ("ashlar-managed-classic-spark42-delta/0.1" if classic
+                                              else "ashlar-managed-serverless-spark42-delta/0.1")
             and runtime.get("principal") == config["expected_principal"]
             and runtime.get("catalog") == "client_dev"
             and runtime.get("schema") == config["schema"]
+            and (not classic or type(runtime.get("clusterId")) is str
+                 and runtime["clusterId"] and runtime.get("sessionTimeZone") in ("UTC", "Etc/UTC"))
             and (type(runtime.get("sparkBuildText")) is str and runtime["sparkBuildText"]
                  or type(runtime.get("runtimeTag")) is str and runtime["runtimeTag"])
             and type(runtime.get("protocol")) is str and runtime["protocol"],
-            "Exact serverless runtime/build, principal, protocol and destination pins required")
+            "Exact managed runtime/build, principal, protocol and destination pins required")
+    cluster = config["classic_cluster"]
+    if classic:
+        require(type(cluster) is dict and set(cluster) == {
+            "cluster_id", "cluster_name", "custom_tags", "owner", "node_type_id",
+            "driver_node_type_id", "spark_version", "spark_conf", "num_workers",
+            "data_security_mode", "runtime_engine", "autotermination_minutes",
+            "policy_id", "single_node"}
+            and cluster["cluster_id"] == runtime["clusterId"]
+            and cluster["owner"] == config["expected_principal"]
+            and type(cluster["cluster_name"]) is str
+            and cluster["cluster_name"].startswith("ashlar-release-classic-")
+            and type(cluster["custom_tags"]) is dict
+            and cluster["custom_tags"].get("ashlar_owner") == "ashlar-release"
+            and cluster["custom_tags"].get("ashlar_trial") == config["trial_id"].replace("-", "_")
+            and type(cluster["custom_tags"].get("ashlar_nonce")) is str
+            and re.fullmatch(r"[0-9a-f]{32}", cluster["custom_tags"]["ashlar_nonce"])
+            and cluster["node_type_id"] == "Standard_D4ds_v5"
+            and cluster["driver_node_type_id"] == "Standard_D4ds_v5"
+            and cluster["spark_version"] == "19.x-scala2.13"
+            and cluster["spark_conf"] == {"spark.databricks.cluster.profile": "singleNode",
+                "spark.master": "local[*]", "spark.sql.session.timeZone": "UTC"}
+            and cluster["num_workers"] == 0
+            and cluster["data_security_mode"] == "SINGLE_USER"
+            and cluster["runtime_engine"] == "STANDARD"
+            and cluster["autotermination_minutes"] == 10
+            and cluster["single_node"] is True
+            and type(cluster["policy_id"]) is str and cluster["policy_id"],
+            "Classic existing cluster must match the dedicated D4ds_v5 single-user lock")
+    else:
+        require(cluster is None, "Serverless trial must not select classic compute")
     wall = config["maximum_wall_seconds"]
     require(type(wall) is int and 1 <= wall <= MAX_SECONDS,
             "Whole-run deadline, including startup, handoff and cleanup, must be <=900s")
@@ -281,11 +332,16 @@ def build_payload(config: object) -> tuple[dict, dict]:
                 <= cleanup_seconds < wall,
             "Reserve 30 seconds for ACK/reap and 30 more for cleanup within the whole-run deadline")
     cost = config["cost"]
-    require(type(cost) is dict and set(cost) == {
+    cost_keys = {
         "estimated_total_dbu", "cleanup_reserve_dbu", "authorized_total_dbu",
         "estimated_total_usd", "cleanup_reserve_usd", "preferred_budget_exception",
         "includes_startup_driver_verifier_handoff_and_cleanup",
-    }, "Complete whole-trial cost estimate and cleanup reserve required")
+    }
+    if classic:
+        cost_keys |= {"dbu_scope", "classic_cluster_hourly_usd_ceiling",
+                      "classic_cluster_maximum_lifetime_seconds", "classic_cluster_usd_ceiling"}
+    require(type(cost) is dict and set(cost) == cost_keys,
+            "Complete whole-trial cost estimate and cleanup reserve required")
     nums = ("estimated_total_dbu", "cleanup_reserve_dbu", "authorized_total_dbu",
             "estimated_total_usd", "cleanup_reserve_usd")
     require(all(type(cost[k]) in (int, float) and 0 <= cost[k] < float("inf")
@@ -298,6 +354,8 @@ def build_payload(config: object) -> tuple[dict, dict]:
     expected_usd = cost["estimated_total_usd"]
     worst_case_usd = cost["authorized_total_dbu"] * SERVERLESS_USD_PER_DBUH \
         + cost["cleanup_reserve_usd"]
+    if classic:
+        worst_case_usd += cost["classic_cluster_usd_ceiling"]
     require(cost["estimated_total_usd"] > 0 and cost["cleanup_reserve_usd"] >= 0
             and cost["estimated_total_usd"] + 1e-9 >=
                 cost["estimated_total_dbu"] * SERVERLESS_USD_PER_DBUH
@@ -321,12 +379,14 @@ def build_payload(config: object) -> tuple[dict, dict]:
     trial = config["trial"]
     require(type(trial) is dict and set(trial) == {"catalog", "schema", "expected_runtime",
             "stream", "stage_id", "materialized_at", "destination_id", "cost",
-            "publisher_timeout_seconds", "verifier_timeout_seconds"}
+            "initializer_timeout_seconds", "publisher_timeout_seconds",
+            "verifier_timeout_seconds"}
             and trial.get("catalog") == config["catalog"]
             and trial.get("schema") == config["schema"]
             and trial.get("expected_runtime") == runtime
             and trial.get("cost") == cost and trial.get("publisher_timeout_seconds") ==
                 config["publisher"]["timeout_seconds"]
+            and trial.get("initializer_timeout_seconds") == config["initializer"]["timeout_seconds"]
             and trial.get("verifier_timeout_seconds") == config["verifier"]["timeout_seconds"]
             and trial.get("destination_id") == "client_dev." + config["schema"]
             and all(type(trial[k]) is str and trial[k] and "\0" not in trial[k]
@@ -334,13 +394,16 @@ def build_payload(config: object) -> tuple[dict, dict]:
             and re.fullmatch(r"0|[1-9][0-9]{0,18}", trial["materialized_at"])
             and int(trial["materialized_at"]) < 2**63,
             "Closed A1 task contract must bind destination, runtime, cost and task deadline")
-    from ashlar_host.configured_local_runtime import MANAGED_SERVERLESS_PROFILE
-    expected_protocol_profile = {"identity": MANAGED_SERVERLESS_PROFILE.identity,
-        "reader_versions": sorted(MANAGED_SERVERLESS_PROFILE.reader_versions),
-        "writer_versions": sorted(MANAGED_SERVERLESS_PROFILE.writer_versions),
-        "features": sorted(MANAGED_SERVERLESS_PROFILE.features)}
+    from ashlar_host.configured_local_runtime import (MANAGED_SERVERLESS_PROFILE,
+                                                      MANAGED_CLASSIC_PROFILE)
+    selected_protocol = MANAGED_CLASSIC_PROFILE if classic else MANAGED_SERVERLESS_PROFILE
+    expected_protocol_profile = {"identity": selected_protocol.identity,
+        "reader_versions": sorted(selected_protocol.reader_versions),
+        "writer_versions": sorted(selected_protocol.writer_versions),
+        "features": sorted(selected_protocol.features)}
     require(type(config["protocol_profile"]) is dict and config["protocol_profile"] == expected_protocol_profile,
-        "Exact versioned managed serverless reader protocol profile required")
+        "Exact versioned managed serverless reader protocol profile required"
+        if not classic else "Exact versioned managed classic reader protocol profile required")
     require(type(config["volume_name"]) is str and IDENT.fullmatch(config["volume_name"])
             and config["volume_name"].startswith("ashlar_a1_"),
             "Unique owned managed-volume name required inside the per-run schema")
@@ -360,25 +423,45 @@ def build_payload(config: object) -> tuple[dict, dict]:
     for key in ("initializer", "publisher", "verifier"):
         task_payload = _validate_task(config[key], key)
         task = config[key]
+        require((classic and task["environment_version"] is None)
+                or (not classic and type(task["environment_version"]) is int),
+                f"{key} task environment artifact does not match the selected compute profile")
         require(task["base_parameters"] == {"task_parameters_json": "{}"},
                 f"{key} notebook must accept only the closed JSON task payload widget")
         require(task["timeout_seconds"] + 15 <= wall - cleanup_seconds,
                 f"{key} task budget must fit with startup/holder/cleanup reserve")
-        env = {"environment_key": key + "_env", "spec": {
+        env = None if classic else {"environment_key": key + "_env", "spec": {
             "environment_version": str(task["environment_version"]),
             "dependencies": [item["path"] for item in task["dependencies"]],
         }}
+        if classic:
+            task_payload["existing_cluster_id"] = cluster["cluster_id"]
         stage_payloads[key] = {"task": task_payload, "environment": env}
     require(config["initializer"]["timeout_seconds"] == INITIALIZER_TIMEOUT_SECONDS
             and config["publisher"]["timeout_seconds"] == PUBLISHER_TIMEOUT_SECONDS
             and config["verifier"]["timeout_seconds"] == VERIFIER_TIMEOUT_SECONDS,
-            "Serverless task budgets must match the admitted init/publish/verify caps")
+            "Managed task budgets must match the admitted init/publish/verify caps")
     # Per-stage timeouts are individual cancellation limits, not additive
     # wall-time guarantees: every stage shares the one outer trial deadline.
     # Authorize DBUs against that full bounded wall duration, since a trial may
     # consume any permitted portion of it before the controller stops it.
-    require(cost["authorized_total_dbu"] >= wall * WORST_SERVERLESS_DBUH / 3600,
-            "Authorized DBU exposure must cover the whole-trial wall deadline")
+    if classic:
+        hourly = cost["classic_cluster_hourly_usd_ceiling"]
+        lifetime = cost["classic_cluster_maximum_lifetime_seconds"]
+        cluster_ceiling = cost["classic_cluster_usd_ceiling"]
+        require(cost["dbu_scope"] == "historical_serverless_only"
+                and type(hourly) in (int, float) and hourly == 10.0
+                and type(lifetime) is int and lifetime == 1800
+                and type(cluster_ceiling) in (int, float)
+                and cluster_ceiling == hourly * lifetime / 3600
+                and cost["estimated_total_usd"] >= cost["authorized_total_dbu"] * SERVERLESS_USD_PER_DBUH
+                    + cluster_ceiling
+                and cost["estimated_total_usd"] + cost["cleanup_reserve_usd"] <= HARD_USD
+                and cost["cleanup_reserve_usd"] >= 20.0,
+                "Classic DBU/VM exposure plus reserve exceeds the $100 trial ceiling")
+    else:
+        require(cost["authorized_total_dbu"] >= wall * WORST_SERVERLESS_DBUH / 3600,
+                "Authorized DBU exposure must cover the whole-trial wall deadline")
     require(MAX_SOURCE_BOOTSTRAP_SECONDS <= wall - cleanup_seconds,
             "Source-bootstrap stage ceiling must fit before the whole-trial cleanup reserve")
     return stage_payloads, config
@@ -661,7 +744,7 @@ def _terminal(state: dict) -> bool:
 
 def _job_settings(config: dict, stage: str, task_payload: dict, *, config_key=None) -> dict:
     config_key = stage if config_key is None else config_key
-    return {
+    settings = {
         "name": "ashlar-a1-" + config["trial_id"] + "-" + stage,
         "run_as": {"user_name": config["expected_principal"]},
         "tags": {"project": "ashlar", "purpose": "managed-current-a1",
@@ -669,8 +752,39 @@ def _job_settings(config: dict, stage: str, task_payload: dict, *, config_key=No
         "max_concurrent_runs": 1,
         "timeout_seconds": config[config_key]["timeout_seconds"],
         "tasks": [task_payload["task"]],
-        "environments": [task_payload["environment"]],
     }
+    if config.get("execution_profile", "serverless") == "classic_existing_cluster":
+        require(task_payload.get("environment") is None
+                and task_payload["task"].get("existing_cluster_id") ==
+                    config["classic_cluster"]["cluster_id"],
+                "Classic task must use the exact readback-locked existing cluster")
+    else:
+        require(type(task_payload.get("environment")) is dict,
+                "Serverless task must retain its pinned environment")
+        settings["environments"] = [task_payload["environment"]]
+    return settings
+
+
+def _admit_classic_cluster_readback(actual: dict, selected: dict, *, expected_state="RUNNING") -> None:
+    """Bind task placement to the exact owner-created single-node cluster."""
+    require(type(actual) is dict and type(selected) is dict
+            and actual.get("cluster_id") == selected.get("cluster_id")
+            and actual.get("cluster_name") == selected.get("cluster_name")
+            and actual.get("single_user_name") == selected.get("owner")
+            and actual.get("node_type_id") == selected.get("node_type_id")
+            and actual.get("driver_node_type_id") == selected.get("driver_node_type_id")
+            and actual.get("spark_version") == selected.get("spark_version")
+            and actual.get("spark_conf") == selected.get("spark_conf")
+            and actual.get("spark_conf", {}).get("spark.databricks.cluster.profile") == "singleNode"
+            and actual.get("spark_conf", {}).get("spark.master") == "local[*]"
+            and actual.get("num_workers") == 0
+            and actual.get("data_security_mode") == "SINGLE_USER"
+            and actual.get("runtime_engine") == "STANDARD"
+            and actual.get("autotermination_minutes") == 10
+            and actual.get("policy_id") == selected.get("policy_id")
+            and actual.get("custom_tags") == selected.get("custom_tags")
+            and actual.get("state") == expected_state,
+            "Classic Jobs cluster differs from its exact live owner/configuration lock")
 
 
 def _admit_job_readback(job: dict, expected: dict, trial_id: str | None) -> None:
@@ -705,7 +819,17 @@ def _admit_job_readback(job: dict, expected: dict, trial_id: str | None) -> None
                 "Jobs GET omitted the unique A1 trial tag")
     require(not any(key in settings for key in ("schedule", "trigger", "triggers",
                                                   "job_clusters", "compute")),
-            "A1 task must be unscheduled and serverless without classic compute")
+            "A1 task must be unscheduled with only its selected compute profile")
+    classic = expected.get("tasks", [{}])[0].get("existing_cluster_id") is not None
+    if classic:
+        require(type(expected["tasks"][0]["existing_cluster_id"]) is str
+                and expected["tasks"][0]["existing_cluster_id"]
+                and "environments" not in expected
+                and "environments" not in settings,
+                "Classic task cannot select a serverless environment")
+    else:
+        require("environments" in expected,
+                "Serverless task must select its exact environment list")
     tasks = settings.get("tasks")
     expected_tasks = {item["task_key"]: item for item in expected["tasks"]}
     require(type(tasks) is list and len(tasks) == len(expected_tasks) == 1,
@@ -718,6 +842,11 @@ def _admit_job_readback(job: dict, expected: dict, trial_id: str | None) -> None
             "disabled", "email_notifications", "run_if", "min_retry_interval_millis"}
         require(set(actual).issubset(allowed_task_fields),
                 "Jobs GET contains unselected task settings: " + str(key))
+        compute_ok = ((actual.get("existing_cluster_id") == wanted["existing_cluster_id"]
+                       and actual.get("libraries") == wanted["libraries"]
+                       and "environment_key" not in actual)
+                      if classic else
+                      actual.get("environment_key") == wanted["environment_key"])
         require(("disabled" not in actual or actual["disabled"] is False)
                 and ("email_notifications" not in actual or actual["email_notifications"] == {})
                 and ("run_if" not in actual or actual["run_if"] == "ALL_SUCCESS"),
@@ -729,7 +858,7 @@ def _admit_job_readback(job: dict, expected: dict, trial_id: str | None) -> None
                 and {name: value for name, value in actual_notebook.items() if name != "source"}
                     == {name: value for name, value in wanted["notebook_task"].items()
                         if name != "source"}
-                and actual.get("environment_key") == wanted["environment_key"]
+                and compute_ok
                 and actual.get("timeout_seconds") == wanted["timeout_seconds"]
                 and ("max_retries" not in actual or
                      type(actual["max_retries"]) is int and actual["max_retries"] == 0)
@@ -744,20 +873,24 @@ def _admit_job_readback(job: dict, expected: dict, trial_id: str | None) -> None
                          and actual.get("disable_auto_optimization", False) is False))
                 and actual.get("depends_on", []) == wanted.get("depends_on", []),
                 "Jobs GET task differs from its pinned serverless artifact lock: " + str(key))
-    envs = settings.get("environments")
-    require(type(envs) is list and len(envs) == len(expected["environments"]),
-            "Jobs GET environment count differs from exact artifact locks")
-    normalized_envs = []
-    for item in envs:
-        require(type(item) is dict and set(item) == {"environment_key", "spec"}
-                and type(item["spec"]) is dict
-                and set(item["spec"]).issubset({"environment_version", "dependencies"}),
-                "Jobs GET environment contains unselected fields")
-        spec = dict(item["spec"])
-        spec.setdefault("dependencies", [])
-        normalized_envs.append({"environment_key": item["environment_key"], "spec": spec})
-    require(normalized_envs == expected["environments"],
-            "Jobs GET environment versions/dependencies differ from exact artifact locks")
+    if classic:
+        require("environments" not in settings,
+                "Classic existing-cluster task must not contain serverless environments")
+    else:
+        envs = settings.get("environments")
+        require(type(envs) is list and len(envs) == len(expected["environments"]),
+                "Jobs GET environment count differs from exact artifact locks")
+        normalized_envs = []
+        for item in envs:
+            require(type(item) is dict and set(item) == {"environment_key", "spec"}
+                    and type(item["spec"]) is dict
+                    and set(item["spec"]).issubset({"environment_version", "dependencies"}),
+                    "Jobs GET environment contains unselected fields")
+            spec = dict(item["spec"])
+            spec.setdefault("dependencies", [])
+            normalized_envs.append({"environment_key": item["environment_key"], "spec": spec})
+        require(normalized_envs == expected["environments"],
+                "Jobs GET environment versions/dependencies differ from exact artifact locks")
     require(job.get("run_as_user_name") == expected["run_as"]["user_name"],
             "Effective Jobs run-as principal differs from exact admission")
 
@@ -1001,15 +1134,36 @@ def _check_artifact_lock(api: DatabricksCLI, config: dict) -> None:
 def _validate_task_runtime(value: dict, expected: dict, stage: str) -> None:
     identity = value.get("runtimeIdentity")
     require(type(identity) is dict and type(identity.get("opening")) is dict,
-            f"{stage} output omitted its observed serverless runtime identity")
+            f"{stage} output omitted its observed managed runtime identity")
     opening = identity["opening"]
-    for key in ("runtimeName", "principal", "catalog", "schema", "protocol"):
-        require(opening.get(key) == expected[key],
-                f"{stage} observed runtime differs at {key}")
-    for key in ("sparkVersion", "sparkBuildText", "runtimeTag"):
-        if expected[key] is not None:
-            require(opening.get(key) == expected[key],
+    for key, selected in expected.items():
+        if selected is not None:
+            require(opening.get(key) == selected,
                     f"{stage} observed runtime differs at {key}")
+    if expected["runtimeName"] == "databricks-jobs-cluster":
+        require(set(opening) == set(expected) | {"sparkApplicationId"}
+                and type(opening.get("sparkApplicationId")) is str
+                and opening["sparkApplicationId"],
+                f"{stage} omitted the live classic Spark application identity")
+        closing = identity.get("closing")
+        require(type(closing) is dict and set(closing) == set(opening)
+                and closing == opening,
+                f"{stage} classic runtime identity changed before task close")
+        process = value.get("taskProcess")
+        require(type(process) is dict and set(process) == {"pid", "nonce"}
+                and type(process["pid"]) is int and process["pid"] > 0
+                and type(process["nonce"]) is str
+                and re.fullmatch(r"[0-9a-f]{32}", process["nonce"]),
+                f"{stage} must report its exact task-local process identity")
+
+
+def _require_independent_classic_task_processes(publisher: dict, verifier: dict, phase: str) -> None:
+    """Do not infer publisher/verifier independence from their shared cluster IDs."""
+    left, right = publisher.get("taskProcess"), verifier.get("taskProcess")
+    require(type(left) is dict and type(right) is dict
+            and left.get("pid") != right.get("pid")
+            and left.get("nonce") != right.get("nonce"),
+            f"{phase} publisher and terminal verifier must be distinct task processes")
 
 
 def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict,
@@ -1020,6 +1174,11 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
     original_api_deadline = api.deadline
     require(time.monotonic() < deadline,
             f"Work deadline expired before {stage} Jobs creation")
+    if config.get("execution_profile", "serverless") == "classic_existing_cluster":
+        from urllib.parse import quote
+        cluster_id = config["classic_cluster"]["cluster_id"]
+        cluster = api.call("get", "/api/2.1/clusters/get?cluster_id=" + quote(cluster_id, safe=""))
+        _admit_classic_cluster_readback(cluster, config["classic_cluster"])
     require(type(parameters) is dict and all(type(key) is str and type(value) is str
             and len(value.encode("utf-8")) <= 9000 for key, value in parameters.items()),
             "Serverless task parameters exceed the closed 9,000-byte widget bound")
@@ -1176,9 +1335,12 @@ def _run_stage(api: DatabricksCLI, config: dict, stage: str, stage_payload: dict
 
 
 def _publisher_bundle(result: dict, authority: str, *, phase: str) -> tuple[dict, bytes, bytes, bytes, dict, str]:
-    require(set(result) == {"profile", "runtimeIdentity", "predictiveOptimization",
-                            "requestBytesBase64", "manifestBytesBase64",
-                            "destinationReceiptBytesBase64", "receipt", "phase"}
+    fields = {"profile", "runtimeIdentity", "predictiveOptimization",
+              "requestBytesBase64", "manifestBytesBase64",
+              "destinationReceiptBytesBase64", "receipt", "phase"}
+    if result.get("runtimeIdentity", {}).get("opening", {}).get("runtimeName") == "databricks-jobs-cluster":
+        fields.add("taskProcess")
+    require(set(result) == fields
             and result.get("profile") == "ashlar-managed-a1-publisher-result/0.1"
             and result.get("phase") == phase,
             "Publisher output must use the closed phase-bound publisher result profile")
@@ -1256,12 +1418,16 @@ def _retention_bundle(*, trial, protocol_profile, plan, request_bytes,
     )
     from ashlar_host.managed_current_spark_receipt_read import (
         CARRIER_PROFILE_XXHASH64, ManagedCurrentSparkServerlessReceiptConfig,
+        ManagedCurrentSparkClassicTaskReceiptConfig,
     )
     from ashlar_host.managed_current_trial import ManagedCurrentTrialConfig
     from ashlar_host.truss_current_catalog import installed_fresh_truss_runtime_pins
-    selected_protocol_profile = _managed_serverless_protocol_profile(protocol_profile)
+    classic = trial["expected_runtime"]["runtimeName"] == "databricks-jobs-cluster"
+    selected_protocol_profile = _managed_managed_protocol_profile(protocol_profile, classic=classic)
     source_truss_version = installed_fresh_truss_runtime_pins()["version"]
-    reader = ManagedCurrentSparkServerlessReceiptConfig(catalog=trial["catalog"],
+    reader_type = (ManagedCurrentSparkClassicTaskReceiptConfig if classic
+                   else ManagedCurrentSparkServerlessReceiptConfig)
+    reader = reader_type(catalog=trial["catalog"],
         schema=trial["schema"], expected_principal=trial["expected_runtime"]["principal"],
         expected_table_owner=trial["expected_runtime"]["principal"],
         source_truss_version=source_truss_version,
@@ -1285,6 +1451,7 @@ def _retention_bundle(*, trial, protocol_profile, plan, request_bytes,
         reserve_usd_for_cleanup=cost["cleanup_reserve_usd"],
         cost_estimate_includes_startup_driver_and_cleanup=True, create_schema=False,
         preferred_budget_exception=cost["preferred_budget_exception"],
+        dedicated_serverless=not classic,
         carrier_profile=CARRIER_PROFILE_XXHASH64).core_config()
     return build_managed_current_a1_retention_bundle(plan=plan,
         reader_config=reader, request_bytes=request_bytes, manifest_bytes=manifest_bytes,
@@ -1296,13 +1463,26 @@ def _retention_bundle(*, trial, protocol_profile, plan, request_bytes,
 
 def _managed_serverless_protocol_profile(value):
     from ashlar_host.configured_local_runtime import MANAGED_SERVERLESS_PROFILE
-    expected = {"identity": MANAGED_SERVERLESS_PROFILE.identity,
-        "reader_versions": sorted(MANAGED_SERVERLESS_PROFILE.reader_versions),
-        "writer_versions": sorted(MANAGED_SERVERLESS_PROFILE.writer_versions),
-        "features": sorted(MANAGED_SERVERLESS_PROFILE.features)}
+    expected = _protocol_wire(MANAGED_SERVERLESS_PROFILE)
     require(type(value) is dict and value == expected,
             "Exact closed managed serverless protocol profile wire required")
     return MANAGED_SERVERLESS_PROFILE
+
+
+def _protocol_wire(profile):
+    return {"identity": profile.identity,
+        "reader_versions": sorted(profile.reader_versions),
+        "writer_versions": sorted(profile.writer_versions),
+        "features": sorted(profile.features)}
+
+
+def _managed_managed_protocol_profile(value, *, classic):
+    from ashlar_host.configured_local_runtime import (MANAGED_CLASSIC_PROFILE,
+                                                      MANAGED_SERVERLESS_PROFILE)
+    profile = MANAGED_CLASSIC_PROFILE if classic else MANAGED_SERVERLESS_PROFILE
+    require(type(value) is dict and value == _protocol_wire(profile),
+            "Exact selected managed protocol profile wire required")
+    return profile
 
 
 class _LocalPinStages:
@@ -1377,10 +1557,13 @@ def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
                            vector_wire: dict, *, phase: str,
                            observation_phase="pre_ack",
                            interval_id: str | None = None) -> dict:
-    require(set(output) == {"profile", "runtimeIdentity", "predictiveOptimization",
-                            "managedObservation", "managedObservationSha256",
-                            "requestSha256", "manifestSha256", "phase", "observationPhase",
-                            "destinationReceiptSha256", "vector"}
+    fields = {"profile", "runtimeIdentity", "predictiveOptimization",
+              "managedObservation", "managedObservationSha256",
+              "requestSha256", "manifestSha256", "phase", "observationPhase",
+              "destinationReceiptSha256", "vector"}
+    if output.get("runtimeIdentity", {}).get("opening", {}).get("runtimeName") == "databricks-jobs-cluster":
+        fields.add("taskProcess")
+    require(set(output) == fields
             and output.get("profile") == "ashlar-managed-a1-verifier-result/0.1"
             and output.get("phase") == phase,
             "Verifier output must use the closed independent phase-bound result profile")
@@ -1402,7 +1585,16 @@ def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
     )
     expected_profile = ("ashlar-managed-operational-retention/0.1" if close_only
                         else PRE_ACK_PROOF_PROFILE)
-    from ashlar_host.managed_current_spark_receipt_read import SERVERLESS_TASK_SESSION_OWNERSHIP
+    from ashlar_host.managed_current_spark_receipt_read import (
+        SERVERLESS_TASK_SESSION_OWNERSHIP, CLASSIC_TASK_SESSION_OWNERSHIP,
+    )
+    runtime_identity = output.get("runtimeIdentity")
+    runtime_opening = runtime_identity.get("opening") if type(runtime_identity) is dict else None
+    runtime_name = runtime_opening.get("runtimeName") if type(runtime_opening) is dict else None
+    require(runtime_name in ("databricks-serverless", "databricks-jobs-cluster"),
+            "Verifier runtime must select one exact managed execution profile")
+    expected_session_ownership = (CLASSIC_TASK_SESSION_OWNERSHIP
+        if runtime_name == "databricks-jobs-cluster" else SERVERLESS_TASK_SESSION_OWNERSHIP)
     session_scopes = ([item.get("task_session_scope_id") for item in observations]
                       if type(observations) is list else [])
     wrapper_ids = ([item.get("session_wrapper_id") for item in observations]
@@ -1422,7 +1614,7 @@ def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
             and type(observation.get("observations")) is list
             and [item.get("stage") for item in observation["observations"]]
                 == expected_stages
-            and all(item.get("session_ownership_profile") == SERVERLESS_TASK_SESSION_OWNERSHIP
+            and all(item.get("session_ownership_profile") == expected_session_ownership
                     for item in observation["observations"])
             and all(type(scope) is str and scope for scope in session_scopes)
             and len(set(session_scopes)) == 1
@@ -1706,6 +1898,11 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
     api.deadline = deadline
     auth = api.auth_readback()
     _admit_auth_readback_host(auth, config["host"])
+    if config["execution_profile"] == "classic_existing_cluster":
+        from urllib.parse import quote
+        cluster_id = config["classic_cluster"]["cluster_id"]
+        cluster = api.call("get", "/api/2.1/clusters/get?cluster_id=" + quote(cluster_id, safe=""))
+        _admit_classic_cluster_readback(cluster, config["classic_cluster"])
     _check_artifact_lock(api, config)
     python = config["holder_bootstrap"]["python"]
     python_path = Path(python)
@@ -1831,8 +2028,11 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             recovery_path=recovery_path)
         run_ids["initializer"] = init_id
         _validate_task_runtime(init_result, config["expected_runtime"], "initializer")
-        require(set(init_result) == {"profile", "runtimeIdentity", "predictiveOptimization",
+        initializer_fields = {"profile", "runtimeIdentity", "predictiveOptimization",
                     "genesisManifestBytesBase64", "manifestSha256", "installationInventory"}
+        if config["execution_profile"] == "classic_existing_cluster":
+            initializer_fields.add("taskProcess")
+        require(set(init_result) == initializer_fields
                 and init_result["profile"] == "ashlar-managed-a1-initializer-result/0.1"
                 and init_result["predictiveOptimization"] == "ENABLE",
                 "Initializer must return the exact empty six-role genesis result")
@@ -2018,6 +2218,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             recovery_path=recovery_path, config_key="verifier")
         run_ids["verifier"] = verifier_id
         _validate_task_runtime(verifier_result, config["expected_runtime"], "verifier")
+        if config["execution_profile"] == "classic_existing_cluster":
+            _require_independent_classic_task_processes(publisher_result, verifier_result, "A0")
         pre_ack_received = time.monotonic()
         holder.renew(work_deadline)
         require(pin_stages.stages == ["open", "pre_ack"]
@@ -2097,6 +2299,9 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             holder=holder, rpc_dir=rpc_dir, custody_digests=custody_digests,
             pin_stages=pin_stages, recovery_state=recovery_state,
             recovery_path=recovery_path)
+        if config["execution_profile"] == "classic_existing_cluster":
+            _require_independent_classic_task_processes(
+                publisher_result, _close_output, "A0 post-ACK close")
         final_interval, terminal_proof = _compose_operational_interval(
             proof, close_proof, interval_started=phase_interval_started,
             pre_ack_received=pre_ack_received, close_received=time.monotonic(),
@@ -2281,6 +2486,8 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             recovery_path=recovery_path, config_key="verifier")
         run_ids["a1-verifier"] = a1_ver_id
         _validate_task_runtime(a1_ver_result, config["expected_runtime"], "verifier")
+        if config["execution_profile"] == "classic_existing_cluster":
+            _require_independent_classic_task_processes(a1_pub_result, a1_ver_result, "A1")
         a1_pre_ack_received = time.monotonic()
         holder.renew(work_deadline)
         require(pin_stages.stages == ["open", "pre_ack"] and pin_stages.handle is not None,
@@ -2363,6 +2570,9 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
                 rpc_dir=rpc_dir, custody_digests=a1_custody_digests,
                 pin_stages=pin_stages, recovery_state=recovery_state,
                 recovery_path=recovery_path))
+        if config["execution_profile"] == "classic_existing_cluster":
+            _require_independent_classic_task_processes(
+                a1_pub_result, _a1_close_output, "A1 post-ACK close")
         a1_final_interval, a1_terminal_proof = _compose_operational_interval(
             a1_proof, a1_close_proof, interval_started=a1_interval_started,
             pre_ack_received=a1_pre_ack_received, close_received=time.monotonic(),

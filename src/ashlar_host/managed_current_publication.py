@@ -83,15 +83,18 @@ class ManagedCurrentSparkTransport:
 
 class ManagedCurrentTargetOwner:
     """Create or observe exactly six managed Delta tables and renew their pins."""
-    def __init__(self,spark,*,catalog,schema,protocol_profile,carrier_profile='ashlar-delta/0.3'):
+    def __init__(self,spark,*,catalog,schema,protocol_profile,carrier_profile='ashlar-delta/0.3',operation_runner=None):
         _require(type(catalog)is str and _IDENT.fullmatch(catalog) and type(schema)is str and _IDENT.fullmatch(schema))
         _require(type(protocol_profile)is ReaderProtocolProfile)
         self.spark=spark;self.catalog=catalog;self.schema=schema;self.profile=protocol_profile
+        _require(operation_runner is None or callable(operation_runner),
+            'Optional bounded target operation runner must be callable')
+        self.operation_runner=operation_runner
         self.carrier_profile=carrier_profile
         self.carriers=load_current_managed_carriers(carrier_profile)
         self.names={role:(catalog,schema,role) for role in ROLES}
         self.tables={role:'.'.join(self.names[role]) for role in ROLES}
-        self.transport=ManagedCurrentSparkTransport(spark)
+        self.transport=ManagedCurrentSparkTransport(spark,operation_runner=operation_runner)
         self.transport.bind_managed_targets(catalog=catalog,schema=schema,
             data_tables=tuple(self.tables[role] for role in (
                 'object_current','edge_current','tombstone','whole_source_history')))
@@ -100,8 +103,9 @@ class ManagedCurrentTargetOwner:
         self.created_fresh=False
     def _existing(self):
         namespace='`'+self.catalog+'`.`'+self.schema+'`'
-        frame=self.spark.sql('SHOW TABLES IN '+namespace)
-        rows=frame.limit(len(ROLES)+1).collect()
+        def read():
+            return self.spark.sql('SHOW TABLES IN '+namespace).limit(len(ROLES)+1).collect()
+        rows=(self.operation_runner(read) if self.operation_runner is not None else read())
         _require(len(rows)<=len(ROLES),'Managed current schema contains more than the six closed roles')
         names={row['tableName'] for row in rows}
         _require(len(names)==len(rows),'Duplicate managed current table names')
@@ -110,7 +114,9 @@ class ManagedCurrentTargetOwner:
         existing=self._existing()
         _require(not existing,'Managed current schema must contain none of the six target roles')
         for role in ROLES:
-            self.spark.sql(self.carriers.create_sql(role,self.names[role]))
+            operation=lambda role=role:self.spark.sql(self.carriers.create_sql(role,self.names[role]))
+            if self.operation_runner is None:operation()
+            else:self.operation_runner(operation)
         self.opening=self.observe()
         self._opening_seal=self._seal_inventory(self.opening)
         self.created_fresh=True
@@ -1334,7 +1340,8 @@ def _managed_current_task_driver_type(publication_profile, a1_plan):
 
 def run_managed_current_publication_task(spark,*,binding=None,core_config,protocol_profile,
         stream,predecessor,schema_revisions_json,materialized_at,expected_environment,
-        publication_profile='ashlar-managed-current-incremental/0.1',a1_plan=None):
+        publication_profile='ashlar-managed-current-incremental/0.1',a1_plan=None,
+        operation_runner=None):
     """Run one current Truss page on the caller's injected UC Spark task.
 
     The caller must provide a digest-bound accepted development-source bundle
@@ -1349,6 +1356,9 @@ def run_managed_current_publication_task(spark,*,binding=None,core_config,protoc
     from .truss_backend import TrussPublisherBackend
 
     keys={'runtimeName','sparkVersion','sparkBuildText','runtimeTag','principal','catalog','schema','protocol'}
+    if (type(expected_environment)is dict
+            and expected_environment.get('runtimeName')=='databricks-jobs-cluster'):
+        keys |= {'clusterId','sessionTimeZone'}
     _require(type(expected_environment)is dict and set(expected_environment)==keys
              and all(value is None or (type(value)is str and value) for value in expected_environment.values()),
              'Exact selected managed task environment contract required')
@@ -1368,12 +1378,29 @@ def run_managed_current_publication_task(spark,*,binding=None,core_config,protoc
     revisions=json.loads(schema_revisions_json)
     _require(type(revisions)is dict and bool(revisions) and _canonical(revisions)==schema_revisions_json,
              'Canonical complete current source schema revisions required')
-    opening_environment=observe_managed_current_environment(spark,protocol_profile)
-    _require(opening_environment==expected_environment,
-             'Observed managed task environment differs from the selected public observations')
-    _require(expected_environment['runtimeName']=='databricks-serverless'
+    opening_environment=observe_managed_current_environment(spark,protocol_profile,
+        operation_runner=operation_runner)
+    _require(type(opening_environment)is dict
+             and all(opening_environment.get(key)==value
+                     for key,value in expected_environment.items())
              and expected_environment['protocol']==protocol_profile.identity,
-             'Selected serverless runtime/protocol profile differs')
+             'Observed managed task environment differs from the selected public observations')
+    runtime_name=expected_environment['runtimeName']
+    if runtime_name=='databricks-serverless':
+        from .configured_local_runtime import MANAGED_SERVERLESS_PROFILE
+        _require(protocol_profile.identity==MANAGED_SERVERLESS_PROFILE.identity
+                 and opening_environment.get('runtimeName')==runtime_name,
+                 'Selected serverless runtime/protocol profile differs')
+    else:
+        from .configured_local_runtime import MANAGED_CLASSIC_PROFILE
+        _require(runtime_name=='databricks-jobs-cluster'
+                 and protocol_profile.identity==MANAGED_CLASSIC_PROFILE.identity
+                 and opening_environment.get('runtimeName')==runtime_name
+                 and type(opening_environment.get('sparkApplicationId'))is str
+                 and opening_environment['sparkApplicationId']
+                 and opening_environment.get('clusterId')==expected_environment.get('clusterId')
+                 and opening_environment.get('sessionTimeZone') in ('UTC','Etc/UTC'),
+                 'Selected classic Jobs runtime/protocol profile differs')
 
     a1_predecessor=None
     a1_batch=None
@@ -1394,7 +1421,8 @@ def run_managed_current_publication_task(spark,*,binding=None,core_config,protoc
     _require(admission.batch.feed and admission.batch.batch_id)
     target=ManagedCurrentTargetOwner(spark,catalog=core_config.catalog,schema=core_config.schema,
                                      protocol_profile=protocol_profile,
-                                     carrier_profile=core_config.carrier_profile)
+                                     carrier_profile=core_config.carrier_profile,
+                                     operation_runner=operation_runner)
     existing=target._existing()
     if not existing:target.initialize()
     elif existing==set(ROLES):target.open_existing()
@@ -1424,7 +1452,8 @@ def run_managed_current_publication_task(spark,*,binding=None,core_config,protoc
         schema_revisions_json=schema_revisions_json,context=context,
         source_checkpoint_json=request['source_checkpoint_json'])
     receipt=driver.reopen_receipt(descriptor)
-    closing_environment=observe_managed_current_environment(spark,protocol_profile)
+    closing_environment=observe_managed_current_environment(spark,protocol_profile,
+        operation_runner=operation_runner)
     _require(closing_environment==opening_environment,
              'Managed task runtime, principal, catalog, schema, or protocol changed before close')
     return {'profile':'ashlar-managed-current-task-result/0.2',
@@ -1457,10 +1486,37 @@ def observe_managed_current_environment(spark,protocol_profile,*,operation_runne
     conf=spark.conf
     try:runtime_tag=conf.get('spark.databricks.clusterUsageTags.sparkVersion')
     except Exception:runtime_tag=None
-    observed={'runtimeName':'databricks-serverless','sparkVersion':spark.version,
+    from .configured_local_runtime import MANAGED_CLASSIC_PROFILE
+    is_classic = protocol_profile.identity == MANAGED_CLASSIC_PROFILE.identity
+    spark_context = None
+    if is_classic:
+        try:
+            spark_context = getattr(spark, 'sparkContext', None)
+        except Exception:
+            spark_context = None
+        _require(spark_context is not None,
+                 'Selected classic profile requires the provided classic Spark context')
+    observed={'runtimeName':'databricks-jobs-cluster' if is_classic else 'databricks-serverless',
+        'sparkVersion':spark.version,
         'sparkBuildText':spark_build_text,'runtimeTag':runtime_tag,
         'principal':identity[0].get('principal'),'catalog':identity[0].get('catalog'),
         'schema':identity[0].get('schema'),'protocol':protocol_profile.identity}
+    if is_classic:
+        app_id = getattr(spark_context, 'applicationId', None)
+        try:
+            cluster_id = conf.get('spark.databricks.clusterUsageTags.clusterId')
+        except Exception:
+            cluster_id = None
+        _require(type(app_id) is str and app_id and type(cluster_id) is str and cluster_id,
+                 'Classic Jobs Spark application and exact cluster IDs are required')
+        timezone_rows = transport.query(
+            'SELECT current_timezone() AS sessionTimeZone', {}).rows
+        _require(len(timezone_rows)==1
+                 and timezone_rows[0].get('sessionTimeZone') in ('UTC','Etc/UTC'),
+                 'Classic Jobs session must use an explicitly observed UTC timezone')
+        observed['sparkApplicationId'] = app_id
+        observed['clusterId'] = cluster_id
+        observed['sessionTimeZone'] = timezone_rows[0]['sessionTimeZone']
     required=('runtimeName','sparkVersion','principal','catalog','schema','protocol')
     _require(all(type(observed[key])is str and observed[key] for key in required),
              'Required public runtime, Spark version, actor, destination, or protocol observation is missing')

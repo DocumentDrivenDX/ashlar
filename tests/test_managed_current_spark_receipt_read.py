@@ -492,6 +492,70 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         finally:
             reader._serverless_tag.close()
 
+    def test_classic_trial_routes_parent_bundle_to_borrowed_classic_reader(self):
+        import shutil
+        import sys
+        import tempfile
+        from pathlib import Path
+        from types import SimpleNamespace
+        from unittest.mock import patch
+        from tools.create_managed_a1_trial_config import build_config
+        from tools.run_managed_a1_serverless import _retention_bundle
+        from ashlar_host.configured_local_runtime import MANAGED_CLASSIC_PROFILE
+        from ashlar_host.managed_current_spark_receipt_read import (
+            ManagedCurrentSparkClassicTaskReceiptConfig,
+        )
+
+        owner = "owner@example.test"
+        trial_id = "a1-classic-retention"
+        cluster = {"cluster_id": "0712-123456-abc123",
+            "cluster_name": "ashlar-release-classic-test", "state": "RUNNING",
+            "single_user_name": owner, "node_type_id": "Standard_D4ds_v5",
+            "driver_node_type_id": "Standard_D4ds_v5", "spark_version": "19.x-scala2.13",
+            "spark_conf": {"spark.databricks.cluster.profile": "singleNode",
+                "spark.master": "local[*]", "spark.sql.session.timeZone": "UTC"},
+            "num_workers": 0, "data_security_mode": "SINGLE_USER",
+            "runtime_engine": "STANDARD", "autotermination_minutes": 10,
+            "policy_id": "001654FA4AA08D1A", "custom_tags": {
+                "ashlar_owner": "ashlar-release", "ashlar_trial": trial_id.replace("-", "_"),
+                "ashlar_nonce": "a" * 32}}
+        with tempfile.TemporaryDirectory(dir=Path.cwd()) as temporary:
+            receipt_path = Path(temporary) / "local-qualification.json"
+            receipt_path.write_bytes(b"qualified local release")
+            config = build_config(runtime_result={"principal": owner},
+                trial_id=trial_id, notebook_root="/Workspace/Users/owner@example.test/ashlar",
+                environment_version=None,
+                dependencies=[{"path": "/Workspace/Shared/ashlar.whl", "sha256": "a" * 64}],
+                local_receipt=receipt_path,
+                evidence_dir="docs/helix/04-build/evidence/test",
+                bun_path=Path(shutil.which("bun")), python=Path(sys.executable),
+                execution_profile="classic_existing_cluster",
+                classic_cluster_readback=cluster, remaining_wall_seconds=840)
+        wire = {"identity": MANAGED_CLASSIC_PROFILE.identity,
+            "reader_versions": sorted(MANAGED_CLASSIC_PROFILE.reader_versions),
+            "writer_versions": sorted(MANAGED_CLASSIC_PROFILE.writer_versions),
+            "features": sorted(MANAGED_CLASSIC_PROFILE.features)}
+        plan = SimpleNamespace(predecessor=SimpleNamespace(manifest={"publication_id": "prior"}),
+            selection=SimpleNamespace(schedule_sha256="b" * 64,
+                schema_revisions={"test": "revision-1"}))
+        captured = {}
+        def compose(**kwargs):
+            captured.update(kwargs)
+            return SimpleNamespace(selection=SimpleNamespace(
+                reader_config=kwargs["reader_config"]), vector=object())
+        with patch("ashlar_host.managed_current_a1_retention_builder.build_managed_current_a1_retention_bundle",
+                   side_effect=compose), patch(
+                "ashlar_host.truss_current_catalog.installed_fresh_truss_runtime_pins",
+                return_value={"version": "0.0.55"}):
+            bundle = _retention_bundle(trial=config["trial"], protocol_profile=wire,
+                plan=plan, request_bytes=b"{}", manifest_bytes=b"{}",
+                destination_receipt=b"{}", task_receipt={}, prefix_bytes=b"prefix",
+                prefix_sha="c" * 64, selected_prefix={}, source_snapshot=b"snapshot",
+                custody_digests={})
+        self.assertIs(type(bundle.selection.reader_config), ManagedCurrentSparkClassicTaskReceiptConfig)
+        self.assertTrue(bundle.selection.reader_config.operational_observation_stage)
+        self.assertEqual(captured["reader_config"].expected_runtime["clusterId"], cluster["cluster_id"])
+
     def test_serverless_open_deadline_interrupts_a_blocked_connect_request(self):
         import threading
         import time

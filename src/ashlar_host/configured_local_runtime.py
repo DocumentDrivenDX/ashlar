@@ -30,6 +30,12 @@ PROFILE=ReaderProtocolProfile('ashlar-configured-local-delta/0.1',(1,2,3),(2,5,7
 MANAGED_SERVERLESS_PROFILE=ReaderProtocolProfile(
     'ashlar-managed-serverless-spark42-delta/0.1',
     PROFILE.reader_versions,PROFILE.writer_versions,PROFILE.features|{'v2Checkpoint'})
+# Same explicitly observed Spark 4.2/v2Checkpoint surface, selected only for
+# the classic single-user Jobs runtime. This identity does not claim a Delta
+# version; every task still admits the native table protocol.
+MANAGED_CLASSIC_PROFILE=ReaderProtocolProfile(
+    'ashlar-managed-classic-spark42-delta/0.1',
+    PROFILE.reader_versions,PROFILE.writer_versions,PROFILE.features|{'v2Checkpoint'})
 CONFIGURED_LOCAL_CARRIERS=('ashlar-delta/0.3','ashlar-delta/0.4-xxhash64')
 
 def _require(value):

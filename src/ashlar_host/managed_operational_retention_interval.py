@@ -27,9 +27,12 @@ from ashlar_host.managed_current_spark_receipt_read import (
     ManagedCurrentSparkReceiptReader,
     ManagedCurrentSparkServerlessReceiptConfig,
     ManagedCurrentSparkServerlessReceiptReader,
+    ManagedCurrentSparkClassicTaskReceiptConfig,
     ManagedCurrentSparkReceiptReopenObservation,
     BorrowedServerlessTaskSession,
+    BorrowedClassicTaskSession,
     SERVERLESS_TASK_SESSION_OWNERSHIP,
+    CLASSIC_TASK_SESSION_OWNERSHIP,
 )
 from ashlar.pins import PinVector
 
@@ -101,7 +104,8 @@ class ManagedOperationalRetentionSelection:
 
     def __post_init__(self):
         if type(self.reader_config) not in (ManagedCurrentSparkReceiptConfig,
-                                            ManagedCurrentSparkServerlessReceiptConfig):
+                ManagedCurrentSparkServerlessReceiptConfig,
+                ManagedCurrentSparkClassicTaskReceiptConfig):
             raise OperationalRetentionIntervalError("Explicit managed Spark receipt configuration required")
         if (type(self.request_bytes) is not bytes or not 0 < len(self.request_bytes) <= 4 * 1024 * 1024
                 or type(self.manifest_bytes) is not bytes
@@ -418,23 +422,30 @@ class OperationalRetentionInterval:
             serverless_borrowed = (
                 type(self.selection.reader_config) is ManagedCurrentSparkServerlessReceiptConfig
                 and type(session) is BorrowedServerlessTaskSession)
+            classic_borrowed = (
+                type(self.selection.reader_config) is ManagedCurrentSparkClassicTaskReceiptConfig
+                and type(session) is BorrowedClassicTaskSession)
+            borrowed = serverless_borrowed or classic_borrowed
+            borrowed_type = type(session) if borrowed else None
             if (session is None or type(getattr(session, "session_id", None)) is not str
                     or not session.session_id or session.session_id in self._session_ids
                     or getattr(session, "spark", None) is None
                     or (type(self.selection.reader_config) is ManagedCurrentSparkServerlessReceiptConfig
                         and not serverless_borrowed)
+                    or (type(self.selection.reader_config) is ManagedCurrentSparkClassicTaskReceiptConfig
+                        and not classic_borrowed)
                     or (type(self.selection.reader_config) is ManagedCurrentSparkReceiptConfig
-                        and type(session) is BorrowedServerlessTaskSession)
-                    or (serverless_borrowed and self._session_wrappers
-                        and any(type(previous) is not BorrowedServerlessTaskSession
+                        and type(session) in (BorrowedServerlessTaskSession,
+                                              BorrowedClassicTaskSession))
+                    or (borrowed and self._session_wrappers
+                        and any(type(previous) is not borrowed_type
                                 or previous.task_session_scope_id != session.task_session_scope_id
                                 or previous.spark is not session.spark
                                 for previous in self._session_wrappers))
                     or (any(session.spark is prior for prior in self._spark_sessions)
-                        and (not serverless_borrowed
-                             or any(type(previous) is not BorrowedServerlessTaskSession
-                                    or previous.task_session_scope_id != session.task_session_scope_id
-                                    for previous in self._session_wrappers)))
+                        and (not borrowed or any(type(previous) is not borrowed_type
+                            or previous.task_session_scope_id != session.task_session_scope_id
+                            for previous in self._session_wrappers)))
                     or not callable(getattr(session, "close", None))):
                 raise OperationalRetentionIntervalError(
                     "Fresh owned session or exact task-scoped serverless borrowed wrapper required")
@@ -444,16 +455,22 @@ class OperationalRetentionInterval:
                 self._session_wrappers = []
             self._session_wrappers.append(session)
             self._last_session_ownership_profile = (
-                SERVERLESS_TASK_SESSION_OWNERSHIP if serverless_borrowed
-                else "host_owned_fresh_spark_session/0.1")
+                SERVERLESS_TASK_SESSION_OWNERSHIP if serverless_borrowed else
+                CLASSIC_TASK_SESSION_OWNERSHIP if classic_borrowed else
+                "host_owned_fresh_spark_session/0.1")
             self._last_task_session_scope_id = (
-                session.task_session_scope_id if serverless_borrowed else session.session_id)
+                session.task_session_scope_id if borrowed else session.session_id)
             self._last_session_wrapper_id = session.session_id
             if type(self.selection.reader_config) is ManagedCurrentSparkServerlessReceiptConfig:
                 reader = ManagedCurrentSparkServerlessReceiptReader(
                     session.spark, self.selection.reader_config,
                     operation_deadline_monotonic=(session.deadline_monotonic
                         if serverless_borrowed else None))
+            elif type(self.selection.reader_config) is ManagedCurrentSparkClassicTaskReceiptConfig:
+                reader = ManagedCurrentSparkReceiptReader(session.spark,
+                    self.selection.reader_config,
+                    operation_deadline_monotonic=session.deadline_monotonic,
+                    operation_runner=session.run_bounded)
             else:
                 reader = ManagedCurrentSparkReceiptReader(session.spark, self.selection.reader_config)
             kwargs = {

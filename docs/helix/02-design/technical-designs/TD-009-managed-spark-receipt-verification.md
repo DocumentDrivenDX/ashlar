@@ -51,9 +51,12 @@ recorded baseline until this amendment is reviewed and adopted.
 
 The current A1 candidate is one explicitly dedicated all-purpose cluster owned
 for the trial, with publisher and verifier submitted as sequential Jobs tasks
-attached to that cluster. The tasks use distinct processes and Spark sessions;
-their shared cluster does not establish principal isolation, authority or
-independence. This selection follows the 2026-10-31 read-only inventory, which
+attached to that cluster. Each task must have a distinct process identity. The
+classic adapter borrows the Spark session supplied to that task and never stops
+the cluster-owned Spark context; a shared cluster or Spark application does not
+establish task independence, principal isolation or authority. The runner must
+compare task-local process IDs and nonces across publisher and verifier. This
+selection follows the 2026-10-31 read-only inventory, which
 exposed only the Personal Compute all-purpose policy to the principal. It does
 not qualify cluster creation, task attachment, runtime, Unity Catalog mode or
 execution. The historical serverless and Jobs-native profiles retain their
@@ -275,8 +278,13 @@ one bounded tagged query. `interruptTag` responses are recorded as requests;
 they do not prove that a timed-out remote operation terminated. The
 [Azure Databricks serverless dependency guidance](https://learn.microsoft.com/en-us/azure/databricks/compute/serverless/dependencies)
 documents task environment isolation. The serverless qualification does not
-claim a fresh or distinct Spark session for every observation. Classic Jobs
-retains the existing fresh-owned session path.
+claim a fresh or distinct Spark session for every observation. The classic
+borrowed-task adapter uses the same ownership rule: each task wraps its injected
+Spark session, runs bounded SQL through task-local job-group ownership, restores
+the task's prior job-group state, and closes only the wrapper. It does not stop
+the provider-owned Spark session or context. This classic path remains a
+candidate until the dedicated cluster trial records its runtime, task-process,
+native-table, retention, PO and source-custody observations.
 
 The existing `observe_retention_configuration` can read Delta properties only
 when a host supplies qualified native defaults and a trusted executor. That

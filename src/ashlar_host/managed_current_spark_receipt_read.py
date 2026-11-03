@@ -40,6 +40,7 @@ _XXHASH_SQL = ("SELECT xxhash64(CAST(:source AS STRING),CAST(:type AS BIGINT),"
 # parameter well below the 4 MiB frozen-prefix envelope.
 _MAX_PROBE_SOURCE_BYTES = 65536
 SERVERLESS_TASK_SESSION_OWNERSHIP = "databricks-serverless-provided-task-session/0.1"
+CLASSIC_TASK_SESSION_OWNERSHIP = "databricks-classic-provided-task-session/0.1"
 
 
 def _require(value, reason="Managed Spark receipt reopen refused"):
@@ -108,7 +109,9 @@ class ManagedCurrentSparkReceiptConfig:
                  and self.execution_profile in ("classic_jobs_cluster", "serverless_connect")
                  and type(self.operational_observation_stage) is bool
                  and (not self.operational_observation_stage
-                      or self.execution_profile == "serverless_connect")
+                      or self.execution_profile == "serverless_connect"
+                      or type(self) is globals().get(
+                          "ManagedCurrentSparkClassicTaskReceiptConfig"))
                  and self.expected_runtime.get("runtimeName") == (
                      "databricks-serverless" if self.execution_profile == "serverless_connect"
                      else "databricks-jobs-cluster")
@@ -126,6 +129,22 @@ class ManagedCurrentSparkReceiptConfig:
 class ManagedCurrentSparkServerlessReceiptConfig(ManagedCurrentSparkReceiptConfig):
     """Explicit Spark Connect/serverless profile; never requires SparkContext IDs."""
     execution_profile: str = field(default="serverless_connect", init=False)
+
+
+@dataclass(frozen=True)
+class ManagedCurrentSparkClassicTaskReceiptConfig(ManagedCurrentSparkReceiptConfig):
+    """Explicit borrowed Spark task wrapper on a locked classic Jobs cluster."""
+    operational_observation_stage: bool = True
+
+    def __post_init__(self):
+        super().__post_init__()
+        _require(self.execution_profile == "classic_jobs_cluster"
+                 and self.expected_runtime.get("runtimeName") == "databricks-jobs-cluster"
+                 and type(self.expected_runtime.get("clusterId")) is str
+                 and self.expected_runtime["clusterId"]
+                 and self.expected_runtime.get("sessionTimeZone") in ("UTC", "Etc/UTC")
+                 and "sparkApplicationId" not in self.expected_runtime,
+                 "Exact borrowed classic Jobs runtime/cluster selection required")
 
 
 class _ServerlessSparkTagCancellation:
@@ -316,6 +335,94 @@ class BorrowedServerlessTaskSession:
         self.closed = True
 
 
+class BorrowedClassicTaskSession:
+    """Task-local bounded wrapper around the injected classic Jobs Spark session.
+
+    It uses a thread-local Spark job group for each operation, restores the
+    worker's prior local properties, and never stops the cluster-owned context.
+    """
+    ownership_profile = CLASSIC_TASK_SESSION_OWNERSHIP
+
+    def __init__(self, spark, *, stage, task_session_scope_id, deadline_monotonic):
+        sc = getattr(spark, "sparkContext", None)
+        required = ("getLocalProperty", "setLocalProperty", "setJobGroup", "cancelJobGroup")
+        if (sc is None or any(not callable(getattr(sc, name, None)) for name in required)
+                or type(stage) is not str or not stage
+                or type(task_session_scope_id) is not str or not task_session_scope_id
+                or type(deadline_monotonic) not in (int, float)
+                or deadline_monotonic <= time.monotonic()):
+            raise ValueError("Exact borrowed classic Jobs Spark session and deadline required")
+        self.spark, self.spark_context = spark, sc
+        self.stage = stage
+        self.session_id = "ashlar-classic-observation-wrapper-" + uuid.uuid4().hex
+        self.task_session_scope_id = task_session_scope_id
+        self.deadline_monotonic = float(deadline_monotonic)
+        self.closed = False
+        self.completion_unknown = False
+
+    def run_bounded(self, operation):
+        if self.closed or self.completion_unknown:
+            raise ValueError("Borrowed classic task session is closed or query completion is unknown")
+        remaining = self.deadline_monotonic - time.monotonic()
+        if remaining <= 0:
+            raise ValueError("Classic task operation deadline expired")
+        group = "ashlar-classic-task-" + uuid.uuid4().hex
+        keys = ("spark.jobGroup.id", "spark.job.description", "spark.job.interruptOnCancel")
+        result = queue.Queue(maxsize=1)
+
+        def invoke():
+            previous = {}
+            outcome = None
+            try:
+                for key in keys:
+                    previous[key] = self.spark_context.getLocalProperty(key)
+                self.spark_context.setJobGroup(group, "bounded Ashlar classic task SQL",
+                                               interruptOnCancel=True)
+                try:
+                    outcome = (True, operation())
+                except BaseException as error:
+                    outcome = (False, error)
+            except BaseException as error:
+                outcome = (False, error)
+            finally:
+                restore_errors = []
+                for key, value in previous.items():
+                    try:
+                        self.spark_context.setLocalProperty(key, value)
+                    except BaseException as error:
+                        restore_errors.append(error)
+                if restore_errors:
+                    outcome = (False, ValueError(
+                        "Classic task Spark job-group restoration failed; task state is unknown"))
+                if outcome is None:
+                    outcome = (False, ValueError("Classic task SQL operation did not complete"))
+                result.put(outcome)
+
+        thread = threading.Thread(target=invoke, name="ashlar-classic-task-sql", daemon=True)
+        thread.start()
+        try:
+            succeeded, value = result.get(timeout=remaining)
+        except queue.Empty as error:
+            self.completion_unknown = True
+            interrupter = threading.Thread(target=self.spark_context.cancelJobGroup,
+                args=(group,), name="ashlar-classic-task-cancel", daemon=True)
+            interrupter.start()
+            raise ValueError("Classic Spark job group cancellation requested; completion remains unknown") from error
+        if not succeeded:
+            raise value
+        return value
+
+    def query(self, sql, *, action="collect"):
+        if type(sql) is not str or not sql or action not in ("collect", "first"):
+            raise ValueError("Bounded classic SQL and supported result action required")
+        return self.run_bounded(lambda: getattr(self.spark.sql(sql), action)())
+
+    def close(self):
+        if self.closed:
+            raise ValueError("Borrowed classic task-session wrapper already closed")
+        self.closed = True
+
+
 @dataclass(frozen=True)
 class ManagedCurrentSparkReceiptReopenObservation:
     """Offline reopen result. It intentionally has no source-ACK port."""
@@ -430,6 +537,18 @@ class _SparkReceiptExecutor:
 
         if owner.config.execution_profile == "serverless_connect":
             fields, rows = owner._run_serverless_bounded(execute)
+        elif (type(owner.config) is ManagedCurrentSparkClassicTaskReceiptConfig
+              and owner._operation_runner is not None):
+            runner_owner = getattr(owner._operation_runner, "__self__", None)
+            previous_deadline = getattr(runner_owner, "deadline_monotonic", None)
+            close_deadline = owner._classic_close_deadline if owner.closing else None
+            if close_deadline is not None and previous_deadline is not None:
+                runner_owner.deadline_monotonic = min(previous_deadline, close_deadline)
+            try:
+                fields, rows = owner._operation_runner(execute)
+            finally:
+                if close_deadline is not None and previous_deadline is not None:
+                    runner_owner.deadline_monotonic = previous_deadline
         else:
             fields, rows = execute()
         owner._check_deadline()
@@ -446,17 +565,23 @@ class ManagedCurrentSparkReceiptReader:
     """Reopen a receipt from a separately injected SparkSession."""
 
     def __init__(self, spark, config: ManagedCurrentSparkReceiptConfig, *,
-                 operation_deadline_monotonic=None):
+                 operation_deadline_monotonic=None, operation_runner=None):
         _require(spark is not None and type(config) in (
-            ManagedCurrentSparkReceiptConfig, ManagedCurrentSparkServerlessReceiptConfig))
+            ManagedCurrentSparkReceiptConfig, ManagedCurrentSparkServerlessReceiptConfig,
+            ManagedCurrentSparkClassicTaskReceiptConfig))
         if (operation_deadline_monotonic is not None
                 and (type(operation_deadline_monotonic) not in (int, float)
                      or operation_deadline_monotonic <= time.monotonic())):
             raise ValueError("Future serverless task operation deadline required")
         _require(operation_deadline_monotonic is None
-                 or config.execution_profile == "serverless_connect",
-                 "A task deadline override is only valid for Spark Connect")
+                 or config.execution_profile == "serverless_connect"
+                 or type(config) is ManagedCurrentSparkClassicTaskReceiptConfig,
+                 "A task deadline override requires an explicit borrowed task profile")
+        _require(operation_runner is None or type(config) is ManagedCurrentSparkClassicTaskReceiptConfig
+                 and callable(operation_runner),
+                 "An operation runner requires the exact borrowed classic task profile")
         self.spark, self.config = spark, config
+        self._operation_runner = operation_runner
         self.carriers = load_current_managed_carriers(config.carrier_profile)
         self.started, self.statements, self.closed = time.monotonic(), 0, False
         self.closing = False
@@ -470,6 +595,7 @@ class ManagedCurrentSparkReceiptReader:
         self._serverless_operation_unknown = False
         self._serverless_close_deadline = None
         self._serverless_task_deadline = operation_deadline_monotonic
+        self._classic_close_deadline = None
         if config.execution_profile == "serverless_connect":
             self._serverless_tag = _ServerlessSparkTagCancellation(self.spark)
         else:
@@ -480,12 +606,19 @@ class ManagedCurrentSparkReceiptReader:
         self._observe_environment = self._observe_spark_environment
         try:
             self.opening_runtime = self._observe_environment()
-            runtime_match = (self.opening_runtime == config.expected_runtime
-                if config.execution_profile != "serverless_connect"
-                else type(self.opening_runtime) is dict
-                     and {key: self.opening_runtime.get(key)
-                          for key in config.expected_runtime} == config.expected_runtime
-                     and set(self.opening_runtime) == set(config.expected_runtime) | {"sessionTimeZone"})
+            if type(config) is ManagedCurrentSparkClassicTaskReceiptConfig:
+                runtime_match = (type(self.opening_runtime) is dict
+                    and {key: self.opening_runtime.get(key) for key in config.expected_runtime}
+                        == config.expected_runtime
+                    and set(self.opening_runtime) == set(config.expected_runtime)
+                        | {"sparkApplicationId"})
+            elif config.execution_profile == "serverless_connect":
+                runtime_match = (type(self.opening_runtime) is dict
+                    and {key: self.opening_runtime.get(key) for key in config.expected_runtime}
+                        == config.expected_runtime
+                    and set(self.opening_runtime) == set(config.expected_runtime) | {"sessionTimeZone"})
+            else:
+                runtime_match = self.opening_runtime == config.expected_runtime
             _require(runtime_match,
                      "Spark opening runtime/principal/namespace differs from explicit selection")
             self.opening = self._observe_inventory()
@@ -564,6 +697,9 @@ class ManagedCurrentSparkReceiptReader:
         _require(not self.closed and (self.closing or
                  time.monotonic() - self.started < self.config.maximum_elapsed_seconds),
                  "Spark receipt cumulative deadline expired")
+        if self.closing and self._classic_close_deadline is not None:
+            _require(time.monotonic() < self._classic_close_deadline,
+                     "Classic Spark close deadline expired")
 
     def _run_serverless_bounded(self, operation):
         """Bound one Connect request by the reader/close deadline, then interrupt its tag."""
@@ -1377,6 +1513,9 @@ class ManagedCurrentSparkReceiptReader:
         _require(not self.closed, "Spark receipt reader already closed")
         if self.config.execution_profile == "serverless_connect":
             return self._close_serverless()
+        if (type(self.config) is ManagedCurrentSparkClassicTaskReceiptConfig
+                and self._operation_runner is not None):
+            return self._close_classic_task()
         self.closing = True
         sc = getattr(self.spark, "sparkContext", None)
         group = "managed-current-receipt-close-" + uuid.uuid4().hex
@@ -1409,6 +1548,42 @@ class ManagedCurrentSparkReceiptReader:
             timer.cancel()
             for key, value in previous.items():
                 sc.setLocalProperty(key, value)
+        if self._observation is not None:
+            self._observation.runtime_identity["closing"] = runtime
+            self._observation.closing_installation_inventory.clear()
+            self._observation.closing_installation_inventory.update({
+                role: {k: v for k, v in item.items() if k != "detailSha256"}
+                for role, item in inventory.items()})
+        self.closed = True
+
+    def _close_classic_task(self):
+        """Close through the actual operation wrapper with a matching 30s bound."""
+        self.closing = True
+        close_deadline = min(time.monotonic() + 30,
+            self.started + self.config.maximum_elapsed_seconds,
+            self._serverless_task_deadline if self._serverless_task_deadline is not None
+            else float("inf"))
+        _require(close_deadline > time.monotonic(),
+                 "Classic receipt task deadline expired before closing")
+        self._classic_close_deadline = close_deadline
+        close_started = time.monotonic()
+        try:
+            original = self._observation
+            if original is None or self._reopen_inputs is None:
+                self._renew()
+                _require(time.monotonic() < close_deadline,
+                         "Classic Spark close deadline expired")
+                _require(False, "Exact original receipt reopen required before closing")
+            self._closing_bookend_complete = True
+            self._close_resolver_and_data_witness()
+            self._closing_bookend_complete = False
+            runtime, inventory = self._renew()
+            _require(time.monotonic() < close_deadline
+                     and time.monotonic() - close_started < 30,
+                     "Classic Spark close deadline expired")
+        finally:
+            self._closing_bookend_complete = False
+            self._classic_close_deadline = None
         if self._observation is not None:
             self._observation.runtime_identity["closing"] = runtime
             self._observation.closing_installation_inventory.clear()

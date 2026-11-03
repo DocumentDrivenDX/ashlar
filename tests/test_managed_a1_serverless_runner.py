@@ -25,7 +25,7 @@ from tools.run_managed_a1_serverless import (
 )
 from ashlar_host.a1_ack_attempt import A1AckSettlement
 from ashlar_host.managed_a1_serverless_tasks import (
-    _po_status, parse_predictive_optimization_status,
+    _po_status, parse_predictive_optimization_status, _query_rows,
 )
 
 
@@ -138,6 +138,70 @@ class PredictiveOptimizationTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "must be observed enabled"):
             _po_status(DisabledSpark(), "`client_dev`.`trial`.`object_current`")
+
+
+class ManagedTaskSQLTests(unittest.TestCase):
+    def test_parameterized_owner_query_preserves_spark_bindings_through_bounded_wrapper(self):
+        calls = []
+
+        class Result:
+            def collect(self):
+                return [{"table_name": "object_current", "table_owner": "owner@example.com"}]
+
+        class Spark:
+            def sql(self, statement, *, args=None):
+                calls.append((statement, args))
+                return Result()
+
+        class Session:
+            def run_bounded(self, operation):
+                return operation()
+
+        rows = _query_rows(Spark(),
+            "SELECT table_name,table_owner FROM system.information_schema.tables "
+            "WHERE table_catalog=:catalog AND table_schema=:schema",
+            args={"catalog": "client_dev", "schema": "ashlar_a1_trial"},
+            session=Session())
+        self.assertEqual(rows, [{"table_name": "object_current", "table_owner": "owner@example.com"}])
+        self.assertEqual(calls, [("SELECT table_name,table_owner FROM system.information_schema.tables "
+            "WHERE table_catalog=:catalog AND table_schema=:schema",
+            {"catalog": "client_dev", "schema": "ashlar_a1_trial"})])
+
+    def test_classic_task_wrapper_restores_local_properties_before_return(self):
+        import threading
+        from ashlar_host.managed_current_spark_receipt_read import BorrowedClassicTaskSession
+
+        class SparkContext:
+            def __init__(self):
+                self.local = threading.local()
+                self.events = []
+            def getLocalProperty(self, key):
+                return getattr(self.local, key, "prior:" + key)
+            def setLocalProperty(self, key, value):
+                setattr(self.local, key, value)
+                self.events.append((key, value))
+            def setJobGroup(self, group, description, interruptOnCancel=True):
+                self.setLocalProperty("spark.jobGroup.id", group)
+                self.setLocalProperty("spark.job.description", description)
+                self.setLocalProperty("spark.job.interruptOnCancel", str(interruptOnCancel).lower())
+            def cancelJobGroup(self, group):
+                self.events.append(("cancel", group))
+
+        context = SparkContext()
+        spark = type("Spark", (), {"sparkContext": context})()
+        wrapper = BorrowedClassicTaskSession(spark, stage="open",
+            task_session_scope_id="task-scope", deadline_monotonic=time.monotonic() + 5)
+        observed = {}
+        result = wrapper.run_bounded(lambda: observed.update({
+            key: context.getLocalProperty(key) for key in (
+                "spark.jobGroup.id", "spark.job.description", "spark.job.interruptOnCancel")}) or "ok")
+        self.assertEqual(result, "ok")
+        self.assertTrue(observed["spark.jobGroup.id"].startswith("ashlar-classic-task-"))
+        self.assertEqual([value for key, value in context.events[-3:]], [
+            "prior:spark.jobGroup.id", "prior:spark.job.description",
+            "prior:spark.job.interruptOnCancel"])
+        wrapper.close()
+        self.assertTrue(wrapper.closed)
 
 
 class _RunsAPI:
@@ -660,7 +724,8 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
             separators=(",", ":")).encode()
         output = {"profile": "ashlar-managed-a1-verifier-result/0.1",
             "phase": "a0", "observationPhase": "post_ack_close",
-            "runtimeIdentity": {"opening": {}, "closing": {}},
+            "runtimeIdentity": {"opening": {"runtimeName": "databricks-serverless"},
+                                "closing": {"runtimeName": "databricks-serverless"}},
             "predictiveOptimization": "ENABLE", "managedObservation": observation,
             "managedObservationSha256": hashlib.sha256(observation_raw).hexdigest(),
             "requestSha256": hashlib.sha256(request).hexdigest(),
@@ -673,6 +738,21 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "wrong source-ACK observation phase"):
             _verify_terminal_proof(output, 10, 11, request, manifest, receipt,
                 "a" * 64, vector, phase="a0", observation_phase="pre_ack")
+        from ashlar_host.managed_current_spark_receipt_read import CLASSIC_TASK_SESSION_OWNERSHIP
+        classic_output = copy.deepcopy(output)
+        classic_output["runtimeIdentity"] = {
+            "opening": {"runtimeName": "databricks-jobs-cluster"},
+            "closing": {"runtimeName": "databricks-jobs-cluster"}}
+        classic_output["taskProcess"] = {"pid": 10, "nonce": "a" * 32}
+        classic_output["managedObservation"]["observations"][0][
+            "session_ownership_profile"] = CLASSIC_TASK_SESSION_OWNERSHIP
+        classic_raw = json.dumps(classic_output["managedObservation"], sort_keys=True,
+            separators=(",", ":")).encode()
+        classic_output["managedObservationSha256"] = hashlib.sha256(classic_raw).hexdigest()
+        classic_proof = _verify_terminal_proof(classic_output, 12, 13,
+            request, manifest, receipt, "a" * 64, vector,
+            phase="a0", observation_phase="post_ack_close")
+        self.assertEqual(classic_proof["outcome"], "post_ack_close_observed")
         observation["observations"] *= 3
         observation["observations"][1]["stage"] = "open"
         observation["observations"][2]["stage"] = "pre_ack"
@@ -707,7 +787,8 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
             separators=(",", ":")).encode()
         output = {"profile": "ashlar-managed-a1-verifier-result/0.1",
             "phase": "a0", "observationPhase": "pre_ack",
-            "runtimeIdentity": {"opening": {}, "closing": {}},
+            "runtimeIdentity": {"opening": {"runtimeName": "databricks-serverless"},
+                                "closing": {"runtimeName": "databricks-serverless"}},
             "predictiveOptimization": "ENABLE", "managedObservation": observation,
             "managedObservationSha256": hashlib.sha256(observation_raw).hexdigest(),
             "requestSha256": hashlib.sha256(request).hexdigest(),

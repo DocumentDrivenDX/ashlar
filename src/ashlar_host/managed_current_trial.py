@@ -90,9 +90,17 @@ class ManagedCurrentTrialConfig:
         _require(type(revisions) is dict and bool(revisions)
                  and json.dumps(revisions, sort_keys=True, separators=(",", ":")) == self.schema_revisions_json,
                  "Canonical source revision vector required")
+        runtime_name = (self.expected_environment.get("runtimeName")
+                        if type(self.expected_environment) is dict else None)
+        classic_runtime = runtime_name == "databricks-jobs-cluster"
+        expected_runtime_keys = (_REQUIRED_RUNTIME_KEYS | {"clusterId", "sessionTimeZone"}
+                                 if classic_runtime else _REQUIRED_RUNTIME_KEYS)
         _require(type(self.expected_environment) is dict
-                 and set(self.expected_environment) == _REQUIRED_RUNTIME_KEYS
-                 and self.expected_environment.get("runtimeName") == "databricks-serverless"
+                 and set(self.expected_environment) == expected_runtime_keys
+                 and runtime_name in ("databricks-serverless", "databricks-jobs-cluster")
+                 and (not classic_runtime or type(self.expected_environment.get("clusterId")) is str
+                      and self.expected_environment["clusterId"]
+                      and self.expected_environment.get("sessionTimeZone") in ("UTC", "Etc/UTC"))
                  and self.expected_environment.get("catalog") == self.catalog
                  and self.expected_environment.get("schema") == self.schema
                  and all(value is None or (type(value) is str and value and "\0" not in value)
@@ -108,7 +116,7 @@ class ManagedCurrentTrialConfig:
                  and (self.expected_environment["runtimeTag"] is None
                       or type(self.expected_environment["runtimeTag"]) is str
                       and self.expected_environment["runtimeTag"]),
-                 "Selected serverless runtime, principal, destination namespace, and protocol pins required")
+                 "Selected managed runtime, principal, destination namespace, and protocol pins required")
         _require(type(self.maximum_task_seconds) is int and 1 <= self.maximum_task_seconds <= 900,
                  "Finite managed-current task deadline of at most 15 minutes required")
         _require(type(self.estimated_total_dbu) in (int, float) and math.isfinite(self.estimated_total_dbu)
@@ -136,8 +144,9 @@ class ManagedCurrentTrialConfig:
         else:
             _require(self.preferred_budget_exception is None,
                      "Preferred-budget exception must be omitted for estimates at or below $10")
-        _require(self.retries == 0 and self.max_concurrent_runs == 1 and self.dedicated_serverless is True,
-                 "One dedicated, single-concurrency serverless task with no retries required")
+        _require(self.retries == 0 and self.max_concurrent_runs == 1
+                 and self.dedicated_serverless is (runtime_name == "databricks-serverless"),
+                 "One explicit managed task profile with no retries required")
         _require(self.predictive_optimization_disabled is False,
                  "Predictive optimization must remain enabled")
         _require(type(self.create_schema) is bool, "Explicit fresh-schema creation decision required")
@@ -182,18 +191,20 @@ def _quote_namespace(catalog, schema):
     return "`" + catalog + "`.`" + schema + "`"
 
 
-def _schema_exists(spark, catalog, schema):
-    rows = spark.sql(
-        "SELECT schema_name FROM system.information_schema.schemata "
-        "WHERE catalog_name=:catalog AND schema_name=:schema",
-        args={"catalog": catalog, "schema": schema},
-    ).limit(2).collect()
+def _schema_exists(spark, catalog, schema, *, operation_runner=None):
+    def read():
+        return spark.sql(
+            "SELECT schema_name FROM system.information_schema.schemata "
+            "WHERE catalog_name=:catalog AND schema_name=:schema",
+            args={"catalog": catalog, "schema": schema},
+        ).limit(2).collect()
+    rows = read() if operation_runner is None else operation_runner(read)
     _require(len(rows) <= 1, "Ambiguous Unity Catalog schema inventory")
     return bool(rows)
 
 
 def run_managed_current_trial_page(spark, *, config, protocol_profile,
-                                   binding=None, a1_plan=None):
+                                   binding=None, a1_plan=None, operation_runner=None):
     """Run exactly one original source page and return its destination receipt.
 
     The external source holder must retain this result, independently reopen
@@ -226,12 +237,14 @@ def run_managed_current_trial_page(spark, *, config, protocol_profile,
             schema_revisions_json=config.schema_revisions_json,
             materialized_at=config.materialized_at)
     from .managed_current_publication import observe_managed_current_environment
-    preflight = observe_managed_current_environment(spark, protocol_profile)
+    preflight = observe_managed_current_environment(spark, protocol_profile,
+        operation_runner=operation_runner)
     _require(type(preflight) is dict and all(preflight.get(key) == config.expected_environment.get(key)
         for key in ("runtimeName", "principal", "protocol"))
         and all(config.expected_environment.get(key) is None
                 or preflight.get(key) == config.expected_environment[key]
-                for key in ("sparkVersion", "sparkBuildText", "runtimeTag"))
+                for key in ("sparkVersion", "sparkBuildText", "runtimeTag", "clusterId",
+                            "sessionTimeZone"))
         and type(preflight.get("sparkVersion")) is str and preflight["sparkVersion"]
         and (type(preflight.get("sparkBuildText")) is str and preflight["sparkBuildText"]
              or type(preflight.get("runtimeTag")) is str and preflight["runtimeTag"]),
@@ -239,24 +252,32 @@ def run_managed_current_trial_page(spark, *, config, protocol_profile,
     # Bootstrap the task's actual runtime before any schema or publication
     # effect. If version/build pins were unavailable before scheduling, retain
     # the observed values as the effective tuple for all later boundaries.
-    effective_environment = dict(preflight)
+    effective_environment = {key: preflight[key] for key in config.expected_environment}
     effective_environment["catalog"] = config.catalog
     effective_environment["schema"] = config.schema
     config = replace(config, expected_environment=effective_environment)
-    exists = _schema_exists(spark, config.catalog, config.schema)
+    def action(sql):
+        operation = lambda: spark.sql(sql).collect()
+        return operation() if operation_runner is None else operation_runner(operation)
+
+    exists = _schema_exists(spark, config.catalog, config.schema,
+                            operation_runner=operation_runner)
     if config.create_schema:
         _require(not exists, "Requested new managed trial schema already exists")
-        spark.sql("CREATE SCHEMA " + _quote_namespace(config.catalog, config.schema)).collect()
-        _require(_schema_exists(spark, config.catalog, config.schema),
+        action("CREATE SCHEMA " + _quote_namespace(config.catalog, config.schema))
+        _require(_schema_exists(spark, config.catalog, config.schema,
+                                operation_runner=operation_runner),
                  "Fresh managed trial schema was not observed after creation")
     else:
         _require(exists, "Existing per-run trial schema required for this page")
     # Serverless jobs can start with a default schema unrelated to the new
     # per-run destination. Select it only after fresh-schema ownership checks.
-    spark.sql("USE CATALOG `" + config.catalog + "`").collect()
-    spark.sql("USE SCHEMA `" + config.schema + "`").collect()
-    _require(observe_managed_current_environment(spark, protocol_profile)
-             == config.expected_environment,
+    action("USE CATALOG `" + config.catalog + "`")
+    action("USE SCHEMA `" + config.schema + "`")
+    observed_after_namespace = observe_managed_current_environment(spark, protocol_profile,
+        operation_runner=operation_runner)
+    _require(all(observed_after_namespace.get(key) == value
+                 for key, value in config.expected_environment.items()),
              "Selected namespace and public runtime must match before publication")
     result = run_managed_current_publication_task(
         spark,
@@ -270,6 +291,7 @@ def run_managed_current_trial_page(spark, *, config, protocol_profile,
         expected_environment=config.expected_environment,
         publication_profile=config.publication_profile,
         a1_plan=a1_plan,
+        operation_runner=operation_runner,
     )
     return {
         "profile": "ashlar-managed-current-trial-step/0.1",
