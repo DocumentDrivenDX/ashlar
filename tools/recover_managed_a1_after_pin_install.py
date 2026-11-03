@@ -831,6 +831,16 @@ def _launch_a1_continuation(config_path: Path, r23_receipt_path: Path,
         _validate_terminal_predecessors(api, original, config, work_deadline, {
             "publisher_result": retained["publisher_result"],
             "genesis_manifest": retained["genesis_manifest"]})
+        a0_receipt, a0_request_actual, a0_manifest, a0_receipt_bytes, a0_vector, a0_vector_sha = (
+            runner._publisher_bundle(json.loads(retained["publisher_result"]),
+                "managed-current-spark:" + config["expected_principal"], phase="a0"))
+        _require(a0_request_actual == retained["request"]
+                 and a0_manifest == retained["a0_manifest"]
+                 and a0_receipt_bytes == retained["a0_receipt"]
+                 and a0_vector_sha == r23["a0_vector_sha256"],
+                 "Retained A0 publisher result differs from the exact settled publication")
+        # The publisher bundle returns the already-wire-encoded vector object.
+        a0_vector_wire = a0_vector
         # Re-read the already completed A0 verifier and close jobs. They are
         # immutable prior evidence; this does not rerun either task or source ACK.
         for phase, proof_key in (("a0-verifier", "pre_ack_run_id"),
@@ -842,8 +852,6 @@ def _launch_a1_continuation(config_path: Path, r23_receipt_path: Path,
                      f"Retained R23 {phase} job no longer reads as terminal success")
             task = runner._task_output(api, row["task_run_id"])
             runner._validate_task_runtime(task, config["expected_runtime"], "verifier")
-            raw = json.dumps(task, sort_keys=True, separators=(",", ":"),
-                ensure_ascii=False, allow_nan=False).encode("utf-8")
             terminal = r23["a0_terminal_proof"]
             expected_sha = (terminal["pre_ack_task_result_sha256"]
                 if phase == "a0-verifier" else terminal["post_ack_close_task_result_sha256"])
@@ -856,8 +864,19 @@ def _launch_a1_continuation(config_path: Path, r23_receipt_path: Path,
                      and type(proof_run_id) is str and proof_run_id.isascii()
                      and proof_run_id.isdecimal()
                      and str(observed_run_id) == proof_run_id
-                     and _sha(raw) == expected_sha,
+                     and type(row["task_run_id"]) is int and row["task_run_id"] > 0,
                      f"Retained R23 {phase} task output differs from its exact terminal proof")
+            observation_phase = ("pre_ack" if phase == "a0-verifier"
+                                 else "post_ack_close")
+            proof = runner._verify_terminal_proof(task, int(observed_run_id),
+                int(row["task_run_id"]), retained["request"], retained["a0_manifest"],
+                retained["a0_receipt"], r23["a0_vector_sha256"], a0_vector_wire,
+                phase="a0", observation_phase=observation_phase,
+                interval_id=terminal["interval_id"])
+            _require(proof["result_sha256"] == expected_sha
+                     and proof["run_id"] == proof_run_id
+                     and proof["task_id"] == str(row["task_run_id"]),
+                     f"Retained R23 {phase} observation differs from its exact proof")
             _require(time.monotonic() < work_deadline,
                      "A1 continuation admission exceeded the read-only cap")
 
