@@ -8,6 +8,7 @@ import hashlib
 import importlib
 import json
 import os
+from pathlib import Path
 import socket
 import struct
 
@@ -236,7 +237,7 @@ class Truss053A1SourceHolder:
             PROFILE as MANAGED_READ_PROFILE,
             ManagedCurrentSparkReceiptReopenObservation,
         )
-        from .r04_schedule import decode_retained_json
+        from ashlar.schema import decode_retained_json
         from ashlar.pins import PinVector
         if self.session is None or self._closed or self.bound_selection is not None:
             raise Truss053CustodyError("One live post-verifier bind to the original source hold required")
