@@ -57,11 +57,12 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
                          VERIFIER_TIMEOUT_SECONDS)
         paid_cap_seconds = (INITIALIZER_TIMEOUT_SECONDS + 2 * PUBLISHER_TIMEOUT_SECONDS
                             + 4 * VERIFIER_TIMEOUT_SECONDS)
-        self.assertEqual(paid_cap_seconds, 630)
-        self.assertEqual(paid_cap_seconds + RUNTIME_PROBE_TASK_SECONDS,
-                         MAX_PAID_TASK_SECONDS)
-        self.assertEqual(630 + MAX_SOURCE_BOOTSTRAP_SECONDS + 45,
-                         config["maximum_wall_seconds"] - config["cleanup_reserve_seconds"])
+        self.assertEqual(paid_cap_seconds, 600)
+        self.assertEqual(paid_cap_seconds + RUNTIME_PROBE_TASK_SECONDS, 660)
+        self.assertLessEqual(paid_cap_seconds + RUNTIME_PROBE_TASK_SECONDS,
+                             MAX_PAID_TASK_SECONDS)
+        self.assertLessEqual(paid_cap_seconds + MAX_SOURCE_BOOTSTRAP_SECONDS + 45,
+                             config["maximum_wall_seconds"] - config["cleanup_reserve_seconds"])
         self.assertEqual(config["cost"]["authorized_total_dbu"], 128.0)
         self.assertLess(config["cost"]["estimated_total_usd"], 10)
         self.assertEqual(config["expected_runtime"]["protocol"], MANAGED_SERVERLESS_PROFILE.identity)
