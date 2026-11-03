@@ -13,7 +13,7 @@
     "supervisor_sha256": "f5bd260314ac3d4a9185a0cd076ea9781a289145aa03cf881cba86ba49dabf11",
     "worker_sha256": "a07f79dddd9e2a34ec3614a66e0742e0d8b439af04fee437701da3cea66e9c20",
     "worker_path": "tools/r61_fresh_cohort_worker.py",
-    "qualification_commit": "69afbaeb6f5d38e30bb661ffaee65c04fcb3bac6"
+    "qualification_commit": "13b6ff46"
   },
   "supervisor_runtime": {
     "python_executable": "/Users/erik/.local/bin/python3.11",
