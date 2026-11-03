@@ -445,6 +445,11 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         plan = SimpleNamespace(predecessor=SimpleNamespace(manifest={"publication_id": "prior"}),
             selection=SimpleNamespace(schedule_sha256="b" * 64,
                                       schema_revisions={"test": "revision-1"}))
+        from ashlar_host.configured_local_runtime import MANAGED_SERVERLESS_PROFILE
+        protocol_wire = {"identity": MANAGED_SERVERLESS_PROFILE.identity,
+            "reader_versions": sorted(MANAGED_SERVERLESS_PROFILE.reader_versions),
+            "writer_versions": sorted(MANAGED_SERVERLESS_PROFILE.writer_versions),
+            "features": sorted(MANAGED_SERVERLESS_PROFILE.features)}
         captured = {}
         def compose(**kwargs):
             captured.update(kwargs)
@@ -455,7 +460,7 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
                 "ashlar_host.truss_current_catalog.installed_fresh_truss_runtime_pins",
                 return_value={"version": "0.0.55"}):
             bundle = _retention_bundle(trial=config["trial"],
-                protocol_profile=PROFILE, plan=plan, request_bytes=b"{}", manifest_bytes=b"{}",
+                protocol_profile=protocol_wire, plan=plan, request_bytes=b"{}", manifest_bytes=b"{}",
                 destination_receipt=b"{}", task_receipt={}, prefix_bytes=b"prefix",
                 prefix_sha="c" * 64, selected_prefix={}, source_snapshot=b"snapshot",
                 custody_digests={})
@@ -471,7 +476,8 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         from ashlar_host.managed_current_spark_receipt_read import BorrowedServerlessTaskSession
         environment_session = BorrowedServerlessTaskSession(spark, stage="environment",
             task_session_scope_id="config-test-task", deadline_monotonic=time.monotonic() + 10)
-        environment = _environment(spark, PROFILE, config["expected_runtime"],
+        environment = _environment(spark, MANAGED_SERVERLESS_PROFILE,
+                                   config["expected_runtime"],
                                    session=environment_session)
         environment_session.close()
         self.assertEqual(environment, config["expected_runtime"])
@@ -762,18 +768,44 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         oracle = _authored_adapter_oracle(self, {})
         spark, reader = self._serverless_reader(operational_observation_stage=True)
         try:
+            constructor_end = len(spark.calls)
             observation = reader.reopen(request_bytes=_canonical(self.request).encode(),
                 manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
                 source_oracle=oracle)
+            reopen_end = len(spark.calls)
             self.assertRegex(observation.bag_comparison_sha256, r"^[0-9a-f]{64}$")
             self.assertEqual(sum("LIMIT 1025" in sql for sql in spark.calls), 4)
+            reopen_sql = spark.calls[constructor_end:reopen_end]
+            self.assertEqual(sum(sql.startswith("DESCRIBE DETAIL") for sql in reopen_sql), 18)
+            self.assertFalse(any(sql.startswith("DESCRIBE HISTORY") or
+                                 "system.information_schema" in sql or
+                                 "current_timezone()" in sql for sql in reopen_sql))
+            self.assertIsNone(reader._operational_reopen_witness)
             reader.close()
             self.assertEqual(sum("LIMIT 1025" in sql for sql in spark.calls), 4)
+            close_sql = spark.calls[reopen_end:]
+            self.assertEqual(sum(sql.startswith("DESCRIBE DETAIL") for sql in close_sql), 14)
+            self.assertEqual(sum(sql.startswith("DESCRIBE HISTORY") for sql in close_sql), 6)
             manifest_reads = [sql for sql in spark.calls
                 if "publication_manifest` WHERE publication_id" in sql]
             self.assertGreaterEqual(len(manifest_reads), 2)
             self.assertTrue(any("VERSION AS OF" in sql for sql in spark.calls
                                 if "publication_attempt_phase` VERSION AS OF" in sql))
+        finally:
+            if not reader.closed:
+                reader._serverless_tag.close()
+
+    def test_operational_reopen_witness_is_cleared_when_resolver_fails(self):
+        spark, reader = self._serverless_reader(operational_observation_stage=True)
+        try:
+            with patch("ashlar_host.managed_current_spark_receipt_read.resolve_publication",
+                       side_effect=RuntimeError("resolver stopped")):
+                with self.assertRaisesRegex(RuntimeError, "resolver stopped"):
+                    reader.reopen(request_bytes=_canonical(self.request).encode(),
+                        manifest_bytes=_canonical(self.manifest).encode(),
+                        expected_receipt=self.receipt,
+                        source_oracle=_authored_adapter_oracle(self, {}))
+            self.assertIsNone(reader._operational_reopen_witness)
         finally:
             if not reader.closed:
                 reader._serverless_tag.close()

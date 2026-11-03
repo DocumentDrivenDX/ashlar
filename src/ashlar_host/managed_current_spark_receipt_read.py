@@ -494,6 +494,7 @@ class ManagedCurrentSparkReceiptReader:
             # the resolver and source-derived data witness under the same session.
             self._reopen_inputs = None
             self._closing_witness = None
+            self._operational_reopen_witness = None
         except BaseException as error:
             if self._serverless_tag is not None:
                 try:
@@ -979,6 +980,25 @@ class ManagedCurrentSparkReceiptReader:
 
     def _renew(self):
         self._check_deadline()
+        witness = self._operational_reopen_witness
+        if witness is not None:
+            _require(self.config.execution_profile == "serverless_connect"
+                     and self.config.operational_observation_stage
+                     and not self.closing and not self.closed
+                     and not self._serverless_operation_unknown
+                     and type(witness) is tuple and len(witness) == 4
+                     and witness[0] is self.context
+                     and witness[1] == self._publication_id
+                     and witness[2] is self._request
+                     and witness[3] is self._manifest,
+                     "Operational opening inventory witness is stale or out of scope")
+            # Within one read-only resolver invocation, repeated authorization
+            # callbacks bind the same exact request and manifest to this fresh
+            # opening inventory. Exact VERSION AS OF reads and role identity
+            # bookends remain live; reader close still performs a fresh full
+            # inventory/runtime check. Never carry this witness across reopen,
+            # close, task, or observation stage.
+            return self.opening_runtime, self.opening
         if self.closing and self._closing_bookend_complete:
             return self.opening_runtime, self.opening
         runtime = self._observe_environment()
@@ -1131,9 +1151,18 @@ class ManagedCurrentSparkReceiptReader:
                                 self.carriers.ordered_fields(role)) for table, role in role_tables.items()}
         policy = _SparkReceiptPolicy(self, descriptor)
         backend = _SparkReceiptBackend(self, policy, schemas)
-        resolved = resolve_publication(backend, self._publication_id, uuids, context=self.context,
-            supported_profiles=(self.config.carrier_profile,),
-            supported_revisions={k: (v,) for k, v in revisions.items()})
+        if self.config.execution_profile == "serverless_connect" \
+                and self.config.operational_observation_stage:
+            _require(self._operational_reopen_witness is None and self._observation is None,
+                     "Operational stage permits one exact resolver reopen")
+            self._operational_reopen_witness = (
+                self.context, self._publication_id, request, manifest)
+        try:
+            resolved = resolve_publication(backend, self._publication_id, uuids,
+                context=self.context, supported_profiles=(self.config.carrier_profile,),
+                supported_revisions={k: (v,) for k, v in revisions.items()})
+        finally:
+            self._operational_reopen_witness = None
         _require(dict(resolved.descriptor.raw) == manifest
                  and all(s.uuid == uuids[t] and s.version == versions[t]
                          for t, s in resolved.snapshots.items()),
