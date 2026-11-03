@@ -428,7 +428,8 @@ def _resume_genesis_inputs(scope: dict) -> tuple[dict, dict, dict, dict]:
     delta = Path(paths["delta_root"])
     if ((pgdata / "postmaster.pid").exists()
             or tree_digest(pgdata) != resume["pgdata_tree_sha256"]
-            or tree_digest(delta) != resume["delta_tree_sha256"]):
+            or tree_digest(delta) != resume["delta_tree_sha256"]
+            or resume.get("delta_tree_sha256") != resume.get("prior_delta_tree_sha256")):
         raise RuntimeError("Stopped attempt13 PG/Delta state differs from reviewed continuation input")
     forbidden = ("seed-group.json", "seed-group-result.json", "seed-continuation-config.json",
                  "seed-continuation-result.json", "continuation-group.json",

@@ -110,7 +110,8 @@ def preflight() -> dict:
         if (Path(paths["postgres_data"]) / "postmaster.pid").exists():
             raise RuntimeError("retained continuation PostgreSQL must be stopped")
         if (_tree_sha256(Path(paths["postgres_data"])) != resume.get("pgdata_tree_sha256")
-                or _tree_sha256(Path(paths["delta_root"])) != resume.get("delta_tree_sha256")):
+                or _tree_sha256(Path(paths["delta_root"])) != resume.get("delta_tree_sha256")
+                or resume.get("delta_tree_sha256") != resume.get("prior_delta_tree_sha256")):
             raise RuntimeError("retained continuation PG/Delta tree hash differs")
         attempt = Path(resume["attempt_root"])
         inputs = {
