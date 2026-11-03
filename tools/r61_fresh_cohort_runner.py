@@ -121,6 +121,8 @@ def preflight() -> dict:
             "seed_source_page": Path(resume["seed_source_page_path"]),
             "seed_readback_completion": Path(resume["seed_readback_completion_path"]),
             "seed_pending_recovery": Path(resume["seed_pending_recovery_path"]),
+            "prior_native_worker_failure": Path(resume["prior_native_attempt_root"]) / "worker-failure.json",
+            "prior_native_supervisor_result": Path(resume["prior_native_attempt_root"]) / "supervisor-result.json",
             "origin_file": Path(resume["origin_path"]),
         }
         for name, path in seed_inputs.items():
@@ -132,6 +134,8 @@ def preflight() -> dict:
         ack = json.loads(seed_inputs["seed_deferred_ack"].read_text())
         page = json.loads(seed_inputs["seed_source_page"].read_text())
         completed = json.loads(seed_inputs["seed_readback_completion"].read_text())
+        native_failure = json.loads(seed_inputs["prior_native_worker_failure"].read_text())
+        native_supervisor = json.loads(seed_inputs["prior_native_supervisor_result"].read_text())
         if (failure.get("failure_type") != "KeyError" or failure.get("failure") != "'types'"
                 or failure.get("source_ack_state") != "closed_reconciled"
                 or failure.get("delta_write_state") != "confirmed_seed_continuation_publication"
@@ -139,6 +143,16 @@ def preflight() -> dict:
                 or supervisor.get("status") != "failed_worker"
                 or supervisor.get("cleanup", {}).get("process_group_empty") is not True
                 or supervisor.get("postgres_cleanup", {}).get("postgres_closed") is not True
+                or native_failure.get("failure_type") != resume.get("prior_native_failure_type")
+                or native_failure.get("failure") != resume.get("prior_native_failure")
+                or native_failure.get("source_ack_state") != "previously_reconciled_matched"
+                or native_failure.get("delta_write_state") != "retained_seed_publication"
+                or native_failure.get("spark_started") is not True
+                or native_failure.get("spark_closed") is not True
+                or native_failure.get("postgres_closed") is not True
+                or native_supervisor.get("status") != "failed_worker"
+                or native_supervisor.get("cleanup", {}).get("process_group_empty") is not True
+                or native_supervisor.get("postgres_cleanup", {}).get("postgres_closed") is not True
                 or ack.get("publication_id") != resume.get("seed_publication_id")
                 or ack.get("manifest_sha256") != resume.get("seed_manifest_sha256")
                 or ack.get("source_page", {}).get("page_sha256") != resume.get("seed_source_page_sha256")
@@ -153,6 +167,11 @@ def preflight() -> dict:
                 "continuation-group.json", "continuation-group-result.json",
                 "continuation-config.json", "continuation-result.json")):
             raise RuntimeError("prior final continuation artifacts exist; replay is refused")
+        native_root = Path(resume["prior_native_attempt_root"])
+        if native_root != attempt / "continuation-03" or any((native_root / name).exists() for name in (
+                "continuation-group.json", "continuation-group-result.json",
+                "continuation-config.json", "continuation-result.json")):
+            raise RuntimeError("prior native resume artifacts do not prove no final group action")
     elif resume_mode:
         for key in ("postgres_data", "delta_root"):
             candidate = Path(paths[key])

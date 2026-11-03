@@ -13,6 +13,7 @@ import importlib.metadata
 import json
 import os
 from pathlib import Path
+import re
 import stat
 import subprocess
 import sys
@@ -466,9 +467,12 @@ def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict
         raise RuntimeError("Exact reviewed resume-after-seed scope required")
     attempt = Path(resume["attempt_root"])
     prior_root = Path(resume["prior_continuation_root"])
+    prior_native_root = Path(resume["prior_native_attempt_root"])
     if (not attempt.is_absolute() or attempt.resolve() != attempt or attempt.is_symlink()
             or prior_root != attempt / "continuation-02"
-            or not prior_root.is_dir() or prior_root.is_symlink()):
+            or not prior_root.is_dir() or prior_root.is_symlink()
+            or prior_native_root != attempt / "continuation-03"
+            or not prior_native_root.is_dir() or prior_native_root.is_symlink()):
         raise RuntimeError("Canonical retained attempt13/continuation-02 roots required")
     files = {
         "setup_receipt": attempt / "setup-stage.json",
@@ -487,6 +491,8 @@ def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict
         "seed_source_page": Path(resume["seed_source_page_path"]),
         "seed_readback_completion": Path(resume["seed_readback_completion_path"]),
         "seed_pending_recovery": Path(resume["seed_pending_recovery_path"]),
+        "prior_native_worker_failure": prior_native_root / "worker-failure.json",
+        "prior_native_supervisor_result": prior_native_root / "supervisor-result.json",
     }
     for name, path in files.items():
         if (not path.is_absolute() or path.is_symlink() or not path.is_file()
@@ -501,6 +507,8 @@ def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict
     seed_ack = json.loads(files["seed_deferred_ack"].read_text())
     seed_page = json.loads(files["seed_source_page"].read_text())
     readback = json.loads(files["seed_readback_completion"].read_text())
+    native_failure = json.loads(files["prior_native_worker_failure"].read_text())
+    native_supervisor = json.loads(files["prior_native_supervisor_result"].read_text())
     a0_ack = json.loads(files["a0_deferred_ack"].read_text())
     a0_page = json.loads(files["a0_source_page"].read_text())
     a0_ack_proof = json.loads(files["a0_ack_reconciliation"].read_text())
@@ -516,6 +524,16 @@ def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict
             or prior_supervisor.get("status") != "failed_worker"
             or prior_supervisor.get("cleanup", {}).get("process_group_empty") is not True
             or prior_supervisor.get("postgres_cleanup", {}).get("postgres_closed") is not True
+            or native_failure.get("failure_type") != resume.get("prior_native_failure_type")
+            or native_failure.get("failure") != resume.get("prior_native_failure")
+            or native_failure.get("source_ack_state") != "previously_reconciled_matched"
+            or native_failure.get("delta_write_state") != "retained_seed_publication"
+            or native_failure.get("spark_started") is not True
+            or native_failure.get("spark_closed") is not True
+            or native_failure.get("postgres_closed") is not True
+            or native_supervisor.get("status") != "failed_worker"
+            or native_supervisor.get("cleanup", {}).get("process_group_empty") is not True
+            or native_supervisor.get("postgres_cleanup", {}).get("postgres_closed") is not True
             or not seed_result.get("source_acknowledgement") == "deferred_not_attempted"
             or len(seed_result.get("publications", ())) != 1
             or seed_ack.get("acknowledgement") != "deferred_not_attempted"
@@ -549,7 +567,11 @@ def _resume_seed_inputs(scope: dict) -> tuple[dict, dict, dict, dict, dict, dict
             or (prior_root / "continuation-group.json").exists()
             or (prior_root / "continuation-group-result.json").exists()
             or (prior_root / "continuation-config.json").exists()
-            or (prior_root / "continuation-result.json").exists()):
+            or (prior_root / "continuation-result.json").exists()
+            or (Path(resume["prior_native_attempt_root"]) / "continuation-group.json").exists()
+            or (Path(resume["prior_native_attempt_root"]) / "continuation-group-result.json").exists()
+            or (Path(resume["prior_native_attempt_root"]) / "continuation-config.json").exists()
+            or (Path(resume["prior_native_attempt_root"]) / "continuation-result.json").exists()):
         raise RuntimeError("Retained seven-operation publication/ACK state does not prove a no-replay resume")
     if (Path(resume["origin_path"]).resolve() != files["origin_file"].resolve()
             or Path(seed_cont_config["publication_directory"]).resolve()
