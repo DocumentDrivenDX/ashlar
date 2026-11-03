@@ -88,6 +88,7 @@ class ManagedCurrentSparkReceiptConfig:
     maximum_rows: int = 1024
     maximum_result_bytes: int = 1048576
     carrier_profile: str = CARRIER_PROFILE_LEGACY
+    execution_profile: str = "classic_jobs_cluster"
 
     def __post_init__(self):
         _require(type(self.catalog) is str and _IDENT.fullmatch(self.catalog)
@@ -101,6 +102,10 @@ class ManagedCurrentSparkReceiptConfig:
                  and self.expected_runtime.get("catalog") == self.catalog
                  and self.expected_runtime.get("schema") == self.schema
                  and self.expected_runtime.get("protocol") == self.protocol_profile.identity
+                 and self.execution_profile in ("classic_jobs_cluster", "serverless_connect")
+                 and self.expected_runtime.get("runtimeName") == (
+                     "databricks-serverless" if self.execution_profile == "serverless_connect"
+                     else "databricks-jobs-cluster")
                  and type(self.maximum_elapsed_seconds) is int
                  and 1 <= self.maximum_elapsed_seconds <= 600
                  and type(self.maximum_statements) is int and 16 <= self.maximum_statements <= 128
@@ -109,6 +114,66 @@ class ManagedCurrentSparkReceiptConfig:
                  and 4096 <= self.maximum_result_bytes <= 4194304
                  and self.carrier_profile in (CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64),
                  "Explicit Spark runtime, UC namespace, owner, source, protocol, and finite limits required")
+
+
+@dataclass(frozen=True)
+class ManagedCurrentSparkServerlessReceiptConfig(ManagedCurrentSparkReceiptConfig):
+    """Explicit Spark Connect/serverless profile; never requires SparkContext IDs."""
+    execution_profile: str = field(default="serverless_connect", init=False)
+
+
+class _ServerlessSparkTagCancellation:
+    """Own one exact SparkSession tag and its bounded interrupt callback."""
+
+    def __init__(self, spark):
+        self.spark = spark
+        required = ("addTag", "getTags", "removeTag", "interruptTag")
+        if any(not callable(getattr(spark, name, None)) for name in required):
+            raise ValueError("Spark Connect tag, removal and interrupt APIs are required")
+        existing = spark.getTags()
+        if type(existing) is not set or any(type(tag) is not str for tag in existing):
+            raise ValueError("Spark Connect getTags must return an exact set of text tags")
+        self.preexisting_tags = frozenset(existing)
+        self.tag = "ashlar-managed-current-close-" + uuid.uuid4().hex
+        if self.tag in self.preexisting_tags:
+            raise ValueError("Unique Spark Connect close tag required")
+        self.interrupt_called = False
+        self.interrupt_ids = None
+        self.interrupt_error = None
+        self.closed = False
+        spark.addTag(self.tag)
+        current = spark.getTags()
+        if type(current) is not set or self.tag not in current:
+            try:
+                spark.removeTag(self.tag)
+            finally:
+                raise ValueError("Spark Connect did not retain the exact operation tag")
+
+    def interrupt_tagged_operations(self):
+        self.interrupt_called = True
+        try:
+            result = self.spark.interruptTag(self.tag)
+            if type(result) is not list or any(type(item) is not str or not item for item in result):
+                raise ValueError("Spark Connect interruptTag must return a list of operation IDs")
+            self.interrupt_ids = tuple(result)
+        except BaseException as error:
+            self.interrupt_error = error
+
+    def close(self):
+        if self.closed:
+            raise ValueError("Spark Connect operation tag already closed")
+        primary = None
+        try:
+            self.spark.removeTag(self.tag)
+            remaining = self.spark.getTags()
+            if (type(remaining) is not set or self.tag in remaining
+                    or frozenset(remaining) != self.preexisting_tags):
+                raise ValueError("Spark Connect close tag did not restore the original tag set")
+        except BaseException as error:
+            primary = error
+        self.closed = True
+        if primary is not None:
+            raise primary
 
 
 @dataclass(frozen=True)
@@ -234,7 +299,7 @@ class ManagedCurrentSparkReceiptReader:
     """Reopen a receipt from a separately injected SparkSession."""
 
     def __init__(self, spark, config: ManagedCurrentSparkReceiptConfig):
-        _require(spark is not None and type(config) is ManagedCurrentSparkReceiptConfig)
+        _require(spark is not None and isinstance(config, ManagedCurrentSparkReceiptConfig))
         self.spark, self.config = spark, config
         self.carriers = load_current_managed_carriers(config.carrier_profile)
         self.started, self.statements, self.closed = time.monotonic(), 0, False
@@ -245,24 +310,51 @@ class ManagedCurrentSparkReceiptReader:
         self._approved_data_queries = set()
         self._approved_hash_parameters = set()
         self.executor = _SparkReceiptExecutor(self)
-        sc = getattr(self.spark, "sparkContext", None)
-        _require(sc is not None and all(hasattr(sc, name) for name in
-            ("getLocalProperty", "setLocalProperty", "setJobGroup", "cancelJobGroup")),
-            "Spark job-group cancellation is required for bounded closing")
+        self._serverless_tag = None
+        if config.execution_profile == "serverless_connect":
+            self._serverless_tag = _ServerlessSparkTagCancellation(self.spark)
+        else:
+            sc = getattr(self.spark, "sparkContext", None)
+            _require(sc is not None and all(hasattr(sc, name) for name in
+                ("getLocalProperty", "setLocalProperty", "setJobGroup", "cancelJobGroup")),
+                "Spark job-group cancellation is required for bounded closing")
         self._observe_environment = self._observe_spark_environment
-        self.opening_runtime = self._observe_environment()
-        _require(self.opening_runtime == config.expected_runtime,
-                 "Spark opening runtime/principal/namespace differs from explicit selection")
-        self.opening = self._observe_inventory()
-        self._manifest = self._request = self._publication_id = self._observation = None
-        # Retain the original byte inputs so close can independently repeat
-        # the resolver and source-derived data witness under the same session.
-        self._reopen_inputs = None
-        self._closing_witness = None
+        try:
+            self.opening_runtime = self._observe_environment()
+            _require(self.opening_runtime == config.expected_runtime,
+                     "Spark opening runtime/principal/namespace differs from explicit selection")
+            self.opening = self._observe_inventory()
+            self._manifest = self._request = self._publication_id = self._observation = None
+            # Retain the original byte inputs so close can independently repeat
+            # the resolver and source-derived data witness under the same session.
+            self._reopen_inputs = None
+            self._closing_witness = None
+        except BaseException as error:
+            if self._serverless_tag is not None:
+                try:
+                    self._serverless_tag.close()
+                except BaseException as close_error:
+                    if callable(getattr(error, "add_note", None)):
+                        error.add_note("Spark Connect tag cleanup failed: "
+                                       + type(close_error).__name__)
+            raise
 
     def _observe_spark_environment(self):
         """Observe Spark Jobs identity without borrowing the SQL/serverless profile."""
         c = self.config
+        if c.execution_profile == "serverless_connect":
+            from .managed_current_publication import observe_managed_current_environment
+            observed = observe_managed_current_environment(self.spark, c.protocol_profile)
+            timezone_rows = self.executor.query(
+                "SELECT current_timezone() AS session_timezone", {}).rows
+            _require(len(timezone_rows) == 1
+                     and timezone_rows[0].get("session_timezone") in ("UTC", "Etc/UTC"),
+                     "Exact UTC Spark Connect session timezone required")
+            observed["sessionTimeZone"] = timezone_rows[0]["session_timezone"]
+            _require(observed.get("runtimeName") == "databricks-serverless"
+                     and observed.get("protocol") == c.protocol_profile.identity,
+                     "Exact serverless runtime and protocol observations required")
+            return observed
         rows = self.executor.query("SELECT current_user() AS principal,"
             "current_catalog() AS catalog,current_schema() AS schema", {}).rows
         _require(len(rows) == 1)
@@ -942,8 +1034,86 @@ class ManagedCurrentSparkReceiptReader:
                      and summary == self._observation.bag_comparison_summary,
                      "Closing source-derived data witness changed")
 
+    def _close_serverless(self):
+        _require(self._serverless_tag is not None and not self._serverless_tag.closed,
+                 "Exact live Spark Connect close tag required")
+        self.closing = True
+        timeout_fired = threading.Event()
+        cancellation_thread_error = []
+        close_started = time.monotonic()
+
+        def cancel_close():
+            timeout_fired.set()
+            try:
+                self._serverless_tag.interrupt_tagged_operations()
+            except BaseException as error:
+                cancellation_thread_error.append(error)
+
+        timer = threading.Timer(20, cancel_close)
+        timer.daemon = True
+        runtime = inventory = None
+        primary = None
+        try:
+            timer.start()
+            original = self._observation
+            if original is None or self._reopen_inputs is None:
+                self._renew()
+                _require(not timeout_fired.is_set() and time.monotonic() - close_started < 20,
+                         "Spark Connect close deadline expired; tagged interrupt requested and completion unknown")
+                _require(False, "Exact original receipt reopen required before closing")
+            self._closing_bookend_complete = True
+            self._close_resolver_and_data_witness()
+            self._closing_bookend_complete = False
+            _require(not timeout_fired.is_set() and time.monotonic() - close_started < 20,
+                     "Spark Connect close deadline expired; tagged interrupt requested and completion unknown")
+            runtime, inventory = self._renew()
+            _require(not timeout_fired.is_set() and time.monotonic() - close_started < 20,
+                     "Spark Connect close deadline expired; tagged interrupt requested and completion unknown")
+        except BaseException as error:
+            primary = error
+        finally:
+            self._closing_bookend_complete = False
+            timer.cancel()
+            timer.join(2)
+            if timer.is_alive() and primary is None:
+                primary = ValueError(
+                    "Spark Connect tagged interrupt call did not return; cancellation outcome unknown")
+            try:
+                self._serverless_tag.close()
+            except BaseException as error:
+                if primary is None:
+                    primary = error
+                elif callable(getattr(primary, "add_note", None)):
+                    primary.add_note("Spark Connect operation-tag cleanup also failed: "
+                                     + type(error).__name__)
+        if timeout_fired.is_set():
+            operation_ids = self._serverless_tag.interrupt_ids
+            detail = ("response IDs observed" if operation_ids is not None
+                      else "response unavailable")
+            error = ValueError(
+                "Spark Connect close timed out; interruptTag was requested (" + detail
+                + "), but operation termination was not established")
+            if primary is not None and callable(getattr(primary, "add_note", None)):
+                error.add_note("Close operation also failed: " + type(primary).__name__)
+            primary = error
+        elif cancellation_thread_error and primary is None:
+            primary = ValueError("Spark Connect tagged interrupt returned no qualified response")
+            if callable(getattr(primary, "add_note", None)):
+                primary.add_note("Interrupt API error: " + type(cancellation_thread_error[0]).__name__)
+        if primary is not None:
+            raise primary
+        if self._observation is not None:
+            self._observation.runtime_identity["closing"] = runtime
+            self._observation.closing_installation_inventory.clear()
+            self._observation.closing_installation_inventory.update({
+                role: {k: v for k, v in item.items() if k != "detailSha256"}
+                for role, item in inventory.items()})
+        self.closed = True
+
     def close(self):
         _require(not self.closed, "Spark receipt reader already closed")
+        if self.config.execution_profile == "serverless_connect":
+            return self._close_serverless()
         self.closing = True
         sc = getattr(self.spark, "sparkContext", None)
         group = "managed-current-receipt-close-" + uuid.uuid4().hex
@@ -991,6 +1161,15 @@ class ManagedCurrentSparkReceiptReader:
         from .lifecycle import finish
         finish(exc, [self.close])
         return False
+
+
+class ManagedCurrentSparkServerlessReceiptReader(ManagedCurrentSparkReceiptReader):
+    """Explicit Spark Connect reader using per-session tags, never SparkContext."""
+
+    def __init__(self, spark, config: ManagedCurrentSparkServerlessReceiptConfig):
+        if type(config) is not ManagedCurrentSparkServerlessReceiptConfig:
+            raise ValueError("Explicit serverless Spark Connect receipt config required")
+        super().__init__(spark, config)
 
 
 class _SparkReceiptPolicy:

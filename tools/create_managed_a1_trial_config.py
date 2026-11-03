@@ -51,9 +51,25 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
         raise ValueError("Read-back-confirmed serverless environment version required")
     if type(runtime_result) is not dict or set(runtime_result) != {
         "runtimeName", "sparkVersion", "sparkBuildText", "runtimeTag", "principal",
-        "catalog", "schema", "protocol", "sideEffects",
+        "catalog", "schema", "protocol", "serverlessApiProbe", "sideEffects",
     }:
         raise ValueError("Closed read-only runtime probe result required")
+    api_probe = runtime_result["serverlessApiProbe"]
+    if (type(api_probe) is not dict or set(api_probe) != {
+            "profile", "newSessionDistinct", "tagAddedAndObserved", "taggedQueryRowCount",
+            "taggedQueryValue", "interruptTagResponseType", "interruptTagResponseCount",
+            "tagRemoved", "preexistingTagsRestored", "operationTerminationClaimed"}
+            or api_probe != {
+                "profile": "ashlar-spark-connect-tag-api-probe/0.1",
+                "newSessionDistinct": True, "tagAddedAndObserved": True,
+                "taggedQueryRowCount": 1, "taggedQueryValue": 1,
+                "interruptTagResponseType": "list",
+                "interruptTagResponseCount": api_probe.get("interruptTagResponseCount"),
+                "tagRemoved": True, "preexistingTagsRestored": True,
+                "operationTerminationClaimed": False}
+            or type(api_probe.get("interruptTagResponseCount")) is not int
+            or api_probe["interruptTagResponseCount"] < 0):
+        raise ValueError("Runtime probe must qualify Spark Connect session tags and interrupt response")
     if (runtime_result["runtimeName"] != "databricks-serverless"
             or runtime_result["protocol"] != PROFILE.identity
             or runtime_result["sideEffects"] != []

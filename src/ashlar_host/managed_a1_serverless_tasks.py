@@ -341,9 +341,9 @@ class _ServerlessSession:
         self.session_id = stage + ":" + uuid.uuid4().hex
 
     def close(self):
-        # Spark Connect child sessions are independent SQL sessions sharing the
-        # one bounded serverless application; stopping Spark would stop the job.
-        self.spark.catalog.clearCache()
+        # Spark Connect stop() releases this child client session. Unlike
+        # classic SparkContext.stop(), it does not stop the serverless job.
+        self.spark.stop()
 
 
 class _ServerlessSessionFactory:
@@ -481,7 +481,7 @@ def verifier_task(spark, parameters):
     """Independently reopen the publication through three fresh UC sessions."""
     from .managed_current_core import CARRIER_PROFILE_XXHASH64, ROLES
     from .managed_current_trial import ManagedCurrentTrialConfig
-    from .managed_current_spark_receipt_read import ManagedCurrentSparkReceiptConfig
+    from .managed_current_spark_receipt_read import ManagedCurrentSparkServerlessReceiptConfig
     from .managed_operational_read_port import ManagedOperationalReadPort
     from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
     from .managed_a1_detached_admission import admit_detached_a1_plan
@@ -539,7 +539,7 @@ def verifier_task(spark, parameters):
     if type(selected_prefix) is not dict:
         raise ValueError("Exact separately selected prefix anchors required")
     from .truss_current_catalog import installed_fresh_truss_runtime_pins
-    reader_config = ManagedCurrentSparkReceiptConfig(
+    reader_config = ManagedCurrentSparkServerlessReceiptConfig(
         catalog=trial["catalog"], schema=trial["schema"],
         expected_principal=trial["expected_runtime"]["principal"],
         expected_table_owner=trial["expected_runtime"]["principal"],

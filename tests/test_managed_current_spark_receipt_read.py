@@ -19,7 +19,8 @@ from ashlar_host.managed_current_carriers import load_current_managed_carriers
 from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64, ROLES
 from ashlar_host.managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
 from ashlar_host.managed_current_spark_receipt_read import (
-    ManagedCurrentSparkReceiptConfig, ManagedCurrentSparkReceiptReader, _native_json,
+    ManagedCurrentSparkReceiptConfig, ManagedCurrentSparkServerlessReceiptConfig,
+    ManagedCurrentSparkReceiptReader, _native_json,
 )
 from ashlar_host.managed_current_spark_source_oracle import (
     ManagedCurrentSourcePrefixOracle, build_managed_current_prefix_oracle,
@@ -148,6 +149,31 @@ class _SparkContext:
     def setJobGroup(self, group, description, interruptOnCancel=True):
         self.properties["spark.jobGroup.id"] = group
     def cancelJobGroup(self, group): pass
+
+
+class _SparkConnect(_Spark):
+    @property
+    def sparkContext(self):
+        raise AssertionError("Spark Connect test must never access sparkContext")
+    @sparkContext.setter
+    def sparkContext(self, _):
+        self._forbidden_context = True
+
+    def __init__(self, manifest, receipt, uuids, *, interrupt_result=None):
+        self.tags = {"caller-owned-tag"}
+        self.interrupt_result = ["operation-123"] if interrupt_result is None else interrupt_result
+        self.interrupt_calls = []
+        super().__init__(manifest, receipt, uuids)
+        self.version = "4.2.0"
+        self.conf = SimpleNamespace(get=lambda key: {
+            "spark.databricks.clusterUsageTags.sparkVersion": "serverless-4.2.0"}[key])
+
+    def addTag(self, tag): self.tags.add(tag)
+    def getTags(self): return set(self.tags)
+    def removeTag(self, tag): self.tags.discard(tag)
+    def interruptTag(self, tag):
+        self.interrupt_calls.append(tag)
+        return list(self.interrupt_result)
 
 
 def _spark_config(config):
@@ -319,6 +345,60 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
     def reopen(self, receipt=None):
         return self.reader.reopen(request_bytes=_canonical(self.request).encode(),
             manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=receipt or self.receipt)
+
+    def _serverless_reader(self, *, interrupt_result=None):
+        runtime = {"runtimeName": "databricks-serverless", "sparkVersion": "4.2.0",
+            "sparkBuildText": "Spark build", "runtimeTag": "serverless-4.2.0",
+            "principal": self.config.expected_principal, "catalog": self.config.catalog,
+            "schema": self.config.schema, "protocol": self.config.protocol_profile.identity,
+            "sessionTimeZone": "UTC"}
+        selected = ManagedCurrentSparkServerlessReceiptConfig(
+            self.config.catalog, self.config.schema, self.config.expected_principal,
+            self.config.expected_table_owner, self.config.source_truss_version,
+            self.config.protocol_profile, runtime,
+            carrier_profile=self.config.carrier_profile)
+        spark = _SparkConnect(self.manifest, self.receipt, self.uuids,
+            interrupt_result=interrupt_result)
+        return spark, ManagedCurrentSparkReceiptReader(spark, selected)
+
+    def test_serverless_connect_reader_reopens_without_sparkcontext_and_restores_tags(self):
+        spark, reader = self._serverless_reader()
+        before = set(reader._serverless_tag.preexisting_tags)
+        observation = reader.reopen(request_bytes=_canonical(self.request).encode(),
+            manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt)
+        self.assertEqual(observation.runtime_identity["opening"]["runtimeName"],
+                         "databricks-serverless")
+        self.assertNotIn("sparkApplicationId", observation.runtime_identity["opening"])
+        self.assertNotIn("clusterId", observation.runtime_identity["opening"])
+        self.assertEqual(spark.getTags(), before | {reader._serverless_tag.tag})
+        reader.close()
+        self.assertEqual(spark.getTags(), before)
+        self.assertEqual(spark.interrupt_calls, [])
+
+    def test_serverless_close_timeout_uses_tag_interrupt_without_claiming_termination(self):
+        class ImmediateTimer:
+            def __init__(self, _seconds, callback):
+                self.callback = callback
+                self.alive = False
+            def start(self):
+                self.alive = True
+                self.callback()
+                self.alive = False
+            def cancel(self): pass
+            def join(self, _timeout): pass
+            def is_alive(self): return self.alive
+
+        spark, reader = self._serverless_reader(interrupt_result=["operation-123"])
+        before = set(reader._serverless_tag.preexisting_tags)
+        reader.reopen(request_bytes=_canonical(self.request).encode(),
+            manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt)
+        with patch("ashlar_host.managed_current_spark_receipt_read.threading.Timer", ImmediateTimer):
+            with self.assertRaisesRegex(ValueError, "termination was not established"):
+                reader.close()
+        self.assertEqual(len(spark.interrupt_calls), 1)
+        self.assertEqual(spark.getTags(), before)
+        self.assertIsNone(reader._observation.runtime_identity.get("closing"))
+
 
     def test_fresh_053_is_admitted_as_a_versioned_managed_reader_profile(self):
         fresh = replace(self.config, source_truss_version="0.0.53")
@@ -1180,6 +1260,30 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
         self.assertTrue(all(item.closed for item in self.sessions))
         self.assertEqual(len(interval.observations), 3)
         self.assertGreater(interval.observations[-1].elapsed_seconds, 900)
+
+
+class ManagedA1ServerlessSessionTests(unittest.TestCase):
+    def test_serverless_newsession_factory_releases_only_connect_child_client(self):
+        import time
+        from ashlar_host.managed_a1_serverless_tasks import _ServerlessSessionFactory
+
+        class ConnectChild:
+            def __init__(self): self.stopped = False
+            @property
+            def sparkContext(self):
+                raise AssertionError("Spark Connect must not access sparkContext")
+            def stop(self): self.stopped = True
+
+        class ConnectParent:
+            def __init__(self): self.child = ConnectChild()
+            def newSession(self): return self.child
+
+        parent = ConnectParent()
+        factory = _ServerlessSessionFactory(parent, object(), object(), object())
+        owned = factory.open(stage="close", deadline_monotonic=time.monotonic() + 5)
+        self.assertIs(owned.spark, parent.child)
+        owned.close()
+        self.assertTrue(parent.child.stopped)
 
 
 if __name__ == "__main__":

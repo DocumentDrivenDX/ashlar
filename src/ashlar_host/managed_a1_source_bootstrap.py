@@ -376,9 +376,9 @@ def bootstrap_from_private_config(config_bytes: bytes):
         ManagedCurrentTruss053SourceSelection,
     )
     from .truss053_source_custody import Truss053A1SourceHolder
-    from .truss_current_catalog import installed_truss_054_fresh_source_custody_profile
+    from .truss_current_catalog import installed_fresh_truss_runtime_pins
 
-    installed_truss_054_fresh_source_custody_profile()
+    installed_fresh_truss_runtime_pins()
 
     origin = b'{"operator":"ashlar-managed-current-a1-fresh-local-source"}\n'
     data_directories = {source: root / f"pgdata-{source}" for source in ("A", "B")}

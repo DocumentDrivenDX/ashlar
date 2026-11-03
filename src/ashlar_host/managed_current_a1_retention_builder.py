@@ -46,7 +46,7 @@ def build_managed_current_a1_retention_bundle(*, plan, reader_config,
 
     runtime_pins = installed_fresh_truss_runtime_pins()
     if (type(plan) is not ManagedCurrentA1TrialPlan
-            or type(reader_config) is not ManagedCurrentSparkReceiptConfig
+            or not isinstance(reader_config, ManagedCurrentSparkReceiptConfig)
             or reader_config.source_truss_version != runtime_pins["version"]
             or reader_config.carrier_profile != CARRIER_PROFILE_XXHASH64
             or type(task_receipt) is not dict):
