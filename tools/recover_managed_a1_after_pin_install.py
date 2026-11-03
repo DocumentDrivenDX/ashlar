@@ -79,9 +79,22 @@ RETIRED_RECOVERY_WINDOWS = (
      "provider_receipt_sha256": "5024cbd4ee67c786238bb32784eba36282fe0e95c3aa8349127b4106fad3f6ae",
      "recovery_receipt_path": "/private/tmp/ashlar-a1-managed-recovery-r21-rc6-20261103/recovery.json",
      "recovery_receipt_sha256": "74f28a241c9ba452872879f0705f7728452dd35d8a710a64a177ae98cc259fea"},
+    {"attempt": "R22 RC7 A0 verifier passed; source parent bind failed before ACK",
+     "ceiling_seconds": 240, "observed_provider_seconds": 197.902,
+     "observed_local_recovery_seconds": 207.5707771249581,
+     "a0_verifier_result": "SUCCESS", "native_pre_ack_proof_valid": True,
+     "failure_phase": "source_parent_bind_before_ack",
+     "failure_type": "TypeError",
+     "failure": "A1Truss053SourceHolderProcess._rpc() missing 1 required keyword-only argument: 'response_type'",
+     "ack_attempted": False, "source_ack_outcome": "not_attempted",
+     "a1_seed_attempted": False, "job_create_state": "deleted",
+     "provider_receipt_path": "/private/tmp/ashlar-managed-r22-successful-verifier-run.json",
+     "provider_receipt_sha256": "ef685fff16b81689c7f97375aaf9b811f070039aec7a348424d5de9cc38bf054",
+     "recovery_receipt_path": "/private/tmp/ashlar-a1-managed-recovery-r22-rc7-20261103/recovery.json",
+     "recovery_receipt_sha256": "a6fb7f3ed2e90a7afa79493aaf5b0b48b7f10ce8659d7370d78351bf557f2b9d"},
 )
-PRIOR_ACTIVE_SECONDS_CEILING = 1380  # prior 1,170s + 210s R21 verifier window.
-MAX_CUMULATIVE_ACTIVE_SECONDS = 2610  # prior 1,380s + remaining 1,230s.
+PRIOR_ACTIVE_SECONDS_CEILING = 1620  # prior 1,380s + 240s R22 window.
+MAX_CUMULATIVE_ACTIVE_SECONDS = 2850  # prior 1,620s + remaining 1,230s.
 PROFILE = "ashlar-managed-a1-pin-install-recovery/0.1"
 
 
@@ -146,13 +159,13 @@ def _validate_recovery_inputs(config_path: Path, recovery_receipt_path: Path,
              "Recovery must retain the original 1,680-second campaign clock")
     cost = config.get("cost")
     _require(type(cost) is dict and config.get("trial", {}).get("cost") == cost
-             and cost.get("estimated_total_dbu") == 140.0
-             and cost.get("authorized_total_dbu") == 140.0
-             and cost.get("estimated_total_usd") == 65.8
+             and cost.get("estimated_total_dbu") == 148.0
+             and cost.get("authorized_total_dbu") == 148.0
+             and cost.get("estimated_total_usd") == 69.56
              and cost.get("cleanup_reserve_usd") == 20.0
              and cost.get("cleanup_reserve_dbu") == 0.0
              and cost.get("includes_startup_driver_verifier_handoff_and_cleanup") is True,
-             "RC7 recovery cost envelope must bind 140 DBU plus the $20 cleanup reserve")
+             "RC8 recovery cost envelope must bind 148 DBU plus the $20 cleanup reserve")
     _require(config["holder_bootstrap"]["python"] == sys.executable,
              "Run recovery under the exact original selected RC2 Python")
     _require(recovery_receipt_path.is_absolute() and recovery_receipt_path.is_file()
