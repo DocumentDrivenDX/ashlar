@@ -181,10 +181,15 @@ def preflight() -> dict:
         if (stat.S_ISLNK(details.st_mode) or not stat.S_ISDIR(details.st_mode)
                 or details.st_uid != os.getuid() or stat.S_IMODE(details.st_mode) != 0o700):
             raise RuntimeError("Truss LocalPostgres runtime root ownership/mode differs")
-    if (socket_directory.exists() or socket_directory.is_symlink()
-            or runtime_lease.is_symlink()):
-        raise RuntimeError("deterministic Truss .55 socket or PGDATA lease already exists")
+    if runtime_lease.is_symlink():
+        raise RuntimeError("Truss .55 PGDATA lease must not be a symlink")
     if resume_mode:
+        if socket_directory.exists() or socket_directory.is_symlink():
+            info = socket_directory.lstat()
+            if (not stat.S_ISDIR(info.st_mode) or stat.S_ISLNK(info.st_mode)
+                    or info.st_uid != os.getuid() or stat.S_IMODE(info.st_mode) != 0o700
+                    or any(socket_directory.iterdir())):
+                raise RuntimeError("retained Truss socket directory must be owned, empty and mode 0700")
         if not runtime_lease.is_file() or runtime_lease.stat().st_uid != os.getuid():
             raise RuntimeError("owned retained Truss .55 runtime lease required")
         import fcntl
@@ -197,8 +202,8 @@ def preflight() -> dict:
             fcntl.lockf(lease_fd, fcntl.LOCK_UN)
         finally:
             os.close(lease_fd)
-    elif runtime_lease.exists():
-        raise RuntimeError("fresh Truss .55 PGDATA lease must be absent")
+    elif socket_directory.exists() or runtime_lease.exists():
+        raise RuntimeError("fresh Truss .55 socket directory and PGDATA lease must be absent")
 
     artifacts = scope["artifacts"]
     missing = [key for key in PENDING if not artifacts.get(key)]
@@ -269,7 +274,8 @@ def preflight() -> dict:
         "retained_attempt13_source_and_delta_present": resume_mode,
         "retained_pgdata_stopped_and_hash_matched": resume_mode,
         "truss_runtime_lease_admissible": True,
-        "truss_socket_directory_absent": True,
+        "truss_socket_directory_absent": not resume_mode,
+        "retained_truss_socket_directory_empty": resume_mode,
         "truss_socket_root": str(socket_root),
         "truss_expected_socket_directory": str(socket_directory),
         "r59_state_disjoint": True,

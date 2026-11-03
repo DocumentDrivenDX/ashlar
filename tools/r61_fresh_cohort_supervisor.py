@@ -571,9 +571,15 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
         if (not stat.S_ISDIR(root_info.st_mode) or stat.S_ISLNK(root_info.st_mode)
                 or root_info.st_uid != os.getuid() or stat.S_IMODE(root_info.st_mode) != 0o700):
             raise RuntimeError("Truss runtime socket root ownership/mode differs")
-    if socket_dir.exists() or socket_dir.is_symlink() or lease.is_symlink():
-        raise RuntimeError("Truss deterministic socket or lease state is not admissible")
+    if lease.is_symlink():
+        raise RuntimeError("Truss deterministic PGDATA lease must not be a symlink")
     if resume_mode:
+        if socket_dir.exists() or socket_dir.is_symlink():
+            info = socket_dir.lstat()
+            if (not stat.S_ISDIR(info.st_mode) or stat.S_ISLNK(info.st_mode)
+                    or info.st_uid != os.getuid() or stat.S_IMODE(info.st_mode) != 0o700
+                    or any(socket_dir.iterdir())):
+                raise RuntimeError("retained Truss socket directory must be owned, empty and mode 0700")
         if not lease.is_file() or lease.stat().st_uid != os.getuid():
             raise RuntimeError("owned retained Truss runtime lease required")
         fd = os.open(lease, os.O_RDWR | getattr(os, "O_NOFOLLOW", 0))
@@ -585,8 +591,8 @@ def _validate_scope(scope: dict) -> tuple[list[str], dict]:
             fcntl.lockf(fd, fcntl.LOCK_UN)
         finally:
             os.close(fd)
-    elif lease.exists():
-        raise RuntimeError("fresh Truss deterministic runtime lease is already present")
+    elif socket_dir.exists() or lease.exists():
+        raise RuntimeError("fresh Truss deterministic socket directory and lease must be absent")
     return missing, scope
 
 
