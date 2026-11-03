@@ -532,8 +532,8 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         stages.renew_for_ack()
         self.assertEqual(owner.events[-1], "renew")
         stages.begin_post_ack_observation()
-        stages("open")
-        stages("pre_ack")
+        with self.assertRaisesRegex(ValueError, "Post-ACK close observation"):
+            stages("open")
         stages("close")
         stages.renew_after_post_ack_observation()
         stages.close_after_ack()
@@ -550,14 +550,14 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         targets = {role: {"uuid": item[0], "version": item[1]}
                    for role, item in vector["targets"].items()}
         observation = {"profile": "ashlar-managed-operational-retention/0.1",
-            "interval_id": "interval", "outcome": "observed_available_at_checks",
+            "interval_id": "interval", "outcome": "observed_available_at_close",
             "authority": "read_observation_only_no_source_ack",
-            "maximum_elapsed_seconds": 60,
-            "observations": [{"stage": stage, "predictive_optimization": "ENABLE",
+            "maximum_elapsed_seconds": 900,
+            "observations": [{"stage": "close", "predictive_optimization": "ENABLE",
                 "session_ownership_profile": "databricks-serverless-provided-task-session/0.1",
                 "task_session_scope_id": "same-verifier-task-scope",
-                "session_wrapper_id": "wrapper-" + stage,
-                "vector_targets": targets} for stage in ("open", "pre_ack", "close")]}
+                "session_wrapper_id": "wrapper-close",
+                "vector_targets": targets}]}
         observation_raw = json.dumps(observation, sort_keys=True,
             separators=(",", ":")).encode()
         output = {"profile": "ashlar-managed-a1-verifier-result/0.1",
@@ -575,6 +575,16 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "wrong source-ACK observation phase"):
             _verify_terminal_proof(output, 10, 11, request, manifest, receipt,
                 "a" * 64, vector, phase="a0", observation_phase="pre_ack")
+        observation["observations"] *= 3
+        observation["observations"][1]["stage"] = "open"
+        observation["observations"][2]["stage"] = "pre_ack"
+        observation["observations"][1]["session_wrapper_id"] = "wrapper-open"
+        observation["observations"][2]["session_wrapper_id"] = "wrapper-pre-ack"
+        output["managedObservationSha256"] = hashlib.sha256(json.dumps(
+            observation, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        with self.assertRaisesRegex(ValueError, "Independent verifier managed observations"):
+            _verify_terminal_proof(output, 10, 11, request, manifest, receipt,
+                "a" * 64, vector, phase="a0", observation_phase="post_ack_close")
 
     def test_lost_run_now_response_recovers_unique_run_from_fresh_job(self):
         api = _RunsAPI([{"runs": [{"run_id": 418, "job_id": 7,

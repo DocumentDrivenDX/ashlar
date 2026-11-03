@@ -38,10 +38,30 @@ class ManagedCurrentSparkTransport:
             'Optional bounded Spark operation runner must be callable')
         self.spark=spark;self.maximum_rows=maximum_rows
         self.operation_runner=operation_runner
+        self.query_generation=0
+        self.target_query_generation=0
+        self._managed_data_sql_names=()
+        self._managed_target_namespace=None
+    def bind_managed_targets(self, *, catalog, schema, data_tables):
+        expected=tuple(f'{catalog}.{schema}.{role}' for role in (
+            'object_current','edge_current','tombstone','whole_source_history'))
+        _require(type(catalog)is str and catalog and type(schema)is str and schema
+                 and type(data_tables)is tuple and data_tables==expected,
+                 'Exact four managed data target binding required')
+        self._managed_data_sql_names=tuple(quote_table_identifier(table)
+                                           for table in data_tables)
+        self._managed_target_namespace=(catalog,schema)
     def query(self,sql,parameters):
         _require(type(sql)is str and sql and type(parameters)is dict
             and all(type(k)is str and type(v)is str for k,v in parameters.items()),
             'Exact parameterized Spark SQL and string bindings required')
+        self.query_generation+=1
+        lowered=sql.lower()
+        if (any(name in sql for name in self._managed_data_sql_names)
+                or ("system.information_schema.tables" in lowered
+                    and self._managed_target_namespace ==
+                    (parameters.get('catalog'),parameters.get('schema')))):
+            self.target_query_generation+=1
         def read():
             frame=self.spark.sql(sql,args=dict(parameters))
             # Apply the limit in Spark before collecting. Checking len() after an
@@ -72,7 +92,11 @@ class ManagedCurrentTargetOwner:
         self.names={role:(catalog,schema,role) for role in ROLES}
         self.tables={role:'.'.join(self.names[role]) for role in ROLES}
         self.transport=ManagedCurrentSparkTransport(spark)
+        self.transport.bind_managed_targets(catalog=catalog,schema=schema,
+            data_tables=tuple(self.tables[role] for role in (
+                'object_current','edge_current','tombstone','whole_source_history')))
         self.opening=None
+        self._opening_seal=None
         self.created_fresh=False
     def _existing(self):
         namespace='`'+self.catalog+'`.`'+self.schema+'`'
@@ -88,15 +112,44 @@ class ManagedCurrentTargetOwner:
         for role in ROLES:
             self.spark.sql(self.carriers.create_sql(role,self.names[role]))
         self.opening=self.observe()
+        self._opening_seal=self._seal_inventory(self.opening)
         self.created_fresh=True
         return self.opening
     def open_existing(self):
         _require(self._existing()==set(ROLES),'All six exact current managed roles required')
         self.opening=self.observe()
+        self._opening_seal=self._seal_inventory(self.opening)
         self.created_fresh=False
+        return self.opening
+    @staticmethod
+    def _seal_inventory(inventory):
+        return tuple((role,item.name,item.uuid,item.version,item.schema,
+                      _canonical(item.protocol),item.detail_digest)
+                     for role,item in sorted(inventory.items()))
+    def require_checked_opening(self):
+        _require(type(self.opening)is dict and set(self.opening)==set(ROLES)
+                 and self._opening_seal is not None
+                 and self._seal_inventory(self.opening)==self._opening_seal,
+                 'Exact immutable six-role opening inventory required')
         return self.opening
     def observe(self):
         observations={}
+        role_parameters={f'role_{index}':role for index,role in enumerate(ROLES)}
+        role_bindings=','.join(':'+key for key in role_parameters)
+        metadata=self.transport.query(
+            'SELECT table_name,table_type FROM system.information_schema.tables '
+            'WHERE table_catalog=:catalog AND table_schema=:schema '
+            'AND table_name IN ('+role_bindings+') ORDER BY table_name',
+            {'catalog':self.catalog,'schema':self.schema,**role_parameters}).rows
+        metadata_by_role={}
+        for row in metadata:
+            role=row.get('table_name')
+            _require(role in ROLES and role not in metadata_by_role
+                     and row.get('table_type')=='MANAGED',
+                     'Exact distinct six-role managed table metadata required')
+            metadata_by_role[role]=row['table_type']
+        _require(set(metadata_by_role)==set(ROLES) and len(metadata)==len(ROLES),
+                 'Exact six distinct managed table metadata rows required')
         for role in ROLES:
             table=self.tables[role];quoted=quote_table_identifier(table)
             detail_rows=self.transport.query('DESCRIBE DETAIL '+quoted,{}).rows
@@ -104,11 +157,8 @@ class ManagedCurrentTargetOwner:
             detail=dict(detail_rows[0]);table_uuid=detail.get('id')
             _require(type(table_uuid)is str and table_uuid,'Native UC table UUID required')
             _require(detail.get('format')=='delta','Native Delta format required')
-            type_rows=self.transport.query('SELECT table_type FROM system.information_schema.tables '
-                'WHERE table_catalog=:catalog AND table_schema=:schema AND table_name=:name',
-                {'catalog':self.catalog,'schema':self.schema,'name':role}).rows
-            _require(len(type_rows)==1 and type_rows[0].get('table_type')=='MANAGED',
-                'Unity Catalog information schema must observe a managed table')
+            _require(metadata_by_role[role]=='MANAGED',
+                     'Unity Catalog information schema must observe a managed table')
             actual=tuple((field.name,field.dataType.simpleString(),field.nullable)
                          for field in self.spark.table(table).schema.fields)
             # Compare against PySpark DataType.simpleString(), whose LongType
@@ -137,12 +187,18 @@ class ManagedCurrentTargetOwner:
         return observations
     def closing(self):
         _require(self.opening is not None,'Opening managed UC inventory required')
+        self.require_checked_opening()
         current=self.observe()
+        self.require_same_installation(current)
+        return current
+    def require_same_installation(self,current):
+        _require(type(current)is dict and set(current)==set(ROLES),
+                 'Exact six-role managed inventory required')
         for role in ROLES:
             before=self.opening[role];after=current[role]
             _require((before.uuid,before.schema,before.protocol)==(after.uuid,after.schema,after.protocol),
                 'Managed target identity/schema/protocol changed during task')
-        return current
+        return None
     @staticmethod
     def publication_data_vector(inventory):
         """Four graph-data heads only; manifest/attempt are install custody."""
@@ -202,6 +258,8 @@ class ManagedCurrentGraphPublicationDriver:
         self.transport=target_owner.transport;self.admission=admission
         self.stream=stream;self.clock=materialized_at;self.context=context;self.request=None
         self.plan=None;self.plan_json=None;self.manifest=None;self.held=False;self.publication_id=None
+        self._preapply_snapshot=None
+        self._afterimage_apply=None
         self.table_roles=('object_current','edge_current','tombstone','whole_source_history')
         self._contextmanager=contextmanager
         cursor=json.loads(__import__('base64').b64decode(admission.batch.cursor_before,validate=True))
@@ -414,7 +472,10 @@ class ManagedCurrentGraphPublicationDriver:
         else:
             _require(previous['epoch']==checkpoint['epoch'] and previous['position']==checkpoint['previous'],
                 'Exact contiguous source checkpoint from prior managed manifest required')
-        actual_vector=json.loads(latest['table_versions_json']);current=self.targets.observe()
+        # Planning performs no managed writes. The target opening is the
+        # current snapshot for this comparison; prepare/apply refreshes it
+        # before any native data effect.
+        actual_vector=json.loads(latest['table_versions_json']);current=self.targets.require_checked_opening()
         _require(actual_vector=={self.names[role]:current[role].version for role in self.table_roles},
             'Latest predecessor manifest vector must equal current four-role heads')
         return progress
@@ -468,6 +529,7 @@ class ManagedCurrentGraphPublicationDriver:
         self.prepare_truss_apply(request,context)
     def prepare_truss_apply(self,request,context):
         self._require_context(context);self.request=dict(request)
+        self._preapply_snapshot=None;self._afterimage_apply=None
         _require(self.request['source_checkpoint_json']==self._source_checkpoint()
             and self.request['schema_revisions_json']==self.schema_revisions_json,
             'Original current Truss page request required')
@@ -497,6 +559,7 @@ class ManagedCurrentGraphPublicationDriver:
             previous_progress=body['previousProgress'],prior_state=prior_state)
         _require(text==plan_json,'Reconstructed plan differs from original prepared bytes')
         self.plan=body;self.plan_json=plan_json;self.request=dict(request);self.publication_id=body['publicationId']
+        self._preapply_snapshot=None;self._afterimage_apply=None
         return None
     def validate_prepared_plan(self,request,plan_json,context):
         self._require_context(context)
@@ -506,9 +569,28 @@ class ManagedCurrentGraphPublicationDriver:
         for role,item in inventory.items():
             baseline=self.plan['baselineInstallation'][role]
             _require(item.uuid==baseline['uuid'] and item.name==baseline['name']
+                and (role not in self.table_roles or item.version==baseline['version'])
                 and item.schema==self.targets.opening[role].schema and item.protocol==self.targets.opening[role].protocol,
                 'Original six-role UC installation identity changed')
+        self._preapply_snapshot=(dict(request),plan_json,context,inventory,
+                                 self.transport.query_generation)
         return None
+    def _take_preapply_snapshot(self,request,plan_json,context):
+        saved,self._preapply_snapshot=self._preapply_snapshot,None
+        if saved is not None:
+            saved_request,saved_plan,saved_context,inventory,generation=saved
+            if (saved_request==dict(request) and saved_plan==plan_json
+                    and saved_context is context
+                    and generation==self.transport.query_generation):
+                self.targets.require_checked_opening()
+                return inventory
+        self.validate_prepared_plan(request,plan_json,context)
+        saved,self._preapply_snapshot=self._preapply_snapshot,None
+        _require(saved is not None and saved[0]==dict(request) and saved[1]==plan_json
+                 and saved[2] is context
+                 and saved[4]==self.transport.query_generation,
+                 'Fresh exact six-role pre-apply inventory required')
+        return saved[3]
     def _cast_expected(self,role,rows):
         types={name:kind for name,kind,_ in self.columns[role]};result=[]
         for row in rows:
@@ -544,15 +626,16 @@ class ManagedCurrentGraphPublicationDriver:
             except BaseException as error:
                 if primary is None:primary=error
             driver.held=False
+            driver._preapply_snapshot=None;driver._afterimage_apply=None
             if primary is not None:raise primary
         return hold()
     def _require_writer(self,context):
         self._require_context(context);_require(self.held,'Held original managed writer required')
-        self.targets.closing()
+        self.targets.require_checked_opening()
     def apply(self,request,context):
         self._require_writer(context)
         _require(dict(request)==self.request and self.plan is not None)
-        inventory=self.targets.observe()
+        inventory=self._take_preapply_snapshot(request,self.plan_json,context)
         for role in self.table_roles:
             _require(inventory[role].version==self.plan['baselineInstallation'][role]['version']
                      and [{k:_normalize_native(v) for k,v in dict(row).items()} for row in self._rows(role)]==
@@ -560,28 +643,35 @@ class ManagedCurrentGraphPublicationDriver:
                      'Exact retained current role baseline required before first apply')
         for step in self.plan['steps']:
             self.transport.query(step['statement'],step['parameters'])
-        self._validate_effect_rows()
+        inventory=self._validate_effect_rows()
         proof={'profile':'ashlar-managed-current-effect-proof/0.1','planSha256':_sha(self.plan_json),
             'dataRowsSha256':_sha(_canonical({r:self._cast_expected(r,self.plan['expectedRows'][r]) for r in self.table_roles}))}
-        self.manifest=self._manifest(request)
-        return _canonical({'effects':proof,'manifest':self.manifest})
+        self.manifest=self._manifest(request,inventory=inventory)
+        self._preapply_snapshot=None
+        artifact=_canonical({'effects':proof,'manifest':self.manifest})
+        self._afterimage_apply=(dict(request),self.plan_json,context,artifact,
+                                self.transport.target_query_generation)
+        return artifact
     def recover_apply(self,request,context):
+        self._preapply_snapshot=None;self._afterimage_apply=None
         self._require_writer(context)
         raise ManagedCurrentPublicationError(
             'Original apply outcome is uncertain; this owner has no terminal noncommit proof and will not resubmit')
     def _validate_effect_rows(self):
-        inventory=self.targets.observe()
         for role in self.table_roles:
             _require(self._assert_role_state(role,self.plan['expectedRows'][role],allow_empty_before=False)=='post')
+        inventory=self.targets.observe()
+        for role in self.table_roles:
             target=self.names[role]
             effects=sum(step['statement'].startswith(('INSERT INTO '+quote_table_identifier(target)+' ',
                 'MERGE INTO '+quote_table_identifier(target)+' ')) for step in self.plan['steps'])
             expected_head=self.plan['baselineInstallation'][role]['version']+effects
             _require(inventory[role].version==expected_head,'Current managed Delta effect head differs from original per-role plan')
-    def _manifest(self,request):
+        return inventory
+    def _manifest(self,request,*,inventory=None):
         from .driver import progress_union
         from .managed_current_core import ROLES as all_roles
-        inventory=self.targets.observe()
+        inventory=self.targets.observe() if inventory is None else inventory
         data_roles=('object_current','edge_current','tombstone','whole_source_history')
         versions={self.names[role]:inventory[role].version for role in data_roles}
         checkpoint=json.loads(request['source_checkpoint_json'])
@@ -598,17 +688,23 @@ class ManagedCurrentGraphPublicationDriver:
         validate_manifest_row(manifest);self.manifest=manifest
         return manifest
     def validate(self,request,artifact,descriptor,context):
+        saved,self._afterimage_apply=self._afterimage_apply,None
         self._require_writer(context)
         from ashlar.stored_publisher import validate_applied_artifact
         value,actual=validate_applied_artifact(artifact,dict(request))
         _require(dict(request)==self.request and actual==descriptor and value['manifest']==self.manifest)
-        self._validate_effect_rows()
+        if not (saved is not None and saved[0]==dict(request)
+                and saved[1]==self.plan_json and saved[2] is context
+                and saved[3]==artifact
+                and saved[4]==self.transport.target_query_generation):
+            self._validate_effect_rows()
         return None
     def validate_manifest(self,row,context):
         self._require_writer(context)
         _require(self.manifest is not None and dict(row)==self.manifest)
         data_roles=('object_current','edge_current','tombstone','whole_source_history')
         inventory=self.targets.observe()
+        self.targets.require_same_installation(inventory)
         actual={self.names[role]:inventory[role].version for role in data_roles}
         _require(json.loads(row['table_versions_json'])==actual)
         return None
@@ -724,7 +820,9 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
             + quote_table_identifier(self.names['publication_manifest'])
             + ' ORDER BY recorded_at DESC LIMIT 2', {}).rows
         checkpoint = json.loads(request['source_checkpoint_json'])
-        current = self.targets.observe()
+        # No publication effects occur while plan predecessor checks run. The
+        # pre-apply validator refreshes and compares the current four-role heads.
+        current = self.targets.require_checked_opening()
         heads = {self.names[role]: current[role].version for role in self.table_roles}
         if not rows:
             _require(self.managed_genesis_predecessor is None
@@ -897,6 +995,7 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
     def prepare_truss_observation(self, request, context, attempt):
         self._require_context(context)
         self.request = dict(request)
+        self._preapply_snapshot = None; self._afterimage_apply = None
         # Existing phases always restore their immutable original plan below.
         # In particular an applying phase is never replanned from changed rows.
         if attempt is None:
@@ -970,6 +1069,7 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
                  and body.get('requestAnchor') == request_anchor(dict(request)),
                  'Retained incremental intent differs from original admitted source request')
         self.plan = body; self.plan_json = plan_json; self.request = dict(request)
+        self._preapply_snapshot = None; self._afterimage_apply = None
         self.publication_id = body['publicationId']
         self.predecessor_manifest = body['predecessorManifest']
         return None
@@ -994,7 +1094,25 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
                                     for role in self.table_roles}
                  and {self.names[role]: inventory[role].version for role in self.table_roles} == expected_heads,
                  'Original applying outcome may be uncertain; four-role heads changed and cannot be resubmitted')
+        self._preapply_snapshot=(dict(request),plan_json,context,inventory,
+                                 self.transport.query_generation)
         return None
+    def _take_preapply_snapshot(self,request,plan_json,context):
+        saved,self._preapply_snapshot=self._preapply_snapshot,None
+        if saved is not None:
+            saved_request,saved_plan,saved_context,inventory,generation=saved
+            if (saved_request==dict(request) and saved_plan==plan_json
+                    and saved_context is context
+                    and generation==self.transport.query_generation):
+                self.targets.require_checked_opening()
+                return inventory
+        self.validate_prepared_plan(request,plan_json,context)
+        saved,self._preapply_snapshot=self._preapply_snapshot,None
+        _require(saved is not None and saved[0]==dict(request) and saved[1]==plan_json
+                 and saved[2] is context
+                 and saved[4]==self.transport.query_generation,
+                 'Fresh exact six-role incremental pre-apply inventory required')
+        return saved[3]
 
     @staticmethod
     def _normalized_rows(role, rows, cast):
@@ -1032,19 +1150,24 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
             expected_head = self.plan['baselineInstallation'][role]['version'] + effects
             _require(inventory[role].version == expected_head,
                      'Incremental Delta role head differs from exact effect count')
+        return inventory
 
     def apply(self, request, context):
         self._require_writer(context)
         _require(dict(request) == self.request and self.plan is not None)
-        self.validate_prepared_plan(request, self.plan_json, context)
+        self._take_preapply_snapshot(request, self.plan_json, context)
         for step in self.plan['steps']:
             self.transport.query(step['statement'], step['parameters'])
-        self._validate_effect_rows()
+        inventory = self._validate_effect_rows()
         proof = {'profile': 'ashlar-managed-current-incremental-effect-proof/0.1',
                  'intentSha256': _sha(self.plan_json),
                  'affectedRowsSha256': _sha(_canonical(self.plan['expectedRows']))}
-        self.manifest = self._manifest(request)
-        return _canonical({'effects': proof, 'manifest': self.manifest})
+        self.manifest = self._manifest(request, inventory=inventory)
+        self._preapply_snapshot = None
+        artifact = _canonical({'effects': proof, 'manifest': self.manifest})
+        self._afterimage_apply=(dict(request),self.plan_json,context,artifact,
+                                self.transport.target_query_generation)
+        return artifact
 
     def recover_apply(self, request, context):
         self._require_writer(context)
@@ -1056,7 +1179,11 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
         _require(self.manifest is not None and dict(row) == self.manifest,
                  'Exact original incremental manifest required')
         inventory = self.targets.observe()
-        self._require_durable_manifest(dict(row), inventory)
+        self.targets.require_same_installation(inventory)
+        data_roles=('object_current','edge_current','tombstone','whole_source_history')
+        current={self.names[role]:inventory[role].version for role in data_roles}
+        _require(json.loads(row['table_versions_json'])==current,
+                 'Prospective manifest vector must equal the fresh four-role heads')
         return None
 
 

@@ -649,7 +649,10 @@ class ManagedCurrentSparkReceiptReader:
         for role in ROLES:
             expected = tuple((n, t, nullable) for n, t, nullable in self.carriers.ordered_fields(role))
             actual = by_role[role]
-            _require(actual and [x[0] for x in actual] == list(range(1, len(actual) + 1))
+            positions = [x[0] for x in actual]
+            ordinal_base = positions[0] if positions else None
+            _require(actual and ordinal_base in (0, 1)
+                     and positions == list(range(ordinal_base, ordinal_base + len(actual)))
                      and tuple((n, t, nullable) for _, n, t, nullable in actual) == expected,
                      "Ordered native columns differ from the admitted carrier")
             detail_rows = self.executor.query("DESCRIBE DETAIL " + quote_table_identifier(

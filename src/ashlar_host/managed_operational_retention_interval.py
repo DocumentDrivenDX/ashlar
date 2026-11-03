@@ -315,6 +315,28 @@ class OperationalRetentionInterval:
         interval._capture("open")
         return interval
 
+    @classmethod
+    def observe_close_only(cls, selection, session_factory, source_observer,
+                           policy_observer, *, clock=time.monotonic):
+        """Make one fresh post-ACK close observation, without claiming an interval.
+
+        This path is for the terminal close after a separate three-point
+        pre-ACK interval and matched source ACK. It deliberately returns one
+        ``close`` observation, never an opening/pre-ACK/close interval receipt.
+        """
+        interval = cls(selection, session_factory, source_observer, policy_observer,
+                       clock=clock)
+        observation = interval._capture("close", closing=True)
+        interval._closed = True
+        return ManagedOperationalIntervalReceipt(
+            profile=PROFILE,
+            interval_id=interval.interval_id,
+            outcome="observed_available_at_close",
+            authority="read_observation_only_no_source_ack",
+            maximum_elapsed_seconds=_MAX_INTERVAL_SECONDS,
+            observations=(observation,),
+        )
+
     def _require_active(self, *, closing=False):
         if self._closed or (self._invalid and not closing):
             raise OperationalRetentionIntervalError("Operational interval is closed or invalidated")

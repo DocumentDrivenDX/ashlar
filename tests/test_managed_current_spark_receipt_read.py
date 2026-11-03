@@ -77,6 +77,8 @@ class _Spark:
         self.role_rows = {role: [] for role in ("object_current", "edge_current", "tombstone",
                                                 "whole_source_history")}
         self.timezone = "UTC"
+        self.ordinal_base = 1
+        self.ordinal_position_overrides = {}
         self.role_identity_drift = None
         self.hash_values = {}
         self.hash_rows_override = None
@@ -98,7 +100,9 @@ class _Spark:
         elif "FROM system.information_schema.columns" in sql:
             rows = []
             for role in ROLES:
-                for pos, (name, kind, nullable) in enumerate(self.carriers.ordered_fields(role), 1):
+                for pos, (name, kind, nullable) in enumerate(self.carriers.ordered_fields(role),
+                                                             self.ordinal_base):
+                    pos = self.ordinal_position_overrides.get(role, {}).get(name, pos)
                     rows.append({"table_name": role, "column_name": name, "data_type": kind,
                         "is_nullable": "YES" if nullable else "NO", "ordinal_position": pos})
             cols = tuple((name, typ) for name, typ in (("table_name", "string"), ("column_name", "string"),
@@ -392,6 +396,19 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         reader.close()
         self.assertEqual(spark.getTags(), before)
         self.assertEqual(spark.interrupt_calls, [])
+
+    def test_serverless_information_schema_accepts_only_contiguous_zero_or_one_based_ordinals(self):
+        spark, reader = self._serverless_reader()
+        spark.ordinal_base = 0
+        self.assertEqual(set(reader._observe_inventory()), set(ROLES))
+        role = ROLES[0]
+        fields = reader.carriers.ordered_fields(role)
+        spark.ordinal_position_overrides[role] = {fields[1][0]: 0}
+        with self.assertRaisesRegex(ValueError, "Ordered native columns"):
+            reader._observe_inventory()
+        spark.ordinal_position_overrides[role] = {fields[0][0]: 2}
+        with self.assertRaisesRegex(ValueError, "Ordered native columns"):
+            reader._observe_inventory()
 
     def test_generated_trial_config_routes_through_parent_bundle_to_connect_reader(self):
         import shutil
@@ -1197,6 +1214,20 @@ class ManagedOperationalRetentionIntervalTests(unittest.TestCase):
                 [event[0] for event in self.events if len(event) > 1 and event[1] == stage],
                 ["session-open", "policy", "session-close", "source"],
             )
+
+    def test_post_ack_close_only_is_one_fresh_four_role_observation(self):
+        receipt = OperationalRetentionInterval.observe_close_only(
+            self.selection, self.session_factory, self.source_observer,
+            self.policy_observer)
+        self.assertEqual(receipt.outcome, "observed_available_at_close")
+        self.assertEqual(receipt.authority, "read_observation_only_no_source_ack")
+        self.assertEqual([item.stage for item in receipt.observations], ["close"])
+        self.assertEqual([item.stage for item in self.sessions], ["close"])
+        self.assertTrue(self.sessions[0].closed)
+        self.assertEqual([event for event in self.events if event[0] == "policy"],
+                         [("policy", "close", 4)])
+        self.assertEqual([event for event in self.events if event[0] == "source"],
+                         [("source", "close")])
 
     def test_serverless_interval_allows_only_same_task_borrowed_session_wrappers(self):
         from ashlar_host.managed_a1_serverless_tasks import _ServerlessSessionFactory

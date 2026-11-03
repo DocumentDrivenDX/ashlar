@@ -31,7 +31,9 @@ class Spark:
     def sql(self,sql,args=None):
         self.calls.append((sql,args))
         if sql.startswith('SHOW TABLES'):return Frame([{'tableName':role} for role in ROLES])
-        if 'information_schema.tables' in sql:return Frame([{'table_type':'MANAGED'}])
+        if 'system.information_schema.tables' in sql:
+            roles=tuple(args[f'role_{index}'] for index in range(len(ROLES)))
+            return Frame([{'table_name':role,'table_type':'MANAGED'} for role in roles])
         if sql.startswith('SELECT') and 'publication_manifest' in sql:return Frame(self.manifests)
         if sql.startswith('SELECT * FROM'):return Frame([])
         if sql.startswith('DESCRIBE DETAIL'):
@@ -160,6 +162,39 @@ class Tests(unittest.TestCase):
         closing=owner.closing()
         self.assertEqual({role:item.uuid for role,item in closing.items()},
                          {role:item.uuid for role,item in opening.items()})
+
+    def test_inventory_uses_one_exact_six_role_uc_table_type_query(self):
+        spark=Spark();profile=ReaderProtocolProfile('test-current-managed-reader',(1,),(2,),())
+        owner=ManagedCurrentTargetOwner(spark,catalog='client_dev',schema='trial_schema',protocol_profile=profile)
+        owner.open_existing()
+        metadata=[(sql,args) for sql,args in spark.calls if 'system.information_schema.tables' in sql]
+        self.assertEqual(len(metadata),1)
+        sql,args=metadata[0]
+        self.assertIn('system.information_schema.tables',sql)
+        self.assertEqual({args[f'role_{index}'] for index in range(len(ROLES))},set(ROLES))
+        self.assertEqual(sum('DESCRIBE DETAIL' in query for query,_ in spark.calls),len(ROLES))
+        self.assertEqual(sum('DESCRIBE HISTORY' in query for query,_ in spark.calls),len(ROLES))
+        self.assertFalse(any(query.startswith('SELECT table_type') for query,_ in spark.calls))
+
+    def test_target_query_generation_excludes_only_attempt_journal_operations(self):
+        spark=Spark();transport=ManagedCurrentSparkTransport(spark)
+        tables=tuple(f'client_dev.trial_schema.{role}' for role in (
+            'object_current','edge_current','tombstone','whole_source_history'))
+        transport.bind_managed_targets(catalog='client_dev',schema='trial_schema',
+                                       data_tables=tables)
+        transport.query('SELECT phase FROM `client_dev`.`trial_schema`.`publication_attempt_phase`',{})
+        self.assertEqual(transport.target_query_generation,0)
+        transport.query('SELECT * FROM `client_dev`.`trial_schema`.`object_current`',{})
+        self.assertEqual(transport.target_query_generation,1)
+        bindings={f'role_{index}':role for index,role in enumerate(ROLES)}
+        transport.query('SELECT table_name,table_type FROM system.information_schema.tables '
+                        'WHERE table_catalog=:catalog AND table_schema=:schema '
+                        'AND table_name IN ('+','.join(':'+key for key in bindings)+')',
+                        {'catalog':'client_dev','schema':'trial_schema',**bindings})
+        self.assertEqual(transport.target_query_generation,2)
+        with self.assertRaisesRegex(ValueError,'four managed data target'):
+            transport.bind_managed_targets(catalog='client_dev',schema='trial_schema',
+                                           data_tables=tables[:3])
 
     def test_target_schema_uses_pyspark_long_simple_string_spelling(self):
         from pyspark.sql.types import LongType

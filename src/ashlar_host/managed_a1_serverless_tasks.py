@@ -514,12 +514,13 @@ def publisher_task(spark, parameters):
 
 
 def verifier_task(spark, parameters):
-    """Independently reopen the publication through three fresh UC sessions."""
+    """Verify through a three-stage interval or one post-ACK close-only read."""
     from .managed_current_core import CARRIER_PROFILE_XXHASH64, ROLES
     from .managed_current_trial import ManagedCurrentTrialConfig
     from .managed_current_spark_receipt_read import ManagedCurrentSparkServerlessReceiptConfig
     from .managed_current_spark_receipt_read import BorrowedServerlessTaskSession
     from .managed_operational_read_port import ManagedOperationalReadPort
+    from .managed_operational_retention_interval import OperationalRetentionInterval
     from .managed_current_a1_trial_plan import ManagedCurrentA1TrialPlan
     from .managed_a1_detached_admission import admit_detached_a1_plan
 
@@ -629,14 +630,17 @@ def verifier_task(spark, parameters):
     source_observer = VolumeSourceCustodyObserver(parameters["source_rpc_directory"])
     pin_observer = VolumeNativePinStageObserver(parameters["source_rpc_directory"])
     policy_observer = _ServerlessPolicyObserver(trial["catalog"], trial["schema"], ROLES)
-    read_port = ManagedOperationalReadPort(selection,
-        _ServerlessSessionFactory(spark, pin_observer, selection, bundle.vector,
-            task_scope_id=task_scope_id, deadline_monotonic=task_deadline),
-        source_observer, policy_observer,
-        context=context)
-    handle = read_port.open(bundle.destination_receipt_bytes, bundle.vector, context)
-    handle.renew()
-    interval = handle.close()
+    session_factory = _ServerlessSessionFactory(spark, pin_observer, selection,
+        bundle.vector, task_scope_id=task_scope_id, deadline_monotonic=task_deadline)
+    if parameters["post_ack_close"]:
+        interval = OperationalRetentionInterval.observe_close_only(
+            selection, session_factory, source_observer, policy_observer)
+    else:
+        read_port = ManagedOperationalReadPort(selection, session_factory,
+            source_observer, policy_observer, context=context)
+        handle = read_port.open(bundle.destination_receipt_bytes, bundle.vector, context)
+        handle.renew()
+        interval = handle.close()
     closing_session = BorrowedServerlessTaskSession(spark, stage="environment_close",
         task_session_scope_id=task_scope_id, deadline_monotonic=task_deadline)
     try:

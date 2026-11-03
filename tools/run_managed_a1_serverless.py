@@ -1260,8 +1260,8 @@ class _LocalPinStages:
     def __call__(self, stage):
         require(stage in ("open", "pre_ack", "close"), "Closed pin stage required")
         if self.post_ack_window:
-            require(self.handle is not None and stage in ("open", "pre_ack", "close"),
-                    "Post-ACK native observation requires the retained pin")
+            require(self.handle is not None and stage == "close",
+                    "Post-ACK close observation requires the retained pin")
             self.handle.renew()
             self.post_ack_observations += 1
             return
@@ -1293,14 +1293,14 @@ class _LocalPinStages:
 
     def renew_after_post_ack_observation(self):
         require(self.post_ack_window and self.handle is not None
-                and self.post_ack_observations == 3,
-                "Post-ACK close verifier must complete all three bounded pin observation points")
+                and self.post_ack_observations == 1,
+                "Post-ACK close verifier must complete exactly one bounded pin observation")
         self.handle.renew()
 
     def close_after_ack(self):
         require(self.handle is not None and self.stages == ["open", "pre_ack", "close"],
                 "Native A1 pin closes only after exact source ACK reconciliation")
-        require(self.post_ack_window and self.post_ack_observations == 3,
+        require(self.post_ack_window and self.post_ack_observations == 1,
                 "Native A1 pin closes only after exact post-ACK four-role close observation")
         self.handle.close()
         self.handle = None
@@ -1332,6 +1332,9 @@ def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
     receipt_sha = hashlib.sha256(receipt_bytes).hexdigest()
     observation = output["managedObservation"]
     observations = observation.get("observations") if type(observation) is dict else None
+    close_only = observation_phase == "post_ack_close"
+    expected_stages = ["close"] if close_only else ["open", "pre_ack", "close"]
+    expected_outcome = "observed_available_at_close" if close_only else "observed_available_at_checks"
     from ashlar_host.managed_current_spark_receipt_read import SERVERLESS_TASK_SESSION_OWNERSHIP
     session_scopes = ([item.get("task_session_scope_id") for item in observations]
                       if type(observations) is list else [])
@@ -1346,17 +1349,17 @@ def _verify_terminal_proof(output: dict, run_id: int, task_run_id: int,
             and output["managedObservationSha256"] == hashlib.sha256(observation_raw).hexdigest()
             and type(observation) is dict
             and observation.get("profile") == "ashlar-managed-operational-retention/0.1"
-            and observation.get("outcome") == "observed_available_at_checks"
+            and observation.get("outcome") == expected_outcome
             and observation.get("authority") == "read_observation_only_no_source_ack"
             and type(observation.get("observations")) is list
             and [item.get("stage") for item in observation["observations"]]
-                == ["open", "pre_ack", "close"]
+                == expected_stages
             and all(item.get("session_ownership_profile") == SERVERLESS_TASK_SESSION_OWNERSHIP
                     for item in observation["observations"])
             and all(type(scope) is str and scope for scope in session_scopes)
             and len(set(session_scopes)) == 1
             and all(type(wrapper_id) is str and wrapper_id for wrapper_id in wrapper_ids)
-            and len(set(wrapper_ids)) == 3
+            and len(set(wrapper_ids)) == len(expected_stages)
             and all(item.get("predictive_optimization") == "ENABLE"
                     and item.get("vector_targets") == {
                         table: {"uuid": target[0], "version": target[1]}
