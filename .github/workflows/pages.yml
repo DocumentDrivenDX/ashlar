@@ -33,6 +33,7 @@ env:
 
 jobs:
   build:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -83,6 +84,7 @@ jobs:
           path: ${{ runner.temp }}/artifact.tar
           retention-days: 1
   deploy:
+    timeout-minutes: 10
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest

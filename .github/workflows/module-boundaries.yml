@@ -28,6 +28,7 @@ permissions:
   contents: read
 jobs:
   routine-pr:
+    timeout-minutes: 10
     if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && !inputs.full_qualification && !inputs.extended)
     runs-on: ubuntu-24.04
     steps:
@@ -39,6 +40,7 @@ jobs:
       - run: python3 scripts/check-typed-sdk-boundaries.py --negative-controls
       - run: PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_module_boundaries.py
   check:
+    timeout-minutes: 30
     if: github.event_name == 'workflow_dispatch' && inputs.full_qualification
     runs-on: ubuntu-latest
     steps:
@@ -80,6 +82,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_fabric_release_journal
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_fabric_finite_notebook test_finite_export_configuration test_finite_export_cli_dispatch test_finite_graph_export test_pack_case_cli test_pack_case_selection test_truss_native_feed test_truss_edge_feed test_truss_graph_sql test_truss_graph_admission test_truss_typed_admission test_truss_decimal_scales test_truss_typed_sql test_truss_scalar_binding test_truss_compatible_binding test_truss_catalog_reader test_truss_feed_sessions test_truss_feed_receipts test_truss_receipt_encoding test_truss_publication test_truss_note_publication test_truss_graph_publication test_truss_note_cli test_truss_runtime test_truss_local_setup test_truss_core08_source test_truss_core08_mutation test_truss_core08_evolution test_truss_example test_truss_record_example test_truss_arithmetic_example test_truss_typed_related_example test_truss_example_reader test_truss_continuation_setup test_truss_local_server test_truss_note_commands test_truss_schema_acceptance test_staging test_source_checkpoint
   diagnostic-supervision:
+    timeout-minutes: 30
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.extended }}
     runs-on: ubuntu-latest
     steps:
@@ -91,6 +94,7 @@ jobs:
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_otel_worker.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_diagnostic_composition.py
   extended:
+    timeout-minutes: 30
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.extended }}
     runs-on: ubuntu-latest
     steps:
@@ -170,6 +174,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_diagnostics_cli.py
 
   duckdb-exports:
+    timeout-minutes: 30
     if: github.event_name == 'workflow_dispatch' && inputs.full_qualification
     runs-on: ubuntu-latest
     steps:
@@ -183,6 +188,7 @@ jobs:
       - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_puppy_scenario_local
 
   typed-sdk-source-checks:
+    timeout-minutes: 30
     if: github.event_name == 'workflow_dispatch' && inputs.full_qualification
     runs-on: ubuntu-latest
     steps:
@@ -195,6 +201,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -W error::ResourceWarning -m unittest test_typed_graph_source test_configured_typed_graph_weft_binding
 
   puppy-exports:
+    timeout-minutes: 30
     if: github.event_name == 'workflow_dispatch' && inputs.full_qualification
     runs-on: ubuntu-latest
     steps:

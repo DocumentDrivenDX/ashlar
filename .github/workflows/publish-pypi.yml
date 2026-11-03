@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   publish:
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     environment:
       name: pypi

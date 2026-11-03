@@ -19,6 +19,7 @@ permissions:
   contents: read
 jobs:
   portable-host-controls:
+    timeout-minutes: 10
     runs-on: ubuntu-24.04
     strategy:
       matrix:

@@ -8,6 +8,7 @@ permissions:
   contents: read
 jobs:
   portable-invocation:
+    timeout-minutes: 30
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
