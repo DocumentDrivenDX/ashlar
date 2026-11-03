@@ -22,6 +22,9 @@ from tools.run_managed_a1_serverless import (
     _write_private_json, DatabricksCLI, _admit_auth_readback_host,
 )
 from ashlar_host.a1_ack_attempt import A1AckSettlement
+from ashlar_host.managed_a1_serverless_tasks import (
+    _po_status, parse_predictive_optimization_status,
+)
 
 
 class _PinHandle:
@@ -36,6 +39,48 @@ class _PinOwner:
     def open_native_pin(self):
         self.events.append("open")
         return _PinHandle(self.events)
+
+
+class PredictiveOptimizationTests(unittest.TestCase):
+    def test_actual_inherited_describe_value_is_enabled_and_other_states_refuse(self):
+        # Exact DESCRIBE TABLE EXTENDED row captured from the owned Run10 tables.
+        actual = {"col_name": "Predictive Optimization", "comment": "",
+            "data_type": "ENABLE (inherited from METASTORE metastore_centralus)"}
+
+        class Row(dict):
+            def asDict(self, recursive=True): return dict(self)
+
+        class Frame:
+            def collect(self): return [Row(actual)]
+
+        class Spark:
+            def sql(self, statement):
+                assert statement == "DESCRIBE TABLE EXTENDED `client_dev`.`trial`.`object_current`"
+                return Frame()
+
+        self.assertEqual(_po_status(Spark(),
+            "`client_dev`.`trial`.`object_current`"), "ENABLE")
+        self.assertEqual(parse_predictive_optimization_status("ENABLE"), "ENABLE")
+        self.assertEqual(parse_predictive_optimization_status("ENABLED"), "ENABLE")
+        self.assertEqual(parse_predictive_optimization_status(
+            "ENABLED (inherited from METASTORE central_us)"), "ENABLE")
+        for value in ("DISABLE", "DISABLED", "INHERIT",
+                      "DISABLE (inherited from METASTORE central_us)",
+                      "ENABLE now", "ENABLE (inherited from CATALOG central_us)",
+                      "ENABLE (inherited from METASTORE )", "ENABLE (METASTORE central_us)",
+                      None, 1):
+            self.assertIsNone(parse_predictive_optimization_status(value), repr(value))
+
+        class DisabledSpark(Spark):
+            def sql(self, statement):
+                class DisabledFrame:
+                    def collect(self):
+                        return [Row({"col_name": "Predictive Optimization",
+                                     "data_type": "ENABLE (inherited from METASTORE bad/name)"})]
+                return DisabledFrame()
+
+        with self.assertRaisesRegex(ValueError, "must be observed enabled"):
+            _po_status(DisabledSpark(), "`client_dev`.`trial`.`object_current`")
 
 
 class _RunsAPI:

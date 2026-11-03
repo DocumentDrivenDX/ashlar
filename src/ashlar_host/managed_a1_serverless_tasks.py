@@ -133,10 +133,23 @@ def _po_status(spark, table, *, session=None):
         values = row.asDict(recursive=True)
         label = str(values.get("col_name", values.get("colName", ""))).strip().casefold()
         if label == "predictive optimization":
-            found.append(str(values.get("data_type", values.get("dataType", ""))).strip().upper())
-    _need(len(found) == 1 and found[0] in ("ENABLE", "ENABLED"),
+            found.append(values.get("data_type", values.get("dataType", "")))
+    _need(len(found) == 1 and parse_predictive_optimization_status(found[0]) == "ENABLE",
           "Unity Catalog predictive optimization must be observed enabled")
     return "ENABLE"
+
+
+def parse_predictive_optimization_status(value):
+    """Normalize only documented enabled DESCRIBE annotations; fail closed."""
+    if type(value) is not str:
+        return None
+    text = value.strip()
+    bare = re.fullmatch(r"(?:ENABLE|ENABLED)", text, flags=re.IGNORECASE | re.ASCII)
+    inherited = re.fullmatch(
+        r"(?:ENABLE|ENABLED) \(inherited from METASTORE "
+        r"[A-Za-z0-9][A-Za-z0-9_.-]{0,127}\)",
+        text, flags=re.IGNORECASE | re.ASCII)
+    return "ENABLE" if bare or inherited else None
 
 
 def _retention_seconds(spark, table, *, session=None):
