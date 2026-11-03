@@ -11,9 +11,9 @@ from types import SimpleNamespace
 
 from tools.create_managed_a1_trial_config import build_config
 from tools.run_managed_a1_serverless import (
-    INITIALIZER_TIMEOUT_SECONDS, MAX_PAID_TASK_SECONDS,
-    MAX_SOURCE_BOOTSTRAP_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
-    RUNTIME_PROBE_TASK_SECONDS, VERIFIER_TIMEOUT_SECONDS, build_payload,
+    INITIALIZER_TIMEOUT_SECONDS, MAX_SOURCE_BOOTSTRAP_SECONDS,
+    PUBLISHER_TIMEOUT_SECONDS, VERIFIER_TIMEOUT_SECONDS,
+    WORST_SERVERLESS_DBUH, build_payload,
 )
 from ashlar_host.configured_local_runtime import PROFILE, MANAGED_SERVERLESS_PROFILE
 
@@ -57,12 +57,18 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
                          VERIFIER_TIMEOUT_SECONDS)
         paid_cap_seconds = (INITIALIZER_TIMEOUT_SECONDS + 2 * PUBLISHER_TIMEOUT_SECONDS
                             + 4 * VERIFIER_TIMEOUT_SECONDS)
-        self.assertEqual(paid_cap_seconds, 600)
-        self.assertEqual(paid_cap_seconds + RUNTIME_PROBE_TASK_SECONDS, 660)
-        self.assertLessEqual(paid_cap_seconds + RUNTIME_PROBE_TASK_SECONDS,
-                             MAX_PAID_TASK_SECONDS)
-        self.assertLessEqual(paid_cap_seconds + MAX_SOURCE_BOOTSTRAP_SECONDS + 45,
+        self.assertEqual(paid_cap_seconds, 1050)  # Stage ceilings are not additive wall time.
+        self.assertEqual({INITIALIZER_TIMEOUT_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
+                          VERIFIER_TIMEOUT_SECONDS}, {150})
+        self.assertLessEqual(max(INITIALIZER_TIMEOUT_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
+                                 VERIFIER_TIMEOUT_SECONDS) + 15,
                              config["maximum_wall_seconds"] - config["cleanup_reserve_seconds"])
+        self.assertLessEqual(MAX_SOURCE_BOOTSTRAP_SECONDS,
+                             config["maximum_wall_seconds"] - config["cleanup_reserve_seconds"])
+        self.assertGreaterEqual(config["cost"]["authorized_total_dbu"],
+            config["maximum_wall_seconds"] * WORST_SERVERLESS_DBUH / 3600)
+        self.assertLessEqual(config["cost"]["authorized_total_dbu"] * 0.47
+                             + config["cost"]["cleanup_reserve_usd"], 100)
         self.assertEqual(config["cost"]["authorized_total_dbu"], 128.0)
         self.assertLess(config["cost"]["estimated_total_usd"], 10)
         self.assertEqual(config["expected_runtime"]["protocol"], MANAGED_SERVERLESS_PROFILE.identity)

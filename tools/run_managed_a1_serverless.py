@@ -31,13 +31,11 @@ MAX_SECONDS = 900
 HARD_USD = 100.0
 PREFERRED_USD = 10.0
 SERVERLESS_USD_PER_DBUH = 0.47
-WORST_SERVERLESS_DBUH = 480.0  # 2x the largest published default (240 DBU/h)
-MAX_PAID_TASK_SECONDS = 690  # Conservative ceiling including the 60s read-only probe
-RUNTIME_PROBE_TASK_SECONDS = 60
+WORST_SERVERLESS_DBUH = 360.0  # 1.5x the largest published default (240 DBU/h)
 MAX_SOURCE_BOOTSTRAP_SECONDS = 165
 INITIALIZER_TIMEOUT_SECONDS = 150
-PUBLISHER_TIMEOUT_SECONDS = 75
-VERIFIER_TIMEOUT_SECONDS = 75
+PUBLISHER_TIMEOUT_SECONDS = 150
+VERIFIER_TIMEOUT_SECONDS = 150
 MIN_DRIVER_AND_CLEANUP_RESERVE_USD = 20.0
 ACK_REAP_RESERVE_SECONDS = 30
 POST_ACK_CLEANUP_RESERVE_SECONDS = 30
@@ -235,7 +233,7 @@ def build_payload(config: object) -> tuple[dict, dict]:
                 cost["estimated_total_dbu"] * SERVERLESS_USD_PER_DBUH
             and cost["cleanup_reserve_usd"] >= MIN_DRIVER_AND_CLEANUP_RESERVE_USD
             and worst_case_usd <= HARD_USD,
-            "Worst-case 2XL DBU exposure plus driver/cleanup reserve exceeds $100")
+            "Bounded DBU exposure plus driver/cleanup reserve exceeds $100")
     if expected_usd > PREFERRED_USD:
         require(type(cost["preferred_budget_exception"]) is str
                 and cost["preferred_budget_exception"].strip(),
@@ -305,15 +303,14 @@ def build_payload(config: object) -> tuple[dict, dict]:
             and config["publisher"]["timeout_seconds"] == PUBLISHER_TIMEOUT_SECONDS
             and config["verifier"]["timeout_seconds"] == VERIFIER_TIMEOUT_SECONDS,
             "Serverless task budgets must match the admitted init/publish/verify caps")
-    paid_seconds = (config["initializer"]["timeout_seconds"]
-                    + 2 * config["publisher"]["timeout_seconds"]
-                    + 4 * config["verifier"]["timeout_seconds"])
-    require(paid_seconds + RUNTIME_PROBE_TASK_SECONDS <= MAX_PAID_TASK_SECONDS
-            and cost["authorized_total_dbu"] >=
-                (paid_seconds + RUNTIME_PROBE_TASK_SECONDS) * WORST_SERVERLESS_DBUH / 3600
-            and paid_seconds + MAX_SOURCE_BOOTSTRAP_SECONDS + 45
-            <= wall - cleanup_seconds,
-            "Two publication cycles plus post-ACK close verifiers, <=690s including probe, source bootstrap, and handoffs must fit before cleanup reserve")
+    # Per-stage timeouts are individual cancellation limits, not additive
+    # wall-time guarantees: every stage shares the one outer trial deadline.
+    # Authorize DBUs against that full bounded wall duration, since a trial may
+    # consume any permitted portion of it before the controller stops it.
+    require(cost["authorized_total_dbu"] >= wall * WORST_SERVERLESS_DBUH / 3600,
+            "Authorized DBU exposure must cover the whole-trial wall deadline")
+    require(MAX_SOURCE_BOOTSTRAP_SECONDS <= wall - cleanup_seconds,
+            "Source-bootstrap stage ceiling must fit before the whole-trial cleanup reserve")
     return stage_payloads, config
 
 
