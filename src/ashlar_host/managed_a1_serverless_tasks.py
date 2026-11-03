@@ -459,7 +459,7 @@ def publisher_task(spark, parameters):
           and held_page.page_content == plan.delivery_page.page_bytes
           and held_page.prior_bytes == plan.delivery_page.prior_cursor_bytes
           and held_page.next_bytes == plan.delivery_page.next_cursor_bytes
-          and held_page.publication_id == plan.request["publication_id"],
+          and held_page.publication_id == plan.publication_id,
           "Opened A source-holder custody does not match the exact frozen first-A plan")
     revisions = json.dumps(plan.selection.schema_revisions, ensure_ascii=False,
                            sort_keys=True, separators=(",", ":"))
