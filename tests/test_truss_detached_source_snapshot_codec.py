@@ -24,6 +24,7 @@ from ashlar_host.truss_detached_source_snapshot_codec import (
     DetachedSourceSnapshotError, DetachedTrussSourceSnapshot,
     decode_detached_source_snapshot, encode_detached_source_snapshot,
 )
+from ashlar_host.truss053_source_custody import detached_source_custody_digests
 from ashlar_host.truss_source_custody_selection import (
     TrussSourceCustodyAnchor, _ANCHORS, _issue,
 )
@@ -133,6 +134,20 @@ class DetachedTrussSourceSnapshotCodecTests(unittest.TestCase):
         self.assertNotIsInstance(snapshot, ManagedCurrentTruss053SourceObservation)
         self.assertEqual(snapshot.current_catalog_evidence().truss_version,
                          CURRENT_TRUSS_053_FRESH_VERSION)
+
+    def test_custody_digest_accepts_the_decoded_immutable_page_fields(self):
+        public_truss = ModuleType("truss")
+        public_truss.__path__ = []
+        accepted = ModuleType("truss.reader_catalog")
+        accepted.AcceptedDocument = PublicAcceptedDocument
+        with patch.dict("sys.modules", {"truss": public_truss,
+                                        "truss.reader_catalog": accepted}):
+            snapshot = decode_detached_source_snapshot(
+                encode_detached_source_snapshot(self.anchor, self.observation))
+        digests = detached_source_custody_digests(snapshot)
+        self.assertEqual(set(digests), {"source_registration", "consumer_registration",
+            "cursor", "destination_registration", "ack_scope", "checkpoint",
+            "current_page", "retained_page"})
 
     def test_snapshot_roundtrips_exact_054_runtime_pin(self):
         public_truss = ModuleType("truss")

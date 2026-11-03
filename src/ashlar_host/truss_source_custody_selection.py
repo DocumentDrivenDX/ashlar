@@ -866,7 +866,8 @@ class TrussSourceCustodySelection:
 def select_truss_source_custody_anchor(*, schedule: R04Schedule, source: str,
                                        page: object, request_bytes: bytes,
                                        destination_id: str,
-                                       preselected_publication_id: str) -> TrussSourceCustodyAnchor:
+                                       preselected_publication_id: str,
+                                       incremental: bool = False) -> TrussSourceCustodyAnchor:
     """Freeze Ashlar-owned canonical registration/scope bytes before publication.
 
     ``schedule`` and ``page`` are correspondence inputs. Their independent
@@ -876,6 +877,8 @@ def select_truss_source_custody_anchor(*, schedule: R04Schedule, source: str,
           "Exact frozen R04 schedule and source slot required")
     _need(type(request_bytes) is bytes and 0 < len(request_bytes) <= _MAX_BYTES,
           "Exact bounded original request bytes required")
+    _need(type(incremental) is bool,
+          "Exact ordinary or incremental publication identity mode required")
     destination_id = _bounded_text(destination_id, "selected destination ID", 1024)
     preselected_publication_id = _bounded_text(
         preselected_publication_id, "preselected publication ID", 4096)
@@ -920,8 +923,9 @@ def select_truss_source_custody_anchor(*, schedule: R04Schedule, source: str,
     # Recheck the outer/inner request digest using the owner implementation.
     from ashlar.attempt_store import verify_request_digest
     digest = verify_request_digest(request)
-    expected_publication_id = "ashlar-current:" + hashlib.sha256(
-        digest.encode("ascii")).hexdigest()
+    from .managed_current_publication import managed_current_publication_id
+    expected_publication_id = managed_current_publication_id(
+        digest, incremental=incremental)
     _need(preselected_publication_id == expected_publication_id,
           "Preselected publication ID must derive from the frozen managed request")
     request_sha = hashlib.sha256(request_bytes).hexdigest()

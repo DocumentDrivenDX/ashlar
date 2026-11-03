@@ -10,6 +10,7 @@ from ashlar_host.truss_detached_a1_genesis_codec import (
     PROFILE, DetachedA1GenesisError, decode_detached_a1_genesis_snapshot,
     _require_current_fresh_catalog_evidence,
 )
+from ashlar_host.truss053_source_custody import _genesis_matches_with_monotonic_watermarks
 from ashlar_host.truss_current_catalog import (
     CURRENT_TRUSS_054_FRESH_RUNTIME_MANIFEST_SHA256,
     CURRENT_TRUSS_054_FRESH_WHEEL_SHA256,
@@ -84,6 +85,62 @@ def _raw():
 
 
 class DetachedA1GenesisCodecTests(unittest.TestCase):
+    def test_live_genesis_allows_only_canonical_monotonic_safe_watermark_drift(self):
+        import json
+        original = json.loads(_raw())
+
+        def encode(value):
+            body = {key: item for key, item in value.items() if key != "binding_sha256"}
+            return canonical({**body, "binding_sha256": hashlib.sha256(
+                canonical(body)).hexdigest()})
+
+        newer = json.loads(json.dumps(original))
+        newer["sources"][0]["page"]["safe_watermark_xid"] = "2"
+        self.assertTrue(_genesis_matches_with_monotonic_watermarks(
+            encode(original), encode(newer)))
+
+        older = json.loads(json.dumps(original))
+        older["sources"][0]["page"]["safe_watermark_xid"] = "0"
+        self.assertFalse(_genesis_matches_with_monotonic_watermarks(
+            encode(original), encode(older)))
+
+        noncanonical = json.loads(json.dumps(original))
+        noncanonical["sources"][0]["page"]["safe_watermark_xid"] = "01"
+        self.assertFalse(_genesis_matches_with_monotonic_watermarks(
+            encode(original), encode(noncanonical)))
+
+        changed_page = json.loads(json.dumps(original))
+        changed_page["sources"][0]["page"]["content_base64"] = base64.b64encode(
+            b"changed-page").decode()
+        changed_page["sources"][0]["page"]["sha256"] = hashlib.sha256(
+            b"changed-page").hexdigest()
+        self.assertFalse(_genesis_matches_with_monotonic_watermarks(
+            encode(original), encode(changed_page)))
+
+        continuation = json.loads(_raw())
+        source_a = continuation["sources"][0]
+        prior = json.loads(base64.b64decode(
+            source_a["page"]["prior_bytes_base64"]))
+        following = json.loads(base64.b64decode(
+            source_a["page"]["next_bytes_base64"]))
+        prior["nextXid"] = "5"
+        following["nextXid"] = "6"
+        prior_bytes = canonical(prior)
+        following_bytes = canonical(following)
+        progress = source_a["progress"]
+        progress["cursor_bytes_base64"] = base64.b64encode(prior_bytes).decode()
+        progress["position"] = progress["cursor_bytes_base64"]
+        progress["position_sha256"] = hashlib.sha256(prior_bytes).hexdigest()
+        source_a["page"]["prior_bytes_base64"] = progress["cursor_bytes_base64"]
+        source_a["page"]["next_bytes_base64"] = base64.b64encode(following_bytes).decode()
+        source_a["page"]["safe_watermark_xid"] = "5"
+        continuation_bytes = encode(continuation)
+        continuation_newer = json.loads(continuation_bytes)
+        continuation_newer["sources"][0]["page"]["safe_watermark_xid"] = "7"
+        self.assertTrue(_genesis_matches_with_monotonic_watermarks(
+            continuation_bytes, encode(continuation_newer),
+            expected_a_prior_cursor="5"))
+
     def test_current_055_evidence_uses_actual_pins_and_refuses_stale_054(self):
         pins = {"version": "0.0.55",
             "wheel_sha256": CURRENT_TRUSS_055_FRESH_WHEEL_SHA256,

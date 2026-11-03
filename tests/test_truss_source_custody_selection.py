@@ -162,6 +162,22 @@ class TrussSourceCustodySelectionTests(unittest.TestCase):
                 destination_id="selected-r04-destination",
                 preselected_publication_id="publisher-invented-id")
 
+    def test_incremental_publication_id_uses_only_explicit_phase_mode(self):
+        from ashlar_host.managed_current_publication import managed_current_publication_id
+        incremental_id = managed_current_publication_id(
+            json.loads(self.request_bytes)["request_digest"], incremental=True)
+        anchor = select_truss_source_custody_anchor(schedule=self.schedule,
+            source="A", page=self.page, request_bytes=self.request_bytes,
+            destination_id="selected-r04-destination",
+            preselected_publication_id=incremental_id, incremental=True)
+        self.assertEqual(anchor.preselected_publication_id, incremental_id)
+        with self.assertRaisesRegex(TrussSourceSelectionError,
+                                    "must derive from the frozen managed request"):
+            select_truss_source_custody_anchor(schedule=self.schedule,
+                source="A", page=self.page, request_bytes=self.request_bytes,
+                destination_id="selected-r04-destination",
+                preselected_publication_id=incremental_id)
+
     def test_prepublication_sdk_selection_uses_exact_052_or_fresh_053_gate(self):
         from ashlar_host.truss_current_catalog import (
             CURRENT_052_CUSTODY_PROFILE, CURRENT_053_FRESH_CUSTODY_PROFILE,

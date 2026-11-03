@@ -28,7 +28,7 @@ def detached_source_custody_digests(snapshot) -> dict:
         raise Truss053CustodyError("Exact detached A1 source snapshot required")
     page = snapshot.source_page
     identity = dict(page.identity)
-    fields = page.page_fields
+    fields = dict(page.page_fields)
     values = {
         "source_registration": canonical({key: identity[key] for key in (
             "feed", "epoch", "installation_id")}),
@@ -49,6 +49,42 @@ def detached_source_custody_digests(snapshot) -> dict:
     }
     return {name: hashlib.sha256(raw if type(raw) is bytes else raw).hexdigest()
             for name, raw in values.items()}
+
+
+def _genesis_matches_with_monotonic_watermarks(original: bytes, refreshed: bytes, *,
+                                                expected_a_prior_cursor="0") -> bool:
+    """Keep frozen source bytes exact while admitting only monotonic safe-frontier drift."""
+    from .truss_detached_a1_genesis_codec import decode_detached_a1_genesis_snapshot
+
+    # Both decoders enforce the complete closed schema, binding digest, and
+    # source/page/cursor correspondence before this narrowly scoped comparison.
+    decode_detached_a1_genesis_snapshot(
+        original, expected_a_prior_cursor=expected_a_prior_cursor)
+    decode_detached_a1_genesis_snapshot(
+        refreshed, expected_a_prior_cursor=expected_a_prior_cursor)
+    before, after = json.loads(original), json.loads(refreshed)
+    prior_sources = {item["source"]: item for item in before["sources"]}
+    current_sources = {item["source"]: item for item in after["sources"]}
+    if set(prior_sources) != {"A", "B"} or set(current_sources) != {"A", "B"}:
+        return False
+    for source in ("A", "B"):
+        old = prior_sources[source]["page"]["safe_watermark_xid"]
+        new = current_sources[source]["page"]["safe_watermark_xid"]
+        if (type(old) is not str or not old.isascii() or not old.isdecimal()
+                or len(old) > 20 or str(int(old)) != old
+                or int(old) > 18446744073709551615
+                or type(new) is not str or not new.isascii() or not new.isdecimal()
+                or len(new) > 20 or str(int(new)) != new
+                or int(new) > 18446744073709551615 or int(new) < int(old)):
+            return False
+        prior_sources[source]["page"]["safe_watermark_xid"] = "<frontier>"
+        current_sources[source]["page"]["safe_watermark_xid"] = "<frontier>"
+    # Each envelope digest necessarily changes when the admitted monotonic
+    # frontier changes; both original digests were independently verified by
+    # the closed decoder above.
+    before["binding_sha256"] = "<verified-binding>"
+    after["binding_sha256"] = "<verified-binding>"
+    return before == after
 
 
 @dataclass
@@ -134,6 +170,8 @@ class Truss053A1SourceHolder:
         from .truss_current_catalog import installed_fresh_truss_runtime_pins
         if self.session is not None or self.genesis is None or self.genesis_bytes is None:
             raise Truss053CustodyError("Prepublication source holder opens once")
+        if self.phase not in ("a0", "a1"):
+            raise Truss053CustodyError("Exact A0 or A1 source phase required before custody open")
         if (type(request_bytes) is not bytes or not request_bytes
                 or type(destination_id) is not str or not destination_id
                 or type(publication_id) is not str or not publication_id):
@@ -144,10 +182,11 @@ class Truss053A1SourceHolder:
         refreshed = ManagedCurrentTruss053GenesisSourceOwner(
             self.schedule, self.source_selections).admit_a1(
                 expected_a_prior_cursor=expected)
-        if encode_detached_a1_genesis_snapshot(refreshed) != self.genesis_bytes:
+        refreshed_bytes = encode_detached_a1_genesis_snapshot(refreshed)
+        if not _genesis_matches_with_monotonic_watermarks(self.genesis_bytes,
+                refreshed_bytes, expected_a_prior_cursor=("0" if expected is None else expected)):
             raise Truss053CustodyError(
                 "A/B page, cursor, catalog, accepted document, or model changed since genesis admission")
-        self.genesis = refreshed
         self.request_bytes = request_bytes
         self.destination_id = destination_id
         self.publication_id = publication_id
@@ -155,7 +194,8 @@ class Truss053A1SourceHolder:
         self.anchor = select_truss_source_custody_anchor(
             schedule=self.schedule, source="A", page=observation.page,
             request_bytes=self.request_bytes, destination_id=self.destination_id,
-            preselected_publication_id=self.publication_id)
+            preselected_publication_id=self.publication_id,
+            incremental=self.phase == "a1")
         open_selection = self.anchor.open_selection()
         selected_a = self.source_selections["A"]
         # The public owner selection stores a no-argument, independently
