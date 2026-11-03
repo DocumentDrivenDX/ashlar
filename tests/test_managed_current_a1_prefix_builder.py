@@ -199,9 +199,7 @@ class TestManagedCurrentA1PrefixBuilder(unittest.TestCase):
         with patch("ashlar_host.truss_detached_a1_genesis_codec.decode_detached_a1_genesis_snapshot",
                    return_value=genesis) as decode_genesis, patch(
                 "ashlar_host.truss_detached_source_snapshot_codec.decode_detached_source_snapshot",
-                return_value=holder_snapshot), patch(
-                "ashlar_host.managed_a1_detached_admission.continuation_expected_a_cursor",
-                return_value="759") as expected_a_cursor:
+                return_value=holder_snapshot):
             prefix, digest, anchors = build_managed_current_a1_prefix_evidence(
                 genesis_bytes=b"detached-genesis-fixture",
                 source_snapshot_bytes=b"detached-held-page-fixture",
@@ -211,7 +209,6 @@ class TestManagedCurrentA1PrefixBuilder(unittest.TestCase):
                 destination={"catalog": "client_dev", "schema": "trial"},
                 carrier_profile="ashlar-delta/0.4-xxhash64",
                 materialization_clock_us="1762000000000000")
-            expected_a_cursor.assert_called_once_with(b"detached-genesis-fixture")
             a0_prefix, a0_digest, a0_anchors = build_managed_current_a1_prefix_evidence(
                 genesis_bytes=b"detached-genesis-fixture",
                 source_snapshot_bytes=b"detached-held-page-fixture",
@@ -221,10 +218,9 @@ class TestManagedCurrentA1PrefixBuilder(unittest.TestCase):
                 destination={"catalog": "client_dev", "schema": "trial"},
                 carrier_profile="ashlar-delta/0.4-xxhash64",
                 materialization_clock_us="1762000000000000", phase="a0")
-        self.assertEqual(decode_genesis.call_args_list[0].kwargs,
-                         {"expected_a_prior_cursor": "759"})
-        self.assertEqual(decode_genesis.call_args_list[1].kwargs,
-                         {"expected_a_prior_cursor": "0"})
+        self.assertEqual([call.kwargs for call in decode_genesis.call_args_list],
+                         [{"expected_a_prior_cursor": "0"},
+                          {"expected_a_prior_cursor": "0"}])
         package = json.loads(prefix)
         self.assertEqual(hashlib.sha256(prefix).hexdigest(), digest)
         self.assertEqual(package["scheduleStep"], 1)

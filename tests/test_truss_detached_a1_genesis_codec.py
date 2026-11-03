@@ -198,6 +198,31 @@ class DetachedA1GenesisCodecTests(unittest.TestCase):
         self.assertEqual(snapshot.source_evidence("B")["progress"]["position"],
                          base64.b64encode(snapshot.source_evidence("B")["progress"]["cursor_bytes"]).decode())
 
+    def test_genesis_snapshot_keeps_a_at_original_zero_cursor(self):
+        import json
+        raw = _raw()
+        self.assertEqual(decode_detached_a1_genesis_snapshot(raw)
+                         .source_evidence("A")["page"]["prior_bytes"],
+                         decode_detached_a1_genesis_snapshot(raw)
+                         .source_evidence("A")["progress"]["cursor_bytes"])
+        value = json.loads(raw)
+        source_a = value["sources"][0]
+        cursor = json.loads(base64.b64decode(
+            source_a["page"]["prior_bytes_base64"], validate=True))
+        cursor["nextXid"] = "759"
+        cursor_bytes = canonical(cursor)
+        cursor_b64 = base64.b64encode(cursor_bytes).decode("ascii")
+        source_a["page"]["prior_bytes_base64"] = cursor_b64
+        source_a["progress"]["cursor_bytes_base64"] = cursor_b64
+        source_a["progress"]["position"] = cursor_b64
+        source_a["progress"]["position_sha256"] = hashlib.sha256(cursor_bytes).hexdigest()
+        body = {key: item for key, item in value.items() if key != "binding_sha256"}
+        nonzero = canonical({**body, "binding_sha256": hashlib.sha256(
+            canonical(body)).hexdigest()})
+        with self.assertRaisesRegex(DetachedA1GenesisError,
+                                    "exact phase predecessor"):
+            decode_detached_a1_genesis_snapshot(nonzero)
+
     def test_rejects_accepted_document_bytes_differing_from_artifact_pin(self):
         import json
         raw = _raw()

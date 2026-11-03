@@ -72,16 +72,8 @@ def build_managed_current_a1_prefix_evidence(*, genesis_bytes: bytes,
             or not -(1 << 63) <= int(materialization_clock_us) < (1 << 63)):
         raise ManagedCurrentA1PrefixBuildError("Exact bounded A1 prefix inputs required")
     try:
-        expected_a_prior_cursor = "0"
-        if phase == "a1":
-            # A1 uses the cursor of the public page selected after the A0 ACK,
-            # not the original Truss genesis cursor. Derive it from the closed
-            # detached package exactly as A1 admission does; the codec still
-            # validates the complete A/B cursor identities and page bindings.
-            from .managed_a1_detached_admission import continuation_expected_a_cursor
-            expected_a_prior_cursor = continuation_expected_a_cursor(genesis_bytes)
         genesis = decode_detached_a1_genesis_snapshot(
-            genesis_bytes, expected_a_prior_cursor=expected_a_prior_cursor)
+            genesis_bytes, expected_a_prior_cursor="0")
         held = decode_detached_source_snapshot(source_snapshot_bytes)
         schedule = R04Schedule(genesis.schedule_bytes)
         schedule_doc = schedule.document()
