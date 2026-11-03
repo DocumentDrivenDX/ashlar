@@ -218,11 +218,11 @@ def _acknowledge(state: dict) -> dict:
         ack = session.acknowledge()
         EFFECTS["source_ack_state"] = "ack_committed_unreconciled"
         reconciled = session.reconcile()
-        if reconciled.receipt_outcome != "matched":
+        if reconciled.outcome != "matched":
             raise RuntimeError("Truss destination receipt reconciliation is not matched")
         EFFECTS["source_ack_state"] = "reconciled_matched"
         result = {"outcome": ack.outcome, "checkpoint_sha256": sha(ack.checkpoint.content),
-                  "receipt_outcome": reconciled.receipt_outcome, "ack_matched": True}
+                  "receipt_outcome": reconciled.outcome, "ack_matched": True}
     except BaseException as error:
         primary = error
         if EFFECTS["source_ack_state"] in ("attempting", "ack_committed_unreconciled"):
