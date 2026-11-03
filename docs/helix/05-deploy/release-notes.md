@@ -13,28 +13,29 @@ ddx:
 
 # Release Notes — 0.1.0rc1 candidate (draft, not for distribution)
 
-> No 0.1.0rc1 package, tag, or release has been created. These notes are a
-> candidate summary for review, not a description of shipped software.
+> The 0.1.0rc1 provider-cache candidate is built and staged. No tag or release
+> has been created. These notes remain a candidate summary, not release
+> communication for shipped software.
 
 ## Release Scope
 
-- Release identifier or version: proposed `0.1.0rc1`; package metadata remains `0.1.0.dev1`.
+- Release identifier or version: `0.1.0rc1` provider-cache candidate; package metadata is `0.1.0rc1`.
 - Release date: not set.
 - Rollout window or environment: provider-cache candidate only, pending qualification; no rollout is scheduled.
-- Release owner: not assigned in this draft.
-- Release version/build: not built as `0.1.0rc1`.
+- Release owner: Erik Labianca.
+- Release version/build: candidate build is staged locally for the provider cache; no tag or public release exists.
 
 ## Audience and Channels
 
 | Audience | Why they care | Delivery channel |
 |----------|---------------|------------------|
 | Internal reviewers | Confirm exact candidate scope and unresolved gates | This draft and linked evidence |
-| Operators and support | No operational rollout is authorized | None until release approval |
+| Operators and support | Do not deploy until the selected managed target qualifies | Project runbook after qualification |
 | End users | No released change is available | None |
 
 ## Highlights
 
-Proposed candidate highlights, subject to the remaining managed and classic Spark gates:
+Proposed candidate highlights, subject to the selected managed target gate:
 
 - Define property graphs on versioned Delta tables with native singleton reads independent of Fabric Graph.
 - Preserve source, publication-vector and acknowledgement custody through the selected local Truss workflow.
@@ -44,7 +45,7 @@ Proposed candidate highlights, subject to the remaining managed and classic Spar
 
 - Users: no action; no release is available.
 - Operators: do not deploy this candidate. The managed target gate remains pending.
-- Support: no customer-facing announcement or support commitment is authorized.
+- Support: no customer-facing support commitment is defined for this candidate.
 
 ## Changes and Fixes
 
@@ -64,21 +65,21 @@ Proposed candidate highlights, subject to the remaining managed and classic Spar
 
 ## Breaking Changes and Required Actions
 
-No compatibility or migration conclusion is ready for release. The full managed and classic target gates remain open; do not infer that no breaking changes exist from this draft.
+No compatibility or migration conclusion is ready for release. The selected managed target gate remains open; the classic Jobs route is not part of this candidate's selected target profile. Do not infer that no breaking changes exist from this draft.
 
 | Change | Impact | Required action | Deadline or trigger |
 |--------|--------|-----------------|---------------------|
-| Candidate version and final compatibility scope are not frozen | All adopters | Wait for final release notes and exact artifact pins | Before any installation |
+| Final compatibility and support scope depend on managed qualification | All adopters | Wait for the managed gate closeout and final artifact pins | Before any installation |
 
 ## Migration or Rollback Guidance
 
 ### Upgrade or Migration
 
-No upgrade path is authorized by this draft. Do not migrate a production installation using this candidate.
+No migration path is qualified for this candidate. Do not migrate a production installation using it.
 
 ### Rollback or Hold Guidance
 
-- Pause rollout when: the managed target, classic Spark, or release artifact gate is incomplete.
+- Pause rollout when: the selected managed target or release artifact gate is incomplete.
 - Roll back using: no candidate rollout exists; follow the deployed release's existing runbook.
 - Ask for help in: the project release review.
 
@@ -86,8 +87,8 @@ No upgrade path is authorized by this draft. Do not migrate a production install
 
 | Issue | Who is affected | Workaround or next step |
 |------|------------------|-------------------------|
-| Managed target qualification remains pending | Operators considering managed deployment | Do not deploy; await the exact managed gate closeout. |
-| The dedicated managed classic Spark Jobs trial is pending | Operators using the classic route | Do not claim managed classic Jobs support before that trial closes. |
+| The selected `aidev-cus` / `client_dev` managed serverless qualification is pending execution under its reviewed time and cost limits. | Operators considering managed deployment | Do not deploy; await the exact managed gate closeout. |
+| The C17 classic Spark Jobs CREATE attempt was refused because the organization has no associated worker environments; no cluster or workload was created. | Operators using the classic route | Do not claim managed classic Jobs support. See the [C17 refusal evidence](../04-build/evidence/current-upstream-release-20261102/managed-classic-c17-create-reconciliation-20261103/README.md). |
 | Fabric integration is unfinished; the 1B-node / 5B-edge scale trial remains held | Fabric and large-scale users | Do not claim those capabilities or performance. |
 | R61's Weft result values were observed, but a durable result hash was not persisted in the full worker closeout | Qualification reviewers | See the evidence limitation in the [R61 closeout](../04-build/evidence/current-upstream-release-20261102/r61-fresh-truss055-attempt13-continuation/qualification-closeout.json). |
 

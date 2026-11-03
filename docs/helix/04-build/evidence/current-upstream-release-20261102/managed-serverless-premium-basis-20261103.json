@@ -1,0 +1,35 @@
+{
+  "documented_default_executor_dbu_per_hour_approximate": 120,
+  "limitations": [
+    "Directional executor cap, not invoice ceiling",
+    "Driver and other costs covered by reserve assumption; not metered observed",
+    "Each A0/A1 holder remains separately limited to900seconds"
+  ],
+  "modeled_total_usd": 96.14,
+  "new_executor_dbu_estimate": 56,
+  "new_executor_dbu_usd": 26.32,
+  "official_source": "https://learn.microsoft.com/en-us/azure/databricks/compute/serverless/manage-serverless-compute",
+  "other_cost_reserve_usd": 20,
+  "prior_conservative_dbu": 106,
+  "prior_conservative_dbu_usd": 49.82,
+  "qualified_package": "umf_ashlar-0.1.0rc1-py3-none-any.whl",
+  "qualified_package_sha256": "947ae38e110bfe14139edaa723564b2593f618bc0e534a3f729892179ea9c60f",
+  "scope": "Original authorized aidev-cus / client_dev target; no alternate catalog or custom serverless compute object",
+  "source_html_sha256": "36ad09a1b41f0a4613eebe16e35ab5ef5e1d5702d93b8d9cd2279bde14ace559",
+  "status": "observed workspace tier and documented rate; execution pending",
+  "usd_per_dbu": 0.47,
+  "whole_campaign_seconds": 1680,
+  "workspace_id": "7405607548213398",
+  "workspace_observation": {
+    "id": "/subscriptions/705372e5-f3b0-41d4-8a68-c9f298794457/resourceGroups/rg-aidev-cus/providers/Microsoft.Databricks/workspaces/dbw-aidev-cus",
+    "location": "centralus",
+    "name": "dbw-aidev-cus",
+    "sku": {
+      "name": "premium"
+    },
+    "workspaceId": "7405607548213398",
+    "workspaceUrl": "adb-7405607548213398.18.azuredatabricks.net"
+  },
+  "workspace_resource_graph_sha256": "5a70028fd03c9aa54ec4beabd1b3d9fbc80097c0f1e3e7adc48087b3c344be6d",
+  "workspace_sku": "premium"
+}
