@@ -1,0 +1,15 @@
+{
+  "status": "pre_effect_refusal",
+  "trial_id": "a1-release-20261103-serverless-r1",
+  "recovery_receipt_sha256": "f86652e7b47930fc6bf7990d4191e8e07113d820f44a44c621bda0aa44179842",
+  "failure": "Canonical absolute root required",
+  "phase": "launch_gate",
+  "jobs": {},
+  "known_run_ids": {},
+  "ack_attempted": false,
+  "source_bootstrap_started": false,
+  "managed_schema_created": false,
+  "paid_job_submitted": false,
+  "cause": "The tempfile root used /var/folders, a symlink on macOS; the public source bootstrap requires canonical absolute roots.",
+  "fix_scope": "Canonicalize the owned newly created recovery directory before deriving source paths; no package source change."
+}

@@ -990,11 +990,15 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         import shutil
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp) / "recovery"
+            alias = Path(tmp) / "recovery-alias"
             def selected_temp_root(*, prefix):
                 root.mkdir(mode=0o700)
-                return str(root)
+                alias.symlink_to(root, target_is_directory=True)
+                return str(alias)
             def fake_launch(config, payload, profile, *, recovery_root,
                             recovery_state, start):
+                self.assertEqual(recovery_root, root.resolve(strict=True))
+                self.assertFalse(recovery_root.is_symlink())
                 _record_private_artifact(recovery_root,
                     recovery_root / "recovery.json", recovery_state,
                     "a0_original_ab_genesis", b"exact genesis bytes")
@@ -1014,7 +1018,7 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
             self.assertTrue(Path(evidence["recovery_receipt"]).is_file())
             artifact = evidence["artifacts"]["a0_original_ab_genesis"]
             self.assertEqual(Path(artifact["path"]).read_bytes(), b"exact genesis bytes")
-            self.assertEqual(evidence["pin_store_root"], str(root / "pin-owner"))
+            self.assertEqual(evidence["pin_store_root"], str(root.resolve() / "pin-owner"))
             self.assertTrue(Path(evidence["pin_store_root"]).is_dir())
             self.assertEqual(json.loads(Path(evidence["recovery_receipt"]).read_text())[
                 "phase"], "complete")

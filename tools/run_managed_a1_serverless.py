@@ -2770,7 +2770,7 @@ def run(config: dict, payload: dict, profile: str, *, launch: bool) -> dict:
     require(threading.current_thread() is threading.main_thread(),
             "Bounded launch must run on the main thread for outer-deadline supervision")
     start = time.monotonic()
-    recovery_root = Path(tempfile.mkdtemp(prefix="ashlar-a1-recovery-"))
+    recovery_root = Path(tempfile.mkdtemp(prefix="ashlar-a1-recovery-")).resolve(strict=True)
     os.chmod(recovery_root, 0o700)
     recovery_path = recovery_root / "recovery.json"
     recovery_state = {"profile": "ashlar-managed-a1-local-recovery/0.1",
