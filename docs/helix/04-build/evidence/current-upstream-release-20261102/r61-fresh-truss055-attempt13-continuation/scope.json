@@ -47,10 +47,11 @@
     ],
     "upstream_candidate_review": "accepted",
     "worker_path": "/private/tmp/ashlar-r61-fresh-cohort-plan/tools/r61_fresh_cohort_worker.py",
-    "worker_sha256": "bd4b4de7ae34f49fe47b5ee06081e994c61ae6e31dbace98c56661596779562a"
+    "worker_sha256": "8d71cf5da7980720fd9ca3b1778a2c44e29bb5d2a1534d1250fed32610e3e1fa"
   },
   "completion_receipts": [
     "pinned attempt13 setup/failure/supervisor receipts and independent read-only source ACK reconciliation plus exact Delta manifest-row readback",
+    "attempt13 continuation-01 preflight refusal, exact original origin file hash, clean owner shutdown and unchanged Delta tree",
     "retained A0 publication ID, exact manifest hash, source page hash and next-cursor hash, with no A0 replay",
     "seven-op seed publication and protected ACK, native Weft request/response hashes and complete four-role publication vector",
     "two-record continuation publication and protected ACK with original-owner release/custody bytes",
@@ -59,7 +60,7 @@
   ],
   "fresh_local_state": {
     "delta_root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta",
-    "evidence_root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation/evidence",
+    "evidence_root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation-02/evidence",
     "forbidden_state": [
       "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
       "/private/tmp/ashlar-r59-truss052-protected-ack-20261102",
@@ -70,7 +71,7 @@
     ],
     "must_be_absent_before_dispatch": true,
     "postgres_data": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/pgdata",
-    "root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation"
+    "root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation-02"
   },
   "limits": {
     "aggregate_rss_bytes": 4294967296,
@@ -87,9 +88,10 @@
   "non_claims": [
     "No successful end-to-end R61 qualification has completed before this continuation.",
     "This continuation reuses only the exact fresh Truss 0.0.55 source and catalog-genesis state created by attempt13; no historical migration or recovery is claimed.",
-    "No A0 publication, A0 ACK, source install, source acceptance, cloud, scale, push, tag, release or production authority is claimed."
+    "No A0 publication, A0 ACK, source install, source acceptance, cloud, scale, push, tag, release or production authority is claimed.",
+    "Attempt13 continuation-01 stopped at local file preflight before the public group transaction; no seed result, source ACK or Delta write occurred there."
   ],
-  "packet": "ashlar-r61-fresh-truss055-attempt13-continuation",
+  "packet": "ashlar-r61-fresh-truss055-attempt13-continuation-02",
   "postgres_bootstrap_policy": {
     "initdb_mode": "--no-sync applies only to seed initdb bootstrap; PostgreSQL fsync must be observed on before source operations",
     "install_operation_timeout_ms": 180000,
@@ -146,6 +148,10 @@
       "ack_reconciliation": "9a8f3be23b459034c64d3d774799ecb8e24519b9d310d12af14056a6495474c5",
       "deferred_ack": "7f070f4a937be8e710c4486000f19c9ba8deacf49589375fa5c67f5ad830a95a",
       "manifest_readback": "84d47ad4a700443150280501f1638398317c5e63fe7eedd0e54d366da965b25e",
+      "origin_file": "715811b4e2993786411baf3dc7b4caad6de563ae287cd8a211edfb2ed34df43d",
+      "prior_seed_group_config": "199fbc83ef961695b44ebd9b0685173797fbde73c062ead8801648bc9046d1d0",
+      "prior_supervisor_result": "f6d5909c7252ffeafb5e38c43175ef8f11a974ea0a6e8dc25bb7ea96683eba70",
+      "prior_worker_failure": "d1222f7f5cc236d25b74bca4ff2740d692b9f9dd0bad77026a045ac451c0219b",
       "setup_receipt": "66e9a81b9c7212fe075662794fbc5efe810cad9c05cb23a51d7b0b4f26d1dc1a",
       "source_page": "bcd59d444bec2d757f86d959cf82e5945f832b5e9767ccc2e781f59d672139c7",
       "supervisor_result": "5fe011143d3b25577cde330ccec2dd59e45e42e560cfa10a8a66edcaddc42be7",
@@ -154,7 +160,11 @@
     "manifest_readback_receipt": "/private/tmp/ashlar-r61-attempt13-manifest-readback.json",
     "manifest_sha256": "c64225c5910091575422ac85fd1b8b3b3bf01f4682b0065aa8a10c2df519c478",
     "next_cursor_sha256": "a51963fbe452fa8d064922aad03cd5a2da7b23f6e57b84bc17405cf0ccaaff10",
-    "pgdata_tree_sha256": "76fbac23690a4efb33652986ea13eea8fcbd4861393cb5b03803a3dc45cbf88e",
+    "origin_path": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/origin.json",
+    "pgdata_tree_sha256": "8e0521e7ddbb780d68010a92b811ee0ca07fa2f1ec818304844544ec8586020d",
+    "prior_continuation_root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation",
+    "prior_delta_tree_sha256": "f21f9438bbd71ebc0d5ff846b07dc7577dbd7a0909e637ff2d410146b975503a",
+    "prior_pgdata_tree_sha256": "76fbac23690a4efb33652986ea13eea8fcbd4861393cb5b03803a3dc45cbf88e",
     "profile": "ashlar-r61-resume-after-genesis-ack/0.1",
     "publication_id": "truss-graph-27e5d7a4579d5112c38330d4818bf841a9c19dc8c96602fca84cdca5023ab4e3",
     "source_page_path": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta/source-page-27e5d7a4579d5112c38330d4818bf841a9c19dc8c96602fca84cdca5023ab4e3.json",
@@ -162,19 +172,19 @@
   },
   "source": {
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
-    "qualification_commit": "a2e64f32f7454a2c304371b575c10c673c8066ef",
+    "qualification_commit": "0dc06fea39718687c09d702d333fedec380f9d19",
     "repository": "ashlar",
     "runner_path": "tools/r61_fresh_cohort_runner.py",
-    "runner_sha256": "a6a26f7d8c31af464c6d6a070c945cfd5700a22b3cdc133d4dcbeaf00b7d2fbb",
+    "runner_sha256": "b87329b4a61f776e8e8cba174ddd4e83b9e89c5a442e3bf1ea35d76e896d873e",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
     "setup_stage_sha256": "d6425948b7b84395429f5b83c624cad27843c2e1eda6af66fce16dcc71d1be89",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
     "supervisor_sha256": "c14334239d5270b92ceb9173b4b5a0275cd5efd57ce59ce67a828fe27961e13b",
     "worker_path": "tools/r61_fresh_cohort_worker.py",
-    "worker_sha256": "bd4b4de7ae34f49fe47b5ee06081e994c61ae6e31dbace98c56661596779562a",
+    "worker_sha256": "8d71cf5da7980720fd9ca3b1778a2c44e29bb5d2a1534d1250fed32610e3e1fa",
     "worktree": "/private/tmp/ashlar-r61-fresh-cohort-plan"
   },
-  "status": "attempt13-genesis-ack-matched-continuation-pending-sol-review",
+  "status": "attempt13-continuation-origin-fixed-pending-dispatch",
   "supervisor": {
     "aggregate_output_limit_bytes": 536870912,
     "completion_receipt_required": true,
@@ -198,6 +208,7 @@
   },
   "workflow": [
     "revalidate exact retained attempt13 Truss 0.0.55 source, A0 Delta manifest, stopped PGDATA and no-replay proofs",
+    "reuse the original canonical origin file; require the previous group-command attempt to have failed in local preflight before result creation and preserve its receipts",
     "read the current public consumer checkpoint and require empty_interval at the exact retained A0 next cursor; do not reinstall, republish A0, or repeat its ACK",
     "apply the frozen seven-operation public group exactly once, publish it, verify the full four-role vector and protectively ACK it",
     "run bounded native Weft reads against the seven-operation publication",
