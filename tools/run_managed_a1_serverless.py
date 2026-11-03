@@ -40,6 +40,7 @@ VERIFIER_TIMEOUT_SECONDS = 150
 MIN_DRIVER_AND_CLEANUP_RESERVE_USD = 20.0
 ACK_REAP_RESERVE_SECONDS = 30
 POST_ACK_CLEANUP_RESERVE_SECONDS = 30
+A0_TO_A1_TRANSITION_TIMEOUT_SECONDS = 90
 
 
 class AmbiguousRunSubmissionError(RuntimeError):
@@ -533,11 +534,19 @@ class SourceHolderIPC:
 
     def advance_after_a0_ack(self, settlement, deadline):
         remaining = deadline - time.monotonic()
-        require(remaining > POST_ACK_CLEANUP_RESERVE_SECONDS,
+        require(remaining >= POST_ACK_CLEANUP_RESERVE_SECONDS + 1,
                 "Deadline lacks A0 reconciliation, A1 source transition and cleanup reserve")
-        self.owner.channel.settimeout(min(self.owner.operation_timeout_seconds,
-            remaining - POST_ACK_CLEANUP_RESERVE_SECONDS))
-        return self.owner.advance_after_a0_ack(settlement, deadline=deadline)
+        operation_timeout = max(1, min(A0_TO_A1_TRANSITION_TIMEOUT_SECONDS,
+            int(remaining - POST_ACK_CLEANUP_RESERVE_SECONDS)))
+        previous_operation_timeout = self.owner.operation_timeout_seconds
+        previous_channel_timeout = self.owner.channel.gettimeout()
+        self.owner.operation_timeout_seconds = operation_timeout
+        self.owner.channel.settimeout(operation_timeout)
+        try:
+            return self.owner.advance_after_a0_ack(settlement, deadline=deadline)
+        finally:
+            self.owner.operation_timeout_seconds = previous_operation_timeout
+            self.owner.channel.settimeout(previous_channel_timeout)
 
     def close(self, deadline, *, orderly):
         del deadline

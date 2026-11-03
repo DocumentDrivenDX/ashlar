@@ -30,11 +30,21 @@ class ReadTests(unittest.TestCase):
             return response
         def user():metadata.append('actor');return actor
         w=SimpleNamespace(config=SimpleNamespace(host=c.host,profile=c.profile,config_file=str(c.config_file),databricks_cli_path=str(c.cli),auth_type='databricks-cli'),current_user=SimpleNamespace(me=user),warehouses=SimpleNamespace(get=lambda _:warehouse),api_client=SimpleNamespace(do=request))
-        arguments=[]
-        def construct(**kwargs):arguments.append(kwargs);return w
-        with patch.dict(os.environ,{},clear=True),patch.object(m.os,'getsid',return_value=os.getppid()),patch.object(m.os,'getpgrp',return_value=os.getppid()),patch.object(m.importlib.metadata,'version',return_value='0.160.0'),patch.object(m.importlib,'import_module',return_value=SimpleNamespace(WorkspaceClient=construct)):
+        arguments=[];client_arguments=[]
+        def construct_config(**kwargs):
+            arguments.append(kwargs)
+            return SimpleNamespace(**kwargs)
+        def construct_workspace(**kwargs):
+            client_arguments.append(kwargs)
+            w.config=kwargs['config']
+            return w
+        sdk=SimpleNamespace(WorkspaceClient=construct_workspace)
+        sdk_core=SimpleNamespace(Config=construct_config)
+        def import_sdk(name):
+            return sdk if name=='databricks.sdk' else sdk_core
+        with patch.dict(os.environ,{},clear=True),patch.object(m.os,'getsid',return_value=os.getppid()),patch.object(m.os,'getpgrp',return_value=os.getppid()),patch.object(m.importlib.metadata,'version',return_value='0.160.0'),patch.object(m.importlib,'import_module',side_effect=import_sdk):
             context=m.managed_sql_child_context()
-            yield c,context,w,warehouse,calls,arguments,metadata
+            yield c,context,w,warehouse,calls,arguments,metadata,client_arguments
     def test_actual_retained_supervisor_child_matches_capture_contract(self):
         from ashlar_host.evolution_producer import capture
         source=Path(__file__).resolve().parents[1]/'src'
@@ -49,23 +59,26 @@ class ReadTests(unittest.TestCase):
                 with self.assertRaises(m.ManagedSQLReadError):m.ManagedSQLReader(c,ctx)
                 acquire.assert_not_called()
     def test_concrete_sdk_identity_complete_null_duplicate_bag_and_lifetime(self):
-        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata):
+        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata,client_args):
             with m.open_managed_sql_read(c,context=ctx) as reader:
                 result=reader.query('SELECT x,y FROM original',{})
                 self.assertEqual(result.rows,[{'x':'λ','y':None},{'x':'λ','y':None}]);self.assertEqual(result.columns,(('x','STRING'),('y','STRING')))
                 self.assertEqual(reader.statement_observations,(('owned-1','SUCCEEDED'),))
             self.assertFalse(reader.active);self.assertEqual(args[0]['retry_timeout_seconds'],1)
+            self.assertEqual(args[0]['http_timeout_seconds'],c.http_seconds)
+            self.assertEqual(args[0]['databricks_cli_path'],str(c.cli))
+            self.assertEqual(client_args,[{'config':w.config}])
             self.assertEqual(calls[0][2]['row_limit'],5);self.assertEqual(calls[0][2]['byte_limit'],4096)
             self.assertGreaterEqual(metadata.count('actor'),4)
             with self.assertRaises(m.ManagedSQLReadError):reader.query('SELECT x',{})
     def test_statement_namespace_is_explicit_when_configured(self):
-        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata):
+        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata,_):
             selected=replace(c,catalog='client_dev',schema='trial_schema')
             with m.open_managed_sql_read(selected,context=ctx) as reader:
                 reader.query('SELECT current_catalog(),current_schema()',{})
             body=calls[0][2]
             self.assertEqual((body['catalog'],body['schema']),('client_dev','trial_schema'))
-        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata):
+        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata,_):
             with m.open_managed_sql_read(c,context=ctx) as reader:
                 reader.query('SELECT 1',{})
             self.assertNotIn('catalog',calls[0][2]);self.assertNotIn('schema',calls[0][2])
@@ -86,18 +99,18 @@ class ReadTests(unittest.TestCase):
     def test_owned_pending_cancellation_and_closing_preserve_primary(self):
         primary=KeyboardInterrupt('operation')
         responses=[dict(statement_id='owned-1',status=dict(state='PENDING')),primary,dict(statement_id='owned-1',status=dict(state='CANCELED'))]
-        with self.fixture(responses) as (c,ctx,w,warehouse,calls,args,metadata):
+        with self.fixture(responses) as (c,ctx,w,warehouse,calls,args,metadata,_):
             with self.assertRaises(KeyboardInterrupt) as got:
                 with m.open_managed_sql_read(c,context=ctx) as reader:reader.query('SELECT x',{})
             self.assertIs(got.exception,primary);self.assertFalse(reader.active);self.assertFalse(reader.pending)
             self.assertEqual([path for method,path,_ in calls if method=='POST'],['/api/2.0/sql/statements','/api/2.0/sql/statements/owned-1/cancel'])
     def test_stopped_or_drifted_native_warehouse_refuses_without_submission(self):
-        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata):
+        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata,_):
             warehouse.state.value='STOPPED'
             with self.assertRaises(m.ManagedSQLReadError):
                 with m.open_managed_sql_read(c,context=ctx):self.fail('Not admitted')
             self.assertEqual(calls,[])
-        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata):
+        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata,_):
             with self.assertRaises(m.ManagedSQLReadError):
                 with m.open_managed_sql_read(c,context=ctx):warehouse.name='another'
     def test_shared_pair_and_ambient_credentials_refuse_without_sdk_construction(self):
@@ -105,13 +118,13 @@ class ReadTests(unittest.TestCase):
         with self.assertRaises(m.ManagedSQLReadError):m.ManagedSQLReadConfig(m.SHARED_ENDPOINT[0],c.profile,c.config_file,c.cli,m.SHARED_ENDPOINT[1],c.warehouse_name,c.warehouse_creator,c.actor_id,c.actor_name,1,1,4,4096)
         for alias in (m.SHARED_ENDPOINT[0].upper().replace('HTTPS','https'),m.SHARED_ENDPOINT[0]+':443'):
             with self.subTest(alias=alias),self.assertRaises(m.ManagedSQLReadError):m.ManagedSQLReadConfig(alias,c.profile,c.config_file,c.cli,m.SHARED_ENDPOINT[1],c.warehouse_name,c.warehouse_creator,c.actor_id,c.actor_name,1,1,4,4096)
-        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata):
+        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata,_):
             with patch.dict(os.environ,{'DATABRICKS_TOKEN':'synthetic-never-used'}):
                 with self.assertRaises(m.ManagedSQLReadError):m.ManagedSQLReader(c,ctx)
             self.assertEqual(args,[])
 
     def test_late_terminal_response_refuses_result_without_canceling_finished_statement(self):
-        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata):
+        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata,_):
             with self.assertRaises(m.ManagedSQLReadError):
                 with m.open_managed_sql_read(c,context=ctx) as reader:
                     with patch.object(m.time,'monotonic',side_effect=[0,2]):reader.query('SELECT x',{})

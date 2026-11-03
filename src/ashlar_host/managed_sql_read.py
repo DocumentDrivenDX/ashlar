@@ -3,7 +3,7 @@
 
 Routing accepts trusted internal SELECT/DESCRIBE/SHOW only; it is not an SQL
 sandbox or publication policy. SDK HTTP pools belong to this child process:
-SDK0.117 has no public client close port. Outer supervision must bound/terminate
+SDK0.160 has no public client close port. Outer supervision must bound/terminate
 the child; local HTTP/retry limits alone are not whole-request guarantees.
 """
 from __future__ import annotations
@@ -157,8 +157,12 @@ class ManagedSQLReader:
         self._files=(_file(config.config_file,True),_file(config.cli,False))
         if importlib.metadata.version('databricks-sdk')!=DATABRICKS_SDK_VERSION:raise ManagedSQLReadError('managed-sql-sdk-version')
         sdk=importlib.import_module('databricks.sdk')
-        self.workspace=_safe(lambda:sdk.WorkspaceClient(host=config.host,profile=config.profile,config_file=str(config.config_file),
-            auth_type='databricks-cli',databricks_cli_path=str(config.cli),http_timeout_seconds=config.http_seconds,retry_timeout_seconds=1))
+        sdk_core=importlib.import_module('databricks.sdk.core')
+        self.sdk_config=_safe(lambda:sdk_core.Config(host=config.host,profile=config.profile,
+            config_file=str(config.config_file),auth_type='databricks-cli',
+            databricks_cli_path=str(config.cli),http_timeout_seconds=config.http_seconds,
+            retry_timeout_seconds=1))
+        self.workspace=_safe(lambda:sdk.WorkspaceClient(config=self.sdk_config))
         self._workspace=self.workspace
         self.renew()
 

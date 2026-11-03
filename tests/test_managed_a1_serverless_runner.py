@@ -11,7 +11,7 @@ import unittest
 from unittest.mock import patch
 
 from tools.run_managed_a1_serverless import (
-    _LocalPinStages, _recover_run_after_lost_response, _run_stage, run,
+    _LocalPinStages, SourceHolderIPC, _recover_run_after_lost_response, _run_stage, run,
     _put_volume_bytes,
     _job_runs,
     _validate_ack_settlement,
@@ -239,6 +239,41 @@ class _MixedOwnershipRunsAPI:
 
 
 class ManagedA1ServerlessRunnerTests(unittest.TestCase):
+    def test_a0_to_a1_holder_transition_gets_bounded_extended_ipc_timeout(self):
+        class Channel:
+            def __init__(self):
+                self.timeout = 15
+
+            def gettimeout(self):
+                return self.timeout
+
+            def settimeout(self, value):
+                self.timeout = value
+
+        class Owner:
+            def __init__(self):
+                self.process = object()
+                self.channel = Channel()
+                self.operation_timeout_seconds = 15
+                self.transition_timeout = None
+
+            def advance_after_a0_ack(self, settlement, *, deadline):
+                self.transition_timeout = self.channel.gettimeout()
+                if self.transition_timeout != 90 or self.operation_timeout_seconds != 90:
+                    raise AssertionError("A1 group transition did not receive aligned 90s bounds")
+                return b"a1-genesis"
+
+        owner = Owner()
+        holder = SourceHolderIPC(owner)
+        value = holder.advance_after_a0_ack(object(), time.monotonic() + 180)
+        self.assertEqual(value, b"a1-genesis")
+        self.assertEqual(owner.transition_timeout, 90)
+        self.assertEqual(owner.operation_timeout_seconds, 15)
+        self.assertEqual(owner.channel.gettimeout(), 15)
+        with self.assertRaisesRegex(ValueError, "cleanup reserve"):
+            holder.advance_after_a0_ack(object(), time.monotonic() + 30.5)
+        self.assertEqual(owner.transition_timeout, 90)
+
     def test_auth_describe_accepts_sanitized_nested_host_and_legacy_host_only(self):
         from tools.run_managed_a1_serverless import HOST
         captured_path = Path("/private/tmp/ashlar-managed-auth-describe.json")
