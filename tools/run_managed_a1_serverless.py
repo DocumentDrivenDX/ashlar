@@ -31,10 +31,13 @@ MAX_SECONDS = 900
 HARD_USD = 100.0
 PREFERRED_USD = 10.0
 SERVERLESS_USD_PER_DBUH = 0.47
-WORST_SERVERLESS_DBUH = 960.0
-MAX_PAID_TASK_SECONDS = 540
+WORST_SERVERLESS_DBUH = 480.0  # 2x the largest published default (240 DBU/h)
+MAX_PAID_TASK_SECONDS = 690  # 630 task-cap seconds plus the 60s read-only probe
 RUNTIME_PROBE_TASK_SECONDS = 60
-MAX_SOURCE_BOOTSTRAP_SECONDS = 375
+MAX_SOURCE_BOOTSTRAP_SECONDS = 165
+INITIALIZER_TIMEOUT_SECONDS = 180
+PUBLISHER_TIMEOUT_SECONDS = 75
+VERIFIER_TIMEOUT_SECONDS = 75
 MIN_DRIVER_AND_CLEANUP_RESERVE_USD = 20.0
 ACK_REAP_RESERVE_SECONDS = 30
 POST_ACK_CLEANUP_RESERVE_SECONDS = 30
@@ -293,9 +296,10 @@ def build_payload(config: object) -> tuple[dict, dict]:
             "dependencies": [item["path"] for item in task["dependencies"]],
         }}
         stage_payloads[key] = {"task": task_payload, "environment": env}
-    require(all(config[key]["timeout_seconds"] == 60
-                for key in ("initializer", "publisher", "verifier")),
-            "Each serverless task must use the admitted 60-second timeout")
+    require(config["initializer"]["timeout_seconds"] == INITIALIZER_TIMEOUT_SECONDS
+            and config["publisher"]["timeout_seconds"] == PUBLISHER_TIMEOUT_SECONDS
+            and config["verifier"]["timeout_seconds"] == VERIFIER_TIMEOUT_SECONDS,
+            "Serverless task budgets must match the admitted init/publish/verify caps")
     paid_seconds = (config["initializer"]["timeout_seconds"]
                     + 2 * config["publisher"]["timeout_seconds"]
                     + 4 * config["verifier"]["timeout_seconds"])
@@ -304,7 +308,7 @@ def build_payload(config: object) -> tuple[dict, dict]:
                 (paid_seconds + RUNTIME_PROBE_TASK_SECONDS) * WORST_SERVERLESS_DBUH / 3600
             and paid_seconds + MAX_SOURCE_BOOTSTRAP_SECONDS + 45
             <= wall - cleanup_seconds,
-            "Two publication cycles plus post-ACK close verifiers, <=540s paid tasks, source bootstrap, and handoffs must fit before cleanup reserve")
+            "Two publication cycles plus post-ACK close verifiers, <=690s including probe, source bootstrap, and handoffs must fit before cleanup reserve")
     return stage_payloads, config
 
 

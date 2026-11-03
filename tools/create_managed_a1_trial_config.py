@@ -16,7 +16,10 @@ import sys
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPOSITORY_ROOT))
 sys.path.insert(0, str(REPOSITORY_ROOT / "src"))
-from tools.run_managed_a1_serverless import HOST, build_payload
+from tools.run_managed_a1_serverless import (
+    HOST, INITIALIZER_TIMEOUT_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
+    VERIFIER_TIMEOUT_SECONDS, build_payload,
+)
 
 
 def _artifact(spec: str) -> dict:
@@ -118,7 +121,11 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
             "environment_version": environment_version,
             "dependencies": dependencies,
             "base_parameters": {"task_parameters_json": "{}"},
-            "timeout_seconds": 60}
+            "timeout_seconds": {
+                "initializer": INITIALIZER_TIMEOUT_SECONDS,
+                "publisher": PUBLISHER_TIMEOUT_SECONDS,
+                "verifier": VERIFIER_TIMEOUT_SECONDS,
+            }[role]}
     now_us = str(int(datetime.now(timezone.utc).timestamp() * 1_000_000))
     qualification = local_receipt.resolve(strict=True)
     try:
@@ -138,7 +145,8 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
             "expected_runtime": runtime, "stream": "ashlar-managed-a1-" + suffix,
             "stage_id": "managed-a1-trial-" + trial_id[3:], "materialized_at": now_us,
             "destination_id": "client_dev." + schema, "cost": cost,
-            "publisher_timeout_seconds": 60, "verifier_timeout_seconds": 60},
+            "publisher_timeout_seconds": PUBLISHER_TIMEOUT_SECONDS,
+            "verifier_timeout_seconds": VERIFIER_TIMEOUT_SECONDS},
         "protocol_profile": {"identity": PROFILE.identity,
             "reader_versions": list(PROFILE.reader_versions),
             "writer_versions": list(PROFILE.writer_versions),

@@ -8,7 +8,11 @@ import tempfile
 import unittest
 
 from tools.create_managed_a1_trial_config import build_config
-from tools.run_managed_a1_serverless import MAX_SOURCE_BOOTSTRAP_SECONDS, build_payload
+from tools.run_managed_a1_serverless import (
+    INITIALIZER_TIMEOUT_SECONDS, MAX_PAID_TASK_SECONDS,
+    MAX_SOURCE_BOOTSTRAP_SECONDS, PUBLISHER_TIMEOUT_SECONDS,
+    RUNTIME_PROBE_TASK_SECONDS, VERIFIER_TIMEOUT_SECONDS, build_payload,
+)
 from ashlar_host.configured_local_runtime import PROFILE
 
 
@@ -43,10 +47,18 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
             self.assertTrue(Path(config["holder_bootstrap"]["python"]).is_symlink())
         payload, locked = build_payload(config)
         self.assertIs(locked, config)
-        self.assertEqual(config["initializer"]["timeout_seconds"]
-            + 2 * config["publisher"]["timeout_seconds"]
-            + 4 * config["verifier"]["timeout_seconds"], 420)
-        self.assertEqual(420 + MAX_SOURCE_BOOTSTRAP_SECONDS + 45,
+        self.assertEqual(config["initializer"]["timeout_seconds"],
+                         INITIALIZER_TIMEOUT_SECONDS)
+        self.assertEqual(config["publisher"]["timeout_seconds"],
+                         PUBLISHER_TIMEOUT_SECONDS)
+        self.assertEqual(config["verifier"]["timeout_seconds"],
+                         VERIFIER_TIMEOUT_SECONDS)
+        paid_cap_seconds = (INITIALIZER_TIMEOUT_SECONDS + 2 * PUBLISHER_TIMEOUT_SECONDS
+                            + 4 * VERIFIER_TIMEOUT_SECONDS)
+        self.assertEqual(paid_cap_seconds, 630)
+        self.assertEqual(paid_cap_seconds + RUNTIME_PROBE_TASK_SECONDS,
+                         MAX_PAID_TASK_SECONDS)
+        self.assertEqual(630 + MAX_SOURCE_BOOTSTRAP_SECONDS + 45,
                          config["maximum_wall_seconds"] - config["cleanup_reserve_seconds"])
         self.assertEqual(config["cost"]["authorized_total_dbu"], 128.0)
         self.assertLess(config["cost"]["estimated_total_usd"], 10)
