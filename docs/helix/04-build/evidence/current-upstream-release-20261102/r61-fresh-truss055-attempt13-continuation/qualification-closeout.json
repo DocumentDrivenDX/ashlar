@@ -1,0 +1,152 @@
+{
+  "artifacts": {
+    "ashlar_source_commit": "ea4248833bfacc59dca056ef51cfc1565dd3c74e",
+    "ashlar_wheel_sha256": "705b16c54f92ad051eda0fe8d08af5ac385de09f8a421f4a1b76123eaa4ea5d8",
+    "graphframes_manifest_sha256": "d0e9c16d8a3c236bda3fd3c898e186d93e74c08a1dec5f92477418a9c2e068f5",
+    "truss_manifest_sha256": "5ecb599f65d64e6656bf6c83c30cea6e2aefd488cb3fe821b749458d5e9b3522",
+    "truss_wheel_sha256": "156df20641d8c4fee6d836c6b29266a0a7eb3b1299c407e430ce0d2c07a79805"
+  },
+  "code_fixes": {
+    "graph_path_count_commit": "499f2785429778d0227b6138a9096efcbc96ee01",
+    "graphframes_cli_sha256": "96710b375a4723b7188a4f2077024ba9666a4afadc49581a005d66163e2c1f51",
+    "truss_custody_adapter_commit": "f67e495345916fd4460230d34728721acb67891c",
+    "worker_sha256": "933b53272588ea93d8a06225d23909151df2309e667686d876cc48afb6279b56"
+  },
+  "failed_attempt_history": {
+    "first_graphframes_only_supervisor": "monitor_refused_before_bounded_logging_after_child_start_due_to_invalid_psutil_pgid_attribute",
+    "observed_owned_process_group": 91753,
+    "observed_spark_jvm_pid": 91754,
+    "partial_private_output_retained": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation-05/evidence/graphframes",
+    "post_term_census_empty": true,
+    "source_or_delta_replayed": false,
+    "successful_retry": "graphframes-run02",
+    "term_sent": true
+  },
+  "format": "ashlar-r61-local-qualification-closeout/0.1",
+  "graphframes": {
+    "caps": {
+      "aggregate_rss_bytes": 4294967296,
+      "wall_seconds": 300
+    },
+    "census_error": null,
+    "counts": {
+      "edges": 3,
+      "isolates": 2,
+      "nodes": 6,
+      "one_hop": 3,
+      "two_hop": 2
+    },
+    "custody_sha256": "373aff118c2eb4d9caeb9d89da19e221dad63310749db7ce6b4ed0334238ed7a",
+    "elapsed_seconds": 10.277,
+    "full_row_parity": true,
+    "peak_process_group_rss_bytes": 993968128,
+    "post_exit_process_census": {
+      "census_errors": [],
+      "matches": [
+        "run_graph_release_graphframes.py",
+        "Ashlar release small GraphFrames",
+        "org.apache.spark.deploy.SparkSubmit"
+      ],
+      "matching_processes_remaining": []
+    },
+    "release_sha256": "6006f2dc4464e44c3dcdbc3a082d6133ea897ca737a3aafe247c465f203c13ac",
+    "report_sha256": "94f82de749ed2d9169be87c4a159bc2dcb044f7fbeabac0a6acb2ff9cb6183cf",
+    "returncode": 0,
+    "run_log_sha256": "080c265a740e5809acbf698294dded3ef6be61bffa25a95d02c9767bfe34af85",
+    "run_receipt_sha256": "14d1214ef55941e650ef46c90e5fcf639689c2d3b2e4a8cf8488541f74303916",
+    "runtime_versions": {
+      "delta-spark": "3.2.1",
+      "graphframes-py": "0.12.3",
+      "pyspark": "3.5.3"
+    },
+    "status": "passed_retained_export_only",
+    "tracked_report": "graphframes-report.json",
+    "unpublished_append_control": {
+      "pinned_r1_unchanged": true,
+      "role": "nodes"
+    }
+  },
+  "owner_cleanup": {
+    "note": "The full worker exited after its legacy GraphFrames custody adapter refused the real Truss custody format. The source publication, native Weft phase, protected ACK, owner export, and close succeeded first; the separately reviewed GraphFrames-only run then passed against the retained bytes.",
+    "postgres_closed": true,
+    "postgres_postmaster_pid_absent": true,
+    "source_phase_elapsed_seconds": 305.954,
+    "source_phase_peak_group_rss_bytes": 1384235008,
+    "source_process_group_empty": true,
+    "source_supervisor_receipt_sha256": "8f834a40b1e4c119b8e877843485a9e458f6b0ca478373ee8eceea8eb05bc3c3",
+    "source_worker_failure_sha256": "b8009bbc71167e975d1eaaf79a6657c3fb8dcb56a1753664be49f8f39c55ff60",
+    "source_worker_returncode": 2,
+    "source_worker_supervisor_status": "failed_worker"
+  },
+  "qualification_scope": {
+    "authority": "local development only; fresh baseline, no historical migration/recovery or production authority",
+    "cloud": false,
+    "resource_caps": {
+      "aggregate_rss_bytes": 4294967296,
+      "output_bytes": 536870912,
+      "wall_seconds": 900
+    },
+    "runtime": "fresh local Truss 0.0.55 + UMF SDK 0.10.2/Core 0.10.6; UMF model 0.10.0; Delta profile ashlar-delta/0.4-xxhash64"
+  },
+  "source_and_delta": {
+    "continuation_group": {
+      "evidence_sha256": "ad16c9b83696a6467512dd0a089e6e4220a16dc68ca3a7bdbe71b1543343d601",
+      "object_ids": [
+        "8",
+        "9"
+      ],
+      "source_version": "0.10.0",
+      "status": "committed_once"
+    },
+    "final_profile": "ashlar-delta/0.4-xxhash64",
+    "final_publication_id": "truss-graph-335e0280edcbcfc989d8ceeabce031813deb5f14d91512412b71fc2635a8cd0f",
+    "final_source_page_sha256": "f14f4b6646c49df38a635a630ba503f101d432086ddeeb3958c3c06a9c569834",
+    "final_writer_xid": "813",
+    "four_role_table_versions_json": "{\"local.trussgraph.edge_current\":2,\"local.trussgraph.object_current\":3,\"local.trussgraph.tombstone\":1,\"local.trussgraph.whole_source_history\":3}",
+    "genesis_publication_id": "truss-graph-27e5d7a4579d5112c38330d4818bf841a9c19dc8c96602fca84cdca5023ab4e3",
+    "native_weft": {
+      "compiler": "umf-weft/0.4.56",
+      "durable_native_query_result_hash": null,
+      "note": "The native query values were returned in worker memory; the later GraphFrames adapter exception prevented the full worker completion receipt from persisting its Weft object.",
+      "observed_grouped": [
+        {
+          "paths": "1",
+          "person_key": "p1",
+          "targets": "1"
+        }
+      ],
+      "observed_singleton": [
+        {
+          "person_key": "p1",
+          "person_name": "Ada"
+        }
+      ],
+      "result_values_are_string_carriers": true,
+      "status": "passed_before_continuation"
+    },
+    "owner_graph_export": {
+      "custody_bytes": 8221,
+      "custody_sha256": "373aff118c2eb4d9caeb9d89da19e221dad63310749db7ce6b4ed0334238ed7a",
+      "engine_execution": false,
+      "files": [
+        "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation-05/evidence/r61-graph-release.json",
+        "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation-05/evidence/r61-graph-custody.json"
+      ],
+      "release_bytes": 16212,
+      "release_sha256": "6006f2dc4464e44c3dcdbc3a082d6133ea897ca737a3aafe247c465f203c13ac"
+    },
+    "seed_publication_id": "truss-graph-c91f32a80ece198f8437864be029f8fa9a2ca38e3213bd587693d3479b23a102",
+    "source_ack": {
+      "attempted": true,
+      "closed_reconciled": true,
+      "evidence_sha256": "b8009bbc71167e975d1eaaf79a6657c3fb8dcb56a1753664be49f8f39c55ff60",
+      "state": "closed_reconciled"
+    },
+    "source_checkpoint_after_ack": {
+      "batch_id": "813",
+      "cursor_next_xid": "814",
+      "payload_digest": "f14f4b6646c49df38a635a630ba503f101d432086ddeeb3958c3c06a9c569834"
+    }
+  },
+  "status": "passed"
+}
