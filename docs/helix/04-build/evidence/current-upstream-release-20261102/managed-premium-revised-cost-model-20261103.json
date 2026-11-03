@@ -1,0 +1,42 @@
+{
+  "activity_dbu": 69,
+  "assumption": "Same Premium workspace default automated-compute tier was unchanged across these recent retained runs; no custom compute object was selected.",
+  "authorized_ceiling_usd": 100,
+  "conservative_activity_windows_seconds": {
+    "original_genesis_trial": 450,
+    "read_only_inventory_capture": 180,
+    "remaining_recovery": 1230,
+    "retired_column_metadata_failure": 120,
+    "retired_receipt_guard_failure": 90
+  },
+  "cumulative_activity_seconds": 2070,
+  "driver_cleanup_variation_reserve_usd": 20,
+  "historical_task_seconds": 1582,
+  "limitations": [
+    "Directional executor cap, not an invoice guarantee.",
+    "Historical53 revises the earlier106 worst-case tier estimate; earlier evidence remains unchanged.",
+    "Read-only admissions and diagnostic code work run while Jobs are terminal; no additional paid task is implied.",
+    "No billion-node scale run is authorized or included."
+  ],
+  "model": "Single sequential original trial, retired failures and one bounded remaining recovery; approximate Premium executor default plus ancillary reserve.",
+  "modeled_compute_usd": 57.34,
+  "modeled_total_usd": 77.34,
+  "original_historical_dbu_snapshot": 106,
+  "original_unknown_tier_rate_dbu_per_hour": 240,
+  "revised_historical_dbu": 53,
+  "revised_premium_default_dbu_per_hour": 120,
+  "same_workspace_premium_evidence": [
+    {
+      "path": "docs/helix/04-build/evidence/current-upstream-release-20261023/managed-fixed-jobs-retail-observation.json",
+      "sha256": "4ed893011a9c7c7ac8b71d078242d7087fffcc633aa6f8103646e2e7ccb616ad"
+    },
+    {
+      "observed_arm_workspace_id": "7405607548213398",
+      "path": "managed-serverless-premium-basis-20261103.json"
+    }
+  ],
+  "status": "superseded_model_not_invoice",
+  "superseded_by": "managed-a1-resume-20261103/final-cost-envelope.json",
+  "total_modeled_dbu": 122,
+  "usd_per_dbu": 0.47
+}

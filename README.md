@@ -5,17 +5,14 @@ A standard graph data model for Databricks.
 Ashlar starts with a shared structure for graph nodes on Databricks. Its name
 comes from precisely shaped stones that fit together into a larger structure.
 
-**Implementation status:** Development toolkit with qualified local Delta ingest,
-PostgreSQL outbox ACK, publication-bound Weft queries, immutable GraphFrames/PuppyGraph
-projections, and local Truss typed graph/feed/evolution workflows. Fabric integration
-and broader query support remain unfinished. See
-the [query qualification table](examples/end-to-end/QUERY-GALLERY.md#qualified-original-query-subsets)
-and [delivery scope](docs/helix/04-build/toolkit-delivery-plan.md) for exact subsets.
-The managed-current 0.4 `xxhash64` SQL path now preserves signed 64-bit identity
-values through typed JSON staging and uses one last-wins index per fresh change
-page; focused tests and a small local Spark parser check passed. See the
-[bounded implementation evidence](docs/helix/04-build/evidence/current-upstream-release-20261021/local-current/xxhash64-typed-json-staging-20261022.json)
-for its limits; this does not qualify a managed Unity Catalog publication.
+**Implementation status:** Version 0.1.0 qualifies local Truss/Delta ingest,
+publication-bound Weft reads and graph export, plus the selected Databricks
+serverless Spark 4.2.0 / environment 6 Unity Catalog publication profile.
+The managed trial verified all four role tables, matched protected source ACKs,
+kept predictive optimization enabled, and removed its disposable schema.
+See the [release notes](docs/helix/05-deploy/release-notes.md) and
+[query qualification table](examples/end-to-end/QUERY-GALLERY.md#qualified-original-query-subsets)
+for exact support. Fabric integration and broader query support remain unfinished.
 One local 72-partition 45M/225M performance candidate projects 22.437 minutes
 for setup, writes and one combined witness at 80% of measured throughput. No
 further performance run has occurred; the full 1B/5B path remains held. See the
@@ -30,7 +27,9 @@ graph deletion, typed publication-bound queries, and same-version UMF 0.7/0.8
 additive field evolution on the supported local Truss runtime. The guide identifies
 the independently qualified model and runtime subsets.
 
-Install the candidate toolkit locally (Python3.9+):
+Release artifacts and checksums are distributed through
+[GitHub v0.1.0](https://github.com/DocumentDrivenDX/ashlar/releases/tag/v0.1.0).
+For a source checkout, install locally (Python 3.9+; native profiles have separate runtime requirements):
 
 ```sh
 python3 -m pip install .

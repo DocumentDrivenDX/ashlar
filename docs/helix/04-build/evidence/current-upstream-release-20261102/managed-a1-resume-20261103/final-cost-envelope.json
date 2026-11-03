@@ -1,0 +1,22 @@
+{
+  "ancillary_and_variation_reserve_usd": 20,
+  "approximate_premium_executor_dbu_per_hour": 120,
+  "authorized_ceiling_usd": 100,
+  "basis": "Premium Automated Serverless Compute retail price, observed workspace tier and documented approximate default executor cap; this is a cost model, not an invoice or enforced currency cap.",
+  "billing_observed": false,
+  "bounded_activity_seconds": 2850,
+  "historical_dbu_model": 53,
+  "modeled_compute_usd": 69.56,
+  "modeled_total_with_reserve_usd": 89.56,
+  "no_billion_scale_run": true,
+  "preferred_budget_usd": 10,
+  "price_and_tier_evidence": "../managed-serverless-premium-basis-20261103.json",
+  "profile": "ashlar-managed-release-final-cost-envelope/0.1",
+  "r23_charged_window_seconds": 420,
+  "r24_active_seconds": 0,
+  "r25_active_cap_seconds": 810,
+  "r25_actual_active_seconds": 683.7847527498379,
+  "total_modeled_dbu": 148,
+  "trial_schema_volume_and_six_tables_removed": true,
+  "usd_per_dbu": 0.47
+}

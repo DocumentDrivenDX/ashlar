@@ -1,0 +1,56 @@
+{
+  "capture_limits": {
+    "body_seconds": 150,
+    "dependencies": [],
+    "environment_version": "6",
+    "job_seconds": 180,
+    "maximum_rows_per_role": 128,
+    "output_bytes": 2097152,
+    "retries": 0
+  },
+  "effects": "read-only SELECT/DESCRIBE only; no source, Delta writes, acknowledgement, or policy changes",
+  "installation_inventory": {
+    "edge_current": {
+      "name": "client_dev.ashlar_a1_release_20261103_serverless_r1.edge_current",
+      "uuid": "7bdb2ea3-1137-467b-9e78-f94cef34b76f",
+      "version": 0
+    },
+    "object_current": {
+      "name": "client_dev.ashlar_a1_release_20261103_serverless_r1.object_current",
+      "uuid": "159db8f0-ab8f-4a36-a40e-267ae003640a",
+      "version": 0
+    },
+    "publication_attempt_phase": {
+      "name": "client_dev.ashlar_a1_release_20261103_serverless_r1.publication_attempt_phase",
+      "uuid": "f873e663-2509-4cd0-aa2a-87237d507254",
+      "version": 5
+    },
+    "publication_manifest": {
+      "name": "client_dev.ashlar_a1_release_20261103_serverless_r1.publication_manifest",
+      "uuid": "9f185334-d4c3-466d-ac2a-2652c53a5ea5",
+      "version": 2
+    },
+    "tombstone": {
+      "name": "client_dev.ashlar_a1_release_20261103_serverless_r1.tombstone",
+      "uuid": "c7b24be8-dab0-4831-be1f-dcc9eecb06c9",
+      "version": 0
+    },
+    "whole_source_history": {
+      "name": "client_dev.ashlar_a1_release_20261103_serverless_r1.whole_source_history",
+      "uuid": "6a09f8ee-5866-4bf7-b77f-2672f091fcb2",
+      "version": 0
+    }
+  },
+  "notebook_path": "docs/helix/04-build/evidence/current-upstream-release-20261102/managed-r20-versioned-role-rows-20261103/capture.py",
+  "notebook_sha256": "77cf993d3653064f233ebe10a22c8a6c03ba3ec4c8d5f33a1e24c34de3a84b6b",
+  "operations_per_role": [
+    "DESCRIBE DETAIL (UUID equality check)",
+    "SELECT * VERSION AS OF receipt version"
+  ],
+  "payload_sha256": "85935275e3a6e2fade3aacc0fc098714e46e182e123743fd9195afcd6d93e9a9",
+  "producer_result_path": "/private/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-a1-recovery-mddw1v9u/a0_publisher_result.bin",
+  "producer_result_sha256": "9b90f21685e92e8e236b632d779978e0c66840248bcff4da7545c23802d18b78",
+  "profile": "ashlar-managed-a1-r20-versioned-role-rows/0.1",
+  "publication_id": "ashlar-current-incremental:39f0c463cf28854ed0b37d277b9c6be68fc15ab5d3b344f486ed2b5561618374",
+  "workspace_notebook_path": "/Workspace/Users/erik.labianca@synaptiq.ai/.ashlar-release-20261103/managed_a1/r20_versioned_role_rows.py"
+}

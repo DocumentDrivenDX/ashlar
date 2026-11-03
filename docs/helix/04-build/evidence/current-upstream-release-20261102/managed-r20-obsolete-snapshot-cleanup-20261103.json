@@ -1,0 +1,10 @@
+{
+  "status": "removed_exact_owned_obsolete_attempt_artifact",
+  "volume_id": "0bc0133c-ddfa-4ea9-a551-b6b4ead661bf",
+  "uri": "dbfs:/Volumes/client_dev/ashlar_a1_release_20261103_serverless_r1/ashlar_a1_volume_release_20261103_serverless_r1/a0-recovery-source-snapshot.bin",
+  "sha256": "bb6d03687f06a546923004ed141f1711e7a6f33e6ba8576a9bec7ab5fd21f4bb",
+  "private_copy_retained": true,
+  "source_ack_attempted": false,
+  "original_genesis_and_six_tables_modified": false,
+  "remaining_original_files": 6
+}

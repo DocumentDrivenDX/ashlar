@@ -10,7 +10,7 @@ Native singleton reads work through the publication resolver independently of Fa
 - [Runnable setup, ingest and query example](../../examples/end-to-end/README.md)
 - [Toolkit components and local commands](../../src/ashlar/README.md)
 - [Execution plan and evidence](04-build/end-to-end-plan.md)
-- [Draft 0.1.0rc1 candidate notes (not for distribution)](05-deploy/release-notes.md)
+- [0.1.0 release notes](05-deploy/release-notes.md)
 - [Current release closure sequence](04-build/release-closure-20261101.md)
 - [Product requirements](01-frame/prd.md) and [consumer conformance strategy](03-test/consumer-conformance-plan.md)
 - [Physical tables](02-design/contracts/CONTRACT-003-delta-graph-tables.md),
@@ -22,9 +22,9 @@ Native singleton reads work through the publication resolver independently of Fa
 
 The current local qualification cohort is Truss 0.0.55, UMF SDK 0.10.2 /
 Python Core 0.10.6, Weft 0.4.56, Access 0.1.0.dev8 and declared UMF
-model 0.10.0. Ashlar package metadata is `0.1.0rc1`, and the provider-cache
-candidate is built and staged. No tag or publication has occurred; the remaining
-qualification gates are still open.
+model 0.10.0. The selected managed serverless qualification passed for its
+documented profile. Ashlar package metadata is `0.1.0`; the release channel is
+GitHub.
 
 The composed R61 local-development run used Spark 4.2.0 / Delta 4.4.1 and the
 `.4-xxhash64` carrier. It committed a metadata genesis, seven-operation seed
@@ -42,17 +42,22 @@ group replay or Delta write. This recovery records a source-hold discontinuity
 and uses local path-based Delta reads; it does not establish Databricks or
 Unity Catalog execution. See the [attempt14 recovery closeout](04-build/evidence/current-upstream-release-20261102/managed-current-attempt14-a1-recovery/closeout.json).
 
-The managed trial is blocked pending the owner's catalog-scope decision. The
-usual workspace permits development-schema creation, but its catalog inventory
-does not include `client_dev`; the separate `aidev` workspace exposes
-`client_dev` to the current principal. The dedicated managed classic Spark Jobs
-attempt was refused by the workspace backend before cluster creation because
-the organization has no associated worker environments; no classic workload
-ran. Fabric integration is unfinished, and the 1B-node / 5B-edge scale trial
-remains held. The current release closure records each remaining gate. The
-candidate has no tag or GitHub release. The
-[candidate release-notes draft](05-deploy/release-notes.md) is not for
-distribution.
+The selected `aidev-cus` managed serverless target passed the R25 A1
+continuation: 14 native rows matched the exact table UUID/version vector,
+predictive optimization was enabled at all three checks, and the protected
+Truss ACK matched. R25 reused the matched R23 A0 settlement and committed A1
+seed without replay after recording the source-hold gap; source, pin, schema,
+table, and Volume cleanup completed. See the [managed closeout](04-build/evidence/current-upstream-release-20261102/managed-a1-resume-20261103/managed-a1-closeout-provenance.json),
+[raw qualification receipt](04-build/evidence/current-upstream-release-20261102/managed-a1-resume-20261103/managed-a1-closeout.json),
+and [R23 A0 / RC10 source-probe evidence](04-build/evidence/current-upstream-release-20261102/managed-a1-resume-20261103/r23-a0-and-rc10-a1-source-probe.json).
+
+The original workspace's catalog inventory did not include `client_dev`; the
+selected `aidev-cus` workspace exposes it to the current principal. The
+dedicated managed classic Spark Jobs attempt was refused by the workspace
+backend before cluster creation because the organization has no associated
+worker environments; no classic workload ran. Fabric integration is
+unfinished, and the 1B-node / 5B-edge scale trial remains held. The current
+release closure records the completed managed scope and local release sequence.
 
 ## Requirements navigation
 
