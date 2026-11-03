@@ -1608,7 +1608,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             materialized_at=trial["materialized_at"], context=context)
         request_bytes = json.dumps(plan.request, sort_keys=True, separators=(",", ":"),
                                    ensure_ascii=False, allow_nan=False).encode("utf-8")
-        publication_id = plan.request["publication_id"]
+        publication_id = plan.publication_id
         recovery_state["frozen_a1_request"] = {"request_sha256": hashlib.sha256(request_bytes).hexdigest(),
             "publication_id": publication_id}
         _write_private_json(recovery_path, recovery_state)
@@ -1854,7 +1854,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
             materialized_at=trial["materialized_at"], context=object(), continuation=True)
         a1_request_bytes = json.dumps(a1_plan.request, sort_keys=True, separators=(",", ":"),
             ensure_ascii=False, allow_nan=False).encode("utf-8")
-        a1_publication_id = a1_plan.request["publication_id"]
+        a1_publication_id = a1_plan.publication_id
         a1_snapshot_bytes, a1_custody_digests = holder.open_a1(
             a1_request_bytes, a1_publication_id, destination_id, work_deadline)
         require(len(a1_snapshot_bytes) <= 4 * 1024 * 1024,

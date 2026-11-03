@@ -138,6 +138,19 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
                 selection, {}, stream="source-stream", materialized_at="1",
                 context=object())
 
+    def test_publication_id_helper_is_the_exact_materializer_derivation(self):
+        from ashlar_host.managed_current_publication import managed_current_publication_id
+        digest='a'*64
+        self.assertEqual(managed_current_publication_id(digest),
+            'ashlar-current:'+hashlib.sha256(digest.encode()).hexdigest())
+        self.assertEqual(managed_current_publication_id(digest,incremental=True),
+            'ashlar-current-incremental:'+hashlib.sha256(digest.encode()).hexdigest())
+        for invalid in ('A'*64, '0'*63, 'g'*64, None):
+            with self.assertRaisesRegex(ValueError, 'Canonical request digest'):
+                managed_current_publication_id(invalid)
+        with self.assertRaisesRegex(ValueError, 'Canonical request digest'):
+            managed_current_publication_id(digest,incremental=1)
+
     def test_requires_both_original_observations_and_only_a_page_batch(self):
         batch = object()
         observations = {
@@ -171,6 +184,13 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
                    return_value=predecessor):
             plan = prepare_managed_current_a1_trial(selection, manifest,
                 stream='source-stream', materialized_at='1762000000000000', context=context)
+            from ashlar_host.managed_current_publication import managed_current_publication_id
+            self.assertEqual(plan.publication_id,
+                managed_current_publication_id(plan.request['request_digest']))
+            self.assertEqual(replace(plan, phase='a0_metadata').publication_id,
+                managed_current_publication_id(plan.request['request_digest']))
+            with self.assertRaisesRegex(ValueError, 'phase is not admitted'):
+                replace(plan, phase='unrecognized').publication_id
             selected_admission, selected_predecessor, selected_batch, request = (
                 _managed_current_a1_task_inputs(plan, stream='source-stream',
                     predecessor='genesis-manifest', schema_revisions_json='{}',
@@ -245,6 +265,9 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
         plan = prepare_managed_current_a1_continuation(selection, predecessor,
             stream='source-stream', materialized_at='1', context=object())
         self.assertEqual(plan.phase, 'a1_continuation')
+        from ashlar_host.managed_current_publication import managed_current_publication_id
+        self.assertEqual(plan.publication_id,
+            managed_current_publication_id(plan.request['request_digest'], incremental=True))
         self.assertEqual(plan.request['predecessor'], 'a0-publication')
         self.assertIsNone(plan.driver_inputs['managed_genesis_predecessor'])
         self.assertIsNone(plan.driver_inputs['source_owner_admitted_batch'])

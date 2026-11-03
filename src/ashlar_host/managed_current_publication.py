@@ -164,6 +164,16 @@ def _sha(text):
     return hashlib.sha256(raw).hexdigest()
 
 
+def managed_current_publication_id(request_digest, *, incremental=False):
+    """Return the publication identifier owned by the managed materializer."""
+    _require(type(request_digest) is str and len(request_digest)==64
+        and all(character in '0123456789abcdef' for character in request_digest)
+        and type(incremental) is bool,
+        'Canonical request digest and explicit managed publication phase required')
+    prefix='ashlar-current-incremental:' if incremental else 'ashlar-current:'
+    return prefix+_sha(request_digest)
+
+
 def _normalize_native(value):
     from datetime import datetime,timezone
     if isinstance(value,datetime):
@@ -422,7 +432,7 @@ class ManagedCurrentGraphPublicationDriver:
             if role is None:raise ManagedCurrentPublicationError('Unowned genesis data statement refused')
             counts[role]+=1
         expected=self._expected_rows(steps,baseline_data_rows)
-        self.publication_id='ashlar-current:'+_sha(request['request_digest'])
+        self.publication_id=managed_current_publication_id(request['request_digest'])
         baseline=baseline_installation or {role:{'name':self.names[role],'uuid':self.targets.opening[role].uuid,'version':self.targets.opening[role].version}
                   for role in ROLES}
         body={'profile':'ashlar-managed-current-exact-plan/0.1','request':dict(request),
@@ -904,7 +914,8 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
             source_progress=source_progress, materialized_at=instant,
             lookup_hash_profile=self.targets.carriers.lookup_hash_profile if hasattr(self.targets.carriers,'lookup_hash_profile')
                 else 'sha256-json-v1')
-        self.publication_id = 'ashlar-current-incremental:' + _sha(request['request_digest'])
+        self.publication_id = managed_current_publication_id(
+            request['request_digest'], incremental=True)
         body = {'profile': 'ashlar-managed-current-incremental-plan/0.1',
             'requestAnchor': intent['request'], 'sourceAdmission': self.admission.metadata(),
             'sourcePageSha256': _sha(self.admission.batch.begin),

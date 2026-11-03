@@ -186,6 +186,7 @@ class Tests(unittest.TestCase):
         import hashlib
         from tests.test_managed_current_core import _current_admission
         from ashlar_host.publication_planning import truss_request_for
+        from ashlar_host.managed_current_publication import managed_current_publication_id
         admission=_current_admission();spark=Spark()
         profile=ReaderProtocolProfile('test-current-managed-reader',(1,),(2,),())
         target=ManagedCurrentTargetOwner(spark,catalog='client_dev',schema='trial_schema',protocol_profile=profile)
@@ -194,6 +195,8 @@ class Tests(unittest.TestCase):
             materialized_at='1',context=context)
         request=truss_request_for('dev-feed',admission.batch,'managed-current-genesis/0.1',driver.revisions)
         driver.prepare_truss_apply(request,context)
+        self.assertEqual(driver.publication_id,
+            managed_current_publication_id(request['request_digest']))
         retained=driver.prepared_plan(request,context)
         self.assertEqual(json.loads(retained)['profile'],'ashlar-managed-current-exact-plan/0.1')
         self.assertEqual(json.loads(retained)['sourcePageSha256'],hashlib.sha256(admission.batch.begin).hexdigest())
@@ -267,6 +270,7 @@ class Tests(unittest.TestCase):
     def test_incremental_empty_page_uses_compact_intent_and_four_role_manifest(self):
         from tests.test_managed_current_core import _current_admission
         from ashlar_host.publication_planning import truss_request_for
+        from ashlar_host.managed_current_publication import managed_current_publication_id
         admission=_current_admission();spark=EffectSpark()
         profile=ReaderProtocolProfile('test-current-managed-reader',(1,),(2,),())
         target=ManagedCurrentTargetOwner(spark,catalog='client_dev',schema='trial_schema',protocol_profile=profile)
@@ -275,6 +279,8 @@ class Tests(unittest.TestCase):
             materialized_at='1',context=context)
         request=truss_request_for('dev-feed',admission.batch,driver.GENESIS,driver.revisions)
         driver.prepare_truss_apply(request,context)
+        self.assertEqual(driver.publication_id,
+            managed_current_publication_id(request['request_digest'], incremental=True))
         plan=json.loads(driver.prepared_plan(request,context))
         self.assertEqual(plan['profile'],'ashlar-managed-current-incremental-plan/0.1')
         self.assertEqual(plan['intent']['profile'],'ashlar-managed-current-incremental/0.1')

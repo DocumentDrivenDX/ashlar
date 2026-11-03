@@ -22,6 +22,17 @@ class ManagedCurrentA1TrialPlan:
     delivery_page: object = field(repr=False, compare=False)
     phase: str = "a1_genesis"
 
+    @property
+    def publication_id(self):
+        """Use the same identifier derivation as the owning materializer."""
+        from .managed_current_publication import managed_current_publication_id
+        if self.phase == "a1_continuation":
+            return managed_current_publication_id(
+                self.request.get("request_digest"), incremental=True)
+        if self.phase in ("a0_metadata", "a1_genesis"):
+            return managed_current_publication_id(self.request.get("request_digest"))
+        raise ValueError("Managed A1 publication phase is not admitted")
+
     def verify_delivery(self, prefix_bytes, *, prefix_sha256, selected,
                         schedule_bytes, pages):
         """Verify a later retained /0.2 package against this exact A page.
