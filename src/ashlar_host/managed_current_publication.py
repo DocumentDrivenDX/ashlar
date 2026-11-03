@@ -592,19 +592,30 @@ class ManagedCurrentGraphPublicationDriver:
                  'Fresh exact six-role pre-apply inventory required')
         return saved[3]
     def _cast_expected(self,role,rows):
-        types={name:kind for name,kind,_ in self.columns[role]};result=[]
+        columns=self.columns[role];types={name:kind for name,kind,_ in columns}
+        result=[]
         for row in rows:
+            _require(set(row)<=set(types),'Expected native afterimage contains an unknown field')
             actual={}
-            for name,value in row.items():
+            for name,kind,nullable in columns:
+                if name not in row:
+                    _require(nullable,'Expected native afterimage omits a required field')
+                    value=None
+                else:value=row[name]
                 if value is None:actual[name]=None
-                elif types[name]=='BIGINT':actual[name]=int(value)
-                elif types[name]=='BOOLEAN':actual[name]=value if type(value)is bool else str(value).lower()=='true'
-                elif types[name]=='TIMESTAMP':
+                elif kind=='BIGINT':actual[name]=int(value)
+                elif kind=='BOOLEAN':actual[name]=value if type(value)is bool else str(value).lower()=='true'
+                elif kind=='TIMESTAMP':
                     actual[name]=_normalize_native(value if hasattr(value,'tzinfo') else
                         __import__('datetime').datetime.fromisoformat(value.replace('Z','+00:00')))
                 else:actual[name]=value
             result.append(actual)
         return result
+    def _cast_actual(self,role,rows):
+        expected={name for name,_,_ in self.columns[role]}
+        _require(all(set(row)==expected for row in rows),
+            'Observed native row schema differs from the exact role carrier')
+        return self._cast_expected(role,rows)
     def _assert_role_state(self,role,expected,*,allow_empty_before):
         actual=[{k:_normalize_native(v) for k,v in dict(row).items()} for row in self._rows(role)]
         normalized=expected
@@ -1129,7 +1140,7 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
             actual = [row for row in observed.current[role]
                       if (row['source_system'], int(row[idfield]), int(row['id'])) in touched]
             expected = expected_rows[role]
-            _require(self._normalized_rows(role, actual, self._cast_expected)
+            _require(self._normalized_rows(role, actual, self._cast_actual)
                      == self._normalized_rows(role, expected, self._cast_expected),
                      'Affected current native rows differ from exact page afterimages')
         event_identities = {(key.source, key.kind, key.type_id, key.id) for key in event_keys}
@@ -1140,7 +1151,7 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
             (row['feed'], row['epoch'], row['delivery_id']) in markers]
         for role, actual in (('tombstone', tombstones), ('whole_source_history', history)):
             expected = expected_rows[role]
-            _require(self._normalized_rows(role, actual, self._cast_expected)
+            _require(self._normalized_rows(role, actual, self._cast_actual)
                      == self._normalized_rows(role, expected, self._cast_expected),
                      'Affected native delivery/tombstone rows differ from exact page afterimages')
         inventory = self.targets.observe()

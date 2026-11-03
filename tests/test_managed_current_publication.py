@@ -302,6 +302,25 @@ class Tests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'six-role UUID'):
             driver._validate_predecessor_attempt(manifest,report,current,row)
 
+    def test_incremental_afterimage_materializes_nullable_carrier_fields(self):
+        from ashlar_host.managed_current_publication import ManagedCurrentIncrementalPublicationDriver
+        driver=object.__new__(ManagedCurrentIncrementalPublicationDriver)
+        driver.columns={'object_current':(
+            ('type_id','BIGINT',False),('id','BIGINT',False),
+            ('root_id','BIGINT',True),('source_position','BIGINT',True),
+            ('published_at','TIMESTAMP',False))}
+        expected=[{'type_id':'1','id':'5','published_at':'2026-11-03T06:00:09.790503+00:00'}]
+        observed=[{'type_id':1,'id':5,'root_id':None,'source_position':None,
+            'published_at':'2026-11-03T06:00:09.790503+00:00'}]
+        self.assertEqual(driver._normalized_rows('object_current',observed,driver._cast_actual),
+            driver._normalized_rows('object_current',expected,driver._cast_expected))
+        with self.assertRaisesRegex(ValueError,'exact role carrier'):
+            driver._cast_actual('object_current',[{'type_id':1,'id':5,
+                'published_at':'2026-11-03T06:00:09.790503+00:00'}])
+        with self.assertRaisesRegex(ValueError,'omits a required field'):
+            driver._cast_expected('object_current',[{'id':'5',
+                'published_at':'2026-11-03T06:00:09.790503+00:00'}])
+
     def test_incremental_empty_page_uses_compact_intent_and_four_role_manifest(self):
         from tests.test_managed_current_core import _current_admission
         from ashlar_host.publication_planning import truss_request_for
