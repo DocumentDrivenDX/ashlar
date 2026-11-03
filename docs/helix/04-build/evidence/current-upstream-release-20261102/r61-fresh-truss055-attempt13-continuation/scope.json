@@ -47,7 +47,7 @@
     ],
     "upstream_candidate_review": "accepted",
     "worker_path": "/private/tmp/ashlar-r61-fresh-cohort-plan/tools/r61_fresh_cohort_worker.py",
-    "worker_sha256": "84d443d1a79c9e832258159849e9ae3411ff18207182ecd5ce2a665154b87362"
+    "worker_sha256": "829b273dfb265e5fe4ebcf2f59d2587f9524d809cc99ff4485000c76f30d3039"
   },
   "completion_receipts": [
     "retained attempt13 setup, A0 ACK/readback, seed group, seed publication, deferred ACK, source page and native readback hashes",
@@ -59,7 +59,7 @@
   ],
   "fresh_local_state": {
     "delta_root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta",
-    "evidence_root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation-03/evidence",
+    "evidence_root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation-04/evidence",
     "forbidden_state": [
       "/private/tmp/ashlar-r36-truss052-page-sequence-20261101/delta",
       "/private/tmp/ashlar-r59-truss052-protected-ack-20261102",
@@ -70,7 +70,7 @@
     ],
     "must_be_absent_before_dispatch": true,
     "postgres_data": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/pgdata",
-    "root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation-03"
+    "root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation-04"
   },
   "limits": {
     "aggregate_rss_bytes": 4294967296,
@@ -90,7 +90,7 @@
     "No A0 publication, A0 ACK, source install, source acceptance, cloud, scale, push, tag, release or production authority is claimed.",
     "Attempt13 continuation-01 stopped at local file preflight before the public group transaction; no seed result, source ACK or Delta write occurred there."
   ],
-  "packet": "ashlar-r61-fresh-truss055-attempt13-continuation-03",
+  "packet": "ashlar-r61-fresh-truss055-attempt13-continuation-04",
   "postgres_bootstrap_policy": {
     "initdb_mode": "--no-sync applies only to seed initdb bootstrap; PostgreSQL fsync must be observed on before source operations",
     "install_operation_timeout_ms": 180000,
@@ -152,6 +152,8 @@
       "a0_manifest_readback": "84d47ad4a700443150280501f1638398317c5e63fe7eedd0e54d366da965b25e",
       "a0_source_page": "bcd59d444bec2d757f86d959cf82e5945f832b5e9767ccc2e781f59d672139c7",
       "origin_file": "715811b4e2993786411baf3dc7b4caad6de563ae287cd8a211edfb2ed34df43d",
+      "prior_native_supervisor_result": "410fee2cba95d6c9b7729ec77f8a717596baf20db489b23adbde322ea40b8c79",
+      "prior_native_worker_failure": "e0ee593363bb6d183238d4c892ce280cb483c80ffe28e6dd150bf40bf0f6e106",
       "prior_supervisor_result": "858e679c9c8a72d6924b1086bfc782f91b671689b56bed8d08dffabf2b671a90",
       "prior_worker_failure": "7c3b11e95b24957625f0170a47ecc9990cab26ace88188a7dcc3610773d38462",
       "seed_continuation_config": "df62b551c6be359ca9dce4a64b8ab663f73218b4b67ec8c23b2b69e3cf1c442b",
@@ -168,8 +170,11 @@
     },
     "manifest_table_uuid": "f8ad0288-3139-4be6-aca7-11c27baa296f",
     "origin_path": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/origin.json",
-    "pgdata_tree_sha256": "23c9c6ff40037446df04a78e21cec0bf9b14227748b5e0bda4d92cead9eafad0",
+    "pgdata_tree_sha256": "662148eeebbfd50915d733d8e146bd37d181f39009f358c89565325eb8cbda1b",
     "prior_continuation_root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation-02",
+    "prior_native_attempt_root": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/continuation-03",
+    "prior_native_failure": "name 're' is not defined",
+    "prior_native_failure_type": "NameError",
     "profile": "ashlar-r61-resume-after-seed-ack/0.1",
     "seed_deferred_ack_path": "/private/tmp/ashlar-r61-truss055-umf102-20261102-attempt13/delta/deferred-ack-c91f32a80ece198f8437864be029f8fa9a2ca38e3213bd587693d3479b23a102.json",
     "seed_manifest_sha256": "ecc5c1b64224f5220bd2fb74a721587e7cb5b16e6487fd37c8d5dcac032a5cb6",
@@ -183,19 +188,19 @@
   },
   "source": {
     "base_commit": "0f109814091aa6da54f4278e7683a8c82338dd93",
-    "qualification_commit": "0cd78c1e0d46d2e020adf1cff49d9d27afda6659",
+    "qualification_commit": "68526963709edcf6dad5ec40d18c01ef2ed95500",
     "repository": "ashlar",
     "runner_path": "tools/r61_fresh_cohort_runner.py",
-    "runner_sha256": "42c53774eee36d78ba48c747a29c608214fd13c3752a97bd9281643c7f3adf80",
+    "runner_sha256": "7c5a633e651c874b497e5b21ccd25a7290548c8ea74803605e312e9ba6a5b7a2",
     "setup_stage_path": "tools/r61_fresh_truss_setup_stage.py",
     "setup_stage_sha256": "d6425948b7b84395429f5b83c624cad27843c2e1eda6af66fce16dcc71d1be89",
     "supervisor_path": "tools/r61_fresh_cohort_supervisor.py",
     "supervisor_sha256": "8ba9882cff08b88dd56c8688b7be50d60c512fdc8b6fdacff4e9ed987d22aa51",
     "worker_path": "tools/r61_fresh_cohort_worker.py",
-    "worker_sha256": "84d443d1a79c9e832258159849e9ae3411ff18207182ecd5ce2a665154b87362",
+    "worker_sha256": "829b273dfb265e5fe4ebcf2f59d2587f9524d809cc99ff4485000c76f30d3039",
     "worktree": "/private/tmp/ashlar-r61-fresh-cohort-plan"
   },
-  "status": "attempt13-seed-ack-retained-pending-continuation-03",
+  "status": "attempt13-seed-ack-retained-after-weft-pin-check-failure",
   "supervisor": {
     "aggregate_output_limit_bytes": 536870912,
     "completion_receipt_required": true,
@@ -221,7 +226,7 @@
     "verify immutable attempt13 A0 and seven-operation seed publication, source ACK and native readback receipts; do not replay either publication or ACK",
     "reopen the same stopped Truss .55 source and verify the live public cursor is empty at the exact retained seed next checkpoint",
     "compile and execute native Weft .4 singleton and grouped reads with every ID and model pin resolved from the accepted public catalog view and exact four-role seed vector",
-    "apply the frozen two-record continuation exactly once, publish and verify it, capture original-owner release/custody and protectively ACK",
+    "apply the frozen two-record continuation exactly once after native Weft reads pass, publish and verify it, capture original-owner release/custody and protectively ACK",
     "close source, consumer, Spark and PostgreSQL owners before persisting release/custody bytes",
     "run one GraphFrames action in the separate reviewed runtime against the owner-captured canonical bytes",
     "reconcile source checkpoint, protected ACK, four-role publication vector, separate six-role installation inventory, process cleanup, output size and final hashes"
