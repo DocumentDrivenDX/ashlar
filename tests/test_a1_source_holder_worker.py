@@ -7,11 +7,98 @@ from unittest.mock import Mock
 
 from ashlar_host.a1_source_holder_worker import (
     A1SourceHolderWorkerError, A1Truss053SourceHolderProcess, receive_frame, send_frame,
+    run_worker,
 )
-from ashlar_host.a1_ack_attempt import A1AckSettlement
+from ashlar_host.a1_ack_attempt import A1AckSettlement, MAX_SETTLEMENT_RECORD_BYTES
+from ashlar_host.truss053_source_custody import Truss053A1SourceHolder
 
 
 class A1SourceHolderWorkerTests(unittest.TestCase):
+    def test_real_bind_command_and_bound_response_round_trip(self):
+        server, client_channel = socket.socketpair()
+        source = object.__new__(Truss053A1SourceHolder)
+        source._closed = False
+        bound = []
+        source.select_genesis = lambda: b"bounded local protocol fixture"
+        source.bind_publication = lambda **value: bound.append(value)
+        source.close_before_ack = lambda: setattr(source, "_closed", True)
+        server_error = []
+        manifest = b'{"manifest":"' + b"m" * 2048 + b'"}'
+        receipt = b'{"receipt":"' + b"r" * 2048 + b'"}'
+
+        def serve():
+            try:
+                run_worker(server, source)
+            except BaseException as error:
+                server_error.append(error)
+
+        thread = threading.Thread(target=serve)
+        thread.start()
+        try:
+            ready = receive_frame(client_channel)
+            self.assertEqual(ready, {"type": "genesis", "phase": "a0",
+                                     "genesis_bytes_base64": "Ym91bmRlZCBsb2NhbCBwcm90b2NvbCBmaXh0dXJl"})
+            process = Mock()
+            process.pid = 12345
+            process.poll.return_value = None
+            client = A1Truss053SourceHolderProcess(process, client_channel,
+                operation_timeout_seconds=2)
+            client.genesis_bytes = b"genesis"
+            client.snapshot_bytes = b"held"
+            client.custody_digests = {"current_page": "page"}
+            client._heartbeat_error = None
+            vector = {"profile": "ashlar-pin-vector/0.1", "targets": {}}
+            client.bind_publication(manifest_bytes=manifest,
+                vector_payload=vector, receipt_bytes=receipt)
+            self.assertEqual(bound, [{"manifest_bytes": manifest,
+                "vector_payload": vector, "receipt_bytes": receipt}])
+            self.assertEqual(client._rpc({"type": "close"}, response_type="closed",
+                                         maximum=1024), {"type": "closed"})
+            thread.join(timeout=2)
+            self.assertFalse(thread.is_alive())
+            self.assertEqual(server_error, [])
+        finally:
+            client_channel.close()
+            server.close()
+
+    def test_worker_settlement_frame_accepts_declared_maximum_payload(self):
+        server, client = socket.socketpair()
+        source = object.__new__(Truss053A1SourceHolder)
+        source._closed = False
+        source.select_genesis = lambda: b"genesis"
+        source.acknowledge_once = lambda **kwargs: A1AckSettlement(
+            "matched", b"c" * (1024 * 1024), b"r" * (1024 * 1024),
+            "a" * 64, "b" * 64, "c" * 64)
+        source.close_before_ack = lambda: setattr(source, "_closed", True)
+        errors = []
+
+        def serve():
+            try:
+                run_worker(server, source)
+            except BaseException as error:
+                errors.append(error)
+
+        thread = threading.Thread(target=serve)
+        thread.start()
+        try:
+            self.assertEqual(receive_frame(client)["type"], "genesis")
+            send_frame(client, {"type": "ack", "attempt_directory": "/private/tmp/attempt",
+                                "generation": 1})
+            result = receive_frame(client, maximum=MAX_SETTLEMENT_RECORD_BYTES)
+            self.assertEqual(result["type"], "settlement")
+            self.assertEqual(len(result["checkpoint_bytes_base64"]),
+                             4 * ((1024 * 1024 + 2) // 3))
+            self.assertEqual(len(result["receipt_bytes_base64"]),
+                             4 * ((1024 * 1024 + 2) // 3))
+            send_frame(client, {"type": "close"})
+            self.assertEqual(receive_frame(client)["type"], "closed")
+            thread.join(timeout=2)
+            self.assertFalse(thread.is_alive())
+            self.assertEqual(errors, [])
+        finally:
+            client.close()
+            server.close()
+
     def test_matched_ack_hold_closes_only_after_explicit_close_rpc(self):
         holder = A1Truss053SourceHolderProcess.__new__(A1Truss053SourceHolderProcess)
         holder.phase = "a0_matched"

@@ -510,29 +510,30 @@ class RetainedA0SourceHold:
     def close(self, deadline, *, orderly):
         remaining = deadline - time.monotonic()
         _need(remaining >= 1, "Recovery source close deadline expired")
-        previous = self.owner.operation_timeout_seconds
-        self.owner.operation_timeout_seconds = max(1, min(previous, int(remaining)))
-        self.owner.channel.settimeout(self.owner.operation_timeout_seconds)
+        result = None
+        if not self.owner._closed:
+            previous = self.owner.operation_timeout_seconds
+            self.owner.operation_timeout_seconds = max(1, min(previous, int(remaining)))
+            self.owner.channel.settimeout(self.owner.operation_timeout_seconds)
+            if orderly:
+                result = self.owner.close_before_ack()
+            else:
+                self.owner.terminate()
+        _wait_worker_group_absent(self.owner.process_group_id, deadline)
+        bootstrap_bytes = Path(self.worker_config_path).read_bytes()
+        _, source_config_bytes, _ = _decode_config(bootstrap_bytes)
+        source_config = json.loads(source_config_bytes.decode("utf-8"),
+                                   object_pairs_hook=_pairs)
         if orderly:
-            result = self.owner.close_before_ack()
-            bootstrap_bytes = Path(self.worker_config_path).read_bytes()
-            _, source_config_bytes, _ = _decode_config(bootstrap_bytes)
-            source_config = json.loads(source_config_bytes.decode("utf-8"),
-                                       object_pairs_hook=_pairs)
             if any((Path(source_config["root"]) / f"pgdata-{source}" / "postmaster.pid").exists()
                     for source in ("A", "B")):
                 _cleanup_escaped_source_processes(source_config_bytes, deadline)
             for source in ("A", "B"):
                 _require_existing_pgdata(Path(source_config["root"]) / f"pgdata-{source}")
-            _remove_worker_config(self.worker_config_path)
-            return result
-        self.owner.terminate()
-        _wait_worker_group_absent(self.owner.process_group_id, deadline)
-        bootstrap_bytes = Path(self.worker_config_path).read_bytes()
-        _, source_config_bytes, _ = _decode_config(bootstrap_bytes)
-        _cleanup_escaped_source_processes(source_config_bytes, deadline)
+        else:
+            _cleanup_escaped_source_processes(source_config_bytes, deadline)
         _remove_worker_config(self.worker_config_path)
-        return None
+        return result
 
 
 def _write_private_config(path: Path, value: dict) -> None:

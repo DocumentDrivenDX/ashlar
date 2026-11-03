@@ -155,6 +155,7 @@ def run_worker(channel: socket.socket, holder: Truss053A1SourceHolder):
                 raise A1SourceHolderWorkerError("Exact durable attempt directory and generation required")
             result = holder.acknowledge_once(
                 attempt_directory=Path(attempt_directory), generation=command["generation"])
+            from .a1_ack_attempt import MAX_SETTLEMENT_RECORD_BYTES
             send_frame(channel, {"type": "settlement", "outcome": result.outcome,
                 "checkpoint_bytes_base64": base64.b64encode(
                     result.checkpoint_bytes).decode("ascii"),
@@ -162,7 +163,8 @@ def run_worker(channel: socket.socket, holder: Truss053A1SourceHolder):
                     base64.b64encode(result.receipt_bytes).decode("ascii"),
                 "request_sha256": result.request_sha256,
                 "manifest_sha256": result.manifest_sha256,
-                "selection_sha256": result.selection_sha256}, maximum=2 * 1024 * 1024)
+                "selection_sha256": result.selection_sha256},
+                maximum=MAX_SETTLEMENT_RECORD_BYTES)
             if result.outcome == "matched":
                 continue
             return
@@ -363,7 +365,8 @@ class A1Truss053SourceHolderProcess:
         self._rpc({"type": "bind",
             "manifest_bytes_base64": base64.b64encode(manifest_bytes).decode("ascii"),
             "vector": vector_payload,
-            "receipt_bytes_base64": base64.b64encode(receipt_bytes).decode("ascii")})
+            "receipt_bytes_base64": base64.b64encode(receipt_bytes).decode("ascii")},
+            response_type="bound", maximum=MAX_COMMAND_BYTES)
 
     def acknowledge_once(self, store, *, attempt_directory):
         """Fsync both worker and dispatch markers immediately before one ACK RPC."""
