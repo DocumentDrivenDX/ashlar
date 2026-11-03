@@ -69,9 +69,19 @@ RETIRED_RECOVERY_WINDOWS = (
      "row_counts": {"object_current": 0, "edge_current": 0, "tombstone": 0,
          "whole_source_history": 0, "publication_manifest": 2,
          "publication_attempt_phase": 5}},
+    {"attempt": "R21 RC6 failed A0 verifier", "ceiling_seconds": 210,
+     "observed_provider_seconds": 161.042,
+     "observed_local_recovery_seconds": 170.35985279199667,
+     "ack_attempted": False, "source_ack_outcome": "not_attempted",
+     "a1_seed_attempted": False, "job_result_state": "FAILED",
+     "job_create_state": "deleted",
+     "provider_receipt_path": "/private/tmp/ashlar-managed-r21-failed-verifier-run.json",
+     "provider_receipt_sha256": "5024cbd4ee67c786238bb32784eba36282fe0e95c3aa8349127b4106fad3f6ae",
+     "recovery_receipt_path": "/private/tmp/ashlar-a1-managed-recovery-r21-rc6-20261103/recovery.json",
+     "recovery_receipt_sha256": "74f28a241c9ba452872879f0705f7728452dd35d8a710a64a177ae98cc259fea"},
 )
-PRIOR_ACTIVE_SECONDS_CEILING = 1170  # 450s + 90s + 120s + 180s + 150s + 180s.
-MAX_CUMULATIVE_ACTIVE_SECONDS = 2400  # prior 1,170s + remaining 1,230s.
+PRIOR_ACTIVE_SECONDS_CEILING = 1380  # prior 1,170s + 210s R21 verifier window.
+MAX_CUMULATIVE_ACTIVE_SECONDS = 2610  # prior 1,380s + remaining 1,230s.
 PROFILE = "ashlar-managed-a1-pin-install-recovery/0.1"
 
 
@@ -136,13 +146,13 @@ def _validate_recovery_inputs(config_path: Path, recovery_receipt_path: Path,
              "Recovery must retain the original 1,680-second campaign clock")
     cost = config.get("cost")
     _require(type(cost) is dict and config.get("trial", {}).get("cost") == cost
-             and cost.get("estimated_total_dbu") == 133.0
-             and cost.get("authorized_total_dbu") == 133.0
-             and cost.get("estimated_total_usd") == 62.51
+             and cost.get("estimated_total_dbu") == 140.0
+             and cost.get("authorized_total_dbu") == 140.0
+             and cost.get("estimated_total_usd") == 65.8
              and cost.get("cleanup_reserve_usd") == 20.0
              and cost.get("cleanup_reserve_dbu") == 0.0
              and cost.get("includes_startup_driver_verifier_handoff_and_cleanup") is True,
-             "RC5 recovery cost envelope must bind 133 DBU plus the $20 cleanup reserve")
+             "RC7 recovery cost envelope must bind 140 DBU plus the $20 cleanup reserve")
     _require(config["holder_bootstrap"]["python"] == sys.executable,
              "Run recovery under the exact original selected RC2 Python")
     _require(recovery_receipt_path.is_absolute() and recovery_receipt_path.is_file()
