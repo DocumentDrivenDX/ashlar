@@ -446,6 +446,15 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         spark = _SparkConnect(managed_manifest, managed_receipt, managed_uuids)
         spark.owner = config["expected_principal"]
         spark.schema = config["schema"]
+        spark.catalog = config["catalog"]
+        from ashlar_host.managed_a1_serverless_tasks import _environment
+        from ashlar_host.managed_current_spark_receipt_read import BorrowedServerlessTaskSession
+        environment_session = BorrowedServerlessTaskSession(spark, stage="environment",
+            task_session_scope_id="config-test-task", deadline_monotonic=time.monotonic() + 10)
+        environment = _environment(spark, PROFILE, config["expected_runtime"],
+                                   session=environment_session)
+        environment_session.close()
+        self.assertEqual(environment, config["expected_runtime"])
         reader = ManagedCurrentSparkServerlessReceiptReader(
             spark, bundle.selection.reader_config)
         try:

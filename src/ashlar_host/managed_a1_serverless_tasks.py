@@ -81,8 +81,11 @@ def _environment(spark, protocol, expected, *, namespace=True, session=None):
     value = observe_managed_current_environment(spark, protocol, operation_runner=runner)
     timezone_sql = lambda: spark.sql("SELECT current_timezone() AS session_timezone").collect()
     timezone_rows = timezone_sql() if runner is None else runner(timezone_sql)
+    timezone_value = (timezone_rows[0].asDict(recursive=True)
+                      if len(timezone_rows) == 1 else None)
     _need(len(timezone_rows) == 1
-          and timezone_rows[0]["session_timezone"] in ("UTC", "Etc/UTC"),
+          and type(timezone_value) is dict
+          and timezone_value.get("session_timezone") in ("UTC", "Etc/UTC"),
           "Unique UTC Spark session timezone readback required")
     keys = ["runtimeName", "sparkVersion", "principal", "protocol"]
     if namespace:
@@ -96,9 +99,8 @@ def _environment(spark, protocol, expected, *, namespace=True, session=None):
     if expected.get("runtimeTag") is not None:
         _need(value.get("runtimeTag") == expected["runtimeTag"],
               "Observed serverless runtime tag differs from its lock")
-    _need(value.get("runtimeName") == "databricks-serverless"
-          and value.get("sessionTimeZone") in ("UTC", "Etc/UTC"),
-          "Dedicated serverless runtime and UTC session required")
+    _need(value.get("runtimeName") == "databricks-serverless",
+          "Dedicated serverless runtime required")
     return value
 
 

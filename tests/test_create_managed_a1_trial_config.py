@@ -8,7 +8,7 @@ import tempfile
 import unittest
 
 from tools.create_managed_a1_trial_config import build_config
-from tools.run_managed_a1_serverless import build_payload
+from tools.run_managed_a1_serverless import MAX_SOURCE_BOOTSTRAP_SECONDS, build_payload
 from ashlar_host.configured_local_runtime import PROFILE
 
 
@@ -46,6 +46,8 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
         self.assertEqual(config["initializer"]["timeout_seconds"]
             + 2 * config["publisher"]["timeout_seconds"]
             + 4 * config["verifier"]["timeout_seconds"], 420)
+        self.assertEqual(420 + MAX_SOURCE_BOOTSTRAP_SECONDS + 45,
+                         config["maximum_wall_seconds"] - config["cleanup_reserve_seconds"])
         self.assertEqual(config["cost"]["authorized_total_dbu"], 128.0)
         self.assertLess(config["cost"]["estimated_total_usd"], 10)
         self.assertEqual(config["expected_runtime"]["protocol"], PROFILE.identity)
