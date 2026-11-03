@@ -197,7 +197,7 @@ def build_config(*, runtime_result: dict, trial_id: str, notebook_root: str,
             "cleanup_reserve_usd": 20.0,
             "preferred_budget_exception": (
                 "Aidev-cus ARM SKU is Premium; the documented Default Automated Compute "
-                "cap is approximately 120 DBU/h. This estimate combines 106 historical "
+                "cap is approximately 120 DBU/h. This estimate combines 53 historical "
                 "DBU with the full bounded campaign duration and $20 cleanup reserve; "
                 "the executor cap is approximate, not an invoice guarantee."),
             "includes_startup_driver_verifier_handoff_and_cleanup": True}

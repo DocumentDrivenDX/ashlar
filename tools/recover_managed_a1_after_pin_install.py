@@ -26,10 +26,33 @@ import run_managed_a1_serverless as runner
 MAX_READONLY_ADMISSION_SECONDS = 120
 MAX_RECOVERY_SECONDS = 1230
 ORIGINAL_CAMPAIGN_SECONDS = 1680
-RETIRED_FAILED_RECOVERY_SECONDS_CEILING = 90
-RETIRED_FAILED_RECOVERY_PROVIDER_SECONDS = 66.064
-PRIOR_ACTIVE_SECONDS_CEILING = 540
-MAX_CUMULATIVE_ACTIVE_SECONDS = 1770
+RETIRED_RECOVERY_WINDOWS = (
+    {"attempt": "R18 retry01", "ceiling_seconds": 90,
+     "observed_provider_seconds": 66.064, "ack_attempted": False,
+     "a1_seed_attempted": False, "original_publication_mutated": False},
+    {"attempt": "R19 retry01", "ceiling_seconds": 120,
+     "observed_provider_seconds": 83.324, "ack_attempted": False,
+     "a1_seed_attempted": False,
+     "jobs_terminal_and_deleted": True,
+     "provider_receipt_path": "/private/tmp/ashlar-managed-r19-failed-verifier-run.json",
+     "provider_receipt_sha256": "6d74339b05ee6eb3017295e8746932ef832d382d25d1bdf604b4e271c497d855",
+     "recovery_receipt_path": "/private/tmp/ashlar-a1-managed-recovery-r19-rc3-20261103/recovery.json",
+     "recovery_receipt_sha256": "6dc0ae7f59d2fa6f36c69f93649e664336a28be2a5b81e7675e299e1bd81e025"},
+    {"attempt": "R19 metadata inventory capture", "ceiling_seconds": 180,
+     "observed_provider_seconds": 55.992, "read_only": True,
+     "jobs_terminal_and_deleted": True,
+     "provider_receipt_path": "/private/tmp/ashlar-native-metadata-capture-20261103/run.json",
+     "provider_receipt_sha256": "b16f5d54f3c0b48c6a52ed0576dd73a897f2480dc963196e9139517755631208",
+     "metadata_path": "/private/tmp/ashlar-native-metadata-capture-20261103/metadata.json",
+     "metadata_sha256": "b26174e14eb8bb12a94ff4f7e6c56de292de8894c0b46a7fdceec88e8ee09128",
+     "metadata_elapsed_seconds": 41.26997236,
+     "inventory_counts": {"actions": 7, "column_rows": 66, "table_rows": 6,
+         "detail_role_count": 6, "extended_role_count": 6, "grant_scope_count": 8,
+         "history_role_count": 6, "retention_property_role_count": 4,
+         "role_count": 6, "table_schema_role_count": 6}},
+)
+PRIOR_ACTIVE_SECONDS_CEILING = 840  # 450s original + 90s + 120s + 180s windows.
+MAX_CUMULATIVE_ACTIVE_SECONDS = 2070  # prior 840s + remaining 1,230s.
 PROFILE = "ashlar-managed-a1-pin-install-recovery/0.1"
 
 
@@ -94,13 +117,13 @@ def _validate_recovery_inputs(config_path: Path, recovery_receipt_path: Path,
              "Recovery must retain the original 1,680-second campaign clock")
     cost = config.get("cost")
     _require(type(cost) is dict and config.get("trial", {}).get("cost") == cost
-             and cost.get("estimated_total_dbu") == 165.0
-             and cost.get("authorized_total_dbu") == 165.0
-             and cost.get("estimated_total_usd") == 77.55
+             and cost.get("estimated_total_dbu") == 122.0
+             and cost.get("authorized_total_dbu") == 122.0
+             and cost.get("estimated_total_usd") == 57.34
              and cost.get("cleanup_reserve_usd") == 20.0
              and cost.get("cleanup_reserve_dbu") == 0.0
              and cost.get("includes_startup_driver_verifier_handoff_and_cleanup") is True,
-             "RC3 recovery cost envelope must bind 165 DBU plus the $20 cleanup reserve")
+             "RC4 recovery cost envelope must bind 122 DBU plus the $20 cleanup reserve")
     _require(config["holder_bootstrap"]["python"] == sys.executable,
              "Run recovery under the exact original selected RC2 Python")
     _require(recovery_receipt_path.is_absolute() and recovery_receipt_path.is_file()
@@ -554,14 +577,10 @@ def _launch(config_path: Path, recovery_receipt_path: Path, output_root: Path,
         "maximum_readonly_admission_seconds": MAX_READONLY_ADMISSION_SECONDS,
         "maximum_active_recovery_seconds": MAX_RECOVERY_SECONDS,
         "original_campaign_active_seconds_ceiling": ORIGINAL_CAMPAIGN_SECONDS,
-        "retired_failed_recovery_seconds_ceiling": RETIRED_FAILED_RECOVERY_SECONDS_CEILING,
-        "retired_failed_recovery_provider_seconds": RETIRED_FAILED_RECOVERY_PROVIDER_SECONDS,
+        "retired_recovery_windows": [dict(item) for item in RETIRED_RECOVERY_WINDOWS],
         "cumulative_active_seconds_ceiling": MAX_CUMULATIVE_ACTIVE_SECONDS,
         "prior_active_seconds_ceiling": PRIOR_ACTIVE_SECONDS_CEILING,
-        "cost_envelope": config["cost"],
-        "retired_failed_recovery": {"provider_seconds": RETIRED_FAILED_RECOVERY_PROVIDER_SECONDS,
-            "active_window_ceiling_seconds": RETIRED_FAILED_RECOVERY_SECONDS_CEILING,
-            "ack_attempted": False, "a1_seed_attempted": False}}
+        "cost_envelope": config["cost"]}
     _write_state(state_path, state)
 
     preflight_start = time.monotonic()
@@ -590,7 +609,7 @@ def _launch(config_path: Path, recovery_receipt_path: Path, output_root: Path,
         "a0_ack_replayed": False, "a0_publisher_replayed": False,
         "initializer_replayed": False, "delta_replay_or_write": False,
         "original_campaign_active_seconds_ceiling": ORIGINAL_CAMPAIGN_SECONDS,
-        "retired_failed_recovery_seconds_ceiling": RETIRED_FAILED_RECOVERY_SECONDS_CEILING,
+        "retired_recovery_windows": [dict(item) for item in RETIRED_RECOVERY_WINDOWS],
         "prior_active_seconds_ceiling": PRIOR_ACTIVE_SECONDS_CEILING,
         "remaining_active_recovery_seconds": MAX_RECOVERY_SECONDS,
         "cumulative_active_seconds_ceiling": MAX_CUMULATIVE_ACTIVE_SECONDS,
@@ -1113,8 +1132,7 @@ def main(argv: list[str] | None = None) -> int:
                 "active_recovery_budget_seconds": MAX_RECOVERY_SECONDS,
                 "maximum_finite_wall_seconds": MAX_READONLY_ADMISSION_SECONDS + MAX_RECOVERY_SECONDS,
                 "original_campaign_active_seconds_ceiling": ORIGINAL_CAMPAIGN_SECONDS,
-                "retired_failed_recovery_seconds_ceiling": RETIRED_FAILED_RECOVERY_SECONDS_CEILING,
-                "retired_failed_recovery_provider_seconds": RETIRED_FAILED_RECOVERY_PROVIDER_SECONDS,
+                "retired_recovery_windows": [dict(item) for item in RETIRED_RECOVERY_WINDOWS],
                 "prior_active_seconds_ceiling": PRIOR_ACTIVE_SECONDS_CEILING,
                 "cumulative_active_seconds_ceiling": MAX_CUMULATIVE_ACTIVE_SECONDS,
                 "cost_envelope": config["cost"],

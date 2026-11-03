@@ -55,7 +55,7 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
                 local_receipt=receipt, evidence_dir="docs/helix/04-build/evidence/test",
                 bun_path=Path(shutil.which("bun")), python=venv_python,
                 remaining_wall_seconds=900)
-            self.assertEqual(short_config["cost"]["authorized_total_dbu"], 136.0)
+            self.assertEqual(short_config["cost"]["authorized_total_dbu"], 83.0)
             with self.assertRaisesRegex(ValueError, "selected bounded profile"):
                 build_config(runtime_result=runtime, trial_id="a1-config-too-long",
                     notebook_root="/Workspace/Shared/ashlar",
@@ -91,11 +91,11 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
             + config["maximum_wall_seconds"] * PREMIUM_DEFAULT_SERVERLESS_DBUH / 3600)
         self.assertLessEqual(config["cost"]["authorized_total_dbu"] * 0.47
                              + config["cost"]["cleanup_reserve_usd"], 100)
-        self.assertEqual(config["cost"]["authorized_total_dbu"], 162.0)
-        self.assertAlmostEqual(config["cost"]["estimated_total_usd"], 76.14)
+        self.assertEqual(config["cost"]["authorized_total_dbu"], 109.0)
+        self.assertAlmostEqual(config["cost"]["estimated_total_usd"], 51.23)
         self.assertAlmostEqual(config["cost"]["authorized_total_dbu"]
-                               * SERVERLESS_USD_PER_DBUH + 20.0, 96.14)
-        self.assertLessEqual(162.0 * 0.47 + 20.0, 100.0)
+                               * SERVERLESS_USD_PER_DBUH + 20.0, 71.23)
+        self.assertLessEqual(109.0 * 0.47 + 20.0, 100.0)
         self.assertIn("Premium", config["cost"]["preferred_budget_exception"])
         self.assertEqual(config["expected_runtime"]["protocol"], MANAGED_SERVERLESS_PROFILE.identity)
         self.assertEqual(config["protocol_profile"]["identity"], MANAGED_SERVERLESS_PROFILE.identity)
