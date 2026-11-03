@@ -816,6 +816,15 @@ def _put_volume_bytes(api: DatabricksCLI, volume_uri: str, raw: bytes) -> dict:
 
 def _check_artifact_lock(api: DatabricksCLI, config: dict) -> None:
     """Hash current remote bytes before creating the schema or any Jobs object."""
+    dependency_digests = {}
+    for name in ("initializer", "publisher", "verifier"):
+        for dep in config[name]["dependencies"]:
+            raw_path = dep["path"][3:] if dep["path"].startswith("-r ") else dep["path"]
+            prior = dependency_digests.setdefault(raw_path, dep["sha256"])
+            require(prior == dep["sha256"],
+                    "Conflicting dependency SHA-256 values for the same remote path: "
+                    + raw_path)
+    verified_dependencies = set()
     for name in ("initializer", "publisher", "verifier"):
         task = config[name]
         fd, local = tempfile.mkstemp(prefix="ashlar-a1-artifact-")
@@ -830,6 +839,8 @@ def _check_artifact_lock(api: DatabricksCLI, config: dict) -> None:
             except FileNotFoundError: pass
         for dep in task["dependencies"]:
             raw_path = dep["path"][3:] if dep["path"].startswith("-r ") else dep["path"]
+            if raw_path in verified_dependencies:
+                continue
             fd, local = tempfile.mkstemp(prefix="ashlar-a1-dependency-")
             os.close(fd)
             try:
@@ -842,6 +853,7 @@ def _check_artifact_lock(api: DatabricksCLI, config: dict) -> None:
                 actual = hashlib.sha256(Path(local).read_bytes()).hexdigest()
                 require(actual == dep["sha256"],
                         f"{name} dependency bytes differ from supplied SHA-256: {dep['path']}")
+                verified_dependencies.add(raw_path)
             finally:
                 try: os.unlink(local)
                 except FileNotFoundError: pass
@@ -1260,6 +1272,16 @@ def _validate_ack_settlement(settlement, *, request_bytes: bytes,
             "Protected A1 ACK did not reconcile against durable exact attempt; schema retained")
 
 
+def _directory_contents(directory: object, *, maximum_entries: int) -> list[dict]:
+    require(type(directory) is dict,
+            "Directory inventory response must be an object")
+    contents = directory["contents"] if "contents" in directory else []
+    require(type(contents) is list and len(contents) <= maximum_entries
+            and directory.get("next_page_token") in (None, ""),
+            "Complete bounded directory inventory required")
+    return contents
+
+
 def _service_source_observer_rpc(api: DatabricksCLI, holder: SourceHolderIPC,
                                  volume_rpc_uri: str, deadline: float,
                                  *, expected_vector_sha256: str,
@@ -1268,9 +1290,7 @@ def _service_source_observer_rpc(api: DatabricksCLI, holder: SourceHolderIPC,
     """Renew original same-session Truss custody for a live verifier request."""
     from urllib.parse import quote
     directory = api.call("get", "/api/2.0/fs/directories/" + quote(volume_rpc_uri, safe="/"))
-    contents = directory.get("contents")
-    require(type(contents) is list and len(contents) <= 16,
-            "Bounded managed A1 source-observer RPC directory required")
+    contents = _directory_contents(directory, maximum_entries=16)
     requests = []
     for item in contents:
         path = item.get("path", "") if type(item) is dict else ""
@@ -1555,7 +1575,7 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
         require(len(snapshot_bytes) <= 4 * 1024 * 1024,
                 "Held exact A1 source selection exceeds the durable 4 MiB bound")
         holder.owner.start_heartbeat()
-        snapshot_uri = volume_path + "/a1-source-snapshot.bin"
+        snapshot_uri = volume_path + "/a0-source-snapshot.bin"
         snapshot_artifact = _put_volume_bytes(api, snapshot_uri, snapshot_bytes)
         initial_uri = volume_path + "/genesis-manifest.json"
         initial_artifact = _put_volume_bytes(api, initial_uri, initial_manifest)
@@ -1990,12 +2010,12 @@ def _launch_trial(config: dict, payload: dict, profile: str, *, recovery_root: P
                 "Trial volume ownership changed; refusing cleanup")
         for uri in (genesis_uri, snapshot_uri, initial_uri, prefix_uri,
                     publisher_result_uri, selected_prefix_uri, a1_genesis_uri, a1_manifest_uri,
-                    a1_result_uri, a1_prefix_uri, a1_selected_uri):
+                    a1_result_uri, a1_snapshot_uri, a1_prefix_uri, a1_selected_uri):
             api.remove_file("dbfs:" + uri)
         directory = api.call("get", "/api/2.0/fs/directories/"
                               + quote(volume_path, safe="/"))
-        contents = directory.get("contents")
-        require(type(contents) is list and contents == [],
+        contents = _directory_contents(directory, maximum_entries=16)
+        require(contents == [],
                 "Trial Volume contains unknown files; refusing cleanup")
         api.call("delete", volume_path_api)
         volume_list = api.call("get", "/api/2.1/unity-catalog/volumes?catalog_name="

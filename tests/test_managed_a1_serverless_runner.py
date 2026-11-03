@@ -16,6 +16,8 @@ from tools.run_managed_a1_serverless import (
     _job_runs,
     _validate_ack_settlement,
     _verify_terminal_proof,
+    _check_artifact_lock,
+    _directory_contents,
     _admit_job_readback, _job_settings,
     _write_private_json, DatabricksCLI, _admit_auth_readback_host,
 )
@@ -184,6 +186,50 @@ class ManagedA1ServerlessRunnerTests(unittest.TestCase):
         continuation = RunsAPI({"runs": [], "next_page_token": "next"})
         with self.assertRaisesRegex(ValueError, "complete fresh-job run inventory"):
             _job_runs(continuation, 745992151311768)
+
+    def test_artifact_lock_fetches_each_remote_dependency_once_per_admission(self):
+        notebook = b"notebook bytes"
+        artifacts = {"/Volumes/client_dev/shared/ashlar.whl": b"ashlar wheel",
+                     "/Volumes/client_dev/shared/runtime.whl": b"runtime wheel"}
+        dependencies = [{"path": path,
+                         "sha256": hashlib.sha256(raw).hexdigest()}
+                        for path, raw in artifacts.items()]
+        config = {name: {"notebook_path": "/Workspace/ashlar/" + name,
+                         "notebook_sha256": hashlib.sha256(notebook).hexdigest(),
+                         "dependencies": copy.deepcopy(dependencies)}
+                  for name in ("initializer", "publisher", "verifier")}
+
+        class ArtifactAPI:
+            def __init__(self): self.downloads = []; self.notebooks = []
+            def export_workspace(self, path, target, *, notebook):
+                self.notebooks.append(path)
+                Path(target).write_bytes(globals_notebook)
+            def copy(self, source, target, *, overwrite=False):
+                self.downloads.append(source)
+                Path(target).write_bytes(artifacts[source.removeprefix("dbfs:")])
+
+        globals_notebook = notebook
+        api = ArtifactAPI()
+        _check_artifact_lock(api, config)
+        self.assertEqual(len(api.notebooks), 3)
+        self.assertEqual(api.downloads, ["dbfs:" + path for path in artifacts])
+
+        conflicting = copy.deepcopy(config)
+        conflicting["verifier"]["dependencies"][0]["sha256"] = "0" * 64
+        refused = ArtifactAPI()
+        with self.assertRaisesRegex(ValueError, "Conflicting dependency SHA-256"):
+            _check_artifact_lock(refused, conflicting)
+        self.assertEqual(refused.notebooks, [])
+        self.assertEqual(refused.downloads, [])
+
+    def test_empty_files_directory_may_omit_contents_but_not_null_or_pagination(self):
+        self.assertEqual(_directory_contents({}, maximum_entries=16), [])
+        self.assertEqual(_directory_contents({"contents": []}, maximum_entries=16), [])
+        with self.assertRaisesRegex(ValueError, "Complete bounded directory inventory"):
+            _directory_contents({"contents": None}, maximum_entries=16)
+        with self.assertRaisesRegex(ValueError, "Complete bounded directory inventory"):
+            _directory_contents({"contents": [], "next_page_token": "next"},
+                                maximum_entries=16)
 
     def test_actual_provider_probe_readback_admits_only_documented_defaults(self):
         from tools.prepare_a1_serverless_runtime_probe import build_payload
