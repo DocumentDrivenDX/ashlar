@@ -15,7 +15,18 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Heavy qualification of the tag first; nothing is staged unless it passes.
+  qualify:
+    permissions:
+      contents: read
+      pull-requests: read
+    uses: ./.github/workflows/module-boundaries.yml
+    with:
+      ref: ${{ inputs.tag }}
+      full_qualification: true
+
   candidate:
+    needs: qualify
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:

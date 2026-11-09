@@ -1,7 +1,11 @@
 name: Truss preparation controls
+# PR tier runs python 3.12 only; the 3.9 leg runs on dispatch, weekly and with the `ci:full` label.
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '53 5 * * 1'
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
     paths:
       - 'src/ashlar/cli.py'
       - 'src/ashlar_host/*truss*'
@@ -19,11 +23,12 @@ permissions:
   contents: read
 jobs:
   portable-host-controls:
+    if: github.event.action != 'labeled' || github.event.label.name == 'ci:full'
     timeout-minutes: 10
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        python: ['3.9', '3.12']
+        python: ${{ fromJSON(github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'ci:full') && '["3.12"]' || '["3.9","3.12"]') }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
