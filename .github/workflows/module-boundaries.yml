@@ -1,14 +1,40 @@
+# PR tier: `routine-pr` (boundary checks + their unit test, one ubuntu runner, ~1-2 min).
+# Full qualification (`check`, `duckdb-exports`, `typed-sdk-source-checks`, `puppy-exports`) runs on
+# workflow_dispatch with full_qualification, weekly, from release-candidate.yml before a release
+# is staged, and on PRs labelled `ci:full`.
+#
+# Evidence gate (alternative to running full qualification in CI):
+#   1. commit your change, run `scripts/verify-full.sh` locally;
+#   2. commit .ci/evidence/full-suite.json as the LAST commit (excluded from the content hash);
+#   3. `evidence-gate` recomputes the hash on the PR head and passes on a match.
+# It also passes for PRs touching only docs/website/examples/notebooks/markdown, or when the PR
+# carries `ci:full` and every full-qualification job is green. Release runs ignore evidence.
 name: Module import boundaries
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
+    # Widened from the boundary files so the evidence gate sees every code change.
     paths:
-      - 'src/ashlar/**/*.py'
-      - 'src/ashlar_host/**/*.py'
-      - 'tools/**/*.py'
-      - 'tools/module_boundaries.json'
-      - 'scripts/check-typed-sdk-boundaries.py'
-      - 'tests/test_module_boundaries.py'
+      - 'src/**'
+      - 'tests/**'
+      - 'tools/**'
+      - 'scripts/**'
+      - 'pyproject.toml'
       - '.github/workflows/module-boundaries.yml'
+  schedule:
+    - cron: '27 5 * * 1'
+  workflow_call:
+    inputs:
+      ref:
+        description: Git ref to qualify (a release tag)
+        type: string
+        default: ''
+      full_qualification:
+        type: boolean
+        default: true
+      extended:
+        type: boolean
+        default: false
   workflow_dispatch:
     inputs:
       full_qualification:
@@ -29,10 +55,12 @@ permissions:
 jobs:
   routine-pr:
     timeout-minutes: 10
-    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && !inputs.full_qualification && !inputs.extended)
+    if: (github.event_name == 'pull_request' && github.event.action != 'labeled') || (github.event_name == 'workflow_dispatch' && !inputs.full_qualification && !inputs.extended)
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -41,10 +69,13 @@ jobs:
       - run: PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_module_boundaries.py
   check:
     timeout-minutes: 30
-    if: github.event_name == 'workflow_dispatch' && inputs.full_qualification
+    if: >-
+      ((github.event_name == 'workflow_dispatch' && inputs.full_qualification) || github.event_name == 'schedule' || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'ci:full')))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -87,6 +118,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -99,6 +132,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -175,10 +210,13 @@ jobs:
 
   duckdb-exports:
     timeout-minutes: 30
-    if: github.event_name == 'workflow_dispatch' && inputs.full_qualification
+    if: >-
+      ((github.event_name == 'workflow_dispatch' && inputs.full_qualification) || github.event_name == 'schedule' || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'ci:full')))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -189,10 +227,13 @@ jobs:
 
   typed-sdk-source-checks:
     timeout-minutes: 30
-    if: github.event_name == 'workflow_dispatch' && inputs.full_qualification
+    if: >-
+      ((github.event_name == 'workflow_dispatch' && inputs.full_qualification) || github.event_name == 'schedule' || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'ci:full')))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -202,10 +243,13 @@ jobs:
 
   puppy-exports:
     timeout-minutes: 30
-    if: github.event_name == 'workflow_dispatch' && inputs.full_qualification
+    if: >-
+      ((github.event_name == 'workflow_dispatch' && inputs.full_qualification) || github.event_name == 'schedule' || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'ci:full')))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -213,3 +257,38 @@ jobs:
       - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_puppy_export_local test_puppy_readiness_driver test_puppy_gremlin_transport
       - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_pack_scenario_queries
       - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_puppy_scenario_worker
+
+  evidence-gate:
+    needs: [check, duckdb-exports, typed-sdk-source-checks, puppy-exports]
+    if: >-
+      always() && github.event_name == 'pull_request' &&
+      (github.event.action != 'labeled' || github.event.label.name == 'ci:full')
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Evidence gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          LABELS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          light='^(docs/|website/|examples/|notebooks/|\.github/|LICENSE)|\.md$'
+          if [ "$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls/$PR/files" --jq '.[].filename' | grep -Evc "$light" || true)" = 0 ]; then
+            echo "pass (c): no paths covered by the heavy tier"; exit 0
+          fi
+          h=$(git ls-files -z -- . ':!.ci/evidence' | while IFS= read -r -d '' f; do [ -f "$f" ] || continue; printf '%s\0' "$f"; cat -- "$f"; done | sha256sum | cut -d' ' -f1)
+          if [ -f .ci/evidence/full-suite.json ] && [ "$(jq -r .content_hash .ci/evidence/full-suite.json)" = "$h" ]; then
+            echo "pass (a): evidence matches $h"; exit 0
+          fi
+          if echo "$LABELS" | jq -e 'index("ci:full")' >/dev/null && [ "$RESULTS" = "success success success success" ]; then
+            echo "pass (b): ci:full label and heavy suite green"; exit 0
+          fi
+          echo "::error::No valid evidence for $h. Run scripts/verify-full.sh locally and commit .ci/evidence/full-suite.json last, or add the ci:full label."
+          exit 1
