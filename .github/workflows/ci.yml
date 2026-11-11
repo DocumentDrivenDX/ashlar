@@ -32,17 +32,13 @@ jobs:
         run: python scripts/check_tree_size.py
       - name: Module import boundaries
         run: python tools/check_module_boundaries.py
-        continue-on-error: true
       - name: Typed SDK boundaries
         run: python scripts/check-typed-sdk-boundaries.py --negative-controls
-        continue-on-error: true
 
   test:
     if: github.event_name != 'schedule'
     runs-on: ubuntu-24.04
     timeout-minutes: 25
-    # Temporary: removed once the suite is green (see WP4).
-    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
