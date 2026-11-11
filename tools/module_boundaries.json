@@ -948,30 +948,6 @@
       "reason": "private-cross-module",
       "owner": "ashlar.native API owner",
       "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
-    },
-    {
-      "source": "tools/run_managed_current_local_native.py",
-      "target": "ashlar_host.managed_a1_serverless_tasks",
-      "symbol": "_GenesisOnlyManifestPolicy",
-      "reason": "private-cross-module",
-      "owner": "R61 local genesis-manifest qualification owner",
-      "removal_trigger": "Use a public genesis-only manifest policy constructor or retire this one-shot canonical qualification harness; remove only this exact entry at that change."
-    },
-    {
-      "source": "tools/run_managed_current_local_native.py",
-      "target": "ashlar_host.truss_resume_cli",
-      "symbol": "_CurrentTrussRuntime",
-      "reason": "private-cross-module",
-      "owner": "ashlar_host.truss_resume_cli local runtime-holder owner",
-      "removal_trigger": "Use a public validated local Spark runtime-holder API or retire this one-shot canonical qualification harness; remove only this exact entry at that change."
-    },
-    {
-      "source": "tools/managed_a1_recovery_source_bootstrap.py",
-      "target": "ashlar_host.truss053_source_custody",
-      "symbol": "_genesis_matches_with_monotonic_watermarks",
-      "reason": "private-cross-module",
-      "owner": "Truss source-custody API owner",
-      "removal_trigger": "Use a public source-custody comparison predicate or retire this one-shot recovery source helper; remove only this exact entry at that change."
     }
   ]
 }
