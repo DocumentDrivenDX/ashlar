@@ -683,7 +683,8 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         with patch("ashlar_host.managed_current_spark_receipt_read.threading.Timer", ImmediateTimer):
             with self.assertRaisesRegex(ValueError, "termination was not established"):
                 reader.close()
-        self.assertEqual(durations, [20])
+        self.assertEqual(len(durations), 1)
+        self.assertAlmostEqual(durations[0], 20)
         self.assertEqual(len(spark.interrupt_calls), 1)
         self.assertEqual(spark.getTags(), before)
         self.assertIsNone(reader._observation.runtime_identity.get("closing"))
