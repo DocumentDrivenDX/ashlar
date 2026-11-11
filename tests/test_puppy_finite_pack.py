@@ -7,7 +7,7 @@ from ashlar_host.puppy_finite_pack import PuppyFinitePackConfiguration,project_f
 ROOT=Path(__file__).resolve().parents[1]
 class Tests(unittest.TestCase):
  def selected(self,name):
-  root=ROOT/'examples/domain-packs'/name/'upstream';release=(ROOT/'docs/helix/04-build/evidence/original17-graphframes-native-20261009/original'/('1-release.graph.json'if name=='archaeology'else'9-release.graph.json')).read_bytes()
+  root=ROOT/'examples/domain-packs'/name/'upstream';release=(ROOT/'tests/fixtures/golden/original17-graphframes-native-20261009/original'/('1-release.graph.json'if name=='archaeology'else'9-release.graph.json')).read_bytes()
   return PuppyFinitePackConfiguration(FinitePackDefinition(name),(root/'ontology.json').read_bytes(),(root/'graph/fixture.json').read_bytes(),(root/'pack.json').read_bytes(),release,hashlib.sha256(release).hexdigest())
  def test_original_two_cases_and_network_links_are_records(self):
   for name,case in (('archaeology','missing-media'),('ecology','network')):

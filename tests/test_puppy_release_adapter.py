@@ -23,7 +23,7 @@ class Tests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(); self.addCleanup(self.temp.cleanup)
         self.directory = Path(self.temp.name).resolve()
         root = Path(__file__).resolve().parents[1]
-        folder = root / 'docs/helix/04-build/evidence/puppygraph-releases-20261009'
+        folder = root / 'tests/fixtures/golden/puppygraph-releases-20261009'
         self.releases = [GraphRelease(p.read_bytes(), p.name.split('.')[0]) for p in sorted(folder.glob('*.graph.json'))]
         self.prepared = {}; self.values = {}; self.schema = {'catalog': [], 'node': [], 'edge': []}
         self.calls = []; self.fail_upload = False; self.omit_catalog = False; self.runtime_calls = 0; self.drift = False; self.interrupt_upload = None

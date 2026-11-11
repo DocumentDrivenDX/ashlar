@@ -8,7 +8,7 @@ from ashlar_host.puppy_export_cli import PROFILE,GREMLIN_PROFILE,parse_puppy_exp
 
 class Tests(unittest.TestCase):
     def inputs(self,root,gremlin=False):
-        archive=Path(__file__).resolve().parents[1]/'docs/helix/04-build/evidence/truss15-parallel-export-20261013/actual.tar.gz'
+        archive=Path(__file__).resolve().parents[1]/'tests/fixtures/golden/truss15-parallel-export-20261013/actual.tar.gz'
         with tarfile.open(archive)as original:
             raw=original.extractfile('export.json-release.json').read();custody=original.extractfile('export.json-custody.json').read()
         release=root/'release.json';release.write_bytes(raw);paired=root/'custody.json';paired.write_bytes(custody)

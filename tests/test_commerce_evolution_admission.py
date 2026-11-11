@@ -18,11 +18,11 @@ class AdmissionTests(unittest.TestCase):
     def setUp(self):
         self.temporary=tempfile.TemporaryDirectory();self.addCleanup(self.temporary.cleanup)
         self.directory=Path(self.temporary.name)
-        evidence=ROOT/'docs/helix/04-build/evidence/commerce-present-field-preparation-20261009'
+        evidence=ROOT/'tests/fixtures/golden/commerce-present-field-preparation-20261009'
         self.paths=[self.directory/name for name in ('candidate.json','public.json','model.json')]
         self.paths[0].write_bytes((evidence/'candidate.json').read_bytes())
         self.paths[1].write_bytes(gzip.decompress((evidence/'public-presence.json.gz').read_bytes()))
-        self.paths[2].write_bytes((ROOT/'docs/helix/04-build/evidence/commerce-evolution-preparation-20261009/original-model.json').read_bytes())
+        self.paths[2].write_bytes((ROOT/'tests/fixtures/golden/commerce-evolution-preparation-20261009/original-model.json').read_bytes())
         self.calls=[]
 
     def command(self,args,**kwargs):

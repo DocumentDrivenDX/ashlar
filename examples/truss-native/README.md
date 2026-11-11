@@ -30,7 +30,7 @@ The private output retains the setup, source receipt, publication, reader
 configuration and singleton result. The server stops before the final report is
 written. Retain partial output on failure; never reuse it as a fresh destination.
 The component create/publish/read paths have separate native receipts below;
-the [one-command local check](../../docs/helix/04-build/evidence/truss-typed-record-example-native-20261013/result.json)
+the one-command local check
 qualifies this composition with its recorded runtime versions. It uses local development authority and caller-asserted
 source ACK, with no Unity Catalog or production authorization claim.
 
@@ -87,7 +87,7 @@ ashlar run-truss-example --configuration /absolute/private/example.json \
   --output /absolute/private/fresh-example
 ```
 
-The [installed command receipt](../../docs/helix/04-build/evidence/truss-example-installed-20261013/result.json)
+The installed command receipt
 qualifies this small local workflow with the selected existing dependencies.
 
 Set optional `"export_graph": true` in the configuration to retain the original
@@ -107,7 +107,7 @@ ashlar query-duckdb-export --configuration /absolute/private/graph-selection.jso
   --output /absolute/private/duckdb-query.json --maximum-hops 2
 ```
 
-The [small export receipt](../../docs/helix/04-build/evidence/truss-example-export-20261013/result.json)
+The small export receipt
 records the real two-node, one-edge example and DuckDB read.
 
 That pair can also configure the [GraphFrames export workflow](../../README.md)
@@ -177,7 +177,7 @@ read-only exact receipt reconciliation, with no second ACK write. The receipt
 proves source retention; Ashlar still verifies the destination publication.
 Oversized complete receipts use a lossless compressed envelope within Truss’s
 one-MiB limit. Small receipts keep their original byte encoding.
-The [native resume receipt](../../docs/helix/04-build/evidence/truss-receipt-resume-20261013/result.json)
+The native resume receipt
 records a small source CLI resume, continuation, pinned inverse query and exact
 read-only reconciliation of both receipt formats. It does not qualify a fresh
 installed-wheel receipt workflow.
@@ -277,7 +277,7 @@ SELECT b."B-label" AS label FROM B b
 WHERE HAS_RELATED(b."B-A", KEY('Value-A', 'Alpha'))
 ```
 
-The [local inverse filter receipt](../../docs/helix/04-build/evidence/truss-inverse-filter-20261013/result.json)
+The local inverse filter receipt
 returns Beta from the existing publication, without ingest or checkpoint advancement.
 This profile does not provide an edge-occurrence join.
 
@@ -289,7 +289,7 @@ run before the query. Use an authored forward name or explicitly declared invers
 name on an unfiltered, unjoined source without outer `ORDER BY`. Inverse reads
 swap endpoint keys while preserving the canonical physical edge direction and
 edge occurrences. The host verifies the complete result bag and truncation
-against the original source oracle. The [small local inverse workflow](../../docs/helix/04-build/evidence/truss-inverse-query-20261013/result.json)
+against the original source oracle. The small local inverse workflow
 executes the original Weft query against a published two-record, one-edge graph.
 
 For a fresh installation with an authored inverse, select
@@ -302,7 +302,7 @@ SELECT RELATED_KEYS(b."B-A", 2) AS related FROM B b
 ```
 
 This is a separate authored setup choice; it does not upgrade an existing catalog.
-Its [local Truss acceptance receipt](../../docs/helix/04-build/evidence/truss-inverse-acceptance-20261013/result.json)
+Its local Truss acceptance receipt
 checks schema acceptance only; the separate inverse workflow above publishes and queries data.
 
 A required STRING equality join can also project fields from both occurrences:
@@ -315,7 +315,7 @@ FROM B b JOIN B c ON b."B-value" = c."B-value"
 This preserves the complete matching-pair bag, with up to 64 projected fields
 and 10,000 matched pairs. It supports no filters, grouping, ordering or limits;
 it does not traverse relationship edges. The
-[local projection receipt](../../docs/helix/04-build/evidence/truss-join-projection-20261013/result.json)
+local projection receipt
 returns `Beta` and `Value-B` from the existing publication without advancing the source.
 
 Required STRING equality joins can produce a single global count:
@@ -327,7 +327,7 @@ SELECT COUNT(*) AS n FROM B b JOIN B c ON b."B-value" = c."B-value"
 This profile counts matching record pairs, retaining duplicate-value multiplicity;
 it does not follow relationship edges. It supports one INNER equality join,
 without filters, grouping, ordering or limits. Original compiler SQL and scalar
-integrity guards run under the same complete publication pins. The [local join-count receipt](../../docs/helix/04-build/evidence/truss-join-count-20261013/result.json)
+integrity guards run under the same complete publication pins. The local join-count receipt
 returns `1` for the original single B record, without ingest or source advancement.
 
 ## Repeat bounded streaming batches
@@ -378,7 +378,7 @@ Preparation preserves the original publication/page selectors and grants no
 source authority. The actual query rechecks the live source and complete original
 publication pins. Stop the owned server with Ctrl-C. Connection files contain
 private runtime details; use a fresh file on each restart. The
-[local restart receipt](../../docs/helix/04-build/evidence/truss-example-restart-20261013/result.json)
+local restart receipt
 reuses the original publication and leaves the source checkpoint unchanged.
 
 ## Accept into an existing installation
@@ -393,7 +393,7 @@ Prerequisites: installed Ashlar and that Truss Python package, Python 3.11+,
 psycopg/psycopg-binary 3.3.6 with libpq 18.6, PostgreSQL 18.6, and the Bun version
 selected by Truss's bundled producer. This version tuple follows Truss's public
 `packages/python/README.md`. A
-[small native run](../../docs/helix/04-build/evidence/truss-schema-acceptance-20261012/README.md)
+small native run
 accepted one original UMF 0.7.0 schema and read its real catalog successfully.
 
 An administrator must already have installed the **compatible current Truss
@@ -515,7 +515,7 @@ receipt token. It is written only after connection/host cleanup. No `str`/`repr`
 fallback or automatic retry is used. If commit or later readback fails, inspect
 current Truss outcome before retrying; already committed data is retained.
 
-A [small native run](../../docs/helix/04-build/evidence/truss-graph-mutation-20261012/README.md)
+A small native run
 passed create, exact identity readback and committed receipt replay in 2.6 seconds.
 It does not qualify updates/deletes, evolution, imports,
 feed/ACK, compiled queries, graph projections or broader schemas.
@@ -570,7 +570,7 @@ carriers remain Base64; there is no stringification fallback. It is written only
 after caller connection/host cleanup. Two separate commits mean update may have
 succeeded even if deletion or reporting fails. Inspect current durable outcomes
 before an operator-chosen recovery; no automatic retry or reset occurs. This
-source example passed a [small native run](../../docs/helix/04-build/evidence/truss-graph-change-20261012/README.md)
+source example passed a small native run
 in 1.1 seconds. It does not broaden feed/query/import
 support.
 
@@ -618,7 +618,7 @@ identity, retained fields and the incremented version. Both complete original
 group results and committed receipt replay evidence are preserved, with byte
 carriers remaining Base64. No IDs/profile pins are fabricated, no schema is
 rewritten, and no stringification fallback is used. Commit uncertainty requires
-operator inspection before any retry. A [small native run](../../docs/helix/04-build/evidence/truss-object-edit-20261012/README.md)
+operator inspection before any retry. A small native run
 passed in 5.8 seconds, including document addition, non-key update and committed
 receipt replays. It
 claims no schema evolution, feed/import/query or ACK support.
@@ -708,7 +708,7 @@ Use fresh business keys/request keys for a new Note, or inspect original durable
 outcomes before deciding an intentional replay. Bootstrap is local development
 only; it adds no remote provisioning, credentials, production grant, feed/ACK,
 compiled-query or schema-evolution claim. A
-[small native setup/restart run](../../docs/helix/04-build/evidence/truss-local-bootstrap-20261012/README.md)
+small native setup/restart run
 passed in 20.4 seconds, including ordinary-account Note editing after restart.
 
 ## Evolve the same Note document
@@ -946,7 +946,7 @@ Retain partial destinations on failure rather than resetting them or reusing an
 advanced source consumer.
 
 Use [atomic record groups](../truss-record-group/README.md) when source records and
-required edges must commit together. The [full original commerce workflow](../../docs/helix/04-build/evidence/truss22-commerce-feed-query-20261013)
+required edges must commit together. The full original commerce workflow
 records native source/replay, receipt ACK and local Delta publication. Its initial
 page-bound refusal was followed by continuation of the existing publication;
 neither source data nor consumers were reset.
@@ -1428,7 +1428,7 @@ The additive [typed-record R2 model](typed-record-r2.umf.json) adds optional
 Use the actual source object ID from your creation result. `evolve-truss-graph`
 composes schema acceptance, the new-field update and both feed publications,
 retaining the previous catalog archive for subsequent reads. The scalar extension
-has focused adapter coverage. The [one-record Boolean evolution check](../../docs/helix/04-build/evidence/truss-typed-record-evolution-delta-20261013/result.json)
+has focused adapter coverage. The one-record Boolean evolution check
 qualifies optional Boolean addition, both local Delta publications and exact
 readback with prior numeric tokens preserved. Integer/decimal additions, Unity
 Catalog and mixed-revision Weft queries require separate qualification.
@@ -1470,7 +1470,7 @@ creates source data only. Use the graph publisher or continuation to ingest its
 complete feed page into Ashlar, then `read-truss-record` with the actual type and
 object IDs. If a commit outcome is unknown, retain the original request key and
 inspect source state before another write. This command has focused adapter
-coverage. The [one-record source check](../../docs/helix/04-build/evidence/truss-typed-record-source-20261013/result.json)
+coverage. The one-record source check
 qualifies local public schema acceptance and exact typed creation/readback/replay
 with the recorded SDK. Native feed, Delta and query execution remain separate.
 
@@ -1512,7 +1512,7 @@ Use graph continuation to publish the resulting complete feed transaction, then
 read the new publication with `read-truss-record`. The source update itself does
 not publish or ACK. Retain the original request key and inspect source state if
 commit outcome is uncertain. This adapter has basic unit coverage; native
-update/publication qualification is separate. The [one-record local check](../../docs/helix/04-build/evidence/truss-typed-record-update-delta-20261013/result.json)
+update/publication qualification is separate. The one-record local check
 qualifies the recorded source update, committed replay, Delta continuation and
 exact singleton read with the selected versions. It does not qualify Unity
 Catalog or numeric Weft queries.
@@ -1536,7 +1536,7 @@ object may refuse deletion. Ashlar does not remove related objects automatically
 Use graph continuation to publish the deletion. The source command itself does
 not ingest or ACK. Retain the original request key and inspect source state if
 commit outcome is uncertain. Basic adapter coverage does not imply native
-publication qualification. The [one-record local check](../../docs/helix/04-build/evidence/truss-typed-record-delete-delta-20261013/result.json)
+publication qualification. The one-record local check
 qualifies the recorded source deletion, committed replay, Delta continuation and
 pinned singleton absence. Unity Catalog and external graph engines require
 separate qualification.
@@ -1557,7 +1557,7 @@ use explicit `integer_token` or `decimal_token` objects to retain the original
 lexical token. The full physical row remains in the report. Existing STRING Weft
 bindings remain separately scoped; typed ingestion does not imply numeric query
 support in that compiler profile. This extension has focused adapter coverage,
-with a [one-record native Delta continuation/read](../../docs/helix/04-build/evidence/truss-typed-record-delta-20261013/result.json)
+with a one-record native Delta continuation/read
 qualifying the recorded local Spark/Delta versions. Unity Catalog and typed Weft
 query execution remain separate.
 
@@ -1673,9 +1673,9 @@ for an unjoined source scan. It is supplementary schema correspondence proof:
 the caller must use the original built request binding and independently enforce
 native publication admission, every integrity guard and the complete result bag.
 The helper grants no source or result authority. This foundation has basic adapter
-coverage and an [actual public CLI compilation check](../../docs/helix/04-build/evidence/compatible-revision-compiler-20261013/result.json)
+coverage and an actual public CLI compilation check
 on a separately authored named inert fixture. Transport and the two-record mixed R1/R2 local Delta query have
-[actual native evidence](../../docs/helix/04-build/evidence/compatible-revision-native-query-20261013/result.json)
+actual native evidence
 for the pinned source candidate and direct STRING subset. Existing query commands retain their qualified profiles.
 
 ### Query compatible record revisions
@@ -1734,16 +1734,16 @@ scalar outputs, arithmetic and aggregates need their own admission. Select the
 qualified Truss runtime described in the quickstart; `v0.0.1` lacks numeric source
 support.
 
-The [actual one-record native query](../../docs/helix/04-build/evidence/truss-faceted-scalar-native-query-20261013/result.json)
+The actual one-record native query
 preserves `9007199254740993`, decimal `1.2300`, Boolean and STRING results with
 an unchanged source checkpoint on local Spark/Delta.
 
-The [original UMF 0.8 commerce price query](../../docs/helix/04-build/evidence/truss22-commerce-feed-query-20261013)
+The original UMF 0.8 commerce price query
 executes a required decimal(18,2) projection on the Truss-fed publication. Original
 Truss history and singleton tokens are `12.5`; the compiler's result is `12.50`.
 Both exact byte views remain separate and the source checkpoint stays unchanged.
 
-The [installed equality query](../../docs/helix/04-build/evidence/truss-integer-filter-installed-20261013/result.json)
+The installed equality query
 returns exactly `9007199254740993` with ascending order and `LIMIT 1` on the
 retained Truss 15 publication. Its original full-population guard passes and
 the recorded source checkpoint remains unchanged.
@@ -1777,7 +1777,7 @@ publication. Every duplicate match and self-join pair participates in the
 independent source comparison. Numeric results retain exact carrier tokens.
 Filters, outer joins, arithmetic and aggregates require their own admission.
 
-The [actual two-record native joins](../../docs/helix/04-build/evidence/truss-scalar-join-native-20261013/result.json)
+The actual two-record native joins
 return four integer equality pairs and two decimal equality pairs from one
 publication, with exact values and an unchanged source checkpoint.
 
@@ -1803,7 +1803,7 @@ aggregates, optional arithmetic and historical revision unions need separate
 admission. Original request, response and recompilation strings are retained in
 the result; native qualification is scoped by its execution evidence.
 
-The [actual two-record arithmetic query](../../docs/helix/04-build/evidence/truss-arithmetic-native-20261013/result.json)
+The actual two-record arithmetic query
 returns exact integer addition and decimal multiplication/subtraction results
 from one publication, with an unchanged source checkpoint.
 
@@ -1840,7 +1840,7 @@ singleton fields, original arithmetic protocol strings, exact results and unchan
 source checkpoint. Local caller-asserted ACK and execution evidence define its
 qualification.
 
-The [installed-wheel workflow](../../docs/helix/04-build/evidence/truss-arithmetic-example-installed-20261013/result.json)
+The installed-wheel workflow
 executes the documented command from fresh setup through the exact singleton
 and arithmetic results on one publication.
 
@@ -1861,7 +1861,7 @@ bag. The exact nonnegative signed64 result must equal the independent source
 count after every original publication and integrity obligation is discharged.
 Grouped counts, filters and other aggregate expressions require separate admission.
 
-The [actual native counts](../../docs/helix/04-build/evidence/truss-numeric-join-count-native-20261013/result.json)
+The actual native counts
 return four integer matches and two decimal matches on one publication. Empty
 matches have adapter coverage only.
 
@@ -1881,9 +1881,9 @@ nonnegative signed64 count. Equal numeric values share a group, preserving every
 source-row occurrence. The complete result bag must match independent source
 grouping after original integrity guards run under the full publication hold.
 An empty source returns no groups. Filters, optional grouping, joins and other
-aggregate expressions need separate admission. The [native grouped counts](../../docs/helix/04-build/evidence/truss-numeric-grouped-count-native-20261013/result.json)
+aggregate expressions need separate admission. The native grouped counts
 retain the original compiler protocols and exact results on one publication.
-The [released Truss 15 check](../../docs/helix/04-build/evidence/truss15-numeric-grouped-20261013/result.json)
+The released Truss 15 check
 uses the original `typed-related-record` model on the parallel-edge publication:
 integer and decimal grouping each return two exact groups with count one.
 This explicitly selected compatible compiler profile is separate from the indexed
@@ -1982,12 +1982,12 @@ a bounded 2 MiB catalog/feed page budget. The source enforces the original direc
 independent max-two relationship declarations. Forward bags are R1:[R2] and R2:[R2];
 inverse bags are R1:[] and R2:[R1,R2], with no truncation at bound two. Source ACK is
 caller-asserted. The final private bounded report requires unchanged checkpoints,
-exact values, complete bags and successful runtime closure. The [native public-command workflow](../../docs/helix/04-build/evidence/truss-typed-related-native-20261013/result.json)
+exact values, complete bags and successful runtime closure. The native public-command workflow
 qualifies typed ingestion, singleton and forward/inverse queries. A fresh installed
-run of this one-command helper is qualified by the [installed-wheel workflow](../../docs/helix/04-build/evidence/truss-typed-related-example-installed-20261013/result.json),
+run of this one-command helper is qualified by the installed-wheel workflow,
 using the exact bundled model and explicitly selected local dependencies.
 
-The [same-graph export and GraphFrames execution](../../docs/helix/04-build/evidence/truss-typed-related-graphframes-20261013/result.json)
+The same-graph export and GraphFrames execution
 qualifies the retained two-node/two-edge typed publication, including its self-loop,
 one/two-hop edge occurrences and exact degree/path counts. Canonical numeric
 property JSON is preserved as opaque text; this evidence does not qualify
@@ -2017,7 +2017,7 @@ response and recompilation strings are retained. Filters, groups, property joins
 and path-list outputs need separate admission. This route is scoped to the local
 candidate; native qualification is recorded separately in execution evidence.
 
-The [native authored two-hop counts](../../docs/helix/04-build/evidence/truss-two-hop-count-native-20261013/result.json)
+The native authored two-hop counts
 return two paths on the forward-edge/self-loop publication and zero on its
 retained earlier no-edge publication. Each executes thirteen original guards
 and leaves the source checkpoint unchanged.
@@ -2046,7 +2046,7 @@ without materializing a Cartesian path bag. Ordinary edge-pair count and distinc
 target count remain separate commands. Qualification is scoped to the admitted
 local candidate and recorded execution evidence.
 
-The [native terminal-key counts](../../docs/helix/04-build/evidence/truss-two-hop-target-count-native-20261013/result.json)
+The native terminal-key counts
 return one destination for the same publication with two path occurrences,
 and zero for the retained earlier no-edge publication. Original physical pins,
 compiler descriptors, all thirteen guards and the source checkpoint are preserved.
@@ -2105,7 +2105,7 @@ renewal. An uncertain commit surfaces without automatic retry. Use
 `continue-truss-graph` to publish subsequent committed source changes before
 querying them in Delta.
 
-The [native edge lifecycle example](../../docs/helix/04-build/evidence/truss-typed-edge-lifecycle-native-20261013/result.json)
+The native edge lifecycle example
 updates one edge's endpoint and deletes another, publishes both committed changes,
 and queries the new and original publications. The original snapshot retains its
 earlier topology. This local Spark 4.0.1 / Delta 4.0.0 case uses empty retained
@@ -2151,20 +2151,20 @@ Select document `ashlar-core08-asset` with the same module, record and scalar
 values, using authentic Truss 0.0.15. Unknown content preservation does not imply
 enforcement of its meaning.
 
-The [native core 0.8 example](../../docs/helix/04-build/evidence/truss-core08-native-20261013/result.json)
+The native core 0.8 example
 qualifies acceptance, exact creation/replay, two source publications and named
 singleton reads with the recorded local runtime. The
-[released opaque-model example](../../docs/helix/04-build/evidence/truss15-core08-opaque-native-20261013/result.json)
+released opaque-model example
 qualifies original 0.8 acceptance, creation/replay, two Delta publications and
 exact four-field readback on Truss 0.0.15. Its original report retains the
 `UNKNOWN_EXTENSION` warning and partial interpretation. Neither intake example
 qualifies unknown semantic enforcement, Weft queries or production authorization.
-The [immutable export and GraphFrames check](../../docs/helix/04-build/evidence/truss15-core08-immutable-graphframes-20261013/result.json)
+The immutable export and GraphFrames check
 retains the same isolated node and four exact property carriers. Unknown model
 extensions remain in source acceptance evidence; the graph does not embed or
 interpret that vocabulary. GraphFrames numeric filtering is outside this check.
 
-The [declared 0.8 lifecycle example](../../docs/helix/04-build/evidence/truss-core08-lifecycle-native-20261013/result.json)
+The declared 0.8 lifecycle example
 qualifies source update/delete with committed receipt replay, two contiguous
 Delta publications and complete original, updated and deleted singleton reads.
 The integer and decimal tokens remain exact; historical reads leave the source
@@ -2192,7 +2192,7 @@ reader selecting the evolved publication. Preserve the earlier publication
 intent when reading the original values. This additive-field workflow requires
 matching declared versions; core-version migration needs separate admission.
 
-The [native declared 0.8 evolution example](../../docs/helix/04-build/evidence/truss-core08-evolution-native-20261013/result.json)
+The native declared 0.8 evolution example
 qualifies this same-version optional STRING addition, original values preserved
 through acceptance, committed field-update replay and both complete Delta pages.
 The old snapshot retains four fields; the evolved snapshot has five, including
@@ -2217,18 +2217,18 @@ The selected graph has two distinct independent R1 self-loop edges and isolated
 R2. Forward and inverse `RELATED_KEYS` each retain two R1 occurrences and an empty
 R2 list. Separate two-hop path and distinct-target count commands can compare
 four path occurrences with one terminal key; this helper does not execute those
-counts. The [released-runtime parallel example](../../docs/helix/04-build/evidence/truss15-parallel-example-20261013/result.json)
+counts. The released-runtime parallel example
 qualifies actual Truss 0.0.15 / PostgreSQL 18, Spark 4.0.1 / Delta 4.0.0 and the
 selected compatible-revision compiler: five publications, exact typed singleton
 reads, both duplicate key bags and unchanged source checkpoint. It does not
 qualify two-hop counts, external engines or Weft 0.4.17. The default topology
 continues to use the previously qualified R1→R2 edge and R2 self-loop.
 
-On the same parallel publication, the separate [Weft count commands](../../docs/helix/04-build/evidence/truss15-parallel-counts-20261013/result.json)
+On the same parallel publication, the separate Weft count commands
 return four two-hop paths and one distinct terminal key, with all thirteen
 integrity guards clear for each query and an unchanged source checkpoint.
-The [immutable export](../../docs/helix/04-build/evidence/truss15-parallel-export-20261013/result.json)
-preserves both nodes and independent edges. [GraphFrames 0.12.3 / Spark 3.5.3](../../docs/helix/04-build/evidence/truss15-parallel-graphframes-20261013/result.json)
+The immutable export
+preserves both nodes and independent edges. GraphFrames 0.12.3 / Spark 3.5.3
 independently checks all four ordered edge pairs and isolated R2's zero degree
 and path counts. Its property JSON remains an exact opaque carrier; this does
 not qualify numeric graph filtering.
@@ -2237,7 +2237,7 @@ Use the [immutable PuppyGraph workflow](../puppy-immutable-export/README.md) to
 query an exported release with the local Cypher corpus, without a live Truss
 or Spark process. Select both original release and custody hashes.
 
-The [installed PuppyGraph Cypher check](../../docs/helix/04-build/evidence/truss15-puppy-immutable-cypher-20261013/result.json)
+The installed PuppyGraph Cypher check
 qualifies full canonical carriers, independent native identities and all four
 ordered edge pairs on that same parallel release. Isolated R2 retains zero degree,
 paths and distinct targets. Gremlin and numeric property filters remain separate

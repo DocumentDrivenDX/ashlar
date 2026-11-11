@@ -721,7 +721,7 @@ class ManagedCurrentQueryTests(unittest.TestCase):
         managed_current_parity_bytes,
     )
 
-    evidence_root = (Path(__file__).resolve().parents[1] / "docs/helix/04-build/evidence"
+    evidence_root = (Path(__file__).resolve().parents[1] / "tests/fixtures/golden"
                      / "current-upstream-release-20261021/local-current")
     compiled = {}
     for case in _CASES:

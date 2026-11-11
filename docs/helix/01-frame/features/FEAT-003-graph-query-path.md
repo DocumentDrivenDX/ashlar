@@ -114,7 +114,7 @@ within those boundaries; unresolved PRD Q4–Q5 decisions remain target-specific
 
 ## Consumer input and open decisions
 
-[Consumer input](../../00-discover/hot-store-publication-input.md) P4–P6 motivates
+Consumer input P4–P6 motivates
 QUERY-06–QUERY-09. Exact cursor format, query syntax and response/error surfaces
 belong in a read Contract. PRD Q11 must select count semantics, pagination order,
 minimum-position timeout and authorization disclosure rules. Unity Catalog
@@ -132,7 +132,7 @@ path runs independently of Fabric.
 
 ## Dependencies
 
-FEAT-002, FEAT-004 for incremental progress, PRD FR-3, and [query research](../../00-discover/research.md).
+FEAT-002, FEAT-004 for incremental progress, PRD FR-3, and query research.
 GraphFrames execution is a required integration lane; installing it is not a
 prerequisite for native Databricks singleton reads or other independent engines.
 

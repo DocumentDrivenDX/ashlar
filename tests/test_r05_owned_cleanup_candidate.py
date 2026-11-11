@@ -12,7 +12,7 @@ from ashlar_host.canonical_graphframes_materializer import (
 )
 
 R2 = (Path(__file__).resolve().parents[1] /
-      "docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r2")
+      "tests/fixtures/golden/canonical-graphframes-holder-candidate-20261023/r05-native-action-r2")
 SPEC = importlib.util.spec_from_file_location("r05_r2_supervisor", R2 / "bounded_r05_supervisor.py")
 supervisor = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(supervisor)

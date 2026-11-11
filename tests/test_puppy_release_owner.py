@@ -79,7 +79,7 @@ class Policy:
 class Tests(unittest.TestCase):
     def setUp(self):
         root = Path(__file__).resolve().parents[1]
-        folder = root / 'docs/helix/04-build/evidence/puppygraph-releases-20261009'
+        folder = root / 'tests/fixtures/golden/puppygraph-releases-20261009'
         self.releases = tuple(GraphRelease((folder / (digest + '.graph.json')).read_bytes(), digest)
             for digest in ['ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7',
                 'a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a'])

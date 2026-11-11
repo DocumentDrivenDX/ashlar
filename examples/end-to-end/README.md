@@ -148,6 +148,6 @@ engine permission. A failed closing emits neither export file. File-write failur
 may leave partial private output without a success report; retain it as failure.
 No native qualification is inferred from this API or example.
 
-The [original example notes](../../docs/helix/04-build/evidence/documentation-history-20261009/examples/end-to-end/README.original.txt)
+The original example notes
 retain previous execution history verbatim. Native receipts and their custody
 hashes belong under build evidence rather than in this usage guide.

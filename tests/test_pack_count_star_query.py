@@ -63,7 +63,7 @@ class OrchestrationTests(unittest.TestCase):
  def setUpClass(cls):
   import tarfile
   cls.compiled={}
-  with tarfile.open(ROOT/'docs/helix/04-build/evidence/pack-installed-compiler-20261010/actual.tar.gz','r:gz')as archive:
+  with tarfile.open(ROOT/'tests/fixtures/golden/pack-installed-compiler-20261010/actual.tar.gz','r:gz')as archive:
    for pack in ('archaeology','ecology'):
     definition=fixture(pack).source.definition;rows=[]
     for name in definition.facts()['case_ids']:

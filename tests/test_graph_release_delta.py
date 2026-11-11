@@ -50,7 +50,7 @@ class Policy:
 
 class Tests(unittest.TestCase):
  def setUp(self):
-  file=sorted((ROOT/'docs/helix/04-build/evidence/puppygraph-releases-20261009').glob('*.graph.json'))[0]
+  file=sorted((ROOT/'tests/fixtures/golden/puppygraph-releases-20261009').glob('*.graph.json'))[0]
   self.raw=file.read_bytes();self.sha=hashlib.sha256(self.raw).hexdigest();self.policy=Policy();self.spark=Spark()
  def run_writer(self):return materialize_graph_release_delta(self.spark,self.raw,self.sha,node_path='/private/tmp/release-test/nodes',edge_path='/private/tmp/release-test/edges',policy=self.policy,context=None)
  def test_full_original_string_bags_and_metadata(self):

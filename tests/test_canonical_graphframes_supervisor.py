@@ -11,7 +11,7 @@ from ashlar_host.pinned_delta_graphframes import ReviewedCanonicalActionDescript
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SUPERVISOR_PATH = (ROOT / "docs/helix/04-build/evidence/"
+SUPERVISOR_PATH = (ROOT / "tests/fixtures/golden/"
                    "canonical-graphframes-holder-candidate-20261023/"
                    "native-supervisor/bounded_native_supervisor.py")
 SPEC = importlib.util.spec_from_file_location("bounded_native_supervisor", SUPERVISOR_PATH)
@@ -30,7 +30,7 @@ PASS_RECEIPT = {
 
 class BoundedNativeSupervisorTests(unittest.TestCase):
     def test_final_action_anchor_binds_exact_reviewed_inputs_without_authorizing_wrapper(self):
-        evidence = (ROOT / "docs/helix/04-build/evidence/"
+        evidence = (ROOT / "tests/fixtures/golden/"
                     "canonical-graphframes-holder-candidate-20261023")
         packet_path = evidence / "native-supervisor/invocation-packet.json"
         packet = json.loads(packet_path.read_text())
@@ -62,7 +62,7 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
         self.assertEqual(packet["hardBounds"]["diagnosticsBytes"], 128 << 20)
 
     def test_pending_wrapper_packet_cannot_consume_native_attempt(self):
-        evidence = (ROOT / "docs/helix/04-build/evidence/"
+        evidence = (ROOT / "tests/fixtures/golden/"
                     "canonical-graphframes-holder-candidate-20261023/native-supervisor")
         packet_path = evidence / "invocation-packet.json"
         with tempfile.TemporaryDirectory(prefix="ashlar-supervisor-auth-") as directory:

@@ -8,7 +8,7 @@ import unittest
 from ashlar_host.pinned_delta_graphframes import ReviewedCanonicalActionDescriptor
 
 ROOT = Path(__file__).resolve().parents[1]
-EVIDENCE = ROOT / "docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023"
+EVIDENCE = ROOT / "tests/fixtures/golden/canonical-graphframes-holder-candidate-20261023"
 PACKET_DIR = EVIDENCE / "r05-native-action-r1"
 PACKET_PATH = PACKET_DIR / "invocation-packet.json"
 SPEC = importlib.util.spec_from_file_location(

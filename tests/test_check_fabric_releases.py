@@ -22,7 +22,7 @@ class Tests(unittest.TestCase):
             bad=copy.deepcopy(body);mutate(bad)
             with self.assertRaises(ValueError):verify(bad,expected,('x',))
     def test_native_failure_retained_without_retry(self):
-        root=Path(__file__).resolve().parents[1]/'docs/helix/04-build/evidence/puppygraph-releases-20261009'
+        root=Path(__file__).resolve().parents[1]/'tests/fixtures/golden/puppygraph-releases-20261009'
         digests=['ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7','a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a']
         inputs={n:(root/(d+'.graph.json'),d) for n,d in zip(('R1','R2'),digests)}
         graphs={'R1':'8947b7a0-130b-4a9a-9597-1d8a326a6f23','R2':'fe883e8f-7f7d-42d0-a58d-299eafbb4e36'};calls=[]

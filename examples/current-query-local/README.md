@@ -18,7 +18,7 @@ Build the compiler from reviewed Weft commit
 --manifest-path /absolute/weft/crates/weft-python/Cargo.toml --features
 current-spark-scalar-candidate`. Extract the resulting development wheel and
 supply the selected native-module and Python-shim SHA-256 digests below.
-The [execution evidence](../../docs/helix/04-build/evidence/current-local-end-to-end-20261015/README.md)
+The execution evidence
 retains the tested build and exact local results.
 
 Use an explicit Python environment with Spark 4.0.1, Delta 4.0.0, JDK 21,

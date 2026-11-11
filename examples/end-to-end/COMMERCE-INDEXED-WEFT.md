@@ -5,7 +5,7 @@ and query that publication through the indexed Weft compiler. The installed
 `publish-commerce` and `query-commerce` commands own the host workflow; no Ashlar
 checkout or `tools/` imports are needed at runtime.
 
-The [installed workflow evidence](../../docs/helix/04-build/evidence/installed-commerce-native-20261010/manifest.json)
+The installed workflow evidence
 records one fresh publication and three queries: a String projection, an exact
 global count, and the authored product-to-supplier `RELATED_KEYS` projection.
 It uses a private PostgreSQL outbox and local Delta with explicit development IDs.

@@ -130,7 +130,7 @@ A successful report requires all four complete result bags, unchanged original
 compiler SQL, fresh compiler correspondence, reader closure, Spark shutdown and
 closing source/native/JAR/invocation checks. Intermediate cases are provisional.
 
-The [four-query evidence](../../docs/helix/04-build/evidence/original-commerce-local-query-20261011-d/README.md)
+The four-query evidence
 qualifies partial return, fulfillment, settlement and refund on this finite local
 original source. Its independently checked initialization and publication are
 linked from the receipt. The result does not qualify arbitrary new runtime

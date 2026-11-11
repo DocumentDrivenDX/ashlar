@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import base64
 import copy
 import json
@@ -20,7 +21,7 @@ class CommerceValueRequestTests(unittest.TestCase):
         self.source=Path(self.temp.name)/'commerce'
         shutil.copytree(ROOT/'examples/domain-packs/commerce/upstream',self.source)
         self.inventory=json.loads((ROOT/'examples/domain-packs/inventory.json').read_bytes())
-        self.inspection=json.loads((ROOT/'docs/helix/04-build/evidence/commerce-domain-interpretation-20261009.json').read_bytes())
+        self.inspection=json.loads(read_golden('commerce-domain-interpretation-20261009.json'))
 
     def prepare(self):
         return prepare_values(self.source,self.inventory,self.inspection)

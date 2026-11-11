@@ -11,8 +11,8 @@ from ashlar_host.local_current_delta4_umf_sdk010 import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKET = ROOT / 'docs/helix/04-build/evidence/current-upstream-release-20261031/sdk010-delta4-bridge-candidate'
-RELEASE_PROPOSALS = ROOT / 'docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/outputs/carrier-proposals.json'
+PACKET = ROOT / 'tests/fixtures/golden/current-upstream-release-20261031/sdk010-delta4-bridge-candidate'
+RELEASE_PROPOSALS = ROOT / 'tests/fixtures/golden/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/outputs/carrier-proposals.json'
 RELEASE_PROPOSALS_SHA256 = 'd00c4a9d0c6c1fd0946007a5ae2495ee95960ba094d1a46dbed0dc6d966e68ea'
 
 

@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import copy,hashlib,json,sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
@@ -6,7 +7,7 @@ from run_commerce_release_graphframes import original,query_oracle,bag,load_rele
 ROOT=Path(__file__).resolve().parents[1]
 class CommerceGraphFramesTests(unittest.TestCase):
     def admitted(self):
-        p=ROOT/'docs/helix/04-build/evidence/commerce-graph-export-20261009';r=(p/'release.graph.json').read_bytes();c=(p/'custody.json').read_bytes()
+        p=ROOT/'tests/fixtures/golden/commerce-graph-export-20261009';r=(p/'release.graph.json').read_bytes();c=read_golden('commerce-graph-export-20261009/custody.json')
         return load_release(r,hashlib.sha256(r).hexdigest(),custody_profile=PROFILE,custody_payload=c,trusted_custody_sha256=hashlib.sha256(c).hexdigest())
     def test_original_complete_carriers(self):
         graph,nodes,edges,admission=original(self.admitted())

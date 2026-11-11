@@ -24,7 +24,7 @@ The current local qualification cohort is Truss 0.0.55, UMF SDK 0.10.2 /
 Python Core 0.10.6, Weft 0.4.56, Access 0.1.0.dev8 and declared UMF
 model 0.10.0. The selected managed serverless qualification passed for its
 documented profile. Ashlar `0.1.0` is published as an immutable GitHub release;
-see the [publication closeout](05-deploy/evidence/release-0.1.0-20261103/publication-closeout.json).
+see the publication closeout.
 
 The composed R61 local-development run used Spark 4.2.0 / Delta 4.4.1 and the
 `.4-xxhash64` carrier. It committed a metadata genesis, seven-operation seed
@@ -33,23 +33,23 @@ produced a canonical six-node/three-edge owner export. A separately bounded
 GraphFrames action matched that retained export. The closeout preserves the
 original full-worker GraphFrames adapter failure and the later retained-bytes
 pass; the native Weft singleton and grouped values were observed, but the full
-worker did not persist a durable Weft result hash. See the [R61 closeout](04-build/evidence/current-upstream-release-20261102/r61-fresh-truss055-attempt13-continuation/qualification-closeout.json).
+worker did not persist a durable Weft result hash. See the R61 closeout.
 
 A separate local managed-current recovery reopened the exact attempt14 pending
 A1 page, independently compared all four native Delta role bags against the
 source oracle, then reconciled one protected A1 ACK. It performed no source
 group replay or Delta write. This recovery records a source-hold discontinuity
 and uses local path-based Delta reads; it does not establish Databricks or
-Unity Catalog execution. See the [attempt14 recovery closeout](04-build/evidence/current-upstream-release-20261102/managed-current-attempt14-a1-recovery/closeout.json).
+Unity Catalog execution. See the attempt14 recovery closeout.
 
 The selected `aidev-cus` managed serverless target passed the R25 A1
 continuation: 14 native rows matched the exact table UUID/version vector,
 predictive optimization was enabled at all three checks, and the protected
 Truss ACK matched. R25 reused the matched R23 A0 settlement and committed A1
 seed without replay after recording the source-hold gap; source, pin, schema,
-table, and Volume cleanup completed. See the [managed closeout](04-build/evidence/current-upstream-release-20261102/managed-a1-resume-20261103/managed-a1-closeout-provenance.json),
-[raw qualification receipt](04-build/evidence/current-upstream-release-20261102/managed-a1-resume-20261103/managed-a1-closeout.json),
-and [R23 A0 / RC10 source-probe evidence](04-build/evidence/current-upstream-release-20261102/managed-a1-resume-20261103/r23-a0-and-rc10-a1-source-probe.json).
+table, and Volume cleanup completed. See the managed closeout,
+raw qualification receipt,
+and R23 A0 / RC10 source-probe evidence.
 
 The original workspace's catalog inventory did not include `client_dev`; the
 selected `aidev-cus` workspace exposes it to the current principal. The
@@ -68,10 +68,10 @@ release closure records the completed managed scope and local release sequence.
 | FR-3: Graph queries | [FEAT-003](01-frame/features/FEAT-003-graph-query-path.md) | [US-003](01-frame/user-stories/US-003-query-typed-graph.md) |
 | FR-4: Incremental publication | [FEAT-004](01-frame/features/FEAT-004-incremental-gold-publication.md) | [US-004](01-frame/user-stories/US-004-trust-replayed-publication.md) |
 
-[Discovery and scope](00-discover/research.md) and
-[potential-consumer input](00-discover/hot-store-publication-input.md) retain their
+Discovery and scope and
+potential-consumer input retain their
 source context. Desired behavior belongs in requirements, contracts and test plans;
 implementation results belong in build evidence. The
-[pre-cleanup documentation archive](04-build/evidence/documentation-history-20261009/docs/helix/README.original.txt)
+pre-cleanup documentation archive
 preserves the earlier status history verbatim. HELIX uses the installed catalog;
 no methodology catalog is copied into this repository.

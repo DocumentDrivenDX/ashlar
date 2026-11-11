@@ -24,7 +24,7 @@ class Weft056DistributionTests(unittest.TestCase):
         self.assertTrue(all(len(value) == 64 for value in WHEEL_SHA256.values()))
 
     def test_schema_bundle_matches_release_source_bytes(self):
-        schema_dir = Path(__file__).parents[1] / 'docs/helix/04-build/evidence/current-upstream-release-20261029/r01-umf-weft-pins-20261029/weft056-schemas'
+        schema_dir = Path(__file__).parents[1] / 'tests/fixtures/golden/current-upstream-release-20261029/r01-umf-weft-pins-20261029/weft056-schemas'
         self.assertEqual(set(SCHEMA_SHA256), {p.name for p in schema_dir.glob('*.json')})
         for name, expected in SCHEMA_SHA256.items():
             self.assertEqual(hashlib.sha256((schema_dir / name).read_bytes()).hexdigest(), expected)

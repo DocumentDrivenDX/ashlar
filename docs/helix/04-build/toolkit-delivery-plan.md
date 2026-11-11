@@ -161,10 +161,10 @@ This continuation orders the remaining release work against current public upstr
 
 | ID | Outcome and dependency | Acceptance evidence |
 | --- | --- | --- |
-| R01 | Select public upstreams with exact package/source custody. Ashlar pins Weft `0.4.53` after one focused page-compiler comparison with `0.4.52`; the older `0.4.48` and `0.4.52` receipts remain historical. It pins public Truss `0.0.50` for the local provider profile and public UMF access `0.1.0.dev7` from `umf-v0.5.5`. Public UMF `umf-v0.5.6` is published from `259bf1ed91466ff7e9782d7517c14f2112282026` (tree `204cfba81eadbe9a6a0458bc9a7de2dc1e50e58b`); the published 0.10.1 macOS arm64 and Linux x86_64 wheel bytes match their asset SHA-256 values. Ashlar pins only those two platform assets. A fresh macOS CPython 3.12.14 install, package integrity check and focused typed-graph tests passed; the Linux wheel was byte-verified only. Upstream's Linux test environment is Ubuntu 24.04/glibc 2.39/Python 3.11. No Databricks-runtime compatibility, native Delta, Truss lifecycle, Unity Catalog, or production authority follows from package adoption. No Windows or Intel macOS wheel is selected. | [UMF 0.10.1 asset adoption](evidence/current-upstream-release-20261023/umf-0.10.1-ashlar-adoption-20261024/README.md), [UMF 0.5.6 source bridge](evidence/current-upstream-release-20261023/umf-0.5.6-local-delta4-bridge/README.md), [one-table Delta acceptance](evidence/current-upstream-release-20261023/umf-0.5.6-delta4-one-table-acceptance-20261023/README.md), [Weft 0.4.53 compiler comparison](evidence/current-upstream-release-20261023/weft053-ashlar-adoption-20261023/README.md), and [Truss 0.0.50 package qualification](evidence/current-upstream-release-20261024/truss050-package-cohort-qualification-20261024/README.md) retain their narrow scopes. The selected Weft 0.4.52 [handoff](evidence/current-upstream-release-20261023/weft-0.4.52-handoff/README.md) and [Linux functional](evidence/current-upstream-release-20261023/weft052-selected-linux-functional/README.md) receipts remain historical. Recheck public versions at candidate cut; record the exact runtime tuple before downstream qualification. |
-| R02 | On R01, qualify the current core 0.10 typed-graph profile through public UMF validation, a small local Delta create/update/delete publication, exact replay and publication-bound native singleton/Weft read. Execute both selected current-value paths: Backend03 grouped graph preparation and Backend02 SDK page/continuation, using their original compiler artifacts and publication pins. Keep UMF interpretation and DDL in UMF and compilation in Weft. The target-matched public Weft 0.4.53 wheel compiles the exact R02 Backend03 and Backend02 first-page/continuation requests with their source-declared Spark 4.2.0/Delta 4.4.1 candidates ([compiler receipt](evidence/current-upstream-release-20261023/weft053-r02-spark42-public-target-20261024/README.md)). The separate generic adoption probe's Spark 4.0.1 target and the historical crossed-target refusal do not indicate a gap. The [reviewed local `.3` prepublication](evidence/current-upstream-release-20261024/r02-native-prepublication-20261024/README.md) completed initialize, three batches and exact replay. The separately versioned `.53` verifier and private gate/SDK selection controls are implemented and focused-tested. The reviewed live-alias continuation then completed the ordinal-1 singleton, original and positive Backend03 grouped checks, and Backend02 SDK page/continuation against the retained `.3` vector ([continuation result receipt](evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024/native-continuation-result-427287c7f6564985b1a947bea049158a.json)). This result does not qualify the `.4-xxhash64` profile or protected source/ACK custody. | Exact original model/source/binding hashes, identities, values, presence, independent edges, full publication vector, grouping/multiplicity and SDK page continuation against an independent oracle, plus a meaningful refusal; selected local Python/Spark/Delta/JDK/JAR versions and elapsed/resource observations. An SDK preparation or component test alone does not qualify native execution. Historical managed runs remain separate versioned evidence. |
-| R03 | Preserve the completed Truss 0.0.44 current-core catalog, mutation and complete feed/ACK lifecycle as versioned development evidence. Retain the 0.0.45 committed seven-operation source seed and unapplied offline update/delete request as historical preparation. Keep the original 0.0.48 accepted UMF 0.10 source, report, complete view, IDs and registered consumer unchanged. Add exact public Truss 0.0.50 as a new versioned provider/admission profile. Before resuming the existing consumer, take the selected database and durable recovery-registry backups, then use Truss's public latest-only explicit two-edge migration route from exact 0.0.48 manifest c433… through intermediate manifest 35fd… to current native manifest 288801… under the selected 0.0.50 runtime; verify the original source and complete view afterward. Resume from the already committed genesis checkpoint, then execute the bounded local 0.4 Delta genesis publication/independent verify/ACK. Only after that ACK, make the approved seed page visible for its first submission, then verify and ACK that publication. Do not repeat the committed source acceptance or source/consumer registration, or replay any already committed effect or ACK. The 0.48 campaign did not submit the seed. Retain all prior failure receipts unchanged; the R15 attempt did not complete an Ashlar 0.50 native migration or lifecycle; its failure is recorded separately below. | The [0.48 adoption packet](evidence/current-upstream-release-20261022/truss-0.0.48-adoption-preparation.json) preserves the revision-1 acceptance, registrar-only refusal and separate ACL-scoped source/view recovery; it did not execute graph, feed, publication, destination or ACK. The [0.50 adoption analysis](evidence/current-upstream-release-20261024/truss050-adoption-analysis-20261024/README.md) and [package qualification](evidence/current-upstream-release-20261024/truss050-package-cohort-qualification-20261024/README.md) cover only effect-free selection and compatibility. Code/profile controls do not execute migration or feed operations. A successful 0.50 migration/consumer resume and each publication/ACK remain unqualified native gates. The R15 one-shot approval was consumed by its failed attempt; a diagnosed correction and new exact approval are required before any further native execution. Local source authority does not grant production authority. The exact one-shot R15 attempt stopped at the initial `.48` read-only custody gate after its helper received an empty JSON view; its approval is consumed, and no retry is authorized. The retained PostgreSQL state is stopped, the verified cold backup is preserved, and no migration/publication/ACK/seed/continuation gate passed ([R15 execution result](evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/execution-result.json)). Do not relabel Truss 0.0.22, 0.0.44 or 0.0.48 receipts.
-| R04 | After R03 establishes actual accepted source and complete feed custody for the selected Truss version, freeze the exact canonical bytes and digest of a fresh versioned current-core 0.10 eight-slot A/B semantic schedule, including independent source identities, epochs, installations and ACK scopes, before the first native publication. Resolve each exact request from verified predecessor results and durably bind its bytes and digest to the schedule digest before that slot’s source mutation. Do not begin a slot until its predecessor’s graph publication, independent verification and protected ACK complete. Execute the schedule through local publication, retained old reads, replay/restart, source-specific durable ACK and evolution refusal. The completed 0.44 single-source lifecycle is a narrower baseline; the old `native-r2` 3/8 original UMF 0.8 run stays historical and incomplete. In an independent lane, complete P06/P07 held Fabric commerce upload, load, R1/R2 activation and interrupted-replacement witness. The [fresh Fabric functional attempt plan](evidence/commerce-fabric-fresh-functional-plan-20261023/README.md) is a bounded offline candidate, not launch authorization or execution evidence. | Native evidence for every frozen current request on the selected version, complete publication vectors and source-specific progress/ACK, independent identities despite overlapping local IDs, exact values and no mixed Fabric activation. The historical A ambiguous OneLake upload and native 503 remain unresolved until reconciled. Fabric execution requires dedicated capacity and approved resource/cost bounds. |
+| R01 | Select public upstreams with exact package/source custody. Ashlar pins Weft `0.4.53` after one focused page-compiler comparison with `0.4.52`; the older `0.4.48` and `0.4.52` receipts remain historical. It pins public Truss `0.0.50` for the local provider profile and public UMF access `0.1.0.dev7` from `umf-v0.5.5`. Public UMF `umf-v0.5.6` is published from `259bf1ed91466ff7e9782d7517c14f2112282026` (tree `204cfba81eadbe9a6a0458bc9a7de2dc1e50e58b`); the published 0.10.1 macOS arm64 and Linux x86_64 wheel bytes match their asset SHA-256 values. Ashlar pins only those two platform assets. A fresh macOS CPython 3.12.14 install, package integrity check and focused typed-graph tests passed; the Linux wheel was byte-verified only. Upstream's Linux test environment is Ubuntu 24.04/glibc 2.39/Python 3.11. No Databricks-runtime compatibility, native Delta, Truss lifecycle, Unity Catalog, or production authority follows from package adoption. No Windows or Intel macOS wheel is selected. | UMF 0.10.1 asset adoption, UMF 0.5.6 source bridge, one-table Delta acceptance, Weft 0.4.53 compiler comparison, and Truss 0.0.50 package qualification retain their narrow scopes. The selected Weft 0.4.52 handoff and Linux functional receipts remain historical. Recheck public versions at candidate cut; record the exact runtime tuple before downstream qualification. |
+| R02 | On R01, qualify the current core 0.10 typed-graph profile through public UMF validation, a small local Delta create/update/delete publication, exact replay and publication-bound native singleton/Weft read. Execute both selected current-value paths: Backend03 grouped graph preparation and Backend02 SDK page/continuation, using their original compiler artifacts and publication pins. Keep UMF interpretation and DDL in UMF and compilation in Weft. The target-matched public Weft 0.4.53 wheel compiles the exact R02 Backend03 and Backend02 first-page/continuation requests with their source-declared Spark 4.2.0/Delta 4.4.1 candidates (compiler receipt). The separate generic adoption probe's Spark 4.0.1 target and the historical crossed-target refusal do not indicate a gap. The reviewed local `.3` prepublication completed initialize, three batches and exact replay. The separately versioned `.53` verifier and private gate/SDK selection controls are implemented and focused-tested. The reviewed live-alias continuation then completed the ordinal-1 singleton, original and positive Backend03 grouped checks, and Backend02 SDK page/continuation against the retained `.3` vector (continuation result receipt). This result does not qualify the `.4-xxhash64` profile or protected source/ACK custody. | Exact original model/source/binding hashes, identities, values, presence, independent edges, full publication vector, grouping/multiplicity and SDK page continuation against an independent oracle, plus a meaningful refusal; selected local Python/Spark/Delta/JDK/JAR versions and elapsed/resource observations. An SDK preparation or component test alone does not qualify native execution. Historical managed runs remain separate versioned evidence. |
+| R03 | Preserve the completed Truss 0.0.44 current-core catalog, mutation and complete feed/ACK lifecycle as versioned development evidence. Retain the 0.0.45 committed seven-operation source seed and unapplied offline update/delete request as historical preparation. Keep the original 0.0.48 accepted UMF 0.10 source, report, complete view, IDs and registered consumer unchanged. Add exact public Truss 0.0.50 as a new versioned provider/admission profile. Before resuming the existing consumer, take the selected database and durable recovery-registry backups, then use Truss's public latest-only explicit two-edge migration route from exact 0.0.48 manifest c433… through intermediate manifest 35fd… to current native manifest 288801… under the selected 0.0.50 runtime; verify the original source and complete view afterward. Resume from the already committed genesis checkpoint, then execute the bounded local 0.4 Delta genesis publication/independent verify/ACK. Only after that ACK, make the approved seed page visible for its first submission, then verify and ACK that publication. Do not repeat the committed source acceptance or source/consumer registration, or replay any already committed effect or ACK. The 0.48 campaign did not submit the seed. Retain all prior failure receipts unchanged; the R15 attempt did not complete an Ashlar 0.50 native migration or lifecycle; its failure is recorded separately below. | The 0.48 adoption packet preserves the revision-1 acceptance, registrar-only refusal and separate ACL-scoped source/view recovery; it did not execute graph, feed, publication, destination or ACK. The 0.50 adoption analysis and package qualification cover only effect-free selection and compatibility. Code/profile controls do not execute migration or feed operations. A successful 0.50 migration/consumer resume and each publication/ACK remain unqualified native gates. The R15 one-shot approval was consumed by its failed attempt; a diagnosed correction and new exact approval are required before any further native execution. Local source authority does not grant production authority. The exact one-shot R15 attempt stopped at the initial `.48` read-only custody gate after its helper received an empty JSON view; its approval is consumed, and no retry is authorized. The retained PostgreSQL state is stopped, the verified cold backup is preserved, and no migration/publication/ACK/seed/continuation gate passed (R15 execution result). Do not relabel Truss 0.0.22, 0.0.44 or 0.0.48 receipts.
+| R04 | After R03 establishes actual accepted source and complete feed custody for the selected Truss version, freeze the exact canonical bytes and digest of a fresh versioned current-core 0.10 eight-slot A/B semantic schedule, including independent source identities, epochs, installations and ACK scopes, before the first native publication. Resolve each exact request from verified predecessor results and durably bind its bytes and digest to the schedule digest before that slot’s source mutation. Do not begin a slot until its predecessor’s graph publication, independent verification and protected ACK complete. Execute the schedule through local publication, retained old reads, replay/restart, source-specific durable ACK and evolution refusal. The completed 0.44 single-source lifecycle is a narrower baseline; the old `native-r2` 3/8 original UMF 0.8 run stays historical and incomplete. In an independent lane, complete P06/P07 held Fabric commerce upload, load, R1/R2 activation and interrupted-replacement witness. The fresh Fabric functional attempt plan is a bounded offline candidate, not launch authorization or execution evidence. | Native evidence for every frozen current request on the selected version, complete publication vectors and source-specific progress/ACK, independent identities despite overlapping local IDs, exact values and no mixed Fabric activation. The historical A ambiguous OneLake upload and native 503 remain unresolved until reconciled. Fabric execution requires dedicated capacity and approved resource/cost bounds. |
 | R05 | Size the owner-selected 1B-node/assumed 5B-edge workload from one actual canonical-carrier sample before a full run. Show node/edge bytes, 1M-node write time, an 80%-of-measured-throughput planning curve and its limits; if the full-run estimate exceeds 15 minutes, review it with the owner before execution. The desired test is one full materialization, two point lookups, two scans and actual graph-engine export/execution, runnable locally; keep the small real Truss/managed UC publication and ACK campaign separate. | A selected full run occurs only after sample-based admission, with actual physical bytes, row and endpoint accounting, an engine result and workload time; provisioning is reported separately. Compact algorithmic representations and wide canonical carriers are separately named and cannot substitute for each other. No shared default cluster, redundant stress matrix or predictive-optimization disablement. Existing approved $100 total ceiling, preferably $10, governs Databricks activity. |
 | R06 | After R01–R05, reconcile every P01–P10 support claim, build wheel and sdist, install outside the checkout, run only changed-behavior and required final checks, obtain an independent review and prepare the release handoff. Recheck latest upstream versions at the candidate cut. | Evidence matrix qualifies exact versions/subsets/authority; package metadata, dual-license files and required resources are present; reviewed main equals origin and required checks pass on the selected revision. |
 
@@ -174,12 +174,12 @@ The current dependency path is ordered by authority rather than by running a
 platform matrix. Public Weft 0.4.53 is released from tag target `726a840e`,
 and Ashlar's `typed-sdk` extra now pins 0.4.53 after one exact Ashlar page fixture
 compiled to a byte-identical response on the 0.4.52 and 0.4.53 macOS wheels
-([adoption receipt](evidence/current-upstream-release-20261023/weft053-ashlar-adoption-20261023/README.md)).
+(adoption receipt).
 Public UMF `umf-v0.5.5` selected SDK 0.5.5, access `0.1.0.dev7`, and codegen
 `0.1.0a4`; those access checks remain valid. Public `umf-v0.5.6` now selects
 core package 0.10.1. Its macOS arm64 and Linux x86_64 release asset bytes are
 verified; Ashlar's fresh install and focused checks are macOS-only. The
-[adoption receipt](evidence/current-upstream-release-20261023/umf-0.10.1-ashlar-adoption-20261024/README.md)
+adoption receipt
 records limits. These package checks do not qualify Databricks, Delta or Truss
 execution. The tagged SDK
 has the managed Databricks
@@ -191,7 +191,7 @@ semantics remain the same in focused offline checks. This source bridge rebind
 does not replace or extend the historical one-table local Spark 4.2/Delta 4.4.1 create/write/read result, which accepted
 the candidate DDL shape with an owned path and ZSTD output; it did not execute
 all generated bridge SQL, the Truss lifecycle, or managed UC
-([native receipt](evidence/current-upstream-release-20261023/umf-0.5.6-delta4-one-table-acceptance-20261023/README.md)).
+(native receipt).
 UMF PR #47 is merged at `259bf1ed91466ff7e9782d7517c14f2112282026` (tree
 `204cfba81eadbe9a6a0458bc9a7de2dc1e50e58b`), and `umf-v0.5.6` resolves to
 that commit. Public 0.10.1 macOS and Linux wheel bytes match release metadata;
@@ -199,21 +199,21 @@ the macOS install and focused adoption checks passed, while Linux was not
 installed or executed. The selected OS markers do not qualify Databricks
 runtime compatibility and do not imply Windows or Intel macOS support. Keep
 source commit and generated-resource custody explicit. Recheck public upstream
-releases at the candidate cut. The previous `truss-local` 0.0.49 pin and its [adoption
-receipt](evidence/current-upstream-release-20261022/truss-0.0.49-adoption-preparation.json)
+releases at the candidate cut. The previous `truss-local` 0.0.49 pin and its adoption
+receipt
 remain historical; its lifecycle was not run. Retain older extras only with an
 explicit historical label.
 Public Truss 0.0.50 has since been published. Its
-[effect-free adoption analysis](evidence/current-upstream-release-20261024/truss050-adoption-analysis-20261024/README.md)
+effect-free adoption analysis
 finds the existing explicit 0.48-to-current migration route and feed interface
 declarations intact. The official wheel and Ashlar's selected `[local,native]`
 dependency cohort now pass focused package and import checks
-([receipt](evidence/current-upstream-release-20261024/truss050-package-cohort-qualification-20261024/README.md));
+(receipt);
 the `truss-local` extra pins 0.0.50. Prepare a fresh 0.50 lifecycle packet before any
 effectful selected-version run; R12's 0.49 authorization, if later supplied,
 cannot transfer to that new packet.
 
-The historical [R5 effect-free supervisor preflight](evidence/current-upstream-release-20261023/truss049-r5-readiness-20261023/README.md)
+The historical R5 effect-free supervisor preflight
 returned `ready_pending_hash_bound_operator_approval` against Ashlar source
 `0fce3b6c` and the interim Weft 0.4.52 runtime. It records readiness, not
 execution approval; the newer 0.4.53 and Truss 0.0.50 package pins do not alter
@@ -249,10 +249,10 @@ unproven. `current-user me` returned identity but no entitlements, leaving
 `allow-cluster-create` unproven. Prior catalog reads show `CREATE_SCHEMA` and
 `USE_CATALOG` in `client_dev`, with predictive optimization `ENABLE`; schema
 ownership and object cleanup remain unresolved. No schema or paid compute was
-created or started. See the [permission admission receipt](evidence/current-upstream-release-20261023/managed-a1-permission-admission-20261024.md).
+created or started. See the permission admission receipt.
 [TD-009](../02-design/technical-designs/TD-009-managed-spark-receipt-verification.md)
 now records an unadopted A1-only all-purpose option. Separately, the
-[source-holder gap](evidence/source-holder-interval-proposal-20261023.md)
+source-holder gap
 shows that the previously reviewed public Truss 0.0.49 has operation-level page
 and receipt-ACK calls but no selected renewable source-custody owner across
 managed verification, ACK, reconciliation and close. The 0.0.50 package review
@@ -266,13 +266,13 @@ preferred total remain in force; neither is admitted by the current estimate.
 Neither the
 documented all-purpose option nor the existing serverless entrypoint is an
 authorized fallback for the other.
-The [A1 live-port review](evidence/source-holder-a1-live-port-gap-20261024.md)
+The A1 live-port review
 also identifies the managed-read and native-pin renewal and retained-file
 authority still needed before an ACK-capable holder can be wired.
 
 The small canonical persisted-carrier GraphFrames action passed once on the
 current Truss-0.0.50-pinned Ashlar source in an isolated local slot. The
-[R13 packet and R14 result](evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/README.md)
+R13 packet and R14 result
 bind the generator, source, oracle, selected Spark 4.2.0/Delta 4.4.1/GraphFrames
 0.12.3/JDK 21 runtime and JARs, bounded result/cap, and retained-file custody
 through close. Its three-row one-hop result over persisted 5-node/4-edge Delta
@@ -281,9 +281,9 @@ fixtures and owned cleanup passed; it is local action evidence only. Keep the
 until its latest 16.50-minute write-only projection has owner review; the two lookups,
 two scans, actual graph action and cleanup still need an end-to-end bound. Do
 not substitute an extra partition stress matrix for a plausible path to the
-few-minute goal. The [physical-limit assessment](evidence/r05-materialization-physical-limits-20261024.md)
+few-minute goal. The physical-limit assessment
 explains the write arithmetic and why current layout alternatives do not close
-that gap. The [inert full-size trial packet](evidence/r05-full-delta4-scale-packet-20261023/README.md)
+that gap. The inert full-size trial packet
 sets a proposed 30-minute fail-fast ceiling and independent endpoint oracle;
 its offline two-role UMF DDL/INSERT plan passes admission, and the full trial
 driver and local supervisor have an independent source review and seven focused
@@ -291,7 +291,7 @@ inert checks. It is not execution-ready: exact full-size runtime/slot admission
 and owner review of the 16.50-minute write estimate remain outstanding.
 Fabric R1/R2 remains a separate held lane
 until current source/ACK, exact workspace paths, capacity and zero-cost cleanup are admitted
-([fresh Fabric plan](evidence/commerce-fabric-fresh-functional-plan-20261023/README.md)).
+(fresh Fabric plan).
 
 Finally, reconcile R01–R05 evidence to exact support claims, build wheel and
 sdist, install the chosen extras outside the checkout, run only the changed
@@ -300,7 +300,7 @@ Ashlar from reviewed main/origin. Any unsupported engine or production authority
 remains an explicit open release gate rather than being inferred from an export
 shape or development fixture.
 
-An early [R06 sdist check](evidence/current-upstream-release-20261023/ashlar-r06-sdist-local-check-20261023/README.md)
+An early R06 sdist check
 passed an isolated local install and resource smoke at source `a37a9ddb`; it
 does not replace the final candidate build after upstream pins and runtime
 qualification settle.
@@ -365,7 +365,7 @@ retain their own authority. The preserved
 versioned `ashlar-delta/0.4-xxhash64` physical profile in
 [TD-007](../02-design/technical-designs/TD-007-native-xxhash64-lookup-layout.md)
 implements Spark's signed 64-bit `xxhash64` `BIGINT` pruning field while retaining
-exact native identity predicates. Its [same-fixture local sample](evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-sample-20261021.json)
+exact native identity predicates. Its same-fixture local sample
 reduced active Parquet bytes by 68.85% at 1M nodes/5M edges; observed scan
 plans do not prove file pruning. This does not qualify full-scale or managed
 Unity Catalog behavior, and no old SHA-256 receipt is relabeled.
@@ -376,12 +376,12 @@ row-bag validation under the same profile and retained source receipt. Keep
 `0.3` as the local default and refuse mixed-profile continuation. This is local
 development evidence only.
 
-The [Truss 0.0.44 lifecycle receipt](evidence/truss-current-native-lifecycle-0.10-20261021/receipt.json)
+The Truss 0.0.44 lifecycle receipt
 now records one real seven-change page, local Delta publication, a matched protected
 destination receipt and an advanced public checkpoint established by read-only
 reconciliation. It does not qualify two-source R04 or Truss 0.0.45. The
-[0.45 source comparison](evidence/truss-current-native-lifecycle-0.10-20261021/truss-0.0.45-source-comparison.json)
-and isolated [public artifact probe](evidence/truss-current-native-lifecycle-0.10-20261021/truss-0.0.45-public-artifact-probe.json)
+0.45 source comparison
+and isolated public artifact probe
 record the installed official 0.45 wheel, runtime manifest and effect-free public API checks.
 The Ashlar 0.45 current-catalog and graph-admission profiles are separately versioned;
 the 0.44 path remains intact. The release pins native support to `linux-x86_64`,
@@ -404,7 +404,7 @@ replay. Its worker failed afterward while freezing the next request; offline
 recovery froze the five-operation update/delete request without applying it.
 This local macOS arm64 run does not qualify the release's listed Linux native
 platform, and no feed, publication, destination, ACK, or query was exercised.
-See the [attempt 03-r2 evidence](evidence/truss-current-native-lifecycle-0.10-20261021/truss-0.0.45-seed-and-offline-freeze-attempt-03-r2.json).
+See the attempt 03-r2 evidence.
 
 For the next R04 candidate, Truss 0.0.50 is the selected source/provider
 profile. The already accepted 0.0.48 source remains its retained migration
@@ -469,15 +469,15 @@ The trial runs current-core schema creation, publication/update/delete, exact
 replay, protected source ACK, retained native singleton and both current Weft
 paths; retain native identity/vector, result, timing and cost evidence. The
 read-only discovery receipt is
-[managed-client-dev-discovery.json](evidence/current-upstream-release-20261021/managed-client-dev-discovery.json):
+managed-client-dev-discovery.json:
 it identifies `client_dev` as a managed catalog and the historical unscheduled
 dedicated layout job (`401862977233947`, concurrency one), which does not execute
 this workflow. No new compute was started by discovery. The small functional trial
 does not qualify 1B nodes/assumed 5B edges. For the separate full-size check,
 freeze one deterministic canonical `.4` graph shape and independent
-row/endpoint oracle before execution. The historical [1M/5M canonical-carrier sample](evidence/current-upstream-release-20261021/local-current/canonical-carrier-sample-20261021.json)
+row/endpoint oracle before execution. The historical 1M/5M canonical-carrier sample
 wrote 1M nodes in 4.872 seconds and 5M edges in 4.205 seconds. The later
-[18-core `.4` calibration](evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-18core-calibration-20261021.json)
+18-core `.4` calibration
 measured 3,062,253,112 active Parquet bytes at 45M nodes/225M edges and projects
 about 68.05 decimal GB for 1B/5B by row-linear arithmetic. A later completed
 225M-edge ZSTD write (with failed supervisor process-group acceptance) updates
@@ -485,7 +485,7 @@ the 80%-throughput write-only projection to about 16.50 minutes, still over the
 15-minute review threshold and explicitly held. The earlier calibration-only
 projection was 18.05 minutes. These synthetic observations are not a production
 capacity forecast across payloads, hardware, parallelism or table geometry; the
-full test remains held. See the dated [R05 storage and throughput reassessment](evidence/r05-storage-throughput-reassessment-20261023/README.md)
+full test remains held. See the dated R05 storage and throughput reassessment
 for measured contributors and exclusions. The owner's 2026-10-23 release
 decision is to retain full Delta semantics and use this measured approximately
 68.05 GB active-Parquet envelope for the synthetic target; no compact
@@ -504,19 +504,19 @@ cleanup, uses no automatic retries and reports actual DBUs and bytes. The
 synthetic full-size check does not prove a complete Truss ingestion cycle,
 managed Unity Catalog custody or production capacity; those remain separate
 support claims.
-The [current public retail price observation](evidence/current-upstream-release-20261021/managed-current-retail-pricing.json)
+The current public retail price observation
 records $0.47 per DBU for the selected Central US premium automated serverless
 meter; it is an estimate input, not an account invoice or spending limit.
 
 R02 and R03 can proceed independently once R01 pins are fixed; R04 source and engine lanes are independent. Reuse valid receipts and run a focused check when a changed pin or demonstrated gap affects a claim. A missing external prerequisite remains an open row, never a simulated pass. Development measurements describe their local environment and do not replace R05. A scoped prerelease may carry only demonstrated claims; full P11 completion requires every applicable row and any audit findings to close.
 
-The R04 Fabric lane remains pending. A [read-only reconciliation](evidence/current-upstream-release-20261021/fabric-held-readonly-reconciliation.json)
+The R04 Fabric lane remains pending. A read-only reconciliation
 on 2026-10-21 observed the same workspace capacity assignment and HTTP 404
 `PathNotFound` for the exact first node directory of both the lost-response A
 attempt and the capacity-refused B attempt. This establishes present absence at
 those paths only; it cannot reconstruct the lost PUT response or qualify upload,
-graph creation, activation or interrupted replacement. The separate [fresh
-functional attempt plan](evidence/commerce-fabric-fresh-functional-plan-20261023/README.md)
+graph creation, activation or interrupted replacement. The separate fresh
+functional attempt plan
 names new candidate identities and read-after-ambiguous-write stop rules, but
 retains explicit R2 source/ACK, runtime-bound, and cost-admission blockers. No
 write or compute was requested by either the reconciliation or this plan.
@@ -536,7 +536,7 @@ rates remain prerequisites. Prefer total cost below $10 under the hard $100 tria
 ceiling; no estimate or single-node selection guarantees that bound. No compute,
 source mutation, ACK or new qualification follows from this proposal.
 
-The [fixed-Jobs retail observation](evidence/current-upstream-release-20261023/managed-fixed-jobs-retail-observation.json)
+The fixed-Jobs retail observation
 verifies Central US/Premium, $0.255 per Linux D4ds_v5 VM-hour and $0.30 per
 Premium Jobs DBU-hour. The actual node DBU/hour meter remains open. At an assumed
 maximum 2 DBU/hour and 35 minutes per complete slot, eight slots cost $3.99 in

@@ -3,7 +3,7 @@ import hashlib,json,tempfile,unittest
 from pathlib import Path
 from prepare_puppygraph_releases import prepare
 ROOT=Path(__file__).resolve().parents[1]
-BASE=ROOT/'docs/helix/04-build/evidence/puppygraph-releases-20261009'
+BASE=ROOT/'tests/fixtures/golden/puppygraph-releases-20261009'
 class Tests(unittest.TestCase):
     def inputs(self):
         return {name:(BASE/(digest+'.graph.json'),digest) for name,digest in json.loads((BASE/'receipt.json').read_bytes())['releases'].items()}

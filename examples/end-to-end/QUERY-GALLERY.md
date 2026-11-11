@@ -9,7 +9,7 @@ source oracle.
 
 The [fresh original-commerce workflow](../original-commerce-local/README.md)
 adds the four unchanged authored Weft 0.4.2 scenarios: partial return, fulfillment,
-settlement and refund. Its [complete local result evidence](../../docs/helix/04-build/evidence/original-commerce-local-query-20261011-d/README.md)
+settlement and refund. Its complete local result evidence
 records independent numeric and lexical bags with current source/ACK/native
 closing custody. This is a separately qualified subset, not an extension of the
 older compiler receipts below.
@@ -72,7 +72,7 @@ target record of the canonical `A-B` edge:
 SELECT b."B-label" AS label, RELATED_KEYS(b."B-A", 2) AS related FROM B b
 ```
 
-The [local execution receipt](../../docs/helix/04-build/evidence/truss-inverse-query-20261013/result.json)
+The local execution receipt
 returns Beta with `[["Value-A", "Alpha"]]`, in the authored `A-value`, `A-label`
 key order, without advancing the source checkpoint. This qualifies the tiny local
 Truss/Spark/Delta workflow; broader engine and scale support remain separate.
@@ -148,7 +148,7 @@ these fixed examples; this command is not an arbitrary SQL endpoint.
 | Native graph projection | Reversible identities, complete cells and declared capability losses | Exact immutable release, engine/protocol version and independent native oracle |
 
 Do not infer a wider capability from a successful example. The
-[original commerce query receipt](../../docs/helix/04-build/evidence/commerce-publication-weft-20261009.json)
+original commerce query receipt
 names the actual local source, compiler and runtime scope. It does not qualify
 Databricks deployment, real Truss source authority or another engine. Preserve
 source, ACK, table and file custody through opening, execution and closing checks;
@@ -165,12 +165,12 @@ arbitrary newer executable is admitted.
 
 | Original corpus subset | Qualified scope | Evidence |
 | --- | --- | --- |
-| Nine scalar, arithmetic, join and positioned-output statements | Exact original statements and ordered output carriers | [Nine-query receipt](../../docs/helix/04-build/evidence/original-pack-weft-nine-native-20261009/custody.json) |
-| Four nullable statements | Selected optional String/Decimal/Integer predicates and exact native-null encoding | [Nullable receipt](../../docs/helix/04-build/evidence/original-pack-weft-null-native-20261009/README.md) |
-| Ecology comparability | Original SELECT DISTINCT statement | [DISTINCT receipt](../../docs/helix/04-build/evidence/original-pack-weft-distinct-native-20261009/README.md) |
-| Ecology connected measurements | Original grouped COUNT DISTINCT statement | [Count receipt](../../docs/helix/04-build/evidence/original-pack-weft-count-native-20261009/README.md) |
-| Archaeology media | Original optional COUNT DISTINCT / HAVING statement, plus five separately scoped controls | [Media receipt](../../docs/helix/04-build/evidence/original-pack-weft-media-native-20261009/README.md) |
-| Archaeology evidence links | Original LEFT JOIN with relational unmatched provenance, full-source and right-match integrity checks | [LEFT receipt](../../docs/helix/04-build/evidence/original-pack-weft-left-native-20261009/README.md) |
+| Nine scalar, arithmetic, join and positioned-output statements | Exact original statements and ordered output carriers | Nine-query receipt |
+| Four nullable statements | Selected optional String/Decimal/Integer predicates and exact native-null encoding | Nullable receipt |
+| Ecology comparability | Original SELECT DISTINCT statement | DISTINCT receipt |
+| Ecology connected measurements | Original grouped COUNT DISTINCT statement | Count receipt |
+| Archaeology media | Original optional COUNT DISTINCT / HAVING statement, plus five separately scoped controls | Media receipt |
+| Archaeology evidence links | Original LEFT JOIN with relational unmatched provenance, full-source and right-match integrity checks | LEFT receipt |
 
 The five media controls are additional checks, not five additional original
 corpus statements. Native authored-SQL, GraphFrames and PuppyGraph results have

@@ -82,7 +82,7 @@ selection, revision and document ID as the count case, without
 `physical_revisions`. The initial profile projects one required STRING root-key
 field, unordered and unfiltered. Two parallel root self-loops emit four root
 rows; an isolate emits none. Output is neither deduplicated nor truncated.
-The [installed local traversal check](../../docs/helix/04-build/evidence/truss-authored-two-hop-projection-native-20261014/README.md)
+The installed local traversal check
 qualifies that exact four-row bag on retained Truss15 data with indexed Weft0.4.2.
 
 Each executor retains its source/model admission, integrity obligations, native
@@ -97,7 +97,7 @@ returned rows, and 64 MiB of report/protocol content. Exact integers and decimal
 remain in their admitted carrier forms. This composition does not widen any
 family's SQL subset, numeric facets, source authority or compiler qualification.
 
-The [installed batch check](../../docs/helix/04-build/evidence/truss-typed-query-batch-installed-20261013/result.json)
+The installed batch check
 records three completed query routes over the retained Truss 15 parallel-edge
 publication, including exact quantities and a two-hop path count of four. Its
 evidence separates the successful CLI report from a later outer-check failure;

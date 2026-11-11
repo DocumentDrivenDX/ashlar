@@ -6,8 +6,8 @@ with `local-delta`, the qualified UMF `umf_access` SDK wheel and Weft 0.4.48,
 using the original source configuration, installation and model pins. That
 qualification remains limited to its recorded Weft 0.4.48 scope.
 
-The current `typed-sdk` extra pins Weft 0.4.53. Its [focused adoption
-check](../../docs/helix/04-build/evidence/current-upstream-release-20261023/weft053-ashlar-adoption-20261023/README.md)
+The current `typed-sdk` extra pins Weft 0.4.53. Its focused adoption
+check
 compiled one related-key page fixture in isolated Python 3.12.14 on macOS arm64.
 It did not execute SQL or qualify native page execution, Python 3.11 runtime
 compatibility for Weft 0.4.53, or Linux. The example below documents the

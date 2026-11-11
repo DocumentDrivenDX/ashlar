@@ -47,7 +47,7 @@ class Tests(unittest.TestCase):
 
     def test_original_cohort_modules_preflight_preserves_bytes_and_refuses_duplicates(self):
         from ashlar_host.truss_local_setup import selections
-        source=Path('docs/helix/04-build/evidence/truss-schema-acceptance-20261012/source.umf.json').read_bytes()
+        source=Path('tests/fixtures/golden/truss-schema-acceptance-20261012/source.umf.json').read_bytes()
         with tempfile.TemporaryDirectory()as directory:
             root=Path(directory).resolve();bun=root/'bun';bun.write_text('selected installed executable');document=root/'cohort.umf.json';document.write_bytes(source);origin=root/'origin.json';origin.write_text('{}');configuration=root/'configuration.json'
             configuration.write_text(json.dumps({'data_directory':str(root/'fresh-data'),'bun':str(bun),'document_path':str(document),'document_id':'cohort','document_revision':'r1','origin_path':str(origin),'request_key':'cohort-setup'}))

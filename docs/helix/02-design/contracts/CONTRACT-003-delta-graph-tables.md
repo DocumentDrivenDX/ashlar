@@ -57,10 +57,10 @@ UMF-generated diagram.
 
 ## Scope and Boundaries
 
-The [0.3 DDL](../spikes/SPIKE-001-table-layout/sql/delta-layout-v03.sql) defines
+The 0.3 DDL defines
 the revised candidate surface. Preserve the
-[0.2 baseline](../spikes/SPIKE-001-table-layout/sql/delta-layout-v02.sql) and
-[0.1 baseline](../spikes/SPIKE-001-table-layout/sql/delta-candidate.sql) with their
+0.2 baseline and
+0.1 baseline with their
 original profiles; no in-place migration is implied. Publisher validation MUST
 check degree direction and nonnegative counts rather than assume Delta CHECK
 support. Retain Truss catalog IDs and source-local object/edge IDs without
@@ -441,7 +441,7 @@ share entity/version/xid. Draft semantics require actual transport qualification
 
 The source carries `change`, `revision`, `source` and `reservation` records. A change includes exact old/new JSONB text, revision and origin (including unknown host keys). Create/delete envelopes include props and retained values. Retain/rebind/transform semantics require separate application rules. Revision documents have exact bytes and content hashes; native source/null distinctions require an explicit transport encoding. The 0.2 Ashlar journal alone cannot preserve origin, all source record kinds or complete revision documents. Do not advertise a lossless Truss adapter from current fixture results.
 
-The supplemental [source_record carrier](../spikes/SPIKE-001-table-layout/sql/source-record-candidate.sql)
+The supplemental source_record carrier
 MUST store every complete exact transport envelope and cursor, including unknown
 fields/kinds, before interpretation. Encode xid/seq as canonical decimal strings;
 never flatten their tuple into source_position or publication sequence. Rebuildable
@@ -565,7 +565,7 @@ alone supplies none of those authorities.
 
 ### Proposed durable receipt surface
 
-The separate [publication-receipt candidate DDL](../spikes/SPIKE-001-table-layout/sql/publication-receipt-candidate.sql)
+The separate publication-receipt candidate DDL
 proposes ashlar-publication-receipt/0.1. It does not revise the executed 0.3 table
 set. Its logical key is `(stream,apply_batch_id,phase)` with phase `intent` or
 `complete`; the publisher MUST enforce uniqueness and phase semantics. Records
@@ -1626,7 +1626,7 @@ Common graph corpus evidence MUST NOT close an authored scenario requirement.
 ## Execution evidence
 
 Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).
-The [original contract text](../../04-build/evidence/contract-history-20261009/CONTRACT-003-delta-graph-tables.original.txt)
+The original contract text
 preserves prior execution diaries verbatim; those results do not amend this contract.
 
 ## Installed original-commerce evolution materialization profile

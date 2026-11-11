@@ -128,7 +128,7 @@ class UmfSdk0101PinTests(unittest.TestCase):
             root = Path(temporary).resolve()
             (root / 'inputs').mkdir(mode=0o700)
             (root / 'out').mkdir(mode=0o700)
-            fixture = ROOT / 'docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/typed-graph'
+            fixture = ROOT / 'tests/fixtures/golden/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030/inputs/typed-graph'
             for name in ('typed-graph-source.jsonl', 'typed-graph-model.umf.json',
                          'typed-graph-binding.json'):
                 shutil.copyfile(fixture / name, root / 'inputs' / name)

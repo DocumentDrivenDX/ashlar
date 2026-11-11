@@ -28,6 +28,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Tracked tree size
+        run: python scripts/check_tree_size.py
       - name: Module import boundaries
         run: python tools/check_module_boundaries.py
         continue-on-error: true

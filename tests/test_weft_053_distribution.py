@@ -28,7 +28,7 @@ class Weft053DistributionTests(unittest.TestCase):
         with self.assertRaises(ValueError): Weft053Paths(path,'not-a-digest')
 
     def test_schema_files_are_exact_weft_v053_pins(self):
-        root=Path(__file__).parent.parent/'docs/helix/04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024/weft053-schemas'
+        root=Path(__file__).parent.parent/'tests/fixtures/golden/current-upstream-release-20261024/r02-native-execution-packet-20261024/weft053-schemas'
         self.assertEqual({p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in root.glob('*.json')},SCHEMA_SHA256)
         schemas={p.name:p.read_bytes()for p in root.glob('*.json')}
         validation=CountStarSchemaValidation(schemas,lambda *_:None,profile='count-star-current-053')

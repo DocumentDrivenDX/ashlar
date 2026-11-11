@@ -3,7 +3,7 @@ from pathlib import Path
 import unittest
 
 
-SUPERVISOR = (Path(__file__).resolve().parents[1] / "docs/helix/04-build/evidence"
+SUPERVISOR = (Path(__file__).resolve().parents[1] / "tests/fixtures/golden"
     / "current-upstream-release-20261101/r21-truss052-fresh-source-custody"
     / "r28-page-sequence/r36_truss052_supervisor.py")
 SPEC = importlib.util.spec_from_file_location("r36_supervisor_drain_test", SUPERVISOR)

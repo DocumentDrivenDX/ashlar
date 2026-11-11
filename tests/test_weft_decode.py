@@ -7,7 +7,7 @@ from ashlar.publication import ResolutionError
 ROOT=Path(__file__).resolve().parents[1]
 class DecodeTests(unittest.TestCase):
     def test_selected_string_presence_and_refusals(self):
-        intake,policy,_=fixture_inputs();columns=json.loads((ROOT/'docs/helix/04-build/evidence/weft-pinned-compiler-20261008.json').read_text())['compiled']['response']['columns']
+        intake,policy,_=fixture_inputs();columns=json.loads((ROOT/'tests/fixtures/golden/weft-pinned-compiler-20261008.json').read_text())['compiled']['response']['columns']
         decode=lambda c,v:decode_string_column(c,v,policy,intake)
         self.assertEqual(decode(columns[0],'updated'),'updated')
         self.assertEqual(dict(decode(columns[1],'{"state":"absent"}')),{'state':'absent'})
@@ -103,7 +103,7 @@ class CompiledCountTests(unittest.TestCase):
         wheel=Path('/private/tmp/ashlar-weft-python')
         if not (wheel/'weft/weft.abi3.so').exists():
             raise unittest.SkipTest('Pinned native Weft wheel unavailable; real compiler count check not executed')
-        evidence=json.loads((ROOT/'docs/helix/04-build/evidence/weft-pinned-compiler-20261008.json').read_text())
+        evidence=json.loads((ROOT/'tests/fixtures/golden/weft-pinned-compiler-20261008.json').read_text())
         if hashlib.sha256((wheel/'weft/weft.abi3.so').read_bytes()).hexdigest()!=evidence['loaded_extension_sha256']:
             raise AssertionError('Pinned Weft extension bytes differ')
         # Preserve original request/model/binding; obtain COUNT IR from real compiler.
@@ -155,7 +155,7 @@ class CompiledCountTests(unittest.TestCase):
         with self.assertRaises(ResolutionError):self.decode('1',column=column)
 
     def test_old_string_artifact_route_unchanged(self):
-        a=json.loads((ROOT/'docs/helix/04-build/evidence/weft-pinned-compiler-20261008.json').read_text())['compiled']['response']
+        a=json.loads((ROOT/'tests/fixtures/golden/weft-pinned-compiler-20261008.json').read_text())['compiled']['response']
         self.assertEqual(decode_compiled_column(a['columns'][0],'updated',a,self.policy,self.intake),'updated')
         self.assertEqual(dict(decode_compiled_column(a['columns'][1],'{"state":"absent"}',a,self.policy,self.intake)),{'state':'absent'})
 
@@ -178,7 +178,7 @@ class UnsupportedCountCompilerTests(unittest.TestCase):
         CompiledCountTests.setUpClass.__func__(cls)
 
     def test_filtered_and_grouped_metadata_refuse_before_rows(self):
-        evidence=json.loads((ROOT/'docs/helix/04-build/evidence/weft-pinned-compiler-20261008.json').read_text())
+        evidence=json.loads((ROOT/'tests/fixtures/golden/weft-pinned-compiler-20261008.json').read_text())
         code='import json,sys;sys.path.insert(0,sys.argv[1]);import weft;print(weft.compile_json(sys.stdin.read()))'
         for sql in ["SELECT COUNT(*) AS n FROM Item i WHERE i.label = 'updated'",
                     'SELECT i.label, COUNT(*) AS n FROM Item i GROUP BY i.label ORDER BY i.label LIMIT 10']:

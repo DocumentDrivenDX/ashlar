@@ -8,7 +8,7 @@ from ashlar_host.truss_catalog_reader import parse_archived_acceptance_files,rea
 
 class Tests(unittest.TestCase):
     def test_original_acceptance_archive_matches_source_report_and_refuses_changed_report(self):
-        root=Path('docs/helix/04-build/evidence/truss-schema-acceptance-20261012');report=(root/'report.json').read_bytes();catalog=(root/'catalog.json').read_bytes();view=json.loads(catalog);reads=[]
+        root=Path('tests/fixtures/golden/truss-schema-acceptance-20261012');report=(root/'report.json').read_bytes();catalog=(root/'catalog.json').read_bytes();view=json.loads(catalog);reads=[]
         @dataclass
         class Pin:identity:str;version:str;sha256:str
         @dataclass

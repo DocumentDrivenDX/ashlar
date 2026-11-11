@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
@@ -39,8 +40,8 @@ class NativeClosingCustodyTests(unittest.TestCase):
 class RetainedNativeScenarioTests(unittest.TestCase):
     def test_both_native_languages_preserve_exact_scenario_and_intermediate_bags(self):
         import json
-        base=Path(__file__).resolve().parents[1]/'docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009'
-        prepared=json.loads((base/'receipt.json').read_text())
+        base=Path(__file__).resolve().parents[1]/'tests/fixtures/golden/commerce-exact-puppygraph-20261009'
+        prepared=json.loads(read_golden('commerce-exact-puppygraph-20261009/receipt.json'))
         expected={'partial-return':[[6,2,6]],'fulfillment':[['F2']],'settlement':[['PAY1']],'refund':[['RF1']]}
         for name in ['cypher-report.json','gremlin-report.json']:
             report=json.loads((base/name).read_text())

@@ -9,7 +9,7 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
-PACKET = Path(__file__).resolve().parents[1] / "docs/helix/04-build/evidence/current-upstream-release-20261022/r04-b-source-installation-draft-20261023"
+PACKET = Path(__file__).resolve().parents[1] / "tests/fixtures/golden/current-upstream-release-20261022/r04-b-source-installation-draft-20261023"
 
 
 def load_module(name, filename):

@@ -56,7 +56,7 @@ session provider and the original pack; its source, protected ACK and native
 publication checks must remain current throughout execution and cleanup. Compiler
 or installation hashes supply correspondence, never publication authority.
 
-The [retained installed qualification](../../docs/helix/04-build/evidence/commerce-042-installed-cli-20261011-b/README.md) covers the current finite compiler subset: compiler API, offline admission,
+The retained installed qualification covers the current finite compiler subset: compiler API, offline admission,
 help and invalid-configuration refusal. These commands expose that fixed package
 through the CLI. Full native execution of the four original 0.4.2 commerce queries
 still requires separate qualification; compilation alone does not establish it.

@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import hashlib,json,sys,tempfile,unittest
 from pathlib import Path
 sys.path[:0]=[str(Path(__file__).resolve().parents[1]/'src'),str(Path(__file__).resolve().parents[1]/'tools')]
@@ -9,7 +10,7 @@ from fixture_oracle import fixture_columns
 ROOT=Path(__file__).resolve().parents[1]
 MODEL=(ROOT/'examples/domain-packs/medical/historical/archive/schemas/ontology.json').read_bytes()
 GRAPH=(ROOT/'examples/domain-packs/medical/upstream/graph/fixture.json').read_bytes()
-PUBLIC=(ROOT/'docs/helix/04-build/evidence/medical-historical-admission-20261009/public-receipt.json').read_bytes()
+PUBLIC=read_golden('medical-historical-admission-20261009/public-receipt.json')
 class MedicalSourceTests(unittest.TestCase):
     def setUp(self):self.batch,self.bindings=build_transaction(MODEL,GRAPH,PUBLIC,source_system='private-original-medical-fixture')
     def test_complete_typed_source_retains_boolean_tokens_and_null_with_original_unbounded_integer(self):

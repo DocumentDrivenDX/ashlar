@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import hashlib,json
 from pathlib import Path
 from unittest import TestCase,mock
@@ -12,7 +13,7 @@ PINS={'split-excursion':'10fa9882b692eb91071c5b257d1bf36278e99d37248890cdeaa6ac2
 class Tests(TestCase):
  def setUp(self):
   p=ROOT/'examples/domain-packs/supply-chain/upstream';self.raw=tuple((p/n).read_bytes()for n in ('pack.json','ontology.json','graph/fixture.json'))
-  r=json.loads((ROOT/'docs/helix/04-build/evidence/supply-chain-native-publication-20261009.json').read_bytes());self.manifest=r['native_manifest'];self.registry=r['table_registry'];self.aliases={t:t.replace('local.','spark_catalog.',1)for t in json.loads(self.manifest['table_versions_json'])}
+  r=json.loads(read_golden('supply-chain-native-publication-20261009.json'));self.manifest=r['native_manifest'];self.registry=r['table_registry'];self.aliases={t:t.replace('local.','spark_catalog.',1)for t in json.loads(self.manifest['table_versions_json'])}
   self.batch,self.bindings=build_transaction(*self.raw[1:],source_system='private-original-supply-chain-fixture')
  def request(self,name):return supply_chain_count_star_request(name,*self.raw,self.bindings,self.manifest,self.registry,self.aliases)
  def test_original_closed_transaction_carrier_and_binding_bytes(self):
@@ -20,7 +21,7 @@ class Tests(TestCase):
   self.assertEqual(hashlib.sha256(raw).hexdigest(),'87f3721419b96da1dbfa0a4d425a4d721644768b135d41805c4b5c2662b42e94')
   self.assertEqual(hashlib.sha256((encoded(self.bindings)+'\n').encode()).hexdigest(),'9b156af621a6ee4d496adc52b638d5b2d9f46e115d96ca90e69fe57931d2509b')
  def test_original_five_retained_requests_only_explicit_marker_migration(self):
-  p=ROOT/'docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h'
+  p=ROOT/'tests/fixtures/golden/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h'
   for name,_ in supply_chain_cases(*self.raw):
    raw=(p/(name+'.request.json')).read_bytes();self.assertEqual(hashlib.sha256(raw).hexdigest(),PINS[name]);expected=json.loads(raw)
    expected.update(interfaceVersion='weft-compile/0.4.1',dialect='weft-sql/0.4.1');expected['target']['backendVersion']='0.4.1-count-star-having-candidate'

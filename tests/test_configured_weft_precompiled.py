@@ -11,7 +11,7 @@ from ashlar_host.count_star_admission import CountStarAdmissionConfig, CountStar
 
 class PrecompiledWeftTests(unittest.TestCase):
     def compiled(self, profile='count-star-current-053'):
-        root=Path(__file__).parent.parent/'docs/helix/04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024/weft053-schemas'
+        root=Path(__file__).parent.parent/'tests/fixtures/golden/current-upstream-release-20261024/r02-native-execution-packet-20261024/weft053-schemas'
         schemas={p.name:p.read_bytes() for p in root.glob('*.json')}
         validation=CountStarSchemaValidation(schemas,lambda *_:None,profile=profile)
         admission=CountStarAdmissionConfig(1048576,validation,profile=profile)

@@ -61,7 +61,7 @@ or consume/acknowledge its feed. Source review and inert tests do not establish 
 native commerce run. If commit is uncertain, retain the original configuration and
 request key for reconciliation; the command performs no automatic retry.
 
-The [full original commerce fixture](../../docs/helix/04-build/evidence/truss22-commerce-feed-query-20261013)
+The full original commerce fixture
 qualifies eleven records and ten edges in one native group, complete readback and
 committed replay, then continued local Delta publication and a required Weft price
 projection. It records the original source token separately from the authored

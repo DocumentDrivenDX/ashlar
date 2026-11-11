@@ -10,7 +10,7 @@ from ashlar_host.puppy_native import original_model
 from ashlar_host.puppy_carrier_cli import run_puppy_preparation,PROFILE
 
 ROOT=Path(__file__).resolve().parents[1]
-FILES=sorted((ROOT/'docs/helix/04-build/evidence/puppygraph-releases-20261009').glob('*.graph.json'))
+FILES=sorted((ROOT/'tests/fixtures/golden/puppygraph-releases-20261009').glob('*.graph.json'))
 def encoded(v):return (json.dumps(v,sort_keys=True,separators=(',',':'),ensure_ascii=False)+'\n').encode()
 class Policy:
  def __init__(self):self.calls=0

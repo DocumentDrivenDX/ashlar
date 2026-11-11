@@ -6,7 +6,7 @@ from unittest.mock import patch
 from run_pack_release_graphframes import query_oracle,original,validate_vector,closing_parity,finish_native,native_filter_and_isolates,admit_runtime,VERSIONS,JARS
 from run_graph_release_graphframes import graph_rows
 ROOT=Path(__file__).resolve().parents[1]
-EVIDENCE=ROOT/'docs/helix/04-build/evidence/original-pack-graph-exports-20261009'
+EVIDENCE=ROOT/'tests/fixtures/golden/original-pack-graph-exports-20261009'
 
 class PackReleaseGraphFramesTests(unittest.TestCase):
     def graph(self):

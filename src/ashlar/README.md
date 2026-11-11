@@ -105,8 +105,8 @@ with a finite bound as described in the typed Truss quickstart. For a historical
 read, select that publication's original intent and accepted logical revision;
 keep explicit historical acceptance archives available to the reader. The live
 source checkpoint can remain ahead of the selected publication. The
-[original three-case evidence](../../docs/helix/04-build/evidence/truss22-commerce-original-three-queries-20261014/README.md)
-and [evolved settlement evidence](../../docs/helix/04-build/evidence/truss22-commerce-indexed-settlement-20261014-c/README.md)
+original three-case evidence
+and evolved settlement evidence
 qualify the recorded local Truss/Delta and indexed compiler selections. Different
 runtime/compiler bytes, managed Unity Catalog and production authority need
 separate qualification.
@@ -200,10 +200,10 @@ those files alone do not prove the command succeeded.
 ## Supported development evidence
 
 The configured JSONL example has actual native
-[publication/update/delete/history](../../docs/helix/04-build/evidence/native-configured-publication-complete-20261008.json),
-[singleton](../../docs/helix/04-build/evidence/native-configured-singleton-20261008.json),
-[guarded Weft query](../../docs/helix/04-build/evidence/native-configured-guarded-weft-query-20261008.json)
-and [committed replay](../../docs/helix/04-build/evidence/native-configured-replay-20261008.json)
+publication/update/delete/history,
+singleton,
+guarded Weft query
+and committed replay
 proof. The [typed Truss quickstart](../../examples/truss-native/QUICKSTART.md)
 and [commerce workflow](../../examples/original-commerce-local/README.md) describe
 additional typed, relationship and numeric query paths with their qualified
@@ -219,5 +219,5 @@ and evidence. Local simulated tests prove component behavior only.
 
 See the [execution plan](../../docs/helix/04-build/end-to-end-plan.md) for active
 work and the [contracts](../../docs/helix/02-design/contracts/) for required
-interfaces. The [pre-cleanup component documentation](../../docs/helix/04-build/evidence/documentation-history-20261009/src/ashlar/README.original.txt)
+interfaces. The pre-cleanup component documentation
 preserves historical implementation notes verbatim.

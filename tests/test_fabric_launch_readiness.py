@@ -6,7 +6,7 @@ from ashlar_host.fabric_launch_readiness import build_fabric_launch_readiness_re
 
 
 PLAN = (Path(__file__).resolve().parents[1]
-        / "docs/helix/04-build/evidence/commerce-fabric-fresh-functional-plan-20261023/README.md")
+        / "tests/fixtures/golden/commerce-fabric-fresh-functional-plan-20261023/README.md")
 PLAN_SHA256 = "ac73bf7dbce41724b7935d908275d213f1a1d43c50d859a55334eb056b5419a1"
 RUNNER_REVISION = "0123456789abcdef0123456789abcdef01234567"
 RUNNER_SHA256 = "a" * 64

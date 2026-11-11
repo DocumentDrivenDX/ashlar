@@ -1,11 +1,12 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import copy,json,unittest
 from pathlib import Path
 from run_commerce_graphframes import carriers,topology
 ROOT=Path(__file__).resolve().parents[1]
 class Tests(unittest.TestCase):
     def setUp(self):
-        self.receipt=json.loads((ROOT/'docs/helix/04-build/evidence/commerce-source-graph-oracle-20261009.json').read_bytes())
+        self.receipt=json.loads(read_golden('commerce-source-graph-oracle-20261009.json'))
     def test_original_source_key_lexical_and_receipt_reference_custody(self):
         nodes,edges=carriers(self.receipt)
         self.assertEqual((len(nodes),len(edges)),(11,10))

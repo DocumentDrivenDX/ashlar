@@ -12,7 +12,7 @@ ROOT=Path(__file__).resolve().parents[1]
 class WeftBindingTests(unittest.TestCase):
     def setUp(self):
         self.intake,self.policy,_=fixture_inputs()
-        row=json.loads((ROOT/'docs/helix/04-build/evidence/native-evolution-publication-complete-20261008.json').read_text())['summary']['published'][-1]['descriptor']
+        row=json.loads((ROOT/'tests/fixtures/golden/native-evolution-publication-complete-20261008.json').read_text())['summary']['published'][-1]['descriptor']
         self.descriptor=Descriptor(row['publication_id'],row['profile_version'],json.loads(row['table_versions_json']),json.loads(row['schema_revisions_json']),json.loads(row['source_progress_json']),json.loads(row['validation_report_json']),row)
         self.options=dict(schema_alias='fixture-v3',table_uuids={name:'00000000-0000-0000-0000-000000000001' for name in self.descriptor.versions},manifest_uuid='00000000-0000-0000-0000-000000000002',layout_sha256=LAYOUT_SHA256)
     def request(self,**changes):

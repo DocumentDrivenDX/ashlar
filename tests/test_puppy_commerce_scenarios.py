@@ -1,14 +1,15 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import json, unittest, hashlib
 from pathlib import Path
 from contextlib import contextmanager
 from puppy_commerce_fixture import admission
 from ashlar_host.puppy_commerce_scenarios import execute_commerce_scenarios, PuppyCommerceScenarioConfig
-ROOT=Path(__file__).resolve().parents[1]/'docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009'
+ROOT=Path(__file__).resolve().parents[1]/'tests/fixtures/golden/commerce-exact-puppygraph-20261009'
 def config(language):
     root=ROOT.parent/'commerce-graph-export-20261009'
-    release=(root/'release.graph.json').read_bytes();custody=(root/'custody.json').read_bytes()
-    pack=(ROOT.parents[4]/'examples/domain-packs/commerce/upstream/pack.json').read_bytes()
+    release=(root/'release.graph.json').read_bytes();custody=read_golden('commerce-graph-export-20261009/custody.json')
+    pack=(ROOT.parents[3]/'examples/domain-packs/commerce/upstream/pack.json').read_bytes()
     return PuppyCommerceScenarioConfig(language,release,custody,hashlib.sha256(release).hexdigest(),hashlib.sha256(custody).hexdigest(),pack)
 class Policy:
     def __init__(self):self.active=False;self.closed=False

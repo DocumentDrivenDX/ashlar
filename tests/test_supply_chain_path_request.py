@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact original relationship binding controls; no compiler/native qualification."""
+from golden import read_golden
 import copy,hashlib,json,unittest
 from pathlib import Path
 from ashlar.supply_chain_source import build_transaction
@@ -10,7 +11,7 @@ class SupplyChainPathRequestTests(unittest.TestCase):
  def setUp(self):
   p=ROOT/'examples/domain-packs/supply-chain/upstream';self.raw=tuple((p/n).read_bytes()for n in ('pack.json','ontology.json','graph/fixture.json'))
   _,self.bindings=build_transaction(*self.raw[1:],source_system='private-original-supply-chain-fixture')
-  evidence=json.loads((ROOT/'docs/helix/04-build/evidence/supply-chain-native-publication-20261009.json').read_bytes());self.manifest=evidence['native_manifest'];self.registry=evidence['table_registry'];self.aliases={t:t.replace('local.','spark_catalog.',1)for t in json.loads(self.manifest['table_versions_json'])}
+  evidence=json.loads(read_golden('supply-chain-native-publication-20261009.json'));self.manifest=evidence['native_manifest'];self.registry=evidence['table_registry'];self.aliases={t:t.replace('local.','spark_catalog.',1)for t in json.loads(self.manifest['table_versions_json'])}
  def request(self,**kw):return supply_chain_path_request('SELECT id FROM items',*self.raw,self.bindings,self.manifest,self.registry,self.aliases,**kw)
  def test_complete_original_definitions_endpoints_and_carriers(self):
   request=self.request();binding=json.loads(request['target']['bindingJson']);base=json.loads(supply_chain_count_star_request('sensor',*self.raw,self.bindings,self.manifest,self.registry,self.aliases)['target']['bindingJson']);self.assertEqual(binding['records'],base['records']);self.assertEqual(binding['publication'],base['publication']);self.assertEqual(request['modules'][0]['documentJson'].encode(),self.raw[1]);self.assertEqual(binding['modelPins'][0]['umfVersion'],'0.8.0')

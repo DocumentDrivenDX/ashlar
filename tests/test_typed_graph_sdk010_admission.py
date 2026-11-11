@@ -17,7 +17,7 @@ from ashlar_host.configured_source_admission_config import ConfiguredSourceAdmis
 from ashlar_host.config import ProducerConfig
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = ROOT / 'docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030'
+BASE = ROOT / 'tests/fixtures/golden/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030'
 ADMISSION_MANIFEST = ROOT / 'src/ashlar_host/resources/typed_graph_sdk010_source_admission.json'
 NODE = Path('/opt/homebrew/Cellar/node/26.12.1/bin/node')
 SDK_ROOT = Path('/private/tmp/ashlar-umf010-core104/sdk010/package')

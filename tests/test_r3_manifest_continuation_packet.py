@@ -5,7 +5,7 @@ import sys
 import unittest
 
 
-PACKET = (Path(__file__).resolve().parents[1] / "docs/helix/04-build/evidence/"
+PACKET = (Path(__file__).resolve().parents[1] / "tests/fixtures/golden/"
           "current-upstream-release-20261101/g03-sdk0101-r3-manifest-continuation")
 sys.path.insert(0, str(PACKET))
 

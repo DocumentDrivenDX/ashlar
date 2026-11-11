@@ -24,7 +24,7 @@ def fixture_package(root):
              'target': 'aarch64-apple-darwin', 'effectiveEnvironment': {k: 'fixture-observation' for k in ('CARGO_HOME', 'RUSTUP_HOME', 'CARGO_TARGET_DIR', 'PATHPrefix')}, 'unknowns': ['fixture, no actual build']}
     put('bin/weft-runtime', struct.pack('<IIIIIIII', 0xfeedfacf, 0x100000c, 0, 2, 0, 0, 0, 0))
     binary = desc('bin/weft-runtime')['sha256']
-    source_base = 'docs/helix/04-build/evidence/'
+    source_base = 'tests/fixtures/golden/'
     originals, sources = [], []
     for scope in w.SCOPES:
         path = source_base + 'B-006-' + scope + '/compile-artifacts.jsonl'

@@ -522,7 +522,7 @@ The owner approved this staged feed-binding rule on 2026-10-21 because Truss
 `read_feed_in_transaction(tx, consumer_id, limits)` reads at the registered
 checkpoint, while the public feed query requires that checkpoint; it provides
 no future-page cursor argument. The observed API constraint and unchanged feed
-SQL digest are recorded in the [Truss source comparison](../../04-build/evidence/truss-current-native-lifecycle-0.10-20261021/truss-0.0.45-source-comparison.json).
+SQL digest are recorded in the Truss source comparison.
 That 2026-10-21 decision approves only staged feed-page binding and does not
 establish R04 execution evidence.
 

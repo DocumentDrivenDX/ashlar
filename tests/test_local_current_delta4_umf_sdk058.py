@@ -12,10 +12,10 @@ from ashlar_host.local_current_delta4_umf_sdk058 import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKET = ROOT / 'docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030'
+PACKET = ROOT / 'tests/fixtures/golden/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030'
 RELEASE_PROPOSALS = PACKET / 'outputs/carrier-proposals.json'
 RELEASE_PROPOSALS_SHA256 = 'd00c4a9d0c6c1fd0946007a5ae2495ee95960ba094d1a46dbed0dc6d966e68ea'
-SOURCE_CORRESPONDENCE = ROOT / 'docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-source-correspondence-20261030/outputs/source-correspondence-qualification.json'
+SOURCE_CORRESPONDENCE = ROOT / 'tests/fixtures/golden/current-upstream-release-20261029/g03-sdk058-source-correspondence-20261030/outputs/source-correspondence-qualification.json'
 SOURCE_CORRESPONDENCE_SHA256 = '1513d0b58774bcf1861f75f71595a5f3dc8d2ff20ac8821fa63a02cb2aa77da0'
 
 

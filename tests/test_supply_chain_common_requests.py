@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure full-pair preparation controls; no installed/native query claims."""
+from golden import read_golden
 import copy
 import json
 import unittest
@@ -17,7 +18,7 @@ class SupplyChainCommonRequestsTests(unittest.TestCase):
         self.raw = tuple((source / name).read_bytes() for name in
                          ('pack.json', 'ontology.json', 'graph/fixture.json'))
         _, self.bindings = build_transaction(*self.raw[1:], source_system='private-original-supply-chain-fixture')
-        evidence = json.loads((ROOT / 'docs/helix/04-build/evidence/supply-chain-native-publication-20261009.json').read_bytes())
+        evidence = json.loads(read_golden('supply-chain-native-publication-20261009.json'))
         self.manifest, self.registry = evidence['native_manifest'], evidence['table_registry']
         self.aliases = {name: name.replace('local.', 'spark_catalog.', 1)
                         for name in json.loads(self.manifest['table_versions_json'])}

@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Original medical public-operation seams and independent full-row oracle controls."""
+from golden import read_golden
 import base64
 import decimal
 from dataclasses import replace
@@ -25,7 +26,7 @@ class MedicalAdmissionTests(unittest.TestCase):
     def setUpClass(cls):
         cls.model=(ROOT/'examples/domain-packs/medical/historical/archive/schemas/ontology.json').read_bytes()
         cls.graph=(ROOT/'examples/domain-packs/medical/upstream/graph/fixture.json').read_bytes()
-        cls.baseline=(ROOT/'docs/helix/04-build/evidence/medical-historical-admission-20261009/public-receipt.json').read_bytes()
+        cls.baseline=read_golden('medical-historical-admission-20261009/public-receipt.json')
         cls.public=json.loads(cls.baseline)
         cls.batch,cls.bindings=build_transaction(cls.model,cls.graph,cls.baseline,source_system='isolated-medical')
         cls.columns=fixture_columns(RESOURCE_ROOT)

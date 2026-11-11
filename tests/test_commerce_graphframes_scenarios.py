@@ -19,7 +19,7 @@ class CommerceScenarioOracleTests(unittest.TestCase):
         from ashlar.graph_release import GraphRelease
         from ashlar_host.commerce_graphframes_scenarios import prepare_commerce_graphframes_profile
         repo=Path(__file__).resolve().parents[1]
-        raw=(repo/'docs/helix/04-build/evidence/commerce-graph-export-20261009/release.graph.json').read_bytes()
+        raw=(repo/'tests/fixtures/golden/commerce-graph-export-20261009/release.graph.json').read_bytes()
         return prepare_commerce_graphframes_profile(admission(self),(repo/'examples/domain-packs/commerce/upstream/pack.json').read_bytes(),GraphRelease(raw,hashlib.sha256(raw).hexdigest()))
     def test_actual_relationship_reference_id_not_element(self):
         from ashlar_host.commerce_graphframes_scenarios import commerce_relationship_types

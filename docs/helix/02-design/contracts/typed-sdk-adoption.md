@@ -117,7 +117,7 @@ An operation may already have completed natively; it is never replayed. A provid
 that cannot actually cancel and settle is not qualified by these source controls.
 
 Source lifecycle controls are retained separately from native qualification:
-[Async bridge source controls](../../04-build/evidence/typed-sdk-async-source-20261017/README.md).
+Async bridge source controls.
 Actual in-flight native cancellation, event-loop progress, original pin/actor
 custody and denied native closing remain required before async adoption claims.
 
@@ -168,7 +168,7 @@ callback-only tests do not qualify native adoption.
 
 ## Execution evidence
 
-[Local page qualification](../../04-build/evidence/typed-sdk-pages-20261016/README.md)
+Local page qualification
 records 17 actual Spark 4.0.1/Delta 4.0.0 and PostgreSQL 18.6 controls. A real
 alias change after fetch first exposed a buffered-result defect and then refused
 after fresh closing resolution. This qualifies the explicit local STRING fixture
@@ -204,4 +204,4 @@ Related `sourceSelectedKey`; continuations retain that exact derived artifact.
 Actual public-catalog native presence/order/Related/WithKeys execution, smaller
 sync/async multi-page continuations, and real native cancellation remain required
 before this candidate can be qualified. The source-only receipt is retained at
-[engine 0.2 source controls](../../04-build/evidence/typed-sdk-engine02-source-20261017/receipt.json).
+engine 0.2 source controls.

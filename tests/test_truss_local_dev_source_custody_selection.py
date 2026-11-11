@@ -127,7 +127,7 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
         fixture_path = Path(__file__).parent / "fixtures/truss_052_r24_public_report_document.json"
         fixture = json.loads(fixture_path.read_bytes())
         self.document_id = fixture["document"]["documentId"]
-        model_path = (Path(__file__).parents[1] / "docs/helix/04-build/evidence/"
+        model_path = (Path(__file__).parents[1] / "tests/fixtures/golden/"
             "current-upstream-release-20261101/r21-truss052-fresh-source-custody/"
             "r28-page-sequence/r28-model.umf.json")
         model_bytes = model_path.read_bytes()
@@ -305,7 +305,7 @@ class LocalDevSourceCustodySelectionTests(unittest.TestCase):
         self.accepted_document = replace(
             self.accepted_document, document_id=self.document_id,
             document_revision="1", artifact_identity=self.document_id,
-            content=(Path(__file__).parents[1] / "docs/helix/04-build/evidence/"
+            content=(Path(__file__).parents[1] / "tests/fixtures/golden/"
                 "current-upstream-release-20261101/r21-truss052-fresh-source-custody/"
                 "r28-page-sequence/r28-model.umf.json").read_bytes(),
             sha256="b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2",

@@ -20,8 +20,8 @@ from ashlar_host.configured_source_admission_config import ConfiguredSourceAdmis
 from ashlar_host.config import ProducerConfig
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = ROOT / 'docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030'
-ADDENDUM = ROOT / 'docs/helix/04-build/evidence/current-upstream-release-20261029/g03-sdk058-source-correspondence-20261030'
+BASE = ROOT / 'tests/fixtures/golden/current-upstream-release-20261029/g03-sdk058-delta4-realization-candidate-20261030'
+ADDENDUM = ROOT / 'tests/fixtures/golden/current-upstream-release-20261029/g03-sdk058-source-correspondence-20261030'
 
 
 class TypedGraphSdk058AdmissionTests(unittest.TestCase):

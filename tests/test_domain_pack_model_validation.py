@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 class Tests(unittest.TestCase):
     def test_all_original_models_and_absences_are_explicit(self):
         raw=(ROOT/'examples/domain-packs/inventory.json').read_bytes();inventory=json.loads(raw)
-        report=json.loads((ROOT/'docs/helix/04-build/evidence/domain-pack-model-validation-20261009.json').read_bytes())
+        report=json.loads((ROOT/'tests/fixtures/golden/domain-pack-model-validation-20261009.json').read_bytes())
         self.assertEqual(report['inventorySha256'],hashlib.sha256(raw).hexdigest())
         self.assertEqual(report['packRevision'],inventory['commit'])
         self.assertEqual(len(report['results']),24)

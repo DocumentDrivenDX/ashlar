@@ -89,15 +89,15 @@ No in-place migration is qualified. Install as a new deployment and retain the e
 
 | Issue | Who is affected | Workaround or next step |
 |------|------------------|-------------------------|
-| The C17 classic Spark Jobs CREATE attempt was refused because the organization has no associated worker environments; no cluster or workload was created. | Operators using the classic route | The classic Jobs route is outside this release scope. See the [C17 refusal evidence](../04-build/evidence/current-upstream-release-20261102/managed-classic-c17-create-reconciliation-20261103/README.md). |
+| The C17 classic Spark Jobs CREATE attempt was refused because the organization has no associated worker environments; no cluster or workload was created. | Operators using the classic route | The classic Jobs route is outside this release scope. See the C17 refusal evidence. |
 | Fabric integration is unfinished; the 1B-node / 5B-edge scale trial remains held | Fabric and large-scale users | Do not claim those capabilities or performance. |
-| R61's Weft result values were observed, but a durable result hash was not persisted in the full worker closeout | Qualification reviewers | See the evidence limitation in the [R61 closeout](../04-build/evidence/current-upstream-release-20261102/r61-fresh-truss055-attempt13-continuation/qualification-closeout.json). |
+| R61's Weft result values were observed, but a durable result hash was not persisted in the full worker closeout | Qualification reviewers | See the evidence limitation in the R61 closeout. |
 
 ## References
 
 - Release gate: [Ashlar release closure](../04-build/release-closure-20261101.md)
-- Local R61 evidence: [R61 qualification closeout](../04-build/evidence/current-upstream-release-20261102/r61-fresh-truss055-attempt13-continuation/qualification-closeout.json)
-- Local A1 recovery: [attempt14 recovery closeout](../04-build/evidence/current-upstream-release-20261102/managed-current-attempt14-a1-recovery/closeout.json)
-- Publication: [v0.1.0 publication closeout](evidence/release-0.1.0-20261103/publication-closeout.json)
-- Managed R23/R25 evidence: [final closeout provenance](../04-build/evidence/current-upstream-release-20261102/managed-a1-resume-20261103/managed-a1-closeout-provenance.json), [raw R25 qualification receipt](../04-build/evidence/current-upstream-release-20261102/managed-a1-resume-20261103/managed-a1-closeout.json), and [R23 A0 / RC10 source probe](../04-build/evidence/current-upstream-release-20261102/managed-a1-resume-20261103/r23-a0-and-rc10-a1-source-probe.json)
+- Local R61 evidence: R61 qualification closeout
+- Local A1 recovery: attempt14 recovery closeout
+- Publication: v0.1.0 publication closeout
+- Managed R23/R25 evidence: final closeout provenance, raw R25 qualification receipt, and R23 A0 / RC10 source probe
 - Support or escalation path: project release review

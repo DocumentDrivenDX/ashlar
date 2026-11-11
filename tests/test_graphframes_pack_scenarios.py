@@ -10,7 +10,7 @@ class Tests(unittest.TestCase):
  def profile(self,name):
   upstream=ROOT/'examples/domain-packs'/name/'upstream'
   raw=[(upstream/p).read_bytes()for p in ('ontology.json','graph/fixture.json','pack.json')]
-  release=ROOT/'docs/helix/04-build/evidence/original17-graphframes-native-20261009/original'/('1-release.graph.json'if name=='archaeology'else'9-release.graph.json')
+  release=ROOT/'tests/fixtures/golden/original17-graphframes-native-20261009/original'/('1-release.graph.json'if name=='archaeology'else'9-release.graph.json')
   return prepare_scenarios(FinitePackDefinition(name),*raw,json.loads(release.read_bytes()))
  def test_all17_original_sql_expected_and_every_field_presence(self):
   for name,count in [('archaeology',8),('ecology',9)]:
@@ -28,7 +28,7 @@ class Tests(unittest.TestCase):
   self.assertEqual(signed64_token('-9223372036854775808',{'scalarType':'integer'}),-(2**63))
  def test_duplicate_original_vertex_and_nonlexical_value_refuse(self):
   name='ecology';upstream=ROOT/'examples/domain-packs'/name/'upstream';raw=[(upstream/p).read_bytes()for p in ('ontology.json','graph/fixture.json','pack.json')]
-  release=json.loads((ROOT/'docs/helix/04-build/evidence/original17-graphframes-native-20261009/original/9-release.graph.json').read_bytes())
+  release=json.loads((ROOT/'tests/fixtures/golden/original17-graphframes-native-20261009/original/9-release.graph.json').read_bytes())
   release['nodes'][1]=release['nodes'][0]
   with self.assertRaises(ValueError):prepare_scenarios(FinitePackDefinition(name),*raw,release)
  def rows(self,profile,case):

@@ -220,7 +220,7 @@ def reviewed_action_descriptor(anchor_path=None):
 
 def r05_discriminator_action_descriptor(anchor_path):
     """Build test-only reviewed bytes from the independently pinned R05 case."""
-    root = (Path(__file__).parent.parent / "docs/helix/04-build/evidence"
+    root = (Path(__file__).parent.parent / "tests/fixtures/golden"
             / "canonical-graphframes-holder-candidate-20261023/action-discriminator-r1")
     generator = (root / "generator.py").read_bytes()
     source = (root / "source-rows.json").read_bytes().rstrip(b"\n")
@@ -642,7 +642,7 @@ class CanonicalActionReadinessTests(unittest.TestCase):
                 selected_review_anchor_sha256=descriptor.review_anchor_sha256)
 
     def test_small_canonical_source_and_independent_oracle_are_exact(self):
-        fixture_dir = (Path(__file__).parent.parent / "docs/helix/04-build/evidence"
+        fixture_dir = (Path(__file__).parent.parent / "tests/fixtures/golden"
                        / "canonical-graphframes-holder-candidate-20261023/action-fixture")
         source = (fixture_dir / "source-rows.json").read_bytes().rstrip(b"\n")
         self.assertEqual(source, graphframes_module.canonical_fixture_source_bytes())
@@ -1013,7 +1013,7 @@ class CanonicalActionReadinessTests(unittest.TestCase):
             temporary.cleanup()
 
     def test_r05_discriminator_proves_source_qualified_seed_bag_and_reuses_action_gate(self):
-        root = (Path(__file__).parent.parent / "docs/helix/04-build/evidence"
+        root = (Path(__file__).parent.parent / "tests/fixtures/golden"
                 / "canonical-graphframes-holder-candidate-20261023/action-discriminator-r1")
         source_raw = (root / "source-rows.json").read_bytes().rstrip(b"\n")
         generator_raw = (root / "generator.py").read_bytes()

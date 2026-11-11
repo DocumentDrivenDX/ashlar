@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Small pure correspondence/nominal seam and mandatory closing controls."""
+from golden import read_golden
 import hashlib,json,unittest,uuid
 from pathlib import Path
 from types import SimpleNamespace
@@ -14,7 +15,7 @@ from ashlar_host.medical_singleton_local import query_original_medical_singleton
 ROOT=Path(__file__).resolve().parents[1]
 MODEL=(ROOT/'examples/domain-packs/medical/historical/archive/schemas/ontology.json').read_bytes()
 GRAPH=(ROOT/'examples/domain-packs/medical/upstream/graph/fixture.json').read_bytes()
-BASELINE=(ROOT/'docs/helix/04-build/evidence/medical-historical-admission-20261009/public-receipt.json').read_bytes()
+BASELINE=read_golden('medical-historical-admission-20261009/public-receipt.json')
 
 class MedicalSingletonTests(unittest.TestCase):
     def fixture(self):

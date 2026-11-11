@@ -108,7 +108,7 @@ def run(output,jars,umf_source):
     jar_paths=[Path(jars)/name for name in JARS]
     if not all(p.is_file()for p in jar_paths):raise ValueError('Explicit existing cached jars required')
     output.mkdir(parents=True,mode=0o700)
-    archive=ROOT/'docs/helix/04-build/evidence';preparation=archive/'commerce-present-field-preparation-20261009'
+    archive=ROOT/'tests/fixtures/golden';preparation=archive/'commerce-present-field-preparation-20261009'
     paths=[output/name for name in ('candidate.json','public-presence.json.gz','original-model.json')]
     for target,original in zip(paths,(preparation/'candidate.json',preparation/'public-presence.json.gz',archive/'commerce-evolution-preparation-20261009/original-model.json')):target.write_bytes(bounded_bytes(original))
     originals=original_inputs(paths)
