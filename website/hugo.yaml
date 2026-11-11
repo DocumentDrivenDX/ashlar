@@ -11,16 +11,10 @@ markup:
     parser:
       attribute:
         block: true
-params:
-  innsigle:
-    field: composition
-    warnUnsealed: true
 module:
   mounts:
     - {source: content, target: content}
     - {source: assets, target: assets}
     - {source: layouts, target: layouts}
     - {source: static, target: static}
-    - {source: ../.innsigle/public, target: static/.well-known/innsigle}
-    - {source: ../.innsigle/public, target: assets/innsigle}
     - {source: content, target: assets/content-src}

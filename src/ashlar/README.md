@@ -105,11 +105,8 @@ with a finite bound as described in the typed Truss quickstart. For a historical
 read, select that publication's original intent and accepted logical revision;
 keep explicit historical acceptance archives available to the reader. The live
 source checkpoint can remain ahead of the selected publication. The
-original three-case evidence
-and evolved settlement evidence
-qualify the recorded local Truss/Delta and indexed compiler selections. Different
-runtime/compiler bytes, managed Unity Catalog and production authority need
-separate qualification.
+Different runtime/compiler bytes, managed Unity Catalog and production authority are
+not covered by tests.
 
 ## Diagnose retained medical recovery
 
@@ -197,27 +194,21 @@ ACKs. Treat only successful command termination with its bounded JSON result as
 completion. Private query evidence may remain after a later closing failure;
 those files alone do not prove the command succeeded.
 
-## Supported development evidence
+## Supported development workflows
 
-The configured JSONL example has actual native
-publication/update/delete/history,
-singleton,
-guarded Weft query
-and committed replay
-proof. The [typed Truss quickstart](../../examples/truss-native/QUICKSTART.md)
+The configured JSONL example exercises publication, update, delete, history,
+singleton reads, guarded Weft queries and committed replay. The [typed Truss quickstart](../../examples/truss-native/QUICKSTART.md)
 and [commerce workflow](../../examples/original-commerce-local/README.md) describe
 additional typed, relationship and numeric query paths with their qualified
 compiler profiles. Support depends on the selected source/model, original compiler
-artifacts and runtime evidence. Source fixture IDs are not Truss-issued acceptance
+artifacts and runtime. Source fixture IDs are not Truss-issued acceptance
 IDs, and a local feed checkpoint does not establish a protected production ACK.
 
 Readability depends on the observed predictive-optimization and retention
 configuration. The reader refuses unavailable or expired snapshots instead of
 falling back to current heads; it does not disable predictive optimization.
-Each support claim must name its source/model profile, native versions, subset
-and evidence. Local simulated tests prove component behavior only.
+A support claim must name its source/model profile, native versions and subset, and be
+exercised by a test. Local simulated tests prove component behavior only.
 
-See the [execution plan](../../docs/helix/04-build/end-to-end-plan.md) for active
-work and the [contracts](../../docs/helix/02-design/contracts/) for required
-interfaces. The pre-cleanup component documentation
-preserves historical implementation notes verbatim.
+See the [roadmap](../../ROADMAP.md) for open work and the
+[contracts](../../docs/helix/02-design/contracts/) for required interfaces.

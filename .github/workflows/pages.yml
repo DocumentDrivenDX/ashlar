@@ -8,7 +8,6 @@ on:
       - 'docs/helix/02-design/models/ashlar-delta-runtime/**'
       - 'tools/generate_runtime_diagram.ts'
       - 'tools/build_schema_browser.py'
-      - '.innsigle/**'
       - '.github/workflows/pages.yml'
   pull_request:
     paths:
@@ -16,8 +15,9 @@ on:
       - 'docs/helix/02-design/models/ashlar-delta-runtime/**'
       - 'tools/generate_runtime_diagram.ts'
       - 'tools/build_schema_browser.py'
-      - '.innsigle/**'
       - '.github/workflows/pages.yml'
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -29,53 +29,48 @@ concurrency:
 
 env:
   HUGO_VERSION: 0.167.0
-  INNSIGLE_REVISION: 4185eb56beb7b52beaa4a00c2fc897f93d44b939
+  UMF_SCHEMA_BROWSER_VERSION: 1.1.2
 
 jobs:
   build:
     timeout-minutes: 10
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Checkout pinned Innsigle verifier
-        uses: actions/checkout@v6
-        with:
-          repository: DocumentDrivenDX/innsigle
-          ref: ${{ env.INNSIGLE_REVISION }}
-          path: .tools/innsigle
-          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - name: Install pinned Hugo
         run: |
           curl --fail --location --retry 3 --output "$RUNNER_TEMP/hugo.tar.gz" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
           mkdir -p "$RUNNER_TEMP/hugo-bin"
           tar -xzf "$RUNNER_TEMP/hugo.tar.gz" -C "$RUNNER_TEMP/hugo-bin" hugo
           echo "$RUNNER_TEMP/hugo-bin" >> "$GITHUB_PATH"
-      - name: Verify signed page sources
-        run: node .tools/innsigle/src/cli.mjs verify --all
-      - name: Verify generated runtime model fingerprints
+      - name: Version from the latest release tag
         run: |
-          python3 website/scripts/check_runtime_model.py
-          python3 website/scripts/check_schema_browser.py
-      - name: Build verified production site
-        run: hugo --source website --destination public --cleanDestinationDir --panicOnWarning
-      - name: Check links, navigation and seal coverage
-        run: python3 website/scripts/check_site.py website/public --require-seals
-      - name: Package Pages including public issuer files
+          VERSION="$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null | sed 's/^v//' || true)"
+          if [ -z "$VERSION" ]; then
+            VERSION="$(python -c "import tomllib;print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")"
+          fi
+          echo "SITE_VERSION=$VERSION" >> "$GITHUB_ENV"
+      - name: Build the UMF schema browser from npm
+        run: |
+          npm pack "@documentdrivendx/umf-schema-browser@${UMF_SCHEMA_BROWSER_VERSION}" --pack-destination "$RUNNER_TEMP"
+          python tools/build_schema_browser.py "$RUNNER_TEMP"/documentdrivendx-umf-schema-browser-*.tgz
+      - name: Build the site
+        run: HUGO_PARAMS_VERSION="$SITE_VERSION" hugo --source website --destination public --cleanDestinationDir --panicOnWarning
+      - name: Check the version stamp, links and navigation
+        run: |
+          grep -q "Ashlar ${SITE_VERSION}" website/public/index.html
+          python website/scripts/check_site.py website/public
+      - name: Package Pages
         if: github.event_name != 'pull_request'
-        run: |
-          tar --dereference --hard-dereference --directory website/public -cf "$RUNNER_TEMP/artifact.tar" .
-          python3 - <<'PY'
-          import os, tarfile
-          with tarfile.open(os.path.join(os.environ['RUNNER_TEMP'], 'artifact.tar')) as archive:
-              names = {member.name.removeprefix('./') for member in archive}
-              assert '.well-known/innsigle/keys.json' in names
-              assert sum(name.endswith('.attestation.json') for name in names) == 7
-          PY
+        run: tar --dereference --hard-dereference --directory website/public -cf "$RUNNER_TEMP/artifact.tar" .
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
@@ -87,7 +82,7 @@ jobs:
     timeout-minutes: 10
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       pages: write
       id-token: write

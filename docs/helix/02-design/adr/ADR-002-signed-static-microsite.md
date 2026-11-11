@@ -3,7 +3,7 @@ ddx:
   id: ADR-002
   type: adr
   activity: design
-  status: accepted
+  status: superseded
   authoring:
     home: repo
   links:
@@ -12,6 +12,10 @@ ddx:
 ---
 
 # ADR-002: Source-sealed Hugo microsite on GitHub Pages
+
+> **Superseded (2026-11-11).** The microsite is still a static Hugo site on GitHub Pages, now built
+> from source by `pages.yml` and stamped with the released version. Innsigle page signing was
+> dropped because it blocked content edits and the build; the UMF schema browser comes from npm.
 
 | Date | Status | Deciders | Confidence |
 | --- | --- | --- | --- |

@@ -2,20 +2,19 @@
 title: "Use Ashlar"
 description: "Install the toolkit, inspect a source, and follow a bounded publication and query workflow."
 eyebrow: "02 / Start here"
-composition: model-primary
 nextPath: schema/
 nextLabel: "See how the tables fit together"
 ---
 
 ## Install and inspect a source
 
-Clone [the Ashlar repository](https://github.com/DocumentDrivenDX/ashlar) and run these commands from its root with Python 3.9 or later:
+From a checkout of [the Ashlar repository](https://github.com/DocumentDrivenDX/ashlar) (which supplies the example inputs), install the package and inspect a source. CI runs these exact commands against the built wheel:
 
 ```sh
-python3 -m pip install .
+python3 -m venv .venv && . .venv/bin/activate
+pip install umf-ashlar
 ashlar inspect-source --feed example --epoch one < examples/end-to-end/local-string-source.jsonl
 ashlar inspect-configured-source examples/end-to-end/configured-source.json
-python3 tools/run_local_example.py
 ```
 
 The source inspector retains complete committed transaction bytes. The configured example uses explicit model and identity bindings to apply bounded create, update and delete changes and check replay. Inspection does not acknowledge a source or publish warehouse data.

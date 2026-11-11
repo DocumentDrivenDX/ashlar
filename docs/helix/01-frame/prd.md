@@ -44,7 +44,7 @@ require dedicated compute, bounded stages and an approved resource/cost budget.
 Production source authority, fencing,
 authorization and retention requirements remain mandatory for the corresponding
 support claim. Implementation status and results belong in the
-[execution plan](../04-build/end-to-end-plan.md) and build evidence.
+execution plan and build evidence.
 
 ## Problem and Goals
 

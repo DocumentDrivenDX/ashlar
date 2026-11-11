@@ -1,1 +1,1 @@
-{{ define "main" }}{{ .Content }}{{ end }}
+{{ define "main" }}{{ .Content }}{{ with site.Params.version }}<p class="release-line">Latest release: Ashlar {{ . }}</p>{{ end }}{{ end }}

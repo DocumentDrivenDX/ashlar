@@ -24,8 +24,6 @@ ALLOW = (
     "tests/fixtures/golden/*/*/*/*/*.gz",
     "tests/fixtures/golden/*/*/*/*/*/*.gz",
 )
-# Temporary: the generated schema-browser bundle is deleted with the docs/microsite work package.
-EXEMPT_PREFIXES = ("website/static/model/schema-browser/upstream/",)
 SRC_FORBIDDEN = re.compile(r"parents\[\d\]\s*/\s*['\"]docs/helix")
 
 
@@ -35,8 +33,6 @@ def main():
     total = 0
     problems = []
     for name in filter(None, names):
-        if name.startswith(EXEMPT_PREFIXES):
-            continue
         path = os.path.join(root, name)
         if not os.path.isfile(path):
             continue

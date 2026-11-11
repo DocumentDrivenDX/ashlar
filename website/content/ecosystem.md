@@ -2,9 +2,8 @@
 title: One graph, explicit mappings
 description: Canonical warehouse meaning can feed different query tools through qualified, versioned projections.
 eyebrow: 05 / Ecosystem
-composition: model-primary
 nextPath: reference/
-nextLabel: Follow the contracts and evidence
+nextLabel: Follow the contracts
 ---
 
 ## The ecosystem map
@@ -28,7 +27,7 @@ Native IDs travel as decimal strings when needed. Graph keys encode source, type
 
 The native read path selects a publication and queries canonical Delta at its pinned version. The singleton template combines a derived hash with full source/type/id predicates. Forward adjacency returns E1 and E2 as separate rows with B1's typed endpoint; bounded traversal uses the same publication context.
 
-**Evidence:** native read-only query-builder and adjacency fixtures recorded in the [adapter evidence](https://github.com/DocumentDrivenDX/ashlar/blob/main/docs/helix/02-design/spikes/SPIKE-001-table-layout/adapters/README.md#portable-native-singleton-query-builder). Authorization and continuation custody remain caller-service responsibilities. This path works independently of Fabric; operational service targets are not qualified by these fixtures.
+**Status:** the query builder and adjacency reads are covered by unit tests against fake transports. Authorization and continuation custody remain caller-service responsibilities. This path works independently of Fabric; no operational service target is tested.
 
 ## GraphFrames
 
@@ -36,7 +35,7 @@ Vertices come from node tables, so A0 survives. Edges carry graph `src`/`dst` ke
 
 An illustrative graph question is a motif `(a)-[e]->(b)` filtered to A1. It has two relationship matches in this example. Distinct destination IDs have one result. Exact raw carrier strings remain available beside selected attributes.
 
-Use `ashlar configure-graphframes-export` to select an immutable export, then `ashlar run-graphframes-export` for the bounded traversal corpus. The [Truss quickstart](https://github.com/DocumentDrivenDX/ashlar/blob/main/examples/truss-native/QUICKSTART.md) connects source ingestion, publication and export. [Parallel-edge execution evidence](https://github.com/DocumentDrivenDX/ashlar/tree/main/docs/helix/04-build/evidence/truss15-parallel-graphframes-20261013) records the actual runtime and supported local subset; direct Unity Catalog access requires its own qualification.
+Use `ashlar configure-graphframes-export` to select an immutable export, then `ashlar run-graphframes-export` for the bounded traversal corpus. The [Truss quickstart](https://github.com/DocumentDrivenDX/ashlar/blob/main/examples/truss-native/QUICKSTART.md) connects source ingestion, publication and export. Direct Unity Catalog access is untested.
 
 ## PuppyGraph
 
@@ -44,7 +43,7 @@ A typed release maps node and edge tables to graph labels and selected scalar pr
 
 Cypher and Gremlin must preserve independently identified parallel edges, isolated vertices and reuse of an edge in different hop positions. Path multiplicity and distinct destinations answer different questions. Compare complete canonical rows and native identities before and after queries; carrier parity alone cannot prove endpoint preservation.
 
-The [immutable PuppyGraph guide](https://github.com/DocumentDrivenDX/ashlar/blob/main/examples/puppy-immutable-export/README.md) runs either language from retained release/custody files without a running source or Spark process. Its [Cypher](https://github.com/DocumentDrivenDX/ashlar/tree/main/docs/helix/04-build/evidence/truss15-puppy-immutable-cypher-20261013) and [Gremlin](https://github.com/DocumentDrivenDX/ashlar/tree/main/docs/helix/04-build/evidence/truss15-puppy-immutable-gremlin-20261013) evidence qualify the recorded local release, image and clients. Property JSON remains opaque; numeric filters, cloud access and production authority need separate qualification.
+The [immutable PuppyGraph guide](https://github.com/DocumentDrivenDX/ashlar/blob/main/examples/puppy-immutable-export/README.md) runs either language from retained release/custody files without a running source or Spark process. Property JSON remains opaque; numeric filters and cloud access are untested.
 
 ## Fabric Graph
 
@@ -52,9 +51,7 @@ A bounded release selects nodes and endpoint-closed edges into OneLake-compatibl
 
 The mapping plan is an Ashlar design artifact, not a Microsoft deployment API payload. String/value constraints need validation without truncation; the source's exact content remains recoverable through pinned canonical references.
 
-**Evidence:** local mapping/export validation and native Delta projection materialization. Fabric engine deployment is unexecuted. The recorded source research bounds Fabric separately from the full 1B-node/5B-edge planning graph; current platform limits must be rechecked before a deployment.
-
-[Projection plan](https://github.com/DocumentDrivenDX/ashlar/blob/main/docs/helix/02-design/spikes/SPIKE-001-table-layout/adapters/fabric-projection.json) · [Release evidence and limits](https://github.com/DocumentDrivenDX/ashlar/blob/main/docs/helix/02-design/spikes/SPIKE-001-table-layout/adapters/README.md#concrete-typed-release-plan)
+**Status:** local mapping/export validation is covered by tests. Fabric deployment is unexecuted; check current platform limits before attempting one.
 
 ## Truss and UMF
 

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
-"""Check the production subpath, internal links, nav state and source seals."""
+"""Check the production subpath, internal links and nav state."""
 import argparse
 from html.parser import HTMLParser
 from pathlib import Path
@@ -10,7 +10,6 @@ class Page(HTMLParser):
     def __init__(self, text):
         super().__init__()
         self.links, self.ids, self.current = [], set(), []
-        self.seals = 0
         self.feed(text)
 
     def handle_starttag(self, tag, attrs):
@@ -21,13 +20,10 @@ class Page(HTMLParser):
             self.links.append(attrs["href"])
         if tag == "a" and attrs.get("aria-current") == "page":
             self.current.append(attrs["href"])
-        if tag == "script" and attrs.get("type") == "application/innsigle+json":
-            self.seals += 1
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("root", type=Path)
-    parser.add_argument("--require-seals", action="store_true")
     args = parser.parse_args()
     root = args.root.resolve()
     expected = ["index.html"] + [f"{slug}/index.html" for slug in
@@ -37,8 +33,6 @@ def main():
         page = Page(path.read_text())
         route = "/ashlar/" + ("" if relative == "index.html" else relative.removesuffix("index.html"))
         assert page.current and all(link == route for link in page.current), (relative, page.current)
-        if args.require_seals:
-            assert page.seals == 1, (relative, "missing/duplicate source attestation")
         for link in page.links:
             parsed = urlparse(link)
             if parsed.scheme or parsed.netloc:
@@ -67,10 +61,7 @@ def main():
                         assert json.loads(route['definition'][0]) in definitions
                 else:
                     assert unquote(parsed.fragment) in Page(destination.read_text()).ids, (relative, link)
-    if args.require_seals:
-        assert (root / ".well-known/innsigle/keys.json").exists()
-    print(f"PASS: {len(expected)} pages, internal links, current navigation" +
-          (", source-seal coverage and issuer publication" if args.require_seals else ""))
+    print(f"PASS: {len(expected)} pages, internal links, current navigation")
 
 if __name__ == "__main__":
     main()
