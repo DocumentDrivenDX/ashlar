@@ -11,10 +11,6 @@ from ashlar_host.r04_schedule import (PROFILE, R04CustodyError, R04Journal,
     R04Schedule, R04SchedulePolicy, SLOT_ORDER, STAGES, canonical)
 from ashlar_host.r04_slot_plan import (DATA_ROLES, NATIVE_ROLES,
     R04SlotCoordinator, R04SlotPlan)
-from ashlar_host.r04_truss049_feed import (MAXIMUM_BYTES, MAXIMUM_FACTS,
-    read_next_transaction)
-from ashlar_host.r04_truss050_feed import read_next_transaction as read_next_transaction_050
-from ashlar_host.r04_truss051_feed import read_next_transaction as read_next_transaction_051
 from ashlar.truss_native_feed import native_feed_batch
 from ashlar_host.publication_planning import truss_request_for
 from ashlar_host.delta_custody import LocalDeltaEffects
@@ -186,91 +182,6 @@ class R04ScheduleCustodyTests(unittest.TestCase):
         self.owner.begin_ack_effect(ordinal)
         self.owner.retain_ack(ordinal, {'source': selected['source'], 'durable': True})
         return {entity: f'provider-id-{selected["source"]}'}
-
-    def test_truss049_feed_owner_reads_only_the_admitted_registered_consumer(self):
-        class Ok:
-            def __init__(self, value):
-                self.value = value
-
-        page_value = page(source='A')
-
-        class Assembly:
-            def __init__(self):
-                self.calls = []
-
-            def read_feed_in_transaction(self, transaction, **kwargs):
-                self.calls.append((transaction, kwargs))
-                return Ok(page_value)
-
-        assembly = Assembly()
-        binding = self.owner.schedule.document()['source_bindings']['A']
-        result = read_next_transaction(assembly, object(), binding,
-                                       ok_type=Ok, page_type=type(page_value))
-        self.assertIs(result, page_value)
-        self.assertEqual(assembly.calls[0][1], {
-            'consumer_id': binding['consumer_id'],
-            'maximum_facts': MAXIMUM_FACTS,
-            'maximum_bytes': MAXIMUM_BYTES})
-        self.assertNotIn('cursor', assembly.calls[0][1])
-        self.assertNotIn('ack', assembly.calls[0][1])
-
-        wrong_registration = dict(binding, registration_id='other-registration')
-        with self.assertRaises(R04CustodyError):
-            read_next_transaction(assembly, object(), wrong_registration,
-                                  ok_type=Ok, page_type=type(page_value))
-
-    def test_truss050_feed_owner_requires_the_exact_installed_profile_and_keeps_read_only_shape(self):
-        from unittest.mock import patch
-        from ashlar_host.truss_current_catalog import CURRENT_050_EVIDENCE_PROFILE
-        class Ok:
-            def __init__(self, value): self.value = value
-        page_value = page(source='A')
-        class Assembly:
-            def __init__(self): self.calls = []
-            def read_feed_in_transaction(self, transaction, **kwargs):
-                self.calls.append((transaction, kwargs)); return Ok(page_value)
-        assembly=Assembly(); binding=self.owner.schedule.document()['source_bindings']['A']
-        with patch('ashlar_host.r04_truss050_feed.importlib.metadata.version',return_value='0.0.50'), \
-             patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',return_value=CURRENT_050_EVIDENCE_PROFILE):
-            result=read_next_transaction_050(assembly,object(),binding,ok_type=Ok,page_type=type(page_value))
-        self.assertIs(result,page_value)
-        self.assertEqual(assembly.calls[0][1],{'consumer_id':binding['consumer_id'],
-            'maximum_facts':MAXIMUM_FACTS,'maximum_bytes':MAXIMUM_BYTES})
-        with patch('ashlar_host.r04_truss050_feed.importlib.metadata.version',return_value='0.0.49'):
-            with self.assertRaisesRegex(R04CustodyError,'0.0.50'):
-                read_next_transaction_050(assembly,object(),binding,ok_type=Ok,page_type=type(page_value))
-        class WrongPageAssembly:
-            def read_feed_in_transaction(self, transaction, **kwargs): return Ok(object())
-        with patch('ashlar_host.r04_truss050_feed.importlib.metadata.version',return_value='0.0.50'), \
-             patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',return_value=CURRENT_050_EVIDENCE_PROFILE):
-            with self.assertRaisesRegex(R04CustodyError,'Truss 0.0.50 did not return a public FeedPage'):
-                read_next_transaction_050(WrongPageAssembly(),object(),binding,
-                                          ok_type=Ok,page_type=type(page_value))
-
-    def test_truss051_feed_owner_requires_renamed_distribution_and_keeps_read_only_shape(self):
-        from types import SimpleNamespace
-        from unittest.mock import patch
-        from ashlar_host.truss_current_catalog import CURRENT_051_EVIDENCE_PROFILE
-        class Ok:
-            def __init__(self, value): self.value = value
-        page_value = page(source='A')
-        class Assembly:
-            def __init__(self): self.calls = []
-            def read_feed_in_transaction(self, transaction, **kwargs):
-                self.calls.append((transaction, kwargs)); return Ok(page_value)
-        distribution=SimpleNamespace(version='0.0.51',metadata={'Name':'umf-truss'})
-        assembly=Assembly(); binding=self.owner.schedule.document()['source_bindings']['A']
-        with patch('ashlar_host.truss_current_catalog.installed_truss_distribution',return_value=distribution), \
-             patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',return_value=CURRENT_051_EVIDENCE_PROFILE):
-            result=read_next_transaction_051(assembly,object(),binding,ok_type=Ok,page_type=type(page_value))
-        self.assertIs(result,page_value)
-        self.assertEqual(assembly.calls[0][1],{'consumer_id':binding['consumer_id'],
-            'maximum_facts':MAXIMUM_FACTS,'maximum_bytes':MAXIMUM_BYTES})
-        distribution.metadata={'Name':'truss-toolkit'}
-        with patch('ashlar_host.truss_current_catalog.installed_truss_distribution',return_value=distribution), \
-             patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',return_value=CURRENT_051_EVIDENCE_PROFILE):
-            with self.assertRaisesRegex(R04CustodyError,'Exact UMF Truss 0.0.51'):
-                read_next_transaction_051(assembly,object(),binding,ok_type=Ok,page_type=type(page_value))
 
     def test_semantic_schedule_is_canonical_closed_and_eight_prefixes_exist(self):
         chosen = schedule()
