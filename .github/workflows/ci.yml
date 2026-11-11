@@ -66,12 +66,13 @@ jobs:
           python -m build
       - name: Install the wheel in a fresh venv and run the quickstart
         run: |
-          python -m venv "$RUNNER_TEMP/venv"
-          "$RUNNER_TEMP/venv/bin/pip" install dist/*.whl
+          VENV="$RUNNER_TEMP/quickstart-venv"
+          python -m venv "$VENV"
+          "$VENV/bin/python" -m pip install dist/*.whl
           cd "$RUNNER_TEMP"
-          "$RUNNER_TEMP/venv/bin/ashlar" --help
-          "$RUNNER_TEMP/venv/bin/python" -c "import ashlar, ashlar_host"
-          "$RUNNER_TEMP/venv/bin/ashlar" inspect-source --feed example --epoch one \
+          "$VENV/bin/ashlar" --help > /dev/null
+          "$VENV/bin/python" -c "import ashlar, ashlar_host"
+          "$VENV/bin/ashlar" inspect-source --feed example --epoch one \
             < "$GITHUB_WORKSPACE/examples/end-to-end/local-string-source.jsonl" > batches.jsonl
           test "$(wc -l < batches.jsonl)" -ge 1
 

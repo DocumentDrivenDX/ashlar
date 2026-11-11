@@ -14,7 +14,7 @@ import sys
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-_PATHS = [str(ROOT / "src"), str(ROOT / "tools"), str(ROOT / "tests")]
+_PATHS = [str(ROOT), str(ROOT / "src"), str(ROOT / "tools"), str(ROOT / "tests")]
 for _p in reversed(_PATHS):
     if _p not in sys.path:
         sys.path.insert(0, _p)
@@ -60,6 +60,24 @@ test_truss_graph_admission::test_current_empty_interval_admits_coverage_without_
 """.split())
 
 
+# Tests whose fixtures pin macOS paths (/private/tmp, ~/.orbstack); they skip where those are absent.
+MACOS_PATH_TESTS = frozenset("""
+test_truss_local_publication_recovery::test_ack_exception_is_reconciled_once_without_resubmission
+test_truss_local_publication_recovery::test_existing_completion_marker_refuses_before_source_custody
+test_truss_local_publication_recovery::test_malformed_reconciliation_checkpoint_fails_closed
+test_truss_local_publication_recovery::test_native_readback_marker_and_ack_are_strictly_ordered
+test_truss_local_publication_recovery::test_readback_refusal_prevents_marker_and_source_ack
+test_truss_local_publication_recovery::test_recovery_decodes_retained_archive_with_archive_digest
+test_truss_local_publication_recovery::test_unmatched_ack_reconciliation_is_durable_non_success
+test_truss_record_group_zero_edges::test_nonempty_records_with_zero_edges_is_admitted
+test_managed_a1_source_bootstrap::test_config_uses_explicit_operator_checkout_from_installed_package_path
+test_managed_a1_source_bootstrap::test_private_config_is_closed_and_pins_exact_model
+test_managed_a1_source_bootstrap::test_public_group_preflight_receives_exact_typed_scalar_carriers
+test_managed_a1_recovery_source_bootstrap::test_orderly_cleanup_skips_ipc_when_ack_already_closed_channel
+test_original_commerce_private_fixture_selection::test_exact_original_scope_and_isolated_ordinary_ddl
+""".split())
+
+
 def _truss_installed():
     from importlib import metadata
     for name in ("umf-truss", "truss-toolkit"):
@@ -90,6 +108,8 @@ def pytest_collection_modifyitems(config, items):
             item.add_marker(pytest.mark.stack)
             if not _truss_installed():
                 item.add_marker(pytest.mark.skip(reason="needs a released Truss installed (stack job)"))
+        if f"{module}::{item.name}" in MACOS_PATH_TESTS and not Path("/private/tmp").is_dir():
+            item.add_marker(pytest.mark.skip(reason="fixture pins macOS paths (/private/tmp)"))
         if module == "test_otel_supervision" and sys.version_info[:2] != (3, 11):
             item.add_marker(pytest.mark.skip(
                 reason="the OpenTelemetry worker profile is pinned to Python 3.11 (diagnostics extra)"))

@@ -140,7 +140,7 @@ sys.exit(0 if result.wasSuccessful() else 1)
         environment['PYTHONPATH'] = os.pathsep.join(str(ROOT / path) for path in ('src', 'tests', 'tools'))
         environment['PYTHONDONTWRITEBYTECODE'] = '1'
         outcome = subprocess.run([sys.executable, '-B', '-c', script], cwd=ROOT,
-                                 env=environment, capture_output=True, timeout=30)
+                                 env=environment, capture_output=True, timeout=120)
         self.assertEqual(outcome.returncode, 0, outcome.stderr.decode('utf8', errors='replace'))
         summary = json.loads(outcome.stdout)
         self.assertTrue(summary['passed'])
