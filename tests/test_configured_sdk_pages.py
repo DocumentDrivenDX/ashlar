@@ -5,7 +5,7 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig,ConfiguredSdk053LiveSession,_require_frozen_page_response,_require_frozen_grouped_artifact,_require_grouped_exact_rows,_require_r02_ordinal1_vector,_r02_review_deadline,_supported_page_compiler,run_configured_sdk_pages
-from ashlar_host.configured_local_runtime import page_configured_local,run_configured_local_r02_weft053
+from ashlar_host.configured_local_runtime import page_configured_local
 from ashlar_host.path_capture import PathCaptureConfig
 
 class Parameters:
@@ -86,26 +86,6 @@ class Tests(unittest.TestCase):
             'decoded':[[ExactScalar('person-1','person-1'),ExactScalar(2,'2'),ExactScalar(1,'1')]]}
         with self.assertRaises(ValueError):
             _require_grouped_exact_rows(changed,[['person-1',2,1]])
-
-    def test_r02_selection_is_idempotent_and_wrapper_checks_ordinal_before_runtime(self):
-        from pathlib import Path
-        from ashlar.weft_053_distribution import Weft053Distribution
-        from ashlar_host.configured_sdk_pages import ConfiguredR02Weft053Selection
-        compiler=object.__new__(Weft053Distribution)
-        for name in ('compile_engine_page_json','check_engine_page_json','check_engine_read_json'):
-            setattr(compiler,name,lambda *args:None)
-        query=replace(self.fixture(),compiler=compiler)
-        selection=ConfiguredR02Weft053Selection(Path('/private/tmp/r02'), 'a'*32,
-            'b'*40,'c'*40,'d'*64,'e'*64,{},
-            'f04f74668ac9adc46ac9928b01a4155ccad3aab6421cd297d018b7e45348aab0')
-        selection.__post_init__();selection.__post_init__()
-        with patch('ashlar_host.configured_local_runtime._run') as run:
-            self.assertEqual(run_configured_local_r02_weft053(object(),ordinal=1,query=query,selection=selection),run.return_value)
-            self.assertIs(run.call_args.kwargs['r02'],selection)
-            run.reset_mock()
-            with self.assertRaises(ValueError):
-                run_configured_local_r02_weft053(object(),ordinal=2,query=query,selection=selection)
-            run.assert_not_called()
 
     def test_r02_gate_deadline_is_bounded_by_worker_deadline_with_close_slack(self):
         runtime={'preSqlReviewDeadlineMonotonic':155.0,'postPage1ReviewDeadlineMonotonic':330.0,

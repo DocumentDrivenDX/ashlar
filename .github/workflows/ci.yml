@@ -1,0 +1,108 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  lint:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: src:tools:tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tracked tree size
+        run: python scripts/check_tree_size.py
+      - name: Module import boundaries
+        run: python tools/check_module_boundaries.py
+      - name: Typed SDK boundaries
+        run: python scripts/check-typed-sdk-boundaries.py --negative-controls
+
+  test:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e '.[dev,diagnostics]'
+      - run: pytest -n 4 -m "not slow and not spark" tests
+
+  package:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build
+        run: |
+          python -m pip install build
+          python -m build
+      - name: Install the wheel in a fresh venv and run the quickstart
+        run: |
+          VENV="$RUNNER_TEMP/quickstart-venv"
+          python -m venv "$VENV"
+          "$VENV/bin/python" -m pip install dist/*.whl
+          cd "$RUNNER_TEMP"
+          "$VENV/bin/ashlar" --help > /dev/null
+          "$VENV/bin/python" -c "import ashlar, ashlar_host"
+          "$VENV/bin/ashlar" inspect-source --feed example --epoch one \
+            < "$GITHUB_WORKSPACE/examples/end-to-end/local-string-source.jsonl" > batches.jsonl
+          test "$(wc -l < batches.jsonl)" -ge 1
+
+  slow:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -e '.[dev,diagnostics]'
+      - run: pytest -n 4 -m "slow and not spark" tests
+
+  spark:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.3'
+      - run: pip install -e '.[dev,diagnostics,local-delta]'
+      - run: pytest -m spark tests
+      - run: bun test tests/*.test.ts

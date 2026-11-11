@@ -94,8 +94,8 @@ controls on fresh Unity Catalog managed Delta tables with catalog commits:
 cross-table data/receipt commit, receipt read-your-writes, signaled rollback of
 both tables and a durable no-op receipt. The approved dedicated warehouse is
 confirmed STOPPED after an initial cleanup timeout and explicit recovery.
-[Original responses](../../04-build/evidence/typed-sdk-native-20261016/managed-atomic-prerequisite/verification.json)
-and [cleanup recovery](../../04-build/evidence/typed-sdk-native-20261016/managed-atomic-prerequisite/cleanup-recovery.json)
+Original responses
+and cleanup recovery
 remain separate. This does not admit managed SDK mutations: original compiled
 actions, protected authorization, exact native commit identity, conflicts and
 response-loss recovery still require implementation and native qualification.

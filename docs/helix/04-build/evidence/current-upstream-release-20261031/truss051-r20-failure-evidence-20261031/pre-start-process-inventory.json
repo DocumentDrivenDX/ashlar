@@ -1,1 +1,0 @@
-{"command":"/bin/ps -Ao pid=,command=","output_bytes":423224,"output_sha256":"bd5681dbff69f658441fb029206e1d3513d98a3c3ae7c2ad75690e65e5511d74","owner_count":0,"owners":[],"owners_truncated":false,"process_inventory_complete":true,"profile":"ashlar-r20-process-inventory/0.1","restored_pgdata_reference":false,"returncode":0,"selected_pgdata_reference":false}

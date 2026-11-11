@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import hashlib,json,sys,tempfile,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
@@ -6,7 +7,7 @@ from prepare_commerce_puppygraph import prepare
 ROOT=Path(__file__).resolve().parents[1]
 class CommercePuppyPreparationTests(unittest.TestCase):
     def inputs(self):
-        p=ROOT/'docs/helix/04-build/evidence/commerce-graph-export-20261009';r=(p/'release.graph.json').read_bytes();c=(p/'custody.json').read_bytes()
+        p=ROOT/'tests/fixtures/golden/commerce-graph-export-20261009';r=(p/'release.graph.json').read_bytes();c=read_golden('commerce-graph-export-20261009/custody.json')
         return r,c,hashlib.sha256(r).hexdigest(),hashlib.sha256(c).hexdigest()
     def test_exact_carriers_original_metadata_and_single_handle(self):
         import duckdb

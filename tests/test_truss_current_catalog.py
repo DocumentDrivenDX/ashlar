@@ -35,7 +35,7 @@ from ashlar_host.truss_current_catalog import (
 )
 
 
-EVIDENCE = (Path(__file__).parents[1] / 'docs/helix/04-build/evidence'
+EVIDENCE = (Path(__file__).parents[1] / 'tests/fixtures/golden'
             / 'truss-current-catalog-0.10-20261021')
 
 

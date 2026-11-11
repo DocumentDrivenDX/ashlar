@@ -18,8 +18,8 @@ from whole_graph_sql import graph_sql_plan
 class PreparationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        evidence=ROOT/'docs/helix/04-build/evidence/commerce-present-field-preparation-20261009'
-        cls.originals=((evidence/'candidate.json').read_bytes(),gzip.decompress((evidence/'public-presence.json.gz').read_bytes()),(ROOT/'docs/helix/04-build/evidence/commerce-evolution-preparation-20261009/original-model.json').read_bytes());cls.columns=fixture_columns(ROOT)
+        evidence=ROOT/'tests/fixtures/golden/commerce-present-field-preparation-20261009'
+        cls.originals=((evidence/'candidate.json').read_bytes(),gzip.decompress((evidence/'public-presence.json.gz').read_bytes()),(ROOT/'tests/fixtures/golden/commerce-evolution-preparation-20261009/original-model.json').read_bytes());cls.columns=fixture_columns(ROOT)
     def fixtures(self,qualified=True):
         result={}
         for label in ('a','b'):
@@ -103,7 +103,7 @@ class PreparationTests(unittest.TestCase):
 
     def test_oversized_compressed_input_refuses_before_public_or_spark(self):
         with tempfile.TemporaryDirectory()as temporary:
-            root=Path(temporary);archive=root/'docs/helix/04-build/evidence';presence=archive/'commerce-present-field-preparation-20261009';presence.mkdir(parents=True)
+            root=Path(temporary);archive=root/'tests/fixtures/golden';presence=archive/'commerce-present-field-preparation-20261009';presence.mkdir(parents=True)
             (presence/'candidate.json').write_bytes(self.originals[0]);(presence/'public-presence.json.gz').write_bytes(gzip.compress(b' ' * 8_000_000,mtime=0))
             original=archive/'commerce-evolution-preparation-20261009';original.mkdir();(original/'original-model.json').write_bytes(self.originals[2])
             jars=root/'jars';jars.mkdir()

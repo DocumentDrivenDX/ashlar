@@ -33,7 +33,7 @@ class Executor:
         return SQLResult([{'label':'updated','caption':'{"state":"value","value":"雪"}'}],(('label','DOUBLE' if self.fail_type else 'STRING'),('caption','STRING')))
 class WeftQueryTests(unittest.TestCase):
     def setup(self):
-        case=json.loads((ROOT/'docs/helix/04-build/evidence/weft-pinned-compiler-20261008.json').read_text())['compiled']
+        case=json.loads((ROOT/'tests/fixtures/golden/weft-pinned-compiler-20261008.json').read_text())['compiled']
         a=copy.deepcopy(case['response']);next(o for o in a['obligations'] if o['id']=='ashlar.candidate.publication')['parameters']['publication']['id']='p1'
         p=Pins();return case['request'],a,p,Executor(a,p),Policy(p)
     def read(self,q,a,p,e,policy):

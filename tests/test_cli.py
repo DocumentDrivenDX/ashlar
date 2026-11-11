@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import base64
 import json
 from pathlib import Path
@@ -125,8 +126,8 @@ class MedicalCLITests(unittest.TestCase):
         from ashlar.medical_source import build_transaction
         source=ROOT/'examples/domain-packs/medical/historical/archive/schemas/ontology.json'
         graph=ROOT/'examples/domain-packs/medical/upstream/graph/fixture.json'
-        receipt=ROOT/'docs/helix/04-build/evidence/medical-historical-admission-20261009/public-receipt.json'
         with tempfile.TemporaryDirectory() as directory:
+            receipt=Path(directory)/'public-receipt.json';receipt.write_bytes(read_golden('medical-historical-admission-20261009/public-receipt.json'))
             env=dict(os.environ);env['PYTHONPATH']=str(ROOT/'src')
             output=Path(directory)/'candidate'
             command=[sys.executable,'-m','ashlar','medical-source','--ontology',str(source),'--graph',str(graph),'--public-admission',str(receipt),'--output',str(output),'--source-system','cli-medical','--binding-profile','ashlar-medical-development-bindings/0.2']

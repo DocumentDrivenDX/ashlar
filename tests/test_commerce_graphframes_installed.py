@@ -11,7 +11,7 @@ from ashlar_host.graphframes_pack_scenarios import common_oracle
 from puppy_commerce_fixture import admission,ROOT
 
 PACK=(ROOT/'examples/domain-packs/commerce/upstream/pack.json').read_bytes()
-RELEASE=(ROOT/'docs/helix/04-build/evidence/commerce-graph-export-20261009/release.graph.json').read_bytes()
+RELEASE=(ROOT/'tests/fixtures/golden/commerce-graph-export-20261009/release.graph.json').read_bytes()
 
 class ScenarioTests(unittest.TestCase):
  def profile(self):return scenarios.prepare_commerce_graphframes_profile(admission(self),PACK,GraphRelease(RELEASE,hashlib.sha256(RELEASE).hexdigest()))

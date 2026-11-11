@@ -28,7 +28,7 @@ class PrimitiveBindingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         if not SOURCE.exists():
-            raise AssertionError("Actual pinned original UMF producer required")
+            raise unittest.SkipTest("needs a pinned UMF checkout at ASHLAR_UMF_SOURCE (default /private/tmp/sdk-a1-umf-c45c72-source)")
         cls.temp = tempfile.TemporaryDirectory(prefix="ashlar-primitive-binding-")
         cls.addClassCleanup(cls.temp.cleanup)
         directory = Path(cls.temp.name)

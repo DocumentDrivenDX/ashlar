@@ -19,7 +19,7 @@ retained content.
 Before publication, a host must hold and validate the original inputs through
 `FinitePackDefinition("payments")` and the public UMF dataset boundary, then
 establish its source and writer authority. Candidate bindings describe
-correspondence; they grant no authority. The [public admission evidence](../../../docs/helix/04-build/evidence/payments-public-source-20261013/result.json)
+correspondence; they grant no authority. The public admission evidence
 records complete dataset validation and three invalid-dataset controls.
 
 The bundled [pack](upstream/pack.json) retains its financial scenario SQL for
@@ -66,7 +66,7 @@ JAVA_HOME=/absolute/path/to/jdk21 ashlar publish-finite-pack \
 The returned `report` path selects the command report. The publication directory
 also retains its full native report, original request, registry and public dataset
 receipt. Publication checks the complete current/history rows, exact replay and
-committed read-only reopen. The [native example](../../../docs/helix/04-build/evidence/payments-native-publication-20261013/result.json)
+committed read-only reopen. The native example
 retains all 27 original source witnesses under private local ownership.
 
 ## Count a published record population
@@ -101,7 +101,7 @@ JAVA_HOME=/absolute/path/to/jdk21 ashlar query-payments-count \
 The observation directory retains original compiler protocols in
 `observations.jsonl`. The report includes the complete native result, exact scalar
 decoding and independent original count. This fixture has four
-ledger entries. The [native count example](../../../docs/helix/04-build/evidence/payments-native-count-20261013/result.json)
+ledger entries. The native count example
 queries the existing publication without reingestion. The dedicated command
 admits a named base-record count; financial scenarios require separate admission.
 
@@ -128,7 +128,7 @@ ashlar run-graphframes-export --configuration /absolute/private/payments-graphfr
 
 Run the final command in the separate Spark 3.5 / GraphFrames 0.12.3 environment.
 The immutable release and custody must remain paired with their original hashes.
-The [small native example](../../../docs/helix/04-build/evidence/payments-immutable-graphframes-20261013/result.json)
+The small native example
 checks complete node/edge carriers, one-hop and two-hop bags, degrees, path counts
 and distinct destinations. Monetary values remain exact canonical strings;
 financial property interpretation and authored financial SQL need separate admission.
@@ -151,9 +151,9 @@ Keep compiler protocols and the completed report in the observation directory.
 Other financial scenarios require separate compiler and native admission;
 this case does not qualify settlement or arithmetic behavior.
 
-The [native currency example](../../../docs/helix/04-build/evidence/payments-currency-native-20261013/result.json)
+The native currency example
 returns `USD` on the retained publication. The
-[settlement guard refusal](../../../docs/helix/04-build/evidence/payments-settled-native-refusal-20261013/result.json)
-and [original compiler cases](../../../docs/helix/04-build/evidence/payments-authored-compiler-20261013/result.json)
+settlement guard refusal
+and original compiler cases
 retain the separate numerical-carrier and JOIN ON limitations; neither qualifies
 those financial scenarios as complete.

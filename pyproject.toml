@@ -53,6 +53,18 @@ diagnostics = [
     "googleapis-common-protos==1.76.0; python_version == '3.11'",
     "typing-extensions==4.16.0; python_version == '3.11'",
 ]
+dev = [
+    "pytest>=8",
+    "pytest-xdist>=3",
+    "duckdb>=2,<3",
+    "neo4j>=6.4,<7",
+    "gremlinpython>=3.8,<4",
+    "aiohttp>=3.9",
+    "jsonschema>=4.26",
+    "pydantic>=2",
+    "mini-racer>=0.14.1; python_version >= '3.10'",
+    "build",
+]
 
 [project.scripts]
 ashlar = "ashlar.cli:main"
@@ -63,3 +75,13 @@ include = ["ashlar", "ashlar.*", "ashlar_host", "ashlar_host.*"]
 
 [tool.setuptools.package-data]
 ashlar_host = ["source-correspondence.json", "resources/*.json", "resources/original-commerce-local/*.json", "resources/managed-delta-v03/*.json", "resources/managed-current-core-010/*.json", "resources/managed-current-core-010-xxhash64/*.json", "resources/local-current-delta4/*.json", "resources/local-current-delta4/*.js", "resources/local-current-delta4/*.ts", "resources/local-current-delta4/*.txt", "resources/local-current-delta4-sdk058/*.json", "resources/local-current-delta4-sdk058/*.js", "resources/local-current-delta4-sdk058/*.ts", "resources/local-current-delta4-sdk058/*.txt", "resources/local-current-delta4-sdk010/*.json", "resources/local-current-delta4-sdk010/*.js", "resources/local-current-delta4-sdk010/*.ts", "resources/local-current-delta4-sdk010/*.txt", "resources/local-current-delta4-sdk0101/*.json", "resources/local-current-delta4-sdk0101/*.js", "resources/local-current-delta4-sdk0101/*.ts", "resources/local-current-delta4-sdk0101/*.txt", "resources/local-current-delta4-sdk0102/*.json", "resources/*.ts", "resources/*.mjs", "resources/sql/*/*.sql", "resources/native/*.c", "resources/evolution/*.json", "resources/evolution/*.gz", "resources/evolution/*.ts"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+filterwarnings = ["error::ResourceWarning"]
+markers = [
+    "slow: slow tier, runs in the nightly job",
+    "spark: needs a local Spark/Delta session, runs in the nightly job",
+    "stack: needs the released UMF, Weft and Truss packages installed",
+]

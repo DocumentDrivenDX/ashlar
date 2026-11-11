@@ -7,7 +7,7 @@ from run_commerce_arithmetic_weft import execute_guarded
 import test_commerce_arithmetic_weft as fixtures
 
 ROOT=Path(__file__).resolve().parents[1]
-INVENTORY=ROOT/'docs/helix/04-build/evidence/original-pack-weft-unqualified-compilation-20261009.json'
+INVENTORY=ROOT/'tests/fixtures/golden/original-pack-weft-unqualified-compilation-20261009.json'
 FIXTURES=ROOT/'tests/fixtures/weft-field-plans'
 
 

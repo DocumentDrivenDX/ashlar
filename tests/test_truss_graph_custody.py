@@ -50,7 +50,7 @@ class Tests(unittest.TestCase):
             load_private_graph_release(raw, release.sha256, receipt, hashlib.sha256(receipt).hexdigest())
 
     def r59_pair(self):
-        path = (Path(__file__).parents[1] / 'docs/helix/04-build/evidence'
+        path = (Path(__file__).parents[1] / 'tests/fixtures/golden'
                 / 'current-upstream-release-20261102/r59-native-query-export'
                 / 'r59-graph-release.json')
         raw = path.read_bytes()

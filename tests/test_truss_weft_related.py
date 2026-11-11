@@ -31,7 +31,7 @@ class Tests(unittest.TestCase):
         key=lambda prefix:{'id':'a-primary','fields':[logical(prefix+'-value'),logical(prefix+'-label')],'types':[{'family':'string','facets':{},'nullable':False}]*2}
         declaration=mapping['acceptedDefinition'];relation={'from':mapping['source'],'to':mapping['target'],'identity':mapping['logical'],'inverse':False,
             'sourceKey':key('A'),'targetKey':key('B'),'sourceMultiplicity':declaration['sourceMultiplicity'],'targetMultiplicity':declaration['targetMultiplicity'],'targetLifecycle':declaration['targetLifecycle']}
-        with gzip.open('docs/helix/04-build/evidence/commerce-python311-native-20261010/queries-report.json.gz','rt')as stream:original=json.load(stream)
+        with gzip.open('tests/fixtures/golden/commerce-python311-native-20261010/queries-report.json.gz','rt')as stream:original=json.load(stream)
         artifact=copy.deepcopy(original['relationship']['artifact']);artifact['modelPins']=[pin]
         plan=artifact['logicalPlan'];plan['order']=[];plan['modulePins']=[pin];plan['source']={'occurrence':'s0','pin':pin,'record':mapping['source']}
         plan['outputs']=[{'name':'related','expression':{'op':'relatedKeys','scan':'s0','bound':2,'relationship':relation}}]

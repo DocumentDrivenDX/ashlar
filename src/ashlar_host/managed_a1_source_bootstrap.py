@@ -20,7 +20,7 @@ MODEL_REVISION = "r1"
 MODEL_SHA256 = "b908c0dd6a0da65c864c0debd0c793d8ab06a933546f34050480909c5c9349f2"
 PUBLIC_SETUP_HELPER_SHA256 = "d6425948b7b84395429f5b83c624cad27843c2e1eda6af66fce16dcc71d1be89"
 PUBLIC_SETUP_HELPER_RELATIVE_PATH = Path("tools/r61_fresh_truss_setup_stage.py")
-MODEL_RELATIVE_PATH = ("docs/helix/04-build/evidence/current-upstream-release-20261101/"
+MODEL_RELATIVE_PATH = ("tests/fixtures/golden/current-upstream-release-20261101/"
                        "r21-truss052-fresh-source-custody/r28-page-sequence/r28-model.umf.json")
 
 

@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import copy,json,sys,unittest
 from contextlib import contextmanager
 from pathlib import Path
@@ -14,7 +15,7 @@ class ArithmeticPublicationHostTests(unittest.TestCase):
         model=(pack/'ontology.json').read_bytes();graph=(pack/'graph/fixture.json').read_bytes()
         from commerce_source_transaction import build_transaction
         _,bindings=build_transaction(model,graph,source_system='private-original-commerce-fixture',binding_profile='ashlar-commerce-development-bindings/0.2')
-        report=json.loads((root/'docs/helix/04-build/evidence/commerce-canonical-publication-20261009.json').read_bytes())
+        report=json.loads((root/'tests/fixtures/golden/commerce-canonical-publication-20261009.json').read_bytes())
         manifest=report['native_manifest']
         aliases={t:'spark_catalog.commerce.'+t.split('.')[-1] for t in json.loads(manifest['table_versions_json'])}
         return compiler_request(scenarios()[0][0]['sql'],model,bindings,manifest,report['table_registry'],aliases)
@@ -137,8 +138,8 @@ class PublicScalarTextTests(unittest.TestCase):
 class RetainedNativeArithmeticTests(unittest.TestCase):
     def test_actual_bags_guard_phases_and_original_public_receipts(self):
         import hashlib
-        root=Path(__file__).resolve().parents[1];base=root/'docs/helix/04-build/evidence/commerce-arithmetic-weft-20261009'
-        report=json.loads((base/'report.json').read_bytes());graph=json.loads((root/'examples/domain-packs/commerce/upstream/graph/fixture.json').read_bytes())
+        root=Path(__file__).resolve().parents[1];base=root/'tests/fixtures/golden/commerce-arithmetic-weft-20261009'
+        report=json.loads(read_golden('commerce-arithmetic-weft-20261009/report.json'));graph=json.loads((root/'examples/domain-packs/commerce/upstream/graph/fixture.json').read_bytes())
         from run_commerce_arithmetic_weft import original_graph_expected
         self.assertEqual(len(report['original_native_files']),66)
         for query in report['queries']:

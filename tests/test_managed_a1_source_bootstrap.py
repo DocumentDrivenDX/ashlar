@@ -125,7 +125,7 @@ class ManagedA1SourceBootstrapTests(unittest.TestCase):
                                                 repository_root=repository)
             raw = json.dumps(config, sort_keys=True, separators=(",", ":")).encode()
             self.assertEqual(validate_private_bootstrap_config(raw), config)
-            self.assertEqual(Path(config["model_path"]).parents[6], repository / "docs")
+            self.assertEqual(Path(config["model_path"]).parents[6], repository)
             self.assertEqual(Path(config["setup_helper_path"]),
                              repository / PUBLIC_SETUP_HELPER_RELATIVE_PATH)
             self.assertEqual(config["model_sha256"], MODEL_SHA256)

@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """SDK-free composition controls; inert ports confer no native/source grant."""
+from golden import read_golden
 from contextlib import ExitStack
 from dataclasses import replace
 import copy
@@ -171,7 +172,7 @@ class Controls(unittest.TestCase):
         from ashlar_host.supply_chain_query import finite_public_source
         from ashlar_host.supply_chain_finite_source import validate_supply_chain_dataset_receipt
         from pathlib import Path
-        raw=(Path(__file__).resolve().parents[1]/'docs/helix/04-build/evidence/supply-chain-public-dataset-20261009.json').read_bytes()
+        raw=read_golden('supply-chain-public-dataset-20261009.json')
         self.assertGreater(len(raw),1024*1024)
         validate_supply_chain_dataset_receipt(*self.fixture.raw[1:],raw)
         self.opened.source.receipt=raw

@@ -365,7 +365,7 @@ class Tests(unittest.TestCase):
     def test_complete_actual_commerce_mapping_fits_separate_utf8_capacity(self):
         import gzip
         import json
-        archive = Path(__file__).resolve().parents[1] / 'docs/helix/04-build/evidence/commerce-fabric-publication-gql-20261016/definition/create-request.json.gz'
+        archive = Path(__file__).resolve().parents[1] / 'tests/fixtures/golden/commerce-fabric-publication-gql-20261016/definition/create-request.json.gz'
         definition = json.loads(gzip.decompress(archive.read_bytes()))['definition']
         mapping = json.dumps(definition, sort_keys=True, separators=(',', ':'), allow_nan=False)
         self.assertEqual(len(mapping.encode('utf8')), 13542)

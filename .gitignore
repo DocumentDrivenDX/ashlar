@@ -9,7 +9,6 @@ node_modules/
 # Local spike runtime caches and replaceable statement breadcrumbs
 __pycache__/
 *.py[cod]
-/docs/helix/02-design/spikes/**/out/**/live-statement.json
 
 # Microsite build output and local tooling
 /website/public/
@@ -23,3 +22,10 @@ __pycache__/
 /src/*.egg-info/
 /.innsigle/provenance/
 /.innsigle/debug/
+
+# Run output, receipts and qualification packets are never committed. Attach them to a PR or a CI artifact.
+/docs/helix/**/evidence/
+/docs/helix/**/spikes/**/out/
+/website/static/model/schema-browser/upstream/
+*.jfr
+/.ci/

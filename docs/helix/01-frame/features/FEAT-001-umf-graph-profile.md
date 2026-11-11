@@ -24,7 +24,7 @@ ddx:
 ## Overview
 
 Engineers can interpret a graph model without changing its source semantics.
-DocumentDrivenDX's [UMF](../../00-discover/resources/umf.md) is the metamodel
+DocumentDrivenDX's UMF is the metamodel
 input, not a graph execution engine. A node type describes instances; a node
 is an instance. A relationship type describes permissible links; an edge is a
 property-bearing instance with its own identity.

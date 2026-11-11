@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import hashlib,json,shutil,tempfile,unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -22,8 +23,8 @@ class HistoricalMedicalOracleTests(unittest.TestCase):
                 with patch.object(historical,'ROOT',copied):
                     with self.assertRaises((ValueError,KeyError)):historical.historical_oracle()
     def test_regenerated_original_oracle_matches_frozen_public_input_hash(self):
-        root=Path(__file__).resolve().parents[1];evidence=root/'docs/helix/04-build/evidence/medical-historical-admission-20261009';raw=evidence.joinpath('original-oracle.json').read_bytes();self.assertEqual(raw,(json.dumps(historical.historical_oracle(),ensure_ascii=False)+'\n\n').encode())
-        result=json.loads(evidence.joinpath('public-receipt.json').read_bytes());self.assertEqual(hashlib.sha256(raw).hexdigest(),result['originalOracleSha256']);self.assertEqual(result['umfRevision'],'8e76c74d14203225d1ef159c9132bb9e9b0cdffe');self.assertEqual(result['receipt']['datasetValidation'],{'valid':True,'complete':True,'diagnostics':[]})
+        root=Path(__file__).resolve().parents[1];evidence=root/'tests/fixtures/golden/medical-historical-admission-20261009';raw=evidence.joinpath('original-oracle.json').read_bytes();self.assertEqual(raw,(json.dumps(historical.historical_oracle(),ensure_ascii=False)+'\n\n').encode())
+        result=json.loads(read_golden('medical-historical-admission-20261009/public-receipt.json'));self.assertEqual(hashlib.sha256(raw).hexdigest(),result['originalOracleSha256']);self.assertEqual(result['umfRevision'],'8e76c74d14203225d1ef159c9132bb9e9b0cdffe');self.assertEqual(result['receipt']['datasetValidation'],{'valid':True,'complete':True,'diagnostics':[]})
         self.assertEqual([r['request']['token']for r in result['booleanReceipts']],['True']*3);self.assertTrue(all(r['value']=={'boolean':True}and r['validation']=={'valid':True,'complete':True,'diagnostics':[]}and r['provenance']=='unverified'for r in result['booleanReceipts']))
         self.assertTrue(all(c['receipt']['datasetValidation']['valid']is False for c in result['controls']));self.assertEqual(len(result['controls']),4)
 if __name__=='__main__':unittest.main()

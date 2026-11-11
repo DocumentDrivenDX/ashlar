@@ -19,7 +19,7 @@ kind: data
 Ashlar is an open-source, domain-independent toolkit for building and using
 property-graph ontologies on data warehouses. Databricks is its first target.
 The first milestone gives Databricks platform engineers a reviewed path from
-DocumentDrivenDX's [UMF metamodel](../00-discover/resources/umf.md) to gold
+DocumentDrivenDX's UMF metamodel to gold
 Delta tables representing a labeled property graph, then to bounded graph
 queries. Nodes and edges have types and properties; RDF triples and an RDF
 runtime are excluded. Delta is the warehouse storage format selected by the owner.
@@ -176,7 +176,7 @@ not block the remaining source/schema/query work.
 
 ### Consumer input and specification boundary
 
-The [potential-consumer input](../00-discover/hot-store-publication-input.md)
+The potential-consumer input
 (P1–P7) informs this draft. Its merge records discovery evidence, not approval
 of every proposed identity or enforcement rule. Ashlar publication and read
 behavior can be specified using opaque logical identities, revisions and source
@@ -228,7 +228,7 @@ relationships must be accounted for in every projection.
 ## Technical Context
 
 Databricks gold Delta and UMF integration are owner constraints; physical layout
-and execution libraries remain design choices. [Current research](../00-discover/research.md)
+and execution libraries remain design choices. Current research
 records SQL, recursive SQL, and GraphFrames candidates and source limits.
 
 Every qualified deployment must explicitly pin cloud, catalog/schema names,
@@ -305,5 +305,5 @@ Review must confirm FR-1–FR-4 traceability, decision ownership, supported targ
 versions and schema contracts, cited execution of US-001–US-004 criteria, and
 explicit owner approval. No unchecked status box in this requirement document
 substitutes for the current evidence ledger. The
-[pre-cleanup PRD](../04-build/evidence/documentation-history-20261009/docs/helix/01-frame/prd.original.txt)
+pre-cleanup PRD
 preserves its historical milestone/status text verbatim.

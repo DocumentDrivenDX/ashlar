@@ -229,7 +229,7 @@ source fencing, authorization delegation, retained data availability or complete
 consumer-corpus coverage. Require original operation/handle custody for uncertain
 recovery and original descriptor replay; do not fabricate accepted IDs or ACKs.
 
-Reuse the existing [table-design measurements](../02-design/spikes/SPIKE-001-table-layout.md).
+Reuse the existing table-design measurements.
 Functional checks remain small. Separately requested representative-scale trials
 require dedicated compute and approved resource/cost limits. Latency/freshness/
 throughput are measured qualification limits; misses do not change the Unity
@@ -276,7 +276,7 @@ requirement for the Truss source lane. Continue independent source, schema,
 Weft and engine work when an external prerequisite is unavailable.
 
 The [execution plan](../04-build/end-to-end-plan.md) owns results and pending
-work. The [pre-cleanup test plan](../04-build/evidence/documentation-history-20261009/docs/helix/03-test/consumer-conformance-plan.original.txt)
+work. The pre-cleanup test plan
 preserves historical execution/status notes verbatim.
 
 ## Module, configuration and diagnostic verification

@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import json,sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
@@ -27,10 +28,10 @@ if __name__=='__main__':unittest.main()
 
 class RetainedSharedNativePuppyTests(unittest.TestCase):
     def test_both_native_languages_preserve_all_twenty_one_scalar_state_queries(self):
-        base=ROOT.parents[1]/'docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009'
+        base=ROOT.parents[1]/'tests/fixtures/golden/graph-augmentations-puppygraph-20261009'
         fixture=json.loads((ROOT/'source.json').read_bytes());nodes,_,_=source_carriers(fixture,(ROOT/'model.umf.json').read_bytes());by_key={r['carrier_key']:r for r in nodes}
         for filename in ['cypher-report.json','gremlin-report.json']:
-            report=json.loads((base/filename).read_bytes());records=[r for r in report['records']if r['case'].startswith(('A-SCALAR:','A-PRESENCE:'))]
+            report=json.loads(read_golden('graph-augmentations-puppygraph-20261009/'+filename));records=[r for r in report['records']if r['case'].startswith(('A-SCALAR:','A-PRESENCE:'))]
             self.assertEqual(len(records),21)
             for r in records:
                 key=r['case'].split(':',1)[1];source=next(n for n in fixture['nodes']if n['key']==key)

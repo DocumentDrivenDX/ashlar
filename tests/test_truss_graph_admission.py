@@ -7,7 +7,7 @@ from ashlar_host.truss_graph_admission import TrussGraphAdmission,TrussEmptyInte
 
 class Tests(unittest.TestCase):
     def original(self,bad_endpoint=False,bad_pin=False):
-        root=Path('docs/helix/04-build/evidence/truss-schema-acceptance-20261012')
+        root=Path('tests/fixtures/golden/truss-schema-acceptance-20261012')
         report_raw=(root/'report.json').read_bytes();report=json.loads(report_raw);catalog_raw=(root/'catalog.json').read_bytes();catalog=json.loads(catalog_raw)
         refs=[entry['reference']for entry in catalog['definitions']]
         pin=lambda kind,type_id,authored:next(ref['definitionPin']for ref in refs if ref['kind']==kind and ref.get('typeId')==type_id and ref['authoredIdentity']==authored)

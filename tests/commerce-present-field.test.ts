@@ -2,7 +2,7 @@
 import {test,expect} from 'bun:test';
 import {gunzipSync} from 'node:zlib';
 import {augment,run} from '../tools/prepare_commerce_present_field';
-const directory='docs/helix/04-build/evidence/';
+const directory='tests/fixtures/golden/';
 test('authored presence control preserves all original source rows and reserved IDs',async()=>{
  const seed=await Bun.file(directory+'commerce-evolution-preparation-20261009/candidate.json').json();
  const proof=JSON.parse(gunzipSync(await Bun.file(directory+'commerce-public-revision-preservation-20261009/public-revisions.json.gz').bytes()).toString());

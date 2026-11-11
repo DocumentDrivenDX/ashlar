@@ -37,7 +37,7 @@ class CommerceEvolutionAdmission:
         self._custody()
         # Genuine public inspectors and expected-source verifiers execute again.
         # Retained receipt booleans alone are never the runtime admission gate.
-        archive=ROOT/'docs/helix/04-build/evidence'
+        archive=ROOT/'tests/fixtures/golden'
         with tempfile.TemporaryDirectory(prefix='ashlar-commerce-evolution-public-')as temporary:
             output=Path(temporary)/'receipt.json'
             result=subprocess.run(['bun',str(ROOT/'tools/prepare_commerce_present_field.ts'),str(self.umf_repo),str(archive/'commerce-evolution-preparation-20261009/candidate.json'),str(archive/'commerce-public-revision-preservation-20261009/public-revisions.json.gz'),str(output)],cwd=ROOT,capture_output=True,check=False,timeout=60)

@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact original commerce finite-dataset receipt, independently checked endpoints."""
+from golden import read_golden
 import hashlib,json,unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -7,7 +8,7 @@ class Tests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.original=ROOT/'examples/domain-packs/commerce/upstream'
-        cls.report=json.loads((ROOT/'docs/helix/04-build/evidence/commerce-public-dataset-20261009.json').read_bytes())
+        cls.report=json.loads(read_golden('commerce-public-dataset-20261009.json'))
         cls.source=json.loads((cls.original/'ontology.json').read_bytes());cls.graph=json.loads((cls.original/'graph/fixture.json').read_bytes())
     def test_original_declared_version_and_entire_source_remain_unchanged(self):
         d=self.report;r=d['receipt'];self.assertEqual(r['source'],self.source);self.assertEqual(r['source']['umf'],'0.8.0')

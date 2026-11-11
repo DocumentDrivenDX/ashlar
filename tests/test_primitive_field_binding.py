@@ -20,6 +20,8 @@ ROOT = Path(__file__).resolve().parents[1]
 class PrimitiveFieldBindingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        if not Path(os.environ.get("ASHLAR_UMF_SOURCE", "/private/tmp/sdk-a1-umf-c45c72-source")).exists():
+            raise unittest.SkipTest("needs a pinned UMF checkout at ASHLAR_UMF_SOURCE (default /private/tmp/sdk-a1-umf-c45c72-source)")
         cls.temp = tempfile.TemporaryDirectory()
         cls.addClassCleanup(cls.temp.cleanup)
         directory = Path(cls.temp.name)

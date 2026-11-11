@@ -177,7 +177,7 @@ truncation. Partial Delta tables remain available on failure.
 
 Keep the configured PostgreSQL source and ACK service available throughout the
 command; a saved publication does not replace their live admission. The
-[installed CLI native proof](../../docs/helix/04-build/evidence/commerce-fabric-installed-cli-20261016/README.md)
+installed CLI native proof
 covers the local command against an existing publication and source, including
 complete projection readback and unchanged original Delta files.
 
@@ -379,7 +379,7 @@ production source authority, storage credentials or Fabric graph activation.
 ## Copyable query gallery
 
 [queries.gql](queries.gql) contains five statements copied exactly from the
-successful [retained Fabric corpus](../../docs/helix/04-build/evidence/fabric-gql-corpus-20261011/fabric-corpus-d.json):
+successful retained Fabric corpus:
 full 18-property node and 23-property edge projections, one-hop relationship
 identities, and exact node/edge counts. Copy **one statement at a time** into
 the selected loaded Graph Model's query editor, or use its text as the `query`
@@ -409,7 +409,7 @@ action. The owner
 checks the selected subscription, tenant and delegated user before use and at
 closing, obtains a private Fabric token, disables proxies/redirects, and bounds
 authentication output and HTTP responses. A small
-[live functional check](../../docs/helix/04-build/evidence/fabric-ordinary-http-20261012.md)
+live functional check
 acquired and closed authentication and read the existing R1 node count. It does
 not establish publication correspondence or broad runtime compatibility.
 
@@ -631,7 +631,7 @@ controls or a supported native snapshot primitive. This helper supplies source
 composition; it does not create that graph owner, permissions or a lock. A
 Python mutex, stored release hash or no-op policy is insufficient.
 
-The [native commerce publication walkthrough evidence](../../docs/helix/04-build/evidence/commerce-fabric-publication-gql-20261016/README.md)
+The native commerce publication walkthrough evidence
 connects the held materializer's exact Delta output to OneLake, a completed Fabric
 load and seven full-bag native GQL checks. It qualifies copied-publication
 correspondence; supplying the real loaded graph owner above remains necessary

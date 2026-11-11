@@ -28,7 +28,7 @@ class Tests(unittest.TestCase):
         applied = [False]
         calls = []
 
-        def detail(target):
+        def detail(target, full=False):
             self.assertIs(transport.observation_bounds, bounds)
             return {'id': target.uuid, 'location': target.path.as_uri()}
 

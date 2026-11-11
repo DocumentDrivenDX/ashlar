@@ -10,7 +10,7 @@ from ashlar_host.puppy_finite_local import ImmutableExportPreparationPolicy
 
 class Tests(unittest.TestCase):
     def configuration(self,root):
-        evidence=Path(__file__).resolve().parents[1]/'docs/helix/04-build/evidence/truss15-core08-immutable-graphframes-20261013'
+        evidence=Path(__file__).resolve().parents[1]/'tests/fixtures/golden/truss15-core08-immutable-graphframes-20261013'
         raw=(evidence/'release.graph.json').read_bytes();release=GraphRelease(raw,hashlib.sha256(raw).hexdigest());custody=(evidence/'custody.json').read_bytes()
         (root/'release.json').write_bytes(release.payload);(root/'custody.json').write_bytes(custody)
         value={'profile':cli.PROFILE,'release_path':str(root/'release.json'),'custody_path':str(root/'custody.json'),
@@ -102,7 +102,7 @@ class Tests(unittest.TestCase):
         import duckdb
         from ashlar_host.local_graph_export import open_local_graph_export,LocalGraphExportSelection
         from ashlar_host.puppy_carrier import prepare_private_carrier,prepare_carrier
-        archive=Path(__file__).resolve().parents[1]/'docs/helix/04-build/evidence/truss15-parallel-export-20261013/actual.tar.gz'
+        archive=Path(__file__).resolve().parents[1]/'tests/fixtures/golden/truss15-parallel-export-20261013/actual.tar.gz'
         with tempfile.TemporaryDirectory()as directory,tarfile.open(archive)as original:
             root=Path(directory).resolve();raw=original.extractfile('export.json-release.json').read();custody=original.extractfile('export.json-custody.json').read()
             (root/'release').write_bytes(raw);(root/'custody').write_bytes(custody)

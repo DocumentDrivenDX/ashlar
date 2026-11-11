@@ -310,7 +310,7 @@ class ConfiguredLocalAdmission:
         finish(None,[self.lease.renew,lambda:source.renew(context),lambda:self.registry_file.renew(65536)])
 
 
-def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
+def _run(config,ordinal,*,selector=None,query=None,export=False):
     _require(type(config)is ConfiguredLocalRuntimeConfig);config.__post_init__()
     initialize=ordinal is None
     _require(config.sdk058_admission is None or initialize)
@@ -326,14 +326,8 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
         from .configured_local_query import ConfiguredLocalQueryConfig
         from .configured_sdk_pages import ConfiguredSdkPagesConfig
         _require(type(query)in (ConfiguredLocalQueryConfig,ConfiguredSdkPagesConfig));query.__post_init__()
-    if r02 is not None:
-        from .configured_sdk_pages import ConfiguredR02Weft053Selection,ConfiguredSdkPagesConfig
-        from ashlar.weft_053_distribution import Weft053Distribution
-        _require(type(r02)is ConfiguredR02Weft053Selection and type(query)is ConfiguredSdkPagesConfig
-            and type(query.compiler)is Weft053Distribution)
-    else:_require(query is None or type(query.compiler).__name__!='Weft053Distribution')
+    _require(query is None or type(query.compiler).__name__!='Weft053Distribution')
     _require(query is None or selector is None and not initialize and not export)
-    _require(r02 is None or selector is None and not initialize and not export and query is not None)
     _require(selector is None or type(selector)is tuple and len(selector)==2 and all(type(v)is int and -(2**63)<=v<2**63 for v in selector))
     _require(not initialize or selector is None)
     _require((initialize and config.installation_sha256 is None)or(not initialize and config.installation_sha256 is not None and type(ordinal)is int and 1<=ordinal<=4))
@@ -364,10 +358,10 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
         if not initialize:
             registry=json.loads(original_registry.raw);runtime_profile,runtime_identity,_=attest_runtime(config)
             _require(set(registry)=={'profile','scope','targets','columns','runtime_identity'}and registry['profile']=='ashlar-configured-local-installation/0.2'and registry['scope']==scope and registry['columns']=={r:[list(c)for c in cols]for r,cols in columns.items()}and registry['runtime_identity']=={'profile':runtime_profile,**runtime_identity})
-        spark=open_finite_spark(config,jars,r02=r02 is not None)
+        spark=open_finite_spark(config,jars)
         _require(spark.sparkContext.master=='local[1]'and spark.conf.get('spark.sql.session.timeZone')=='UTC'
             and spark.conf.get(PARAMETER_SUBSTITUTION_SETTING)=='true')
-        verify_driver_memory(spark,r02=r02 is not None)
+        verify_driver_memory(spark,r02=False)
         _require(spark.version=='4.2.0' and spark.sparkContext._jvm.java.lang.System.getProperty('java.specification.version')=='21')
         _require(spark.conf.get('spark.jars')==','.join(str(p)for p in jars))
         verify_loaded_delta_class(spark,jars)
@@ -418,7 +412,7 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
         if installation_profile is not None:transport_options['installation_profile']=installation_profile
         transport=(LocalDeltaTransport.initialize(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,context=context,**transport_options)if initialize else LocalDeltaTransport(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,**transport_options));policy.initializing=False
         if initialize:result={'profile':'ashlar-configured-local-initialized/0.3' if config.carrier_profile=='ashlar-delta/0.4-xxhash64' else 'ashlar-configured-local-initialized/0.2','installation_id':config.installation_id,'operation':'initialize','installation_sha256':hashlib.sha256(original_registry.raw).hexdigest(),'installation':registry,'published':False,'protected_ack':False}
-        elif selector is not None or query is not None or export or r02 is not None:
+        elif selector is not None or query is not None or export:
             from .file_progress import JournaledJsonlProgress
             from .configured_local_read import read_configured_local_singleton
             progress=JournaledJsonlProgress.open_existing(transport,source.configuration.source,source.metadata(context)['source_sha256'],stream=config.stream,feed=source.configuration.feed,epoch=source.configuration.epoch)
@@ -440,14 +434,7 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
                 from .configured_local_query import run_configured_local_query
                 with owned_context(open_configured_local_read(transport,source,progress,ordinal=ordinal,tables=tables,context=context,materialization_clock_us=config.materialization_clock_us,current_admission=admission))as held:
                     from .configured_sdk_pages import ConfiguredSdkPagesConfig,run_configured_sdk_pages
-                    if r02 is not None:
-                        from .configured_query_aliases import open_configured_query_aliases
-                        from .configured_sdk_pages import run_configured_r02_weft053
-                        _require(source.graph and type(query)is ConfiguredSdkPagesConfig)
-                        with owned_context(open_configured_query_aliases(held,transport))as aliases:
-                            answer=run_configured_r02_weft053(held,transport,query,aliases,r02,
-                                runtime_guard=lambda:_runtime(config))
-                    elif type(query)is ConfiguredSdkPagesConfig:
+                    if type(query)is ConfiguredSdkPagesConfig:
                         answer=run_configured_sdk_pages(held,transport,query,runtime_guard=lambda:_runtime(config))
                     else:answer=run_configured_local_query(held,transport,query)
                 result={'profile':'ashlar-configured-local-query-result/0.1','installation_id':config.installation_id,'operation':'query','manifest':final_manifest,'ordinal':ordinal,'local_checkpoint':progress.position(),'completed_batches':progress.completed_batches(),'query':answer,'protected_ack':False}
@@ -773,13 +760,3 @@ def page_configured_local(config,*,ordinal,query):
     from .configured_sdk_pages import ConfiguredSdkPagesConfig
     _require(type(query)is ConfiguredSdkPagesConfig);query.__post_init__()
     return _run(config,ordinal,query=query)
-
-
-def run_configured_local_r02_weft053(config,*,ordinal,query,selection):
-    """Private R02 packet entry; deliberately absent from generic CLI parsing."""
-    from .configured_sdk_pages import ConfiguredR02Weft053Selection,ConfiguredSdkPagesConfig
-    from ashlar.weft_053_distribution import Weft053Distribution
-    _require(ordinal==1 and type(ordinal)is int and type(query)is ConfiguredSdkPagesConfig and type(query.compiler)is Weft053Distribution
-        and type(selection)is ConfiguredR02Weft053Selection)
-    query.__post_init__();selection.__post_init__()
-    return _run(config,ordinal,query=query,r02=selection)

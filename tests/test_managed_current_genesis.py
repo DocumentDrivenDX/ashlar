@@ -268,7 +268,7 @@ class TestManagedCurrentGenesis(unittest.TestCase):
         driver.names = {**{role: 'catalog.schema.' + role for role in heads},
                         'publication_manifest': 'catalog.schema.publication_manifest'}
         driver.table_roles = tuple(heads)
-        driver.targets = SimpleNamespace(observe=lambda: heads,
+        driver.targets = SimpleNamespace(observe=lambda: heads, require_checked_opening=lambda: heads,
             carriers=SimpleNamespace(physical_profile=CARRIER_PROFILE_XXHASH64))
         driver.managed_genesis_predecessor = predecessor
         driver.source_owner_admitted_batch = batch

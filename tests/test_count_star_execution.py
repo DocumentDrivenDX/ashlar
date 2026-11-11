@@ -135,10 +135,10 @@ class PublicSourceBudgetTests(unittest.TestCase):
         from pathlib import Path
         from ashlar_host.count_star_execution import _source_receipt
         root=Path(__file__).resolve().parents[1]
-        with tarfile.open(root/'docs/helix/04-build/evidence/pack-installed-compiler-20261010/actual.tar.gz')as archive:
+        with tarfile.open(root/'tests/fixtures/golden/pack-installed-compiler-20261010/actual.tar.gz')as archive:
             request=json.loads(archive.extractfile('actual/compile-output/archaeology-dating-0.request').read())
             artifact=json.loads(archive.extractfile('actual/compile-output/archaeology-dating-0.response').read())
-        with tarfile.open(root/'docs/helix/04-build/evidence/finite-pack-native-20261010-b/evidence.tar.gz')as archive:
+        with tarfile.open(root/'tests/fixtures/golden/finite-pack-native-20261010-b/evidence.tar.gz')as archive:
             dataset=archive.extractfile('actual/archaeology/public-dataset.json').read()
         checks=[c for o in artifact['obligations']for c in o['parameters'].get('checks',[])if c.get('publicSourceOnly')is True]
         original={'sourceText':request['modules'][0]['documentJson'],'modelPins':artifact['modelPins'],'bindingSha256':artifact['bindingSha256'],'checks':checks}

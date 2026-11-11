@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import hashlib
 import json
 from pathlib import Path
@@ -14,7 +15,7 @@ class SupplyChainWeftRequest(unittest.TestCase):
     def setUp(self):
         p = ROOT / 'examples/domain-packs/supply-chain/upstream'
         self.raw = tuple((p / n).read_bytes() for n in ('pack.json', 'ontology.json', 'graph/fixture.json'))
-        report = json.loads((ROOT / 'docs/helix/04-build/evidence/supply-chain-native-publication-20261009.json').read_bytes())
+        report = json.loads(read_golden('supply-chain-native-publication-20261009.json'))
         self.manifest = report['native_manifest']
         self.registry = report['table_registry']
         self.aliases = {name: name.replace('local.', 'spark_catalog.', 1) for name in json.loads(self.manifest['table_versions_json'])}

@@ -19,7 +19,7 @@ offer a concrete schema example before exact reference material.
 
 Catalog: installed HELIX 0.15.0 `workflows/graph.yml`. This instance uses the
 design-system template and prompt, with the product-microsite-ia practices.
-The [homepage prototype](microsite/index.html) records the initial visual design.
+The homepage prototype records the initial visual design.
 The complete microsite lives in `website/`; [ADR-002](adr/ADR-002-signed-static-microsite.md) governs build and deployment.
 
 ## Navigation and Active State

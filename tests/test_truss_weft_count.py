@@ -22,7 +22,7 @@ class Tests(unittest.TestCase):
         uuids={table:'00000000-0000-0000-0000-'+str(index).zfill(12)for index,table in enumerate(tables,1)}
         request=truss_string_compile_request(admission,manifest,uuids,'00000000-0000-0000-0000-000000000005','SELECT COUNT(*) AS n FROM A a',revision='1',document_id='cohort')
         binding=json.loads(request['target']['bindingJson']);pin=binding['modelPins'][0];identity=binding['records'][0]['logical']
-        with gzip.open('docs/helix/04-build/evidence/commerce-python311-native-20261010/queries-report.json.gz','rt')as stream:
+        with gzip.open('tests/fixtures/golden/commerce-python311-native-20261010/queries-report.json.gz','rt')as stream:
             original=json.load(stream)
         artifact=copy.deepcopy(next(query['artifact']for query in original['queries']if query['name']=='global-count'))
         artifact['modelPins']=[pin];artifact['logicalPlan']['modulePins']=[pin]

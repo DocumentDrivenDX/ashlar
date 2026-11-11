@@ -1,8 +1,0 @@
-{
-  "status": "fail",
-  "checks": [],
-  "ownedPostgresStopped": true,
-  "sparkStopped": true,
-  "temporal": "HELD",
-  "scope": "local Spark4/Delta4 generated original target-set navigation and bounded related-Key reads with PostgreSQL18 pins; no managed search, engine writes or performance claim"
-}

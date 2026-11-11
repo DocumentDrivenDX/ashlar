@@ -9,14 +9,14 @@ from ashlar import commerce_evolution as tx
 from ashlar_host.schema_rows import fixture_columns
 
 ROOT=Path(__file__).resolve().parents[1]
-EVIDENCE=ROOT/'docs/helix/04-build/evidence/commerce-present-field-preparation-20261009'
+EVIDENCE=ROOT/'tests/fixtures/golden/commerce-present-field-preparation-20261009'
 
 class PortableEvolutionPreparationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.candidate=(EVIDENCE/'candidate.json').read_bytes()
         cls.proof=gzip.decompress((EVIDENCE/'public-presence.json.gz').read_bytes())
-        cls.model=(ROOT/'docs/helix/04-build/evidence/commerce-evolution-preparation-20261009/original-model.json').read_bytes()
+        cls.model=(ROOT/'tests/fixtures/golden/commerce-evolution-preparation-20261009/original-model.json').read_bytes()
         cls.columns=fixture_columns(ROOT)
 
     def prepare(self,source='A',epoch='original'):

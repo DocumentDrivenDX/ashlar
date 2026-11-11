@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure fixed original request/oracle controls; no compilation or native pass."""
+from golden import read_golden
 from collections import Counter
 import copy
 import hashlib
@@ -19,7 +20,7 @@ class Controls(unittest.TestCase):
         root=ROOT/'examples/domain-packs/supply-chain/upstream'
         self.raw=tuple((root/name).read_bytes()for name in ('pack.json','ontology.json','graph/fixture.json'))
         _,self.bindings=build_transaction(*self.raw[1:],source_system='private-original-supply-chain-fixture')
-        retained=json.loads((ROOT/'docs/helix/04-build/evidence/supply-chain-native-publication-20261009.json').read_bytes())
+        retained=json.loads(read_golden('supply-chain-native-publication-20261009.json'))
         self.manifest,self.registry=retained['native_manifest'],retained['table_registry']
         self.aliases={table:table.replace('local.','spark_catalog.',1)for table in json.loads(self.manifest['table_versions_json'])}
     def prepare(self,family,part='complete'):

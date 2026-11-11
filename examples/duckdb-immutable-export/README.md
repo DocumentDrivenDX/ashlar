@@ -53,7 +53,7 @@ remote/cloud graph engine. A source-qualified export remains meaningful as a
 saved snapshot even when the live source changes; this workflow does not assert
 that it is the current head.
 
-The [installed CLI check](../../docs/helix/04-build/evidence/duckdb-parallel-installed-cli-20261013/result.json) retains an actual DuckDB 1.5.0 run against that parallel/self-loop/isolate export, with complete original carrier parity and unchanged input hashes.
+The installed CLI check retains an actual DuckDB 1.5.0 run against that parallel/self-loop/isolate export, with complete original carrier parity and unchanged input hashes.
 
 ## Read a saved carrier without DuckDB
 

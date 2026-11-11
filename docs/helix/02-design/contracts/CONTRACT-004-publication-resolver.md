@@ -970,7 +970,7 @@ writer policy.
 ## Execution evidence
 
 Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).
-The [original contract text](../../04-build/evidence/contract-history-20261009/CONTRACT-004-publication-resolver.original.txt)
+The original contract text
 preserves prior execution diaries verbatim; those results do not amend this contract.
 
 The explicit original-commerce publication source profile MUST retain its

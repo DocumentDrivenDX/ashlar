@@ -38,12 +38,12 @@ ashlar setup-truss-local --configuration /absolute/private/commerce-setup.json \
 
 Both the data directory and result must be fresh. Setup accepts the original
 document in a new local installation, commits the catalog and stops its owned
-server. The [released commerce catalog evidence](../../docs/helix/04-build/evidence/truss22-commerce-catalog-20261013)
+server. The released commerce catalog evidence
 records all 213 source references resolving to exact original bytes. This step
 does not create commerce records or publish a graph. Use the
 [atomic record group](../truss-record-group/README.md) to create records and their
 required links together, then publish their complete source transactions with
-`publish-truss-graph`. The [full commerce fixture evidence](../../docs/helix/04-build/evidence/truss22-commerce-feed-query-20261013)
+`publish-truss-graph`. The full commerce fixture evidence
 qualifies source creation/replay, continued local Delta publication with receipt
 ACK, an exact-source singleton and one required decimal price query. Other queries
 and lifecycle/evolution need their separate qualifications. The typed record example
@@ -178,14 +178,14 @@ require their respective profiles.
 After source changes, export the newly selected publication to a fresh location
 and configure GraphFrames with that export's own release and custody pair. Keep
 the earlier pair together when reading its snapshot. The
-[edge lifecycle release example](../../docs/helix/04-build/evidence/truss-typed-edge-release-graphframes-20261013/result.json)
+edge lifecycle release example
 reads both snapshots after an endpoint update and edge deletion, preserving the
 isolated node and exact property carriers. Mixed publication pairs refuse.
 
 If engine loading fails, retain the selected release/custody pair and choose a
 fresh output path for another run. A success report is released only after the
 complete query and runtime closure. The
-[interrupted local load check](../../docs/helix/04-build/evidence/truss-graphframes-interruption-native-20261013/result.json)
+interrupted local load check
 loads vertices, interrupts before edge loading, and then reads the earlier
 snapshot successfully in the same process.
 
@@ -194,7 +194,7 @@ For receipt-backed source ACK, select a distinct consumer and an explicit
 advanced cannot have receipts backfilled. On an uncertain COMMIT outcome, preserve
 the original publication and ACK intent; recovery must reconcile that exact
 source-retained receipt before reporting success. The
-[controlled commit-response loss example](../../docs/helix/04-build/evidence/truss-receipt-commit-loss-native-20261013/result.json)
+controlled commit-response loss example
 records a real commit, native receipt reconciliation, and a later read-only
 receipt check without another ACK or publication.
 
@@ -213,5 +213,5 @@ ashlar resume-truss-graph --configuration /absolute/private/resume.json \
 An already committed receipt-backed publication returns its original manifest and
 reconciles its receipt without another ACK. A missing or symlink journal refuses before source
 or engine work; retain the checkpoint and restore original custody rather than
-initialize an empty journal. The [native receipt restart check](../../docs/helix/04-build/evidence/truss-receipt-restart-native-20261013/result.json)
+initialize an empty journal. The native receipt restart check
 verifies unchanged source checkpoint and all six Delta commit histories.

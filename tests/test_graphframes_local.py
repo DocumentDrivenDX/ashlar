@@ -22,7 +22,7 @@ class LocalFixture:
     def __init__(self, root):
         self.root = root
         upstream = ROOT / 'examples/domain-packs/archaeology/upstream'
-        originals = ROOT / 'docs/helix/04-build/evidence/original17-graphframes-native-20261009/original'
+        originals = ROOT / 'tests/fixtures/golden/original17-graphframes-native-20261009/original'
         self.model = root / 'model'; self.model.write_bytes((upstream / 'ontology.json').read_bytes())
         self.graph = root / 'graph'; self.graph.write_bytes((upstream / 'graph/fixture.json').read_bytes())
         self.pack = root / 'pack'; self.pack.write_bytes((upstream / 'pack.json').read_bytes())

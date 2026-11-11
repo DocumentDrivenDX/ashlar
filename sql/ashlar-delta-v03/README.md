@@ -1,7 +1,7 @@
 # Ashlar Delta schema candidate0.3
 
 Reviewable extraction of the proposed [CONTRACT-003](../../docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md)
-DDL and [table design handoff](../../docs/helix/02-design/spikes/SPIKE-001-table-layout/table-design-handoff.md).
+DDL and table design handoff.
 Unity Catalog managed Delta is selected; this package remains a candidate and
 has not been deployed. No runtime library, automatic installer or migration is
 included. The owner stopped further tests; no cloud or Spark run is required here.
@@ -77,6 +77,6 @@ choosing current physical heads. The runtime adapter must reject missing or
 ambiguous descriptors under the contracts and validate role identity, supported
 revisions, retained versions and effective policy before using native-singleton.sql.
 This first SQL component does not implement the runtime resolver or publisher.
-The [revised layout acceptance](../../docs/helix/02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md)
+The revised layout acceptance
 closes the bounded design milestone; its operational targets and production
 qualification remain explicit. No new native deployment or benchmark was run.

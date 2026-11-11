@@ -69,7 +69,7 @@ before and after the corpus. Incoming GraphSON frames are retained before strict
 decoding; duplicate keys and unsupported scalar families refuse. Count conversion
 accepts exact signed 64-bit SDK values without changing graph identity strings.
 
-The [installed-wheel check](../../docs/helix/04-build/evidence/truss15-puppy-immutable-cypher-20261013/result.json)
+The installed-wheel check
 passed all seven Cypher cases over an original Truss 15 parallel-edge release,
 using Python 3.12.15, DuckDB 1.5.0 and Neo4j 5.28.2 with the pinned PuppyGraph
 1.13.0 image. All four ordered edge pairs, one distinct target and isolated-node
@@ -77,7 +77,7 @@ zero counts matched; the owned container was removed before success publication.
 Readiness alone may retry temporary backend errors within the selected deadline.
 Model submission and graph queries are never retried.
 
-The [installed Gremlin check](../../docs/helix/04-build/evidence/truss15-puppy-immutable-gremlin-20261013/result.json)
+The installed Gremlin check
 passed the same seven cases using GremlinPython 3.7.3 and the same pinned image
 and original release. Both language projections passed their opening and closing
 checks, and the owned container was removed. Original incoming GraphSON frames

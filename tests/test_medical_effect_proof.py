@@ -16,6 +16,7 @@ class Tests(unittest.TestCase):
         transport = driver.transport; policy = driver.policy; transport.policy = policy
         policy.context = driver.context; policy.initializing = False
         policy.writer = lambda operation, context: nullcontext()
+        policy._delta4_prepare_owner = policy._delta4_execution_owner = policy._delta4_metadata_owner = policy._delta4_manifest_owner = None
         policy.admit = lambda intent, context: PrivatePolicy.admit(policy, intent, context)
         transport.installation_id = f.selection.installation_id; transport.operation_capacity = LOCAL_OPERATION_CAPACITY_8M
         transport._profile = lambda: self.assertIs(transport.observation_bounds, bounds)

@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import copy
 import json
 from pathlib import Path
@@ -15,7 +16,7 @@ class CommerceGraphOracleTests(unittest.TestCase):
     def setUp(self):
         source=ROOT/'examples/domain-packs/commerce/upstream'
         inventory=json.loads((ROOT/'examples/domain-packs/inventory.json').read_bytes())
-        inspection=json.loads((ROOT/'docs/helix/04-build/evidence/commerce-domain-interpretation-20261009.json').read_bytes())
+        inspection=json.loads(read_golden('commerce-domain-interpretation-20261009.json'))
         self.prepared=prepare_values(source,inventory,inspection)
         self.model=json.loads((source/'ontology.json').read_bytes())
         self.tables={p.stem:json.loads(p.read_bytes()) for p in (source/'umf').glob('*.json')}

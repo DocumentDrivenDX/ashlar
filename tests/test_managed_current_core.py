@@ -21,7 +21,7 @@ def _config(backend03=None, backend02=None):
 
 
 def _current_admission(truss_version='0.0.44'):
-    evidence_dir = (Path(__file__).parents[1] / 'docs/helix/04-build/evidence'
+    evidence_dir = (Path(__file__).parents[1] / 'tests/fixtures/golden'
                     / 'truss-current-catalog-0.10-20261021')
     report_raw = (evidence_dir / 'accepted-report.json').read_bytes()
     view_raw = (evidence_dir / 'catalog-view.json').read_bytes()
@@ -107,7 +107,7 @@ class ManagedCurrentCoreTests(unittest.TestCase):
         self.assertEqual(base64.b64decode(source['nativePageBase64'], validate=True), admission.batch.begin)
         document = source['acceptedDocuments']['1:typed-graph-example']
         original = base64.b64decode(document['sourceBytesBase64'], validate=True)
-        self.assertEqual(original, (Path(__file__).parents[1] / 'docs/helix/04-build/evidence'
+        self.assertEqual(original, (Path(__file__).parents[1] / 'tests/fixtures/golden'
                                     / 'truss-current-catalog-0.10-20261021/accepted-source.umf.json').read_bytes())
         graph = source['assignedGraphByRevision']['1']
         self.assertEqual(set(graph['types']), {'1', '2'})

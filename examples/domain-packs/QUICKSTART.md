@@ -88,13 +88,13 @@ to a separate file, then pass that file and the same export target to
 show all required flags and link onward to GraphFrames, PuppyGraph and Fabric.
 The export configuration generator starts no runtime and proves no native pass.
 
-The [archaeology](../../docs/helix/04-build/evidence/finite-pack-installed-query-archaeology-20261010-c/README.md)
-and [ecology](../../docs/helix/04-build/evidence/finite-pack-installed-query-ecology-20261010-c/README.md)
+The archaeology
+and ecology
 evidence qualify the recorded installed scenarios and local source profiles.
 This guide does not establish Unity Catalog deployment, protected source ACK,
 Fabric execution or a general graph adapter for every domain pack.
 
-The [installed configuration check](../../docs/helix/04-build/evidence/finite-pack-configuration-installed-cli-20261013/result.json)
+The installed configuration check
 covers all seven supported setup routes and an unsupported-route refusal without
 starting engines or admitting resources. Setup success does not establish native
 publication or query execution for the supplied paths.

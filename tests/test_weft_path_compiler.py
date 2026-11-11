@@ -116,7 +116,7 @@ class Compiler(unittest.TestCase):
                 # group cleanup. Never signal an unrelated process group.
                 for child in spawned:
                     try: actual_killpg(child.pid, signal.SIGKILL)
-                    except ProcessLookupError: pass
+                    except (ProcessLookupError, PermissionError): pass
                     child.wait(timeout=3)
 
     def test_utf8_output_byte_sentinel_preserves_exact_response(self):

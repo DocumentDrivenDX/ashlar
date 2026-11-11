@@ -77,6 +77,6 @@ staleness; they do not establish cryptographic provenance, native constraint
 enforcement or coverage by a page-source signature.
 
 Historical capture, generation and browser observations are preserved in the
-[documentation custody record](../../../04-build/evidence/runtime-model-documentation-20261009/custody.json)
+documentation custody record
 and its exact archived source. Each future support claim requires its own scoped
 receipt; historical comparisons do not approve later edits or native execution.

@@ -134,7 +134,7 @@ def prior_progress(page_value, source):
         'payload_digest': '0' * 64, 'batch_id': f'prior-{source}'}
 
 
-def test_slot_plan(owner, ordinal):
+def build_slot_plan(owner, ordinal):
     selected = owner.schedule.document()
     spec = selected['slots'][ordinal]
     source = spec['source']
@@ -180,7 +180,7 @@ class R04ScheduleCustodyTests(unittest.TestCase):
         self.owner.begin_source_effect(ordinal)
         self.owner.retain_source_result(ordinal, b'public-commit', b'public-readback')
         self.owner.bind_page(ordinal, page(source=selected['source']))
-        self.owner.retain_slot_plan(ordinal, test_slot_plan(self.owner, ordinal).raw)
+        self.owner.retain_slot_plan(ordinal, build_slot_plan(self.owner, ordinal).raw)
         self.owner.begin_graph_effect(ordinal)
         self.owner.retain_publication(ordinal, {'full_vector': f'vector-{ordinal}', 'progress': ordinal + 1})
         self.owner.begin_ack_effect(ordinal)
@@ -294,7 +294,7 @@ class R04ScheduleCustodyTests(unittest.TestCase):
         self.owner.bind_page(2, page(source='A'))
         with self.assertRaises(R04CustodyError):
             self.owner.begin_graph_effect(2)
-        self.owner.retain_slot_plan(2, test_slot_plan(self.owner, 2).raw)
+        self.owner.retain_slot_plan(2, build_slot_plan(self.owner, 2).raw)
         self.owner.begin_graph_effect(2)
 
     def test_exact_request_must_match_frozen_semantic_slot(self):
@@ -452,7 +452,7 @@ class R04ScheduleCustodyTests(unittest.TestCase):
         self.owner.begin_source_effect(0)
         self.owner.retain_source_result(0, b'commit', b'readback')
         self.owner.bind_page(0, page(source='A'))
-        original = test_slot_plan(self.owner, 0)
+        original = build_slot_plan(self.owner, 0)
         self.owner.retain_slot_plan(0, original.raw)
         plan = original.document()
         bindings = {key: plan[key] for key in ('source_identity', 'publication_request',

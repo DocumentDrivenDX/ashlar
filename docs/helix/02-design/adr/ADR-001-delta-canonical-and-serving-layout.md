@@ -559,7 +559,7 @@ actual connector-specific execution evidence.
 
 The table contract is [CONTRACT-003](../contracts/CONTRACT-003-delta-graph-tables.md).
 Historical measurements and implementation observations are retained in
-[build evidence](../../04-build/evidence/documentation-history-20261009/ADR-001.original.txt).
+build evidence.
 
 ## References
 

@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
@@ -25,11 +26,11 @@ class RetainedNativeGremlinTests(unittest.TestCase):
         from run_graph_release_graphframes import load_release
         from run_commerce_release_graphframes import original,query_oracle,bag
         from private_graph_custody import PROFILE
-        root=Path(__file__).resolve().parents[1];p=root/'docs/helix/04-build/evidence/commerce-graph-export-20261009'
-        r=(p/'release.graph.json').read_bytes();c=(p/'custody.json').read_bytes()
+        root=Path(__file__).resolve().parents[1];p=root/'tests/fixtures/golden/commerce-graph-export-20261009'
+        r=(p/'release.graph.json').read_bytes();c=read_golden('commerce-graph-export-20261009/custody.json')
         value=load_release(r,hashlib.sha256(r).hexdigest(),custody_profile=PROFILE,custody_payload=c,trusted_custody_sha256=hashlib.sha256(c).hexdigest())
         graph,*_=original(value);expected=query_oracle(graph)
-        report=json.loads((root/'docs/helix/04-build/evidence/commerce-gremlin-common-20261009/query-report.json').read_text())
+        report=json.loads((root/'tests/fixtures/golden/commerce-gremlin-common-20261009/query-report.json').read_text())
         for name,fields in [('one-hop',['a','e','b']),('two-hop',['a','e','b','f','c'])]:
             record=next(r for r in report['records'] if r['case']==name)
             self.assertEqual(bag([[r[f] for f in fields] for r in record['native_rows']]),bag(expected[name]))

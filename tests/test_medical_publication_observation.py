@@ -17,7 +17,7 @@ class Tests(unittest.TestCase):
  def fixture(self,stack,*,total_bytes=16777216):
   f=sources.Tests();f.setUp();self.addCleanup(f.doCleanups)
   f.selection=replace(f.selection,targets=tuple(replace(t,table='local.original_medical.'+t.table.split('.')[-1])for t in f.selection.targets))
-  owner,acks=f.owner(stack);d=owner.driver;d.held=False;d.pin_held=False;f.head=1
+  owner,acks=f.owner(stack);d=owner.driver;d.lookup_hash_profile='sha256-json-v1';d.held=False;d.pin_held=False;f.head=1
   transaction=OutboxTransaction('ashlar-postgresql-outbox/0.1',f.batch.feed,f.batch.epoch,'0','1',hashlib.sha256(f.raw).hexdigest(),f.batch)
   plan=MedicalPublicationPlan(f.admission,transaction,{r:'local.original_medical.'+r for r in sources.ROLES});value=plan.snapshot()
   d.tables=value['tables'];d.columns={r:[tuple(c)for c in cols]for r,cols in value['columns'].items()}
@@ -28,7 +28,7 @@ class Tests(unittest.TestCase):
   d.source_sessions=owner.sources();d.original_source_sessions=encoded(d.source_sessions.metadata());d.ack_sessions=acks;d.original_ack_sessions=encoded(acks.metadata())
   bounds=VerificationBounds(262144,10000,1048576,total_bytes,1048576,1048576)
   transport=d.transport;transport._registered=True;transport.observation_bounds=None;transport.bounded_calls=[];transport.remaining=[];transport.native_calls=[];transport.fail_role=None;transport.cancel=None
-  def detail(target):
+  def detail(target, full=False):
    self.assertIs(transport.observation_bounds,bounds);transport.native_calls.append(target.table)
    if transport.fail_role==target.table:raise OSError('native detail')
    return {'id':target.uuid,'location':target.path.as_uri()}
@@ -98,7 +98,7 @@ class Tests(unittest.TestCase):
  def test_opening_first_native_refusal_still_closes_all_six_and_source_ack(self):
   with ExitStack()as stack:
    f,d,plan,bounds,descriptor,value=self.fixture(stack);original=d.transport._detail;calls=[]
-   def detail(target):
+   def detail(target, full=False):
     calls.append(target.table)
     if len(calls)==1:raise OSError('opening first native')
     return original(target)

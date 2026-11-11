@@ -12,7 +12,7 @@ from ashlar_host import truss_b_source_preflight as command
 class TrussBSourcePreflightTests(unittest.TestCase):
     def test_authentic_retained_source_and_origin_hashes_preflight_without_native_imports(self):
         source = Path("/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json")
-        origin = Path(__file__).resolve().parents[1] / "docs/helix/04-build/evidence/current-upstream-release-20261022/r04-b-source-installation-draft-20261023/b-origin-candidate.json"
+        origin = Path(__file__).resolve().parents[1] / "tests/fixtures/golden/current-upstream-release-20261022/r04-b-source-installation-draft-20261023/b-origin-candidate.json"
         if not source.is_file():
             self.skipTest("retained authentic source is unavailable in this checkout")
         result = command.preflight(source, origin)

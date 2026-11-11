@@ -91,7 +91,7 @@ identity, presence, values, retained extensions, provenance, source cursor,
 replay or ACK custody requires it. Any field removal or normalization needs a
 separate versioned model and read/write proof; the lookup-hash optimization
 alone must not silently discard source authority.
-The [bounded column-footer audit](../../04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-column-footer-audit-20261021.json)
+The bounded column-footer audit
 at 1M nodes/5M edges attributes 35.33 MB and 176.60 MB compressed to legacy
 SHA-256 hex `lookup_hash` (91.8% and 88.4% of those table files). Other
 fixture columns were much smaller or constant. This justifies replacing the
@@ -167,7 +167,7 @@ time. The existing 18.05-minute full-write forecast cannot be reused for that
 path, and the proposal is not an algorithmic proof. The managed Unity Catalog
 writer and liquid-clustering maintenance require their own selected-runtime
 qualification and cost accounting;
-do not infer them from local file geometry. The [45M/225M local calibration](../../04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-18core-calibration-20261021.json)
+do not infer them from local file geometry. The 45M/225M local calibration
 has not established file pruning. A single pinned lookup must compare exact
 result identity and observed candidate/scanned files and bytes against the
 original file inventory, while AddFile hash min/max ranges show whether the

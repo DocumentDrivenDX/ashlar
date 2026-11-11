@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
+from golden import read_golden
 import base64,json,tempfile,unittest
 from pathlib import Path
 from dataclasses import replace
@@ -14,7 +15,7 @@ class Tests(unittest.TestCase):
     def admission(self):
         temp=tempfile.TemporaryDirectory();self.addCleanup(temp.cleanup);directory=Path(temp.name)
         paths=[directory/name for name in ('model.json','graph.json','bindings.json','public.json')]
-        paths[0].write_bytes(self.model);paths[1].write_bytes(self.graph);paths[2].write_text(encoded(self.bindings)+'\n');paths[3].write_bytes((ROOT/'docs/helix/04-build/evidence/ecology-public-dataset-compact-20261009.json').read_bytes())
+        paths[0].write_bytes(self.model);paths[1].write_bytes(self.graph);paths[2].write_text(encoded(self.bindings)+'\n');paths[3].write_bytes(read_golden('ecology-public-dataset-compact-20261009.json'))
         return EcologyAdmission(self.batch,self.bindings,*paths),paths
     def test_genuine_record_warnings_remain_separate_from_complete_finite_dataset(self):
         admission,paths=self.admission();facts=admission.metadata()

@@ -1,4 +1,0 @@
-Metadata-Version: 2.4
-Name: weft-sql
-Version: 0.4.17
-Requires-Python: >=3.9

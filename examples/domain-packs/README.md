@@ -63,7 +63,7 @@ retain unknown extension bytes before executable admission.
 Graph candidates must retain the pack revision that created them. Legal and
 medical candidates reference historical 1.0 packs; current pack metadata is 1.1.
 Their original source-pack bytes are now retained and verified by UMF's
-[graph provenance audit](../../docs/helix/04-build/evidence/umf-graph-provenance-20261009.json)
+graph provenance audit
 at commit `45473e71d5dfe9aa80abe3e346243b8efcbf1a37`. It distinguishes 14 current
 candidates, two historical candidates and eight packs without candidate datasets.
 The original pinned inventory remains unchanged: its mismatch observations refer
@@ -181,8 +181,8 @@ and unchanged model/graph/pack files. Select each saved release and custody pair
 with independently retained SHA-256 values; no live Spark or Truss source is
 needed. The workflow checks complete opening/closing graph bags and retains
 original query and native result views. Finite native evidence covers all 17
-scenarios in [Cypher](../../docs/helix/04-build/evidence/original17-puppygraph-cypher-20261014-c/README.md)
-and [Gremlin](../../docs/helix/04-build/evidence/original17-puppygraph-gremlin-20261014-e/README.md).
+scenarios in Cypher
+and Gremlin.
 This does not establish Fabric or Unity Catalog execution.
 
 ### Export a published finite pack

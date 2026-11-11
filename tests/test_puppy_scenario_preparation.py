@@ -13,7 +13,7 @@ ROOT=Path(__file__).resolve().parents[1]
 class Tests(unittest.TestCase):
     def selected(self,name):
         folder=ROOT/'examples/domain-packs'/name/'upstream'
-        release=ROOT/'docs/helix/04-build/evidence/original17-graphframes-native-20261009/original'/('1-release.graph.json' if name=='archaeology' else '9-release.graph.json')
+        release=ROOT/'tests/fixtures/golden/original17-graphframes-native-20261009/original'/('1-release.graph.json' if name=='archaeology' else '9-release.graph.json')
         return [(folder/n).read_bytes() for n in ('ontology.json','graph/fixture.json','pack.json')]+[release.read_bytes()]
     def test_original_both_profiles_and_all_seventeen_oracles(self):
         total=0;observations=0

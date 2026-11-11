@@ -16,7 +16,7 @@ class Tests(TestCase):
  def session(self,policy):
   p=ROOT/'examples/domain-packs/archaeology/upstream';source=object.__new__(FinitePackSource)
   source.definition=FinitePackDefinition('archaeology');source.model=(p/'ontology.json').read_bytes();source.graph=(p/'graph/fixture.json').read_bytes();source.raw=b'owned-public-receipt'
-  p=ROOT/'docs/helix/04-build/evidence/original17-graphframes-native-20261009/original';raw=(p/'1-release.graph.json').read_bytes();receipt=gzip.decompress((p/'0-custody.json.gz').read_bytes())
+  p=ROOT/'tests/fixtures/golden/original17-graphframes-native-20261009/original';raw=(p/'1-release.graph.json').read_bytes();receipt=gzip.decompress((p/'0-custody.json.gz').read_bytes())
   return GraphFramesOfflineSession(GraphRelease(raw,hashlib.sha256(raw).hexdigest()),receipt,hashlib.sha256(receipt).hexdigest(),source,policy,object(),RuntimePolicy(),object())
  def test_explicit_current_policy_held_through_closing(self):
   events=[]
@@ -204,7 +204,7 @@ class Tests(TestCase):
   from ashlar_host.graphframes_pack_scenarios import common_oracle
   from ashlar_host.graphframes_release import validate_common_evidence
   from test_graphframes_pack_scenarios import Tests as Fixture
-  profile=Fixture().profile('ecology');path=ROOT/'docs/helix/04-build/evidence/original17-graphframes-native-20261009/original/9-release.graph.json';release=json.loads(path.read_bytes())
+  profile=Fixture().profile('ecology');path=ROOT/'tests/fixtures/golden/original17-graphframes-native-20261009/original/9-release.graph.json';release=json.loads(path.read_bytes())
   graph=json.loads(base64.b64decode(profile['source_admission']['original_graph_base64']));expected=common_oracle(graph)
   nodes={row['original_key']:row['graph_id']for row in profile['nodes']};edges={json.loads(row['retained_json'])['original']['key']:row['graph_id']for row in profile['edges']}
   relationships={json.dumps(json.loads(row['retained_json'])['original']['relationship'],sort_keys=True,separators=(',',':')):row['rel_type_id']for row in profile['edges']}

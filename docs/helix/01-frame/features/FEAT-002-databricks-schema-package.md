@@ -97,7 +97,7 @@ keys do not close those gaps.
 
 ## Schema-package milestone acceptance
 
-Physical schema-package acceptance requires the six checks in the [milestone acceptance record](../../02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md)
+Physical schema-package acceptance requires the six checks in the milestone acceptance record
 to be supported by bounded native evidence and exact local package review.
 SCHEMA-01–SCHEMA-09 remain governing product requirements. Full production/source
 and external-engine qualification belong to their implementation milestones.
@@ -131,7 +131,7 @@ Specify exact columns, data types, keys and DDL, governed by PRD Q2–Q4 and Q7.
 ## Dependencies
 
 FEAT-001, PRD FR-2, one selected Databricks execution environment.
-[Constraint evidence](../../00-discover/resources/databricks-constraints.md)
+Constraint evidence
 governs the current informational/enforced distinction, not all future versions.
 
 ## Out of Scope

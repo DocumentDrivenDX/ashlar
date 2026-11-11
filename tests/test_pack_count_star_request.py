@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure request/transport controls; retained metadata never grants authority."""
+from golden import read_golden
 import copy,json
 from pathlib import Path
 from unittest import TestCase,mock
@@ -11,7 +12,7 @@ ROOT=Path(__file__).resolve().parents[1]
 class Tests(TestCase):
  def inputs(self,name):
   p=ROOT/'examples/domain-packs'/name/'upstream';raw=tuple((p/n).read_bytes()for n in ('pack.json','ontology.json','graph/fixture.json'));definition=FinitePackDefinition(name)
-  report=json.loads((ROOT/'docs/helix/04-build/evidence'/(name+'-native-publication-20261009.json')).read_bytes())
+  report=json.loads(read_golden(name+'-native-publication-20261009.json'))
   manifest=report['native_manifest'];registry=report['table_registry'];aliases={t:t.replace('local.','spark_catalog.',1)for t in json.loads(manifest['table_versions_json'])}
   _,bindings=definition.build(*raw[1:]);return definition,raw,bindings,manifest,registry,aliases
  def request(self,name,case):

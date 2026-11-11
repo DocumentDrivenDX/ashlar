@@ -22,7 +22,7 @@ class Tests(unittest.TestCase):
             upstream = root/'examples/domain-packs'/name/'upstream'
             model, graph, pack = [(upstream/file).read_bytes() for file in
                 ('ontology.json', 'graph/fixture.json', 'pack.json')]
-            release = (root/'docs/helix/04-build/evidence/original17-graphframes-native-20261009/original'/f'{ordinal}-release.graph.json').read_bytes()
+            release = (root/'tests/fixtures/golden/original17-graphframes-native-20261009/original'/f'{ordinal}-release.graph.json').read_bytes()
             reports.append(project_puppy_scenario_pack(name, model, graph, pack, release))
             bindings.append(FinitePackDefinition(name).build(model, graph)[1])
         marker = RuntimeError('inert factory: no engine opened')

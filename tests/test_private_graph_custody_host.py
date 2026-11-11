@@ -8,7 +8,7 @@ from pathlib import Path
 import unittest
 from ashlar_host.private_graph_custody import load_private_graph_release, admit_private_custody
 
-ROOT=Path(__file__).resolve().parents[1]/'docs/helix/04-build/evidence/original17-graphframes-native-20261009/original'
+ROOT=Path(__file__).resolve().parents[1]/'tests/fixtures/golden/original17-graphframes-native-20261009/original'
 def digest(raw):return hashlib.sha256(raw).hexdigest()
 class Tests(unittest.TestCase):
  def fixtures(self):

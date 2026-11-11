@@ -1,1 +1,0 @@
-{"original": {"diagnostics": [{"code": "WFT-PROFILE", "message": "Caller page ordering must be the complete required original authored primary Key ASC", "phase": "resolve", "recoverability": "correct-input", "severity": "error"}], "interfaceVersion": "weft-compile/0.2.2", "status": "blocked"}, "status": "blocked", "version": "weft.engine-page/0.1"}

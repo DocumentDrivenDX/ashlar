@@ -16,7 +16,7 @@ for exact support. Fabric integration and broader query support remain unfinishe
 One local 72-partition 45M/225M performance candidate projects 22.437 minutes
 for setup, writes and one combined witness at 80% of measured throughput. No
 further performance run has occurred; the full 1B/5B path remains held. See the
-[R05 target napkin](docs/helix/04-build/evidence/r05-few-minute-target-napkin-20261101.md).
+R05 target napkin.
 Use the [fresh original-commerce workflow](examples/original-commerce-local/README.md)
 for explicit fixture setup, six-table initialization, publication and all four
 unchanged Weft 0.4.2 queries. The [earlier indexed commerce guide](examples/end-to-end/COMMERCE-INDEXED-WEFT.md)
@@ -137,7 +137,7 @@ contains one live object, four history entries and one tombstone. IDs are explic
 fixture mappings; it does not establish Truss acceptance or Delta publication.
 
 Start with the [project documentation](docs/helix/README.md) and
-[product vision](docs/helix/00-discover/product-vision.md).
+product vision.
 
 ## Working with HELIX
 
@@ -157,7 +157,7 @@ The owner selected Ashlar on 2026-10-03. Existing software uses include
 [Ashlar-Vellum](https://ashlar.com/) and the unrelated
 [ASHLAR imaging package](https://pypi.org/project/ashlar/).
 Repository naming does not establish package, domain, or trademark availability.
-See the [discovery input](docs/helix/00-discover/vision-input.md).
+See the discovery input.
 
 `ashlar prepare-fabric-notebook` generates a private runnable notebook from your
 selected export pair; see the [Fabric notebook guide](examples/fabric-gql/README.md#generate-a-private-fabric-notebook).

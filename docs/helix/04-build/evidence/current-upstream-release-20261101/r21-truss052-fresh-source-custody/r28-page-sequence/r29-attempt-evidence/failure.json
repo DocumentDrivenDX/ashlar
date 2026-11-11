@@ -1,1 +1,0 @@
-{"cloud":false,"database_effects_may_remain":true,"delta_effects_may_remain":true,"failure":"Explicit registered ordinary source session owner required","failure_type":"PermissionError","production_authority":false,"source_ack_attempted":false,"status":"failed_or_interrupted"}

@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Ordinary preparation ports only; no DuckDB/native session qualification."""
+from golden import read_golden
 import hashlib,json,tempfile,types,unittest
 from pathlib import Path
 from contextlib import contextmanager
@@ -37,8 +38,8 @@ class Database:
 
 class PreparationTests(unittest.TestCase):
     def config(self,output):
-        root=ROOT/'docs/helix/04-build/evidence/commerce-graph-export-20261009'
-        release=(root/'release.graph.json').read_bytes();custody=(root/'custody.json').read_bytes()
+        root=ROOT/'tests/fixtures/golden/commerce-graph-export-20261009'
+        release=(root/'release.graph.json').read_bytes();custody=read_golden('commerce-graph-export-20261009/custody.json')
         return PuppyCommercePrepareConfig(release,custody,hashlib.sha256(release).hexdigest(),hashlib.sha256(custody).hexdigest(),(ROOT/'examples/domain-packs/commerce/upstream/pack.json').read_bytes(),output)
     def test_complete_owned_readback_and_private_output(self):
         with tempfile.TemporaryDirectory()as d:
@@ -46,7 +47,7 @@ class PreparationTests(unittest.TestCase):
             def connect(path):opened.append(Database(path));return opened[-1]
             with patch.dict('sys.modules',duckdb=types.SimpleNamespace(connect=connect)):
                 result=prepare_exact_commerce(self.config(output),policy,None,source_admission=admission(self))
-            old=json.loads((ROOT/'docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/receipt.json').read_bytes())
+            old=json.loads(read_golden('commerce-exact-puppygraph-20261009/receipt.json'))
             for k in ('nodes','edges','numeric_input_guards','all_unfiltered_intermediate_guards','expected'):self.assertEqual(result[k],old[k])
             self.assertIn('COMMIT',opened[0].commands);self.assertTrue(opened[0].closed);self.assertTrue(policy.closed)
             self.assertEqual(output.stat().st_mode&0o777,0o700)

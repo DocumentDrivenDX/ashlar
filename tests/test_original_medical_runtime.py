@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Selected runtime correspondence controls with inert imports, no SDK/native run."""
+from golden import read_golden
 from dataclasses import asdict,replace
 import hashlib,json,os,sys,tempfile,unittest,tarfile
 from pathlib import Path
@@ -17,7 +18,7 @@ class Tests(unittest.TestCase):
         def file(name,raw):
             p=self.root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(raw);return self.pin(p)
         self.make=file
-        model=file('model.json',(ROOT/'examples/domain-packs/medical/historical/archive/schemas/ontology.json').read_bytes());graph=file('graph.json',(ROOT/'examples/domain-packs/medical/upstream/graph/fixture.json').read_bytes());baseline=file('baseline.json',(ROOT/'docs/helix/04-build/evidence/medical-historical-admission-20261009/public-receipt.json').read_bytes());self.inputs=OriginalMedicalInputs(model,graph,baseline)
+        model=file('model.json',(ROOT/'examples/domain-packs/medical/historical/archive/schemas/ontology.json').read_bytes());graph=file('graph.json',(ROOT/'examples/domain-packs/medical/upstream/graph/fixture.json').read_bytes());baseline=file('baseline.json',read_golden('medical-historical-admission-20261009/public-receipt.json'));self.inputs=OriginalMedicalInputs(model,graph,baseline)
         python=file('python',b'inert selected interpreter');java=file('jdk/bin/java',b'inert selected java');cfg=file('jdk/lib/jvm.cfg',b'inert jvm config');jars=(file('jars/delta-spark.jar',b'inert jar1'),file('jars/delta-storage.jar',b'inert jar2'))
         self.bun=file('bun',b'inert bun');self.git=file('git',b'inert git');(self.root/'producer').mkdir();self.producer=ProducerConfig(self.root/'producer',self.bun.path,self.git.path,20,1048576,4194304)
         self.imports=[]
@@ -27,7 +28,7 @@ class Tests(unittest.TestCase):
             self.selected.extend((origin,meta))
         self.selected.extend((python,java,cfg,*jars,self.bun,self.git))
         self.references=self.descriptors()
-        with tarfile.open(ROOT/'docs/helix/04-build/evidence/supply-chain-installed-native-20261011-c/actual.tar.gz','r:gz')as archive:
+        with tarfile.open(ROOT/'tests/fixtures/golden/supply-chain-installed-native-20261011-c/actual.tar.gz','r:gz')as archive:
             member=archive.getmember('provenance/ashlar-supply-chain-installed-independent-actual-review-c.json');evidence=archive.extractfile(member).read()
         self.evidence=file('references/evidence.json',evidence)
         qualification=file('selection.json',b'{}')

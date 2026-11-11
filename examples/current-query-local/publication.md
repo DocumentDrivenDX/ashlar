@@ -1,6 +1,6 @@
 # Query an original commerce publication locally
 
-The [local execution evidence](../../docs/helix/04-build/evidence/publication-current-local-20261016/README.md)
+The local execution evidence
 retains actual initialization, publication, protected ACK and query results for
 the explicitly qualified source/runtime subset.
 

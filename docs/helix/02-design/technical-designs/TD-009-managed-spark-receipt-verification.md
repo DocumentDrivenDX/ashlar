@@ -195,7 +195,7 @@ migration or replacement schema interpreter is proposed; public UMF owns DDL.
 
 The offline Spark receipt owner is implemented in
 `src/ashlar_host/managed_current_spark_receipt_read.py`; its observed scope is
-recorded in [build evidence](../../04-build/evidence/managed-current-spark-receipt-owner-20261023.md).
+recorded in build evidence.
 This does not adopt the proposed managed Spark profile or qualify a live runtime.
 
 ### Source-holder live interval
@@ -208,7 +208,7 @@ they do not establish that an implementation or live authority path exists. The
 offline Spark observation supplies receipt evidence only and remains unavailable
 to campaign ACK orchestration until the named host and external source ports are
 implemented and independently admitted.
-The [proposal-only interval helper evidence](../../04-build/evidence/source-holder-interval-proposal-20261023.md)
+The proposal-only interval helper evidence
 records fake-port open/renew/close choreography; it grants no ACK authority and
 does not adopt this draft boundary.
 
@@ -341,7 +341,7 @@ including a live ACK read interval; if a dependable bound is unavailable or
 cannot cover the ceiling, do not launch. The old serverless $0.47/DBU observation
 and assumed 120 DBU/hour cannot price this proposed cluster.
 
-The [2026-10-23 retail observation](../../04-build/evidence/current-upstream-release-20261023/managed-fixed-jobs-retail-observation.json)
+The 2026-10-23 retail observation
 verifies this exact workspace as Central US/Premium and records public USD rates
 of $0.255 per Linux on-demand D4ds_v5 VM-hour and $0.30 per Premium Jobs DBU-hour.
 Actual all-purpose node DBU consumption and billing increments remain unobserved.
