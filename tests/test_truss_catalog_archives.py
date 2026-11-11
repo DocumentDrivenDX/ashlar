@@ -26,7 +26,7 @@ class Tests(unittest.TestCase):
             def catalog_view_in_transaction(self,tx,request):reads.append(request.selection.catalog_revision);return Ok(Unavailable())
             def dispose(self):pass
         class Host:
-            def adopt_transaction(self):return Ok('tx')
+            def adopt_transaction(self,**kwargs):return Ok('tx')
             def detach(self):return True
         class Connection:
             autocommit=False;info=types.SimpleNamespace(transaction_status=0)

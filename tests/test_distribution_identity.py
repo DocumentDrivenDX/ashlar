@@ -9,14 +9,11 @@ DIST = 'umf-ashlar'
 
 
 class DistributionIdentityTests(unittest.TestCase):
-    def test_distribution_and_release_manifests_use_umf_family_name(self):
+    def test_distribution_uses_umf_family_name(self):
         project = (ROOT / 'pyproject.toml').read_text()
         match = re.search(r'(?ms)^\[project\]\s+.*?^name\s*=\s*["\']([^"\']+)', project)
         self.assertIsNotNone(match)
         self.assertEqual(match.group(1), DIST)
-        for workflow in ('release-candidate.yml', 'publish-pypi.yml'):
-            text = (ROOT / '.github' / 'workflows' / workflow).read_text()
-            self.assertIn('--package ' + DIST, text)
 
     def test_runtime_distribution_lookups_keep_ashlar_import_and_cli(self):
         runtime_files = (

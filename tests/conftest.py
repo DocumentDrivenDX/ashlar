@@ -46,11 +46,30 @@ test_local_current_delta4_umf test_local_current_xxhash64_profile test_managed_c
 test_pack_release_graphframes test_local_weft_typed_spark4
 """.split())
 
-# Modules that need the released UMF / Weft / Truss packages installed (the `stack` smoke job).
-STACK_MODULES = frozenset("""
-test_managed_current_core test_managed_current_weft_binding test_truss_graph_admission
-test_truss_current_catalog
+# Tests that need a released Truss installed (the `stack` smoke job). Each refuses with
+# "Exactly one selected Truss distribution required" when none is installed.
+STACK_TESTS = frozenset("""
+test_managed_current_core::test_048_bundle_round_trips_exact_release_provenance_without_new_carrier_profile
+test_managed_current_core::test_049_bundle_round_trips_exact_release_provenance_without_changing_physical_binding
+test_managed_current_core::test_050_profile_binds_exact_public_wheel_through_core_and_weft_restore
+test_managed_current_weft_binding::test_048_source_version_and_runtime_pin_survive_weft_binding
+test_managed_current_weft_binding::test_049_source_tuple_survives_weft_binding_with_existing_physical_profile
+test_managed_current_weft_binding::test_050_source_tuple_survives_distinct_weft_binding_profile
+test_truss_current_catalog::test_fake_045_evidence_refuses_when_another_runtime_is_installed
+test_truss_graph_admission::test_current_empty_interval_admits_coverage_without_entity_meaning
 """.split())
+
+
+def _truss_installed():
+    from importlib import metadata
+    for name in ("umf-truss", "truss-toolkit"):
+        try:
+            metadata.distribution(name)
+            return True
+        except metadata.PackageNotFoundError:
+            pass
+    return False
+
 
 # Third-party modules whose absence skips a test instead of failing it.
 OPTIONAL_MODULES = frozenset("""
@@ -67,8 +86,13 @@ def pytest_collection_modifyitems(config, items):
             item.add_marker(pytest.mark.slow)
         if module in SPARK_MODULES:
             item.add_marker(pytest.mark.spark)
-        if module in STACK_MODULES:
+        if f"{module}::{item.name}" in STACK_TESTS:
             item.add_marker(pytest.mark.stack)
+            if not _truss_installed():
+                item.add_marker(pytest.mark.skip(reason="needs a released Truss installed (stack job)"))
+        if module == "test_otel_supervision" and sys.version_info[:2] != (3, 11):
+            item.add_marker(pytest.mark.skip(
+                reason="the OpenTelemetry worker profile is pinned to Python 3.11 (diagnostics extra)"))
 
 
 def _missing_optional(exc):

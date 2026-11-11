@@ -143,7 +143,7 @@ class Tests(unittest.TestCase):
             self.assertEqual(primary.ack_outcome_uncertain.original_request, h.request_bytes)
 
     def driver(self, h, owner):
-        driver = object.__new__(NativeDriver)
+        driver = object.__new__(NativeDriver); driver.lookup_hash_profile = 'sha256-json-v1'
         db = sqlite3.connect(':memory:'); self.addCleanup(db.close)
         db.execute('CREATE TABLE local_publication_artifact(request_digest TEXT, request TEXT, artifact TEXT)')
         db.execute('INSERT INTO local_publication_artifact VALUES(?,?,?)',

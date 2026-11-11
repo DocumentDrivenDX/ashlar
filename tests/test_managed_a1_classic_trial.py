@@ -15,6 +15,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools import run_managed_a1_classic_trial as trial
 
 
+@skipUnless(Path('/private/tmp/ashlar-a1-classic-config-20261103/cluster-create.json').is_file(),
+            'Databricks classic-trial harness needs the operator config at /private/tmp/ashlar-a1-classic-config-20261103 (owner decision pending)')
 class ClassicTrialWrapperTests(unittest.TestCase):
     def test_cli_flat_cluster_list_is_bounded(self):
         with mock.patch.object(trial, "_databricks", return_value=b"[]"):

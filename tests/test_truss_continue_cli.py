@@ -27,7 +27,8 @@ class Tests(unittest.TestCase):
         def restore(driver,digest):events.append(digest)
         def advance(driver,connection,**options):
             self.assertEqual(events,['open','a'*64,'close'])
-            self.assertEqual(options,{'maximum_pages':1,'wait_seconds':0,'maximum_page_bytes':2097152,'archives':(),'defer_source_acknowledgement':False,'catalog_connection_factory':None})
+            self.assertEqual(options,{'maximum_pages':1,'wait_seconds':0,'maximum_page_bytes':2097152,'archives':(),'defer_source_acknowledgement':False,'catalog_connection_factory':None,
+                'export_graph':False,'prepublication_source_custody':None,'reuse_identical_prepublication_intent':False})
             return {'publications':[]}
         with patch('ashlar_host.truss_continue_cli.run_selected_truss_command',side_effect=owner),patch('ashlar_host.truss_continue_cli.restore_applied_truss_publication',side_effect=restore),patch('ashlar_host.truss_continue.continue_truss_graph',side_effect=advance),patch.dict('sys.modules',{'psycopg':SimpleNamespace()}):
             self.assertEqual(run_continue_truss_graph_command('/config','/output',maximum_page_bytes=2097152),{'publications':[]})
@@ -49,7 +50,9 @@ class Tests(unittest.TestCase):
             factory=options.pop('catalog_connection_factory')
             self.assertIs(factory(),sentinel)
             self.assertEqual(options,{'maximum_pages':1,'wait_seconds':0,'maximum_page_bytes':1048576,
-                                      'archives':(),'defer_source_acknowledgement':False})
+                                      'archives':(),'defer_source_acknowledgement':False,
+                                      'export_graph':False,'prepublication_source_custody':None,
+                                      'reuse_identical_prepublication_intent':False})
             return {'publications':[]}
         with patch('ashlar_host.truss_continue_cli.run_selected_truss_command',side_effect=owner), \
              patch('ashlar_host.truss_continue_cli.restore_applied_truss_publication'), \
