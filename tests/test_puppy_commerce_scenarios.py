@@ -22,7 +22,7 @@ class Policy:
     def renew_exact_commerce(self,p,c):assert self.active
 class ScenarioTests(unittest.TestCase):
     def test_qualified_original_queries_and_all_records_unchanged(self):
-        prepared=json.loads((ROOT/'receipt.json').read_bytes())
+        prepared=json.loads(read_golden('commerce-exact-puppygraph-20261009/receipt.json'))
         for language in ('Cypher','Gremlin'):
             report=json.loads((ROOT/(language.lower()+'-report.json')).read_bytes());records=iter(report['records']);policy=Policy();seen=[]
             class Transport:
@@ -34,20 +34,20 @@ class ScenarioTests(unittest.TestCase):
             result=execute_commerce_scenarios(prepared,config(language),Transport(),policy,None,observe=seen.append,source_admission=admission(self))
             self.assertEqual(result['actual'],prepared['expected']);self.assertEqual(result['records'],report['records']);self.assertTrue(policy.closed)
     def test_original_cancel_and_closing_attempted(self):
-        prepared=json.loads((ROOT/'receipt.json').read_bytes());policy=Policy();cancel=KeyboardInterrupt()
+        prepared=json.loads(read_golden('commerce-exact-puppygraph-20261009/receipt.json'));policy=Policy();cancel=KeyboardInterrupt()
         class Transport:
             def query(self,*args):raise cancel
         with self.assertRaises(KeyboardInterrupt)as caught:execute_commerce_scenarios(prepared,config('Cypher'),Transport(),policy,None,observe=lambda v:None,source_admission=admission(self))
         self.assertIs(caught.exception,cancel);self.assertTrue(policy.closed)
 
     def test_changed_complete_projection_refuses_before_transport(self):
-        prepared=json.loads((ROOT/'receipt.json').read_bytes());prepared['nodes'][0]['retained_json']='{}'
+        prepared=json.loads(read_golden('commerce-exact-puppygraph-20261009/receipt.json'));prepared['nodes'][0]['retained_json']='{}'
         class Transport:
             def query(self,*a):raise AssertionError('transport acquired')
         with self.assertRaises(ValueError):execute_commerce_scenarios(prepared,config('Cypher'),Transport(),Policy(),None,observe=lambda v:None,source_admission=admission(self))
 
     def test_unfiltered_intermediate_failure_is_retained_and_stops_filter_query(self):
-        prepared=json.loads((ROOT/'receipt.json').read_bytes());report=json.loads((ROOT/'cypher-report.json').read_bytes());records=iter(report['records']);seen=[];policy=Policy()
+        prepared=json.loads(read_golden('commerce-exact-puppygraph-20261009/receipt.json'));report=json.loads((ROOT/'cypher-report.json').read_bytes());records=iter(report['records']);seen=[];policy=Policy()
         class Transport:
             def query(self,*a):
                 item=next(records)
