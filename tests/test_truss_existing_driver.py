@@ -13,7 +13,6 @@ from ashlar_host.truss_graph_admission import TrussGraphAdmission
 
 
 class Tests(unittest.TestCase):
-    @unittest.skip("fixture drift: from_existing_truss now reads TrussFeedSessions.page (see PR Known failures)")
     def test_missing_journal_refuses_before_constructor_and_original_ports_forward(self):
         with TemporaryDirectory() as directory:
             context = object(); policy = PrivatePolicy(context, {})
@@ -23,7 +22,7 @@ class Tests(unittest.TestCase):
             transport.db = sqlite3.connect(':memory:')
             admission = object.__new__(TrussGraphAdmission)
             sessions = object.__new__(TrussFeedSessions)
-            object.__setattr__(sessions, 'context', context)
+            object.__setattr__(sessions, 'context', context); object.__setattr__(sessions, 'page', None)
             args = (transport, policy, context, {'object_current': 'nodes'}, (), {})
             ports = {'source_admission': admission, 'source_sessions': sessions, 'ack_sessions': sessions}
             try:
@@ -35,5 +34,5 @@ class Tests(unittest.TestCase):
                         driver = NativeDriver.from_existing_truss(*args, **ports)
                         self.assertIs(type(driver), NativeDriver)
                         preflight.assert_called_once_with(transport.journal_path, 'original', (), capacity=None, installation_profile=None)
-                        constructor.assert_called_once_with(*args[:4], {}, *args[4:], **ports)
+                        constructor.assert_called_once_with(*args[:4], {}, *args[4:], lookup_hash_profile='sha256-json-v1', **ports)
             finally: transport.db.close()

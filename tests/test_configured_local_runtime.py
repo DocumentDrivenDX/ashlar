@@ -4,6 +4,7 @@ from dataclasses import replace
 from contextlib import contextmanager
 from pathlib import Path
 from types import SimpleNamespace
+import sqlite3
 import hashlib,json,tempfile,unittest,uuid
 from types import MappingProxyType
 from unittest.mock import patch,MagicMock
@@ -307,7 +308,6 @@ class Tests(unittest.TestCase):
             self.assertTrue((config.output).is_dir())
             self.assertFalse((config.output/'runtime-report.json').exists())
 
-    @unittest.skip("fixture drift: the transport fake has no sqlite db (see PR Known failures)")
 
     def test_delta4_transaction1_composition_runs_only_the_coordinated_first_batch(self):
         with tempfile.TemporaryDirectory()as directory:
@@ -388,7 +388,9 @@ class Tests(unittest.TestCase):
                                    2 if role in ('object_current','edge_current','whole_source_history') else 1}
                    for index,role in enumerate(roles)}
             observation={'heads':heads,'lookup_hashes':[],'committed_prefix':3}
+            finalized={'row':{'manifest':'inert'},'realized_vector':{'vector':'inert'}}
             class Held:
+                _delta4_manifest_row=None
                 def prepare_and_execute_effect_plan(self):events.append('coordinator-run')
                 def _observe_effect_prefix(self):events.append('full-bag-observe');return observation
             held=Held()
@@ -398,7 +400,10 @@ class Tests(unittest.TestCase):
                     events.append('authority-open')
                     try:yield held
                     finally:events.append('authority-close')
-            transport=SimpleNamespace(close=lambda:events.append('transport-close'))
+            journal=sqlite3.connect(':memory:');self.addCleanup(journal.close)
+            journal.execute('CREATE TABLE local_plan(id INTEGER)');journal.execute('CREATE TABLE local_operation(id INTEGER)')
+            transport=SimpleNamespace(close=lambda:events.append('transport-close'),db=journal)
+            held.transport=transport
             policy=SimpleNamespace(initializing=True)
             plan=SimpleNamespace(batch_id='typed-graph-1',request=request)
             fresh=SimpleNamespace(heads=baseline)
@@ -428,7 +433,9 @@ class Tests(unittest.TestCase):
                   patch('ashlar_host.configured_local_delta4_publication.admit_delta4_fresh_empty_installation',return_value=fresh),
                   patch('ashlar_host.configured_local_delta4_publication.build_delta4_transaction1_effect_plan',return_value=object()),
                   patch('ashlar_host.configured_local_delta4_publication.open_configured_local_delta4_authority',return_value=Authority()),
-                  patch('ashlar_host.configured_local_delta4_publication.retain_delta4_output_completion_receipt',return_value=receipt)):
+                  patch.multiple('ashlar_host.configured_local_delta4_publication',
+                      retain_delta4_output_completion_receipt=lambda _held:receipt,
+                      finalize_configured_local_delta4_manifest=lambda _held:finalized)):
                 result=run_configured_local_delta4_transaction1(
                     replace(config,installation_sha256=hashlib.sha256(registry_raw).hexdigest()))
                 failed_output=root/'output-close-failure'
@@ -437,10 +444,12 @@ class Tests(unittest.TestCase):
                     installation_sha256=hashlib.sha256(registry_raw).hexdigest())
                 with self.assertRaisesRegex(RuntimeError,'inert close failure'):
                     run_configured_local_delta4_transaction1(failed_config)
-            self.assertEqual(result['operation'],'transaction1-effects-validated')
+            self.assertEqual(result['operation'],'publish')
             self.assertEqual(result['batch_id'],'typed-graph-1')
-            self.assertFalse(result['publication']);self.assertFalse(result['protected_ack'])
+            self.assertTrue(result['publication']);self.assertFalse(result['protected_ack'])
             self.assertEqual(result['completion_receipt'],receipt)
+            self.assertEqual(result['manifest'],finalized['row'])
+            self.assertEqual(result['realized_vector'],finalized['realized_vector'])
             self.assertEqual(json.loads((config.output/'runtime-report.json').read_bytes()),result)
             self.assertEqual(make_plan.call_count,2)
             self.assertIn('coordinator-run',events);self.assertIn('full-bag-observe',events)

@@ -53,8 +53,8 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
         target_calls = []
         backend_calls = []
 
-        protocol = ReaderProtocolProfile("test-managed-serverless", (3,), (7,),
-                                         {"v2Checkpoint"})
+        from ashlar_host.configured_local_runtime import MANAGED_SERVERLESS_PROFILE
+        protocol = MANAGED_SERVERLESS_PROFILE  # the task refuses any other serverless profile
         environment = {"runtimeName": "databricks-serverless", "sparkVersion": "4.2.0",
             "sparkBuildText": "4.2.0 test", "runtimeTag": None,
             "principal": "owner@example.test", "catalog": "client_dev",
@@ -285,7 +285,6 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
                 selection, {}, stream="source-stream", materialized_at="1",
                 context=object())
 
-    @unittest.skip("Databricks A1 trial plan pins a serverless runtime profile that the current code refuses (owner decision on the managed-trial harness pending; see PR Known failures)")
 
     def test_managed_task_inputs_recompose_exact_owner_batch_and_genesis_plan(self):
         schedule = self._schedule()
@@ -337,7 +336,6 @@ class TestManagedCurrentA1TrialPlan(unittest.TestCase):
                     predecessor='genesis-manifest', schema_revisions_json='{}',
                     materialized_at='1762000000000000')
 
-    @unittest.skip("Databricks A1 trial plan pins a serverless runtime profile that the current code refuses (owner decision on the managed-trial harness pending; see PR Known failures)")
 
     def test_continuation_requires_exact_a0_cursor_and_unchanged_b_genesis(self):
         from ashlar_host.managed_current_genesis import admit_truss_source_genesis_progress
