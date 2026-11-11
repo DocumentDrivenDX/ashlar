@@ -78,11 +78,31 @@ jobs:
   slow:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - run: pip install -e '.[dev]'
+          python-version: '3.11'
+      - run: pip install -e '.[dev,diagnostics]'
       - run: pytest -n 4 -m "slow and not spark" tests
+
+  spark:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.3'
+      - run: pip install -e '.[dev,diagnostics,local-delta]'
+      - run: pytest -m spark tests
+      - run: bun test tests/*.test.ts
