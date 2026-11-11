@@ -275,7 +275,7 @@ are insufficient. Full accepted Truss catalog/mutation/feed/ACK proof remains a
 requirement for the Truss source lane. Continue independent source, schema,
 Weft and engine work when an external prerequisite is unavailable.
 
-The [execution plan](../04-build/end-to-end-plan.md) owns results and pending
+The execution plan owns results and pending
 work. The pre-cleanup test plan
 preserves historical execution/status notes verbatim.
 

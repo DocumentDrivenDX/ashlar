@@ -1,8 +1,7 @@
 ---
-title: "Contracts & evidence"
-description: "Follow each design claim to its exact boundary, version profile and evidence."
+title: "Contracts"
+description: "Follow each design claim to its exact boundary and version profile."
 eyebrow: "06 / Reference"
-composition: model-primary
 nextPath: start/
 nextLabel: "Use the toolkit"
 ---
@@ -29,14 +28,6 @@ UMF owns reusable schema interpretation, validation and DDL. Ashlar bindings mus
 
 Weft owns compilation. Ashlar must execute original compiler SQL and every admitted integrity obligation against the entire resolved publication vector. Unsupported meaning, drift, expired snapshots or missing authority must produce an explicit refusal. Engine projections must preserve qualified identities, independent edges and multiplicity, and declare any capability loss.
 
-## Read evidence at its declared scope
+## What is supported
 
-Each support claim needs the exact source/model revision, native versions, selected semantic subset and original observations. Preparation, native execution, source acknowledgement and production authority are distinct proofs. A successful local query cannot supply real Truss catalog acceptance or Fabric access.
-
-The [native GraphFrames original-scenario evidence](https://github.com/DocumentDrivenDX/ashlar/blob/main/docs/helix/04-build/evidence/original17-graphframes-native-20261009/summary.json) qualifies typed in-memory graph projections and seventeen original relational scenarios over immutable Delta-export provenance. The [ecology DISTINCT evidence](https://github.com/DocumentDrivenDX/ashlar/blob/main/docs/helix/04-build/evidence/original-pack-weft-distinct-native-20261009/README.md) records one publication-bound original Weft query; its separate controls have their own authority limits. Consult each receipt before generalizing its result.
-
-The [layout acceptance record](https://github.com/DocumentDrivenDX/ashlar/blob/main/docs/helix/02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md) retains the measured physical-layout scope. Latency and throughput measurements guide tuning of managed Delta; they do not replace identity, preservation or publication requirements or prove billion-node capacity.
-
-## Provenance of these pages
-
-Each page carries an Innsigle source seal. The visible colophon identifies declared composition and links the signed attestation and issuer keys. Source signing accounts for authorship and byte integrity; it does not certify the correctness or performance of Ashlar.
+Local Delta publication and query, the GraphFrames and PuppyGraph exports, and the typed Truss workflow run in the repository's tests. Databricks and Unity Catalog publication is experimental: its Python code has mocked unit tests only, and CI has no Databricks workspace. A passing local run does not establish production authority, a protected source acknowledgement or Fabric access. See the [roadmap](https://github.com/DocumentDrivenDX/ashlar/blob/main/ROADMAP.md).

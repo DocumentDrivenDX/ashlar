@@ -26,6 +26,6 @@ __pycache__/
 # Run output, receipts and qualification packets are never committed. Attach them to a PR or a CI artifact.
 /docs/helix/**/evidence/
 /docs/helix/**/spikes/**/out/
-/website/static/model/schema-browser/upstream/
+/website/static/model/schema-browser/
 *.jfr
 /.ci/

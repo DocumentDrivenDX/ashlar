@@ -2,7 +2,6 @@
 title: "Why this structure"
 description: "Canonical carriers preserve meaning. Serving projections make selected graph workloads practical."
 eyebrow: "03 / Background"
-composition: model-primary
 nextPath: ecosystem/
 nextLabel: "Explore the ecosystem mappings"
 ---
@@ -45,4 +44,4 @@ Extra raw/history and serving roles cost storage and validation work. Optional p
 
 Unity Catalog Delta is the owner-selected storage architecture. Measured latency and freshness misses inform tuning; the design milestone's closure does not convert them into passed operational targets. Billion-node capacity remains unproved, and UMF binding is deferred.
 
-Read the [physical-layout decision](https://github.com/DocumentDrivenDX/ashlar/blob/main/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md) and [table handoff](https://github.com/DocumentDrivenDX/ashlar/blob/main/docs/helix/02-design/spikes/SPIKE-001-table-layout/table-design-handoff.md) for the candidate's alternatives and evidence.
+Read the [physical-layout decision](https://github.com/DocumentDrivenDX/ashlar/blob/main/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md) for the candidate's alternatives.

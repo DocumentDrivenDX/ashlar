@@ -2,7 +2,6 @@
 title: The physical schema
 description: Six baseline roles preserve current state, source evidence and publication visibility. Optional projections serve selected workloads.
 eyebrow: 04 / Schema
-composition: model-primary
 nextPath: background/
 nextLabel: Read why the structure looks this way
 ---

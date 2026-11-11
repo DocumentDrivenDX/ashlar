@@ -16,7 +16,7 @@ ddx:
 ## Suite inventory
 
 Use [domain-pack-corpus.json](fixtures/domain-pack-corpus.json) as the finite
-case index for P02/P08 in the [toolkit plan](../04-build/toolkit-delivery-plan.md).
+case index for P02/P08 in the toolkit plan.
 It fixes 24 pack inputs, 180 case IDs and 151 engine case IDs. IDs identify test
 contracts; execution receipts belong under build evidence. An engine case ID is
 `ENGINE/{engine}/{case.id}` using the explicit `engineCases` lists. Do not expand

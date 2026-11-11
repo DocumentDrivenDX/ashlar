@@ -2,7 +2,6 @@
 title: "The graph model"
 description: "Typed identities and property-bearing relationships give different producers a shared structure."
 eyebrow: "01 / Concepts"
-composition: model-primary
 nextPath: schema/
 nextLabel: "Explore the physical schema"
 ---

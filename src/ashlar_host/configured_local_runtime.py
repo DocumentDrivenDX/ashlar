@@ -38,8 +38,8 @@ MANAGED_CLASSIC_PROFILE=ReaderProtocolProfile(
     PROFILE.reader_versions,PROFILE.writer_versions,PROFILE.features|{'v2Checkpoint'})
 CONFIGURED_LOCAL_CARRIERS=('ashlar-delta/0.3','ashlar-delta/0.4-xxhash64')
 
-def _require(value):
-    if not value:raise ValueError('Configured local runtime refused')
+def _require(value,message='Configured local runtime refused'):
+    if not value:raise ValueError(message)
 
 def _path(path):
     _require(type(path)is type(Path())and path.is_absolute()and path.resolve()==path and not any(p.is_symlink()for p in (path,*path.parents))and not any(c in str(path)for c in ('`',"'",'\\','\0','\n','\r')))

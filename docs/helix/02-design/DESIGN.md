@@ -150,7 +150,7 @@ microsite is the intended conversion; the repository is the source destination.
 Owner decisions: public domain/hosting, publication visibility, license and
 release installation path. These do not block the local visual design.
 Hugo + Hextra is the installed catalog pattern. ADR-002 selects native Hugo layouts
-for this curated site; the owner selects GitHub Pages and Innsigle page signing.
+for this curated site; the owner selects GitHub Pages (page signing was later dropped; see ADR-002).
 Every authored page carries a source colophon after declaration approval.
 Schema provides a scrollable graphical table map and field descriptions; Background
 explains canonical/projection choices; Ecosystem shows native SQL, GraphFrames,

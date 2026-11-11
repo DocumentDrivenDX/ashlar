@@ -113,7 +113,7 @@ Use the [diagnostics guide](DIAGNOSTICS.md) to select bounded observation for
 
 ## Contracts and evidence
 
-Use the [toolkit plan](../../docs/helix/04-build/toolkit-delivery-plan.md) for the
+Use the toolkit plan for the
 required end-to-end scope, and the [contracts](../../docs/helix/02-design/contracts/)
 for source admission, tables and publication resolution. Engine projections must
 preserve identity, independent edges, exact values and explicit capability losses.

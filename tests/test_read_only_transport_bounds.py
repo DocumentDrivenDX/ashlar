@@ -18,12 +18,26 @@ class Tests(unittest.TestCase):
             target=next(t for t in self.fixture.targets if str(t.path)in statement)
             detail={'id':target.uuid,'properties':{'ashlar.local.installation.id':self.fixture.installation,'ashlar.local.registry.sha256':hashlib.sha256(encoded(self.fixture.body).encode()).hexdigest(),'ashlar.local.journal.sha256':hashlib.sha256(str(self.fixture.journal).encode()).hexdigest()}}
             self.calls.append(target.table)
-            return SimpleNamespace(detail=detail,first=lambda:(_ for _ in ()).throw(AssertionError('Unbounded first refused')))
+            def field(name,type_text):return SimpleNamespace(name=name,dataType=SimpleNamespace(simpleString=lambda:type_text))
+            def refuse():raise AssertionError('Unbounded first refused')
+            # The bounded detail read selects the id and three property values; keep the
+            # native identity row and let select() return the projected one.
+            keys=('ashlar.local.installation.id','ashlar.local.registry.sha256','ashlar.local.journal.sha256')
+            projected={'id':detail['id'],**{'_ashlar_detail_'+str(i):detail['properties'][key] for i,key in enumerate(keys)}}
+            # Non-empty field metadata sends the registered proof to the bounded row read
+            # (its documented fallback), which is the path these tests exercise.
+            legacy=[SimpleNamespace(name=n,dataType=SimpleNamespace(simpleString=lambda:'string'),nullable=True,metadata={'fixture':'inert'}) for n in projected]
+            narrowed=SimpleNamespace(detail=projected,first=refuse,schema=SimpleNamespace(fields=legacy))
+            return SimpleNamespace(detail=detail,first=refuse,schema=SimpleNamespace(fields=[field('id','string'),field('properties','map<string,string>')]),select=lambda *columns:narrowed)
         return SimpleNamespace(conf=SimpleNamespace(get=lambda key:{'spark.sql.session.timeZone':'UTC','spark.sql.ansi.enabled':'true'}[key]),sql=sql)
     def open(self,bounds):
         f=self.fixture
+        # Column expressions need a live JVM; the inert frames only need something callable.
+        column=lambda *a,**k:SimpleNamespace(getItem=lambda key:SimpleNamespace(alias=lambda name:name))
+        with patch('pyspark.sql.functions.col',column):
+            return self.open_transport(f,bounds)
+    def open_transport(self,f,bounds):
         return ReadOnlyTransport.open(self.spark(),f.journal,f.installation,f.targets,SimpleNamespace(writer=lambda *a:None,admit=lambda *a:None),capacity=f.body['operation_capacity'],verification_bounds=bounds)
-    @unittest.skip("fixture drift: the DESCRIBE DETAIL frame fake has no .schema, which the projected detail read now uses (see PR Known failures)")
     def test_actual_constructor_all_six_details_bounded_and_read_only(self):
         observed=[];before=self.fixture.journal.read_bytes();bounds=self.bounds
         def capture(owner,frame,*,maximum_rows=None):
@@ -40,7 +54,6 @@ class Tests(unittest.TestCase):
             self.assertIsNone(transport.observation_bounds)
         finally:transport.close()
         self.assertEqual(before,self.fixture.journal.read_bytes())
-    @unittest.skip("fixture drift: the DESCRIBE DETAIL frame fake has no .schema, which the projected detail read now uses (see PR Known failures)")
     def test_bound_refusal_and_cancellation_clear_constructor_interval(self):
         for error in [LocalDeltaError('pretransfer limit'),KeyboardInterrupt()]:
             objects=[]

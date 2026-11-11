@@ -57,20 +57,30 @@ class FakeTransport:
     def __init__(self, root, request, context):
         self.installation_id = "delta4-metadata-test"
         self.context = context
+        from ashlar_host.configured_local_delta4_publication import (
+            INSTALLATION_ROLES, LOCAL_ROLE_BY_CARRIER,
+        )
+        # The journal-pinned profile must name all six roles under one approved namespace;
+        # only the attempts role is a real target here, the others are distinct inert entries.
+        roles = {}
+        for carrier_role in INSTALLATION_ROLES:
+            alias = LOCAL_ROLE_BY_CARRIER[carrier_role]
+            roles[alias] = {"carrier_role": carrier_role,
+                "table": "local.configured." + alias,
+                "path": str(root) if alias == "attempts" else str(root / ("inert-" + alias)),
+                "uuid": "attempt-uuid" if alias == "attempts" else "inert-uuid-" + alias}
         self.profile = {
             "profile": "ashlar-local-current-installation-profile/0.1",
             "physical_profile": "ashlar-delta/0.4-xxhash64",
-            "roles": {"publication_attempt_phase": {
-                "table": "local.configured.publication_attempt_phase",
-                "path": str(root), "uuid": "attempt-uuid"}},
+            "roles": roles,
         }
         self.installation_profile = self.profile
-        self.target = SimpleNamespace(table="local.configured.publication_attempt_phase",
+        self.target = SimpleNamespace(table="local.configured.attempts",
                                       path=root, uuid="attempt-uuid")
         self.targets = {self.target.table: self.target}
         carriers = load_current_managed_carriers("ashlar-delta/0.4-xxhash64")
         fields = carriers.ordered_fields("publication_attempt_phase")
-        self.profile["roles"]["publication_attempt_phase"].update({
+        self.profile["roles"]["attempts"].update({
             "fields": [list(field) for field in fields],
             "protocol": {"uuid": self.target.uuid,
                 "profile": "ashlar-configured-local-delta/0.1",
@@ -209,7 +219,7 @@ class _FakeReader:
         return self
 
     def load(self, _path):
-        fields = self.owner.profile["roles"]["publication_attempt_phase"]["fields"]
+        fields = self.owner.profile["roles"]["attempts"]["fields"]
         types = {"STRING": "string", "BIGINT": "long", "TIMESTAMP": "timestamp"}
         schema = SimpleNamespace(fields=[SimpleNamespace(
             name=name, nullable=nullable,
@@ -410,7 +420,6 @@ class Tests(unittest.TestCase):
         self.plan = plan_configured_local_delta4_transaction1(
             configuration, stream="gate3-typed-graph", materialized_at_us="1791547200000000")
 
-    @unittest.skip("fixture drift: the installation profile fixture no longer matches the journal-pinned attempt table identity check (see PR Known failures)")
 
     def test_reserved_metadata_lane_commits_once_and_exactly_reopens(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -451,7 +460,6 @@ class Tests(unittest.TestCase):
             self.assertEqual(reopened.db.execute(
                 "SELECT count(*) FROM local_operation").fetchone(), (0,))
 
-    @unittest.skip("fixture drift: the installation profile fixture no longer matches the journal-pinned attempt table identity check (see PR Known failures)")
 
     def test_native_phase_readback_tamper_refuses_without_replay(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -470,7 +478,6 @@ class Tests(unittest.TestCase):
                 "SELECT state FROM local_delta4_metadata_operation").fetchone(),
                 ("committed",))
 
-    @unittest.skip("fixture drift: the installation profile fixture no longer matches the journal-pinned attempt table identity check (see PR Known failures)")
 
     def test_applying_phase_is_a_separate_committed_v3_operation_and_reopens(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -509,7 +516,6 @@ class Tests(unittest.TestCase):
             with self.assertRaises(LocalDeltaError):
                 reopened.observe_delta4_metadata_commit(applying, context=context)
 
-    @unittest.skip("fixture drift: the installation profile fixture no longer matches the journal-pinned attempt table identity check (see PR Known failures)")
 
     def test_allow_later_accepts_only_the_reserved_v2_v3_phase_heads(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -536,7 +542,6 @@ class Tests(unittest.TestCase):
                 LocalDeltaTransport.observe_delta4_metadata_commit(
                     transport, prepared, context=context, allow_later=True)
 
-    @unittest.skip("fixture drift: the installation profile fixture no longer matches the journal-pinned attempt table identity check (see PR Known failures)")
 
     def test_submitted_without_commit_is_quarantined_and_later_exact_commit_recovers(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -570,7 +575,6 @@ class Tests(unittest.TestCase):
             self.assertEqual(recovered.rows[0]["version"], "2")
             self.assertEqual(transport.dispatches, 2)  # the second is external delayed commit injection
 
-    @unittest.skip("fixture drift: the installation profile fixture no longer matches the journal-pinned attempt table identity check (see PR Known failures)")
 
     def test_applying_submitted_without_commit_is_quarantined_then_exact_commit_recovers(self):
         with tempfile.TemporaryDirectory() as temporary:

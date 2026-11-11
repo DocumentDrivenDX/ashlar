@@ -1,43 +1,15 @@
 # Working in ashlar
 
-This repository uses HELIX. Start with `docs/helix/README.md`, read `.helix.yml`,
-and engage the installed `helix` skill for governed work.
+Ashlar is a property-graph toolkit on Delta tables. See `README.md` for what it is and
+`docs/helix/` for the requirements, contracts and design (HELIX layout).
 
-- Keep project artifacts under `docs/helix/` in the matching activity.
-- Resolve the graph, templates, prompts, and concern library from the installed
-  HELIX plugin. Do not copy the methodology catalog into this repository.
-- Read governing upstream artifacts before writing downstream documents.
-- Preserve artifact IDs, frontmatter, and deliberate `ddx.links` traceability.
-- Record unknowns as open questions, assumptions, or risks. Drafts are not approvals.
-- Implementation must trace to framed requirements and recorded design decisions.
-
-## Project context
-
-Ashlar defines domain-independent property graphs on Unity Catalog managed Delta
-tables. Native singleton reads must work independently of Fabric Graph. Read the
-product requirements and publication, consumer, table and resolver contracts
-before extending a boundary; do not infer requirements from implementation status.
-
-UMF owns reusable schema interpretation, validation and DDL generation. Preserve
-declared schema versions, native semantics and unknown extensions. Put explicit
-Ashlar meanings in versioned extension vocabularies. Repair demonstrated reusable
-domain-pack gaps in UMF rather than introducing a second interpretation in Ashlar.
-
-Weft owns query compilation; Ashlar owns publication-bound execution adapters.
-Do not repair compiler SQL in an adapter. Truss owns its accepted source boundary;
-do not inherit its PostgreSQL or TypeScript ADRs or substitute development fixtures
-for actual Truss acceptance and feed evidence.
-
-Qualify support claims by platform/runtime version, model or format version,
-supported subset and exact evidence. Distinguish declared constraints from enforced
-constraints, preparation from native execution, and development source authority
-from production authority. Preserve identity, presence, exact values, multiplicity,
-full publication vectors and source/ACK custody throughout each workflow.
-
-Specs describe desired behavior. Keep implementation status short in the README
-and retain execution results under build evidence. Keep native checks small and
-sequential; use local systems or an explicitly dedicated Databricks endpoint,
-never the shared default cluster. Scale trials require an explicit owner request
-and approved resource/cost limits. Do not disable
-predictive optimization. Land tested, independently reviewed iterations on main
-and push to origin.
+- UMF owns schema semantics and DDL generation; Weft owns query compilation; Truss owns its
+  source boundary. Do not re-interpret their meaning in Ashlar, and do not repair compiler SQL
+  in an adapter. Preserve declared schema versions and unknown extensions.
+- Before a PR run `pytest -n 4 -m "not slow and not spark" tests`,
+  `python tools/check_module_boundaries.py` and `python scripts/check_tree_size.py`.
+- Never commit run output, receipts, packets or built bundles. Attach them to a PR or a CI
+  artifact. Do not write evidence, qualification or handoff documents.
+- A support claim in the README or microsite must be exercised by a CI test. Anything that
+  needs a Databricks, Fabric or PuppyGraph service is experimental.
+- Use local systems for native checks, never a shared default cluster.

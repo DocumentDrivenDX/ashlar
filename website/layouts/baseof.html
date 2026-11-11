@@ -18,7 +18,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{{ "social-preview.png" | absURL }}">
   <link rel="canonical" href="{{ .Permalink }}">
-  {{ $css := slice (resources.Get "css/site.css") (resources.Get "css/docs.css") (resources.Get "css/innsigle.css") | resources.Concat "css/ashlar.css" | minify | fingerprint }}
+  {{ $css := slice (resources.Get "css/site.css") (resources.Get "css/docs.css") | resources.Concat "css/ashlar.css" | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
   <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
 </head>
@@ -36,8 +36,7 @@
   </nav>
 </header>
 <main id="main">{{ block "main" . }}{{ end }}
-  <div class="seal-wrap">{{ partial "innsigle-colophon.html" . }}</div>
 </main>
-<footer><span>Ashlar / DocumentDrivenDX</span><span>Property graphs on warehouse tables</span><a href="https://github.com/DocumentDrivenDX/ashlar">Source ↗</a></footer>
+<footer><span>Ashlar / DocumentDrivenDX{{ with site.Params.version }} · <span class="version">Ashlar {{ . }}</span>{{ end }}</span><span>Property graphs on warehouse tables</span><a href="https://github.com/DocumentDrivenDX/ashlar">Source ↗</a></footer>
 </body>
 </html>

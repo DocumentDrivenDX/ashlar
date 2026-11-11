@@ -64,7 +64,6 @@ Identify the broader authored conceptual map separately from this derived model.
 bun tools/generate_runtime_diagram.ts /path/to/pinned/umf --write
 bun tools/generate_runtime_diagram.ts /path/to/pinned/umf --check
 python3 tools/check_runtime_diagram.py /path/to/pinned/umf
-python3 website/scripts/check_runtime_model.py
 bun tools/check_runtime_diagram_browser.ts /path/to/built/site /path/to/pinned/umf
 ```
 

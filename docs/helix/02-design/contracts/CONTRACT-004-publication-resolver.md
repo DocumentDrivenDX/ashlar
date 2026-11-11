@@ -969,7 +969,7 @@ writer policy.
 
 ## Execution evidence
 
-Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).
+Current results and remaining work belong in the execution plan.
 The original contract text
 preserves prior execution diaries verbatim; those results do not amend this contract.
 
