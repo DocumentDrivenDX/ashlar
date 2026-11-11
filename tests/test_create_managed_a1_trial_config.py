@@ -23,6 +23,7 @@ from ashlar_host.configured_local_runtime import (PROFILE, MANAGED_SERVERLESS_PR
 
 
 class CreateManagedA1TrialConfigTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("bun"), "needs bun on PATH")
     def test_complete_config_passes_the_actual_runner_lock(self):
         runtime = {"runtimeName": "databricks-serverless", "sparkVersion": "4.2.0",
             "sparkBuildText": "Spark 4.2.0", "runtimeTag": "17.3.x-scala2.13",
@@ -115,6 +116,8 @@ class CreateManagedA1TrialConfigTests(unittest.TestCase):
                     environment_version=7, dependencies=dependencies, local_receipt=receipt,
                     evidence_dir="docs/helix/04-build/evidence/test",
                     bun_path=Path(shutil.which("bun")), python=Path(sys.executable))
+
+    @unittest.skipUnless(shutil.which("bun"), "needs bun on PATH")
 
     def test_classic_config_locks_live_dedicated_cluster_and_jobs_payload(self):
         from tools.run_managed_a1_serverless import (
