@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Offline receipt-verifier tests; the fake Spark session performs no I/O."""
+import shutil
 import copy
 from contextlib import contextmanager
 from dataclasses import replace
@@ -460,6 +461,8 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Ordered native columns"):
             reader._observe_inventory()
 
+    @unittest.skipUnless(shutil.which("bun"), "needs bun on PATH")
+
     def test_generated_trial_config_routes_through_parent_bundle_to_connect_reader(self):
         import shutil
         import sys
@@ -539,6 +542,8 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
             self.assertIs(captured["reader_config"], bundle.selection.reader_config)
         finally:
             reader._serverless_tag.close()
+
+    @unittest.skipUnless(shutil.which("bun"), "needs bun on PATH")
 
     def test_classic_trial_routes_parent_bundle_to_borrowed_classic_reader(self):
         import shutil
